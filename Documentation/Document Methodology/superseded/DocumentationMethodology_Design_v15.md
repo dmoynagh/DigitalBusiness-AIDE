@@ -1,0 +1,245 @@
+# Documentation Methodology — Design
+
+> **Version 15** (2026-08-31). Re-establishes the confirmed internal model behind
+> `AIDE_DocumentationMethodology@v18` and declares the canonical AI-facing Standard as a published
+> outcome alongside the existing human Guide.
+>
+> Created: 2026-08-31 | Last modified: 2026-08-31
+
+## §1 — Purpose and ownership
+
+Documentation Methodology provides the common document/corpus contract for AIDE-governed work.
+
+It owns:
+
+- governed document naming and filename structure;
+- document types and their document-specific lifecycle;
+- topic/file organisation conventions;
+- Index/register behaviour;
+- document metadata-container placement and coexistence;
+- archive/supersession/no-delete conventions;
+- distribution rules for document types;
+- document output/version discipline;
+- asset/unmanaged-file recording boundaries; and
+- document-specific rendering/integration of externally owned metadata or state.
+
+It does **not** own:
+
+- the substantive content or quality criteria of another domain's documents;
+- formal identity semantics — Core;
+- Tags grammar/build/query — `AIDE_Tags`;
+- dependency identity/version/conformance semantics — `AIDE_Dependencies`;
+- transition execution — `AIDE_Migration`;
+- generic Review lifecycle — `AIDE_Review`;
+- generic WorkPackage execution/return behaviour — `AIDE_WorkPackage` / `AIDE_Build`; or
+- platform packaging/deployment mechanics.
+
+The governing principle is one owner per mechanism: Documentation Methodology hosts document
+structure; semantic owners retain their own behaviour.
+
+## §2 — Layered model
+
+### Level 1 — intent/system
+
+A governed corpus should let a human or AI answer, cheaply and reliably:
+
+- what documents exist and which are current;
+- what each document is for;
+- what filename/type/lifecycle rules apply;
+- what is internal versus distributable;
+- what is confirmed versus working/history;
+- what changed, what remains open, and what consequences are pending;
+- what metadata/state is attached without conflating ownership; and
+- what version/conformance state the document actually proves.
+
+The model favours a small number of durable conventions over procedural ceremony.
+
+### Level 2 — principal concepts
+
+```text
+Brief / Requirements
+        ↓
+      Design  ← Decisions
+        ↓
+     outcomes
+        │
+        ├── Standard / Guide / Reference / Glossary / Overview
+        └── WorkPackage (document integration only)
+
+Working = Design in progress
+Review  = point-in-time assessment record
+Message = governed cross-project transmission
+Index / OpenItems / WorkRegister = corpus registers
+Asset / Unmanaged = explicitly outside normal governed-type behaviour
+```
+
+A document's **type** determines its document role/lifecycle. A domain owns the subject matter.
+The Index is authoritative for what exists and for local topic/type configuration.
+
+## §3 — Naming and topic model
+
+Normal governed Markdown filename:
+
+```text
+{Project}_{Topic}_{DocType}[_{Key}]_v{N}.md
+```
+
+Project-wide registers omit Topic. Point-in-time types use the applicable date-sequence/key rules.
+Compound topic segments express instantiation or subdivision and may nest.
+
+A filename is legible; the nearest authoritative Index resolves topic/type/current version.
+
+Cross-references may be explicitly version-qualified or deliberately unqualified. The form carries
+the author's intent; neither form is silently converted into the other.
+
+## §4 — Document types and outcomes
+
+The established document types and their document-specific semantics are published by the
+Documentation Methodology Standard/Guide.
+
+Key model rules:
+
+- Brief defines objective/scope/requirements.
+- Design records the confirmed current position and declares outputs.
+- Decisions records the reasoning/history that informs future Design; downstream outcomes do not
+  use Decisions as a substitute for missing Design.
+- Working is mutable design-in-progress.
+- Review is a point-in-time assessment record; generic assessment behaviour belongs to
+  `AIDE_Review`.
+- Guide is a distributable explanatory outcome.
+- Index, OpenItems and WorkRegister are container-level records with distinct purposes.
+- Custom types are local until promoted by demonstrated reuse.
+- Assets and unmanaged files are not silently converted into governed document types.
+
+## §5 — Metadata host boundary
+
+A governed document may contain:
+
+```text
+Title / version preamble
+Header metadata
+Temporary owner-labelled state
+Body
+Footer metadata
+Internal section
+```
+
+Documentation Methodology owns placement/coexistence/compact rendering.
+
+Known semantic owners include:
+
+- `Identity:` → Core;
+- `Tags:` → `AIDE_Tags`;
+- `Dependencies:` → `AIDE_Dependencies`;
+- migration consequences/state → `AIDE_Migration`.
+
+This is an extensible host, not a closed list.
+
+Machine-generated metadata/state in human-readable documents should be as compact as practicable
+while remaining unambiguous and machine-usable.
+
+## §6 — Conformance and migration
+
+Documentation Methodology conformance is a normal dependency checkpoint, not a separate
+`Methodology:` version mechanism.
+
+For current documents:
+
+```text
+Dependencies: !AIDE_DocumentationMethodology@v18
+```
+
+means the saved document is proven conformant through Documentation Methodology capability release
+v18, subject to `AIDE_Dependencies` semantics.
+
+The v18 transition posture is `OnUpdate`.
+
+### Legacy v17 compatibility bridge
+
+v17 predates the generic dependency checkpoint and commonly records:
+
+```text
+Methodology: v17
+```
+
+For the **v17 → v18 transition only**, when a governed document has no Documentation Methodology
+dependency checkpoint but does contain an unambiguous legacy `Methodology: v17` declaration,
+Migration interprets that declaration as the document's proven checkpoint:
+
+```text
+AIDE_DocumentationMethodology@v17
+```
+
+This interpretation exists only to establish migration input. It does not make the legacy line a
+current Dependencies declaration and it does not modify the document merely by being read.
+
+On the next qualifying modification/save:
+
+1. use the legacy declaration as the v17 starting checkpoint;
+2. apply the declared v18 OnUpdate transition;
+3. write the truthful `AIDE_DocumentationMethodology@v18` dependency checkpoint;
+4. remove the legacy `Methodology: v17` line;
+5. reconcile true legacy `Depends on` relationships into `Dependencies:` while retaining ordinary
+   citations as `References:`; and
+6. otherwise avoid unrelated rewriting.
+
+An operation that specifically requires v18-only structure may require the transition before that
+operation proceeds.
+
+## §7 — Output/version discipline
+
+A document version counts issued outputs, not every edit in drafting.
+
+Confirmed material must not remain only in conversation where it is at material risk of loss.
+Design changes and the material Decisions reasoning behind them are issued together when the
+reasoning would otherwise be lost.
+
+Do not create versions or files as ceremony; do not leave confirmed durable state unwritten merely
+to avoid creating them.
+
+## §8 — Published outcomes
+
+This Design declares two published outcomes for capability release
+`AIDE_DocumentationMethodology@v18`:
+
+1. **`AIDE_DocumentationMethodology_Standard_v18.md`**  
+   Canonical AI-facing behavioural contract. This is the deployable/runtime outcome used by AIDE
+   Build/AI Deployment and included in the common Standards/Tools Bundle.
+
+2. **`DocumentationMethodology_Guide_v18.md`**  
+   Human-oriented explanatory companion containing the fuller rationale, examples and detailed
+   document-type guidance.
+
+The Standard and Guide derive from this Design and must not disagree about substance.
+
+For this established methodology lineage, the canonical Standard filename version follows the Documentation Methodology release version so the v18 Standard and v18 Guide are visibly one release.
+
+The Design remains the internal authority for future changes. Decisions records the reasoning
+behind those changes and is not a downstream production input.
+
+## §9 — Deployment and project-context model
+
+The canonical Standard is the normal AI operating representation.
+
+```text
+DocumentationMethodology Design
+        ↓
+AIDE_DocumentationMethodology Standard
+        ↓
+Build / generated common Bundle
+        ↓
+AI Deployment / GPT Project context
+```
+
+Once the Standard is present in the common Bundle, ordinary AIDE GPT Projects do not need the
+Guide solely to obtain operational methodology behaviour.
+
+The Documentation Methodology GPT Project retains the Guide because it is the human/explanatory
+outcome and the working project needs the full corpus.
+
+No dedicated Documentation Methodology Tool is required at this stage. Existing generic Tools
+(Migration, Review, Build Capability, etc.) perform the actions they own.
+
+---
+Dependencies: !AIDE_DocumentationMethodology@v18, AIDE_Dependencies@v2, AIDE_Migration@v1
+References: DocumentationMethodology_Guide_v18, AIDE_StandardsProduction@v1

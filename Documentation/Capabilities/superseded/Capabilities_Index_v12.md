@@ -1,0 +1,141 @@
+# Capabilities — Index
+
+> **Version 12** (2026-08-29). Registers the completed Migration corpus, reconciled Standards/
+> Tools, Dependencies v2, DocMeth handoff v3 and parent v12 checkpoint; current priority moves to
+> platform evidence and Deployment.
+>
+> Created: 2026-08-27 | Last modified: 2026-08-29
+
+---
+
+## §1 — Project identity
+
+**Project:** AIDE — Capabilities
+
+**Topic:** Capabilities
+
+**Purpose:** Define reusable infrastructure by which AI-facing capabilities are designed, built
+into canonical outcomes, tagged/classified, scoped, connected to dependencies, transitioned,
+realised for platforms, packaged, deployed into named Deployment Sets, and independently reviewed.
+
+**Parent system:** AIDE
+
+**Master folder:** `AIDE/Capabilities/`
+
+**Methodology:** `DocumentationMethodology` v17
+
+## §2 — Topic declarations
+
+| Name | Parent topic | Filename prefix | Inheritance | Mode |
+|---|---|---|---|---|
+| Capabilities | AIDE | `Capabilities` | independent | expanded |
+| Standards | Capabilities | `Capabilities_Standards` | inherits | expanded |
+| Tools | Capabilities | `Capabilities_Tools` | inherits | expanded |
+| Tags | Capabilities | `Capabilities_Tags` | inherits | expanded |
+| Scope | Capabilities | `Capabilities_Scope` | inherits | expanded |
+| Dependencies | Capabilities | `Capabilities_Dependencies` | inherits | expanded |
+| Migration | Capabilities | `Capabilities_Migration` | inherits | expanded |
+| Migration Tool | Migration | `Capabilities_Migration_Tool` | inherits | expanded |
+| Deployment | Capabilities | `Capabilities_Deployment` | inherits | expanded |
+| Review | Capabilities | `Capabilities_Review` | inherits | expanded |
+| Review Tool | Review | `Capabilities_Review_Tool` | inherits | expanded |
+
+WorkPackage belongs under `AIDE/Build/WorkPackage`.
+
+## §3 — Local configuration
+
+### Custom document types
+
+| Type | Role | Holds | Lifecycle | Distribution |
+|---|---|---|---|---|
+| `DocMethReviewItems` | Review input | Consequences/questions for separate DocMeth review | Living until dispositioned | Internal |
+| `Standard` | Outcome | Published AI-facing capability rules derived from Capability Design | Living/versioned by capability release | Consuming AI environments |
+
+### Other local configuration
+
+Build Config inheritance/defaults and Deployment Config are still architecture/configuration work;
+no Index-local schema is confirmed.
+
+## §4 — Document register
+
+| Document | Version | Type | Management | Status |
+|---|---:|---|---|---|
+| `Capabilities_Index` | v12 | Index | established | Current |
+| `Capabilities_Brief` | v5 | Brief | established | Current |
+| `Capabilities_Design` | v6 | Design | established | Current |
+| `Capabilities_Decisions` | v12 | Decisions | established | Current |
+| `Capabilities_WorkRegister` | v10 | WorkRegister | established | Current |
+| `Capabilities_OpenItems` | v12 | OpenItems | established | Current |
+| `Capabilities_Overview` | v11 | Overview | established | Current architecture surface |
+| `Capabilities_DocMethReviewItems` | v3 | DocMethReviewItems | custom | Current |
+| `Capabilities_Tags_Design` | v1 | Design | established | Current |
+| `AIDE_Tags_Standard` | v1 | Standard | custom | Current; identity `AIDE_Tags@v1` |
+| `Capabilities_Scope_Design` | v1 | Design | established | Current |
+| `AIDE_Scope_Standard` | v1 | Standard | custom | Current; identity `AIDE_Scope@v1` |
+| `Capabilities_Dependencies_Design` | v2 | Design | established | Current |
+| `AIDE_Dependencies_Standard` | v2 | Standard | custom | Current; identity `AIDE_Dependencies@v2` |
+| `Capabilities_Migration_Brief` | v1 | Brief | established | Current |
+| `Capabilities_Migration_Design` | v1 | Design | established | Current |
+| `AIDE_Migration_Standard` | v1 | Standard | custom | Current; identity `AIDE_Migration@v1` |
+| `Capabilities_Migration_Tool_Design` | v1 | Design | established | Current Tool specification |
+| `Capabilities_Review_Design` | v1 | Design | established | Current |
+| `Capabilities_Review_Decisions` | v1 | Decisions | established | Current |
+| `AIDE_Review_Standard` | v1 | Standard | custom | Current; identity `AIDE_Review@v1` |
+| `AIDE_ReviewProfiles_Standard` | v1 | Standard | custom | Current; identity `AIDE_ReviewProfiles@v1` |
+| `Capabilities_Review_Tool_Design` | v1 | Design | established | Current Tool specification |
+| `Capabilities_Standards_Brief` | v2 | Brief | established | Current |
+| `Capabilities_Standards_Design` | v4 | Design | established | Current |
+| `Capabilities_Tools_Brief` | v2 | Brief | established | Current |
+| `Capabilities_Tools_Design` | v2 | Design | established | Current |
+
+### Superseded by this pass
+
+| Document | Superseded by | Disposition |
+|---|---|---|
+| `Capabilities_Brief` v4 | v5 | Migration/version/package checkpoint |
+| `Capabilities_Design` v5 | v6 | Migration + reconciliations + producer manifest contract |
+| `Capabilities_Decisions` v11 | v12 | Decisions D72–D83 appended |
+| `Capabilities_WorkRegister` v9 | v10 | Items 1–5 completed; Deployment next |
+| `Capabilities_OpenItems` v11 | v12 | Migration/Q7/Q8 closed; platform evidence sharpened |
+| `Capabilities_Overview` v10 | v11 | Current model refreshed |
+| `Capabilities_Index` v11 | v12 | New/current child corpus registered |
+| `Capabilities_DocMethReviewItems` v2 | v3 | Temporary state + compact metadata + Migration update seam |
+| `Capabilities_Dependencies_Design` v1 | v2 | Dependency order/checkpoint reconciliation |
+| `AIDE_Dependencies_Standard` v1 | v2 | Published dependency order/checkpoint contract |
+| `Capabilities_Standards_Brief` v1 | v2 | Stale boundaries removed |
+| `Capabilities_Standards_Design` v3 | v4 | Eight-component reconciliation |
+| `Capabilities_Tools_Brief` v1 | v2 | Shared component boundaries/migration corrected |
+| `Capabilities_Tools_Design` v1 | v2 | Shared Scope/Migration + bounded judgment reconciliation |
+
+## §5 — Assets register
+
+None.
+
+## §6 — Current priority
+
+1. Run targeted platform evidence that materially informs Deployment, beginning with the proposed
+   OpenAI plugin/skills path using a representative Standard.
+2. Design Deployment from the stable Package + Manifest boundary.
+3. Complete platform Build/Deployment Standards/evidence as needed.
+4. Resolve Environment/shared communication ownership with the relevant AIDE workstreams.
+5. Review Documentation Methodology later using `Capabilities_DocMethReviewItems` v3.
+
+## §7 — Relationships
+
+- **AIDE/Core:** whole-system structure, formal identity, bootstrap primitive.
+- **AIDE/Design:** design methodology; Documentation Methodology later consumes generic metadata/
+  temporary-state seams.
+- **AIDE/Build:** WorkPackage and generic build execution/return.
+- **AIDE/Environment:** environment structure/configuration owner candidate for platform/model/route
+  facts and Deployment Config.
+- **Development domains:** consume AIDE but are outside the AIDE system topic tree.
+
+---
+
+**Depends on:** `Capabilities_Brief` v5, `Capabilities_Design` v6,
+`Capabilities_Decisions` v12.
+
+**References:** `Capabilities_Overview` v11, `Capabilities_OpenItems` v12,
+`Capabilities_WorkRegister` v10, `Capabilities_DocMethReviewItems` v3.
+
+**Methodology:** v17

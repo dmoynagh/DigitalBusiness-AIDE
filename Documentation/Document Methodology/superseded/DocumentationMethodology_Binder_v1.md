@@ -1,0 +1,2753 @@
+# Documentation Methodology Binder
+
+> **Generated Binder — do not edit directly.** Edit the individual master documents and regenerate the Binder.
+> **Binder Version 1** (2026-08-31). First independently versioned Binder; assembles the v20 current masters.
+
+## Binder manifest
+
+- `DocumentationMethodology_Index_v5.md` — sha256 `8c5f1f8da94f`
+- `DocumentationMethodology_Design_v17.md` — sha256 `6494ea05a90d`
+- `DocumentationMethodology_Decisions_v18.md` — sha256 `1e53d7009734`
+- `AIDE_DocumentationMethodology_Standard_v20.md` — sha256 `b0684f34eef6`
+- `DocumentationMethodology_Guide_v20.md` — sha256 `a407520c4b21`
+
+---
+
+<!-- BEGIN SOURCE: DocumentationMethodology_Index_v5.md -->
+# Documentation Methodology — Index
+
+> **Version 5** (2026-08-31). Registers the v20 lifecycle/storage ownership correction,
+> preserves lifecycle semantics while delegating physical repository handling, and records the
+> v20 Standard/Guide outcomes.
+>
+> Created: 2026-08-30 | Last modified: 2026-08-31
+
+## Project identity
+
+**Topic:** Documentation Methodology  
+**Master folder / GPT Project:** `AIDE/Document Methodology/`  
+**Published capability identity:** `AIDE_DocumentationMethodology@v20`
+
+## Topic declaration
+
+| Name | Parent concern | Filename prefix | Inheritance | Mode |
+|---|---|---|---|---|
+| Documentation Methodology | AIDE / Project-design methodology | `DocumentationMethodology` | independent | expanded |
+
+## Document register
+
+| Document | Version | Type | Status |
+|---|---:|---|---|
+| `DocumentationMethodology_Index` | v5 | Index | Current |
+| `DocumentationMethodology_Design` | v17 | Design | Current confirmed internal model |
+| `DocumentationMethodology_Decisions` | v18 | Decisions | Current |
+| `AIDE_DocumentationMethodology_Standard` | v20 | Standard | Current canonical AI-facing outcome; identity `AIDE_DocumentationMethodology@v20` |
+| `DocumentationMethodology_Guide` | v20 | Guide | Current human/explanatory companion |
+
+## Output model
+
+```text
+DocumentationMethodology_Design
+        ├── AIDE_DocumentationMethodology_Standard
+        └── DocumentationMethodology_Guide
+```
+
+The Standard is the normal deployable/runtime contract. The Guide remains the fuller human-facing
+explanation. Both derive from the confirmed Design and must agree in substance.
+
+## Migration state
+
+- **v18:** `OnUpdate` for the v17→v18 document-structure/conformance transition.
+- **v19:** `None`; the Decisions-model correction changes the canonical operating contract but
+  requires no structural/content migration of existing v18-conformant documents.
+- **v20:** `None`; the lifecycle/storage ownership correction changes which concern owns physical
+  handling but requires no structural/content migration of existing v19-conformant documents.
+
+A legacy `Methodology: v17` line remains a v17 starting checkpoint only for the retained v18
+migration bridge when no modern Documentation Methodology dependency checkpoint exists.
+
+Do not mass-rewrite existing governed documents merely to make them look v20. Existing use of a
+particular physical storage layout may continue where the applicable Working Practices/environment
+chooses it; v20 removes that layout from Documentation Methodology semantics rather than banning it.
+
+## Superseded by this pass
+
+| Document | Superseded by | Disposition |
+|---|---|---|
+| `DocumentationMethodology_Index` v4 | v5 | v20 release/current register |
+| `DocumentationMethodology_Design` v16 | v17 | lifecycle/storage ownership boundary made authoritative in Design |
+| `DocumentationMethodology_Decisions` v17 | v18 | v20 ownership decision appended |
+| `AIDE_DocumentationMethodology_Standard` v19 | v20 | canonical runtime contract corrected |
+| `DocumentationMethodology_Guide` v19 | v20 | physical workflow/storage rules delegated |
+
+These previous issued masters are **Superseded**. Their physical movement, storage and later
+repository cleanup follow the applicable Working Practices/environment; governed history remains
+preserved under the Documentation Methodology lifecycle contract.
+
+---
+Dependencies: !AIDE_DocumentationMethodology@v20, DocumentationMethodology_Design_v17
+References: AIDE_DocumentationMethodology@v20, DocumentationMethodology_Guide_v20
+<!-- END SOURCE: DocumentationMethodology_Index_v5.md -->
+
+---
+
+<!-- BEGIN SOURCE: DocumentationMethodology_Design_v17.md -->
+# Documentation Methodology — Design
+
+> **Version 17** (2026-08-31). Separates document lifecycle semantics from physical
+> repository/storage workflow, preserves governed-history requirements, and declares the v20
+> Standard/Guide outcomes.
+>
+> Created: 2026-08-31 | Last modified: 2026-08-31
+
+## §1 — Purpose and ownership
+
+Documentation Methodology provides the common document/corpus contract for AIDE-governed work.
+
+It owns:
+
+- governed document naming and filename structure;
+- document types and their document-specific lifecycle;
+- lifecycle state/disposition semantics, including **Current**, **Superseded** and **Archived**;
+- the requirement to preserve governed document history and dead-locator resolvability where needed;
+- topic/document organisation semantics and Index/register behaviour;
+- document metadata-container placement and coexistence;
+- the authority boundary between authoritative masters and generated consumption artefacts;
+- distribution rules for document types;
+- document output/version discipline;
+- asset/unmanaged-file recording boundaries; and
+- document-specific rendering/integration of externally owned metadata or state.
+
+It does **not** own:
+
+- the substantive content or quality criteria of another domain's documents;
+- physical repository/storage layout or management-folder names;
+- movement of files between current, superseded or archival storage locations;
+- repository sweep/external-archive cadence, Change Delivery staging, or Binder placement/replacement workflow;
+- formal identity semantics — Core;
+- Tags grammar/build/query — `AIDE_Tags`;
+- dependency identity/version/conformance semantics — `AIDE_Dependencies`;
+- transition execution — `AIDE_Migration`;
+- generic Review lifecycle — `AIDE_Review`;
+- generic WorkPackage execution/return behaviour — `AIDE_WorkPackage` / `AIDE_Build`; or
+- platform packaging/deployment mechanics.
+
+The governing principle is one owner per mechanism: Documentation Methodology defines document
+semantics and hosts document structure; Working Practices or the applicable environment realises
+those semantics physically.
+
+## §2 — Layered model
+
+### Level 1 — intent/system
+
+A governed corpus should let a human or AI answer, cheaply and reliably:
+
+- what documents exist and which are current;
+- what each document is for;
+- what filename/type/lifecycle rules apply;
+- what is internal versus distributable;
+- what is confirmed versus working/history;
+- what changed, what remains open, and what consequences are pending;
+- what metadata/state is attached without conflating ownership; and
+- what version/conformance state the document actually proves.
+
+The model favours a small number of durable conventions over procedural ceremony.
+
+### Level 2 — principal concepts
+
+```text
+Brief / Requirements
+        ↓
+      Design  ← Decisions
+        ↓
+     outcomes
+        │
+        ├── Standard / Guide / Reference / Glossary / Overview
+        └── WorkPackage (document integration only)
+
+Working = Design in progress
+Review  = point-in-time assessment record
+Message = governed cross-project transmission
+Index / OpenItems / WorkRegister = corpus registers
+Asset / Unmanaged = explicitly outside normal governed-type behaviour
+```
+
+A document's **type** determines its document role/lifecycle. A domain owns the subject matter.
+The Index is authoritative for what exists and for local topic/type configuration.
+
+## §3 — Naming and topic model
+
+Normal governed Markdown filename:
+
+```text
+{Project}_{Topic}_{DocType}[_{Key}]_v{N}.md
+```
+
+Project-wide registers omit Topic. Point-in-time types use the applicable date-sequence/key rules.
+Compound topic segments express instantiation or subdivision and may nest.
+
+A filename is legible; the nearest authoritative Index resolves topic/type/current version.
+
+Cross-references may be explicitly version-qualified or deliberately unqualified. The form carries
+the author's intent; neither form is silently converted into the other.
+
+## §4 — Document types and outcomes
+
+The established document types and their document-specific semantics are published by the
+Documentation Methodology Standard/Guide. The confirmed Design must determine the substantive
+behaviour needed to produce those outcomes; the Guide is not a substitute source for capability
+meaning missing from Design.
+
+Key model rules:
+
+- Brief defines objective/scope/requirements.
+- Design records the confirmed current position and declares outputs.
+- Decisions records the synthesized reasoning/history needed by a future Design reader to
+  understand why the confirmed position exists and what credible paths were set aside. It informs
+  future Design and is not a downstream outcome input.
+- A Decisions event is owed for a change to the confirmed substantive Design position, a
+  requirement established or materially revised, or a rejected alternative a future reader could
+  reasonably re-derive. Purely editorial, formatting, metadata, migration, mechanical maintenance,
+  or application of an already-recorded decision does not by itself create a new Design decision.
+- Decisions depth is proportional to the thinking actually involved. As applicable, preserve the
+  trigger/requirement, problem found, genuine alternatives, key distinctions/reasoning, decision,
+  and important consequences/trade-offs. Preserve enough to reconstruct why the decision was
+  reached; do not preserve discussion merely because it occurred.
+- Non-trivial rejected alternatives receive at least a brief reason. Genuinely trivial alternatives
+  may be omitted.
+- A substantive Design change and its Decisions record are produced in the same pass so confirmed
+  reasoning is not left only in conversation. Existing Decisions entries remain historical and are
+  not retroactively rewritten; later entries may supersede, refine, reverse, constrain or
+  reinterpret them.
+- Decisions follows Design granularity. An independently expanded child Design normally has its
+  substantive reasoning at that same child scope; parent-level reasoning remains parent-level.
+  Condensed topics may satisfy the same rule with a Decisions section.
+- Decisions history splits only when retrieval quality deteriorates; prefer closure/state-based
+  volumes over arbitrary chronology, and do not delete or rewrite history merely to shorten the
+  active record.
+- Working is mutable design-in-progress. When its items complete, the document's lifecycle may
+  resolve to Archived where the Working record itself merits terminal retention, or to
+  Superseded/withdrawn where its substantive value is fully represented in retained authoritative
+  records; the physical handling of either state is external.
+- Review is a point-in-time assessment record; generic assessment behaviour belongs to
+  `AIDE_Review`.
+- Guide is a distributable explanatory outcome.
+- Index, OpenItems and WorkRegister are container-level records with distinct purposes.
+- Custom types are local until promoted by demonstrated reuse.
+- Assets and unmanaged files are not silently converted into governed document types.
+
+### Lifecycle/disposition boundary
+
+Lifecycle state is semantic, not a folder name:
+
+- **Current** — the issued authoritative version/instance the corpus resolves for normal current use.
+- **Superseded** — an older issued version, or a document displaced/withdrawn without reaching an
+  archival terminal disposition of its own.
+- **Archived** — a document whose type-specific lifecycle has reached an archival terminal
+  disposition; the final archival record is frozen except by the type's permitted correction route.
+
+A type may define a completion/absorption path that determines which terminal disposition applies.
+The Index preserves enough current/history/rename information to keep the corpus truthful and
+resolvable. Governed history is not discarded merely to simplify the active view.
+
+Physical locations do not define these states. Folders, document-management systems, platform
+history, external archives or another storage representation may implement them. Working Practices
+or the applicable environment owns that physical implementation, including movement, cleanup and
+retention-media conventions.
+
+Generated Binders/Bundles are non-authoritative consumption artefacts assembled from authoritative
+sources. Documentation Methodology owns that authority distinction; their physical placement,
+replacement/supersession workflow and repository staging are operating-practice concerns.
+
+## §5 — Metadata host boundary
+
+A governed document may contain:
+
+```text
+Title / version preamble
+Header metadata
+Temporary owner-labelled state
+Body
+Footer metadata
+Internal section
+```
+
+Documentation Methodology owns placement/coexistence/compact rendering.
+
+Known semantic owners include:
+
+- `Identity:` → Core;
+- `Tags:` → `AIDE_Tags`;
+- `Dependencies:` → `AIDE_Dependencies`;
+- migration consequences/state → `AIDE_Migration`.
+
+This is an extensible host, not a closed list.
+
+Machine-generated metadata/state in human-readable documents should be as compact as practicable
+while remaining unambiguous and machine-usable.
+
+## §6 — Conformance and migration
+
+Documentation Methodology conformance is a normal dependency checkpoint, not a separate
+`Methodology:` version mechanism.
+
+For current documents:
+
+```text
+Dependencies: !AIDE_DocumentationMethodology@v20
+```
+
+means the saved document is proven conformant through Documentation Methodology capability release
+v20, subject to `AIDE_Dependencies` semantics.
+
+The v18 transition posture remains `OnUpdate` for v17→v18. The v19 and v20 releases are `None`:
+they change the canonical operating contract but require no structural/content transformation of
+existing governed documents.
+
+### Legacy v17 compatibility bridge
+
+v17 predates the generic dependency checkpoint and commonly records:
+
+```text
+Methodology: v17
+```
+
+For the **v17 → v18 transition only**, when a governed document has no Documentation Methodology
+dependency checkpoint but does contain an unambiguous legacy `Methodology: v17` declaration,
+Migration interprets that declaration as the document's proven checkpoint:
+
+```text
+AIDE_DocumentationMethodology@v17
+```
+
+This interpretation exists only to establish migration input. It does not make the legacy line a
+current Dependencies declaration and it does not modify the document merely by being read.
+
+On the next qualifying modification/save:
+
+1. use the legacy declaration as the v17 starting checkpoint;
+2. apply the declared v18 OnUpdate transition;
+3. establish the truthful v18 success state and remove the legacy `Methodology: v17` line;
+4. reconcile true legacy `Depends on` relationships into `Dependencies:` while retaining ordinary
+   citations as `References:`;
+5. traverse the v19 and v20 `None` transitions when processing through current; and
+6. save the truthful current dependency checkpoint without unrelated rewriting.
+
+An operation that specifically requires v18-only structure may require the transition before that
+operation proceeds.
+
+## §7 — Output/version discipline
+
+A document version counts issued outputs, not every edit in drafting.
+
+Confirmed material must not remain only in conversation where it is at material risk of loss.
+A substantive Design change and its Decisions reasoning are issued together in the same pass. The
+reasoning is assembled from the work actually developed while it is available, rather than
+reconstructed later from only the final Design position.
+
+Do not create versions or files as ceremony; do not leave confirmed durable state unwritten merely
+to avoid creating them.
+
+## §8 — Published outcomes
+
+This Design declares two published outcomes for capability release
+`AIDE_DocumentationMethodology@v20`:
+
+1. **`AIDE_DocumentationMethodology_Standard_v20.md`**  
+   Canonical AI-facing behavioural contract. This is the deployable/runtime outcome used by AIDE
+   Build/AI Deployment and included in the common Standards/Tools Bundle.
+
+2. **`DocumentationMethodology_Guide_v20.md`**  
+   Human-oriented explanatory companion containing the fuller rationale, examples and detailed
+   document-type guidance.
+
+The Standard and Guide derive from this Design and must not disagree about substance.
+
+For this established methodology lineage, the canonical Standard filename version follows the Documentation Methodology release version so the v20 Standard and v20 Guide are visibly one release.
+
+The Design remains the internal authority for future changes. Decisions records the reasoning
+behind those changes and is not a downstream production input.
+
+## §9 — Deployment and project-context model
+
+The canonical Standard is the normal AI operating representation.
+
+```text
+DocumentationMethodology Design
+        ↓
+AIDE_DocumentationMethodology Standard
+        ↓
+Build / generated common Bundle
+        ↓
+AI Deployment / GPT Project context
+```
+
+Once the Standard is present in the common Bundle, ordinary AIDE GPT Projects do not need the
+Guide solely to obtain operational methodology behaviour.
+
+The Documentation Methodology GPT Project retains the Guide because it is the human/explanatory
+outcome and the working project needs the full corpus.
+
+No dedicated Documentation Methodology Tool is required at this stage. Existing generic Tools
+(Migration, Review, Build Capability, etc.) perform the actions they own.
+
+---
+Dependencies: !AIDE_DocumentationMethodology@v20, AIDE_Dependencies@v2, AIDE_Migration@v1
+References: DocumentationMethodology_Guide_v20, AIDE_StandardsProduction@v1
+<!-- END SOURCE: DocumentationMethodology_Design_v17.md -->
+
+---
+
+<!-- BEGIN SOURCE: DocumentationMethodology_Decisions_v18.md -->
+# Documentation Methodology — Decisions
+
+> **Version 18** (2026-08-31). Preserves the existing history and records the lifecycle/storage
+> ownership split and v20 release treatment.
+>
+> Created: 2026-08-30 | Last modified: 2026-08-31
+
+## D1 — Metadata containers are generic hosts
+
+**Decision.** DocMeth owns placement/coexistence/compact rendering for header metadata, temporary
+state and footer metadata. Contributing owners retain semantics.
+
+## D2 — Documentation Methodology conformance is a Dependency
+
+**Decision.** Retire the special `Methodology: vN` footer from v18. A document records its
+saved/proven DocMeth conformance through `AIDE_Dependencies`.
+
+**Reason.** This removes a duplicate version-gap/checkpoint mechanism and lets Migration govern
+Required/OnUpdate/None transitions consistently.
+
+## D3 — v18 migration posture is OnUpdate
+
+**Decision.** v18 is `OnUpdate`.
+
+**Reason.** v17 documents remain safely readable. The metadata/conformance model should be applied
+when a document is next changed rather than forcing a corpus-wide rewrite merely to refresh
+metadata. An operation that explicitly requires v18-only semantics can require migration first.
+
+## D4 — Tags and Dependencies are hosted, not redefined
+
+**Decision.** `Tags:` and `Dependencies:` are footer properties hosted by DocMeth. Their internal
+grammar/build/query/conformance semantics remain with `AIDE_Tags` and `AIDE_Dependencies`.
+
+## D5 — Identity is header metadata
+
+**Decision.** Formal Core `Identity:` metadata is hosted in the header container where a governed
+document exposes a referenceable identity. Filename and formal identity remain distinct.
+
+## D6 — Temporary state is compact and owner-labelled
+
+**Decision.** An optional temporary state container is placed near the top of the document.
+Entries require stable owner identity plus concise human-readable title/message. The owner alone
+defines lifecycle/content.
+
+## D7 — WorkPackage execution semantics move to Build
+
+**Decision.** DocMeth retains WorkPackage/Outcome document naming and archive integration but
+delegates generic WorkPackage contract/execution/validation/return semantics to
+`AIDE_WorkPackage@v1` and `AIDE_Build@v1`.
+
+## D8 — Machine content remains compact
+
+**Decision.** Metadata, derived state and generated operational content should be as compact as
+practicable in human-readable documents.
+
+## D9 — Re-establish a current Documentation Methodology Design
+
+**Decision.** `DocumentationMethodology_Design_v15` is the confirmed internal model from which
+the current published outcomes are produced.
+
+**Reason.** A distributable outcome should have an authoritative defining source. The v18 Guide
+already describes Design as the confirmed internal position; the operational closure package had
+not included the older Design master.
+
+## D10 — Publish a canonical Documentation Methodology Standard
+
+**Decision.** Produce `AIDE_DocumentationMethodology_Standard_v1` with formal capability identity
+`AIDE_DocumentationMethodology@v18`.
+
+**Reason.** Documentation Methodology is reusable AI-facing behavioural infrastructure and should
+use the same Design → canonical Standard → Build/Deployment path as other AIDE capabilities.
+
+## D11 — Retain the Guide as a human companion
+
+**Decision.** `DocumentationMethodology_Guide_v18` remains the human-readable explanatory outcome.
+It is not replaced by the Standard.
+
+**Reason.** The Standard is the concise AI operating contract; the Guide carries richer examples,
+rationale and detailed explanatory material. Both derive from the same Design.
+
+## D12 — Documentation Methodology Standard version follows the established methodology release
+
+**Decision.** The canonical Standard for the current methodology release is
+`AIDE_DocumentationMethodology_Standard_v18.md` with formal identity
+`AIDE_DocumentationMethodology@v18`.
+
+**Reason.** Documentation Methodology already has an established release lineage through v18.
+Using `_v1` for the first Standard representation creates an unnecessary second visible version
+number for the same methodology state. Aligning the Standard filename with the methodology
+release preserves continuity and makes the Standard/Guide pair visibly one release.
+
+**Scope.** This does not collapse the general distinction between document version, capability
+release version, package identity, and deployment state. It is a deliberate alignment for this
+existing methodology lineage.
+
+## D13 — Legacy `Methodology: v17` supplies the migration starting checkpoint
+
+**Decision.** For the v17→v18 transition only, where no Documentation Methodology dependency
+checkpoint exists, an unambiguous legacy `Methodology: v17` declaration is interpreted by
+Migration as proven conformance through `AIDE_DocumentationMethodology@v17`.
+
+The interpretation is read-only until a qualifying update/save. Successful migration writes the
+v18 dependency checkpoint and removes the legacy line.
+
+**Reason.** v17 predates the generic Dependencies checkpoint. Without this bridge the v18
+transition describes the target change but does not mechanically define where Migration obtains
+the old conformance checkpoint.
+
+## D14 — No dedicated Documentation Methodology Tool yet
+
+**Decision.** Do not create a DocMeth-specific Tool at this stage.
+
+**Reason.** The demonstrated actions are already owned by generic capabilities such as Migration,
+Build Capability and Review. A new Tool without a distinct repeated action contract would add
+machinery rather than capability.
+
+## D15 — The common Bundle becomes the normal operational distribution
+
+**Decision.** Include the Documentation Methodology Standard in the common AIDE Standards/Tools
+Bundle. Once a project has that Bundle, the Guide is not separately required merely to obtain
+operational DocMeth behaviour.
+
+**Reason.** This makes the methodology deployable through the same common operating environment
+as the other AIDE Standards/Tools while preserving the Guide as the richer human companion.
+
+
+## D16 — Restore the full Decisions contract to the canonical Design and Standard
+
+**Trigger / problem.** Review of current project use found that the v18 Guide still carries the
+established substantive Decisions model, while the re-established Design and canonical Standard
+compress it to a much weaker rule. The current Standard therefore does not reliably reproduce the
+behaviour expected when it is the only runtime representation available to an AI.
+
+The production path makes this a source-completeness problem as well as an output-completeness
+problem: canonical Standards are produced from confirmed Design and production is not authorised
+to recover missing capability meaning from Decisions history or invent it during compression.
+
+**Alternatives considered.**
+
+- Leave the Standard concise and rely on the Guide when richer behaviour matters. Rejected because
+  the Standard is explicitly the normal deployable/runtime representation and the Guide is not
+  expected in every consuming project.
+- Expand only the Standard by copying behaviour from the Guide. Rejected because that would repair
+  the outcome from a source the production contract does not treat as the authoritative capability
+  definition, leaving the Design under-specified.
+- Weaken the Guide to match the Standard. Rejected because the stronger model addresses the real
+  cost of repeated re-derivation and already contains proportionality safeguards.
+
+**Decision.** Retain the established Decisions model and make it explicit in the confirmed Design,
+then produce the canonical Standard from that Design. Decisions records synthesized substantive
+reasoning for a future Design reader: the trigger/requirement, problem, genuine alternatives, key
+reasoning/distinctions, decision, and important consequences/trade-offs as applicable and
+proportionate. Non-trivial rejected alternatives remain visible. Existing historical entries are
+not rewritten.
+
+**Consequences.** The canonical AI-facing contract becomes sufficient to reproduce the intended
+behaviour without requiring the Guide. The Guide remains the richer explanation, not an alternate
+source of missing semantics. Existing short historical entries remain valid history; the stronger
+recording discipline applies prospectively.
+
+## D17 — Make the event trigger objective and the record synthetic, not transcript-like
+
+**Trigger / problem.** The phrase “when the reasoning is material” in the v18 Standard allows a
+substantive Design change to escape the Decisions record based on a subjective judgment that its
+reasoning was not important enough. At the same time, strengthening the rule without a boundary
+could turn editorial maintenance or ordinary conversation into documentation ceremony.
+
+**Alternatives considered.**
+
+- Keep “material reasoning” as the only trigger. Rejected because it weakens the knowledge-
+  preservation rule precisely when the author underestimates future re-derivation risk.
+- Record every textual Design edit and every discussion branch. Rejected because this confuses
+  document maintenance with design decisions and would create disproportionate burden.
+
+**Decision.** A Decisions event is triggered by a change to the **confirmed substantive Design
+position**, a requirement established or materially revised, or a rejected alternative a future
+reader could reasonably re-derive. Purely editorial, formatting, metadata, migration, mechanical
+maintenance, or application of an already-recorded decision is not by itself a new design
+decision.
+
+Preserve the reasoning necessary to reconstruct why the decision was reached; do not preserve
+discussion merely because it occurred. Proportionality controls depth. A genuinely trivial
+alternative may be omitted.
+
+**Consequences.** The trigger is objective enough to protect knowledge while the depth rule remains
+lightweight. `Decision + Reason` remains acceptable for genuinely simple decisions, but it is not a
+sufficient template for work that actually involved meaningful alternatives, distinctions or
+trade-offs.
+
+## D18 — Keep Decisions at Design granularity and preserve the downstream boundary
+
+**Trigger / problem.** Current project practice has sometimes expanded child Designs while leaving
+their substantive reasoning permanently in a parent Decisions register. The v18 Guide already says
+Decisions follows Design granularity. A separate inconsistency in the Guide also says in one place
+that Decisions may feed a Guide, contradicting the core rule that Decisions informs Design and
+nothing downstream.
+
+**Decision.** Retain same-granularity recording: an independently expanded child Design normally
+keeps its substantive reasoning in a Decisions record at that same scope; condensed topics may use
+a Decisions section. Parent Decisions remains the correct home for parent-level architecture.
+Apply this prospectively rather than relocating or rewriting historical entries.
+
+Decisions remains outside downstream outcome production. If reasoning is necessary for correct
+implementation or use, that meaning must be represented in the current Design and may then be
+expressed in the downstream outcome. Outcomes do not reach back to Decisions as an input.
+
+**Consequences.** Future retrieval aligns the “what” and “why” at the same scope without disturbing
+history. Existing parent-level records may be cited from new child Decisions entries where useful.
+The contradictory Guide sentence is corrected in the next Guide issue.
+
+## D19 — Issue the correction as v19 with no artefact migration requirement
+
+**Trigger / problem.** v18 has already been issued. Replacing its bytes in place would violate the
+issued-output version rule, while issuing a Standard file version different from the methodology
+release would undo the deliberate version alignment recorded in D12.
+
+**Decision.** Issue the corrected methodology as `AIDE_DocumentationMethodology@v19`, with
+`AIDE_DocumentationMethodology_Standard_v19.md` and `DocumentationMethodology_Guide_v19.md`.
+Declare the v19 transition `None` and retain the v18 `OnUpdate` transition history.
+
+**Reasoning.** v19 corrects the canonical behavioural contract and clarifies existing methodology
+meaning; it does not require existing governed documents to be structurally or textually rewritten.
+A document at the v18 checkpoint can traverse v19 without content migration and persist the v19
+checkpoint on its next qualifying save under normal Dependencies/Migration behaviour.
+
+**Consequences.** No mass migration or retrospective Decisions rewrite is required. The common
+Standards/Tools Bundle and other runtime distributions should replace the v18 Standard with v19 on
+their next regeneration/deployment.
+
+
+## D20 — Separate lifecycle semantics from physical storage/workflow
+
+**Trigger / problem.** The v19 methodology correctly distinguishes Current, Superseded and Archived
+material, but also embeds one repository implementation into that meaning: current masters in an
+active/master folder, `/superseded` and `/archived` folders, sweep/no-guarantee behaviour, cold
+storage, and an `assets\` holding convention. Working Practices design identified these as
+operating conventions rather than intrinsic document-lifecycle semantics. Keeping them in
+Documentation Methodology makes the methodology less portable to document-management systems,
+platform-native history, external archive storage, or differently structured repositories.
+
+**Alternatives considered.**
+
+- Retain the filesystem model in Documentation Methodology because it is simple and already works.
+  Rejected because it makes a local implementation part of the semantic contract and forces
+  unrelated environments to imitate it.
+- Move supersession/archive ownership entirely to Working Practices. Rejected because the meaning
+  of document states, type terminal events, version transitions and history preservation are
+  document-governance concerns and must remain stable across implementations.
+- Keep lifecycle semantics here and delegate only physical realisation. Adopted because it creates
+  one clean seam without weakening the preservation model.
+
+**Decision.** Documentation Methodology retains:
+
+- **Current** as the issued authoritative version/instance resolved for normal current use;
+- **Superseded** as an older issued version or a document displaced/withdrawn without reaching an
+  archival terminal disposition of its own;
+- **Archived** as a document whose type-specific lifecycle reaches an archival terminal
+  disposition, with the archival record frozen except through its permitted correction route;
+- document versioning, type-specific completion/terminal rules and the `_Archived_{date}` document
+  filename marker;
+- the requirement not to discard governed history merely to simplify the active view;
+- Index/history/dead-name records needed to keep old locators and terminal history intelligible; and
+- the distinction between authoritative masters and generated Binders/Bundles as non-authoritative
+  consumption artefacts.
+
+Documentation Methodology relinquishes ownership of:
+
+- physical current/master locations and management-folder names;
+- physical movement of Superseded/Archived files;
+- sweep, external-archive and repository-size-management cadence;
+- Change Delivery Package staging/completion folders;
+- Binder placement, physical replacement/supersession workflow, and analogous generated-artefact
+  repository handling; and
+- default physical asset holding folders.
+
+Those implementation choices belong to Working Practices or the applicable environment.
+
+**Constraints on implementations.** Physical handling must preserve the semantic state, required
+governed history, and enough locator/history information for the corpus to remain truthful. Moving
+history outside the active repository is valid; silently treating absence from the active context
+as non-existence is not. A local folder convention may still use names such as `_superseded/` or
+`_archived/`; those names no longer define the lifecycle state itself.
+
+**Consequences.** The Guide's storage section becomes a lifecycle/disposition section. Literal
+repository folders and sweep guarantees are removed from the methodology. Existing repositories do
+not need to rearrange their files merely because of this change. Working Practices can now own the
+underscore-prefixed management-folder convention and Change Delivery/Binder handling without
+competing with Documentation Methodology.
+
+## D21 — Issue the ownership correction as v20 with no artefact migration requirement
+
+**Trigger / problem.** D20 changes the canonical operating contract and therefore cannot replace
+issued v19 bytes in place. The established Documentation Methodology release/Standard/Guide version
+alignment remains in force.
+
+**Decision.** Issue `AIDE_DocumentationMethodology@v20`,
+`AIDE_DocumentationMethodology_Standard_v20.md` and `DocumentationMethodology_Guide_v20.md`.
+Declare the v20 transition `None` and retain the v18 `OnUpdate` plus v19 `None` transition history.
+
+**Reasoning.** The release changes ownership and interpretation of physical handling, not the
+required structure or content of existing governed documents. A v19-conformant document remains
+usable without rewrite. Existing physical folder arrangements may remain as environment/Working
+Practices choices.
+
+**Consequences.** No corpus-wide document migration or repository rearrangement is required. Runtime
+representations should adopt the v20 Standard on their next normal bundle/build/deployment pass.
+
+---
+Dependencies: !AIDE_DocumentationMethodology@v20, DocumentationMethodology_Design_v17
+References: DocumentationMethodology_Guide_v20, AIDE_Dependencies@v2, AIDE_Migration@v1, AIDE_StandardsProduction@v1
+<!-- END SOURCE: DocumentationMethodology_Decisions_v18.md -->
+
+---
+
+<!-- BEGIN SOURCE: AIDE_DocumentationMethodology_Standard_v20.md -->
+# AIDE Documentation Methodology — Standard
+
+> **Identity:** `AIDE_DocumentationMethodology@v20`
+> **Common name:** Documentation Methodology
+> **Version 20**
+> > **Published:** 2026-08-31
+>
+> **Default weight:** Expectation
+
+## Purpose
+
+Provide the canonical AI-facing contract for creating, naming, structuring, recording, versioning,
+distributing and maintaining AIDE-governed document corpora.
+
+This Standard is the normal runtime/deployable representation of Documentation Methodology.
+`DocumentationMethodology_Guide_v20` is its fuller human-oriented companion.
+
+## Ownership boundary
+
+**Weight: Requirement**
+
+Documentation Methodology owns governed document naming, type/document lifecycle and lifecycle
+state/disposition semantics, corpus structure, Index/register behaviour, document metadata-container
+placement, governed-history preservation, document distribution rules, asset/unmanaged recording,
+the authoritative-master/generated-consumption boundary, and document output/version discipline.
+
+Physical repository/storage layout, management-folder names, file movement, sweep/external-archive
+cadence, Change Delivery staging and Binder placement/replacement workflow are operating concerns
+owned by Working Practices or the applicable environment. Physical location does not define a
+document's lifecycle state.
+
+Do not absorb semantics owned elsewhere:
+
+- Core owns formal Identity.
+- `AIDE_Tags` owns Tags content/build/query.
+- `AIDE_Dependencies` owns dependency identity, presence, order, version and conformance checkpoints.
+- `AIDE_Migration` owns transition discovery/execution/progress.
+- `AIDE_Review` owns generic Review lifecycle.
+- `AIDE_WorkPackage` / `AIDE_Build` own generic execution/return behaviour.
+- Project/domain owners own substantive document content and project-specific topic choices.
+
+Where this Standard hosts another owner's metadata/state, preserve that owner's semantics.
+
+## Core corpus principles
+
+**Weight: Expectation**
+
+1. Keep one authoritative answer per question; reference rather than restate.
+2. Route information by kind: Brief defines, Design determines, Decisions records reasoning,
+   outcomes deliver, OpenItems tracks unresolved work, WorkRegister tracks confirmed consequences,
+   Index records the corpus.
+3. Treat filenames as legible locators and the nearest authoritative Index as the resolver.
+4. Distribute only document types whose distribution contract permits it.
+5. Keep human-readable documents as short as their function permits and conclusion-first.
+6. A confirmed change with a downstream consequence is applied in the same pass or registered.
+7. Version issued outputs, not drafting edits.
+8. Do not leave material confirmed state only in conversation where it is at risk of loss.
+9. Prefer an existing mechanism over adding another one.
+
+## Naming
+
+**Weight: Requirement**
+
+Normal governed Markdown filename:
+
+```text
+{Project}_{Topic}_{DocType}[_{Key}]_v{N}.md
+```
+
+- Omit Project only for standalone material outside a project.
+- Omit Topic for project-wide registers.
+- Resolve DocType from an established or locally declared custom type.
+- Add a key only where the type's contract calls for one.
+- Keep the version suffix last.
+- Compound Topic segments may express instantiation/subdivision and may nest.
+- A filename is not the authoritative type/topic registry; the Index is.
+
+Cross-references may be deliberately:
+
+```text
+abc_Design_v5   # tied to that issued version
+abc_Design      # resolves to current
+```
+
+Preserve the author's chosen form.
+
+### Point-in-time keys
+
+Use date-sequence `{YYYY-MM-DD}-{N}` where the type requires a dated instance.
+
+- Review: date mandatory; optional single-segment label may follow the date-sequence.
+- Working: no key normally; label/date only when the actual working pattern needs it.
+- WorkPackage: opening date mandatory; a separate WorkPackage Outcome uses the same key.
+- Archive marker `_Archived_{date}` is inserted after DocType and before an existing key.
+
+## Document role model
+
+**Weight: Requirement**
+
+```text
+Brief / Requirements
+        ↓
+      Design  ← Decisions
+        ↓
+     outcomes
+```
+
+- **Brief** — objective, scope, requirements, success signals; optional by stakes.
+- **Requirements** — standing cross-topic requirements when size warrants splitting from Brief.
+- **Design** — confirmed current position; declares produced outcomes and external handlers.
+- **Decisions** — reasoning/history informing future Design. It is not a downstream outcome input.
+- **Working** — mutable design-in-progress.
+- **Review** — faithful point-in-time assessment record. Generic Review behaviour comes from
+  `AIDE_Review`.
+- **Guide** — distributable explanatory outcome.
+- **Reference** — distributable lookup outcome.
+- **Glossary** — distributable definitions.
+- **Overview** — standing narrative/orientation outcome.
+- **WorkPackage** — document representation of a unit of Build work; execution semantics are
+  `AIDE_WorkPackage`.
+- **WorkPackage_Outcome** — separate live return document where used; folds into WorkPackage on
+  archival.
+- **Message** — governed cross-project transmission.
+- **Index** — corpus/topic/document/configuration registry.
+- **OpenItems** — unresolved/in-flight work.
+- **WorkRegister** — confirmed downstream consequences not yet applied.
+
+Project-wide registers omit Topic.
+
+An outcome must have an authoritative defining source. Decisions never substitutes for missing
+Design content.
+
+## Condensed and expanded topic documents
+
+**Weight: Guidance**
+
+A small topic may hold its internal Brief/Design/Decisions/Working material in one condensed file.
+Use the highest-order confirmed content as its DocType.
+
+Expand when retrieval, independent edit cadence, Working archival, blind review, or explicit
+instruction makes separation valuable.
+
+Index and WorkRegister remain container-level rather than condensing into a topic file. A Guide
+does not condense into its Design because they have different roles/distribution.
+
+## Working
+
+**Weight: Expectation**
+
+Working is Design in progress and may change freely.
+
+Use it for material discussion that must survive beyond chat but is not yet confirmed Design.
+When content confirms, move the confirmed position into Design and the material reasoning into
+Decisions; do not leave Working as a second source of truth.
+
+When its items are complete, resolve the Working document's disposition: **Archived** where the
+Working record itself merits terminal historical retention, or **Superseded/withdrawn** where its
+substantive value is fully represented in retained authoritative records. Physical movement or
+storage of that disposition belongs to Working Practices/the environment.
+
+## Decisions
+
+**Weight: Requirement**
+
+Decisions preserves **synthesized substantive reasoning for a future Design reader**, not only the
+final outcome. Preserve enough of the path to reconstruct why the confirmed position exists
+without turning the record into a transcript. As applicable and proportionate, include the
+trigger/requirement, problem found, alternatives genuinely considered, key distinctions/reasoning,
+decision, and important consequences/trade-offs.
+
+A Decisions event is owed when:
+
+- the confirmed substantive Design position changes;
+- a requirement is established or materially revised; or
+- a rejected alternative could reasonably be re-derived and reconsidered later.
+
+Purely editorial, formatting, metadata, migration, mechanical maintenance, or application of an
+already-recorded decision does not by itself create a new Design decision. A genuinely trivial
+alternative may be omitted; otherwise a rejected alternative receives at least a brief reason.
+Proportionality controls depth, not whether a substantive event disappears from the record.
+
+Produce a substantive Design change and its Decisions record in the same pass. Assemble the entry
+from the reasoning actually developed while it is available; confirmed reasoning at material risk
+of being left only in conversation overrides ordinary restraint on document output.
+
+Existing entries are historical and are not retroactively rewritten. Later entries may supersede,
+refine, reverse, constrain, or reinterpret an earlier decision while leaving the earlier record
+intact.
+
+Keep Decisions at Design granularity. An independently expanded child Design normally keeps its
+substantive reasoning in a Decisions record at that same scope; a condensed topic may use a
+Decisions section. Parent-level architectural reasoning remains parent-level.
+
+Split Decisions history only when retrieval quality deteriorates or unrelated settled history
+obscures the live record. Prefer closure/state-based volumes with pointers over arbitrary
+chronological trimming. Do not delete or rewrite history merely to shorten the active file.
+
+Decisions informs future Design and is **not** an input to downstream outcomes. If a consideration
+is required for correct implementation or delivery, it must be represented in the current Design
+or other authoritative downstream input.
+
+## Review document integration
+
+**Weight: Requirement**
+
+A governed Review document is a faithful point-in-time assessment record.
+
+Do not rewrite a finding's substantive text because it was later resolved/disputed. Record
+resolution/status separately. Archive according to the document lifecycle once its findings meet
+the archival condition.
+
+Use `AIDE_Review@v1` for the assessment lifecycle itself; this Standard governs only the document
+representation/lifecycle.
+
+## Message document integration
+
+**Weight: Requirement**
+
+A governed Message uses:
+
+```text
+{Source}_Message_{Recipient}_{Description}[_Reply-{N}]_{YYYY-MM-DD}-{N}_v{N}.md
+```
+
+A promoted Message body is a structured envelope with the fields needed to identify parties,
+thread/message identity, revision, reply relation, time state, requested response and optional
+forward/merge/lifecycle information.
+
+Rules:
+
+- message identity/threading does not depend on Timestamp;
+- Timestamp is read from an available clock; if unavailable, state the reduced/unknown precision
+  rather than composing a plausible value;
+- a mandatory field must have a representable unknown/none state;
+- only the `From` owner issues a new revision of the same message;
+- a forward is a new message citing the original;
+- the terminator is part of completeness; an incomplete/truncated message is not acted on;
+- source marking is used only where source materially changes evidential weight;
+- out-of-band statements are marked as such;
+- light messages may remain conversation-only; promoted/heavy messages use normal governed-file
+  behaviour.
+
+Delivery tracking/transport is owned by the communication process, not this Standard.
+
+## Index
+
+**Weight: Requirement**
+
+Every governed project/container has one authoritative Index for each undelegated branch.
+
+The Index records, as applicable:
+
+- project/topic identity;
+- topic declarations and parent/inheritance/mode;
+- current document register and versions;
+- local/custom type declarations;
+- assets/unmanaged-file records;
+- delegation to child Indexes;
+- withdrawn/renamed/rehomed names where a reader may hold a dead locator; and
+- local configuration owned by the project.
+
+Nearest Index wins. Delegate only when a branch has sufficiently independent cadence/size/retrieval
+needs; the parent then records the delegated path/pointer rather than duplicating the child list.
+
+## OpenItems and WorkRegister
+
+**Weight: Expectation**
+
+Use **OpenItems** for unresolved/in-flight work and enough context to resume it.
+
+Use **WorkRegister** for consequences of confirmed decisions that are not yet applied.
+
+A confirmed design change with an unapplied downstream consequence belongs in WorkRegister, not
+OpenItems. Remove/close entries when their governing lifecycle says their work is resolved; do not
+use either register as a second Decisions history.
+
+## Lifecycle, supersession and archival
+
+**Weight: Requirement**
+
+Lifecycle state is independent of storage representation:
+
+- **Current** — the issued authoritative version/instance the corpus resolves for normal current use.
+- **Superseded** — an older issued version, or a document displaced/withdrawn without reaching an
+  archival terminal disposition of its own.
+- **Archived** — a document whose type-specific lifecycle reaches an archival terminal disposition;
+  the final archival record is frozen except through the type's permitted correction route.
+
+A type may define completion, withdrawal, absorption or another terminal path that determines the
+correct disposition. The `_Archived_{date}` filename marker remains the document-naming expression
+for an archival disposition where that convention applies.
+
+Generated Binders/Bundles are consumption artefacts assembled from authoritative sources; they are
+not authoritative masters. Regenerate them from their source set rather than editing them as the
+source of truth.
+
+Do not discard governed history merely to simplify the active view. A living current-document
+register need not list every lower Superseded version where version sequence already proves their
+existence, but preserve explicit mapping for renamed/rehomed/withdrawn names and enough archived
+history/locator information to keep the corpus truthful.
+
+Physical storage may use repository folders, external archives, a document-management system,
+platform-native history or another representation. The applicable Working Practices/environment
+owns physical placement, movement, retention media and cleanup; those choices must not erase the
+semantic state or required governed history.
+
+## Metadata containers
+
+**Weight: Requirement**
+
+Document layout may contain:
+
+```text
+Title / version preamble
+Header metadata
+Temporary owner-labelled state
+Body
+Footer metadata
+Internal section
+```
+
+Header metadata is immediately after title/version preamble. Temporary state follows header
+metadata and precedes ordinary body content. Footer metadata follows body and precedes the Internal
+section where present.
+
+Known properties:
+
+```text
+Identity: ...
+Tags: ...
+Dependencies: ...
+References: ...
+Type: ...
+```
+
+This list is extensible.
+
+- Identity semantics belong to Core.
+- Tags semantics belong to `AIDE_Tags`.
+- Dependencies semantics belong to `AIDE_Dependencies`.
+- Migration state semantics belong to `AIDE_Migration`.
+- References is a document citation relationship without conformance semantics.
+- Custom-type pointer/rendering remains a Documentation Methodology concern.
+
+Keep generated metadata/state compact.
+
+## Internal section
+
+**Weight: Guidance**
+
+Use an Internal section for durable bookkeeping that helps later maintainers but is not part of
+the document's distributed substantive body, such as delivery/correction notes, absorbed-document
+pointers or other lifecycle trace information defined by this methodology.
+
+Do not use Internal as a hidden second body for substantive rules.
+
+## Distribution
+
+**Weight: Requirement**
+
+Distribution follows document type and project policy.
+
+Internal working/decision/register material does not travel merely because it is useful context.
+Published outcomes such as Guides/References/Standards may travel according to their contract.
+
+A consuming project may adopt a distributed Guide/Reference as a resource without becoming its
+owner.
+
+## Assets
+
+**Weight: Expectation**
+
+An Asset is produced/held by the corpus but its filename is fixed by the consuming tool/system
+rather than by this document naming convention.
+
+Record enough ownership, path, purpose/currency/lifecycle information in the Index/assets register
+to manage it truthfully.
+
+Do not rename an Asset into the document naming convention merely for aesthetic consistency.
+Use Reference instead only where the file is actually a governed lookup document whose filename
+the corpus owns.
+
+## Unmanaged files
+
+**Weight: Expectation**
+
+An unmanaged file is held by the container but deliberately not governed by this methodology.
+
+Record it in the Index with management=`unmanaged`, filename and recorded date. Optional attributes
+such as purpose, editable posture, versioned posture, source and lifecycle are recorded only when
+established; unknown values are stated as not established rather than guessed.
+
+A type-looking segment in an unmanaged filename does not confer governed type/version/lifecycle
+behaviour.
+
+Review/prompt cadence for unmanaged files is owned by the process/interface that manages the
+container, not by this Standard.
+
+## Claimed versus verified
+
+**Weight: Requirement**
+
+Do not compose plausible metadata, times, versions, paths, delivery facts or successor names where
+the fact should be observed/read.
+
+Distinguish:
+
+- verified/read state;
+- declared/claimed state; and
+- unknown/unestablished state.
+
+Where the system cannot verify a mandatory value, represent that limitation explicitly.
+
+## Output and version discipline
+
+**Weight: Requirement**
+
+A file's `_vN` counts issued outputs of that document, not internal editing operations.
+
+- Draft freely before issue.
+- After an issued/delivered document is changed and reissued, increment its document version.
+- A rename alone is not a semantic content revision unless the governing lifecycle explicitly
+  makes it one.
+- Do not issue new versions/documents as ceremony.
+- Produce a substantive Design change and its Decisions record in the same pass; editorial or
+  mechanical Design maintenance does not create a Decisions event by itself.
+- At the end of a material unit of work or key confirmation point, assess whether confirmed state
+  is at risk of being left only in conversation.
+- Where confirmed material is at material risk of loss, surface the exposure and write the safe
+  durable outputs authorised by the work.
+
+## WorkPackage document integration
+
+**Weight: Requirement**
+
+Generic WorkPackage authoring/execution/validation/return semantics come from
+`AIDE_WorkPackage@v1` and `AIDE_Build@v1`.
+
+This Standard owns only document integration:
+
+- the WorkPackage is a governed point-in-time document with opening-date key;
+- a separate live WorkPackage Outcome uses the same key where produced;
+- after the director/Lead reconciles the returned Outcome, it may be appended verbatim to the
+  WorkPackage before archival;
+- the consolidated archived WorkPackage records the absorbed Outcome locator where useful;
+- design-shaping issues returned by Build are resolved by Project Design rather than silently
+  settled by document mechanics.
+
+## Documentation Methodology conformance
+
+**Weight: Requirement**
+
+Current conformance is recorded through Dependencies:
+
+```text
+Dependencies: !AIDE_DocumentationMethodology@v20
+```
+
+The dependency version is the last saved/proven Documentation Methodology capability release
+against which the document is conformant.
+
+A newer methodology release does not itself rewrite all existing documents. Migration posture
+determines when the checkpoint advances.
+
+### Legacy v17 checkpoint bridge
+
+For the **v17 → v18 transition only**:
+
+If all of the following are true:
+
+1. the document is a governed pre-v18 document;
+2. it has no resolved `AIDE_DocumentationMethodology` dependency checkpoint; and
+3. it contains an unambiguous legacy `Methodology: v17` declaration,
+
+then Migration shall interpret that legacy declaration as the starting conformance checkpoint
+`AIDE_DocumentationMethodology@v17`.
+
+This interpretation:
+
+- is a compatibility input to Migration only;
+- does not change the document on read/use;
+- does not create a modern dependency declaration until a qualifying save/update succeeds; and
+- must fail visibly rather than guess if multiple/contradictory legacy methodology declarations
+  exist.
+
+### v18 transition
+
+```yaml
+MigrationSummary:
+  CurrentVersion: v20
+  LatestRequiredVersion: none
+  LatestOnUpdateVersion: v18
+  SupportedBaseline: v17
+
+Transition:
+  Version: v18
+  Posture: OnUpdate
+  Change: >
+    Move document conformance to AIDE_Dependencies, adopt extensible metadata/state containers,
+    and delegate generic WorkPackage execution semantics to AIDE_WorkPackage.
+  Items:
+    - Resolve the starting checkpoint using Dependencies or the legacy-v17 bridge.
+    - Replace the legacy Methodology: v17 checkpoint with !AIDE_DocumentationMethodology@v18.
+    - Convert legacy Depends on relationships that are true conformance dependencies to Dependencies: syntax.
+    - Preserve References as citations where no conformance obligation exists.
+    - Host Identity, Tags and temporary owner state under the v18 container placement rules where present.
+    - Preserve unrelated content; do not rewrite merely to make the document look newer.
+  Success: >
+    The saved document uses v18 metadata placement where applicable, records a truthful
+    AIDE_DocumentationMethodology@v18 dependency checkpoint, and has no contradictory legacy
+    Methodology footer.
+
+Transition:
+  Version: v19
+  Posture: None
+
+Transition:
+  Version: v20
+  Posture: None
+```
+
+Merely reading/using a v17 document does not trigger the v18 OnUpdate transition. v19 and v20
+require no additional artefact transformation; when Migration traverses through current during a
+qualifying save, their None transitions may advance the saved checkpoint after the v18 success
+condition is satisfied.
+
+An operation specifically requiring a v18-only structure may require migration before that
+operation proceeds.
+
+## Build and deployment
+
+**Weight: Context**
+
+This Standard is the canonical deployable Documentation Methodology outcome.
+
+Platform Build may render it as a skill, plugin contribution, bundle member, instructions or
+another supported representation without changing semantics.
+
+The common AIDE Standards/Tools Bundle is a valid assembled representation. The human Guide is not
+required in every consuming project once this Standard is available there, though it may be added
+when richer explanatory context is useful.
+
+---
+Dependencies: AIDE_Dependencies@v2, AIDE_Migration@v1, AIDE_Tags@v1, AIDE_WorkPackage@v1, AIDE_Build@v1
+References: DocumentationMethodology_Design_v17, DocumentationMethodology_Guide_v20
+<!-- END SOURCE: AIDE_DocumentationMethodology_Standard_v20.md -->
+
+---
+
+<!-- BEGIN SOURCE: DocumentationMethodology_Guide_v20.md -->
+# Documentation & Workflow Methodology — Guide
+
+> **Identity:** `AIDE_DocumentationMethodology@v20`
+> **v20** (2026-08-31). Separates document lifecycle semantics from physical repository/storage
+> workflow while preserving governed-history, supersession and archival meaning.
+>
+> **Migration posture:** None for v20. Existing v19-conformant documents and repository layouts
+> require no structural/content migration merely because physical handling is now delegated.
+>
+> v19 and v18 remain historical predecessors. Their rules remain in force unless this release
+> states a replacement or clarification.
+
+
+---
+
+## v20 change summary
+
+- **Lifecycle state is semantic, not a folder name.** Current, Superseded and Archived remain
+  Documentation Methodology concepts regardless of how an environment stores them.
+- **Physical repository workflow is delegated.** Management-folder names, movement, sweep/external
+  archival cadence, Change Delivery staging and Binder placement/replacement belong to Working
+  Practices or the applicable environment.
+- **Governed history remains protected.** Delegating storage does not permit convenient deletion;
+  the corpus must preserve the history and locator information its lifecycle contract requires.
+- **Binders/Bundles remain generated consumption artefacts.** Their non-authoritative status remains
+  a methodology rule; where they live and how old generated copies are handled is not.
+- **No repository rearrangement is required.** Existing `/superseded`, `/archived` or other layouts
+  may continue where the applicable operating convention chooses them.
+
+## v19 change summary
+
+- **Decisions remains a reasoning/history record, not an outcome log.** The canonical contract now
+  carries the substantive depth and trigger rules needed for an AI to apply it without the Guide.
+- **Design-change trigger clarified.** A Decisions event follows a change to the confirmed
+  substantive Design position, not editorial/formatting/metadata/migration/mechanical maintenance.
+- **Synthesis, not transcript.** Preserve the reasoning needed to reconstruct why the decision was
+  reached; do not preserve discussion merely because it occurred.
+- **Same-pass preservation and same-granularity recording are explicit.** Independently expanded
+  child Design normally keeps substantive reasoning at that child scope.
+- **Downstream boundary corrected.** If reasoning is needed by a Guide or implementation, it must
+  be represented in Design first; outcomes do not use Decisions as an input.
+- **No retrospective rewrite.** Existing Decisions history remains intact; the corrected discipline
+  applies prospectively.
+
+## v18 change summary
+
+- **Document conformance is a dependency.** `Methodology: vN` is retired. Governed documents
+  declare their saved/proven Documentation Methodology conformance through `Dependencies:`.
+- **Metadata containers are extensible hosts.** Header metadata, temporary state and footer metadata
+  have fixed placement; Identity, Tags, Dependencies and future owners retain their own semantics.
+- **Temporary operational state is generic and owner-labelled.** DocMeth owns placement/coexistence,
+  not the state meaning or lifecycle.
+- **WorkPackage execution semantics move to `AIDE_WorkPackage@v1`.** DocMeth retains only the
+  document-type/naming/archive behaviour specific to WorkPackage files.
+- **Machine-generated metadata stays compact** in human-readable documents.
+- All other v17 rules remain in force unless explicitly superseded below.
+
+## Summary
+
+These rules carry most of this document. Everything else is detail. **No count is stated** — a
+count is a second thing to keep true, and §4's list carries the scar from having one.
+
+1. **One authoritative answer per question.** No document restates what another states; it
+   references it.
+2. **Route by kind, not by convenience.** Guide = the published rule. Design = the confirmed
+   internal position. Decisions = the journey to it. OpenItems = what is in flight. Index =
+   what exists.
+3. **Naming is legible; the Index is authoritative.** A filename says what a document is; the
+   Index resolves it.
+4. **Nothing travels unless its type is cleared to travel.**
+5. **A document is as short as its function permits, conclusion first.**
+6. **A confirmed change is applied or registered — never neither.**
+7. **A version counts outputs, not edits — and confirmed material is never left unwritten.**
+   §16 remains the output discipline; document conformance/version transitions use Dependencies + Migration.
+
+## 1. Scope and the ownership boundary
+
+**This methodology owns document naming, document/corpus structure and lifecycle semantics.** It
+defines what Current, Superseded and Archived mean, when document-type lifecycle transitions occur,
+what history must be preserved, and what authoritative versus generated document artefacts are.
+
+**It does not own the physical repository/storage workflow that realises those states.** Folder
+names, management-folder prefixes, movement between locations, repository cleanup/external archive
+cadence, Change Delivery staging and generated Binder placement/replacement belong to Working
+Practices or the applicable environment. A document does not become Superseded or Archived because
+it was moved into a particular folder; it is moved or represented according to the state it already
+has.
+
+The originating project owns creation, authoring and use — who writes a document, when, against
+what trigger, and what good content looks like.
+
+Carve-out: **topic naming convention is owned here; topic choice is the project's.** Which
+topics exist inside a container and what they are called is the project's. How a topic name
+renders in a filename, and what structure a topic segment may carry, is this methodology's.
+
+Where a project needs a variation, the Index's local configuration section (§8) is the declared
+mechanism for recording it. A project manages only its own document set: an observation
+affecting another project is proposed, never enacted directly.
+
+## 2. Core working style
+
+- **Nothing goes into documentation until confirmed.** Discuss and draft first — in
+  conversation, or in a Working doc for larger changes.
+- **Feed living documents as pieces confirm**, not only once a topic fully resolves.
+- **One decision at a time.**
+- **Capture during, assemble after.** Where a decision involves real back-and-forth — a
+  proposal revised after pushback, a distinction drawn mid-discussion, a tradeoff knowingly
+  accepted — the working is recorded as it happens, in the Working doc or the Working section
+  of a condensed topic doc. The Decisions entry is assembled from that record, not from
+  recollection. A small, uncontested decision needs no Working doc.
+- **Rejected alternatives are recorded, not discarded.**
+- **Push back on complexity.** Check whether an existing mechanism covers a need before adding
+  one.
+- **A cross-project transmission substantial enough to need a stated addressee or an expected
+  response is a Message** (§4f). An ad hoc, one-off observation stays informal.
+
+## 3. Naming convention
+
+```
+{Project}_{Topic}_{DocType}[_{Key}]_v{N}.md
+```
+
+- **`{Project}`** — short project prefix. Omitted entirely for standalone items outside any
+  project.
+- **`{Topic}`** — the subject. Omitted for project-wide registers (Decisions, Index, OpenItems,
+  Work Register). A project's shared entity/state model is a reserved topic name (`Domain`,
+  `CoreModel`), not a document type.
+- **`{DocType}`** — one of the established types (§4), or a declared custom type (§4h).
+  `Message` is the one deliberate exception to this slot order (§4f).
+- **`{Key}`** — present only on types that are inherently point-in-time (Review, WorkPackage,
+  archived Working). Either a date-sequence `{YYYY-MM-DD}-{N}` or a **descriptive key**;
+  see §3b.
+- **`_v{N}`** — the version suffix, always last. It counts outputs, not edits: see §16.
+
+### 3a. Topic structure
+
+**A topic segment may be compound** — several underscore-joined parts — expressing either of
+two relationships:
+
+- **Instantiation** — siblings that are versions of one thing (`Platform_Claude`,
+  `Platform_OpenAI`).
+- **Subdivision** — a child that is part of its parent's subject (`Workflow_DesignSide`).
+
+**Topics nest to any depth. No fixed tier count.** Depth beyond about three parts is a signal
+the branch may warrant its own Index (§8b), not a rule violation.
+
+**Topic and type resolve against the Index**, which holds the topic set and its hierarchy. A
+filename is legible but not authoritative: right-to-left matching against the established type
+list is a fallback for a reader without the Index to hand, and it does not survive custom types
+(§4h).
+
+**A cross-reference takes one of two forms, and the form carries the meaning:**
+
+- **`abc_Design_v5`** — fully version-qualified. The reference is deliberately tied to that
+  version, and means that version specifically.
+- **`abc_Design`** — unqualified. Resolves to whatever version is current.
+
+Neither is a default the other departs from. The author chooses by whether the tie is real. A
+reader can then tell which they are looking at without knowing why it was written — which is the
+property that was missing when the version suffix was merely optional.
+
+**Dropping the last part of a compound topic** means "whichever instance applies." Filenames on
+disk are always fully specified.
+
+### 3b. The point-in-time key
+
+**A date-sequence and a label, not a choice between them.** They answer different questions —
+*when* and *about what* — and a slot that takes one or the other forces a document to drop the
+answer it has.
+
+- **Order: date first, then label.** `CMS_FullDesign_Review_2026-07-22-1_ContractSplit_v1.md`.
+  A topic's Reviews then sort chronologically in a plain directory listing, which is what the
+  date is for; label-first loses that as soon as the labels vary.
+- **Date-sequence** is `{YYYY-MM-DD}-{N}`; `{N}` disambiguates same-day instances and is not a
+  revision counter.
+- **Each segment is a single segment with no underscores** — underscores are the topic-nesting
+  separator.
+
+**Per type:**
+
+- **`Review`** — date **mandatory**, label optional. A Review is a snapshot and its date is what
+  identifies it.
+- **`Working`** — **no key in the normal case** (§4-w). A label is available where two Working
+  docs are live on one topic at once. A date is permitted and not normally added, because
+  archival supplies one through the rename.
+- **`WorkPackage`** — date mandatory, as the day it opened; its `WorkPackage_Outcome` shares it.
+
+**This supersedes the earlier either/or form.** A document already carrying a label alone is
+renamed at migration; a rename is not a content change and the version does not move.
+
+**Archive mechanics are unchanged:** `_Archived_{date}` slots immediately after the DocType,
+before the document's own pre-existing key —
+`Workflow_Review_Archived_2026-09-01_2026-08-14-1_ContractSplit_v1.md`.
+
+### 3c. Document metadata containers and conformance
+
+A governed document uses three possible machine-facing regions around the human-readable body:
+
+```text
+Title
+Header metadata container
+Temporary state container (only while state exists)
+Body
+Footer metadata container
+Internal section (where applicable)
+```
+
+The containers are **extensible hosts**. Documentation Methodology owns placement, coexistence and
+general compact rendering. The owner of a property/state entry owns its meaning, generation,
+validation and lifecycle.
+
+#### Header metadata
+
+Placed immediately after the title/version preamble where present. Known consumers include Core
+Identity:
+
+```text
+Identity: primary-id@v2, alternate-id@v7
+```
+
+This list is not closed. Formal identity is not inferred from filename.
+
+#### Temporary state
+
+Optional and placed after header metadata, before normal body content, because unresolved
+operational state may affect safe use/update.
+
+Compact owner-labelled form:
+
+```text
+State: Migration [AIDE_Migration] — v11 failed while targeting v12: source metadata unavailable.
+```
+
+Each entry has a stable owner identity, short title/name and concise current message. The owner may
+create/update/remove only its own entry. DocMeth does not define the state semantics.
+
+#### Footer metadata
+
+Placed after body content and before the Internal section where one exists.
+
+Known examples:
+
+```text
+Tags: design, doctype:[design]
+Dependencies: !AIDE_DocumentationMethodology@v20, abc_Design@v5
+References: pqr_Reference_v8
+Type: Playbook — custom. Defined in ThisProject_Index.
+```
+
+- `Tags:` content/behaviour belongs to `AIDE_Tags`.
+- `Dependencies:` content/identity/version/conformance behaviour belongs to `AIDE_Dependencies`.
+- Migration consequences of a version gap belong to `AIDE_Migration`.
+- `References:` remains a document-methodology citation relationship with no conformance
+  obligation.
+- Custom-type definition/pointer rendering remains a DocMeth concern.
+
+**Document methodology conformance is no longer a special footer line.** A governed document that
+depends on this methodology records the version against which it was last saved/proven conformant
+through the normal Dependencies contract, normally:
+
+```text
+Dependencies: !AIDE_DocumentationMethodology@v20
+```
+
+The exact presence marker is governed by `AIDE_Dependencies`; this Guide does not redefine it.
+
+A newer Documentation Methodology release does not by itself rewrite every document. `AIDE_Migration`
+determines whether a declared transition is Required, OnUpdate or None, and the dependency checkpoint
+advances only with a saved/proven document state.
+
+#### Compactness
+
+Metadata, derived state and other machine-generated content in human-readable documents should be
+as compact as practicable while remaining unambiguous and machine-usable. Rich diagnostics belong
+in the active work/result record unless durable document context requires them.
+
+
+## 4. Document types
+
+**The model, before the list.** Types are not peers. Four roles, in one direction:
+
+```
+Brief  ──▶  Design  ──▶  outcomes
+              ▲
+          Decisions
+```
+
+- **`Brief` defines** — the objective, the scope, the requirements. What is to be achieved.
+- **`Design` determines delivery** — how the Brief's objective gets met. The confirmed position
+  at a point in time.
+- **`Decisions` informs the Design** — the history, the path, what was tried and set aside, so
+  the next change to the Design is made with the evolution visible rather than from the snapshot
+  alone. Its role is to produce good Design, and it feeds nothing else.
+- **Outcomes deliver** — `Guide`, `Reference`, `WorkPackage`, a skill, an asset, a code build.
+  Produced from the Design, they are what actually serves the topic's goals.
+
+`Working` is Design in progress. `Review` and `Message` sit outside the flow: one assesses it,
+one transmits across it.
+
+**Resource, as vocabulary.** A type whose purpose is to be drawn on rather than produced or
+delivered reads naturally as a *resource* — `Review`, `Reference`, `Glossary`, and an adopted
+`Guide` sitting in a consuming project. The word infers purpose and nothing keys off it: it is a
+reading aid for choosing a type, not a class. Nothing is recorded as a resource and no behaviour
+follows from the word. **Resource-ness depends on which container is reading.** A `Guide` is an
+outcome where it is produced and a resource where it is consumed.
+
+**Three consequences, stated because each is routinely inferred wrongly:**
+
+- **An outcome requires something defining it.** That is normally a Design, but it may be a
+  Brief or another document where the definition genuinely sits there. What cannot happen is an
+  outcome with nothing behind it — see §4a.
+- **Decisions is not an input to outcomes.** Nothing downstream of the Design reads it. A
+  consideration that must reach an outcome belongs in the Design, and its absence there is a
+  Design defect, not a reason to reach back past it. §7d's bundle self-containment rule is this
+  consequence.
+- **Outcomes do not own each other.** An outcome's owner is what defines it, never a
+  sibling outcome (§13a).
+
+**The established types.** A project needing something else declares a custom type (§4h) or
+holds the file unmanaged (§15).
+
+**No count is stated.** Earlier versions of this Guide said "ten established types, the list is
+closed" while listing ten and recognising more — `Index`, `OpenItems` and `WorkRegister` occupy
+the type slot in real filenames throughout, and `OpenItems` had its own subsection and a row in
+the distribution table. A count is a second thing to keep true, it earns nothing, and its being
+wrong is what made the omission invisible: a project reading the closed list and not finding
+`OpenItems` was being told to declare it custom. The list states itself.
+
+| Type | Role | Holds | Lifecycle | Distribution |
+|---|---|---|---|---|
+| `Brief` | Defines | Why, scope, requirements, success signals | Living | Internal |
+| `Requirements` | Defines | Standing cross-topic requirements, split from `Brief` when size warrants | Living | Internal |
+| `Design` | Determines | The confirmed internal position — what *is* | Living | Internal |
+| `Decisions` | Informs Design | The journey — requirement, alternatives, decision, consequences | Living | Internal |
+| `Working` | Design in progress | In-progress discussion; items carry status | Merges, then archives or is disposed (§4-w) | Internal |
+| `Review` | Assesses | A point-in-time assessment; findings carry status | Archives when every finding is resolved or superseded | Internal |
+| `Guide` | Outcome | The published rule, derived from Design | Living | Consuming projects |
+| `Reference` | Outcome | Published lookup material | Living | Consuming projects |
+| `Glossary` | Outcome | Defined terms for a topic or project | Living | Consuming projects |
+| `Overview` | Outcome | The standing narrative entry point: what this corpus is, reading order, current state | Living | Consuming projects |
+| `WorkPackage` | Outcome | A unit of dev-side work; absorbs the Outcome on completion | Archives on completion | Dev side |
+| `WorkPackage_Outcome` | Returns | The builder's record of what was actually done and observed | Folds into its Work Package on archival | Dev side (returns) |
+| `Message` | Transmits | A governed cross-project transmission | Per §4f | Named recipient |
+| `Index` | Records | What exists, at what version, and the project's local configuration | Living | Internal |
+| `OpenItems` | Records | What is in flight and unresolved | Living | Internal |
+| `WorkRegister` | Records | Consequences decided and not yet applied | Living | Internal |
+
+Project-wide registers, no topic segment: `Decisions`, `Index`, `OpenItems`, `WorkRegister`.
+`Requirements` is project-wide where it covers standing cross-topic requirements.
+
+**`Overview` and `Glossary` are restorations, not additions.** Both were established at v14 and
+vanished in the v15 restructure with no recorded decision. If your container re-derived either
+under a local name, adopt the established type rather than keeping the local one.
+
+**`Requirements` normally resides in the `Brief`.** Split it into its own document only where
+size warrants.
+
+**Assets are not document types.** A file whose filename is fixed by the tool that consumes it
+is an **asset** (§13), outside the naming convention and outside the document register. The
+`Reference`-versus-asset boundary is at §13c.
+
+### 4-r. Retired types
+
+A type that was established and no longer is has no version to resolve and appears in no list,
+so nothing implies it existed. A reader holding a dead *filename* has §8c; a reader holding a
+dead *type name* had nothing, and one project consequently re-derived `Overview` as a local
+invention.
+
+| Retired name | What became of it |
+|---|---|
+| `Glossary` | Restored. Established again — see the list above. |
+| `Overview` | Restored. Established again — see the list above. |
+| Standing `Review` | Withdrawn, folded into nothing. The continuously-updated, never-archived variant v14 defined separately from the dated one. `Review` as established is point-in-time only; a living evaluative commentary has no type. A surviving instance becomes a dated Review. |
+| `WorkPackage_Implementation` | Folded into `WorkPackage` (§7a). |
+| `Open Questions` register | Renamed `OpenItems`. |
+
+**Declaring a custom type checks this table first (§4h).** A name here is a re-derivation
+wanting restoration, not an invention wanting declaration, and the two want opposite handling.
+
+### 4a. Guide
+
+An **outcome**. Derived from the Design; states the rule, not the reasoning. Distributable.
+
+**An outcome requires something defining it.** For a Guide that is normally a Design, but the
+definition may legitimately sit in a Brief or another document where that is genuinely where it
+lives. The rule is not "a Guide must have a Design" — it is that a Guide with *nothing* behind
+it is incoherent, because an outcome is by definition the delivery of something determined
+elsewhere. Where the definition sits outside a Design, the Guide says where.
+
+### 4b. Design
+
+The confirmed internal position — what *is*. Design is internal; its Guide travels. The pair
+exists so that a rule confirmed but not appropriate to publish has a home. Design and Guide
+overlapping heavily is an acceptable outcome: the pair exists for consistency, not because the
+two must differ.
+
+**A Design declares its outputs** — which Guides, References or other artefacts it produces,
+and which handlers outside the corpus consume it. Declared in the Design itself, alongside its
+related-documents header. Where a topic has no Design, its Guide carries the declaration or
+states that it is itself the output.
+
+### 4c. Brief
+
+Why, the case, the objective, and — for a per-topic Brief — the requirements content
+(functional, topic-specific non-functional, acceptance criteria, non-requirements, open
+assumptions). Living, not dated. Optional by stakes, not mandatory by topic.
+
+Recommended sections: opportunity or capability gap; who it serves; what is offered; success
+signals; non-goals; open uncertainties. Deliberately not locked.
+
+Standing project-wide NFRs are not restated per topic — they live in the project-wide
+requirements register, or in a standards corpus, referenced.
+
+The **blind-assessment boundary** sits between Brief and Design: a second reviewer may be given
+the Brief without the Design to propose an independent approach.
+
+### 4d. Decisions
+
+Records thinking, not just outcomes. Written to the depth standard: requirement/trigger, problem
+found, alternatives genuinely considered, key points worked through, decision, consequences and
+accepted trade-offs — proportionate to the thinking actually involved, in the manner of
+substantive meeting minutes.
+
+**Synthesis, not transcript.** Preserve the reasoning necessary to reconstruct why the decision
+was reached; do not preserve discussion merely because it occurred. A simple uncontested decision
+may therefore be short. A decision that evolved through alternatives, distinctions or trade-offs
+needs enough of that path to remain intelligible later.
+
+**When an entry is owed.** Any change to the **confirmed substantive Design position**. Any
+requirement established or materially revised. Any rejected alternative that a future reader might
+re-derive — the entry is what stops the re-derivation. Purely editorial, formatting, metadata,
+migration, mechanical maintenance, or application of an already-recorded decision does not by
+itself create a new Design decision.
+
+A substantive Design change without a Decisions entry recording the reasoning behind it is
+incomplete: the "what" and the "why" are produced together, not sequentially, because reasoning
+that exists only in conversation is lost when the conversation closes (§16b).
+
+**Existing entries are not retroactively rewritten.**
+
+**A rejected alternative always gets at least a brief summary of why.** Proportionality governs
+how much space it gets, not whether it appears. Omission is appropriate only where the
+alternative was genuinely trivial.
+
+**Decisions informs the Design and nothing downstream.** Its purpose is to make the next Design
+change a good one — the path, the evolution, the experience, so a change is made with more than
+the current snapshot in view. It is not an input to any outcome. Where a consideration must be
+factored into delivery, it belongs in the Design; a Design that omits it is defective, and the
+remedy is to fix the Design rather than to route an outcome's author back through the reasoning.
+
+**Decisions follows the Design's granularity.** An independently expanded Design at a sub-topic
+normally gets a Decisions record at that sub-topic; a condensed topic may satisfy the same rule
+with its Decisions section. Project-level and topic-level Decisions coexist without conflict — §3 already lists
+`Decisions` among the project-wide registers that omit a topic segment, so the project-level form
+is the convention's default and a per-topic split is the departure.
+
+**Reach is governed by the inheritance flag** (§8a), not restated per entry. A decision recorded
+at a parent reaches every child declared `inherits`. A child declared `independent` does not
+inherit it and holds its own.
+
+**Where the right level is unclear, ask.** Scope is a design judgement, not a routing
+calculation, and a project-wide rule filed under one topic is buried from every other.
+
+**Growth.** Split only once retrieval starts surfacing the wrong entries. The axis is
+**closure, not chronology**: a live register plus one or more closed volumes of fully settled
+entries, with the live register retaining pointers. Never deletion; never rewriting an entry to
+be shorter.
+
+### 4e. OpenItems
+
+**What is in flight.** Project-wide register, no topic segment. Supersedes any use of an
+Index section for the same purpose.
+
+- **Scope** — anything unresolved: open questions, work in flight, documents not yet produced,
+  deferred items, pending message threads.
+- **Current-work section** — what is active now, distinct from what is merely open.
+- **Distinct from the Work Register** — OpenItems holds what is *not yet decided*; the Work
+  Register holds *consequences of confirmed decisions* awaiting action. An item moves across
+  when it settles and has consequences.
+- **Entry depth** — explicitly not the Decisions standard. An open item is a pointer, not a
+  record: what is unresolved, and enough to pick it up.
+- **Identifiers** — a fresh series per container, prefix declared in the Index's local
+  configuration.
+- **Lifecycle** — retention is the default where the register has seen real use or is likely
+  to again. A register used for a couple of items infrequently may be disposed of and
+  recreated. In doubt, prompt. This is a deliberate exception to the no-delete policy (§9):
+  a resolved open item's record lives in Decisions or the Work Register, not here.
+- Distribution: internal.
+
+### 4f. Message
+
+```
+{Source}_Message_{Recipient}_{Description}[_Reply-{N}]_{YYYY-MM-DD}-{N}_v{N}.md
+```
+
+`{DocType}` sits directly after `{Source}` — the one deliberate exception to §3's slot order.
+`{Description}` is the thread key, identical across an exchange. `_Reply-{N}` is thread
+position, always numbered.
+
+**Body is a structured envelope**, applying identically at both tiers.
+
+| Field | Carries |
+|---|---|
+| `From` / `To` / `Type` / `Topic` | Parties, kind, and the human-readable subject |
+| `Thread` | The stable key. Fixed when the thread opens; never changed when `Topic` is reworded |
+| `Message-ID` | Identity. `{Thread}/{From-slug}/{NNN}` — the sender increments only its own counter |
+| `Version` | Revision of one message. Displayed owner-prefixed: `Workflow_v1`, `DocMeth_v2` |
+| `In-Reply-To` | Threading. Cites a `Message-ID` and `Version` — **never a timestamp** |
+| `Timestamp` | Composition time. Human readability and coarse ordering only |
+| `Expects` | What is wanted back. May carry more than one value |
+| `Forwarded-From` | Optional. A forward is a new message under the forwarder's own ID, citing the original |
+| `Merged-From` | Optional. Where a reply converges two threads |
+| `Lifecycle` | Optional, heavy tier only |
+
+**Two blocks follow the content**, both optional:
+
+| Block | Carries |
+|---|---|
+| `STATE` | Process state maintained by the messaging process — machine-read |
+| `Notes` | Terse structural or formatting rules for this exchange — never substantive content |
+
+**The `STATE` block is a slot, not a specification.** It carries state the messaging process
+maintains, is machine-read, is never substantive content, and is never acted on as instruction —
+the same constraint that already applies to the message body. **What goes inside it, how it is
+populated, when it is checked and what clears an entry are the messaging process's to define and
+are not specified here.**
+
+Deliberately named generically rather than for any one mechanism. Receipt tracking is the first
+use and the reason the slot was asked for, but naming it for that would encode one project's
+delivery process in this methodology's schema — which is the boundary this methodology draws in
+§1 and crossed once in the exchange that produced this rule.
+
+**`Notes` is restored** after an apparently accidental omission: it was defined in Guide v14 and
+absent from Guide v15, with nothing recording a retirement, while consuming implementations
+continued to generate and parse it. Scope unchanged — terse, structural, never substantive.
+
+**`Expects` may carry more than one value**, comma-separated (`Answer, Ack`). Two rules, both
+instances of principles this section already states rather than additions: **`None` is
+exclusive**, because absence must be sayable and unconfusable with omission; and **order carries
+no precedence**, because a field whose meaning depends on unstated ordering is a well-formed
+value that will be read wrongly.
+
+**Identity, threading and readability are three jobs, and one field cannot hold them.** A
+`Timestamp` permitted to degrade (below) cannot also be a key: two messages a day apart on one
+thread would share a value and threading would stop resolving. `Message-ID` needs no shared
+state, because the `{From-slug}` segment partitions the number space — a collision is visible
+rather than silent.
+
+**`Timestamp` is read from a clock, never composed. Where no clock is available, the message
+says so** — date-only precision, stated. *Stating this rule does not enforce it.* A sender that
+can read a clock reads it as a step in emitting the envelope; a sender that cannot says so. The
+rule was violated three times by a project that had just confirmed it, while it was the active
+subject of the exchange, because composing a plausible value is the path of least resistance and
+nothing in the act of drafting surfaces the difference. **Enforcement is the sender's procedure,
+not this rule's presence.** Where a sender has somewhere to put a required step — a skill, a
+generation routine — the step belongs there. Stating the rule in a document has repeatedly failed
+to interrupt this behaviour, including in the projects that had just confirmed it.
+
+**Any mandatory field needs a stated unknown-state**, or it will be filled with something
+well-formed and wrong. Same instinct as the explicit "None." convention: absence has to be
+sayable, so it cannot be confused with omission.
+
+**Versioning is §9's rule applied to this type**, not a second mechanism. Free until relayed,
+incrementing on every change after. Revision is non-destructive: a corrected message keeps its
+`Message-ID`, increments `Version`, and every citation still resolves. **A message has exactly
+one owner — the `From` party.** Only the owner issues a new version; everyone else replies or
+forwards. A forward that inherited the original ID would put two bodies under one identifier.
+
+**The promoted file's `_v{N}` and the envelope's `Version` are two numbers on one object.** The
+file version tracks edits to the filed copy; the envelope version tracks the message content.
+One rule, two applications.
+
+**A message terminates with its terminator, and its absence means the message is incomplete.**
+A message received without its terminator **must not be acted on** and is reported back to the
+sender. Truncation in transit is silent otherwise: a long message cut short arrives looking
+well-formed, and a recipient acting on it answers a message the sender never wrote.
+
+**Not a message:** a body both parties edit and pass back and forth. Once two parties are
+editing one body it is a document with an owner or an explicit handoff, and takes normal
+versioning.
+
+### 4f-i. Source marking
+
+**Unmarked content is AI-produced in this session on the sender's behalf.** Stated once here,
+never re-declared per message. Two markers and one suffix:
+
+| Marker | Means |
+|---|---|
+| `[human]` | The person's own statement or view |
+| `[project: {ref}]` | A recorded position carrying corpus authority |
+| `, out-of-band` | **Mandatory** suffix on any statement made outside the thread |
+
+**Mark only where the source changes the weight the recipient should give the statement.**
+Ordinary reasoning, analysis and drafting stay unmarked; a message where most sentences carry a
+marker is using the convention wrongly.
+
+**The out-of-band suffix is the mandatory one**, because it is the only case the recipient
+cannot work out. Every other marker tells them something they could in principle derive; that
+one tells them the record they hold is incomplete.
+
+**A person operating two projects is not the projects speaking.** A statement made inside one
+container is the person's, not that container's — collapsing the two produced a correct
+misattribution correction that was then wrongly withdrawn.
+
+**Frozen once relayed.** A post-relay correction is the thread's next turn, never a silent
+mutation. Revision under `Version` is the sanctioned route and is not silent.
+
+**Two persistence tiers.** Light: conversation-only, never a file, nothing to archive. Heavy:
+promoted to a file, indexed by both sides while current, archived per its own terminal event
+with the `_Archived_{date}` rename. Which tier a message takes is the sending project's
+orchestration concern, not this methodology's. The light tier is expected to serve most
+exchanges.
+
+**States what it expects back** in its own header rather than carrying a generic status field.
+
+### 4g. Review
+
+A faithful record of an assessment at a point in time. **What it asserts must not change** —
+the boundary is meaning, not mechanism.
+
+Permitted: error corrections including numbering; a marked addendum; folding in a companion
+Review; instructed changes. Any change increments the version. In doubt, prompt rather than
+edit.
+
+**Excluded:** a finding reworded, softened, closed or removed because it was subsequently
+resolved or disputed. Working that results from a Review — resolutions, progress, findings
+being closed — goes in a Working document.
+
+Where the defect was in a **delivered** copy, the correction is noted in the Review's internal
+section (§11), so a holder of the earlier copy can discover why their numbering differs.
+
+Archival freezes the document: a defect found in an archived Review is handled by addendum or
+a superseding Review, not corrected in place.
+
+**Findings carry status, set in the Review itself.** The finding's text is never touched; the
+status sits alongside it. This is not an exception to the paragraphs above — the rule's target
+is a Review quietly updated as findings close until nobody can tell what was originally found,
+and a marker beside an intact finding does not do that.
+
+- **Values, closed:** `Open`, `Resolved`, `Declined`, `Superseded`. `Declined` earns its place —
+  a finding assessed and deliberately not actioned is a real outcome, and without it those are
+  marked resolved untruthfully or left open indefinitely.
+- **`Open` is a finding's default and needs no marker.** A marker appears when the status
+  changes.
+- **A status may carry a pointer** to where the work went — an open item, a Work Register entry.
+  The reasoning does not follow it; that belongs in a Working document.
+- **A holder of a delivered copy is not reissued on a status change.** It is not a correction to
+  what the Review asserts, so §11's delivered-copy notice does not apply.
+
+The archive condition — every finding resolved or superseded — is then readable from the
+document rather than tracked beside it.
+
+### 4-w. Working
+
+**Design in progress.** A WIP document: the distillation of a chat, a review's fallout, or any
+other source into something to work through. It is added to and changed freely, and this is its
+whole difference from a `Review` — a Review asserts what was found at a moment and its findings
+do not move; a Working doc's items are meant to be reworked, split, reworded or dropped.
+
+- **Named without a key** in the normal case — `{Project}_{Topic}_Working_v{N}.md`. A label is
+  available where two are live on one topic at once (§3b).
+- **Items carry status**, the same values §4g uses, and with none of §4g's edit boundary.
+- **Threads may share one document** where a project has a single topic and can therefore name
+  only one live Working doc.
+- **Completion condition: all items complete.** Completion then prompts a disposition decision.
+
+**Disposition is one of two semantic routes:**
+
+- **Archived** — where the completed Working record has independent historical value worth
+  retaining as that document.
+- **Superseded/withdrawn** — where its substantive value is fully represented in authoritative
+  Design/Decisions or another retained record and the Working document itself need not remain the
+  terminal history artefact.
+
+Archive remains the lean where there is doubt about independent historical value; do not discard
+useful governed history merely for tidiness. The decision is about what the document represents,
+not which folder is available. Physical movement/storage follows the applicable Working
+Practices/environment.
+
+**The trace costs nothing either way.** A Decisions entry assembled from a Working doc names it
+in that entry's footer references (§3c), so a disposed Working doc still leaves a name and a
+version behind in the document it fed.
+
+### 4h. Custom document types
+
+**This methodology exists to add capability, not to constrain.** Your project needs to be free to
+create documents as its work requires. Where an established type does not fit, declare a custom
+type — and nothing about that is a compliance failure, a workaround, or a state to be corrected.
+
+**Custom-typed documents are fully managed.** They follow the naming convention, carry a version
+suffix, carry the §3c footer, sit in the Index document register, and use the same
+Current/Superseded/Archived lifecycle-state model as established types. Physical storage follows
+the applicable Working Practices/environment.
+
+**What the project owns is the semantics and the lifecycle.** What the type means, what belongs
+in it, when to use it, what good looks like, and when a document of that type ends — all yours.
+The undertaking is the point: **a project creating a document outside this methodology's defined
+types is responsible for that document and its lifecycle.**
+
+**This methodology never initiates a lifecycle event for a custom-typed document.** No archival
+prompt, no staleness flag, no sweep, no supersession detection. The mechanisms are available and
+you are welcome to use them; nothing fires unless you fire it.
+
+**Consequence for the register.** A custom-typed document's register row is a claim this
+methodology cannot stand behind — nothing checks it, so it can read current indefinitely while
+the file rots. That is yours to carry by design, and the row says so, per §14.
+
+**Definition — recommended, not required.**
+
+*Always worth stating:* what the type holds, and which established type it was nearly. The second
+matters most — it is what stops two containers inventing the same thing under different names,
+and it is the evidence that decides promotion.
+
+*Only where it differs from the default:* lifecycle and distribution.
+
+*Only where it applies:* the type's position in §4's model. Needed if documents of the type
+define an outcome or an asset, because that is what makes them a legitimate owner (§13a);
+irrelevant otherwise.
+
+**Shape** — the same columns as the type table above: name, role, holds, lifecycle, distribution.
+Promotion then becomes moving a row rather than rewriting a definition into a foreign shape.
+
+**A project that states only what the type holds has produced a valid definition. A project that
+states nothing has produced a valid document** — the register records it as custom and the type
+is undefined, which is a fact about your own material and not a defect this methodology asserts.
+
+**Where the definition lives — your choice, three valid locations:**
+
+- **In the document's §3c footer.** Recommended for a single document of its type, and required
+  in effect for any custom type that travels: a footer definition goes with the file.
+- **In the Index's local configuration.** Recommended where several documents share the type.
+- **Elsewhere**, with the register row recording where.
+
+**Where the definition is not in the file, the file states that it is a custom type and where the
+definition is held** (§3c).
+
+**Defaults on silence: living, and internal.** These are what this methodology assumes when it
+must assume something, so that silence produces a defined outcome rather than an error. **No
+declaration gates creation** — name the document, register it, and you are done; a definition may
+follow later or never. The cost is accepted: a project that meant its type to be terminal and
+never said so gets living behaviour, and nothing flags the mismatch.
+
+**Recognition** — anything not on the established list is custom by definition. No marker syntax.
+Collision with an established type name is prohibited. **The retired-type table (§4-r) is checked
+first:** a name there is a re-derivation wanting restoration, not an invention wanting
+declaration.
+
+**Promotion** — a custom type that recurs across containers, or is identified as generally
+useful, is defined in this Guide as an established type; projects are then instructed to adopt
+it, or to migrate specific documents to it. Promotion is this methodology's decision, proposed by
+the originating project as a Message. The trade it offers is explicit: full freedom over what a
+type means and when it ends, in exchange for nothing watching it — promotion is where this
+methodology starts caring on your behalf. Demotion needs no mechanism: a type that falls out of
+use stops being used.
+
+### 4i. Not document types
+
+- **Per-symbol API reference** — generated from source, not a corpus document.
+- **A shared entity/state model** — a reserved topic name, not a type.
+- **An asset** — a file whose filename is fixed by the tool that consumes it. Its own
+  category, not a type; see §13.
+
+## 5. Condensed and expanded topic documents
+
+A small topic may hold Brief, Design, Decisions, open items and Working discussion as
+**sections within one file**. Terms: **condensed** (one file) and **expanded** (separate
+per-type documents). Switching either way is valid; if it is unclear which is meant, ask.
+
+- **Naming** — a condensed file takes the DocType of its highest-order content: `Design` where
+  it holds confirmed rules, `Brief` where the topic is still only scoped. No condensed marker
+  in the filename.
+- **Mode is recorded in the Index**, against the topic (§8a).
+- **The Index and the Work Register never condense** — both are per-container, not per-topic.
+- **Decisions may split out alone** while the rest stays combined, once it grows.
+- **A Guide does not condense into a Design.** Condensing concerns internal working documents;
+  a distributable Guide differs by class, not by size.
+
+**Signals to expand** (any one is sufficient): a Working section reaches confirmation and needs
+archiving; retrieval surfaces the wrong section; the whole file must be read to find anything;
+sections have genuinely independent edit cadence; **a blind review is required** — Decisions
+inside the Design file means handing over the design hands over the reasoning; or you are told
+to.
+
+## 6. Tracking work: the Work Register
+
+**Any design change with a downstream consequence is either applied in the same pass or written
+to the Work Register. There is no third option.**
+
+A register line states: what changed, what it now requires, where that lands, and status.
+Dispositions include a Work Package, a Guide or Reference update, a Message to another project,
+or a change handled by tooling.
+
+**Scope** — project-wide, spanning topics, because its distinctive job is catching consequences
+that cross them. Delegable to a branch on the same signals as the Index (§8b), one
+authoritative register per branch. Never folded into a condensed topic doc.
+
+## 7. WorkPackage document integration
+
+Generic WorkPackage authoring/execution/validation/return semantics are owned by
+`AIDE_WorkPackage@v1` and `AIDE_Build@v1`. This methodology owns only how WorkPackage and
+WorkPackage Outcome **documents** are named, versioned and reach their document lifecycle
+dispositions; physical archive storage is an environment/Working Practices concern.
+
+### 7a. Live document pairing
+
+A WorkPackage is an established point-in-time document type. Its date key identifies the opened
+unit of work.
+
+Where a separate `WorkPackage_Outcome` file is produced, it shares the WorkPackage's key during the
+live phase so the pair is discoverable by filename.
+
+The content contract, statuses, review posture and execution evidence are not restated here; use
+`AIDE_WorkPackage`.
+
+### 7b. Archival consolidation
+
+After the director of work has reconciled the returned Outcome, the WorkPackage may archive.
+
+Where a separate Outcome file exists, append it **verbatim** as the final outcome/addendum material
+before archival; evidence is not paraphrased merely to make the archive shorter. The consolidated
+file records the absorbed Outcome filename in its Internal section so older references can resolve.
+
+The archived filename follows the normal `_Archived_{date}` document-naming convention.
+Superseded intermediate versions are not gathered into the terminal archived document. Where the
+archived artefact is physically stored is outside this methodology.
+
+### 7c. Design/Build ownership
+
+Project Design normally defines/authorises the work. Build executes within the WorkPackage
+authority and returns evidence. A design-shaping issue exposed by execution returns to Project
+Design rather than being silently settled by document mechanics.
+
+
+## 8. The Index
+
+The authoritative source for what exists, what version is current, what type a document is,
+and — per §3a — the topic set and its hierarchy. Every other document defers to it.
+
+**Five sections, in this order:**
+
+1. **Project identity** — self-contained, with a stated rationale.
+2. **Topic declarations** — §8a.
+3. **Local configuration** — overrides, substitutions, type extensions, custom type and
+   OpenItems identifier declarations. Each entry reasoned, or "None." stated explicitly.
+4. **Document register** — what exists and what is current, plus the archived-history contract
+   (§9) and the withdrawn/renamed/rehomed record (§8c). Every row carries a **management** value:
+   `established`, `custom` or `unmanaged` (§4h, §15). Unmanaged files sit in this register rather
+   than in a sub-table of their own.
+5. **Assets register** — where the container has any. Structure and contract at §13d. Assets stay
+   separate because their fields differ — file, deploy path, owner, dependencies — and they are
+   not named by the corpus at all.
+
+**No changelog.** Pass-grouping is carried by Decisions consequences and, for a git-backed
+corpus, by the commit. A changelog in the Index is a third copy in the most-read document.
+
+**The Index carries local exceptions only** — never a restatement of a convention stated here.
+
+### 8a. Topic declarations
+
+Each topic is declared with five fields:
+
+| Field | Meaning |
+|---|---|
+| Name | The topic |
+| Parent topic | Its place in the hierarchy |
+| Filename prefix | What a reader looks up to resolve a filename |
+| Inheritance | `inherits` \| `independent` — whether the parent's context loads with the child |
+| Mode | `condensed` \| `expanded` (§5) |
+
+`inherits` and `independent` are defined here so they mean the same thing in every corpus; what
+a project does with the signal is the project's. A single-topic project declares its one topic
+with no parent rather than omitting the section.
+
+**Inheritance governs decision reach, not only context loading.** A decision recorded at a parent
+reaches every child declared `inherits`, and does not need restating there. A child declared
+`independent` does not inherit it and holds its own — which is what caps a decision at a
+threshold (§4d).
+
+Stated because it is a real consequence of setting the flag, and previously the field was
+described only in terms of retrieval. A project declaring a branch `independent` for resource
+reasons — it shares a container without being a subdivision of its parent's subject — is also
+declaring that the parent's reasoning does not reach it.
+
+### 8b. Index delegation
+
+**Inheritance by default, delegation by exception.** A topic is covered by the nearest Index
+above it. Exactly one authoritative Index per branch.
+
+**Signals to delegate** (any one is sufficient): the branch has its own working cadence and
+changes for reasons unrelated to the parent; the parent's register can no longer be read for
+the parent's own purposes; the branch's topic name has reached three-plus parts; or you are
+told to.
+
+- **The parent** records the delegated topic path and the child Index's filename, and nothing
+  else about that branch. No document list, no version summary.
+- **The child** carries the full section set on its own account, naming its parent Index
+  in its identity block, and tracks its own archived history.
+- **Delegation is reversible.** A branch that goes quiet folds back and its Index becomes
+  **Superseded**, not **Archived**, since no archival terminal event of its own type occurred.
+  Physical handling of that Superseded Index follows the applicable Working Practices/environment.
+
+### 8c. The withdrawn, renamed and rehomed record
+
+A sub-table of the document register, recording documents that ended without their own type ever
+reaching its terminal event (§9): old filename, and what it became.
+
+| Document | What it became |
+|---|---|
+| `DI_Lazy_Guide_v1.md` | Folded into `DI_Guide.md` as its Lazy section |
+
+**Why it is separate from the register itself.** The current-documents register implies what
+existed for a document still living — anything below its current version existed, anything above
+it did not. That inference does not reach a document that was withdrawn, renamed or rehomed: it
+is not a lower version of anything current and appears nowhere in the register. Same reasoning
+that keeps archived history tracked (§9).
+
+- **Keyed per name a reader might hold — not per document.** The reader arrives holding a name
+  that no longer resolves and asks what became of it. Where a document changed names more than
+  once, **every dead name gets its own row**; keying one row per document resolves only the most
+  recent, and a reader holding an earlier name finds nothing. An intermediate row points to the
+  confirmed row that carries it onward rather than restating the whole chain.
+
+  The bound is unaffected: rows are bounded by naming events, not by version count.
+
+- **An unconfirmed successor is recorded as unknown, never as a plausible value.** Where a chain
+  ends with no confirmed destination — a file possibly retired at a reorganisation rather than
+  carried forward — the cell is left empty and says so. A prose hypothesis about likely
+  retirement is the composed-value failure in a softer form and is not a substitute for an empty
+  cell.
+
+  This is §14 applied to this table: a plausible successor filename is a well-formed value
+  composed rather than read, and is indistinguishable from a real one by inspection.
+
+- **Confirmed versus inferred is marked so that no reader can mistake one for the other.** Stated
+  once at the table where the table is uniform; **per row where it is mixed.**
+
+  *This revises the earlier rule*, which required the statement once at the table and prohibited
+  per-cell annotation. That works only where every row is the same. The first container to build
+  the record held eleven confirmed rows and five inferred, and a single statement would have
+  either overclaimed eleven or underclaimed five. Mixture is the normal case, because inference
+  enters exactly where recovery reached a limit.
+
+  *Annotation alone remains rejected, and this is not that.* Marking an inferred cell and
+  stopping there tells a reader "uncertain" and gives them nothing to look up. The answer is the
+  resolution row — marking says the value is inferred, the resolution row says where to go
+  instead.
+
+- **A terminal-fate record, not version tracking.** Bounded by how often such an event happens
+  rather than growing with every version bump. Entries are not removed.
+- **"Withdrawn, and folded into nothing"** is a valid entry. A document abandoned before it
+  reached any terminal state is exactly the case that has no other record.
+- **Absorption is excluded.** An Outcome folding into its Work Package (§9) is recorded on the
+  package's archived-history line and does not appear here.
+
+A container that has had no such event states **"None."** rather than omitting the sub-table.
+
+## 9. Lifecycle disposition and governed-history preservation
+
+**Lifecycle state is semantic; storage is an implementation.** A document may be represented in a
+repository folder, external archive, document-management system, platform-native version history or
+another storage mechanism without changing what Current, Superseded or Archived means.
+
+**Current** — the issued authoritative version/instance the Index resolves for normal current use.
+Its physical location may vary by environment.
+
+**Superseded** — an older issued version, or a document displaced/withdrawn without reaching an
+archival terminal disposition of its own. Superseded history is not the current source of truth and
+is not cited as though it were current. The current register/version sequence may be sufficient to
+prove lower issued versions existed; dead names still need the §8c mapping where sequence cannot
+resolve them.
+
+**Archived** — a document whose type-specific lifecycle reaches an archival terminal disposition.
+Where the type uses the archive filename form, `_Archived_{date}` is inserted according to §3b.
+The terminal archived record is frozen except through the correction/addendum route the type
+permits. The Index retains an archived-history entry sufficient to establish that the document
+existed and, where required, how it can be resolved or recovered.
+
+**No-delete / preservation rule.** Governed history is not discarded merely to simplify the active
+view or reduce repository size. Physical transfer to external archival storage is valid when the
+required history and locator truth are preserved. A storage implementation may intentionally keep
+less history in the active repository; that does not make the omitted history nonexistent.
+
+**Withdrawn, renamed or rehomed documents** become Superseded unless their own type actually reached
+an archival terminal disposition. Their final current name/version remains a historical fact; the
+§8c record says what each dead locator became. Superseded historical filenames are not renamed
+merely to mirror a later corpus-wide naming change.
+
+**Absorption may be a type-specific terminal path.** A WorkPackage Outcome folds into its WorkPackage
+under §7. The Outcome is then represented by the retained WorkPackage history rather than being
+mislabelled as a separately Superseded or Archived final document; the archived-history entry for
+the package carries the absorbed Outcome locator where useful.
+
+**Assets remain outside the governed-document no-delete rule** (§13e) under the limits stated there.
+
+**Context is not existence.** Absence of Superseded/Archived material from the active AI context or
+active repository view is not evidence that the document never existed or that required history
+may be forgotten.
+
+**Physical implementation belongs elsewhere.** Management-folder names, underscore prefixes,
+movement between current/superseded/archive locations, repository sweep policy, external archival
+cadence and Git/file-handling procedure are Working Practices/environment concerns. This methodology
+constrains those implementations only by the document-state and history-preservation semantics above.
+
+## 10. Authoring principles
+
+**Route by kind.** **The routing test: content goes where the thing it describes lives.** A rule about the subject
+matter goes to the Guide (published) or the Design (internal position); the reasoning that
+produced it goes to Decisions; a settled consequence awaiting action goes to the Work Register;
+reasoning about **the corpus's own structure** — why a folder holds what it holds, why an
+identity field reads as it does — goes to the Index's own explanatory prose; and content already
+recorded elsewhere goes nowhere.
+
+*A test rather than a list of destinations*, because a list is only ever complete until the next
+case that does not fit it.
+
+Five rules, each checkable:
+
+1. A document is as short as its function permits.
+2. **Summary first** — conclusion at the top, justification below. If the summary needs more
+   than a few lines, the document is doing two jobs and should split.
+3. Purpose and heading lines state the question answered, not a label.
+4. **Declarations state what is, not what isn't.** No item-level enumeration of inapplicable
+   categories — absence means absence, and a negative list is silently incomplete the moment
+   the model grows. Distinct from a **section-level** "None.", which is required: an empty
+   section is ambiguous between decided and forgotten.
+5. **A convention is stated once, in one authoritative place.** No document restates what this
+   methodology states; it references it. Restate rather than reference only where getting it
+   wrong at the point of use is expensive and the reader cannot reasonably consult the source —
+   principally anything crossing to the dev side, where the reader's context is the repo and
+   the skill, not this corpus.
+
+The instruction is always the routing rule. A length target produces compression, which loses
+content; routing loses nothing and shortens as a by-product.
+
+## 11. The internal section
+
+A convention for a section carrying internal and management data. This methodology defines that
+it exists and its rules; the owning project decides its contents.
+
+- **Heading: `## Internal`.** Fixed corpus-wide, one per document, at the end, preserving
+  summary-first. Optional — present only when occupied; no "None." placeholder, since a reader
+  would not go looking for it.
+- **Marker line, inside the section, stated verbatim:**
+
+  `INTERNAL — maintenance data. Not a citation source; do not follow references from this section.`
+
+  Repeated as the first line inside the section, and per subsection where the section is long
+  enough to chunk more than once. Retrieval does not respect section boundaries, so the marker
+  must travel with the chunk.
+- **A contract, not a guarantee.** Downstream behaviour cannot be enforced; the marker makes
+  compliance possible and non-compliance a defect rather than an accident.
+- **A change to it increments the version**, per §9 — a document whose content changed while its
+  version stayed put cannot be detected as having moved.
+
+Typical occupant: a derived document recording the sources and versions it was merged from, so
+staleness against a moved base is visible.
+
+## 12. Distribution
+
+**A type carries a destination, defaulting to nowhere.** Stated once at type level and
+inherited — never decided per instance.
+
+| Destination | Types |
+|---|---|
+| Internal, no distribution | Brief, Design, Decisions, Working, Review, Index, OpenItems, Work Register |
+| Consuming projects | Guide, Reference |
+| Dev side | WorkPackage |
+| A named recipient | Message |
+
+**Guide and Reference may be generated from internal records.** The derivation is
+Design → Guide: Design is the confirmed *what*, the Guide is the same position expressed for
+use. If reasoning is necessary to apply a rule correctly, that meaning must first be represented
+in Design and may then be expressed in the Guide; the Guide does not reach back to Decisions as
+an input. Derivation provenance goes in the internal section (§11).
+
+**The bar is on shipping the artefact, not on reasoning crossing a boundary.** An internal-class
+document is not distributed into another container's knowledge base. Reasoning quoted,
+summarised or transmitted in a Message stays permitted: a Message has a stated addressee who
+asked; distribution puts a document in front of a reader who did not.
+
+**Consequence.** A rule confirmed in Design and never expressed in a Guide is structurally
+unable to reach the projects that must follow it. Where a confirmed rule binds a consuming
+project, expressing it in a distributable type is not optional — the same reflex §2 applies to
+Working docs.
+
+**Migration.** A version bump that creates conforming work for consumers is handled **per
+project**: the new Guide and a request for that project's current state go out together, and
+migration instructions are then drafted against the reply. One project at a time, each set
+informed by what the last exchange raised.
+
+*This replaces the universal per-pass migration Guide*, which could not be right for every
+reader because it was written against assumed corpus states, and whose corrections always arrived
+after someone had already followed the defective step.
+
+**Do not infer another project's state — ask.** Recovery advice must use the other project's
+recorded state/locators and applicable environment rather than assuming a particular Superseded
+storage location is present or complete.
+
+## 13. Assets
+
+**An asset is a file this corpus produces whose filename is fixed by the tool that consumes
+it.** That is the test. It is normally generated from one or more documents, and that is the
+useful everyday heuristic — *is this argued about here, or generated from something argued about
+here?* — but generation is not the definition. A corpus `README.md` is authored rather than
+generated and is still an asset, because the corpus produces it and its name is not the corpus's
+to choose.
+
+**A file this corpus writes rules about but does not produce is subject matter, not an asset**,
+however tightly its name is fixed elsewhere. A coding-standards corpus that names
+`.editorconfig` or `Directory.Build.props` and mandates their contents does not thereby hold
+them as assets — it does not produce them.
+
+An asset is **not a document type** (§4i). It is outside the naming convention (§3), outside the
+document register (§8), and outside the distribution table (§12).
+
+**A rendering of a document is that document, not an asset.** A Reference printed to PDF carries
+its own versioned filename and needs no provenance line and no naming exemption. Only a
+tool-fixed filename creates an asset.
+
+**A Guide is a document, not an asset**, and this holds under the test rather than by assertion:
+a Guide's filename follows `{Project}_{Topic}_{DocType}_v{N}` and is therefore not fixed by
+anything consuming it. Stated explicitly because a Guide is deployed into consuming projects,
+which is superficially asset-like.
+
+**An asset is your file.** Its creation, content, format, management, versioning, and lifecycle
+are the responsibility of your project and the asset's owner. This methodology does not govern
+those things. What it provides is a set of conventions you can use — a register, dependency
+tracking and a provenance line — each of which confers a benefit when adopted. A project that uses none of them has assets this methodology records and nothing more.
+A project that records dependencies gets change-impact flagging. A project that uses the
+provenance line gets currency tracking. The methodology is additive: it adds capability where
+you opt in.
+
+### 13a. Owner
+
+**An asset has an owner, and the owner is responsible for it.** The owner may be a document (a
+Design that defines it), a process (a workflow rule that generates it), a convention (a standard
+that mandates its shape), a person, or the asset itself where nothing else defines it. What the
+owner is and how you state it is your choice.
+
+**Where the owner is a document, that document is also the dependency edge.** A change to the
+document surfaces the asset as potentially stale — the same mechanism as document-to-document
+dependency in the footer (§3c), extended to assets.
+
+**Where the owner is a process or convention, the register records that description.** The
+dependency edge is whatever you state — the name of the process, a pointer to where it is
+defined, or nothing. Where nothing is stated, this methodology records nothing and asserts
+nothing; the owner is responsible for knowing when the asset needs attention.
+
+**A document created solely to hold a deployed asset's text is not an owner.** It is a second
+copy wearing a document's name, and typing it makes the duplication governed rather than removing
+it. The remedy is to route its content into the document that should hold it, or to declare the
+asset self-owned.
+
+**This replaces the mandatory-master model.** Earlier versions required every asset to state a
+master and made the master the only permitted owner. If your container built its register against
+that, the field set below is a superset — nothing you recorded becomes invalid, and the mandatory
+parts shrink to two.
+
+### 13b. Storage and paths
+
+**An asset declares a deploy path at creation.** The deploy path is the asset's identity, not its
+filename — because the filename is fixed by the consuming tool and is therefore commonly
+identical across instances (`README.md` exists once per folder, `SKILL.md` is identical across
+every skill).
+
+**Where the corpus holds a master copy, the register records its actual holding location.** The
+physical folder/container structure is a Working Practices/environment concern. It may use an
+assets folder, another repository location, external storage, or a platform-native representation;
+Documentation Methodology does not prescribe the holding layout.
+
+**An asset is not in context.** Assets are output files, normally deployed elsewhere, and are not
+loaded as project knowledge. Cite the owner or the source document, not the asset.
+
+### 13c. Versioning, currency, and the boundary against `Reference`
+
+**This methodology does not assign version identity to assets.** The Index does not give an asset
+a `_v{N}` identity the way it does a document. How you version your own assets — in the filename,
+in the file content, by timestamp, or not at all — is your choice, and this methodology records
+whatever you state. **The filename-versioning prohibition is withdrawn.**
+
+**The provenance line is an available convention, not a requirement.** Where you use it, the line
+carries source documents with versions and a generated date, in a form and placement defined by
+the process that produces the asset. Where the format can carry a provenance line, the file is
+authoritative and the Index row mirrors it. Where it cannot, the Index row is the sole record,
+and the asset's row says so.
+
+**Stated limit.** A matching provenance line proves the asset was generated from those versions.
+It does not prove the body reflects them. A line updated without regenerating is a well-formed
+value that any check will believe.
+
+**The `Reference` boundary.** A `Reference` holds distilled lookup material, never a verbatim
+second copy of a live asset. Where content genuinely has no source and never will — third-party
+text neither authored nor routable into a Design — a `Reference` holding it verbatim is correct,
+carrying a line stating that it is a copy and where the original lives.
+
+### 13d. The assets register
+
+Where a container has assets, its Index carries a section for them (§8). One row per asset. Two
+fields identify it; everything else you record as you choose:
+
+| Field | Purpose |
+|---|---|
+| **File** | What the asset is — filename and recorded holding/source location where applicable |
+| **Deploy path** | Where it is read from — the asset's identity |
+| Owner | What defines it — a document, process, convention, or `self` |
+| Version / timestamp | However you track currency, in whatever form you use |
+| Dependencies | Documents, other assets, or processes the asset depends on |
+| Generated | Date of last generation or update |
+| Source versions | The document versions it was generated from, where applicable |
+| Disposition | What happens when the owner reaches a terminal event (§13e) |
+
+**The first two are identification; the rest are optional.** An unsupplied field reads as "not
+established" rather than blank — a row stating what is unknown reads as checked rather than
+skipped. A register row with only the file and deploy path is valid and expected.
+
+**Where dependencies are recorded, they are the change-impact edge.** When a dependency changes,
+the AI searches its context for what to do — an instruction from the owner, a convention, a
+process definition — and acts on best effort. Responsibility for what happens on a dependency
+change sits with the owner; this methodology's job is to make the dependency visible so the
+change is not missed. Where no dependency is recorded, no flag fires, and that is your choice
+rather than a gap.
+
+No separate dependency register exists — a hand-maintained second edge list decays silently.
+
+### 13e. Lifecycle
+
+**Deletion.** Assets are excepted from the no-delete policy (§9): a regenerable asset loses
+nothing by being deleted. *Limit:* regenerable means the **file** is recoverable, not the
+**bytes**. The same source versions regenerated by a changed generator produce a different
+artefact. Where exact deployed bytes matter — reconstructing what a tool actually read during an
+incident — regeneration is not a substitute and this exception promises nothing.
+
+**Where the owner is a document and that document reaches a terminal event**, the register's
+disposition field states what happens to the asset. Where a disposition is declared, it is
+applied. Where none is declared, the asset follows its owner by default.
+
+**Where the owner is a process or convention**, the process owns the asset's lifecycle and the
+register records the disposition but does not trigger it. Enacting cleanup belongs to the owner.
+
+**This methodology's obligation is that declared dispositions are recorded and visible.** The
+register holds the answer; visibility at the moment the lifecycle event occurs is a step the
+owner takes, not a property the register has.
+
+**The automatic lifecycle triggers are withdrawn.** Earlier versions had this methodology fire on
+a master's terminal event and enumerate dependent assets. Nothing fires unless you fire it.
+
+## 14. Claimed versus verified
+
+**This methodology's currency and provenance mechanisms record a claim, not a verified fact.**
+They make the honest case cheap and the record legible; they do not make the dishonest case
+impossible.
+
+**The act, not the list.** Earlier versions enumerated the mechanisms carrying this property.
+Enumeration cannot work, because each new mechanism arrives without the caveat and the list is
+always one instance behind. What all of them share is a single act:
+
+> **A well-formed value composed rather than read.**
+
+Composing is always the path of least resistance — a plausible value costs nothing, requires no
+tool, and is indistinguishable from a real one by inspection. Nothing in the act of writing
+surfaces the difference, and every downstream reader believes it.
+
+Known instances, offered as illustration rather than as the definition:
+
+| Mechanism | The composed value |
+|---|---|
+| Asset provenance line (§13c) | Source versions the asset was not generated from |
+| Source markers (§4f-i) | An attribution not held |
+| Skill-to-marker version check | A version not compared |
+| `Timestamp` (§4f) | A time not read from a clock |
+| Send history | An assertion of delivery with no record behind it |
+| A successor filename (§8c) | A plausible destination in place of an unknown one |
+| Statements about another container's contents | Inference reported as inspection |
+
+**Two rules follow.**
+
+**A mechanism that cannot be checked states so where it is defined.** The failure to avoid is a
+new mechanism arriving without the caveat, and a reader inferring verification from silence.
+
+**Where the true value is available, read it.** Most instances above were not unverifiable — the
+clock, the file, the register were all reachable, and were not consulted. The unverifiable case
+needs the caveat; the available case needs the step.
+
+**Send history has a verification condition, which most of these do not.** A claim about whether,
+when or to whom something was sent is established **only by a reply demonstrating receipt** — the
+other party referencing the content back. The sending is not evidence, and nothing short of the
+reply is. Absent one, it is an assumption and is written as one.
+
+**The authoring consequence:** a message is written to stand alone, not to depend on an earlier
+one having arrived. *"Supersedes the earlier X"* is true whether or not X landed; *"further to
+our message of the 14th"* is not. Where prior delivery genuinely matters, ask — a question is
+answerable where an assertion is not.
+
+**Delivery handling itself — tracking, follow-up, acknowledgement, reconciliation — is not this
+methodology's.** It belongs to the process that operates the channel. What is stated here is what
+a record proves, which is a documentation question.
+
+## 15. Unmanaged files
+
+**An unmanaged file is a file the container holds and this methodology does not govern.**
+Reference material, a parked draft, a record kept for context, something dropped in from
+elsewhere — and equally, a document your project authored and has chosen to manage on its own
+terms. The obligation is to note that it is there; not to own it, name it, version it or give it
+a lifecycle.
+
+**A project-authored unmanaged file is legitimate, not a compliance failure.** This class was
+previously named *held file* and every example given was foreign in origin, so a project reading
+it concluded that the only route for something off the type list was a custom type declaration —
+which is this methodology asking to govern something you never asked it to govern. The class was
+always defined by governance rather than origin; the name and the examples said otherwise.
+
+**Four classes of file, and the boundary between them is who governs, not where it came from:**
+
+| Class | Type defined by | Managed | The corpus… |
+|---|---|---|---|
+| **Established type** | this methodology | yes | names it, types it, versions it, governs its lifecycle |
+| **Custom type** (§4h) | your project | yes | names it, versions it, registers it — you own its meaning and its lifecycle |
+| **Unmanaged** | nobody; it is a file, not a type | no | holds it, records it, asserts nothing further |
+| **Asset** (§13) | its owner | — | produces it but cannot name it: the consuming tool fixes the filename |
+
+Assets sit outside the first three rather than alongside them: theirs is a question about who
+chooses the *filename*, not about who defines a type.
+
+**The choice you face, stated as a choice.** Declare a custom type where you *want* this
+methodology's file behaviour — naming, versioning, registration, the ability to travel. Record it
+as unmanaged where you want this methodology to stay out. Both are correct answers; neither is a
+fallback from the other.
+
+### 15a. What is recorded
+
+Unmanaged files sit in the Index document register alongside everything else, carrying
+`unmanaged` in the register's management column (§8). They are not given a separate sub-table: a
+reader meeting an unfamiliar filename goes to one place and finds out what it is.
+
+**Mandatory — two fields.** The filename, and the date it was recorded.
+
+**Optional — five attributes**, each of which produces stated behaviour when supplied and none of
+which is required:
+
+| Attribute | Behaviour when supplied |
+|---|---|
+| **Purpose** | None. Context for a reader — and in practice the most valuable of the five, because it answers the question a session actually has. |
+| **Editable** | `read-only` means a session does not modify the file. `editable` asserts no constraint beyond permitting change. |
+| **Versioned** | `yes` applies §9's delivery-based version rule on edit: the version increments on every change after delivery. It confers no type and no lifecycle. |
+| **Source** | None. Where the file came from, which is what makes a later decision about it possible. |
+| **Lifecycle** | A tie to a topic or a unit of work. When that reaches its terminal event, the unmanaged file surfaces for a decision about what becomes of it. |
+
+**An unsupplied attribute is recorded as "not established," never left blank.** A row stating
+what is unknown reads as checked; a blank reads as skipped — the same device §13d uses for asset
+register fields. It also makes the gaps a set that can be acted on, which is what the review
+behaviour below needs and could not otherwise have.
+
+An unmanaged file with all five unestablished is a valid and expected entry. It is recorded, it is
+dated, and nothing further is asserted about it.
+
+### 15b. Two limits, stated rather than left to inference
+
+**A type segment in an unmanaged file's name is not a claim under this methodology.** An
+unmanaged file may arrive carrying what looks like a DocType and a version — `SomeThing_Working_v1.md` — without any
+of the behaviour those segments imply in a governed document. It confers no lifecycle and no
+obligation. Renaming a file over a naming coincidence is ceremony this methodology resists; the
+register row's `unmanaged` management value carries the disclaimer instead (§8, §15a). This is
+the one place a reader who has consulted the Index can still be misled by a filename.
+
+**The lifecycle field is defined; the behaviour that fires on completion is not.** The field is
+recorded from the outset so nothing needs migrating later, and the intent is stated — the entry
+surfaces for a decision — but no procedure is written until a real instance exists. The first
+case in hand ends by promotion to another project, which is neither a topic nor a work unit
+reaching a terminal event, and inventing the procedure around a case that does not fit it is
+exactly what R8 resists.
+
+### 15c. What this methodology does not define
+
+**When unmanaged files are reviewed, and how a user is prompted about one, is out of scope.** That is
+behaviour applied through an interface — process, owned elsewhere. This section defines what is
+recorded and what each attribute means when supplied; it states no cadence and no trigger.
+
+Stated explicitly so the omission reads as a boundary rather than a gap. What this corpus
+provides to whatever does own the behaviour is a record whose unestablished fields are visible
+and queryable; expanding an entry over time is expected, and is not written here as a duty
+because an unenforceable duty is worth less than a self-flagging record.
+
+## 16. Output and version discipline
+
+This governs when a document is produced, who asks for it, and what its version number counts.
+It was previously nowhere: §3 stated the increment rule as a gloss on a filename segment, §9
+stated it differently as a storage rule, and the rest was local practice that never travelled.
+
+### 16a. The version counts outputs
+
+**A version identifies an issued file.** It increments **once per output**, not once per change.
+A working session that makes forty edits and issues one document produces one version.
+
+- **Before a document is first issued** it is revised in place without a bump. Nothing has been
+  seen, so there is nothing to distinguish from.
+- **After that, each output is the next version.** Changes accumulated between outputs are one
+  increment, and none is exempt on the grounds of feeling small.
+- **Versions are not created unnecessarily.** A version produced to record a trivial edit that
+  nobody asked to receive is churn: it makes its predecessor Superseded and buys nothing.
+
+**This supersedes the change-triggered wording** that stood in §9, which counted changes rather
+than issues. The rule it was protecting is intact — the failure it was written against was
+editing a delivered document and leaving the version alone, and that remains a violation,
+because the edit reaches a reader only by being issued.
+
+### 16b. When output happens, and who asks
+
+- **Normally at the end of a unit of work or a session, or at a key point** within one — a
+  decision locking, a thread closing, a body of confirmed material large enough to be worth
+  holding.
+- **Either side initiates.** The owner requests it, in whatever terms — update, produce, issue,
+  output. The drafting agent prompts where it judges the moment right, and says why.
+- **Nothing is produced without confirmation**, or as part of an action already prompted and
+  agreed. No unrequested new versions. No unrequested new documents. A draft offered in
+  conversation is not an output and needs no confirmation; writing a file is.
+- **A substantive Design change is accompanied by a Decisions entry.** The two are produced
+  together in the same pass, not sequentially. Editorial/mechanical maintenance does not create a
+  Decisions event by itself. A substantive Design output without the corresponding Decisions entry
+  leaves the reasoning in the conversation where it will be lost (§4d).
+
+### 16c. Pending content is not lost
+
+**This is the overriding rule of this section, and it outranks the three above it.** Every rule
+in §16a and §16b restrains output; this one compels it, and where they conflict this one wins.
+
+Confirmed material that exists only in a conversation is one closed window from being gone.
+Where that is the situation, **the prompt becomes a mandate**: the drafting agent states the
+exposure plainly, names what would be lost, and presses — it does not mention the risk in
+passing and proceed as though it had discharged the obligation.
+
+**Restraint is not a defence against loss.** "Nothing is produced without confirmation" is not a
+licence to sit on confirmed material until asked; it governs *what* is produced, not *whether*
+the exposure is raised. An agent holding unwritten confirmed decisions and waiting quietly to be
+asked has broken this rule, not observed the previous one.
+
+**Where output is blocked** — a stale corpus, a missing current version, an unresolved
+dependency — the block is stated, and something that can be safely written is written instead.
+A blocked pass is not a reason to hold everything.
+
+
+## 17. Migration declarations
+
+```yaml
+MigrationSummary:
+  CurrentVersion: v20
+  LatestRequiredVersion: none
+  LatestOnUpdateVersion: v18
+  SupportedBaseline: v17
+
+Transition:
+  Version: v18
+  Posture: OnUpdate
+  Change: >
+    Replace the special Methodology footer checkpoint with AIDE_Dependencies conformance,
+    adopt extensible metadata/state container placement, and delegate generic WorkPackage
+    execution semantics to AIDE_WorkPackage.
+  Items:
+    - Replace Methodology: v17 with the document's AIDE_DocumentationMethodology dependency checkpoint.
+    - Convert legacy Depends on relationships that are true conformance dependencies to Dependencies: syntax.
+    - Preserve References as document citations where no conformance obligation exists.
+    - Host Tags/Identity/temporary state under the v18 container rules where present.
+    - Do not otherwise rewrite unchanged document content merely because v18 is applied.
+  Success: >
+    The saved document uses v18 metadata placement, records a truthful Documentation Methodology
+    checkpoint through v18, and has no contradictory legacy Methodology footer.
+
+Transition:
+  Version: v19
+  Posture: None
+
+Transition:
+  Version: v20
+  Posture: None
+```
+
+v19 and v20 change the operating contract for future documentation work but do not require existing
+conformant documents or historical Decisions entries to be rewritten. v20 also does not require an
+existing repository layout to be rearranged: physical handling is now an external implementation
+choice. On a later qualifying save, normal Migration/Dependencies processing may advance the saved
+checkpoint through these None transitions after any earlier applicable transition work is satisfied.
+
+---
+Dependencies: AIDE_Dependencies@v2, AIDE_Migration@v1, AIDE_Tags@v1, AIDE_WorkPackage@v1
+References: Core_System_Design_v4
+<!-- END SOURCE: DocumentationMethodology_Guide_v20.md -->
+
+---
