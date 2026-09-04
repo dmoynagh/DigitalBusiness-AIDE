@@ -1,0 +1,74 @@
+========================================================================
+binder builder   2026-09-04 13:41:01   DRY RUN (nothing written)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  ~/Infrastructure
+folders collected from: 3
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - no binder written, any previous binder left untouched
+
+------------------------------------------------------------------------
+Result: 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-04 13:42:39   DRY RUN (nothing written)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation_old\AI Deployment
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  superseded, archived
+folders collected from: 1
+------------------------------------------------------------------------
+
+[C:\Users\david\AppData\Local\Temp\claude\C--Users-david-dev-repos-DigitalBusiness-AIDE\83bbb90d-f9b7-472c-9824-2e95017d4bba\scratchpad\instance_out]
+  WOULD WRITE      AIDE_Documentation_Binder_v1.md  (12 files, 128301 bytes)
+
+[.]
+  WOULD INCLUDE    AIDE_Build_Standard_v8.md  (sha256 fc340eaef029)
+  WOULD INCLUDE    AIDE_Deployment_Standard_v7.md  (sha256 6c8f9c248be0)
+  WOULD INCLUDE    AIDE_Deployment_Tool_v7.md  (sha256 99279f845278)
+  WOULD INCLUDE    AIDE_DeploymentRegistry_Tool_v2.md  (sha256 b3903fa3c162)
+  WOULD INCLUDE    AIDeployment_AIDECore_Reference_v2.md  (sha256 79f0b445325a)
+  WOULD INCLUDE    AIDeployment_Decisions_v7.md  (sha256 07f77cfeaa9d)
+  WOULD INCLUDE    AIDeployment_Design_v8.md  (sha256 7b27400579e5)
+  WOULD INCLUDE    AIDeployment_Index_v8.md  (sha256 bdf1f9fd20ac)
+  WOULD INCLUDE    AIDeployment_OpenAI_Reference_v3.md  (sha256 1b895fbe156d)
+  WOULD INCLUDE    AIDeployment_Registry_Design_v2.md  (sha256 583e1bfcac0a)
+  WOULD INCLUDE    AIDeployment_SetRelease_Design_v2.md  (sha256 e4ce359c712d)
+  WOULD INCLUDE    AIDeployment_TargetAdapter_Design_v1.md  (sha256 97e17c86f680)
+
+------------------------------------------------------------------------
+Result: 12 would include, 1 would write
+========================================================================
+
+========================================================================
+binder builder   2026-09-04 13:42:39   DRY RUN (nothing written)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  ~/Infrastructure
+folders collected from: 3
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - no binder written, any previous binder left untouched
+
+------------------------------------------------------------------------
+Result: 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-04 13:48:09   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  ~/Infrastructure
+folders collected from: 3
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - no binder written, any previous binder left untouched
+
+------------------------------------------------------------------------
+Result: 1 empty
+========================================================================
+

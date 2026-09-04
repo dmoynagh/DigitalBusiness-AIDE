@@ -1,0 +1,93 @@
+========================================================================
+version cleanup   2026-09-04 13:04:27   DRY RUN (nothing changed)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+folders processed: 5
+------------------------------------------------------------------------
+Nothing to do - every document in the tree is already at its current version.
+
+------------------------------------------------------------------------
+Result: no changes
+========================================================================
+
+========================================================================
+version cleanup   2026-09-04 13:19:35   DRY RUN (nothing changed)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+folders processed: 5
+------------------------------------------------------------------------
+Nothing to do - every document in the tree is already at its current version.
+
+------------------------------------------------------------------------
+Result: no changes
+========================================================================
+
+========================================================================
+version cleanup   2026-09-04 13:37:17   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+folders processed: 6
+------------------------------------------------------------------------
+
+[Infrastructure\version-cleanup]
+  MOVED       VersionCleanup_Design_v1.md  (v1 superseded by v2)
+
+------------------------------------------------------------------------
+Result: 1 moved
+========================================================================
+
+========================================================================
+version cleanup   2026-09-04 13:37:40   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+folders processed: 6
+------------------------------------------------------------------------
+Nothing to do - every document in the tree is already at its current version.
+
+------------------------------------------------------------------------
+Result: no changes
+========================================================================
+
+========================================================================
+version cleanup   2026-09-04 13:48:20   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+folders processed: 6
+------------------------------------------------------------------------
+
+[Infrastructure\binder-builder]
+  MOVED       BinderBuilder_Design_v1.md  (v1 superseded by v2)
+
+[Infrastructure\version-cleanup]
+  MOVED       VersionCleanup_Design_v2.md  (v2 superseded by v3)
+
+------------------------------------------------------------------------
+Result: 2 moved
+========================================================================
+
+========================================================================
+version cleanup   2026-09-04 13:51:42   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+folders processed: 6
+------------------------------------------------------------------------
+Nothing to do - every document in the tree is already at its current version.
+
+------------------------------------------------------------------------
+Result: no changes
+========================================================================
+
+========================================================================
+version cleanup   2026-09-04 13:55:10   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+folders processed: 6
+------------------------------------------------------------------------
+
+[Infrastructure\binder-builder]
+  MOVED       BinderBuilder_Design_v2.md  (v2 superseded by v3)
+
+------------------------------------------------------------------------
+Result: 1 moved
+========================================================================
+

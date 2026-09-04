@@ -1,0 +1,35 @@
+{
+  "_comment": "Settings for the binder builder. This file IS the binder definition - it declares what the binder contains. One binder per copy of the tool: a second binder means a second folder with its own copy of the script and its own settings, not a second entry here. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
+
+  "_comment_name": "The binder's name. Used in the heading (\"<name> Binder\") and in the filename (\"<name>_Binder_v<number>.md\").",
+  "name": "Documentation",
+
+  "_comment_root": "The folder the binder is built from, including everything beneath it unless subfolders is false. A relative path is resolved against the folder this script lives in, so \"..\" means the parent folder. Give a full path such as \"C:/Users/you/Documents\" to point somewhere else. Forward slashes are safe on Windows.",
+  "root": "..",
+
+  "_comment_subfolders": "true walks the whole tree from root. false collects from root only.",
+  "subfolders": true,
+
+  "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \"C:/Docs/_binder\" - names one exact folder. ROOT-ANCHORED - \"~/_binder\" - names one exact folder, measured from the root above. RELATIVE - \"_binder\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
+
+  "_comment_include": "Folders skipped by default that should be collected from anyway. Skipped by default: any folder whose name starts with an underscore, and the asset folders assets, images, img and media. Including a folder does not include its underscore-prefixed children.",
+  "include": [],
+
+  "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. A relative entry here is powerful: \"_superseded\" would skip every _superseded folder in the tree.",
+  "exclude": [],
+
+  "_comment_file_types": "File extensions to collect, without the dot.",
+  "file_types": ["md", "yaml", "yml", "json", "txt", "py"],
+
+  "_comment_exclude_files": "Filename patterns to skip regardless of type. * matches anything, ? matches one character. Live state - work in progress, working notes, open items, work registers - is normally excluded here and loaded separately when it is needed. Example: [\"*_WIP_*\", \"*_Working_*\", \"README.md\"]",
+  "exclude_files": [],
+
+  "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. Everything not named here follows, sorted by path. A name that matches nothing in scope is reported, not silently ignored.",
+  "order": [],
+
+  "_comment_output": "The folder the binder is written to. Absolute, or \"~/\" for root-anchored, or relative to the script folder. The default \"~/_binder\" is an underscore folder inside the root, so it is skipped by the walk and a binder can never contain itself.",
+  "output": "~/_binder",
+
+  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \"~/\" for root-anchored, or relative to the script folder.",
+  "log_file": "binder_builder.log"
+}
