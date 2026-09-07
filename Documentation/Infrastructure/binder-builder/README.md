@@ -499,7 +499,7 @@ a new scope before letting the tool write anything.
 | `WRITTEN` / `WOULD WRITE` | The binder itself. |
 | `SUPERSEDED` / `WOULD SUPERSEDE` | The previous binder moved into `_superseded`. |
 | `CONFLICT` | A destination name is already taken; nothing overwritten. |
-| `EMPTY` | Nothing in scope. No binder written; any previous binder left alone. |
+| `EMPTY` | Nothing in scope. An empty binder is written, saying so. |
 | `INCOMPLETE` | A source could not be read. The binder has a hole in it. |
 | `ERROR` | A filesystem refusal — a locked file, permissions, an unreadable folder. |
 
@@ -508,10 +508,33 @@ occurred.
 
 ### Two cases worth understanding
 
-**`EMPTY` — nothing was in scope.** No binder is written and the previous binder
-is left exactly where it is. An empty binder replacing a good one would be a
-loss of information dressed up as a successful build. If you see this, the scope
-settings are almost certainly wrong.
+**`EMPTY` — nothing was in scope.** The binder is still written, and says so on
+its own first screenful:
+
+```
+> **EMPTY BINDER - nothing was in scope when this was built.**
+>
+> This is a statement about the tree, not a failure: the scope genuinely
+> contained no files. If that is unexpected, the scope settings are where
+> to look.
+```
+
+The previous binder is superseded as usual, so it is in `_superseded` and one
+move from being restored if this was not what you wanted.
+
+This is deliberate, and it is the opposite of what the tool used to do. Writing
+nothing sounds safer, but it leaves a binder in the output folder presenting as
+current while asserting content the scope no longer holds — and that binder is
+what gets loaded into a session. A stale binder that looks authoritative is the
+worst thing this tool could produce. An empty one that says it is empty is
+merely surprising.
+
+`EMPTY` is reported whether or not anything was written, because an empty scope
+is far more often a settings mistake than a true statement. If you see it and
+did not expect it, check `include`, `exclude_files` and `file_types` first.
+
+Running again with the scope still empty writes nothing further — change
+detection sees an empty binder and an empty scope and reports `NO CHANGES`.
 
 **`INCOMPLETE` — a source could not be read.** The binder is written, but it has
 a hole in it, so it is stamped as incomplete in three places: the report, the

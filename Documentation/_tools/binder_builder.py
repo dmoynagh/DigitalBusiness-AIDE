@@ -1053,6 +1053,21 @@ def build_binder_text(name, version, parts, missing):
     lines.append("individual files.")
     lines.append("")
 
+    # An empty binder says so on its own face. The alternative - a file with a
+    # manifest reading "(no files)" and nothing after it - looks like a build
+    # that went wrong, and a reader has no way to tell whether the scope was
+    # empty or the tool was.
+    if not parts:
+        lines.append("> **EMPTY BINDER - nothing was in scope when this was "
+                     "built.**")
+        lines.append(">")
+        lines.append("> This is a statement about the tree, not a failure: "
+                     "the scope genuinely")
+        lines.append("> contained no files. If that is unexpected, the scope "
+                     "settings are where")
+        lines.append("> to look.")
+        lines.append("")
+
     # An incomplete binder announces itself in its own first screenful. A
     # reader who never sees the console report or the log still cannot mistake
     # it for the whole topic.
@@ -1661,8 +1676,6 @@ def build_binder(definition, dry_run, force):
     change_note = None
     if force:
         change_note = "not consulted (--force): rebuilding unconditionally"
-    elif not parts:
-        change_note = None            # the EMPTY event below says it better
     elif previous is None:
         change_note = "no previous binder to compare against: building"
     elif missing:
@@ -1682,16 +1695,20 @@ def build_binder(definition, dry_run, force):
             )
 
     # --- act --------------------------------------------------------------
-    # An empty scope writes nothing at all. Replacing a good binder with an
-    # empty one is a data-loss shape, so the previous binder is left exactly
-    # where it is and the run says why.
+    # An empty scope is a fact about the tree, and the binder records it like
+    # any other. It is called out separately because it is the one outcome that
+    # is far more often a mistake in the settings than a true statement, and
+    # nobody should have to infer it from a binder with nothing in it.
     if not parts:
         events.append(Event(
             "EMPTY", root,
-            "no files in scope - no binder written, any previous binder left "
-            "untouched"
+            "no files in scope - {}".format(
+                "the current binder already records that" if not rebuild
+                else "an empty binder {} written so the tree is not "
+                     "misrepresented".format("would be" if dry_run else "is"))
         ))
-    elif not rebuild:
+
+    if not rebuild:
         # Nothing is written, nothing is superseded, and no version number is
         # consumed. The previous binder remains the current one.
         events.append(Event(
@@ -1766,9 +1783,9 @@ def build_binder(definition, dry_run, force):
     # incomplete one.
     if any(event.kind == "ERROR" for event in events):
         return "with problems"
-    if not parts:
-        return "empty"
-    return "rebuilt" if rebuild else "unchanged"
+    if not rebuild:
+        return "unchanged"
+    return "empty" if not parts else "rebuilt"
 
 
 def report_settings_problem(settings_path, error):
