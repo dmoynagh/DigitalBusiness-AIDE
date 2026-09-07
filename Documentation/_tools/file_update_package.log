@@ -59,3 +59,45 @@ COMPLETION SUMMARY   (DRY RUN - nothing was changed)
 COMPLETED SUCCESSFULLY - there was nothing to do
 ========================================================================
 
+========================================================================
+file update package   2026-09-08 11:20:18   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Principles_2026-09-08.zip  (2026-09-08 11:20, 5,388 bytes)
+description:        Principles master files - rebuild design pass complete
+------------------------------------------------------------------------
+
+[Principles]
+  SKIPPED           Principles/Principles_Design_v4.md: nothing superseded - "Principles_Design_v3.md" is not in the documentation tree
+  DEPLOYED          Principles/Principles_Design_v4.md  (6,040 bytes)
+  SKIPPED           Principles/Principles_Decisions_v4.md: nothing superseded - "Principles_Decisions_v3.md" is not in the documentation tree
+  DEPLOYED          Principles/Principles_Decisions_v4.md  (3,908 bytes)
+
+[_tools]
+  BINDER            binder builder run: 3 included, 2 skipped, 1 written, 1 superseded
+
+[_fileupdatepackages]
+  PROCESSED         Principles_2026-09-08.zip -> _superseded/
+
+------------------------------------------------------------------------
+Result: 2 deployed, 2 skipped, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Principles_2026-09-08.zip
+                        Principles master files - rebuild design pass complete
+  files updated:        2
+  files created:        0
+  files superseded:     0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered - 3 included, 2 skipped, 1 written, 1 superseded
+  the package is now:   moved to _superseded/
+  folder naming:        1 folder(s) close to a convention name but not matching it
+    - _superceded  (expected "_superseded")
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+

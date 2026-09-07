@@ -141,3 +141,31 @@ folders processed: 9
 Result: 2 moved
 ========================================================================
 
+========================================================================
+version cleanup   2026-09-08 11:20:13   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+include:  ~/_rebuild
+folders processed: 9
+------------------------------------------------------------------------
+Nothing to do - every document in the tree is already at its current version.
+
+------------------------------------------------------------------------
+Result: no changes
+========================================================================
+
+========================================================================
+version cleanup   2026-09-08 11:36:41   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+include:  ~/_rebuild
+folders processed: 9
+------------------------------------------------------------------------
+
+[_rebuild]
+  MOVED       AIDE_Rebuild_WIP_v22.md  (v22 superseded by v23)
+
+------------------------------------------------------------------------
+Result: 1 moved
+========================================================================
+

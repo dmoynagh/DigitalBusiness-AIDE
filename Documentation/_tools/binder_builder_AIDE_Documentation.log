@@ -351,3 +351,232 @@ change detection: AIDE_Documentation_Binder_v3.md: 2 file(s) in scope, all match
 Result: 1 would check
 ========================================================================
 
+========================================================================
+binder builder   2026-09-08 10:26:39   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v3.md; binder not rebuilt
+
+------------------------------------------------------------------------
+Result: 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:28:38   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  WOULD CHECK      no changes detected since AIDE_Documentation_Binder_v3.md; binder would not be rebuilt
+
+------------------------------------------------------------------------
+Result: 1 would check
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:32:46   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  WOULD CHECK      no changes detected since AIDE_Documentation_Binder_v3.md; binder would not be rebuilt
+
+------------------------------------------------------------------------
+Result: 1 would check
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:34:20   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v3.md; binder not rebuilt
+
+------------------------------------------------------------------------
+Result: 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:39:01   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: not consulted: 1 source file(s) could not be read this run
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - an empty binder would be written so the tree is not misrepresented
+
+[_binder]
+  INCOMPLETE       1 source file(s) could not be read; the binder is stamped INCOMPLETE and the previous binder has been left in place
+  WOULD WRITE      AIDE_Documentation_Binder_v4.md  (0 files, 746 bytes)
+
+[_rebuild]
+  ERROR            aide-design-check.skill is not UTF-8 text and was left out: invalid continuation byte
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v22.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 would write, 1 empty, 1 incomplete, 1 error
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:39:24   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 removed (_rebuild/AIDE_DesignApproach_WIP_v1.md, _rebuild/AIDE_Rebuild_WIP_v22.md) - rebuilding
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - an empty binder would be written so the tree is not misrepresented
+
+[_binder]
+  WOULD SUPERSEDE  AIDE_Documentation_Binder_v3.md -> _superseded/
+  WOULD WRITE      AIDE_Documentation_Binder_v4.md  (0 files, 541 bytes)
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v22.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 would write, 1 would supersede, 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:39:29   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 removed (_rebuild/AIDE_DesignApproach_WIP_v1.md, _rebuild/AIDE_Rebuild_WIP_v22.md) - rebuilding
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - an empty binder is written so the tree is not misrepresented
+
+[_binder]
+  SUPERSEDED       AIDE_Documentation_Binder_v3.md -> _superseded/
+  WRITTEN          AIDE_Documentation_Binder_v4.md  (0 files, 541 bytes)
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v22.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 written, 1 superseded, 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:39:35   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v4.md: 0 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - the current binder already records that
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v4.md; binder not rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v22.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 no changes, 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:43:07   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v4.md: 0 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - the current binder already records that
+
+[_binder]
+  WOULD CHECK      no changes detected since AIDE_Documentation_Binder_v4.md; binder would not be rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v22.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 would check, 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 11:20:18   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v4.md: 3 added (Principles/Principles_Decisions_v4.md, Principles/Principles_Design_v4.md, _rebuild/AIDE_Rebuild_Guide_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[_binder]
+  SUPERSEDED       AIDE_Documentation_Binder_v4.md -> _superseded/
+  WRITTEN          AIDE_Documentation_Binder_v5.md  (3 files, 35608 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v22.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 3 included, 2 skipped, 1 written, 1 superseded
+========================================================================
+
