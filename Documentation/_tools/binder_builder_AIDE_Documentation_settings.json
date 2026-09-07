@@ -14,7 +14,7 @@
 
   "_comment_defaults": "The tool skips two kinds of folder by default, without any entry in exclude. (1) Any folder whose name starts with an underscore. (2) The asset folders: assets, images, img and media. Use include to override a default skip for a specific folder. include does not include a default-skipped folder's own default-skipped children, so including _rebuild does not include _rebuild/_superseded.",
 
-  "_comment_include": "Folders skipped by default that should be collected from anyway. See _comment_defaults above for what is skipped and why. ~/_rebuild is here under the temporary arrangement described below, and comes out when that trigger fires.",
+  "_comment_include": "Folders skipped by default that should be collected from anyway. See _comment_defaults above for what is skipped and why. ~/_rebuild is a leftover from the temporary arrangement described below and no longer earns its place - see _comment_exclude_files_outstanding.",
   "include": ["~/_rebuild"],
 
   "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. Infrastructure is machinery that acts on the corpus and is never loaded into an AI session, so it is excluded from the binder it builds.",
@@ -29,11 +29,11 @@
 
   "_comment_exclude_files_rule": "THE RULE - THE TEST IS DURABILITY, NOT CADENCE. The working document holds what is current-and-transient, plus pending content destined for masters not yet written; it is excluded and loaded separately when it is needed. Everything that outlives the session is binder-class and belongs IN the binder - work registers and open-items documents both. Cadence is not the test: registers and open items churn at session cadence in raw terms, and the discipline that makes them binder-safe is writing at master update, which any document can adopt. What cannot be made binder-safe is content that is meaningless outside the session that produced it. Never add an exclusion for a register or an open-items document here.",
 
-  "_comment_exclude_files_standing": "THE STANDING EXCLUSIONS are \"*_WIP_*\" and \"*_WIP.*\". The second is a wide catch for a WIP file carrying no version suffix, which should not happen but might. They are NOT in the list below right now - see the exception.",
+  "_comment_exclude_files_standing": "THE STANDING EXCLUSIONS are \"*_WIP_*\" and \"*_WIP.*\", and they are IN FORCE. The second is a wide catch for a WIP file carrying no version suffix, which should not happen but might. The temporary lifting of these two, which ran from 2026-09-07 to 2026-09-08 while the binder would otherwise have been empty, has ended: the binder now records an empty scope rather than carrying the working document to avoid one.",
 
-  "_comment_exclude_files_exception": "LOCAL EXCEPTION, TEMPORARY: the standing *_WIP_* and *_WIP.* exclusions are lifted, and ~/_rebuild is included above, so that the binder carries the rebuild working document while it would otherwise be empty. This is a temporary measure for an empty binder, not a change to the rule above. TRIGGER TO RESTORE: when Project Design masters land in the Project Design folder, (1) put \"*_WIP_*\" and \"*_WIP.*\" back into exclude_files, and (2) remove ~/_rebuild from include. Both, not one. Add no exclusion for registers or open items when you do. The list then reads [\"*_WIP_*\", \"*_WIP.*\"].",
+  "_comment_exclude_files_outstanding": "ONE HALF OF THE OLD TRIGGER IS STILL OUTSTANDING. The arrangement had two parts: restore the *_WIP_* exclusions, and remove ~/_rebuild from include. Only the first has been done. ~/_rebuild is therefore still walked, and everything in it is currently excluded only because every document in it is a WIP file - a non-WIP document dropped into _rebuild WOULD enter the binder. Remove ~/_rebuild from include when Project Design masters land, or sooner if that surprises anyone.",
 
-  "exclude_files": [],
+  "exclude_files": ["*_WIP_*", "*_WIP.*"],
 
   "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. A name that matches nothing in scope is reported, not silently ignored.",
   "order": [],
