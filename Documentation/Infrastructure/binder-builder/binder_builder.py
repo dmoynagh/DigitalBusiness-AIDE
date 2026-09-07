@@ -143,7 +143,9 @@ DEFAULT_SETTINGS_JSON = """{
 
   "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \\"C:/Docs/_binder\\" - names one exact folder. ROOT-ANCHORED - \\"~/_binder\\" - names one exact folder, measured from the root above. RELATIVE - \\"_binder\\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
 
-  "_comment_include": "Folders skipped by default that should be collected from anyway. Skipped by default: any folder whose name starts with an underscore, and the asset folders assets, images, img and media. Including a folder does not include its underscore-prefixed children.",
+  "_comment_defaults": "The tool skips two kinds of folder by default, without any entry in exclude. (1) Any folder whose name starts with an underscore. (2) The asset folders: assets, images, img and media. Use include to override a default skip for a specific folder. include does not include a default-skipped folder's own default-skipped children, so including _rebuild does not include _rebuild/_superseded.",
+
+  "_comment_include": "Folders skipped by default that should be collected from anyway. See _comment_defaults above for what is skipped, and why including one folder does not include its underscore-prefixed children.",
   "include": [],
 
   "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. A relative entry here is powerful: \\"_superseded\\" would skip every _superseded folder in the tree.",
@@ -152,7 +154,11 @@ DEFAULT_SETTINGS_JSON = """{
   "_comment_file_types": "File extensions to collect, without the dot.",
   "file_types": ["md", "yaml", "yml", "json", "txt", "py"],
 
-  "_comment_exclude_files": "Filename patterns to skip regardless of type. * matches anything, ? matches one character. Live state - work in progress, working notes, open items, work registers - is normally excluded here and loaded separately when it is needed. Example: [\\"*_WIP_*\\", \\"*_Working_*\\", \\"README.md\\"]",
+  "_comment_exclude_files": "Files to skip. Applied AFTER file_types has chosen what to collect, so this setting only ever removes, and it is the last word. Three forms, the same convention include and exclude use for folders. FILENAME - \\"*_WIP_*\\" - matched against the name wherever the file appears. ROOT-ANCHORED - \\"~/_rebuild/*.json\\" - one exact path, measured from the root. TRAILING - \\"_rebuild/*.json\\" - a pattern rather than a place: any file whose path ends with those segments, so one entry covers a _rebuild folder wherever it appears.",
+
+  "_comment_exclude_files_wildcards": "? matches one character. In the two path forms * stops at a folder separator and ** crosses them: \\"~/_rebuild/*.json\\" is JSON directly in _rebuild, while \\"~/_rebuild/**/*.json\\" is JSON in _rebuild and everything beneath it. The filename form has no separators to stop at.",
+
+  "_comment_exclude_files_convention": "The working document - work in progress, working notes - is what belongs here: it is loaded separately when active state is needed. The test is durability, not cadence. Work registers and open-items documents outlive the session and belong IN the binder, so never exclude them here. Example: [\\"*_WIP_*\\", \\"*_WIP.*\\"]",
   "exclude_files": [],
 
   "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. Everything not named here follows, sorted by path. A name that matches nothing in scope is reported, not silently ignored.",
@@ -202,6 +208,14 @@ REPORT_KINDS = (
     "INCOMPLETE",    # a source could not be read; the binder has a hole in it
     "ERROR",         # filesystem refusal
 )
+
+
+@dataclass
+class FilePattern:
+    """One compiled exclude_files entry."""
+    text: str          # exactly as written in the settings, for the report
+    kind: str          # "name", "path" or "trailing"
+    regex: object      # compiled regex for path/trailing; None for name
 
 
 @dataclass
@@ -629,16 +643,148 @@ def folders_to_collect(scope):
 # File selection
 # ---------------------------------------------------------------------------
 
-def matches_any_pattern(name, patterns):
-    """
-    True if the filename matches one of the exclude_files patterns.
+# exclude_files takes the same three path forms as include and exclude, which
+# is the Infrastructure-wide convention (D6). Applied to files rather than
+# folders they read as:
+#
+#   name         "*_WIP_*"             a filename, matched wherever it appears
+#   root-anchored "~/_rebuild/*.json"  one exact path, measured from the root
+#   trailing     "_rebuild/*.json"     a PATTERN: any file whose path ends
+#                                      with those segments, so one entry
+#                                      covers a _rebuild folder at any depth
+#
+# An entry with no "/" in it is the first form and behaves exactly as it always
+# did. That is what keeps every existing settings file working unchanged.
+#
+# The wildcards are glob's, NOT fnmatch's, and the difference is the whole
+# point: fnmatch's "*" matches "/" as well, so "~/_rebuild/*.json" under
+# fnmatch would also match _rebuild/anything/deep/x.json and the qualification
+# would mean nothing. Here "*" stops at a separator and "**" is the segment
+# that crosses them.
 
-    fnmatch is the standard library's shell-style matcher: * for any run of
-    characters, ? for one, [abc] for a set. fnmatch.fnmatch case-folds using
-    os.path.normcase, so matching follows the local filesystem the same way
-    folder comparison does.
+def fold_path(text):
     """
-    return any(fnmatch.fnmatch(name, pattern) for pattern in patterns)
+    Case-fold a relative path the way the local filesystem does, keeping "/"
+    as the separator.
+
+    os.path.normcase cannot be used alone here: on Windows it rewrites "/" as
+    "\\" as well as lowercasing, which would compile a pattern over
+    backslashes and then match it against a forward-slash path. Folding and
+    then restoring the separator keeps the platform's case rule and the
+    tool's one spelling of a path.
+    """
+    return os.path.normcase(text.replace("\\", "/")).replace("\\", "/")
+
+
+def translate_segment(segment):
+    """Turn one glob segment into regex source. "*" does not cross "/"."""
+    out = []
+    for character in segment:
+        if character == "*":
+            out.append("[^/]*")
+        elif character == "?":
+            out.append("[^/]")
+        else:
+            out.append(re.escape(character))
+    return "".join(out)
+
+
+def glob_to_regex(pattern, trailing=False):
+    """
+    Compile a "/"-separated glob into a regex over a forward-slash path.
+
+        _rebuild/*.json      _rebuild/notes.json          yes
+                             _rebuild/sub/notes.json      no
+        _rebuild/**/*.json   _rebuild/notes.json          yes
+                             _rebuild/sub/deep/notes.json yes
+
+    "**" is zero or more whole path segments, so it covers the folder itself
+    as well as everything under it. `trailing` anchors the pattern at the end
+    of the path rather than at the root, which is the third form above.
+    """
+    segments = [part for part in pattern.split("/") if part]
+    pieces = []
+    for index, segment in enumerate(segments):
+        last = index == len(segments) - 1
+        if segment == "**":
+            # As the final segment "**" means "everything from here down";
+            # anywhere else it means "any number of intervening folders",
+            # including none, so it carries its own separator.
+            pieces.append(".+" if last else "(?:[^/]+/)*")
+        else:
+            pieces.append(translate_segment(segment) + ("" if last else "/"))
+    prefix = "(?:.*/)?" if trailing else ""
+    return re.compile("^" + prefix + "".join(pieces) + "$")
+
+
+def compile_exclude_files(values, label="exclude_files"):
+    """
+    Sort the exclude_files entries into the three forms and compile them.
+
+    Raises ValueError for an entry that cannot mean anything, rather than
+    letting it sit in the settings quietly matching nothing.
+    """
+    compiled = []
+    for value in values:
+        original = str(value).strip()
+        tidied = original.replace("\\", "/")
+        if not tidied:
+            continue
+
+        if tidied.startswith("~"):
+            if not tidied.startswith("~/"):
+                raise ValueError(
+                    'Setting "{}" contains "{}": "~" means the root folder, '
+                    'so it has to be written as "~/something".'
+                    .format(label, original)
+                )
+            body = tidied[2:]
+            kind = "path"
+        elif "/" in tidied:
+            body = tidied
+            kind = "trailing"
+        else:
+            compiled.append(FilePattern(original, "name", None))
+            continue
+
+        segments = [part for part in body.split("/") if part]
+        if not segments:
+            raise ValueError(
+                'Setting "{}" contains "{}", which does not name anything.'
+                .format(label, original)
+            )
+        if ".." in segments:
+            raise ValueError(
+                'Setting "{}" contains "{}". A file pattern is matched '
+                'against a path measured from the root, so ".." has no '
+                'meaning in one.'.format(label, original)
+            )
+        compiled.append(FilePattern(
+            original, kind,
+            glob_to_regex(fold_path("/".join(segments)),
+                          trailing=(kind == "trailing")),
+        ))
+    return compiled
+
+
+def excluded_by(entry, relative_path, patterns):
+    """
+    The first exclude_files pattern that drops this file, or None.
+
+    Returning the pattern rather than a boolean is what lets the report name
+    which entry did it - the question anyone with four patterns in a settings
+    file actually has.
+    """
+    for pattern in patterns:
+        if pattern.kind == "name":
+            # fnmatch case-folds through os.path.normcase, so a filename
+            # pattern follows the local filesystem exactly as folder
+            # comparison does.
+            if fnmatch.fnmatch(entry.name, pattern.text):
+                return pattern
+        elif pattern.regex.match(relative_path):
+            return pattern
+    return None
 
 
 def binder_name_pattern(name):
@@ -720,10 +866,16 @@ def collect_files(scope, folders, file_types, exclude_files, order,
                 # types and listing every one of them would bury the report.
                 continue
 
-            if matches_any_pattern(entry.name, exclude_files):
+            # The path a pattern is matched against is measured from the
+            # root and spelled with forward slashes, so one settings file
+            # behaves the same on every platform.
+            relative_path = fold_path(relative_to(entry, scope.root))
+            excluding = excluded_by(entry, relative_path, exclude_files)
+            if excluding is not None:
                 events.append(Event(
                     "SKIPPED", folder,
-                    "{}: matches an exclude_files pattern".format(entry.name)
+                    '{}: matches exclude_files pattern "{}"'
+                    .format(entry.name, excluding.text)
                 ))
                 continue
 
@@ -1436,7 +1588,8 @@ def load_definition(settings_path):
         scope=scope,
         file_types=(read_string_list(settings, "file_types")
                     or list(DEFAULT_FILE_TYPES)),
-        exclude_files=read_string_list(settings, "exclude_files"),
+        exclude_files=compile_exclude_files(
+            read_string_list(settings, "exclude_files")),
         order=read_string_list(settings, "order"),
         output_folder=output_folder,
         log_path=log_path,

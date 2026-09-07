@@ -12,7 +12,9 @@
 
   "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \"C:/Docs/_binder\" - names one exact folder. ROOT-ANCHORED - \"~/_binder\" - names one exact folder, measured from the root above. RELATIVE - \"_binder\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
 
-  "_comment_include": "Folders skipped by default that should be collected from anyway. Skipped by default: any folder whose name starts with an underscore, and the asset folders assets, images, img and media. Including a folder does not include its underscore-prefixed children.",
+  "_comment_defaults": "The tool skips two kinds of folder by default, without any entry in exclude. (1) Any folder whose name starts with an underscore. (2) The asset folders: assets, images, img and media. Use include to override a default skip for a specific folder. include does not include a default-skipped folder's own default-skipped children, so including _rebuild does not include _rebuild/_superseded.",
+
+  "_comment_include": "Folders skipped by default that should be collected from anyway. See _comment_defaults above for what is skipped, and why including one folder does not include its underscore-prefixed children.",
   "include": [],
 
   "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. A relative entry here is powerful: \"_superseded\" would skip every _superseded folder in the tree.",
@@ -21,7 +23,11 @@
   "_comment_file_types": "File extensions to collect, without the dot.",
   "file_types": ["md", "yaml", "yml", "json", "txt", "py"],
 
-  "_comment_exclude_files": "Filename patterns to skip regardless of type. * matches anything, ? matches one character. Live state - work in progress, working notes, open items, work registers - is normally excluded here and loaded separately when it is needed. Example: [\"*_WIP_*\", \"*_Working_*\", \"README.md\"]",
+  "_comment_exclude_files": "Files to skip. Applied AFTER file_types has chosen what to collect, so this setting only ever removes, and it is the last word. Three forms, the same convention include and exclude use for folders. FILENAME - \"*_WIP_*\" - matched against the name wherever the file appears. ROOT-ANCHORED - \"~/_rebuild/*.json\" - one exact path, measured from the root. TRAILING - \"_rebuild/*.json\" - a pattern rather than a place: any file whose path ends with those segments, so one entry covers a _rebuild folder wherever it appears.",
+
+  "_comment_exclude_files_wildcards": "? matches one character. In the two path forms * stops at a folder separator and ** crosses them: \"~/_rebuild/*.json\" is JSON directly in _rebuild, while \"~/_rebuild/**/*.json\" is JSON in _rebuild and everything beneath it. The filename form has no separators to stop at.",
+
+  "_comment_exclude_files_convention": "The working document - work in progress, working notes - is what belongs here: it is loaded separately when active state is needed. The test is durability, not cadence. Work registers and open-items documents outlive the session and belong IN the binder, so never exclude them here. Example: [\"*_WIP_*\", \"*_WIP.*\"]",
   "exclude_files": [],
 
   "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. Everything not named here follows, sorted by path. A name that matches nothing in scope is reported, not silently ignored.",

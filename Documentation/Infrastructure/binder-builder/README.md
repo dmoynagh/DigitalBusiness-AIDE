@@ -133,7 +133,7 @@ settings file is a binder definition, a fresh one almost always needs editing.
 | `include` | Folders to collect from that would otherwise be skipped. |
 | `exclude` | Folders to skip entirely, along with everything inside them. |
 | `file_types` | Extensions to collect, without the dot. |
-| `exclude_files` | Filename patterns to skip regardless of type. |
+| `exclude_files` | Files to skip — by name, or by path. Applied after `file_types`. |
 | `order` | Filenames pulled to the front of the binder, in the order listed. |
 | `output` | The folder the binder is written to. |
 | `log_file` | Where the run log is appended. |
@@ -165,6 +165,9 @@ means something different:
 | Absolute | `"C:/Docs/_binder"` | that one exact folder |
 | Root-anchored | `"~/_binder"` | that one exact folder, measured from `root` |
 | Relative | `"_binder"` | a **pattern**: every folder in the tree whose path ends with those segments |
+
+**`exclude_files` takes the same three forms**, applied to files — see
+*Excluding files by path* below.
 
 The relative form is the useful one for a corpus. `"_binder"` is not a place,
 it is a shape — it matches a `_binder` subfolder wherever one appears, at any
@@ -215,6 +218,40 @@ wanting current register or open items checks the working document as well.
 `*` matches any run of characters and `?` matches one, matched
 case-insensitively on Windows and case-sensitively elsewhere — the same way the
 filesystem does.
+
+### Excluding files by path
+
+An `exclude_files` entry containing a `/` is matched against the file's **path**
+rather than its name, using the same three forms as `include` and `exclude`:
+
+| Form | Example | Means |
+| --- | --- | --- |
+| Filename | `"*_WIP_*"` | the name, wherever the file is |
+| Root-anchored | `"~/_rebuild/*.json"` | that exact path, measured from `root` |
+| Trailing | `"_rebuild/*.json"` | a **pattern**: any file whose path ends with those segments, so it covers a `_rebuild` folder at any depth |
+
+**An entry with no `/` in it behaves exactly as it always did**, so nothing you
+have already written changes.
+
+In the two path forms, `*` stops at a folder separator and `**` crosses them:
+
+| Pattern | `_rebuild/notes.json` | `_rebuild/sub/notes.json` |
+| --- | --- | --- |
+| `~/_rebuild/*.json` | matches | no |
+| `~/_rebuild/*/*.json` | no | matches |
+| `~/_rebuild/**/*.json` | matches | matches |
+
+So `*/` is "exactly one folder down" and `**/` is "here and anything below".
+Use `**` when you mean recursive.
+
+A bare `~`, a `~name`, or a `..` anywhere in a path pattern is refused with an
+explanation rather than quietly matching nothing.
+
+The report names the pattern that dropped each file:
+
+```
+SKIPPED  tool_settings.json: matches exclude_files pattern "~/_rebuild/*.json"
+```
 
 ### Ordering
 

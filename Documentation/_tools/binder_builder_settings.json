@@ -1,7 +1,7 @@
 {
-  "_comment": "Settings for the binder builder. This file IS the binder definition - it declares what the binder contains. One binder per copy of the tool: a second binder means a second folder with its own copy of the script and its own settings, not a second entry here. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
+  "_comment": "Settings for the binder builder. This file IS one binder definition - it declares what that binder contains. Every binder_builder_settings*.json in this folder is a binder, and one run builds them all. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
 
-  "_comment_name": "The binder's name. Used in the heading (\"<name> Binder\") and in the filename (\"<name>_Binder_v<number>.md\").",
+  "_comment_name": "The binder's name. Used in the heading (\"<name> Binder\") and in the filename (\"<name>_Binder_v<number>.md\"). It also identifies this binder on the command line, and no two definitions in one folder may share it.",
   "name": "AIDE_Documentation",
 
   "_comment_root": "The folder the binder is built from, including everything beneath it unless subfolders is false. A relative path is resolved against the folder this script lives in, so \"..\" means the parent folder.",
@@ -12,22 +12,30 @@
 
   "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \"C:/Docs/_binder\" - names one exact folder. ROOT-ANCHORED - \"~/_binder\" - names one exact folder, measured from the root above. RELATIVE - \"_binder\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
 
-  "_comment_include": "Folders skipped by default that should be collected from anyway. Skipped by default: any folder whose name starts with an underscore, and the asset folders assets, images, img and media. Including a folder does not include its underscore-prefixed children, so _rebuild is collected from but _rebuild/_superseded is not.",
+  "_comment_defaults": "The tool skips two kinds of folder by default, without any entry in exclude. (1) Any folder whose name starts with an underscore. (2) The asset folders: assets, images, img and media. Use include to override a default skip for a specific folder. include does not include a default-skipped folder's own default-skipped children, so including _rebuild does not include _rebuild/_superseded.",
+
+  "_comment_include": "Folders skipped by default that should be collected from anyway. See _comment_defaults above for what is skipped and why. ~/_rebuild is here under the temporary arrangement described below, and comes out when that trigger fires.",
   "include": ["~/_rebuild"],
 
   "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. Infrastructure is machinery that acts on the corpus and is never loaded into an AI session, so it is excluded from the binder it builds.",
   "exclude": ["~/Infrastructure"],
 
-  "_comment_file_types": "File extensions to collect, without the dot.",
-  "file_types": ["md", "yaml", "yml"],
+  "_comment_file_types": "File extensions to collect, without the dot. json is here so that data and configuration documents are carried; the exclude_files entry below keeps tool settings out.",
+  "file_types": ["md", "yaml", "yml", "json"],
 
-  "_comment_exclude_files": "Filename patterns to skip regardless of type.",
+  "_comment_exclude_files": "Files to skip. Applied AFTER file_types has chosen what to collect, so this setting only ever removes, and it is the last word. Three forms, the same convention include and exclude use for folders. FILENAME - \"*_WIP_*\" - matched against the name wherever the file appears. ROOT-ANCHORED - \"~/_rebuild/*.json\" - one exact path, measured from the root. TRAILING - \"_rebuild/*.json\" - a pattern rather than a place: any file whose path ends with those segments.",
+
+  "_comment_exclude_files_wildcards": "? matches one character. In the two path forms * stops at a folder separator and ** crosses them: \"~/_rebuild/*.json\" is JSON directly in _rebuild, while \"~/_rebuild/**/*.json\" is JSON in _rebuild and everything beneath it. The filename form has no separators to stop at.",
 
   "_comment_exclude_files_rule": "THE RULE - THE TEST IS DURABILITY, NOT CADENCE. The working document holds what is current-and-transient, plus pending content destined for masters not yet written; it is excluded and loaded separately when it is needed. Everything that outlives the session is binder-class and belongs IN the binder - work registers and open-items documents both. Cadence is not the test: registers and open items churn at session cadence in raw terms, and the discipline that makes them binder-safe is writing at master update, which any document can adopt. What cannot be made binder-safe is content that is meaningless outside the session that produced it. Never add an exclusion for a register or an open-items document here.",
 
-  "_comment_exclude_files_exception": "LOCAL EXCEPTION, TEMPORARY: the *_WIP_* patterns are lifted, and ~/_rebuild is included above, so that the binder carries the rebuild working document while it would otherwise be empty. This is a temporary measure for an empty binder, not a change to the rule above. TRIGGER TO RESTORE: when Project Design masters land in the Project Design folder, put \"*_WIP_*\" and \"*_WIP.*\" back into exclude_files and remove ~/_rebuild from include. Add no exclusion for registers when you do.",
+  "_comment_exclude_files_standing": "THE STANDING EXCLUSIONS are \"*_WIP_*\" and \"*_WIP.*\". The second is a wide catch for a WIP file carrying no version suffix, which should not happen but might. They are NOT in the list below right now - see the exception.",
 
-  "exclude_files": ["*_Working_*"],
+  "_comment_exclude_files_exception": "LOCAL EXCEPTION, TEMPORARY: the standing *_WIP_* and *_WIP.* exclusions are lifted, and ~/_rebuild is included above, so that the binder carries the rebuild working document while it would otherwise be empty. This is a temporary measure for an empty binder, not a change to the rule above. TRIGGER TO RESTORE: when Project Design masters land in the Project Design folder, (1) put \"*_WIP_*\" and \"*_WIP.*\" back into exclude_files, and (2) remove ~/_rebuild from include. Both, not one. Add no exclusion for registers or open items when you do. The list then reads [\"*_WIP_*\", \"*_WIP.*\", \"~/_rebuild/*.json\"].",
+
+  "_comment_exclude_files_json": "~/_rebuild/*.json keeps tool settings and other JSON dropped into _rebuild out of the binder, now that json is a collected file type. It is root-anchored and non-recursive: JSON directly in _rebuild only. It stays after the trigger fires, harmlessly, because _rebuild leaves scope at the same time.",
+
+  "exclude_files": ["~/_rebuild/*.json"],
 
   "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. A name that matches nothing in scope is reported, not silently ignored.",
   "order": [],
