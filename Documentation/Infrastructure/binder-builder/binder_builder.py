@@ -29,6 +29,11 @@ HOW IT IS RUN
     binder means one instance folder; a second binder means a second copy of
     the tool, not a second entry in one settings file.
 
+    A rebuild is skipped when nothing in scope has changed since the last
+    binder was written: the manifest inside that binder carries a digest per
+    file, and comparing it against this run's digests answers the question
+    without keeping any state of its own. Pass --force to rebuild anyway.
+
 DESIGN NOTE
     This is one tool that does one thing, and a sibling to version cleanup.
     The path logic, settings loader and plan/apply split below are deliberately
@@ -88,6 +93,25 @@ WINDOWS_DRIVE = re.compile(r"^[A-Za-z]:")
 # "is this binder still in step with the masters" without filling the manifest
 # with noise.
 DIGEST_LENGTH = 12
+
+# Change detection reads the manifest back out of the previous binder, so these
+# three constants describe the header that build_binder_text writes. They are
+# not a second definition of the format - they are a reader for it, and the two
+# have to be changed together.
+MANIFEST_HEADING = "## Binder manifest"
+
+# "- `<label>` - sha256 `<digest>`". The separator between the two is matched
+# loosely, so a manifest written with an en dash - or tidied by hand - still
+# parses. A line that does not match at all makes the whole manifest
+# unreadable, and an unreadable manifest means rebuild.
+MANIFEST_ENTRY = re.compile(
+    r"^-\s+`(?P<label>[^`]+)`.*?sha256\s+`(?P<digest>[0-9a-fA-F]+)`\s*$"
+)
+
+# A binder that announced itself as incomplete is never used as a comparison
+# baseline. It is missing files by definition, so "nothing changed" measured
+# against it would hold the hole open indefinitely.
+INCOMPLETE_MARKER = "INCOMPLETE BINDER"
 
 # The settings file is shipped with the tool, but if someone deletes it - or
 # copies just the .py file to a new location - we write this back out rather
@@ -160,6 +184,8 @@ REPORT_KINDS = (
     "WOULD INCLUDE", # dry run: the same file, nothing written
     "SKIPPED",       # in a collected folder, deliberately left out
     "UNMATCHED",     # an "order" entry naming a file that is not in scope
+    "NO CHANGES",    # nothing in scope has changed; the binder was not rebuilt
+    "WOULD CHECK",   # dry run: the same comparison, reported not acted on
     "WRITTEN",       # the binder file itself
     "WOULD WRITE",   # dry run equivalent
     "SUPERSEDED",    # the previous binder moved into _superseded
@@ -871,6 +897,117 @@ def build_binder_text(name, version, parts, missing):
 
 
 # ---------------------------------------------------------------------------
+# Change detection
+# ---------------------------------------------------------------------------
+# The binder is a derived artefact. If every source is byte-for-byte what it was
+# when the last binder was written, rebuilding produces the same content under a
+# new version number and pushes a perfectly good binder into _superseded for
+# nothing. That is merely untidy when someone runs the tool by hand, and
+# genuinely wasteful once another tool runs it after every deploy.
+#
+# The comparison needs no new state, because the answer is already in the
+# binder: the manifest lists every file it contains with a digest of that file's
+# content. Comparing that manifest against the digests computed for this run
+# answers "has anything in scope changed" exactly - additions and removals
+# included, since the comparison is over the set of files as well as over the
+# digests.
+#
+# Every uncertainty resolves towards rebuilding. No previous binder, an
+# unreadable one, a manifest that will not parse, a previous build stamped
+# INCOMPLETE, a source that could not be read this time, or --force: build. An
+# unnecessary rebuild costs a version number. A wrongly skipped one leaves a
+# binder that misrepresents the tree, which is the failure this tool exists to
+# prevent.
+
+
+def parse_binder_manifest(path):
+    """
+    Read the manifest out of an existing binder.
+
+    Returns a dictionary of label -> digest, or None if the binder cannot serve
+    as a baseline: unreadable, not UTF-8, no manifest heading, a manifest line
+    in an unexpected shape, or a binder stamped INCOMPLETE. None means "cannot
+    compare", and cannot compare always means rebuild.
+    """
+    try:
+        text = path.read_text(encoding="utf-8-sig")
+    except (OSError, UnicodeDecodeError):
+        return None
+
+    lines = text.splitlines()
+
+    try:
+        start = lines.index(MANIFEST_HEADING)
+    except ValueError:
+        return None
+
+    # Only the header above the manifest is examined for the incomplete stamp,
+    # so a source file that happens to discuss incomplete binders - this tool's
+    # own design document, for one - cannot trip it.
+    if any(INCOMPLETE_MARKER in line for line in lines[:start]):
+        return None
+
+    manifest = {}
+    for line in lines[start + 1:]:
+        entry = line.strip()
+        if not entry:
+            continue
+        # The manifest ends where the body begins.
+        if entry.startswith("---") or entry.startswith("<!-- BEGIN SOURCE"):
+            break
+        if entry == "- (no files)":
+            continue
+        match = MANIFEST_ENTRY.match(entry)
+        if not match:
+            # One unreadable entry means this binder's contents cannot be
+            # established. Guessing at the rest would be worse than rebuilding.
+            return None
+        manifest[match.group("label")] = match.group("digest").lower()
+
+    return manifest
+
+
+def compare_to_manifest(manifest, parts):
+    """
+    Compare this run's assembled parts against a previous binder's manifest.
+
+    Returns (unchanged, description). The description is written for the report
+    in both cases, so a run always states what the comparison found rather than
+    only stating what it decided.
+    """
+    current = {part.label: part.digest.lower() for part in parts}
+
+    added = sorted(set(current) - set(manifest))
+    removed = sorted(set(manifest) - set(current))
+    changed = sorted(label for label in set(current) & set(manifest)
+                     if current[label] != manifest[label])
+
+    if not (added or removed or changed):
+        return True, "{} file(s) in scope, all matching the manifest".format(
+            len(current))
+
+    counts = ", ".join(
+        "{} {}".format(len(group), word)
+        for group, word in ((added, "added"),
+                            (removed, "removed"),
+                            (changed, "changed"))
+        if group
+    )
+
+    # Name a few. A run that rebuilds should say why in terms of the tree and
+    # not only in numbers, but a scope-wide change must not print a hundred
+    # lines to say so.
+    named = (added + removed + changed)
+    shown = named[:3]
+    remainder = len(named) - len(shown)
+    return False, "{} ({}{})".format(
+        counts,
+        ", ".join(shown),
+        ", and {} more".format(remainder) if remainder else "",
+    )
+
+
+# ---------------------------------------------------------------------------
 # Versioning and output
 # ---------------------------------------------------------------------------
 
@@ -978,7 +1115,8 @@ def relative_to(path, root):
     return str(relative) if str(relative) != "." else "."
 
 
-def build_report(scope, settings_path, dry_run, folder_count, events):
+def build_report(scope, settings_path, dry_run, folder_count, events,
+                 change_note=None):
     """
     Build the run report as a list of lines.
 
@@ -1002,6 +1140,11 @@ def build_report(scope, settings_path, dry_run, folder_count, events):
     if scope.exclude_text:
         lines.append("exclude:  {}".format(", ".join(scope.exclude_text)))
     lines.append("folders collected from: {}".format(folder_count))
+    # Every run states what the change comparison found, including the runs
+    # that went on to rebuild. A log entry that only recorded the skips would
+    # leave the reader guessing why the other runs did not skip.
+    if change_note:
+        lines.append("change detection: {}".format(change_note))
     lines.append("-" * 72)
 
     if not events:
@@ -1076,7 +1219,7 @@ def pause_before_exit():
         pass
 
 
-def run(dry_run):
+def run(dry_run, force=False):
     """The whole job. Returns an exit code: 0 for success, 1 for a problem."""
     settings_path = SCRIPT_DIR / SETTINGS_FILENAME
 
@@ -1142,12 +1285,33 @@ def run(dry_run):
     parts, missing, assembly_events = assemble_parts(sources, root)
     events.extend(assembly_events)
 
-    for part in parts:
-        events.append(Event(
-            "WOULD INCLUDE" if dry_run else "INCLUDED",
-            part.path.parent,
-            "{}  (sha256 {})".format(part.path.name, part.digest)
-        ))
+    # --- compare ----------------------------------------------------------
+    # Asked before anything is reported as included, because a run that
+    # rebuilds nothing should not claim to have included anything. Every branch
+    # that cannot answer the question with confidence rebuilds.
+    rebuild = True
+    change_note = None
+    if force:
+        change_note = "not consulted (--force): rebuilding unconditionally"
+    elif not parts:
+        change_note = None            # the EMPTY event below says it better
+    elif previous is None:
+        change_note = "no previous binder to compare against: building"
+    elif missing:
+        change_note = ("not consulted: {} source file(s) could not be read "
+                       "this run".format(len(missing)))
+    else:
+        manifest = parse_binder_manifest(previous)
+        if manifest is None:
+            change_note = ("{} could not be read as a baseline: rebuilding"
+                           .format(previous.name))
+        else:
+            unchanged, description = compare_to_manifest(manifest, parts)
+            rebuild = not unchanged
+            change_note = "{}: {} - {}".format(
+                previous.name, description,
+                "rebuilding" if rebuild else "binder not rebuilt",
+            )
 
     # --- act --------------------------------------------------------------
     # An empty scope writes nothing at all. Replacing a good binder with an
@@ -1159,7 +1323,22 @@ def run(dry_run):
             "no files in scope - no binder written, any previous binder left "
             "untouched"
         ))
+    elif not rebuild:
+        # Nothing is written, nothing is superseded, and no version number is
+        # consumed. The previous binder remains the current one.
+        events.append(Event(
+            "WOULD CHECK" if dry_run else "NO CHANGES", output_folder,
+            "no changes detected since {}; binder {} rebuilt"
+            .format(previous.name, "would not be" if dry_run else "not")
+        ))
     else:
+        for part in parts:
+            events.append(Event(
+                "WOULD INCLUDE" if dry_run else "INCLUDED",
+                part.path.parent,
+                "{}  (sha256 {})".format(part.path.name, part.digest)
+            ))
+
         binder_text = build_binder_text(name, version, parts, missing)
 
         if missing:
@@ -1203,7 +1382,8 @@ def run(dry_run):
     # everything concerning one folder appears together.
     events.sort(key=lambda event: (str(event.folder), event.kind))
 
-    lines = build_report(scope, settings_path, dry_run, len(folders), events)
+    lines = build_report(scope, settings_path, dry_run, len(folders), events,
+                         change_note)
     print("\n".join(lines))
 
     # Dry runs are logged too, clearly marked, so the log is a complete record
@@ -1230,10 +1410,16 @@ def main():
         action="store_true",  # present = True, absent = False
         help="report what would be assembled without writing anything",
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="rebuild even when nothing in scope has changed since the last "
+             "binder was written",
+    )
     args = parser.parse_args()
 
     try:
-        exit_code = run(args.dry_run)
+        exit_code = run(args.dry_run, args.force)
     except KeyboardInterrupt:
         print("\nInterrupted.")
         exit_code = 1

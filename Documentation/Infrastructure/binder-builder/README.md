@@ -17,6 +17,10 @@ the tool, not a second entry in one settings file.
 the binder builder can take what it finds without any version reasoning of its
 own.
 
+**It will not rebuild for nothing.** If no in-scope file has changed since the
+last binder was written, the run reports `NO CHANGES` and writes nothing. See
+*Change detection* below.
+
 ---
 
 ## What it produces
@@ -223,11 +227,66 @@ The version is worked out by **scanning the output folder** — highest `N` foun
 write `N+1`. Nothing is recorded in settings, because a number kept in settings
 drifts from reality the first time a file is moved by hand.
 
+A run that finds nothing changed does not consume a version number — see
+*Change detection* below.
+
 On a successful write, the previous binder of that name is moved into
 `_superseded` inside the output folder. A tool cleans up after itself; version
 cleanup handles supersession it did not cause. Nothing is ever overwritten — if
 the `_superseded` slot is taken, the run reports `CONFLICT` and leaves the file
 alone.
+
+---
+
+## Change detection
+
+The binder is a derived file. Rebuilding it when nothing has changed produces
+the same content under a new version number and pushes a perfectly good binder
+into `_superseded` for nothing.
+
+So before writing, the tool compares what it just assembled against the
+**manifest of the current binder** — the list of filenames and digests in that
+binder's own header. Same files, same digests, and there is nothing to do:
+
+```
+change detection: Documentation_Binder_v7.md: 24 file(s) in scope, all matching the manifest - binder not rebuilt
+
+[_binder]
+  NO CHANGES       no changes detected since Documentation_Binder_v7.md; binder not rebuilt
+```
+
+Nothing is written, nothing is superseded, and no version number is used up.
+The previous binder is still the current one.
+
+Change, add or remove any in-scope file and the next run rebuilds, saying what
+it noticed:
+
+```
+change detection: Documentation_Binder_v7.md: 1 changed, 1 added (Project Design/ProjectDesign_Design_v8.md, Project Design/ProjectDesign_Index_v8.md) - rebuilding
+```
+
+There is no state file. The comparison uses the digests the binder already
+carries, so there is nothing that can drift out of step with it — and nothing
+to clean up if a binder is moved or restored by hand.
+
+**It builds whenever it cannot be sure.** No previous binder, a previous binder
+it cannot read, a manifest it cannot parse, a previous build stamped
+`INCOMPLETE`, or a source it could not read this time: all rebuild. An
+unnecessary rebuild costs a version number; a wrongly skipped one leaves a
+binder that misrepresents the tree.
+
+**Timestamps are not used.** A file touched but not changed, or a checkout that
+rewrites every modification time, would both trigger a pointless rebuild. The
+comparison is over content.
+
+To rebuild anyway:
+
+```
+python binder_builder.py --force
+```
+
+A dry run reports the same comparison as `WOULD CHECK` and writes nothing
+either way.
 
 ---
 
@@ -245,6 +304,12 @@ Report only, writes nothing:
 python binder_builder.py --dry-run
 ```
 
+Rebuild even if nothing has changed:
+
+```
+python binder_builder.py --force
+```
+
 The dry run takes exactly the same decisions as a live run — it reads every
 source and computes every digest — and reports them with `WOULD INCLUDE` and
 `WOULD WRITE` in place of `INCLUDED` and `WRITTEN`. It is the safe way to check
@@ -260,6 +325,8 @@ a new scope before letting the tool write anything.
 | `WOULD INCLUDE` | Dry run — the same file, nothing written. |
 | `SKIPPED` | In a collected folder, deliberately left out — an `exclude_files` match, or the tool's own output. |
 | `UNMATCHED` | An `order` entry naming a file that is not in scope. |
+| `NO CHANGES` | Nothing in scope has changed since the last binder. Nothing written, nothing superseded. |
+| `WOULD CHECK` | Dry run — the same comparison, reported rather than acted on. |
 | `WRITTEN` / `WOULD WRITE` | The binder itself. |
 | `SUPERSEDED` / `WOULD SUPERSEDE` | The previous binder moved into `_superseded`. |
 | `CONFLICT` | A destination name is already taken; nothing overwritten. |
