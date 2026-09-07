@@ -14,7 +14,7 @@
 
   "_comment_defaults": "The tool skips two kinds of folder by default, without any entry in exclude. (1) Any folder whose name starts with an underscore. (2) The asset folders: assets, images, img and media. Use include to override a default skip for a specific folder. include does not include a default-skipped folder's own default-skipped children, so including _rebuild does not include _rebuild/_superseded.",
 
-  "_comment_include": "Folders skipped by default that should be collected from anyway. See _comment_defaults above for what is skipped and why. ~/_rebuild is a leftover from the temporary arrangement described below and no longer earns its place - see _comment_exclude_files_outstanding.",
+  "_comment_include": "Folders skipped by default that should be collected from anyway. See _comment_defaults above for what is skipped and why. ~/_rebuild is here deliberately - see _comment_include_rebuild below for why it stays and what it costs.",
   "include": ["~/_rebuild"],
 
   "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. Infrastructure is machinery that acts on the corpus and is never loaded into an AI session, so it is excluded from the binder it builds.",
@@ -31,7 +31,7 @@
 
   "_comment_exclude_files_standing": "THE STANDING EXCLUSIONS are \"*_WIP_*\" and \"*_WIP.*\", and they are IN FORCE. The second is a wide catch for a WIP file carrying no version suffix, which should not happen but might. The temporary lifting of these two, which ran from 2026-09-07 to 2026-09-08 while the binder would otherwise have been empty, has ended: the binder now records an empty scope rather than carrying the working document to avoid one.",
 
-  "_comment_exclude_files_outstanding": "ONE HALF OF THE OLD TRIGGER IS STILL OUTSTANDING. The arrangement had two parts: restore the *_WIP_* exclusions, and remove ~/_rebuild from include. Only the first has been done. ~/_rebuild is therefore still walked, and everything in it is currently excluded only because every document in it is a WIP file - a non-WIP document dropped into _rebuild WOULD enter the binder. Remove ~/_rebuild from include when Project Design masters land, or sooner if that surprises anyone.",
+  "_comment_include_rebuild": "~/_rebuild STAYS IN include, deliberately, and this is a decision rather than an omission. The old temporary arrangement had two parts - restore the *_WIP_* exclusions, and remove this include - and only the first was applied. Keeping the include preserves the option of putting a NON-WIP document into _rebuild during the rebuild and having it reach the binder. Decided in binder-settings/aide-rebuild-chat/002, 2026-09-07. THE COST, so nobody rediscovers it by surprise: _rebuild is still walked, and its contents are kept out only because every document in it happens to match *_WIP_*. Any non-WIP document dropped there WILL enter the binder - which is the point, but it is also the accident. Remove this include when Project Design masters land and the option is no longer wanted.",
 
   "exclude_files": ["*_WIP_*", "*_WIP.*"],
 
