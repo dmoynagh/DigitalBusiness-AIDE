@@ -69,12 +69,35 @@ from pathlib import Path
 # It also means each copy of the tool uses its own settings and its own log.
 SCRIPT_DIR = Path(__file__).resolve().parent
 
-SETTINGS_FILENAME = "binder_builder_settings.json"
+# A settings file is named for the binder it defines, so a folder holding four
+# of them can be read without opening any of them:
+#
+#   binder_builder_AIDE_Documentation_settings.json
+#   binder_builder_ProjectDesign_settings.json
+#
+# The name in the filename is not what the tool reads - the "name" setting
+# inside the file is - so the two can in principle disagree. --list prints them
+# side by side, which is where a disagreement shows up.
+SETTINGS_FILENAME_FORMAT = "binder_builder_{name}_settings.json"
 
-# Every settings file in the script's folder is a binder definition. The plain
-# name above is simply the one a fresh copy of the tool writes for itself; the
-# glob is what makes a folder able to hold four binders instead of one.
-SETTINGS_GLOB = "binder_builder_settings*.json"
+# What a fresh copy of the tool writes for itself, before anyone has told it
+# what the binder is called.
+DEFAULT_BINDER_NAME = "Documentation"
+
+# The name this tool used before definitions were named, kept working because
+# settings files carrying it exist. It sorts first when present.
+LEGACY_SETTINGS_FILENAME = "binder_builder_settings.json"
+
+# Deliberately wider than the format above. It matches the named form, the
+# legacy plain name, and the "binder_builder_settings_<x>.json" spelling
+# documented between v5 and v8 - none of which should stop working because the
+# convention was tidied.
+SETTINGS_GLOB = "binder_builder*settings*.json"
+
+# A log is named for its binder too, so four definitions in one folder do not
+# interleave four runs in one file. A definition can still point several
+# binders at one log by setting log_file explicitly.
+LOG_FILENAME_FORMAT = "binder_builder_{name}.log"
 SUPERSEDED_FOLDER_NAME = "_superseded"
 
 # Folders skipped unless the settings explicitly include them. The leading
@@ -132,7 +155,7 @@ INCOMPLETE_MARKER = "INCOMPLETE BINDER"
 DEFAULT_SETTINGS_JSON = """{
   "_comment": "Settings for the binder builder. This file IS the binder definition - it declares what the binder contains. One binder per copy of the tool: a second binder means a second folder with its own copy of the script and its own settings, not a second entry here. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
 
-  "_comment_name": "The binder's name. Used in the heading (\\"<name> Binder\\") and in the filename (\\"<name>_Binder_v<number>.md\\").",
+  "_comment_name": "The binder's name. Used in the heading (\\"<name> Binder\\"), in the binder filename (\\"<name>_Binder_v<number>.md\\"), and in this settings file's own name (\\"binder_builder_<name>_settings.json\\") and log (\\"binder_builder_<name>.log\\"). It also identifies this binder on the command line, and no two definitions in one folder may share it.",
   "name": "Documentation",
 
   "_comment_root": "The folder the binder is built from, including everything beneath it unless subfolders is false. A relative path is resolved against the folder this script lives in, so \\"..\\" means the parent folder. Give a full path such as \\"C:/Users/you/Documents\\" to point somewhere else. Forward slashes are safe on Windows.",
@@ -167,8 +190,8 @@ DEFAULT_SETTINGS_JSON = """{
   "_comment_output": "The folder the binder is written to. Absolute, or \\"~/\\" for root-anchored, or relative to the script folder. The default \\"~/_binder\\" is an underscore folder inside the root, so it is skipped by the walk and a binder can never contain itself.",
   "output": "~/_binder",
 
-  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \\"~/\\" for root-anchored, or relative to the script folder.",
-  "log_file": "binder_builder.log"
+  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \\"~/\\" for root-anchored, or relative to the script folder. Leave this out entirely and the log is named for the binder - binder_builder_<name>.log - which is what keeps four definitions in one folder from interleaving four runs in one file. Set it explicitly to point several binders at one log on purpose.",
+  "log_file": "binder_builder_Documentation.log"
 }
 """
 
@@ -1404,9 +1427,10 @@ class Definition:
 
 
 def settings_sort_key(path):
-    """The plain settings file first, then the rest alphabetically."""
+    """The legacy plain settings file first, then the rest alphabetically."""
     folded = os.path.normcase(path.name)
-    return (0 if folded == os.path.normcase(SETTINGS_FILENAME) else 1, folded)
+    first = folded == os.path.normcase(LEGACY_SETTINGS_FILENAME)
+    return (0 if first else 1, folded)
 
 
 def discover_settings_files():
@@ -1421,7 +1445,8 @@ def discover_settings_files():
     if found:
         return found
 
-    settings_path = SCRIPT_DIR / SETTINGS_FILENAME
+    settings_path = SCRIPT_DIR / SETTINGS_FILENAME_FORMAT.format(
+        name=DEFAULT_BINDER_NAME)
     create_default_settings(settings_path)
     return [settings_path]
 
@@ -1576,9 +1601,12 @@ def load_definition(settings_path):
         tidy_setting_text(settings.get("output", "~/_binder"), "output"),
         "output", root=root
     )
+    # A definition that says nothing about its log gets one named for itself,
+    # rather than all four definitions in a folder appending to one file.
     log_path = resolve_one_folder(
-        tidy_setting_text(settings.get("log_file", "binder_builder.log"),
-                          "log_file"),
+        tidy_setting_text(
+            settings.get("log_file", LOG_FILENAME_FORMAT.format(name=name)),
+            "log_file"),
         "log_file", root=root
     )
 
@@ -1820,8 +1848,10 @@ def main():
     parser = argparse.ArgumentParser(
         description="Assemble the documents of a defined scope into a single "
                     "binder file. Every {} in the script's own folder is one "
-                    "binder definition, and all of them are built unless some "
-                    "are named.".format(SETTINGS_GLOB)
+                    "binder definition - conventionally named {} - and all of "
+                    "them are built unless some are named."
+                    .format(SETTINGS_GLOB,
+                            SETTINGS_FILENAME_FORMAT.format(name="<name>"))
     )
     parser.add_argument(
         "binders",

@@ -20,7 +20,7 @@
   "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. Infrastructure is machinery that acts on the corpus and is never loaded into an AI session, so it is excluded from the binder it builds.",
   "exclude": ["~/Infrastructure"],
 
-  "_comment_file_types": "File extensions to collect, without the dot. json is here so that data and configuration documents are carried; the exclude_files entry below keeps tool settings out.",
+  "_comment_file_types": "File extensions to collect, without the dot. json is here so that data and configuration documents are carried. Note that nothing currently excludes JSON: the _tools and _config folders are underscore-prefixed and so out of scope anyway, and Infrastructure is excluded, but JSON dropped into _rebuild WOULD be collected. Add \"~/_rebuild/*.json\" to exclude_files if that becomes a problem.",
   "file_types": ["md", "yaml", "yml", "json"],
 
   "_comment_exclude_files": "Files to skip. Applied AFTER file_types has chosen what to collect, so this setting only ever removes, and it is the last word. Three forms, the same convention include and exclude use for folders. FILENAME - \"*_WIP_*\" - matched against the name wherever the file appears. ROOT-ANCHORED - \"~/_rebuild/*.json\" - one exact path, measured from the root. TRAILING - \"_rebuild/*.json\" - a pattern rather than a place: any file whose path ends with those segments.",
@@ -31,11 +31,9 @@
 
   "_comment_exclude_files_standing": "THE STANDING EXCLUSIONS are \"*_WIP_*\" and \"*_WIP.*\". The second is a wide catch for a WIP file carrying no version suffix, which should not happen but might. They are NOT in the list below right now - see the exception.",
 
-  "_comment_exclude_files_exception": "LOCAL EXCEPTION, TEMPORARY: the standing *_WIP_* and *_WIP.* exclusions are lifted, and ~/_rebuild is included above, so that the binder carries the rebuild working document while it would otherwise be empty. This is a temporary measure for an empty binder, not a change to the rule above. TRIGGER TO RESTORE: when Project Design masters land in the Project Design folder, (1) put \"*_WIP_*\" and \"*_WIP.*\" back into exclude_files, and (2) remove ~/_rebuild from include. Both, not one. Add no exclusion for registers or open items when you do. The list then reads [\"*_WIP_*\", \"*_WIP.*\", \"~/_rebuild/*.json\"].",
+  "_comment_exclude_files_exception": "LOCAL EXCEPTION, TEMPORARY: the standing *_WIP_* and *_WIP.* exclusions are lifted, and ~/_rebuild is included above, so that the binder carries the rebuild working document while it would otherwise be empty. This is a temporary measure for an empty binder, not a change to the rule above. TRIGGER TO RESTORE: when Project Design masters land in the Project Design folder, (1) put \"*_WIP_*\" and \"*_WIP.*\" back into exclude_files, and (2) remove ~/_rebuild from include. Both, not one. Add no exclusion for registers or open items when you do. The list then reads [\"*_WIP_*\", \"*_WIP.*\"].",
 
-  "_comment_exclude_files_json": "~/_rebuild/*.json keeps tool settings and other JSON dropped into _rebuild out of the binder, now that json is a collected file type. It is root-anchored and non-recursive: JSON directly in _rebuild only. It stays after the trigger fires, harmlessly, because _rebuild leaves scope at the same time.",
-
-  "exclude_files": ["~/_rebuild/*.json"],
+  "exclude_files": [],
 
   "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. A name that matches nothing in scope is reported, not silently ignored.",
   "order": [],
@@ -43,6 +41,6 @@
   "_comment_output": "The folder the binder is written to. The default \"~/_binder\" is an underscore folder inside the root, so it is skipped by the walk and a binder can never contain itself.",
   "output": "~/_binder",
 
-  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten.",
-  "log_file": "binder_builder.log"
+  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Named for this binder, so several definitions in one folder do not interleave their runs in one file. Leave the setting out entirely and the tool derives exactly this name.",
+  "log_file": "binder_builder_AIDE_Documentation.log"
 }

@@ -91,3 +91,53 @@ folders processed: 6
 Result: 1 moved
 ========================================================================
 
+========================================================================
+version cleanup   2026-09-07 22:57:53   DRY RUN (nothing changed)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+include:  ~/_rebuild
+folders processed: 8
+------------------------------------------------------------------------
+
+[_rebuild]
+  WOULD MOVE  AIDE_Rebuild_WIP_v17.md  (v17 superseded by v20)
+  WOULD MOVE  AIDE_Rebuild_WIP_v18.md  (v18 superseded by v20)
+  WOULD MOVE  AIDE_Rebuild_WIP_v19.md  (v19 superseded by v20)
+
+------------------------------------------------------------------------
+Result: 3 would move
+========================================================================
+
+========================================================================
+version cleanup   2026-09-07 22:58:45   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+include:  ~/_rebuild
+folders processed: 8
+------------------------------------------------------------------------
+
+[_rebuild]
+  MOVED       AIDE_Rebuild_WIP_v17.md  (v17 superseded by v20)
+  MOVED       AIDE_Rebuild_WIP_v18.md  (v18 superseded by v20)
+  MOVED       AIDE_Rebuild_WIP_v19.md  (v19 superseded by v20)
+
+------------------------------------------------------------------------
+Result: 3 moved
+========================================================================
+
+========================================================================
+version cleanup   2026-09-08 09:54:17   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\version_cleanup_settings.json
+include:  ~/_rebuild
+folders processed: 9
+------------------------------------------------------------------------
+
+[_rebuild]
+  MOVED       AIDE_Rebuild_WIP_v20.md  (v20 superseded by v22)
+  MOVED       AIDE_Rebuild_WIP_v21.md  (v21 superseded by v22)
+
+------------------------------------------------------------------------
+Result: 2 moved
+========================================================================
+

@@ -1,0 +1,353 @@
+========================================================================
+binder builder   2026-09-04 13:41:01   DRY RUN (nothing written)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  ~/Infrastructure
+folders collected from: 3
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - no binder written, any previous binder left untouched
+
+------------------------------------------------------------------------
+Result: 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-04 13:42:39   DRY RUN (nothing written)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation_old\AI Deployment
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  superseded, archived
+folders collected from: 1
+------------------------------------------------------------------------
+
+[C:\Users\david\AppData\Local\Temp\claude\C--Users-david-dev-repos-DigitalBusiness-AIDE\83bbb90d-f9b7-472c-9824-2e95017d4bba\scratchpad\instance_out]
+  WOULD WRITE      AIDE_Documentation_Binder_v1.md  (12 files, 128301 bytes)
+
+[.]
+  WOULD INCLUDE    AIDE_Build_Standard_v8.md  (sha256 fc340eaef029)
+  WOULD INCLUDE    AIDE_Deployment_Standard_v7.md  (sha256 6c8f9c248be0)
+  WOULD INCLUDE    AIDE_Deployment_Tool_v7.md  (sha256 99279f845278)
+  WOULD INCLUDE    AIDE_DeploymentRegistry_Tool_v2.md  (sha256 b3903fa3c162)
+  WOULD INCLUDE    AIDeployment_AIDECore_Reference_v2.md  (sha256 79f0b445325a)
+  WOULD INCLUDE    AIDeployment_Decisions_v7.md  (sha256 07f77cfeaa9d)
+  WOULD INCLUDE    AIDeployment_Design_v8.md  (sha256 7b27400579e5)
+  WOULD INCLUDE    AIDeployment_Index_v8.md  (sha256 bdf1f9fd20ac)
+  WOULD INCLUDE    AIDeployment_OpenAI_Reference_v3.md  (sha256 1b895fbe156d)
+  WOULD INCLUDE    AIDeployment_Registry_Design_v2.md  (sha256 583e1bfcac0a)
+  WOULD INCLUDE    AIDeployment_SetRelease_Design_v2.md  (sha256 e4ce359c712d)
+  WOULD INCLUDE    AIDeployment_TargetAdapter_Design_v1.md  (sha256 97e17c86f680)
+
+------------------------------------------------------------------------
+Result: 12 would include, 1 would write
+========================================================================
+
+========================================================================
+binder builder   2026-09-04 13:42:39   DRY RUN (nothing written)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  ~/Infrastructure
+folders collected from: 3
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - no binder written, any previous binder left untouched
+
+------------------------------------------------------------------------
+Result: 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-04 13:48:09   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  ~/Infrastructure
+folders collected from: 3
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - no binder written, any previous binder left untouched
+
+------------------------------------------------------------------------
+Result: 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-07 22:42:59   DRY RUN (nothing written)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  ~/Infrastructure
+folders collected from: 3
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - no binder written, any previous binder left untouched
+
+------------------------------------------------------------------------
+Result: 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-07 22:42:59   DRY RUN (nothing written)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+exclude:  ~/Infrastructure
+folders collected from: 3
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - no binder written, any previous binder left untouched
+
+------------------------------------------------------------------------
+Result: 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-07 22:57:53   DRY RUN (nothing written)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 4
+change detection: no previous binder to compare against: building
+------------------------------------------------------------------------
+
+[_binder]
+  WOULD WRITE      AIDE_Documentation_Binder_v1.md  (4 files, 638020 bytes)
+
+[_rebuild]
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v17.md  (sha256 09c5e2d5d752)
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v18.md  (sha256 46b855ca2588)
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v19.md  (sha256 95dde323dff7)
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v20.md  (sha256 8096c7a1bea8)
+
+------------------------------------------------------------------------
+Result: 4 would include, 1 would write
+========================================================================
+
+========================================================================
+binder builder   2026-09-07 22:58:46   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 4
+change detection: no previous binder to compare against: building
+------------------------------------------------------------------------
+
+[_binder]
+  WRITTEN          AIDE_Documentation_Binder_v1.md  (1 files, 176922 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Rebuild_WIP_v20.md  (sha256 8096c7a1bea8)
+
+------------------------------------------------------------------------
+Result: 1 included, 1 written
+========================================================================
+
+========================================================================
+binder builder   2026-09-07 22:58:52   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 4
+change detection: AIDE_Documentation_Binder_v1.md: 1 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v1.md; binder not rebuilt
+
+------------------------------------------------------------------------
+Result: 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-07 23:08:46   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 4
+change detection: AIDE_Documentation_Binder_v1.md: 1 added (_rebuild/AIDE_Rebuild_WIP_v21.md) - rebuilding
+------------------------------------------------------------------------
+
+[_binder]
+  SUPERSEDED       AIDE_Documentation_Binder_v1.md -> _superseded/
+  WRITTEN          AIDE_Documentation_Binder_v2.md  (2 files, 375616 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Rebuild_WIP_v20.md  (sha256 8096c7a1bea8)
+  INCLUDED         AIDE_Rebuild_WIP_v21.md  (sha256 de864a9a06bf)
+
+------------------------------------------------------------------------
+Result: 2 included, 1 written, 1 superseded
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 09:47:42   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v2.md: 2 added (_rebuild/AIDE_DesignApproach_WIP_v1.md, _rebuild/AIDE_Rebuild_WIP_v22.md) - rebuilding
+------------------------------------------------------------------------
+
+[_binder]
+  WOULD SUPERSEDE  AIDE_Documentation_Binder_v2.md -> _superseded/
+  WOULD WRITE      AIDE_Documentation_Binder_v3.md  (4 files, 599989 bytes)
+
+[_rebuild]
+  WOULD INCLUDE    AIDE_DesignApproach_WIP_v1.md  (sha256 b4687303cae5)
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v20.md  (sha256 8096c7a1bea8)
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v21.md  (sha256 de864a9a06bf)
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v22.md  (sha256 4897ed8290cf)
+
+------------------------------------------------------------------------
+Result: 4 would include, 1 would write, 1 would supersede
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 09:52:48   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v2.md: 2 added (_rebuild/AIDE_DesignApproach_WIP_v1.md, _rebuild/AIDE_Rebuild_WIP_v22.md) - rebuilding
+------------------------------------------------------------------------
+
+[_binder]
+  WOULD SUPERSEDE  AIDE_Documentation_Binder_v2.md -> _superseded/
+  WOULD WRITE      AIDE_Documentation_Binder_v3.md  (4 files, 599989 bytes)
+
+[_rebuild]
+  WOULD INCLUDE    AIDE_DesignApproach_WIP_v1.md  (sha256 b4687303cae5)
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v20.md  (sha256 8096c7a1bea8)
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v21.md  (sha256 de864a9a06bf)
+  WOULD INCLUDE    AIDE_Rebuild_WIP_v22.md  (sha256 4897ed8290cf)
+
+------------------------------------------------------------------------
+Result: 4 would include, 1 would write, 1 would supersede
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 09:54:21   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v2.md: 2 added, 2 removed (_rebuild/AIDE_DesignApproach_WIP_v1.md, _rebuild/AIDE_Rebuild_WIP_v22.md, _rebuild/AIDE_Rebuild_WIP_v20.md, and 1 more) - rebuilding
+------------------------------------------------------------------------
+
+[_binder]
+  SUPERSEDED       AIDE_Documentation_Binder_v2.md -> _superseded/
+  WRITTEN          AIDE_Documentation_Binder_v3.md  (2 files, 224676 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_DesignApproach_WIP_v1.md  (sha256 b4687303cae5)
+  INCLUDED         AIDE_Rebuild_WIP_v22.md  (sha256 4897ed8290cf)
+
+------------------------------------------------------------------------
+Result: 2 included, 1 written, 1 superseded
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 09:54:26   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v3.md; binder not rebuilt
+
+------------------------------------------------------------------------
+Result: 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:17:16   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  WOULD CHECK      no changes detected since AIDE_Documentation_Binder_v3.md; binder would not be rebuilt
+
+------------------------------------------------------------------------
+Result: 1 would check
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:17:17   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+------------------------------------------------------------------------
+
+[.]
+  EMPTY            no files in scope - no binder written, any previous binder left untouched
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v22.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 empty
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:19:38   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  WOULD CHECK      no changes detected since AIDE_Documentation_Binder_v3.md; binder would not be rebuilt
+
+------------------------------------------------------------------------
+Result: 1 would check
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 10:24:15   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v3.md: 2 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  WOULD CHECK      no changes detected since AIDE_Documentation_Binder_v3.md; binder would not be rebuilt
+
+------------------------------------------------------------------------
+Result: 1 would check
+========================================================================
+

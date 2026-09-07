@@ -1,7 +1,7 @@
 {
   "_comment": "Settings for the binder builder. This file IS the binder definition - it declares what the binder contains. One binder per copy of the tool: a second binder means a second folder with its own copy of the script and its own settings, not a second entry here. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
 
-  "_comment_name": "The binder's name. Used in the heading (\"<name> Binder\") and in the filename (\"<name>_Binder_v<number>.md\").",
+  "_comment_name": "The binder's name. Used in the heading (\"<name> Binder\"), in the binder filename (\"<name>_Binder_v<number>.md\"), and in this settings file's own name (\"binder_builder_<name>_settings.json\") and log (\"binder_builder_<name>.log\"). It also identifies this binder on the command line, and no two definitions in one folder may share it.",
   "name": "Documentation",
 
   "_comment_root": "The folder the binder is built from, including everything beneath it unless subfolders is false. A relative path is resolved against the folder this script lives in, so \"..\" means the parent folder. Give a full path such as \"C:/Users/you/Documents\" to point somewhere else. Forward slashes are safe on Windows.",
@@ -36,6 +36,6 @@
   "_comment_output": "The folder the binder is written to. Absolute, or \"~/\" for root-anchored, or relative to the script folder. The default \"~/_binder\" is an underscore folder inside the root, so it is skipped by the walk and a binder can never contain itself.",
   "output": "~/_binder",
 
-  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \"~/\" for root-anchored, or relative to the script folder.",
-  "log_file": "binder_builder.log"
+  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \"~/\" for root-anchored, or relative to the script folder. Leave this out entirely and the log is named for the binder - binder_builder_<name>.log - which is what keeps four definitions in one folder from interleaving four runs in one file. Set it explicitly to point several binders at one log on purpose.",
+  "log_file": "binder_builder_Documentation.log"
 }

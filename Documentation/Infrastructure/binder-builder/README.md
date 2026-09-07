@@ -5,9 +5,10 @@ topic can be dropped into an AI session's context as one artefact rather than
 as many.
 
 This folder is the **master copy**. To use the tool, copy `binder_builder.py`
-and `binder_builder_settings.json` to wherever it should run from, then edit
-that copy's settings. Each instance keeps its own settings file and its own log
-beside the script, so instances never interfere with each other.
+and the settings file to wherever it should run from, then edit that copy's
+settings — including renaming it for the binder it defines. Each instance keeps
+its own settings and its own log beside the script, so instances never
+interfere with each other.
 
 **A settings file is a binder definition.** It declares the scope. To define a
 second binder, put a second settings file beside the first — one run builds them
@@ -104,11 +105,13 @@ python "C:\path\to\binder_builder.py"
 
 ## Settings
 
-The script reads every `binder_builder_settings*.json` in **its own folder** —
+The script reads every `binder_builder*settings*.json` in **its own folder** —
 not from wherever the terminal happens to be pointing. Each one is a binder. If
-the folder holds none at all, the script writes a fresh `binder_builder_settings.json`
-with default values and explanatory notes, then tells you to check it. Since a
-settings file is a binder definition, a fresh one almost always needs editing.
+the folder holds none at all, the script writes a fresh
+`binder_builder_Documentation_settings.json` with default values and
+explanatory notes, then tells you to check it. Since a settings file is a binder
+definition, a fresh one almost always needs editing — starting with its `name`,
+and then its own filename to match.
 
 ```json
 {
@@ -267,23 +270,42 @@ is a quiet defect.
 
 ## Several binders in one folder
 
-Every `binder_builder_settings*.json` in the script's folder is one binder. So a
-folder that builds four binders looks like this:
+Each settings file in the script's folder is one binder, and both the settings
+and the log are named for the binder they belong to:
 
 ```
 _tools/
 ├── binder_builder.py
-├── binder_builder_settings.json                    ← the whole-corpus binder
-├── binder_builder_settings_projectdesign.json
-├── binder_builder_settings_infrastructure.json
-├── binder_builder_settings_methodology.json
-└── binder_builder.log
+├── binder_builder_AIDE_Documentation_settings.json
+├── binder_builder_ProjectDesign_settings.json
+├── binder_builder_Infrastructure_settings.json
+├── binder_builder_Methodology_settings.json
+├── binder_builder_AIDE_Documentation.log
+├── binder_builder_ProjectDesign.log
+├── binder_builder_Infrastructure.log
+└── binder_builder_Methodology.log
 ```
 
-To add one, copy an existing settings file to a new
-`binder_builder_settings_<something>.json` and edit it. The part after
-`binder_builder_settings` is yours to choose — it is there to keep the filenames
-apart and nothing reads it.
+So a folder of four binders can be read from the listing without opening
+anything.
+
+To add one, copy an existing settings file to
+`binder_builder_<name>_settings.json`, edit it, and set its `name` to match.
+
+**The filename is a convention, not an input.** The tool reads the `name`
+*setting*, never the filename, so nothing breaks if they disagree — but
+`--list` prints them side by side, which is where you will notice.
+
+**The log name is derived.** Leave `log_file` out and each binder gets
+`binder_builder_<name>.log` automatically, so four definitions do not interleave
+four runs in one file. Set `log_file` explicitly if you would rather several
+binders shared one — one file per folder in run order is exactly what someone
+auditing a whole folder wants.
+
+**Older filenames still work.** `binder_builder_settings.json`, and the
+`binder_builder_settings_<something>.json` spelling this README recommended
+earlier, are both still discovered and built. Rename them when convenient;
+nothing forces it.
 
 **Give each one a different `name`.** The name decides the output filename, so
 two binders sharing one would take turns superseding each other's file. The tool
