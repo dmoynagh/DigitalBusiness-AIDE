@@ -21,8 +21,13 @@
   "_comment_file_types": "File extensions to collect, without the dot.",
   "file_types": ["md", "yaml", "yml"],
 
-  "_comment_exclude_files": "Filename patterns to skip regardless of type. Live state - working notes, open items, work registers - is excluded here and loaded separately when it is needed. The _WIP_ patterns have deliberately been lifted: the rebuild work in progress IS the current statement of this corpus while the rebuild is running, and _rebuild is included above to carry it. Put them back when the rebuild lands as masters.",
-  "exclude_files": ["*_Working_*", "*_OpenItems_*", "*_WorkRegister_*"],
+  "_comment_exclude_files": "Filename patterns to skip regardless of type.",
+
+  "_comment_exclude_files_rule": "THE RULE: live state - the working document - is excluded from the binder and loaded separately when it is needed. Work registers are NOT live state in this sense and are IN the binder: a register is written at master update, which is when the binder rebuilds anyway, so the two are already in step and there is no churn to exclude it for. Loading a register separately would cost binder plus working document plus register, for every register that exists. Never add an exclusion for a register here.",
+
+  "_comment_exclude_files_exception": "LOCAL EXCEPTION, TEMPORARY: the *_WIP_* patterns are lifted, and ~/_rebuild is included above, so that the binder carries the rebuild working document while it would otherwise be empty. This is a temporary measure for an empty binder, not a change to the rule above. TRIGGER TO RESTORE: when Project Design masters land in the Project Design folder, put \"*_WIP_*\" and \"*_WIP.*\" back into exclude_files and remove ~/_rebuild from include. Add no exclusion for registers when you do.",
+
+  "exclude_files": ["*_Working_*", "*_OpenItems_*"],
 
   "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. A name that matches nothing in scope is reported, not silently ignored.",
   "order": [],

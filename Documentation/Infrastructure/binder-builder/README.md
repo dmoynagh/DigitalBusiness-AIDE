@@ -193,14 +193,20 @@ the tool ignores them. Leave them, edit them, or delete them as you prefer.
 
 ### Excluding live state
 
-Work-in-progress, working, open-items and work-register documents are loaded
-separately when active state is actually needed, so they are normally kept out
-of the binder. Do that through `exclude_files` in the binder's own settings
-rather than expecting the tool to know the names:
+The working document — work in progress, working notes — is loaded separately
+when active state is actually needed, so it is normally kept out of the binder.
+Do that through `exclude_files` in the binder's own settings rather than
+expecting the tool to know the names:
 
 ```json
-"exclude_files": ["*_WIP_*", "*_Working_*", "*_OpenItems_*", "*_WorkRegister_*"]
+"exclude_files": ["*_WIP_*", "*_Working_*"]
 ```
+
+**Work registers are a different case: they belong *in* the binder.** A register
+is written at master update, which is when the binder rebuilds anyway, so the
+two are already in step and there is no churn to keep it out for — and loading
+one separately costs the binder plus the working document plus the register,
+for every register that exists. Do not add a `*_WorkRegister_*` pattern here.
 
 `*` matches any run of characters and `?` matches one, matched
 case-insensitively on Windows and case-sensitively elsewhere — the same way the
