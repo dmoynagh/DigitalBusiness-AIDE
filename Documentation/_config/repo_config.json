@@ -1,0 +1,20 @@
+{
+  "_comment": "Repository-level configuration for documentation tools. Maps topic names to folder paths and declares conventions.",
+
+  "_comment_consumers": "This file is a reference for sessions that need to build a FileUpdatePackage: it says what the topic folders are called, so a manifest can carry correct relative paths. The tools do NOT read it - version cleanup, the binder builder and the file update package deployer each have their own settings file beside their own script.",
+
+  "documentation_root": "Documentation",
+
+  "_comment_topic_folders": "Topic name -> folder path, relative to the documentation root. These are the folders that hold master documents. Everything else at the root is underscore-prefixed machinery.",
+  "topic_folders": {
+    "Project Design": "Project Design",
+    "Documentation Methodology": "Documentation Methodology",
+    "Infrastructure": "Infrastructure"
+  },
+
+  "_comment_superseded_folder": "Superseded documents are moved into a folder of this name inside the folder they came from. Note the spelling: an incorrectly spelled _superceded folder exists at the documentation root and is deliberately left alone. Never create another one.",
+  "superseded_folder": "_superseded",
+
+  "_comment_fileupdatepackages_folder": "Where FileUpdatePackages are dropped to be deployed, relative to the documentation root.",
+  "fileupdatepackages_folder": "_fileupdatepackages"
+}
