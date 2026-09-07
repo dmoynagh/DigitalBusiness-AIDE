@@ -1,0 +1,17 @@
+{
+  "_comment": "Settings for the file update package deployer. Edit the values below. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
+
+  "_comment_documentation_root": "The root of the document tree packages are deployed into. Manifest paths are measured from here. A relative path is resolved against the folder this script lives in, so \"..\" means the parent folder - which is what an instance sitting in _tools wants. Give a full path such as \"C:/Users/you/Documents\" to point somewhere else. Forward slashes are safe on Windows. This setting cannot use \"~/\", because \"~/\" means \"measured from the documentation root\" and this is the setting that defines it.",
+  "documentation_root": "..",
+
+  "_comment_paths": "The three settings below accept three kinds of path. ABSOLUTE - \"C:/Docs/_fileupdatepackages\". ROOT-ANCHORED - \"~/_fileupdatepackages\" - measured from the documentation root above. RELATIVE - \"_fileupdatepackages\" - measured from the folder this script lives in. Note that ~ means the documentation root here, never your home folder.",
+
+  "_comment_drop_folder": "Where packages are put to be deployed. The newest unprocessed .zip in this folder is the one that gets processed; the rest wait. Processed packages are moved into a _superseded subfolder of it.",
+  "drop_folder": "~/_fileupdatepackages",
+
+  "_comment_binder_builder": "The binder builder script to run after a deploy. Point this at the running instance, not at the master copy, so it uses that instance's settings. Set it to \"\" to skip the trigger entirely.",
+  "binder_builder": "~/_tools/binder_builder.py",
+
+  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \"~/\" for root-anchored, or relative to the script folder.",
+  "log_file": "file_update_package.log"
+}

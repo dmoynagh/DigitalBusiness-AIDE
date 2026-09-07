@@ -1,0 +1,61 @@
+========================================================================
+file update package   2026-09-07 22:41:30   DRY RUN (nothing changed)
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  SKIPPED           no packages found in C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+
+------------------------------------------------------------------------
+Result: 1 skipped
+========================================================================
+COMPLETION SUMMARY   (DRY RUN - nothing was changed)
+------------------------------------------------------------------------
+  package:              none - nothing to deploy
+  files updated:        0
+  files created:        0
+  files superseded:     0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        2 folder(s) close to a convention name but not matching it
+    - _superceded  (expected "_superseded")
+    - Infrastructure\file-update-package  (expected "_fileupdatepackages")
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY - there was nothing to do
+========================================================================
+
+========================================================================
+file update package   2026-09-07 22:41:50   DRY RUN (nothing changed)
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  SKIPPED           no packages found in C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+
+------------------------------------------------------------------------
+Result: 1 skipped
+========================================================================
+COMPLETION SUMMARY   (DRY RUN - nothing was changed)
+------------------------------------------------------------------------
+  package:              none - nothing to deploy
+  files updated:        0
+  files created:        0
+  files superseded:     0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        1 folder(s) close to a convention name but not matching it
+    - _superceded  (expected "_superseded")
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY - there was nothing to do
+========================================================================
+
