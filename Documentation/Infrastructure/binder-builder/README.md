@@ -202,11 +202,15 @@ expecting the tool to know the names:
 "exclude_files": ["*_WIP_*", "*_Working_*"]
 ```
 
-**Work registers are a different case: they belong *in* the binder.** A register
-is written at master update, which is when the binder rebuilds anyway, so the
-two are already in step and there is no churn to keep it out for — and loading
-one separately costs the binder plus the working document plus the register,
-for every register that exists. Do not add a `*_WorkRegister_*` pattern here.
+**Work registers and open-items documents are a different case: they belong
+*in* the binder.** The test is **durability, not cadence** — everything that
+outlives the session is binder-class, and a parked question outlives the
+session by definition. Both churn at session cadence in raw terms; what makes
+them binder-safe is that they are written at master update. Do not add a
+`*_WorkRegister_*` or `*_OpenItems_*` pattern here.
+
+Items accumulate in the working document between master updates, so a reader
+wanting current register or open items checks the working document as well.
 
 `*` matches any run of characters and `?` matches one, matched
 case-insensitively on Windows and case-sensitively elsewhere — the same way the
