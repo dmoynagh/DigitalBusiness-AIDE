@@ -12,8 +12,8 @@
 
   "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \"C:/Docs/_binder\" - names one exact folder. ROOT-ANCHORED - \"~/_binder\" - names one exact folder, measured from the root above. RELATIVE - \"_binder\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
 
-  "_comment_include": "Folders skipped by default that should be collected from anyway. Skipped by default: any folder whose name starts with an underscore, and the asset folders assets, images, img and media. Including a folder does not include its underscore-prefixed children.",
-  "include": [],
+  "_comment_include": "Folders skipped by default that should be collected from anyway. Skipped by default: any folder whose name starts with an underscore, and the asset folders assets, images, img and media. Including a folder does not include its underscore-prefixed children, so _rebuild is collected from but _rebuild/_superseded is not.",
+  "include": ["~/_rebuild"],
 
   "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. Infrastructure is machinery that acts on the corpus and is never loaded into an AI session, so it is excluded from the binder it builds.",
   "exclude": ["~/Infrastructure"],
@@ -21,8 +21,8 @@
   "_comment_file_types": "File extensions to collect, without the dot.",
   "file_types": ["md", "yaml", "yml"],
 
-  "_comment_exclude_files": "Filename patterns to skip regardless of type. Live state - work in progress, working notes, open items, work registers - is excluded here and loaded separately when it is needed.",
-  "exclude_files": ["*_WIP_*", "*_WIP.*", "*_Working_*", "*_OpenItems_*", "*_WorkRegister_*"],
+  "_comment_exclude_files": "Filename patterns to skip regardless of type. Live state - working notes, open items, work registers - is excluded here and loaded separately when it is needed. The _WIP_ patterns have deliberately been lifted: the rebuild work in progress IS the current statement of this corpus while the rebuild is running, and _rebuild is included above to carry it. Put them back when the rebuild lands as masters.",
+  "exclude_files": ["*_Working_*", "*_OpenItems_*", "*_WorkRegister_*"],
 
   "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. A name that matches nothing in scope is reported, not silently ignored.",
   "order": [],

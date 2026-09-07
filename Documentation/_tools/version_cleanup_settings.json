@@ -6,8 +6,8 @@
 
   "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \"C:/Docs/_binder\" - names one exact folder. ROOT-ANCHORED - \"~/_binder\" - names one exact folder, measured from the root above. RELATIVE - \"_binder\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
 
-  "_comment_include": "Folders whose names start with an underscore are skipped by default. List any that should be processed anyway. Example: [\"_binder\"] processes every _binder folder in the tree; [\"~/_binder\"] processes only the one at the top.",
-  "include": [],
+  "_comment_include": "Folders whose names start with an underscore are skipped by default. List any that should be processed anyway. Example: [\"_binder\"] processes every _binder folder in the tree; [\"~/_binder\"] processes only the one at the top. _rebuild is included because the binder now collects from it, and a binder built over an untidied folder would carry every WIP version at once.",
+  "include": ["~/_rebuild"],
 
   "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. A relative entry here is powerful: \"_superseded\" would skip every _superseded folder in the tree.",
   "exclude": [],
