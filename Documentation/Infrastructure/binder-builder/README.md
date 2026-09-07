@@ -9,9 +9,9 @@ and `binder_builder_settings.json` to wherever it should run from, then edit
 that copy's settings. Each instance keeps its own settings file and its own log
 beside the script, so instances never interfere with each other.
 
-**One binder per instance.** The settings file *is* the binder definition — it
-declares the scope. A second binder means a second folder with its own copy of
-the tool, not a second entry in one settings file.
+**A settings file is a binder definition.** It declares the scope. To define a
+second binder, put a second settings file beside the first — one run builds them
+all. See *Several binders in one folder* below.
 
 **Run version cleanup first.** It leaves only current documents in the tree, so
 the binder builder can take what it finds without any version reasoning of its
@@ -104,11 +104,11 @@ python "C:\path\to\binder_builder.py"
 
 ## Settings
 
-The script reads `binder_builder_settings.json` from **its own folder** — not
-from wherever the terminal happens to be pointing. If that file is missing, the
-script writes a fresh one with default values and explanatory notes, then tells
-you to check it. Since the settings file is the binder definition, a fresh one
-almost always needs editing.
+The script reads every `binder_builder_settings*.json` in **its own folder** —
+not from wherever the terminal happens to be pointing. Each one is a binder. If
+the folder holds none at all, the script writes a fresh `binder_builder_settings.json`
+with default values and explanatory notes, then tells you to check it. Since a
+settings file is a binder definition, a fresh one almost always needs editing.
 
 ```json
 {
@@ -218,6 +218,93 @@ is a quiet defect.
 
 ---
 
+## Several binders in one folder
+
+Every `binder_builder_settings*.json` in the script's folder is one binder. So a
+folder that builds four binders looks like this:
+
+```
+_tools/
+├── binder_builder.py
+├── binder_builder_settings.json                    ← the whole-corpus binder
+├── binder_builder_settings_projectdesign.json
+├── binder_builder_settings_infrastructure.json
+├── binder_builder_settings_methodology.json
+└── binder_builder.log
+```
+
+To add one, copy an existing settings file to a new
+`binder_builder_settings_<something>.json` and edit it. The part after
+`binder_builder_settings` is yours to choose — it is there to keep the filenames
+apart and nothing reads it.
+
+**Give each one a different `name`.** The name decides the output filename, so
+two binders sharing one would take turns superseding each other's file. The tool
+refuses to run at all if it finds a duplicate, and tells you which two files
+clash.
+
+They can share an output folder. `ProjectDesign_Binder_v3.md` and
+`Infrastructure_Binder_v7.md` sit happily side by side in one `_binder`: each
+definition only ever scans, supersedes and skips binders of its own name.
+
+They can share a log too — that is what happens if you leave `log_file` alone,
+and it gives you one file with every build in it, in order. Give a definition a
+different `log_file` if you would rather it kept its own.
+
+### Running them
+
+```
+python binder_builder.py
+```
+
+builds every binder defined in the folder — which is also what double-clicking
+does. Each one gets its own report, and the run ends with a line for the folder:
+
+```
+========================================================================
+Result: 4 binder(s) - 1 rebuilt, 3 unchanged
+========================================================================
+```
+
+To build only some of them, name them:
+
+```
+python binder_builder.py ProjectDesign Infrastructure
+```
+
+The name is the `name` from the settings file, or the settings filename itself
+if that is easier to remember; either way it is matched case-insensitively. Name
+something that is not defined and **nothing** is built — the tool lists what is
+available instead, on the grounds that "build these four", three-quarters done,
+is worse than not started.
+
+To see what is defined without building anything:
+
+```
+python binder_builder.py --list
+```
+
+`--dry-run` and `--force` apply to whatever you selected.
+
+### If one definition is broken
+
+It is reported on its own and the others still build. Four binders staying
+current is the point of keeping them in one folder; three of them going stale
+because the fourth has a trailing comma would defeat it. The run still exits `1`,
+and the roll-up counts it:
+
+```
+Result: 4 binder(s) - 4 unchanged, 1 unreadable
+```
+
+### Why this is cheap
+
+Change detection. Four definitions where nothing has changed cost four manifest
+comparisons and no writes at all, so running the lot after every edit is a
+sensible habit rather than an expensive one.
+
+---
+
 ## Versioning and output
 
 The binder is written as `<Name>_Binder_v<N>.md`, with a counter of its own,
@@ -292,10 +379,17 @@ either way.
 
 ## Running it
 
-Live by default — there is no confirmation prompt:
+Live by default — there is no confirmation prompt. With no arguments it builds
+every binder defined in the folder:
 
 ```
 python binder_builder.py
+```
+
+One binder only:
+
+```
+python binder_builder.py ProjectDesign
 ```
 
 Report only, writes nothing:
@@ -308,6 +402,12 @@ Rebuild even if nothing has changed:
 
 ```
 python binder_builder.py --force
+```
+
+List the binder definitions in this folder and build nothing:
+
+```
+python binder_builder.py --list
 ```
 
 The dry run takes exactly the same decisions as a live run — it reads every

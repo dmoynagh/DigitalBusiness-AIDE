@@ -25,9 +25,11 @@ HOW IT IS RUN
     anything. It reads its settings from a JSON file sitting beside this
     script, so it can simply be double-clicked on Windows.
 
-    The settings file IS the binder definition - it declares the scope. One
-    binder means one instance folder; a second binder means a second copy of
-    the tool, not a second entry in one settings file.
+    A settings file IS a binder definition - it declares the scope. Several
+    definitions can sit in one folder, as binder_builder_settings.json plus any
+    number of binder_builder_settings_<something>.json beside it. One run keeps
+    all of them current; name one or more binders on the command line to run
+    only those.
 
     A rebuild is skipped when nothing in scope has changed since the last
     binder was written: the manifest inside that binder carries a digest per
@@ -68,6 +70,11 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 
 SETTINGS_FILENAME = "binder_builder_settings.json"
+
+# Every settings file in the script's folder is a binder definition. The plain
+# name above is simply the one a fresh copy of the tool writes for itself; the
+# glob is what makes a folder able to hold four binders instead of one.
+SETTINGS_GLOB = "binder_builder_settings*.json"
 SUPERSEDED_FOLDER_NAME = "_superseded"
 
 # Folders skipped unless the settings explicitly include them. The leading
@@ -217,23 +224,28 @@ class BinderPart:
 # Settings
 # ---------------------------------------------------------------------------
 
+def create_default_settings(settings_path):
+    """
+    Write the shipped defaults out. Used when a folder holds no definition at
+    all, so a bare copy of the script explains itself rather than failing.
+    """
+    print("No settings file found. Creating one with default values:")
+    print("  {}".format(settings_path))
+    print("This file is a binder definition, so it almost certainly needs "
+          "editing.")
+    print("Review it, then run the tool again.")
+    print("")
+    settings_path.write_text(DEFAULT_SETTINGS_JSON, encoding="utf-8")
+
+
 def load_settings(settings_path):
     """
-    Read the settings file, creating it from the shipped defaults if missing.
+    Read one settings file.
 
     Returns a plain dictionary. Raises ValueError with a readable message if
-    the file exists but is not valid JSON - a mistyped settings file should
-    stop the run with an explanation, not with a stack trace.
+    the file is not valid JSON - a mistyped settings file should stop that
+    binder with an explanation, not with a stack trace.
     """
-    if not settings_path.exists():
-        print("No settings file found. Creating one with default values:")
-        print("  {}".format(settings_path))
-        print("This file is the binder definition, so it almost certainly "
-              "needs editing.")
-        print("Review it, then run the tool again.")
-        print("")
-        settings_path.write_text(DEFAULT_SETTINGS_JSON, encoding="utf-8")
-
     text = settings_path.read_text(encoding="utf-8")
     try:
         settings = json.loads(text)
@@ -248,6 +260,7 @@ def load_settings(settings_path):
             "item, or a single backslash inside a path (write \\\\ or use /)."
             .format(settings_path, error.msg, error.lineno, error.colno)
         )
+
 
     if not isinstance(settings, dict):
         raise ValueError(
@@ -1115,7 +1128,7 @@ def relative_to(path, root):
     return str(relative) if str(relative) != "." else "."
 
 
-def build_report(scope, settings_path, dry_run, folder_count, events,
+def build_report(name, scope, settings_path, dry_run, folder_count, events,
                  change_note=None):
     """
     Build the run report as a list of lines.
@@ -1129,6 +1142,7 @@ def build_report(scope, settings_path, dry_run, folder_count, events,
     lines = []
     lines.append("=" * 72)
     lines.append("binder builder   {}   {}".format(timestamp, mode))
+    lines.append("binder:   {}".format(name))
     lines.append("root:     {}".format(scope.root))
     lines.append("settings: {}".format(settings_path))
     if not scope.subfolders:
@@ -1201,6 +1215,154 @@ def append_to_log(log_path, lines):
 
 
 # ---------------------------------------------------------------------------
+# Several definitions in one folder
+# ---------------------------------------------------------------------------
+# A settings file is a binder definition, and a folder may hold any number of
+# them: binder_builder_settings.json plus binder_builder_settings_<x>.json
+# beside it. One run keeps them all current.
+#
+# This works because a build reads nothing global. Every path, every scope and
+# every log in a build comes out of one Definition, so running four is running
+# one four times - and change detection means the three that did not change
+# cost a manifest comparison each and no writes at all.
+#
+# A binder is identified by its `name` setting. That was already required to be
+# unique: it names the output file and drives the version scan, so two
+# definitions sharing a name would supersede each other's binders on alternate
+# runs. Sharing is therefore refused rather than resolved.
+
+
+@dataclass
+class Definition:
+    """
+    One binder definition: one settings file, resolved and checked.
+
+    The whole of a binder is in here, which is what lets several of them sit in
+    one folder without interfering: nothing about a build reads global state,
+    so building four is building one, four times.
+    """
+    settings_path: Path
+    name: str
+    scope: Scope = None
+    file_types: list = field(default_factory=list)
+    exclude_files: list = field(default_factory=list)
+    order: list = field(default_factory=list)
+    output_folder: Path = None
+    log_path: Path = None
+
+
+def settings_sort_key(path):
+    """The plain settings file first, then the rest alphabetically."""
+    folded = os.path.normcase(path.name)
+    return (0 if folded == os.path.normcase(SETTINGS_FILENAME) else 1, folded)
+
+
+def discover_settings_files():
+    """
+    Every settings file in the script's own folder, in report order.
+
+    A folder holding none at all gets the shipped default written into it, so a
+    bare copy of the script explains itself rather than failing.
+    """
+    found = sorted((path for path in SCRIPT_DIR.glob(SETTINGS_GLOB)
+                    if path.is_file()), key=settings_sort_key)
+    if found:
+        return found
+
+    settings_path = SCRIPT_DIR / SETTINGS_FILENAME
+    create_default_settings(settings_path)
+    return [settings_path]
+
+
+def duplicate_names(definitions):
+    """Definitions grouped by name, keeping only the names used twice."""
+    groups = {}
+    for definition in definitions:
+        groups.setdefault(os.path.normcase(definition.name), []).append(
+            definition)
+    return {name: group for name, group in groups.items() if len(group) > 1}
+
+
+def select_definitions(definitions, wanted):
+    """
+    Narrow the definitions to the ones named on the command line.
+
+    A selector matches a binder's name, or the filename of its settings file
+    with or without the extension, case-insensitively. Returns (chosen,
+    unmatched); nothing is run while anything is unmatched, because "build
+    these four" half-done is worse than not started.
+    """
+    if not wanted:
+        return list(definitions), []
+
+    chosen = []
+    unmatched = []
+    for selector in wanted:
+        folded = os.path.normcase(selector.strip())
+        match = None
+        for definition in definitions:
+            names = (os.path.normcase(definition.name),
+                     os.path.normcase(definition.settings_path.name),
+                     os.path.normcase(definition.settings_path.stem))
+            if folded in names:
+                match = definition
+                break
+        if match is None:
+            unmatched.append(selector)
+        elif not any(existing is match for existing in chosen):
+            chosen.append(match)
+    return chosen, unmatched
+
+
+def describe_definitions(definitions, broken):
+    """The --list output, and the "what is available" half of an error."""
+    lines = ["binder definitions in {}".format(SCRIPT_DIR), ""]
+    if not definitions and not broken:
+        lines.append("  (none)")
+    for definition in definitions:
+        lines.append("  {}".format(definition.name))
+        lines.append("      settings: {}".format(
+            definition.settings_path.name))
+        lines.append("      root:     {}".format(definition.scope.root))
+        lines.append("      output:   {}".format(definition.output_folder))
+    for settings_path, error in broken:
+        lines.append("  (unreadable)")
+        lines.append("      settings: {}".format(settings_path.name))
+        lines.append("      problem:  {}".format(
+            str(error).splitlines()[0]))
+    return lines
+
+
+def build_roll_up(statuses, broken):
+    """
+    The one line that says how the folder as a whole came out.
+
+    Printed only when more than one binder ran, or when a settings file could
+    not be read - so a folder holding a single definition reports exactly what
+    it always did, and anything reading the last "Result:" line of the output
+    keeps working either way.
+    """
+    counts = {}
+    for status in statuses:
+        counts[status] = counts.get(status, 0) + 1
+    if broken:
+        counts["unreadable"] = len(broken)
+
+    tally = ", ".join(
+        "{} {}".format(counts[word], word)
+        for word in ("rebuilt", "unchanged", "empty", "with problems",
+                     "unreadable")
+        if word in counts
+    ) or "nothing to do"
+
+    return [
+        "=" * 72,
+        "Result: {} binder(s) - {}".format(len(statuses), tally),
+        "=" * 72,
+    ]
+
+
+# ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
 
@@ -1219,60 +1381,85 @@ def pause_before_exit():
         pass
 
 
-def run(dry_run, force=False):
-    """The whole job. Returns an exit code: 0 for success, 1 for a problem."""
-    settings_path = SCRIPT_DIR / SETTINGS_FILENAME
+def load_definition(settings_path):
+    """
+    Read one settings file and resolve it into a Definition.
 
-    try:
-        settings = load_settings(settings_path)
+    Raises ValueError with a readable message for anything wrong with it. The
+    caller reports that against this one definition and carries on with the
+    others: one mistyped settings file must not stop the other three binders
+    from being kept current.
+    """
+    settings = load_settings(settings_path)
 
-        name = str(settings.get("name", "Documentation")).strip()
-        if not name:
-            raise ValueError('Setting "name" cannot be empty - it names the '
-                             "binder and its file.")
-        # The name becomes a filename, so it cannot contain path separators or
-        # the characters Windows refuses in one.
-        if any(character in name for character in '\\/:*?"<>|'):
-            raise ValueError(
-                'Setting "name" is "{}", which contains a character that '
-                'cannot appear in a filename.'.format(name)
-            )
-
-        # The root is resolved first, because "~/" in the other settings is
-        # measured from it.
-        root = resolve_one_folder(
-            tidy_setting_text(settings.get("root", ".."), "root"), "root"
+    name = str(settings.get("name", "Documentation")).strip()
+    if not name:
+        raise ValueError('Setting "name" cannot be empty - it names the '
+                         "binder and its file.")
+    # The name becomes a filename, so it cannot contain path separators or
+    # the characters Windows refuses in one.
+    if any(character in name for character in '\\/:*?"<>|'):
+        raise ValueError(
+            'Setting "name" is "{}", which contains a character that '
+            'cannot appear in a filename.'.format(name)
         )
-        subfolders = read_flag(settings, "subfolders", True)
-        scope = build_scope(root, subfolders,
-                            read_string_list(settings, "include"),
-                            read_string_list(settings, "exclude"))
 
-        file_types = read_string_list(settings, "file_types") \
-            or list(DEFAULT_FILE_TYPES)
-        exclude_files = read_string_list(settings, "exclude_files")
-        order = read_string_list(settings, "order")
-
-        output_folder = resolve_one_folder(
-            tidy_setting_text(settings.get("output", "~/_binder"), "output"),
-            "output", root=root
-        )
-        log_path = resolve_one_folder(
-            tidy_setting_text(settings.get("log_file", "binder_builder.log"),
-                              "log_file"),
-            "log_file", root=root
-        )
-    except ValueError as error:
-        print("SETTINGS PROBLEM")
-        print(error)
-        return 1
-
+    # The root is resolved first, because "~/" in the other settings is
+    # measured from it.
+    root = resolve_one_folder(
+        tidy_setting_text(settings.get("root", ".."), "root"), "root"
+    )
     if not root.is_dir():
-        print("SETTINGS PROBLEM")
-        print('The "root" setting does not point at a folder that exists:')
-        print("  {}".format(root))
-        print("  (from settings file {})".format(settings_path))
-        return 1
+        raise ValueError(
+            'The "root" setting does not point at a folder that exists:\n'
+            "  {}".format(root)
+        )
+
+    subfolders = read_flag(settings, "subfolders", True)
+    scope = build_scope(root, subfolders,
+                        read_string_list(settings, "include"),
+                        read_string_list(settings, "exclude"))
+
+    output_folder = resolve_one_folder(
+        tidy_setting_text(settings.get("output", "~/_binder"), "output"),
+        "output", root=root
+    )
+    log_path = resolve_one_folder(
+        tidy_setting_text(settings.get("log_file", "binder_builder.log"),
+                          "log_file"),
+        "log_file", root=root
+    )
+
+    return Definition(
+        settings_path=settings_path,
+        name=name,
+        scope=scope,
+        file_types=(read_string_list(settings, "file_types")
+                    or list(DEFAULT_FILE_TYPES)),
+        exclude_files=read_string_list(settings, "exclude_files"),
+        order=read_string_list(settings, "order"),
+        output_folder=output_folder,
+        log_path=log_path,
+    )
+
+
+def build_binder(definition, dry_run, force):
+    """
+    Build one binder. Returns a status word for the roll-up: "rebuilt",
+    "unchanged", "empty", or "with problems".
+
+    Everything below this line is the tool as it always was - one settings
+    file, one scope, one binder. Running four of them is the caller's job.
+    """
+    name = definition.name
+    scope = definition.scope
+    root = scope.root
+    settings_path = definition.settings_path
+    file_types = definition.file_types
+    exclude_files = definition.exclude_files
+    order = definition.order
+    output_folder = definition.output_folder
+    log_path = definition.log_path
 
     version, previous = next_binder_version(output_folder, name)
     filename = BINDER_FILENAME.format(name=name, number=version)
@@ -1382,28 +1569,113 @@ def run(dry_run, force=False):
     # everything concerning one folder appears together.
     events.sort(key=lambda event: (str(event.folder), event.kind))
 
-    lines = build_report(scope, settings_path, dry_run, len(folders), events,
-                         change_note)
+    lines = build_report(name, scope, settings_path, dry_run, len(folders),
+                         events, change_note)
     print("\n".join(lines))
 
     # Dry runs are logged too, clearly marked, so the log is a complete record
-    # of every time the tool was pointed at the tree.
+    # of every time the tool was pointed at the tree. Definitions sharing a
+    # log_file share a log, in the order they ran.
     append_to_log(log_path, lines)
     print("\nLog: {}".format(log_path))
 
-    # Exit code follows version cleanup: 0 unless the filesystem refused
-    # something. A file that could not be read raises an ERROR of its own, so
-    # an incomplete binder always exits 1 through that. An EMPTY run does not:
-    # it is reported loudly on screen and in the log, but nothing failed.
-    had_problems = any(event.kind == "ERROR" for event in events)
+    # The status word feeds the roll-up line when more than one binder ran.
+    # "with problems" wins over everything else: an ERROR is what decides the
+    # exit code, and a run that both wrote a binder and hit an error wrote an
+    # incomplete one.
+    if any(event.kind == "ERROR" for event in events):
+        return "with problems"
+    if not parts:
+        return "empty"
+    return "rebuilt" if rebuild else "unchanged"
+
+
+def report_settings_problem(settings_path, error):
+    """One block for a settings file that could not be used."""
+    print("=" * 72)
+    print("SETTINGS PROBLEM")
+    print("settings: {}".format(settings_path))
+    print("-" * 72)
+    print(error)
+    print("=" * 72)
+    print("")
+
+
+def run(dry_run, force, wanted, show_list):
+    """
+    Build every binder defined in this folder, or the ones named.
+
+    Returns an exit code: 0 for success, 1 for a problem.
+    """
+    definitions = []
+    broken = []                       # (settings_path, error)
+    for settings_path in discover_settings_files():
+        try:
+            definitions.append(load_definition(settings_path))
+        except (ValueError, OSError, UnicodeDecodeError) as error:
+            broken.append((settings_path, error))
+
+    # Two definitions with one name would take turns superseding each other's
+    # binder. Nothing runs until it is sorted out.
+    duplicates = duplicate_names(definitions)
+    if duplicates:
+        print("SETTINGS PROBLEM")
+        print("Two binder definitions cannot share a name - the name decides "
+              "the output")
+        print("filename, so each build would supersede the other's binder.")
+        for group in duplicates.values():
+            print("")
+            print('  "{}" is used by:'.format(group[0].name))
+            for definition in group:
+                print("    {}".format(definition.settings_path.name))
+        return 1
+
+    if show_list:
+        print("\n".join(describe_definitions(definitions, broken)))
+        return 1 if broken else 0
+
+    chosen, unmatched = select_definitions(definitions, wanted)
+    if unmatched:
+        print("NOTHING RUN")
+        print("No binder is defined here under {}:".format(
+            "these names" if len(unmatched) > 1 else "this name"))
+        for selector in unmatched:
+            print('  "{}"'.format(selector))
+        print("")
+        print("\n".join(describe_definitions(definitions, broken)))
+        return 1
+
+    # A settings file that cannot be read is a fact about this folder rather
+    # than about the selection, so it is reported either way - including when
+    # the run was narrowed to binders that are perfectly fine.
+    for settings_path, error in broken:
+        report_settings_problem(settings_path, error)
+
+    statuses = []
+    for definition in chosen:
+        statuses.append(build_binder(definition, dry_run, force))
+        print("")
+
+    if len(chosen) > 1 or broken:
+        print("\n".join(build_roll_up(statuses, broken)))
+
+    had_problems = bool(broken) or "with problems" in statuses
     return 1 if had_problems else 0
 
 
 def main():
     parser = argparse.ArgumentParser(
         description="Assemble the documents of a defined scope into a single "
-                    "binder file. Reads its settings from {} beside the "
-                    "script.".format(SETTINGS_FILENAME)
+                    "binder file. Every {} in the script's own folder is one "
+                    "binder definition, and all of them are built unless some "
+                    "are named.".format(SETTINGS_GLOB)
+    )
+    parser.add_argument(
+        "binders",
+        nargs="*",            # zero or more; zero means every definition
+        metavar="BINDER",
+        help="the binder(s) to build, by name - or by settings filename. "
+             "Default: every definition in this folder.",
     )
     parser.add_argument(
         "--dry-run",
@@ -1416,10 +1688,17 @@ def main():
         help="rebuild even when nothing in scope has changed since the last "
              "binder was written",
     )
+    parser.add_argument(
+        "--list",
+        action="store_true",
+        dest="show_list",
+        help="list the binder definitions in this folder and build nothing",
+    )
     args = parser.parse_args()
 
     try:
-        exit_code = run(args.dry_run, args.force)
+        exit_code = run(args.dry_run, args.force, args.binders,
+                        args.show_list)
     except KeyboardInterrupt:
         print("\nInterrupted.")
         exit_code = 1
