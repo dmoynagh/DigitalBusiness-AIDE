@@ -101,3 +101,48 @@ COMPLETION SUMMARY
 COMPLETED SUCCESSFULLY
 ========================================================================
 
+========================================================================
+file update package   2026-09-08 12:23:57   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            WIPSplit_2026-09-08.zip  (2026-09-08 12:22, 74,389 bytes)
+description:        WIP split per rebuild guide F9 — settled content extracted from AIDE_Rebuild_WIP_v23 into destination files
+------------------------------------------------------------------------
+
+[_rebuild]
+  CREATED           _rebuild/AIDE_Rebuild_SettledDecisions_v1.md  (66,876 bytes)
+  CREATED           _rebuild/ProjectDesign_Design_Pending_v1.md  (45,273 bytes)
+  CREATED           _rebuild/ProjectDesign_Decisions_Pending_v1.md  (44,181 bytes)
+  CREATED           _rebuild/ProjectDesign_StandardInputs_Pending_v1.md  (3,755 bytes)
+  CREATED           _rebuild/ProjectDesign_WorkRegister_Pending_v1.md  (5,541 bytes)
+  SUPERSEDED        AIDE_Rebuild_WIP_v23.md -> _superseded/
+  DEPLOYED          _rebuild/AIDE_Rebuild_WIP_v24.md  (26,823 bytes)
+
+[_tools]
+  BINDER            binder builder run: 8 included, 2 skipped, 1 written, 1 superseded
+
+[_fileupdatepackages]
+  PROCESSED         WIPSplit_2026-09-08.zip -> _superseded/
+
+------------------------------------------------------------------------
+Result: 1 deployed, 5 created, 1 superseded, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              WIPSplit_2026-09-08.zip
+                        WIP split per rebuild guide F9 — settled content extracted from AIDE_Rebuild_WIP_v23 into destination files
+  files updated:        1
+  files created:        5
+  files superseded:     1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered - 8 included, 2 skipped, 1 written, 1 superseded
+  the package is now:   moved to _superseded/
+  folder naming:        1 folder(s) close to a convention name but not matching it
+    - _superceded  (expected "_superseded")
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+

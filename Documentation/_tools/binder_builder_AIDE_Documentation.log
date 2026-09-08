@@ -580,3 +580,36 @@ change detection: AIDE_Documentation_Binder_v4.md: 3 added (Principles/Principle
 Result: 3 included, 2 skipped, 1 written, 1 superseded
 ========================================================================
 
+========================================================================
+binder builder   2026-09-08 12:23:57   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v5.md: 5 added (_rebuild/AIDE_Rebuild_SettledDecisions_v1.md, _rebuild/ProjectDesign_Decisions_Pending_v1.md, _rebuild/ProjectDesign_Design_Pending_v1.md, and 2 more) - rebuilding
+------------------------------------------------------------------------
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[_binder]
+  SUPERSEDED       AIDE_Documentation_Binder_v5.md -> _superseded/
+  WRITTEN          AIDE_Documentation_Binder_v6.md  (8 files, 202338 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 8 included, 2 skipped, 1 written, 1 superseded
+========================================================================
+
