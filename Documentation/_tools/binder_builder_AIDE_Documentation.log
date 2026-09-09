@@ -613,3 +613,77 @@ change detection: AIDE_Documentation_Binder_v5.md: 5 added (_rebuild/AIDE_Rebuil
 Result: 8 included, 2 skipped, 1 written, 1 superseded
 ========================================================================
 
+========================================================================
+binder builder   2026-09-08 21:59:56   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 5
+change detection: AIDE_Documentation_Binder_v6.md: 2 added (_rebuild/AIDE_Component_PurposeLines_v2.md, _rebuild/AIDE_Rebuild_Overview_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[_binder]
+  SUPERSEDED       AIDE_Documentation_Binder_v6.md -> _superseded/
+  WRITTEN          AIDE_Documentation_Binder_v7.md  (10 files, 217317 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 10 included, 2 skipped, 1 written, 1 superseded
+========================================================================
+
+========================================================================
+binder builder   2026-09-08 23:42:29   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+exclude:  ~/Infrastructure
+folders collected from: 6
+change detection: AIDE_Documentation_Binder_v7.md: 2 added (Core/Core_Brief_v1.md, Core/Core_Design_Documentation_Working_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[_binder]
+  SUPERSEDED       AIDE_Documentation_Binder_v7.md -> _superseded/
+  WRITTEN          AIDE_Documentation_Binder_v8.md  (12 files, 231316 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 12 included, 2 skipped, 1 written, 1 superseded
+========================================================================
+

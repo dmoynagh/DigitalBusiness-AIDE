@@ -1,0 +1,25 @@
+AIDEBrowser:
+- name: Core
+  type: Component
+  description: ""
+  folder: "~\Core"
+  items: 
+    - name: ""
+      version: 1
+      type: "file"
+      filename: ""      
+      doctype: ""
+      description: ""
+    
+- name: Document Methodology
+  type: Component
+  description: 
+  folder:"~\Document Methodology"  
+- name: Workflow
+  type: Component
+  description: 
+  folder:"~\Workflow"
+- name: Capabilities
+  type: Container
+  description: 
+  folder:"~\Core"
