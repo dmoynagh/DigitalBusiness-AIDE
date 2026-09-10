@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 17** (2026-09-11).
+> **Binder Version 18** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -48,7 +48,7 @@ individual files.
 - `Principles/Principles_Decisions_v4.md` - sha256 `2c31c26b5c66`
 - `Principles/Principles_Design_v4.md` - sha256 `4bd5797d3d2e`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
-- `Standards/Standards_Authoring_Standard_v1.md` - sha256 `6acd42ed3ba0`
+- `Standards/Standards_Authoring_Standard_v2.md` - sha256 `efd5f36981a2`
 - `Standards/Standards_Decisions_v1.md` - sha256 `fb153d3db6bc`
 - `Standards/Standards_Design_v1.md` - sha256 `60cebe0ab9f1`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
@@ -7411,14 +7411,14 @@ As a capability, Standards owns the definition of what a standard is, the author
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v1.md -->
-Standards — Standard | standard | Standards_Authoring_Standard@v1 | 2026-09-11
+<!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v2.md -->
+Standards — Standard | standard | Standards_Authoring_Standard@v2 | 2026-09-11
 
 ## What a standard is
 
-A standard defines rules, expectations, guidance and context that shape decisions and behaviour while work is being done. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. Everything behind it (the design, the decisions, the reference knowledge) stays outside the session.
+Information. A standard defines rules, expectations, guidance and context that shape decisions and behaviour while work is being done. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. Everything behind it (the design, the decisions, the reference knowledge) stays outside the session.
 
-A standard earns its context cost. Everything in it displaces something else the session could hold.
+Information. A standard earns its context cost. Everything in it displaces something else the session could hold.
 
 ## Authoring rules
 
@@ -7428,13 +7428,13 @@ A standard earns its context cost. Everything in it displaces something else the
 
 **Discriminating guidance.** Required. A rule that says "do X" without helping the consumer recognise when and how to apply it is governance without value. If the consumer would need to go back to the design to know how to apply a rule, the standard is incomplete.
 
-**Strength assignment.** Required. Every item carries a strength. Use the vocabulary below. The default is recommended — required is reserved for things where departure would break something, optional for things genuinely indifferent, information for awareness content. Over-use of required produces rigidity; over-use of optional achieves nothing.
+**Strength assignment.** Required. Every item carries a strength, selected by the author from the vocabulary below. Over-use of required produces rigidity; over-use of optional achieves nothing.
 
 **Self-containment.** Required. A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but must not depend on it being loaded.
 
 ## Strength vocabulary
 
-Four levels. These words and definitions are the standard vocabulary — use them consistently across all standards.
+Information. Four levels. These words and definitions are the standard vocabulary — use them consistently across all standards.
 
 - **Required** — must comply. Departure is a defect.
 - **Recommended** — should comply. Departure needs a reason, but the reason is the author's judgement, not an approval process.
@@ -7453,9 +7453,11 @@ Four levels. These words and definitions are the standard vocabulary — use the
 
 Information. Reference documents are design-time knowledge. When reference knowledge needs to be present in the AI session, it is authored into a standard at information strength. The decision criterion is the carry test: does the consumer need to be aware of this knowledge at the moment of application? If yes, it earns a place. If it only informed the design, it stays in the design.
 
-## Acceptance
+Information. Reference is a document type, not an output type. A reference informs the design process; a standard is the delivery mechanism. The distinction matters because it prevents reference from becoming a parallel output channel.
 
-**Cross-review.** Required. Every standard is reviewed by a separate AI before acceptance. The review confirms the standard implements the design in a form that is usable and lean. A standard is not accepted until this review is complete.
+## Deployment
+
+Information. Once a standard is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted standard. Packaging into a skill or plugin, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
 
 ## Ownership
 
@@ -7463,8 +7465,8 @@ Information. Reference documents are design-time knowledge. When reference knowl
 
 ---
 
-Version note: v1 — initial standard, authored from Standards_Design_v1.
-<!-- END SOURCE: Standards/Standards_Authoring_Standard_v1.md -->
+Version note: v2 — revised after cross-review. Removed cross-review obligation (Working Practices, not Standards). Removed invented strength-assignment defaults. Added strength to context-setting items. Added deployment boundary. Restored reference document-type distinction.
+<!-- END SOURCE: Standards/Standards_Authoring_Standard_v2.md -->
 
 ---
 
