@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 28** (2026-09-11).
+> **Binder Version 29** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -58,9 +58,9 @@ individual files.
 - `Standards/Standards_Decisions_v2.md` - sha256 `c0286118492c`
 - `Standards/Standards_Design_v2.md` - sha256 `cfedb41ac36c`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
-- `Tools/Tools_Authoring_Standard_v3.md` - sha256 `e054fc395fef`
-- `Tools/Tools_Decisions_v3.md` - sha256 `25730265fb04`
-- `Tools/Tools_Design_v2.md` - sha256 `6891ee689b81`
+- `Tools/Tools_Authoring_Standard_v4.md` - sha256 `c8d9e5ceca39`
+- `Tools/Tools_Decisions_v4.md` - sha256 `8ce74a49af55`
+- `Tools/Tools_Design_v3.md` - sha256 `70dee72bc66c`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
@@ -8740,8 +8740,8 @@ Version note: v1 — initial working document from session 2026-09-09.
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v3.md -->
-Tools — Standard | standard | Tools_Authoring_Standard@v3 | 2026-09-11
+<!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v4.md -->
+Tools — Standard | standard | Tools_Authoring_Standard@v4 | 2026-09-11
 
 ## What a tool is
 
@@ -8815,7 +8815,7 @@ Required. Every tool carries a trigger description. The trigger description and 
 
 ## Applicability scope
 
-Required. Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct: the trigger gets the tool loaded into the session; the scope determines whether it applies to the work at hand. A loaded tool whose scope does not match is not run.
+Required. Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns. The trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
 
 ## Document-default strength
 
@@ -8839,13 +8839,13 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ---
 
-Version note: v3 — re-authored from Tools_Design_v2 addressing cross-review findings F1–F8: restores tool/utility distinction, corrects idempotency to Required, separates "never fail" as Required from Recommended discipline, aligns deployment terminology, removes trigger placement rule, adds applicability framing authority, 2026-09-11.
-<!-- END SOURCE: Tools/Tools_Authoring_Standard_v3.md -->
+Version note: v4 — re-authored from Tools_Design_v3, correcting trigger/scope model to be delivery-form-neutral (F10), 2026-09-11.
+<!-- END SOURCE: Tools/Tools_Authoring_Standard_v4.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Decisions_v3.md -->
-Tools — Decisions | decisions | Tools_Decisions@v3 | 2026-09-11
+<!-- BEGIN SOURCE: Tools/Tools_Decisions_v4.md -->
+Tools — Decisions | decisions | Tools_Decisions@v4 | 2026-09-11
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -8914,7 +8914,7 @@ The Standards session subsequently found that a consumption standard did earn it
 
 ## D10 — Applicability scope is a required authoring rule
 
-Carried from the Standards session finding. Trigger and scope are distinct concerns: the trigger gets the tool loaded (Infrastructure's mechanism); scope determines whether it applies to the work at hand (the tool's own declaration), framed through behaviour and relevance rather than deployment target. A loaded tool whose scope does not match should not run. The same reasoning that made this Required for standards applies to tools — same platform, same loading model, same risk of a loaded capability running when it shouldn't.
+Carried from the Standards session finding. Trigger and scope are distinct concerns. The trigger description declares when the tool is relevant — the mechanism that acts on it depends on the delivery form (platform trigger for a skill, binder configuration for binder content). Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. Scope is framed through behaviour and relevance rather than deployment target. A tool whose scope does not match should not run. The same reasoning that made this Required for standards applies to tools — same platform, same delivery model, same risk of an available capability running when it shouldn't.
 
 ## D11 — Ask/infer/escalate discipline
 
@@ -8939,21 +8939,27 @@ Resolution: the design was updated to v2 before the standard was re-authored as 
 - **F7 (deployment terminology drifted):** corrected from "skill or plugin" to "skill or binder entry" to match the design.
 - **F8 (applicability scope extra constraint):** the "framed through behaviour and relevance" qualifier added to the design and D10 so the standard has authority.
 
+## D14 — Second cross-review findings (F9–F10)
+
+F9: the design Brief's Scope sentence understated what the design actually owned. The v2 additions had expanded the design's content without updating the scope declaration. Fixed by reconciling the scope to describe the full design.
+
+F10: the trigger/scope model incorrectly treated trigger-loading as the universal mechanism ("the trigger gets the tool loaded into the session"). This holds for skills but not for binder content, which is already in project context. The trigger description is reframed as a relevance declaration consumed by whatever selection mechanism applies — platform trigger for skills, binder configuration for binder content. Scope evaluates once the tool is available in the session, regardless of how it arrived. This makes the model true for both delivery forms established in the tool definition.
+
 ---
 
-Version note: v3 — adds D13 recording cross-review response, 2026-09-11.
-<!-- END SOURCE: Tools/Tools_Decisions_v3.md -->
+Version note: v4 — adds D14 for second cross-review (F9–F10), updates D10 trigger/scope model, 2026-09-11.
+<!-- END SOURCE: Tools/Tools_Decisions_v4.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Design_v2.md -->
-Tools — Design | design | Tools_Design@v2 | 2026-09-11
+<!-- BEGIN SOURCE: Tools/Tools_Design_v3.md -->
+Tools — Design | design | Tools_Design@v3 | 2026-09-11
 
 ## Brief
 
 **Purpose.** Define what a tool is and how one is designed, authored, and deployed within AIDE. Tools is a methodological component — it owns the methodology for building tools, not the tools themselves. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The tool definition, the invocability test that draws the boundary between a tool and a standard, the authoring concerns a tool must address, the staging clause, and the sibling-outputs model. Individual tools, document structure, packaging, and the cross-review process are out of scope.
+**Scope.** The tool definition and the boundaries that distinguish a tool from a standard and a utility; the invocability test; the authoring concerns, execution discipline, and declared properties a tool must address; the staging clause and the sibling-outputs model; applicability scope and trigger description; and the designing and authoring rules. Individual tools, document structure, packaging, and the cross-review process are out of scope.
 
 **Target outcome.** A deployed tool authoring standard that any component author uses when designing, authoring, and deploying a tool for their component.
 
@@ -9027,7 +9033,10 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 ### Applicability scope
 
-Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct: the trigger gets the tool loaded into the session (Infrastructure's concern); the scope determines whether it applies to the work at hand (the tool's own declaration). A loaded tool whose scope does not match is not run.
+Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns:
+
+- The **trigger description** declares when the tool is relevant. The mechanism that acts on it depends on the delivery form — the platform uses it to fire loading for a skill; a binder configuration uses it to decide inclusion for binder content. In both cases, the trigger description is a selection input, not a loading mechanism itself.
+- **Scope** determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
 
 ### The trigger description
 
@@ -9062,8 +9071,8 @@ Tools does **not** own:
 
 ---
 
-Version note: v2 — incorporates applicability scope, ask/infer/escalate discipline, document-default strength, designing/authoring rules, and idempotency-as-declaration clarification from session and cross-review findings, 2026-09-11.
-<!-- END SOURCE: Tools/Tools_Design_v2.md -->
+Version note: v3 — reconciles Brief scope with actual design content (F9), reframes trigger/scope model to be delivery-form-neutral (F10), 2026-09-11.
+<!-- END SOURCE: Tools/Tools_Design_v3.md -->
 
 ---
 
