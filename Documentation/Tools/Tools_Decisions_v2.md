@@ -1,4 +1,4 @@
-Tools — Decisions | decisions | Tools_Decisions@v1 | 2026-09-11
+Tools — Decisions | decisions | Tools_Decisions@v2 | 2026-09-11
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -63,6 +63,20 @@ The tool authoring standard covers design, authoring, and deployment of tools. I
 
 A separate consumption standard — how to invoke and work with tools once deployed — is not assumed. A well-authored tool is self-evident to invoke: the trigger description tells the consumer when to use it, the inputs tell them what to provide, and the procedure tells them what will happen. Good authoring makes consumption fall out naturally.
 
+The Standards session subsequently found that a consumption standard did earn its place for standards, because conflict resolution and human override are real operational concerns when multiple standards stack silently. The question was raised for tools. The deferral holds: tools are explicitly invoked, not silently applicable, so the conflict and override scenarios that drove the standards consumption standard do not yet materialise for tools. If they do, the consumption standard earns its place on the same evidence basis.
+
+## D10 — Applicability scope is a required authoring rule
+
+Carried from the Standards session finding. Trigger and scope are distinct concerns: the trigger gets the tool loaded (Infrastructure's mechanism); scope determines whether it applies to the work at hand (the tool's own declaration). A loaded tool whose scope does not match should not run. The same reasoning that made this Required for standards applies to tools — same platform, same loading model, same risk of a loaded capability running when it shouldn't.
+
+## D11 — Ask/infer/escalate discipline
+
+Carried from the old Tools Design §3, confirmed during the legacy binder review. The seven authoring concerns tell the author what to address; this discipline tells them how to handle inputs, decision points, and escalation during execution. It passes the carry test — a tool author needs it at the moment of authoring these concerns. Placed as Recommended because the pattern is behavioural guidance, not a structural requirement.
+
+## D12 — Document-default strength is an authoring convenience
+
+Carried from the Standards session finding. A tool may declare a document-level default strength so the author only marks items that differ. Nearest declaration wins. Placed as Information — it is a technique available to the author, not an obligation. Same reasoning and placement as Standards.
+
 ---
 
-Version note: v1 — initial decisions from the tools design session, 2026-09-11.
+Version note: v2 — adds D10–D12 from legacy binder review and Standards session cross-pollination, updates D9 with consumption-standard watch note, 2026-09-11.
