@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 14** (2026-09-10).
+> **Binder Version 15** (2026-09-10).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -39,8 +39,8 @@ individual files.
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `fce12837157e`
 - `Infrastructure/file-update-package/FileUpdatePackage_Design_v1.md` - sha256 `11ad3a9f4c94`
 - `Infrastructure/file-update-package/README.md` - sha256 `203b6f20f7ce`
-- `Infrastructure/Infrastructure_CLI_Decisions_v1.md` - sha256 `d6e28bcbd3c3`
-- `Infrastructure/Infrastructure_CLI_Design_v1.md` - sha256 `6ca6dc31f006`
+- `Infrastructure/Infrastructure_CLI_Decisions_v1.md` - sha256 `7a16726b5162`
+- `Infrastructure/Infrastructure_CLI_Design_v1.md` - sha256 `12e05744ff4a`
 - `Infrastructure/Infrastructure_Working_v1.md` - sha256 `1d7a11e25a57`
 - `Infrastructure/version-cleanup/README.md` - sha256 `a978d666e85a`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
@@ -6408,6 +6408,14 @@ Registration discovers everything that exists in the subpackage. Settings decide
 
 This rides on the deep-merge settings model already settled. A global exclude hides a utility everywhere. A per-project exclude hides it for that project only. A per-project override can also restore a globally excluded utility. No new mechanism — it is just another setting following the same merge rules.
 
+## Project root detection — walk up to repo boundary
+
+Three options were considered: hardcoding the documentation root path in settings, using the git repo root directly, or walking up from the current directory. Walk-up was chosen. A hardcoded path is brittle and forces per-project configuration for something that should just work. Using the git root directly would require knowing the documentation folder's name within the repo, which is also configuration. Walking up and looking for `_aide/` is self-discovering — the folder's presence is both the marker and the configuration. The git repo boundary is the natural stop point, since `_aide/` above the repo root would belong to a different project.
+
+## Multi-binder — run all definitions found, not just one
+
+The original design assumed one binder settings file per project. In practice, the AIDE documentation already has two binders with different scopes and different file type rules — one for the full documentation set and one for the AI-facing subset. Erroring on multiple files forced the user to choose one, which defeated the purpose of having both. The utility now discovers all settings files in its subfolder and runs each. No configuration needed — presence is registration, the same principle as utility discovery in the dispatcher.
+
 ---
 
 Version note: v1 — reasoning from voice session 2026-09-10. All four items were settled in conversation; this document records the alternatives considered and the reasons for each choice.
@@ -6447,6 +6455,8 @@ Utilities live as modules in a `utilities/` subpackage inside the `aide` package
 Any module in the subpackage that exposes these three things is a utility. No separate registration step, no manifest, no decorator — presence in the subpackage and conformance to the shape is registration.
 
 The three existing utilities each become a module in this subpackage following this shape: the binder builder, the file-update packager, and version cleanup. Their internal logic is unchanged; only the entry point is standardised.
+
+The binder builder supports multiple binder definitions. Each settings file in the binder-builder subfolder defines a separate binder. When the utility runs, it discovers and builds all of them in sequence, reporting results per binder.
 
 **Consideration noted:** this dispatcher may grow into the full AIDE CLI later, but the design does not anticipate that. The registration model is simple enough to extend if that direction is taken, without needing to be redesigned for it now.
 
@@ -6499,6 +6509,16 @@ Underscore-prefixed folder at the documentation root. It is the single home for 
 - Any other operational state the dispatcher or utilities need per-project.
 
 The underscore prefix keeps it sorted to the top of the directory and signals that it is infrastructure, not content. It sits outside AIDE's document processing — consistent with the convention that underscore-prefixed folders are outside binder scope.
+
+Utility-specific settings files live in subfolders under `_aide/utilities/`, one per utility: `binder-builder/`, `file-update-package/`, `version-cleanup/`. This keeps utility configuration out of the `_aide/` root, which holds only the dispatcher settings. The same subfolder structure applies under `~/.aide/utilities/` for user-global utility settings.
+
+---
+
+## Project root detection
+
+The dispatcher walks up the directory tree from the current working directory looking for a folder named `_aide/`. If found, the directory containing `_aide/` is the project root. If the walk reaches the git repository boundary without finding `_aide/`, there is no project context — global settings only apply.
+
+This means `aide` works from any subfolder within a project. No hardcoded documentation root path, no configuration required.
 
 ---
 
