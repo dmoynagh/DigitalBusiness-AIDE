@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 26** (2026-09-11).
+> **Binder Version 27** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -53,8 +53,8 @@ individual files.
 - `Project Design/ProjectDesign_Standard_v1.md` - sha256 `453aaeb09fb9`
 - `Project Design/ProjectDesign_Standard_v2.md` - sha256 `36d4c7c83bdd`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
-- `Standards/Standards_Authoring_Standard_v3.md` - sha256 `e9332446485a`
-- `Standards/Standards_Consumption_Standard_v1.md` - sha256 `50aebbf3c4d9`
+- `Standards/Standards_Authoring_Standard_v4.md` - sha256 `09fa02159c9f`
+- `Standards/Standards_Consumption_Standard_v2.md` - sha256 `f473734c8974`
 - `Standards/Standards_Decisions_v2.md` - sha256 `c0286118492c`
 - `Standards/Standards_Design_v2.md` - sha256 `cfedb41ac36c`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
@@ -8379,8 +8379,10 @@ As a capability, Standards owns the definition of what a standard is, the author
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v3.md -->
-Standards — Standard | standard | Standards_Authoring_Standard@v3 | 2026-09-11
+<!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v4.md -->
+Standards — Standard | standard | Standards_Authoring_Standard@v4 | 2026-09-11
+
+How to design, author, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
 
 ## What a standard is
 
@@ -8390,7 +8392,7 @@ Information. A standard earns its context cost. Everything in it displaces somet
 
 ## Applicability
 
-This standard applies when designing, authoring, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
+Information. This standard applies when designing, authoring, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
 
 ## Authoring rules
 
@@ -8410,7 +8412,7 @@ This standard applies when designing, authoring, or deploying a standard within 
 
 **Trigger description.** Required. Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the basis for loading the standard where it is needed.
 
-**Description budget.** Required. The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard. Front-load trigger words so the most important terms survive truncation. The 130-character figure is the union minimum across Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and other adopters of the standard; revise when platform budgets change.
+**Description budget.** Required. The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget. Front-load trigger words so the most important terms survive truncation.
 
 **Segmentation.** Required. The description budget is the size test for whether a standard should be split. If the trigger elements that define when the standard is needed will not fit within the budget, split into sub-standards rather than compressing the description into uselessness.
 
@@ -8451,19 +8453,19 @@ Information. Triggering — how a standard gets loaded where it might be needed 
 
 ---
 
-Version note: v3 — adds applicability scope (new required rule), trigger description and segmentation (four required items), document-default weight (strength assignment), facilitative framing (discriminating guidance), trigger/scope distinction (deployment). Merges legacy binder review and voice session additions, 2026-09-11.
-<!-- END SOURCE: Standards/Standards_Authoring_Standard_v3.md -->
+Version note: v4 — cross-review corrections: added trigger description, marked applicability with strength, leaned description-budget paragraph. 2026-09-11.
+<!-- END SOURCE: Standards/Standards_Authoring_Standard_v4.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v1.md -->
-Standards — Standard | standard | Standards_Consumption_Standard@v1 | 2026-09-11
+<!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v2.md -->
+Standards — Standard | standard | Standards_Consumption_Standard@v2 | 2026-09-11
 
 How to evaluate, combine, and operate under applicable AIDE standards at runtime in an AI session.
 
 ## Applicability
 
-This standard applies when an AI session is operating under one or more AIDE standards. It does not apply during standard authoring — that is governed by the standards authoring standard.
+Information. This standard applies when an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, or deploying standards; those activities are governed by the standards authoring standard.
 
 ## Evaluate applicability before applying
 
@@ -8471,11 +8473,11 @@ Required. A loaded standard is not automatically applicable. Before applying a s
 
 ## Combine applicable standards
 
-Required. Compatible applicable standards stack — combine them, do not choose between them. When multiple standards apply to the same work and their guidance does not conflict, follow all of them.
+Required. Compatible applicable standards stack — combine them, do not choose between them. When multiple standards apply to the same work and their guidance does not conflict, apply each item according to its declared strength.
 
 ## Resolve conflict
 
-Required. When two applicable items genuinely oppose each other on the same point, higher strength governs. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. The conflict record identifies the competing standards, the opposing items, and the work affected.
+Required. When two applicable items genuinely oppose each other on the same point, higher strength governs. Strength precedence: Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. When surfacing the conflict, identify the competing standards, the opposing items, and the work affected.
 
 Required. Do not manufacture conflict from different concerns that can both be satisfied. Two standards addressing different aspects of the same work are not in conflict merely because both apply.
 
@@ -8495,8 +8497,8 @@ Recommended. Normal operation does not narrate every standard consulted. Surface
 
 ---
 
-Version note: v1 — initial standard, authored from Standards_Design_v2 decisions D9 and D10. 2026-09-11.
-<!-- END SOURCE: Standards/Standards_Consumption_Standard_v1.md -->
+Version note: v2 — cross-review corrections: expanded scope exclusion, replaced "follow all" with strength-respecting application, added strength precedence ordering, removed "conflict record" apparatus, marked applicability with strength. 2026-09-11.
+<!-- END SOURCE: Standards/Standards_Consumption_Standard_v2.md -->
 
 ---
 
