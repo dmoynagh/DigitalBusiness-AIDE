@@ -1,10 +1,10 @@
-Tools — Design | design | Tools_Design@v2 | 2026-09-11
+Tools — Design | design | Tools_Design@v3 | 2026-09-11
 
 ## Brief
 
 **Purpose.** Define what a tool is and how one is designed, authored, and deployed within AIDE. Tools is a methodological component — it owns the methodology for building tools, not the tools themselves. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The tool definition, the invocability test that draws the boundary between a tool and a standard, the authoring concerns a tool must address, the staging clause, and the sibling-outputs model. Individual tools, document structure, packaging, and the cross-review process are out of scope.
+**Scope.** The tool definition and the boundaries that distinguish a tool from a standard and a utility; the invocability test; the authoring concerns, execution discipline, and declared properties a tool must address; the staging clause and the sibling-outputs model; applicability scope and trigger description; and the designing and authoring rules. Individual tools, document structure, packaging, and the cross-review process are out of scope.
 
 **Target outcome.** A deployed tool authoring standard that any component author uses when designing, authoring, and deploying a tool for their component.
 
@@ -78,7 +78,10 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 ### Applicability scope
 
-Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct: the trigger gets the tool loaded into the session (Infrastructure's concern); the scope determines whether it applies to the work at hand (the tool's own declaration). A loaded tool whose scope does not match is not run.
+Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns:
+
+- The **trigger description** declares when the tool is relevant. The mechanism that acts on it depends on the delivery form — the platform uses it to fire loading for a skill; a binder configuration uses it to decide inclusion for binder content. In both cases, the trigger description is a selection input, not a loading mechanism itself.
+- **Scope** determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
 
 ### The trigger description
 
@@ -113,4 +116,4 @@ Tools does **not** own:
 
 ---
 
-Version note: v2 — incorporates applicability scope, ask/infer/escalate discipline, document-default strength, designing/authoring rules, and idempotency-as-declaration clarification from session and cross-review findings, 2026-09-11.
+Version note: v3 — reconciles Brief scope with actual design content (F9), reframes trigger/scope model to be delivery-form-neutral (F10), 2026-09-11.

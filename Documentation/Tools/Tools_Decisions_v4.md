@@ -1,4 +1,4 @@
-Tools — Decisions | decisions | Tools_Decisions@v3 | 2026-09-11
+Tools — Decisions | decisions | Tools_Decisions@v4 | 2026-09-11
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -67,7 +67,7 @@ The Standards session subsequently found that a consumption standard did earn it
 
 ## D10 — Applicability scope is a required authoring rule
 
-Carried from the Standards session finding. Trigger and scope are distinct concerns: the trigger gets the tool loaded (Infrastructure's mechanism); scope determines whether it applies to the work at hand (the tool's own declaration), framed through behaviour and relevance rather than deployment target. A loaded tool whose scope does not match should not run. The same reasoning that made this Required for standards applies to tools — same platform, same loading model, same risk of a loaded capability running when it shouldn't.
+Carried from the Standards session finding. Trigger and scope are distinct concerns. The trigger description declares when the tool is relevant — the mechanism that acts on it depends on the delivery form (platform trigger for a skill, binder configuration for binder content). Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. Scope is framed through behaviour and relevance rather than deployment target. A tool whose scope does not match should not run. The same reasoning that made this Required for standards applies to tools — same platform, same delivery model, same risk of an available capability running when it shouldn't.
 
 ## D11 — Ask/infer/escalate discipline
 
@@ -92,6 +92,12 @@ Resolution: the design was updated to v2 before the standard was re-authored as 
 - **F7 (deployment terminology drifted):** corrected from "skill or plugin" to "skill or binder entry" to match the design.
 - **F8 (applicability scope extra constraint):** the "framed through behaviour and relevance" qualifier added to the design and D10 so the standard has authority.
 
+## D14 — Second cross-review findings (F9–F10)
+
+F9: the design Brief's Scope sentence understated what the design actually owned. The v2 additions had expanded the design's content without updating the scope declaration. Fixed by reconciling the scope to describe the full design.
+
+F10: the trigger/scope model incorrectly treated trigger-loading as the universal mechanism ("the trigger gets the tool loaded into the session"). This holds for skills but not for binder content, which is already in project context. The trigger description is reframed as a relevance declaration consumed by whatever selection mechanism applies — platform trigger for skills, binder configuration for binder content. Scope evaluates once the tool is available in the session, regardless of how it arrived. This makes the model true for both delivery forms established in the tool definition.
+
 ---
 
-Version note: v3 — adds D13 recording cross-review response, 2026-09-11.
+Version note: v4 — adds D14 for second cross-review (F9–F10), updates D10 trigger/scope model, 2026-09-11.

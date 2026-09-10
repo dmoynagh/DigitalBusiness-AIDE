@@ -1,4 +1,4 @@
-Tools — Standard | standard | Tools_Authoring_Standard@v3 | 2026-09-11
+Tools — Standard | standard | Tools_Authoring_Standard@v4 | 2026-09-11
 
 ## What a tool is
 
@@ -72,7 +72,7 @@ Required. Every tool carries a trigger description. The trigger description and 
 
 ## Applicability scope
 
-Required. Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct: the trigger gets the tool loaded into the session; the scope determines whether it applies to the work at hand. A loaded tool whose scope does not match is not run.
+Required. Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns. The trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
 
 ## Document-default strength
 
@@ -96,4 +96,4 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ---
 
-Version note: v3 — re-authored from Tools_Design_v2 addressing cross-review findings F1–F8: restores tool/utility distinction, corrects idempotency to Required, separates "never fail" as Required from Recommended discipline, aligns deployment terminology, removes trigger placement rule, adds applicability framing authority, 2026-09-11.
+Version note: v4 — re-authored from Tools_Design_v3, correcting trigger/scope model to be delivery-form-neutral (F10), 2026-09-11.
