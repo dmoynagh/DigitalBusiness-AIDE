@@ -1,4 +1,4 @@
-Standards — Standard | standard | Standards_Authoring_Standard@v4 | 2026-09-11
+Standards — Standard | standard | Standards_Authoring_Standard@v5 | 2026-09-11
 
 How to design, author, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
 
@@ -7,6 +7,8 @@ How to design, author, and deploy an AIDE standard — authoring rules, strength
 Information. A standard defines rules, expectations, guidance and context that shape decisions and behaviour while work is being done. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. Everything behind it (the design, the decisions, the reference knowledge) stays outside the session.
 
 Information. A standard earns its context cost. Everything in it displaces something else the session could hold.
+
+Information. The invocability test in the tool authoring standard draws the boundary between a standard and a tool. A standard shapes decisions and behaviour — you follow it. A named invokable action — something you would run — is a tool and belongs there.
 
 ## Applicability
 
@@ -71,4 +73,4 @@ Information. Triggering — how a standard gets loaded where it might be needed 
 
 ---
 
-Version note: v4 — cross-review corrections: added trigger description, marked applicability with strength, leaned description-budget paragraph. 2026-09-11.
+Version note: v5 — adds invocability test pointer to Tools (carry from Tools design), 2026-09-11.
