@@ -2,15 +2,15 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 3** (2026-09-10).
+> **Binder Version 4** (2026-09-10).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
 
 ## Binder manifest
 
-- `check test.txt` - sha256 `e3b0c44298fc`
 - `Core/_index.md` - sha256 `8e58c5e0026b`
+- `Core/check test.txt` - sha256 `e3b0c44298fc`
 - `Core/Core_AIDEMap.md` - sha256 `e3b0c44298fc`
 - `Core/Core_AIDEMap.yaml` - sha256 `a3f651bdb590`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
@@ -53,11 +53,6 @@ individual files.
 
 ---
 
-<!-- BEGIN SOURCE: check test.txt -->
-<!-- END SOURCE: check test.txt -->
-
----
-
 <!-- BEGIN SOURCE: Core/_index.md -->
 # Core
 
@@ -79,6 +74,11 @@ How AIDE documentation is physically and logically organised — folder conventi
 **AIDEPrinciples** (prefix `Core_AIDEPrinciples_`)
 The operating principles specific to AIDE as a framework — facilitate not constrain, opt-in behaviour, strength model, aliases. Produces a standard for deployment. Distinct from the Principles component, which owns universal, portable premises.
 <!-- END SOURCE: Core/_index.md -->
+
+---
+
+<!-- BEGIN SOURCE: Core/check test.txt -->
+<!-- END SOURCE: Core/check test.txt -->
 
 ---
 
