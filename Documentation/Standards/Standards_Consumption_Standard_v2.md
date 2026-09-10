@@ -1,10 +1,10 @@
-Standards — Standard | standard | Standards_Consumption_Standard@v1 | 2026-09-11
+Standards — Standard | standard | Standards_Consumption_Standard@v2 | 2026-09-11
 
 How to evaluate, combine, and operate under applicable AIDE standards at runtime in an AI session.
 
 ## Applicability
 
-This standard applies when an AI session is operating under one or more AIDE standards. It does not apply during standard authoring — that is governed by the standards authoring standard.
+Information. This standard applies when an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, or deploying standards; those activities are governed by the standards authoring standard.
 
 ## Evaluate applicability before applying
 
@@ -12,11 +12,11 @@ Required. A loaded standard is not automatically applicable. Before applying a s
 
 ## Combine applicable standards
 
-Required. Compatible applicable standards stack — combine them, do not choose between them. When multiple standards apply to the same work and their guidance does not conflict, follow all of them.
+Required. Compatible applicable standards stack — combine them, do not choose between them. When multiple standards apply to the same work and their guidance does not conflict, apply each item according to its declared strength.
 
 ## Resolve conflict
 
-Required. When two applicable items genuinely oppose each other on the same point, higher strength governs. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. The conflict record identifies the competing standards, the opposing items, and the work affected.
+Required. When two applicable items genuinely oppose each other on the same point, higher strength governs. Strength precedence: Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. When surfacing the conflict, identify the competing standards, the opposing items, and the work affected.
 
 Required. Do not manufacture conflict from different concerns that can both be satisfied. Two standards addressing different aspects of the same work are not in conflict merely because both apply.
 
@@ -36,4 +36,4 @@ Recommended. Normal operation does not narrate every standard consulted. Surface
 
 ---
 
-Version note: v1 — initial standard, authored from Standards_Design_v2 decisions D9 and D10. 2026-09-11.
+Version note: v2 — cross-review corrections: expanded scope exclusion, replaced "follow all" with strength-respecting application, added strength precedence ordering, removed "conflict record" apparatus, marked applicability with strength. 2026-09-11.

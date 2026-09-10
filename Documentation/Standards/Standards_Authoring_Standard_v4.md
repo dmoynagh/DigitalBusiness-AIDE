@@ -1,4 +1,6 @@
-Standards — Standard | standard | Standards_Authoring_Standard@v3 | 2026-09-11
+Standards — Standard | standard | Standards_Authoring_Standard@v4 | 2026-09-11
+
+How to design, author, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
 
 ## What a standard is
 
@@ -8,7 +10,7 @@ Information. A standard earns its context cost. Everything in it displaces somet
 
 ## Applicability
 
-This standard applies when designing, authoring, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
+Information. This standard applies when designing, authoring, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
 
 ## Authoring rules
 
@@ -28,7 +30,7 @@ This standard applies when designing, authoring, or deploying a standard within 
 
 **Trigger description.** Required. Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the basis for loading the standard where it is needed.
 
-**Description budget.** Required. The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard. Front-load trigger words so the most important terms survive truncation. The 130-character figure is the union minimum across Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and other adopters of the standard; revise when platform budgets change.
+**Description budget.** Required. The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget. Front-load trigger words so the most important terms survive truncation.
 
 **Segmentation.** Required. The description budget is the size test for whether a standard should be split. If the trigger elements that define when the standard is needed will not fit within the budget, split into sub-standards rather than compressing the description into uselessness.
 
@@ -69,4 +71,4 @@ Information. Triggering — how a standard gets loaded where it might be needed 
 
 ---
 
-Version note: v3 — adds applicability scope (new required rule), trigger description and segmentation (four required items), document-default weight (strength assignment), facilitative framing (discriminating guidance), trigger/scope distinction (deployment). Merges legacy binder review and voice session additions, 2026-09-11.
+Version note: v4 — cross-review corrections: added trigger description, marked applicability with strength, leaned description-budget paragraph. 2026-09-11.
