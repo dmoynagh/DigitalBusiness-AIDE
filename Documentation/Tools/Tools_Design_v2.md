@@ -1,4 +1,4 @@
-Tools — Design | design | Tools_Design@v1 | 2026-09-11
+Tools — Design | design | Tools_Design@v2 | 2026-09-11
 
 ## Brief
 
@@ -62,17 +62,39 @@ Seven concerns a tool author must address. These are not a template — the auth
 
 **Failure behaviour.** What happens when something goes wrong. How the tool reports failure, what state it leaves behind, and what the invoker should do next.
 
+### The ask/infer/escalate discipline
+
+The behavioural discipline for how a tool handles inputs, decision points, and escalation during execution:
+
+- Infer and state where confidence is strong and cost of error is low.
+- Ask once, preferably batched, for genuinely missing required inputs.
+- Escalate genuine conflicts, authority decisions, or material uncertainty the tool does not own.
+
+A tool must not silently fail for want of information that could reasonably have been requested. That is not a behavioural preference — it is a defect in the tool.
+
 ### Idempotency as a declared property
 
-Whether a tool is safe to run again is a property the author declares about the tool, not a section within it. "This tool is idempotent" or "this tool is not safe to run twice" sits naturally alongside the tool's purpose, as a characteristic of the tool rather than a step in its procedure.
+Whether a tool is safe to run again is a property the author declares about the tool, not a section within it. "This tool is idempotent" or "this tool is not safe to run twice" sits naturally alongside the tool's purpose, as a characteristic of the tool rather than a step in its procedure. The declaration is not optional — the invoker needs it before deciding whether to re-run.
+
+### Applicability scope
+
+Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct: the trigger gets the tool loaded into the session (Infrastructure's concern); the scope determines whether it applies to the work at hand (the tool's own declaration). A loaded tool whose scope does not match is not run.
 
 ### The trigger description
 
 Every tool carries a trigger description — the same mechanism and the same rules as for standards. The trigger description and segmentation rules are capability-wide: the 130-character budget, the front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically.
 
-## What the author decides
+### Document-default strength
 
-A tool has no prescribed template. The author decides what the tool contains and how it is structured, provided it addresses the seven authoring concerns and meets the authoring rules inherited from the standards authoring methodology — the carry test, leanness, discriminating guidance, strength assignment, and self-containment. These rules apply to any capability, not only to standards.
+A tool may declare a document-level default strength so the author only marks items that differ from the default. Nearest declaration wins. This reduces clutter in longer tools without changing the obligation that every item carries an effective strength.
+
+## Designing and authoring a tool
+
+**Design is the default.** A design almost always exists behind a tool. Authoring straight to a tool is the exception — reserved for cases where the action is simple enough that a design would restate rather than elaborate.
+
+**Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle from the design layering model — each output is derived from the design that governs it, not from its own prior version.
+
+**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules inherited from the standards authoring methodology — the carry test, leanness, discriminating guidance, strength assignment, and self-containment. These rules apply to any capability, not only to standards.
 
 ## Boundaries
 
@@ -91,4 +113,4 @@ Tools does **not** own:
 
 ---
 
-Version note: v1 — initial design from the tools design session, 2026-09-11.
+Version note: v2 — incorporates applicability scope, ask/infer/escalate discipline, document-default strength, designing/authoring rules, and idempotency-as-declaration clarification from session and cross-review findings, 2026-09-11.

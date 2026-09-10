@@ -1,4 +1,4 @@
-Tools — Decisions | decisions | Tools_Decisions@v2 | 2026-09-11
+Tools — Decisions | decisions | Tools_Decisions@v3 | 2026-09-11
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -67,7 +67,7 @@ The Standards session subsequently found that a consumption standard did earn it
 
 ## D10 — Applicability scope is a required authoring rule
 
-Carried from the Standards session finding. Trigger and scope are distinct concerns: the trigger gets the tool loaded (Infrastructure's mechanism); scope determines whether it applies to the work at hand (the tool's own declaration). A loaded tool whose scope does not match should not run. The same reasoning that made this Required for standards applies to tools — same platform, same loading model, same risk of a loaded capability running when it shouldn't.
+Carried from the Standards session finding. Trigger and scope are distinct concerns: the trigger gets the tool loaded (Infrastructure's mechanism); scope determines whether it applies to the work at hand (the tool's own declaration), framed through behaviour and relevance rather than deployment target. A loaded tool whose scope does not match should not run. The same reasoning that made this Required for standards applies to tools — same platform, same loading model, same risk of a loaded capability running when it shouldn't.
 
 ## D11 — Ask/infer/escalate discipline
 
@@ -77,6 +77,21 @@ Carried from the old Tools Design §3, confirmed during the legacy binder review
 
 Carried from the Standards session finding. A tool may declare a document-level default strength so the author only marks items that differ. Nearest declaration wins. Placed as Information — it is a technique available to the author, not an obligation. Same reasoning and placement as Standards.
 
+## D13 — Cross-review findings and design/standard correction
+
+The first cross-review (tools-cross-review/cross-review/001) identified eight findings, all valid or partially valid. The structural issue was F1: the design had become stale — D10–D12 introduced normative content into the standard without updating the design first. This violated the design → standard authority chain.
+
+Resolution: the design was updated to v2 before the standard was re-authored as v3. The design now establishes all content the standard carries. Specific corrections:
+
+- **F1 (design stale):** design updated to v2 with all v2 additions.
+- **F2 (design-is-default and author-fresh invented):** both added to the design. Author-fresh sourced from the capability-wide design layering model.
+- **F3 (tool/utility distinction dropped):** restored in the standard. The design already carried it; the standard had failed to deliver it.
+- **F4 (idempotency weakened):** corrected to Required. The design establishes it as a declaration, not an option.
+- **F5 (trigger placement crosses boundary):** the "first content after the header" placement rule removed from the standard. The trigger description is required; its document placement is Documentation Methodology's concern.
+- **F6 (never-fail contradicts Recommended):** separated into its own Required statement. The ask/infer/escalate behavioural pattern remains Recommended; the prohibition on silent failure is independently Required.
+- **F7 (deployment terminology drifted):** corrected from "skill or plugin" to "skill or binder entry" to match the design.
+- **F8 (applicability scope extra constraint):** the "framed through behaviour and relevance" qualifier added to the design and D10 so the standard has authority.
+
 ---
 
-Version note: v2 — adds D10–D12 from legacy binder review and Standards session cross-pollination, updates D9 with consumption-standard watch note, 2026-09-11.
+Version note: v3 — adds D13 recording cross-review response, 2026-09-11.

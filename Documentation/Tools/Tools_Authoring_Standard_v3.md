@@ -1,8 +1,10 @@
-Tools — Standard | standard | Tools_Authoring_Standard@v2 | 2026-09-11
+Tools — Standard | standard | Tools_Authoring_Standard@v3 | 2026-09-11
 
 ## What a tool is
 
 Information. A tool encapsulates a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. The AI performs the procedure the tool defines.
+
+Information. Capabilities are defined platform-neutral and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. A utility, by contrast, runs outside the session and acts on the corpus or infrastructure directly. The invocability test below draws the tool-versus-standard boundary; this platform distinction draws the tool-versus-utility boundary.
 
 Information. A tool earns its context cost. Everything in it displaces something else the session could hold.
 
@@ -46,11 +48,11 @@ Recommended. The behavioural discipline for handling inputs, decision points, an
 - Ask once, preferably batched, for genuinely missing required inputs.
 - Escalate genuine conflicts, authority decisions, or material uncertainty the tool does not own.
 
-Never fail for want of information that could reasonably have been requested.
+Required. A tool must not silently fail for want of information that could reasonably have been requested.
 
 ## Idempotency
 
-Recommended. Whether a tool is safe to run again is a property the author declares about the tool, stated alongside its purpose. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs this before deciding whether to re-run.
+Required. The author declares whether the tool is safe to run again, stated alongside its purpose. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs this before deciding whether to re-run.
 
 ## The staging clause
 
@@ -66,7 +68,7 @@ Information. This is common. A component or feature specified in a design often 
 
 ## Trigger description
 
-Required. Every tool carries a trigger description as its first content after the header. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
+Required. Every tool carries a trigger description. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
 
 ## Applicability scope
 
@@ -80,13 +82,13 @@ Information. A tool may declare a document-level default strength so the author 
 
 **Design is the default.** Recommended. A design almost always exists behind a tool. Authoring straight to a tool is the exception — reserved for cases where the action is simple enough that a design would restate rather than elaborate.
 
-**Author fresh.** Required. A tool is authored from its design, not by modifying a previous version of the tool.
+**Author fresh.** Required. A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle — each output is derived from the design that governs it, not from its own prior version.
 
 **No prescribed template.** Information. A tool has no fixed structure. The author decides what it contains and how it is organised, provided the authoring concerns above are addressed and the capability-wide authoring rules are met.
 
 ## Deployment
 
-Information. Once a tool is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted tool. Packaging into a skill or plugin, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
+Information. Once a tool is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted tool. Packaging into a skill or binder entry, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
 
 ## Ownership
 
@@ -94,4 +96,4 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ---
 
-Version note: v2 — adds applicability scope (Required), document-default strength (Information), and ask/infer/escalate discipline (Recommended) from legacy binder review and Standards session cross-pollination, 2026-09-11.
+Version note: v3 — re-authored from Tools_Design_v2 addressing cross-review findings F1–F8: restores tool/utility distinction, corrects idempotency to Required, separates "never fail" as Required from Recommended discipline, aligns deployment terminology, removes trigger placement rule, adds applicability framing authority, 2026-09-11.
