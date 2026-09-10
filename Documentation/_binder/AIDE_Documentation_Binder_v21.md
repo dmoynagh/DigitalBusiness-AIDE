@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 20** (2026-09-11).
+> **Binder Version 21** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -56,6 +56,8 @@ individual files.
 - `Standards/Standards_Decisions_v1.md` - sha256 `fb153d3db6bc`
 - `Standards/Standards_Design_v1.md` - sha256 `60cebe0ab9f1`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
+- `Tools/Tools_Decisions_v1.md` - sha256 `266576979e50`
+- `Tools/Tools_Design_v1.md` - sha256 `d6c8195c6fb9`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
@@ -8371,6 +8373,178 @@ Reference is a document type only, not an output type. The distinction matters: 
 
 Version note: v1 — initial working document from session 2026-09-09.
 <!-- END SOURCE: Standards/Standards_Working_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Tools/Tools_Decisions_v1.md -->
+Tools — Decisions | decisions | Tools_Decisions@v1 | 2026-09-11
+
+## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
+
+Tools defines how to create its type. Individual tool instances live with their consuming component. This was settled in the overview as the common pattern for all three capability-type components and confirmed in the structure session. The alternative — Tools holding all tools — was rejected because it violates the what-knows-most-about-it ownership principle.
+
+## D2 — The invocability test is the governing boundary, owned by Tools
+
+The standard-tool boundary was originally settled as D24 in the old corpus. The test — "if you would say 'run X,' X is a tool; if you would say 'follow the approach in Y,' that is a standard" — survived the rebuild because it is the cleanest available distinction. It says nothing about how the action is carried out, only whether it is invoked or consulted.
+
+Ownership is placed in Tools rather than Standards because the ambiguous cases land here. Someone wondering "is this a standard or a tool?" is almost always holding something that looks invokable, so they are in Tools' territory. The standards side already describes what a standard is clearly enough that the "follow" case is self-evident; it is the "run" case that needs the discriminating guidance.
+
+Standards carries a one-line information-strength pointer to the test rather than restating it. One authority, not two.
+
+## D3 — Seven authoring concerns, not a template
+
+The tool definition listed eight elements a tool "normally" defines. This was an indicative sketch from the terminology-setting session, not a deliberated design. Evaluation against the tool's purpose — encapsulating a repeatable action — produced seven concerns that earn their place, with adjustments:
+
+- **Reporting folded into outputs and effects.** A report is an output. Every existing utility's log and on-screen report is an output of running the tool. Reporting does not need its own category.
+- **Failure behaviour and idempotency separated.** The original list combined these into one slot, but they are different concerns. Failure behaviour is what happens when something goes wrong — universal and always relevant. Idempotency is a property of the tool — whether it is safe to run again — better declared alongside the tool's purpose than authored as a procedural section.
+
+The same principle as Standards applies: these are concerns the author must address, not a structure to fill in. A simple tool might have no meaningful escalation conditions; a complex one might need something this list does not name. The author decides how to meet the terms.
+
+## D4 — Tools are AI-performed capabilities
+
+The old WIP carried the qualifier "NOT limited to executable code — migration is a tool and it's an AI task." This was dropped because it introduced confusion by blurring the line between tools and utilities. A tool is a capability; capabilities load into the AI session; the AI performs the procedure. That is the definition, and it does not need a qualifier saying what it is not.
+
+The framework already has clean separation: tools load into the session and the AI executes them; utilities run outside the session and act on the corpus or infrastructure. The qualifier was trying to say tools are not just scripts, but it achieved this by muddying a boundary that was already drawn.
+
+Dropping it also simplifies the authoring guidance. There is one execution context — AI in-session — not two to accommodate. The seven authoring concerns work cleanly for AI-performed procedures.
+
+## D5 — The staging clause governs standard-to-tool transition
+
+A standard may describe a procedure that ought to be a tool but is not yet built. This is legitimate staging, not a defect. When the tool is built, the standard's procedure section is replaced by a pointer to the tool, making the tool the single source.
+
+The staging clause exists because building a tool is more work than describing a procedure in a standard, and the work should not be blocked while the tool is being built. The direction of travel is always toward the tool — a staged procedure is a known debt, not a permanent arrangement.
+
+The clause also protects the invocability test from being treated as rigid: a standard carrying a temporary procedure does not violate the test provided the intent is to replace it. The test governs the steady state, not the transition.
+
+## D6 — The sibling-outputs model governs tool-standard coexistence
+
+A single design can produce both standards and tools. The design describes the behaviour; each output delivers the part of that behaviour appropriate to its type — guidance into a standard, invokable actions into tools. Both derive from the design, not from each other, so they cannot disagree.
+
+This is expected to be common. A component or feature specified in a design may need guidance on how the work is approached (a standard) and a specific invokable action within that work (a tool). The design is the single source; the outputs are its delivery.
+
+The model also prevents the synchronisation problem the invocability test was designed to avoid. Two sibling outputs from one design are coordinated by the design. Two independent documents covering the same behaviour — one as a standard, one as a tool — would drift.
+
+## D7 — The standards authoring rules apply to tools
+
+The five authoring rules (carry test, leanness, discriminating guidance, strength assignment, self-containment) are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. The rules apply.
+
+Tools does not restate them. The tool authoring standard consumes them by reference to the standards authoring methodology.
+
+## D8 — Trigger description and segmentation rules are capability-wide
+
+The 130-character trigger budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit were agreed as part of the standards authoring standard v3. They are platform constraints, not standard-specific constraints. A tool deployed as a skill faces the same budget on the same platforms.
+
+Tools applies these rules identically. They are not restated — the tool authoring standard references them as capability-wide rules.
+
+## D9 — One primary output: the tool authoring standard
+
+The tool authoring standard covers design, authoring, and deployment of tools. It parallels the standards authoring standard in scope and shape.
+
+A separate consumption standard — how to invoke and work with tools once deployed — is not assumed. A well-authored tool is self-evident to invoke: the trigger description tells the consumer when to use it, the inputs tell them what to provide, and the procedure tells them what will happen. Good authoring makes consumption fall out naturally.
+
+---
+
+Version note: v1 — initial decisions from the tools design session, 2026-09-11.
+<!-- END SOURCE: Tools/Tools_Decisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Tools/Tools_Design_v1.md -->
+Tools — Design | design | Tools_Design@v1 | 2026-09-11
+
+## Brief
+
+**Purpose.** Define what a tool is and how one is designed, authored, and deployed within AIDE. Tools is a methodological component — it owns the methodology for building tools, not the tools themselves. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+
+**Scope.** The tool definition, the invocability test that draws the boundary between a tool and a standard, the authoring concerns a tool must address, the staging clause, and the sibling-outputs model. Individual tools, document structure, packaging, and the cross-review process are out of scope.
+
+**Target outcome.** A deployed tool authoring standard that any component author uses when designing, authoring, and deploying a tool for their component.
+
+## What a tool is and does
+
+A tool encapsulates a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content loaded into project context. In both cases, the tool is what the session consumes. The AI performs the procedure the tool defines.
+
+A tool is a capability. Capabilities are defined platform-neutral — the what — and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. This is what distinguishes a tool from a utility, which runs outside the session and acts on the corpus or infrastructure directly.
+
+## The invocability test
+
+The boundary between a tool and a standard is invocability. If you would say "run X," X is a tool. If you would say "follow the approach in Y," Y is a standard.
+
+A standard shapes decisions and behaviour while work is being done — it is guidance you consult. A tool is a named thing you invoke to get a specific thing done — it is an action you run. A standard may describe a procedure, but it may not define an invokable action.
+
+The reasoning: a named invokable thing must be a tool because only a tool carries the identity, structure, and authoring discipline that keeps a named action honest. A standard that restates an invokable action creates two authorities on the same thing, with no way to keep them in sync.
+
+This test is the heart of the Tools component. It governs what is a tool and what is not.
+
+## The staging clause
+
+A standard may legitimately describe a procedure that ought to be a tool but is not yet built. That is a staging post, not a defect. The standard carries the procedure so the work can be done now; the intent is that a tool will replace it.
+
+When the tool is built, the standard's procedure section is replaced by a pointer to the tool, so the tool becomes the single source. The standard no longer carries the procedure — it references the tool that does.
+
+This is the only case where a standard may describe an invokable procedure without violating the invocability test. The staging is temporary, and the direction of travel is always toward the tool.
+
+## The sibling-outputs model
+
+A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the same design and therefore cannot disagree. Neither authors the other's content.
+
+This is common. A component or feature may need a standard to shape how the work is approached and a tool to perform a specific action within it. The design specifies the full behaviour; the outputs are whatever delivers it — one or more standards, one or more tools, or a mix. Each output is authored from the design, not from its sibling.
+
+## What Tools owns
+
+### The tool definition
+
+What a tool is, what it does, and what distinguishes it from a standard and a utility. The definitions are stated above. Tools owns these definitions and the invocability test that draws the boundary.
+
+### The authoring concerns
+
+Seven concerns a tool author must address. These are not a template — the author decides how to meet them, in whatever structure the content demands. They describe what a complete tool covers, so an author knows what to think about.
+
+**Inputs.** What the tool needs in order to run. Without this, every invocation re-derives what to provide.
+
+**Preconditions.** What must be true before invoking the tool. Running a tool when conditions are not met wastes effort or causes damage.
+
+**Procedure.** The encapsulated mechanism — the sequence of steps the AI performs when the tool is invoked. This is the tool.
+
+**Decision points.** Where judgement is needed during execution. Where the executor needs to think rather than follow. Essential for tools where the AI must choose between paths or assess a situation mid-procedure.
+
+**Escalation conditions.** When to stop and hand back. The boundary between the tool and its invoker — "this is no longer yours, return to the caller." Different from a decision point: a decision point chooses between paths within the tool; an escalation condition exits the tool.
+
+**Outputs and effects.** What the tool produces and what it changes. The invoker needs to know both — what they get back and what is different afterwards.
+
+**Failure behaviour.** What happens when something goes wrong. How the tool reports failure, what state it leaves behind, and what the invoker should do next.
+
+### Idempotency as a declared property
+
+Whether a tool is safe to run again is a property the author declares about the tool, not a section within it. "This tool is idempotent" or "this tool is not safe to run twice" sits naturally alongside the tool's purpose, as a characteristic of the tool rather than a step in its procedure.
+
+### The trigger description
+
+Every tool carries a trigger description — the same mechanism and the same rules as for standards. The trigger description and segmentation rules are capability-wide: the 130-character budget, the front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically.
+
+## What the author decides
+
+A tool has no prescribed template. The author decides what the tool contains and how it is structured, provided it addresses the seven authoring concerns and meets the authoring rules inherited from the standards authoring methodology — the carry test, leanness, discriminating guidance, strength assignment, and self-containment. These rules apply to any capability, not only to standards.
+
+## Boundaries
+
+Tools does **not** own:
+
+- **The standards authoring rules** — the carry test, leanness, discriminating guidance, strength assignment, and self-containment are Standards-wide rules that bind all capability authoring. Tools consumes them.
+- **The three-layer authoring model** — a project-level convention consumed by all components, not a Tools mechanism.
+- **The cross-review process** — the obligation that every capability is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Tools' output goes through it.
+- **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
+- **Packaging and delivery** — how a tool becomes a skill or binder entry is owned by Infrastructure (packaging) and Deployment (the weight gate and the pipeline to the marketplace).
+- **Any individual tool** — each lives with its owning component.
+
+## Carries to other components
+
+**To Standards:** an information-strength pointer in the standards authoring standard noting that the invocability test in the tool authoring standard draws the boundary between the two capability types.
+
+---
+
+Version note: v1 — initial design from the tools design session, 2026-09-11.
+<!-- END SOURCE: Tools/Tools_Design_v1.md -->
 
 ---
 
