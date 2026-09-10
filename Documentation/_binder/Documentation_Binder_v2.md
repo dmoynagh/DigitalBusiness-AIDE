@@ -2,15 +2,10 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 1** (2026-09-10).
+> **Binder Version 2** (2026-09-10).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
-
-> **INCOMPLETE BINDER - 1 source file(s) could not be read and are missing:**
-> - `files.txt`
->
-> Do not treat this Binder as a complete statement of its scope until it is rebuilt.
 
 ## Binder manifest
 
