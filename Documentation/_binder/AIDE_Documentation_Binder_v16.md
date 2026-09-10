@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 15** (2026-09-10).
+> **Binder Version 16** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -48,6 +48,8 @@ individual files.
 - `Principles/Principles_Decisions_v4.md` - sha256 `2c31c26b5c66`
 - `Principles/Principles_Design_v4.md` - sha256 `4bd5797d3d2e`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
+- `Standards/Standards_Decisions_v1.md` - sha256 `fb153d3db6bc`
+- `Standards/Standards_Design_v1.md` - sha256 `60cebe0ab9f1`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
@@ -7405,6 +7407,153 @@ Standards defines how to create, design, build, and use a standard within the AI
 
 As a capability, Standards owns the definition of what a standard is, the authoring guidance (including leanness), and the pipeline from reference knowledge to deployed standard.
 <!-- END SOURCE: Standards/_index.md -->
+
+---
+
+<!-- BEGIN SOURCE: Standards/Standards_Decisions_v1.md -->
+Standards — Decisions | decisions | Standards_Decisions@v1 | 2026-09-10
+
+## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
+
+Standards defines how to create its type. Individual instances live with their consuming component. This was settled in the overview as the common pattern for all three capability-type components and confirmed in the structure session. The alternative — Standards holding all standards — was rejected because it violates the what-knows-most-about-it ownership principle.
+
+## D2 — Five authoring rules, not a template
+
+The authoring methodology is expressed as five rules (carry test, leanness, discriminating guidance, strength assignment, self-containment) rather than a prescribed template or structural specification. The author decides what a standard contains and how it is organised, provided it meets the terms.
+
+A template risks becoming apparatus — a structure to fill in rather than a set of outcomes to achieve. The five rules already tell an author what a good standard must do. Document structure belongs to Documentation Methodology; Standards defines what the content must achieve, not what it must look like.
+
+## D3 — Four strength levels, strength per item not per section
+
+The strength model uses four levels: required, recommended, optional, information. The fourth level (information) was added specifically for reference-origin content that needs to reach the platform for awareness without carrying a compliance expectation.
+
+Strength is a property of each item rather than a section organiser because a single standard will naturally mix levels — a section on authoring might contain two required rules, one recommended practice, and one piece of information context. Grouping by strength would break the logical flow of the guidance.
+
+The vocabulary — the four words and their definitions — is standardised. This is the "rule weight markers" technique lifted from the Project Design binder sweep and given its home here, as flagged during that work.
+
+## D4 — The carry test is the single authoring filter
+
+"Is this needed at the moment of application" is the governing test for what goes into a standard. It was stated by Dave as a Standards-wide principle during the Project Design work and is the most important single rule in the authoring methodology.
+
+The test sharpens the three-layer authoring model rather than contradicting it: discriminating guidance belongs in the standard even though it reads like elaboration, because placement and application judgements happen from whatever is memory-resident.
+
+## D5 — Self-containment over cross-referencing
+
+A standard must be understandable without its design document in the session. The alternative — a standard that assumes access to its design — would mean loading both documents to apply the guidance, doubling the context cost and defeating the purpose of the lean standard.
+
+This does not prevent a standard from referencing its design for deeper reasoning. It prevents depending on the design being present.
+
+## D6 — One primary output: the standards authoring standard
+
+The authoring standard covers design, authoring, and deployment. A separate consumption standard — how to apply and work with standards once deployed — is available if it earns its place but is not assumed.
+
+The consumption side probably does not need its own standard now. A well-authored standard is self-evident to consume: the strength levels tell the consumer what is required and what is guidance, and the self-containment rule means the standard explains itself. Good authoring makes consumption fall out naturally.
+
+The boundary is deliberate: the authoring standard's scope stops at deployment. Implementation and consumption details would sit in the separate standard if one is ever needed.
+
+## D7 — Settled decisions binding on Standards but owned elsewhere
+
+Three decisions constrain Standards without being redefined by it:
+
+- **The carry test** was stated as a rebuild-wide governing principle, not by this component. Standards must embody it but does not own the principle.
+- **The cross-review requirement** comes from the three-layer authoring model: every authored standard is reviewed by a separate AI before acceptance. The obligation exists because of Standards; the process is a Working Practices collaboration convention.
+- **The weight gate at deployment** checks the combined load when capabilities are packaged into a plugin. Standards owns leanness at authoring time; Deployment owns the gate at packaging time.
+
+## D8 — The Contents/Summary edge is Documentation Methodology's concern
+
+The edge between Contents and Summary was flagged during the Project Design work as "a common issue" for standards authors. It is carried to Documentation Methodology because the edge definition is about document-structure blocks — what Contents maps versus what Summary establishes — which is grammar, not authoring methodology. Standards authors will encounter the problem, but the solution belongs to whoever owns the grammar of those blocks.
+
+---
+
+Version note: v1 — initial decisions from the standards design session, 2026-09-10.
+<!-- END SOURCE: Standards/Standards_Decisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Standards/Standards_Design_v1.md -->
+Standards — Design | design | Standards_Design@v1 | 2026-09-10
+
+## Brief
+
+**Purpose.** Define how a standard is designed, authored, and deployed within AIDE. Standards is a methodological component — it owns the methodology for building standards, not the standards themselves. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+
+**Scope.** The authoring methodology, the strength model, the reference-to-standard pipeline, and the relationship between a standard and its design. Individual standards, document structure, packaging, and the cross-review process are out of scope.
+
+**Target outcome.** A deployed standards authoring standard that any component author uses when designing, authoring, and deploying a standard for their component.
+
+## What a standard achieves
+
+A standard shapes decisions and behaviour at the moment of application. It reaches the AI platform as a capability — either as a skill loaded on trigger, or as binder content loaded into project context. In both cases, the standard is what the session consumes. Everything behind it — the design, the decisions, the reference knowledge — stays outside the session.
+
+That single fact drives the authoring model: a standard carries only what is needed at the moment of application, because everything in it costs context space and attention.
+
+## What Standards owns
+
+### The authoring methodology
+
+How to decide what goes into a standard, how to write it, and how lean is lean enough. Five rules govern authoring:
+
+**The carry test.** Every item must pass: "is this needed at the moment of application?" Content that informed the design but is not needed when applying the standard stays in the design document.
+
+**Leanness.** A standard earns its context cost. Every sentence displaces something else the session could hold. The target is the minimum language that achieves the guidance — not terse, not abbreviated, but with nothing that does not work. A well-authored standard reads as a short document that leaves the consumer confident about what to do.
+
+**Discriminating guidance.** A standard that says "do X" without helping the consumer recognise when and how is governance without value. If the consumer would need to go back to the design to know how to apply a rule, the standard is incomplete.
+
+**Strength assignment.** Every item carries one of the four strength levels. The author decides what strength each item warrants. Over-use of required produces a standard that reads as rigid; over-use of optional produces one that achieves nothing.
+
+**Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but it must not depend on it. The consumer has the standard; the design is available but not loaded.
+
+### The strength model
+
+Four levels defining how strongly an item in a standard applies:
+
+- **Required** — must comply. Departure is a defect.
+- **Recommended** — should comply. Departure needs a reason, but the reason is the author's judgement, not an approval process.
+- **Optional** — available for use. No compliance expectation.
+- **Information** — awareness content. Exists so the consumer knows it, not so they act on it.
+
+Strength is a property of each item, not a section heading, because a single standard will mix levels. The vocabulary — the four words and their definitions above — is standardised so consumers read strengths consistently across all standards.
+
+### The reference-to-standard pipeline
+
+A reference is a design-time document type recording knowledge and concepts. When reference knowledge needs to reach the AI platform, it is authored into a standard at information strength. The decision criterion is the same carry test: does this knowledge need to be present at the moment of application? If the consumer needs to be aware of it to make good decisions, it earns a place. If it only informed the design, it stays in the design.
+
+Reference is a document type only, not an output type. The distinction matters: a reference informs the design process; a standard is the delivery mechanism.
+
+### The relationship between a standard and its design
+
+A design almost always exists behind a standard — authoring straight to standard is the exception. The standard is authored fresh from the design, never by modifying a previous standard version. The design holds the reasoning, the alternatives, the constraints. The standard holds only the conclusion, stated as guidance.
+
+The standard does not carry reasoning into the session. If a consumer needs to understand why a rule exists, the design is available outside the session — but the standard does not depend on it being present.
+
+## What Standards produces
+
+One standard: the standards authoring standard. It is aimed at anyone building a component, telling them how to design, author, and deploy a standard for that component. It consumes its own rules — the first standard is self-describing.
+
+The authoring standard covers design, authoring, and deployment of standards. Implementation and consumption guidance, if it ever earns its place, would live in a separate standard, not in this one.
+
+## What the author decides
+
+A standard has no prescribed template. The author decides what the standard contains and how it is structured, provided it meets the terms defined in the standards authoring standard. The five authoring rules tell the author what a good standard achieves; the author meets them however the content demands.
+
+## Boundaries
+
+Standards does **not** own:
+
+- **The three-layer authoring model** — a project-level convention consumed by all components, not a Standards mechanism.
+- **The cross-review process** — the obligation that every standard is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Standards' output goes through it.
+- **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
+- **Packaging and delivery** — how a standard becomes a skill or binder entry is owned by Infrastructure (packaging) and Deployment (the weight gate and the pipeline to the marketplace).
+- **Any individual standard** — each lives with its owning component.
+
+## Carries to other components
+
+**To Documentation Methodology:** the Contents/Summary edge — Contents maps what is where to judge relevance, Summary gives what the document establishes. Their edges need to stay distinct. Flagged as a common issue for standards authors; the edge definition is document-structure grammar.
+
+---
+
+Version note: v1 — initial design from the standards design session, 2026-09-10.
+<!-- END SOURCE: Standards/Standards_Design_v1.md -->
 
 ---
 
