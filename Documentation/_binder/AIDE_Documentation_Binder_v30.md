@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 29** (2026-09-11).
+> **Binder Version 30** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -53,11 +53,12 @@ individual files.
 - `Project Design/ProjectDesign_Standard_v1.md` - sha256 `453aaeb09fb9`
 - `Project Design/ProjectDesign_Standard_v2.md` - sha256 `36d4c7c83bdd`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
-- `Standards/Standards_Authoring_Standard_v4.md` - sha256 `09fa02159c9f`
+- `Standards/Standards_Authoring_Standard_v5.md` - sha256 `af5113f73be9`
 - `Standards/Standards_Consumption_Standard_v2.md` - sha256 `f473734c8974`
 - `Standards/Standards_Decisions_v2.md` - sha256 `c0286118492c`
 - `Standards/Standards_Design_v2.md` - sha256 `cfedb41ac36c`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
+- `Tools/_index.md` - sha256 `7bb05b130edc`
 - `Tools/Tools_Authoring_Standard_v4.md` - sha256 `c8d9e5ceca39`
 - `Tools/Tools_Decisions_v4.md` - sha256 `8ce74a49af55`
 - `Tools/Tools_Design_v3.md` - sha256 `70dee72bc66c`
@@ -8379,8 +8380,8 @@ As a capability, Standards owns the definition of what a standard is, the author
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v4.md -->
-Standards — Standard | standard | Standards_Authoring_Standard@v4 | 2026-09-11
+<!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v5.md -->
+Standards — Standard | standard | Standards_Authoring_Standard@v5 | 2026-09-11
 
 How to design, author, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
 
@@ -8389,6 +8390,8 @@ How to design, author, and deploy an AIDE standard — authoring rules, strength
 Information. A standard defines rules, expectations, guidance and context that shape decisions and behaviour while work is being done. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. Everything behind it (the design, the decisions, the reference knowledge) stays outside the session.
 
 Information. A standard earns its context cost. Everything in it displaces something else the session could hold.
+
+Information. The invocability test in the tool authoring standard draws the boundary between a standard and a tool. A standard shapes decisions and behaviour — you follow it. A named invokable action — something you would run — is a tool and belongs there.
 
 ## Applicability
 
@@ -8453,8 +8456,8 @@ Information. Triggering — how a standard gets loaded where it might be needed 
 
 ---
 
-Version note: v4 — cross-review corrections: added trigger description, marked applicability with strength, leaned description-budget paragraph. 2026-09-11.
-<!-- END SOURCE: Standards/Standards_Authoring_Standard_v4.md -->
+Version note: v5 — adds invocability test pointer to Tools (carry from Tools design), 2026-09-11.
+<!-- END SOURCE: Standards/Standards_Authoring_Standard_v5.md -->
 
 ---
 
@@ -8737,6 +8740,27 @@ Reference is a document type only, not an output type. The distinction matters: 
 
 Version note: v1 — initial working document from session 2026-09-09.
 <!-- END SOURCE: Standards/Standards_Working_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Tools/_index.md -->
+# Tools
+
+Role: component design
+Aliases: none
+
+Tools defines the methodology for building tools — repeatable, named, invokable actions performed by the AI in-session. It owns the tool definition, the invocability test that draws the boundary between a tool and a standard, and the authoring methodology used to design and author tools.
+
+Tools is a methodological component. It defines how to create its type; individual tools live with their owning component under the what-knows-most-about-it principle.
+
+## Parts
+
+**Tools_Design** — the design document establishing what a tool is, the boundaries, authoring concerns, and the designing/authoring rules.
+
+**Tools_Authoring_Standard** — the deployed standard a tool author consumes when designing, authoring, and deploying a tool.
+
+**Tools_Decisions** — the reasoning behind each design decision.
+<!-- END SOURCE: Tools/_index.md -->
 
 ---
 
