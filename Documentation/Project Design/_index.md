@@ -8,7 +8,7 @@ Project Design produces a coherent specification for work of any size and manage
 |---|---|---|
 | ProjectDesign_ | Design v1 | design |
 | ProjectDesign_ | Decisions v1 | decisions |
-| ProjectDesign_ | Standard v1 | standard |
+| ProjectDesign_ | Standard v2 | standard |
 
 ## Parts
 
