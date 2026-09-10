@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 27** (2026-09-11).
+> **Binder Version 28** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -58,9 +58,9 @@ individual files.
 - `Standards/Standards_Decisions_v2.md` - sha256 `c0286118492c`
 - `Standards/Standards_Design_v2.md` - sha256 `cfedb41ac36c`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
-- `Tools/Tools_Authoring_Standard_v2.md` - sha256 `25c6e2d07f46`
-- `Tools/Tools_Decisions_v2.md` - sha256 `cc18a9ea41c1`
-- `Tools/Tools_Design_v1.md` - sha256 `d6c8195c6fb9`
+- `Tools/Tools_Authoring_Standard_v3.md` - sha256 `e054fc395fef`
+- `Tools/Tools_Decisions_v3.md` - sha256 `25730265fb04`
+- `Tools/Tools_Design_v2.md` - sha256 `6891ee689b81`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
@@ -8740,12 +8740,14 @@ Version note: v1 — initial working document from session 2026-09-09.
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v2.md -->
-Tools — Standard | standard | Tools_Authoring_Standard@v2 | 2026-09-11
+<!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v3.md -->
+Tools — Standard | standard | Tools_Authoring_Standard@v3 | 2026-09-11
 
 ## What a tool is
 
 Information. A tool encapsulates a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. The AI performs the procedure the tool defines.
+
+Information. Capabilities are defined platform-neutral and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. A utility, by contrast, runs outside the session and acts on the corpus or infrastructure directly. The invocability test below draws the tool-versus-standard boundary; this platform distinction draws the tool-versus-utility boundary.
 
 Information. A tool earns its context cost. Everything in it displaces something else the session could hold.
 
@@ -8789,11 +8791,11 @@ Recommended. The behavioural discipline for handling inputs, decision points, an
 - Ask once, preferably batched, for genuinely missing required inputs.
 - Escalate genuine conflicts, authority decisions, or material uncertainty the tool does not own.
 
-Never fail for want of information that could reasonably have been requested.
+Required. A tool must not silently fail for want of information that could reasonably have been requested.
 
 ## Idempotency
 
-Recommended. Whether a tool is safe to run again is a property the author declares about the tool, stated alongside its purpose. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs this before deciding whether to re-run.
+Required. The author declares whether the tool is safe to run again, stated alongside its purpose. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs this before deciding whether to re-run.
 
 ## The staging clause
 
@@ -8809,7 +8811,7 @@ Information. This is common. A component or feature specified in a design often 
 
 ## Trigger description
 
-Required. Every tool carries a trigger description as its first content after the header. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
+Required. Every tool carries a trigger description. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
 
 ## Applicability scope
 
@@ -8823,13 +8825,13 @@ Information. A tool may declare a document-level default strength so the author 
 
 **Design is the default.** Recommended. A design almost always exists behind a tool. Authoring straight to a tool is the exception — reserved for cases where the action is simple enough that a design would restate rather than elaborate.
 
-**Author fresh.** Required. A tool is authored from its design, not by modifying a previous version of the tool.
+**Author fresh.** Required. A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle — each output is derived from the design that governs it, not from its own prior version.
 
 **No prescribed template.** Information. A tool has no fixed structure. The author decides what it contains and how it is organised, provided the authoring concerns above are addressed and the capability-wide authoring rules are met.
 
 ## Deployment
 
-Information. Once a tool is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted tool. Packaging into a skill or plugin, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
+Information. Once a tool is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted tool. Packaging into a skill or binder entry, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
 
 ## Ownership
 
@@ -8837,13 +8839,13 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ---
 
-Version note: v2 — adds applicability scope (Required), document-default strength (Information), and ask/infer/escalate discipline (Recommended) from legacy binder review and Standards session cross-pollination, 2026-09-11.
-<!-- END SOURCE: Tools/Tools_Authoring_Standard_v2.md -->
+Version note: v3 — re-authored from Tools_Design_v2 addressing cross-review findings F1–F8: restores tool/utility distinction, corrects idempotency to Required, separates "never fail" as Required from Recommended discipline, aligns deployment terminology, removes trigger placement rule, adds applicability framing authority, 2026-09-11.
+<!-- END SOURCE: Tools/Tools_Authoring_Standard_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Decisions_v2.md -->
-Tools — Decisions | decisions | Tools_Decisions@v2 | 2026-09-11
+<!-- BEGIN SOURCE: Tools/Tools_Decisions_v3.md -->
+Tools — Decisions | decisions | Tools_Decisions@v3 | 2026-09-11
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -8912,7 +8914,7 @@ The Standards session subsequently found that a consumption standard did earn it
 
 ## D10 — Applicability scope is a required authoring rule
 
-Carried from the Standards session finding. Trigger and scope are distinct concerns: the trigger gets the tool loaded (Infrastructure's mechanism); scope determines whether it applies to the work at hand (the tool's own declaration). A loaded tool whose scope does not match should not run. The same reasoning that made this Required for standards applies to tools — same platform, same loading model, same risk of a loaded capability running when it shouldn't.
+Carried from the Standards session finding. Trigger and scope are distinct concerns: the trigger gets the tool loaded (Infrastructure's mechanism); scope determines whether it applies to the work at hand (the tool's own declaration), framed through behaviour and relevance rather than deployment target. A loaded tool whose scope does not match should not run. The same reasoning that made this Required for standards applies to tools — same platform, same loading model, same risk of a loaded capability running when it shouldn't.
 
 ## D11 — Ask/infer/escalate discipline
 
@@ -8922,15 +8924,30 @@ Carried from the old Tools Design §3, confirmed during the legacy binder review
 
 Carried from the Standards session finding. A tool may declare a document-level default strength so the author only marks items that differ. Nearest declaration wins. Placed as Information — it is a technique available to the author, not an obligation. Same reasoning and placement as Standards.
 
+## D13 — Cross-review findings and design/standard correction
+
+The first cross-review (tools-cross-review/cross-review/001) identified eight findings, all valid or partially valid. The structural issue was F1: the design had become stale — D10–D12 introduced normative content into the standard without updating the design first. This violated the design → standard authority chain.
+
+Resolution: the design was updated to v2 before the standard was re-authored as v3. The design now establishes all content the standard carries. Specific corrections:
+
+- **F1 (design stale):** design updated to v2 with all v2 additions.
+- **F2 (design-is-default and author-fresh invented):** both added to the design. Author-fresh sourced from the capability-wide design layering model.
+- **F3 (tool/utility distinction dropped):** restored in the standard. The design already carried it; the standard had failed to deliver it.
+- **F4 (idempotency weakened):** corrected to Required. The design establishes it as a declaration, not an option.
+- **F5 (trigger placement crosses boundary):** the "first content after the header" placement rule removed from the standard. The trigger description is required; its document placement is Documentation Methodology's concern.
+- **F6 (never-fail contradicts Recommended):** separated into its own Required statement. The ask/infer/escalate behavioural pattern remains Recommended; the prohibition on silent failure is independently Required.
+- **F7 (deployment terminology drifted):** corrected from "skill or plugin" to "skill or binder entry" to match the design.
+- **F8 (applicability scope extra constraint):** the "framed through behaviour and relevance" qualifier added to the design and D10 so the standard has authority.
+
 ---
 
-Version note: v2 — adds D10–D12 from legacy binder review and Standards session cross-pollination, updates D9 with consumption-standard watch note, 2026-09-11.
-<!-- END SOURCE: Tools/Tools_Decisions_v2.md -->
+Version note: v3 — adds D13 recording cross-review response, 2026-09-11.
+<!-- END SOURCE: Tools/Tools_Decisions_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Design_v1.md -->
-Tools — Design | design | Tools_Design@v1 | 2026-09-11
+<!-- BEGIN SOURCE: Tools/Tools_Design_v2.md -->
+Tools — Design | design | Tools_Design@v2 | 2026-09-11
 
 ## Brief
 
@@ -8994,17 +9011,39 @@ Seven concerns a tool author must address. These are not a template — the auth
 
 **Failure behaviour.** What happens when something goes wrong. How the tool reports failure, what state it leaves behind, and what the invoker should do next.
 
+### The ask/infer/escalate discipline
+
+The behavioural discipline for how a tool handles inputs, decision points, and escalation during execution:
+
+- Infer and state where confidence is strong and cost of error is low.
+- Ask once, preferably batched, for genuinely missing required inputs.
+- Escalate genuine conflicts, authority decisions, or material uncertainty the tool does not own.
+
+A tool must not silently fail for want of information that could reasonably have been requested. That is not a behavioural preference — it is a defect in the tool.
+
 ### Idempotency as a declared property
 
-Whether a tool is safe to run again is a property the author declares about the tool, not a section within it. "This tool is idempotent" or "this tool is not safe to run twice" sits naturally alongside the tool's purpose, as a characteristic of the tool rather than a step in its procedure.
+Whether a tool is safe to run again is a property the author declares about the tool, not a section within it. "This tool is idempotent" or "this tool is not safe to run twice" sits naturally alongside the tool's purpose, as a characteristic of the tool rather than a step in its procedure. The declaration is not optional — the invoker needs it before deciding whether to re-run.
+
+### Applicability scope
+
+Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct: the trigger gets the tool loaded into the session (Infrastructure's concern); the scope determines whether it applies to the work at hand (the tool's own declaration). A loaded tool whose scope does not match is not run.
 
 ### The trigger description
 
 Every tool carries a trigger description — the same mechanism and the same rules as for standards. The trigger description and segmentation rules are capability-wide: the 130-character budget, the front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically.
 
-## What the author decides
+### Document-default strength
 
-A tool has no prescribed template. The author decides what the tool contains and how it is structured, provided it addresses the seven authoring concerns and meets the authoring rules inherited from the standards authoring methodology — the carry test, leanness, discriminating guidance, strength assignment, and self-containment. These rules apply to any capability, not only to standards.
+A tool may declare a document-level default strength so the author only marks items that differ from the default. Nearest declaration wins. This reduces clutter in longer tools without changing the obligation that every item carries an effective strength.
+
+## Designing and authoring a tool
+
+**Design is the default.** A design almost always exists behind a tool. Authoring straight to a tool is the exception — reserved for cases where the action is simple enough that a design would restate rather than elaborate.
+
+**Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle from the design layering model — each output is derived from the design that governs it, not from its own prior version.
+
+**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules inherited from the standards authoring methodology — the carry test, leanness, discriminating guidance, strength assignment, and self-containment. These rules apply to any capability, not only to standards.
 
 ## Boundaries
 
@@ -9023,8 +9062,8 @@ Tools does **not** own:
 
 ---
 
-Version note: v1 — initial design from the tools design session, 2026-09-11.
-<!-- END SOURCE: Tools/Tools_Design_v1.md -->
+Version note: v2 — incorporates applicability scope, ask/infer/escalate discipline, document-default strength, designing/authoring rules, and idempotency-as-declaration clarification from session and cross-review findings, 2026-09-11.
+<!-- END SOURCE: Tools/Tools_Design_v2.md -->
 
 ---
 
