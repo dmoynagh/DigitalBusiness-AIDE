@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 30** (2026-09-11).
+> **Binder Version 31** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -29,9 +29,9 @@ individual files.
 - `Core/Core_Tags_Working_v1.md` - sha256 `ae6557378adf`
 - `Core/Core_Working_v1.md` - sha256 `9808a331b339`
 - `Documentation Methodology/_index.md` - sha256 `dd54608243d5`
-- `Documentation Methodology/DocMeth_Decisions_v1.md` - sha256 `b349e5ec403e`
-- `Documentation Methodology/DocMeth_Design_v1.md` - sha256 `e747f8b0f5e2`
-- `Documentation Methodology/DocMeth_Working_v1.md` - sha256 `1af58d615fd8`
+- `Documentation Methodology/DocMeth_Decisions_v2.md` - sha256 `ed5b655e5102`
+- `Documentation Methodology/DocMeth_Design_v2.md` - sha256 `2a65933d8b2c`
+- `Documentation Methodology/DocMeth_Working_v2.md` - sha256 `fc11dd77bac2`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `e6573d80384e`
@@ -50,7 +50,6 @@ individual files.
 - `Project Design/_index.md` - sha256 `3002bcf578cc`
 - `Project Design/ProjectDesign_Decisions_v1.md` - sha256 `0fc2d790dc5f`
 - `Project Design/ProjectDesign_Design_v1.md` - sha256 `c4a80e5fa894`
-- `Project Design/ProjectDesign_Standard_v1.md` - sha256 `453aaeb09fb9`
 - `Project Design/ProjectDesign_Standard_v2.md` - sha256 `36d4c7c83bdd`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
 - `Standards/Standards_Authoring_Standard_v5.md` - sha256 `af5113f73be9`
@@ -4164,28 +4163,259 @@ Documentation Methodology defines how documents are structured and created — t
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Decisions_v1.md -->
-Documentation Methodology | decisions | DocMeth_Decisions@v1 | 2026-09-10
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Decisions_v2.md -->
+Documentation Methodology — Decisions | decisions | DocMeth_Decisions@v2 | 2026-09-11
 
-## Status
+## D1 — DocMeth owns grammar only, not individual definitions
 
-Awaiting the full design pass. Reasoning from the rebuild sessions covering doctypes, block types, versioning, and format rules will be consolidated here from the settled rebuild decisions and session transcripts.
-<!-- END SOURCE: Documentation Methodology/DocMeth_Decisions_v1.md -->
+Individual doctype and block-type definitions live with the component that knows the most about them. DocMeth defines what a doctype is, what a block is, how they compose, and the common catalogue of blocks usable by any document. This is the "grammar versus vocabulary" line: DocMeth owns the rules of the language; components own the words.
+
+The alternative — DocMeth as a central registry of all types — was considered and rejected. A registry would accumulate detail from every component and become the single largest document in the framework, would require every component to file definitions with DocMeth rather than owning them, and would create a coordination bottleneck where no component can define a new type without a DocMeth update. The what-knows-most-about-it ownership rule settles it.
+
+## D2 — Composition, not inheritance
+
+Doctypes compose blocks by inclusion. A doctype includes a block as defined and does not modify it — no field suppression, no field addition, no shape adjustment on inclusion. Where two doctypes need different shapes, those are two blocks sharing a smaller common block if warranted.
+
+Override-on-include is inheritance under another name: it brings back precedence when two doctypes adjust the same block differently, drift when the base changes underneath, and a reader unable to tell what shape a block actually has. The accepted cost is duplication between near-identical blocks, which is visible; override chains are not. Revisit on a demonstrated case per the demonstrated-requirement rule.
+
+Also cut as over-engineered: multiple doctype inheritance, abstract doctypes, block self-assignment to doctypes (push model), collision precedence machinery.
+
+## D3 — Declaration as conformance marker and activation trigger
+
+The Declaration's presence is both the corpus recognition mechanism (is this a governed document?) and the activation trigger (DocMeth applies). This dual role avoids needing a separate governance flag. A document without a Declaration is outside the methodology — legitimate, at the user's risk.
+
+The Declaration is fixed, compact, and not overridable. Its fields (title, doctype, identity, date) are the minimum needed for recognition and identity. Variable-length content was kept out — the Dependencies block is separate specifically because adding a variable-length list to the Declaration would change its character.
+
+## D4 — Dependencies as a separate block, moved to header
+
+Dependencies was originally a footer block in the old model. Moved to header, immediately after Declaration, because the currency check gates use — a partial read from the top must be able to answer "may I use this" without reading to the end. This is the boundary proximity principle applied to the consumer that runs first.
+
+Kept as a separate block rather than folded into the Declaration for the reason stated in D3: Declaration is fixed and compact.
+
+## D5 — Common catalogue scope
+
+The common catalogue holds blocks usable by any document regardless of component: Declaration, Dependencies, Header, Footer, Contents, Summary, Version note. Seven blocks.
+
+Tags was parked in the original catalogue session (no demonstrated consumer), resurrected as a Core capability (2026-09-09), and confirmed as Core-owned during this design pass. Its block definition belongs to Core, not to DocMeth's common catalogue, because DocMeth's grammar already describes how any component-defined block places into a document.
+
+References remains parked — no consumer has appeared. It returns on its own merits when one does.
+
+## D6 — Contents and Summary are optional
+
+Both blocks earn their place by function, not by rule. Contents earns inclusion when a reader could not decide from the Declaration alone whether to keep reading. Summary earns inclusion when the document's substance needs a compressed statement. Machine-focused documents (standards delivered as skills, tools, utilities) often need neither.
+
+The doctype owner decides the default for their type: on, off, or conditional. This avoids DocMeth mandating blocks that add no value in many document types while ensuring they appear where they do add value.
+
+## D7 — The Contents/Summary edge as a grammar rule
+
+Contents maps what is where (navigation); Summary gives what the document establishes (substance). The edge between them was flagged by Standards as a common issue for standards authors and carried to DocMeth as document-structure grammar.
+
+DocMeth owns the edge definition because it defines both blocks. Standards raised the issue; DocMeth resolves it as a standing rule. The rule is brief because the blocks' own definitions already do most of the work — Contents is "a semantic map" and Summary is "what the document establishes." The edge rule reinforces that their purposes must not blur.
+
+## D8 — The split test as grammar
+
+The split test (externalise a block when keeping it in would compromise the primary role of its host) was carried from Project Design as part of the grammar. It belongs in DocMeth because it governs the relationship between a block and its host document — a structural concern, not a design-process concern.
+
+The split test is the inverse of the elasticity model: same content, container chosen by scale. A brief block lives inline for a small project and branches to its own document when it grows. The trigger is not a size threshold but a functional test — does the block's presence compromise the host?
+
+## D9 — Language rules as grammar
+
+The four language rules (plain English, meaning first / code second, use existing terms, flag new terms) were carried from the design-approach work. They belong in DocMeth because they govern how any governed document is written, not just design documents.
+
+The aide-design-check skill currently carries these rules. Once DocMeth's standard is authored, the skill consumes the standard rather than carrying the rules itself. The design-approach skill's own placement question (Project Design's standard) is about the design checks, not the language rules — those are separable.
+
+## D10 — Rendering model without explicit mapping tables
+
+The format rendering rule states that each format's own existing standards provide a clear default mapping. No additional mapping tables are authored at this stage — markdown conventions, HTML semantic elements, YAML mappings, and JSON key-value structures all provide unambiguous defaults for the abstractions DocMeth defines (fields, compact, expanded, containers).
+
+The original design explored a per-format default mapping table. On discussion, the conclusion was that these mappings are implicit in the format itself and spelling them out would be speculative work for formats with no consuming documents (no document currently uses HTML, YAML, or JSON as its primary format). The portability flag is the safety net: it catches real problems at the point they appear.
+
+If a format gap appears — where the format's own conventions do not provide an unambiguous answer — DocMeth authors the mapping then, not before.
+
+## D11 — No Infrastructure link for rendering
+
+The WIP assigned "renderers per format" to Infrastructure. On review, this was answering a question that doesn't exist: the grammar tells the AI how to express a block in each format, and the AI applies those rules when authoring. No separate renderer utility is needed.
+
+If a utility ever needed to render blocks (a binder builder producing HTML output, for example), that utility's spec would consume DocMeth's grammar. But the grammar is complete without a renderer spec alongside it.
+
+## D12 — The ownership-designation rule
+
+Defining any doctype or block type must include naming its owner and residence. This was carried from Project Design where it was identified as a recurring problem — things get defined, residence gets deferred, and placement has to re-derive a decision that was obvious at definition time.
+
+DocMeth owns the requirement to designate a home. Each definition states which home. Clean separation: the grammar says "you must name an owner"; each definition does so.
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Design_v1.md -->
-Documentation Methodology | design | DocMeth_Design@v1 | 2026-09-10
-
-## Status
-
-Awaiting the full design pass. Substantial content exists in the settled rebuild decisions (extracted from WIP v22) covering the doctype/block-type model, the block catalogue, the versioning model, format rules, and the decisions doctype. This document will be populated when that material is worked through.
-<!-- END SOURCE: Documentation Methodology/DocMeth_Design_v1.md -->
+Version note: v2 — decisions authored from the design pass, 2026-09-11. Replaces the v1 shell.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Decisions_v2.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Working_v1.md -->
-Documentation Methodology | working | DocMeth_Working@v1 | 2026-09-10
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Design_v2.md -->
+Documentation Methodology | design | DocMeth_Design@v2 | 2026-09-11
+
+## Summary
+
+Documentation Methodology defines the grammar of documents — how they are structured, how they identify themselves, how they are composed from typed building blocks, and the conventions that make them portable and machine-readable. It owns the structural primitives: doctypes, block types, the declaration, rendering conventions, identity and versioning, and the writing rules that apply to every governed document. It does not own individual doctype or block-type definitions, and it does not own the binder concept or inclusion rules.
+
+## Model
+
+The grammar has five concerns: composition (how doctypes and blocks build documents), identity (how a document names and versions itself), format (which formats are supported and how blocks express themselves in each), writing (the language conventions that apply to all authored content), and activation (the Declaration triggers DocMeth — a document with a Declaration is a governed document, and DocMeth's grammar, standards, and behaviours apply to it).
+
+## Definitions
+
+### The doctype
+
+A doctype is the root definition for a document. It states what the document defines and which blocks it includes. A doctype includes a block as defined — it does not modify it. A doctype may not suppress a block's fields, add fields, or adjust a block's shape on inclusion. Where two doctypes need different shapes, those are two blocks, which may share a smaller common block. Composition, not inheritance.
+
+Cut as over-engineered: multiple doctype inheritance, abstract doctypes, block self-assignment to doctypes (push model), collision precedence machinery. Residual collision rule: the doctype defines resolution if needed; otherwise flag to the user.
+
+### The block type
+
+A block is a named set of fields with meaning, mapping to one or more sections in a document. Blocks may include other blocks; composition recurses; no cycles. A block has a default density — compact or expanded — which the doctype may override.
+
+Hosting rules attach to the block, not the section: one authoritative instance per semantic scope, permitted hosts owner-defined, moves between hosts are structural not semantic. Contiguity of a block's sections is a default, not a rule.
+
+Shared content across doctypes is a block that doctypes include — not inheritance. Content is defined in one place; ambiguity is flagged rather than resolved silently.
+
+### Block-type recognition
+
+A block type that is not inherited from its doctype and whose specification does not fix its position requires a marker for recognition. The marker is an HTML comment placed after the heading, not before, so it survives RAG chunking — a chunker that splits on headings keeps the marker with the content it labels rather than orphaning it at the tail of the preceding chunk.
+
+### The common block catalogue
+
+DocMeth holds blocks that are common across documents or usable by any document. Component-specific blocks are defined by their owning component and merge at the document level. No central repository of all blocks.
+
+**Declaration.** Mandatory in every governed document. Its presence is the conformance marker and the corpus recognition mechanism — a document with a Declaration is governed, and DocMeth applies. First block, fixed placement, not overridable. Fields: title, doctype (root of the composition chain), identity, date. Density: compact. No separate version field — identity carries the version. The name "Declaration" lives in the methodology, not in the document; nothing emits the word.
+
+- Markdown: a single delimited line, fixed field order, delimiter `|`.
+- Structured formats: a reserved top-level `aide` key with fields as sub-properties (nested one level: `aide.identity`, not `aide_identity`). Presence of `aide` = governed.
+
+**Dependencies.** Which standards a document depends on and at which version it was last brought into line. A flat list of `standard@version` pairs — direct and inherited entries undifferentiated, conformance stamp not constraint, no presence levels or exact pins. Own identity standard omitted. Separate block rather than a Declaration field — Declaration is fixed and compact, and a variable-length list would change its character. Placement: header, immediately after Declaration, before Contents. The currency check gates use, so a partial read from the top must answer "may I use this" without reading to the end.
+
+- Markdown: `Dependencies: A@vN, B@vN` — pipe separates Declaration fields, comma separates list members, so the two header lines are visibly different shapes.
+- Structured formats: a `dependencies` key as a sibling of `aide`.
+
+**Header and Footer.** Placement containers only, no semantics of their own. Blocks declare they place into them and may carry a hint. Ties resolved by doctype instruction or defined method. Containers are themselves blocks. No literal marker line in markdown; footer start is marked by a horizontal rule; body start is the first heading that is not Contents or Summary.
+
+**Boundary proximity principle.** Value increases toward the file boundaries. Header runs high-to-low from the top; footer runs low-to-high to the end. Containers declare the gradient; blocks place against it.
+
+**Contents.** Optional. Lets a reader decide whether to read the document and what it covers, at lowest cost. Primary consumer is a file-scanning AI making a partial-read-and-stop decision.
+
+- Earns its place when a reader could not decide from the Declaration alone whether to keep reading. Often not relevant for standards, tools, and other machine-focused or skill-delivered documents unless it adds to discovery or usability.
+- Curated semantic map, grouped descriptive entries — not heading repetition.
+- Stable heading or section-number locators, never line numbers.
+- Density: compact (rendered inline / delimited, never a vertical list).
+- Placed immediately after Declaration (or after Dependencies if present), before Summary.
+- The doctype owner sets the default for that type (on, off, or conditional) and defines depth.
+
+**Summary.** Optional. States what the document establishes, absorbed quickly.
+
+- Earns its place when the document's substance needs a compressed statement for quick absorption. Often not relevant for machine-focused or skill-delivered documents where the Declaration and body are sufficient.
+- States the key model, key points, and defining items — the substance, not a gesture at it.
+- Stated, not explained. No expansion, reasoning, or qualification; that is the body's role.
+- The body expands; it does not restate. Re-establishing what the Summary states is a defect.
+- Density: compact by default; doctype may override to expanded.
+- The doctype owner governs whether Summary is used for that type.
+
+**Version note.** Metadata at the top of the footer (low-value end of the footer gradient). One line, current version only, never a list. Historical version notes do not accumulate; the decisions document holds what mattered.
+
+**Parked.** Tags — Core owns the definition; returns to the catalogue only if DocMeth grammar needs to know about it specifically. References — no consumer has appeared; decide on its own merits when one does.
+
+### Identity and versioning
+
+Every document has an identity in its Declaration regardless of publish state. Identity is authoritative; the filename is informative and mirrors it. This is a corpus-integrity requirement: the filename can be renamed and is outside the content, so it cannot be authoritative.
+
+**Identity** carries the contract version and draft state: `@v27-draft2` while working, `@v27` on publish. Absence of a draft marker means published and immutable.
+
+**Filename** mirrors the identity: `_v27-draft2.md` then `_v27.md`. Never authoritative. Identity wins on conflict.
+
+**Draft numbering** is optional in the scheme, on by default.
+
+**Reference forms.** `@v27` resolves to the published contract; `@v27-draft` resolves to the highest draft present.
+
+**Publish** drops the draft marker in both identity and filename; creates the immutable contract. Published numbers are never reused.
+
+**Next cycle** opens immediately at the next integer (`@v28-draft1`). No live drafts sit under a published version.
+
+**`.n`** is reserved, unused — available for minor published releases later without colliding with draft counters.
+
+**Naming grammar.** `{name}_v{integer}-{key}{n}`. Exactly one key defined: `draft`. An undefined key is a conformance error, not a tolerated variant. Expressed as a named token so adding a key later is a list addition, not a grammar reinterpretation.
+
+**Two rhythms.** Design documents and other unpublished documents run on a single rhythm — identity and file move together. Published outcomes (standards, deployed contracts) use a two-rhythm split at the publish boundary.
+
+### Format and rendering
+
+**Supported formats.** Markdown is the primary format. YAML and JSON are usable as document formats or embedded inside documents as defined by blocks. HTML is available for long human-facing artefacts when a document demonstrates the need. The declaration and block model work across all supported formats.
+
+**Format fits the job.** Choose the format that best serves the document's primary consumer and content shape. Format is a considered choice, not a default.
+
+**The format rendering rule.** A block is a named set of fields. Structured formats express fields as native properties; prose formats express them as a heading or delimited line. Each format's own existing standards provide a clear default mapping — no additional mapping tables are needed at this stage. If a gap appears where the format's conventions do not provide an unambiguous answer, DocMeth authors the mapping.
+
+**Density axis.** Compact or expanded, per-block default, doctype override. How compact and expanded render is determined by the format in use.
+
+**Portability flag.** Anything a block defines that would not port cleanly across formats is flagged for confirmation, not decided silently.
+
+### File conventions
+
+**File naming.** Recommended pattern: `{Prefix}_{DocType}_v{N}.md`. Applied by default, not enforced. Deviate and you manage your own file identification. The header is authoritative for identity, doctype, and path; the filename mirrors for human readability.
+
+**Prefix convention.** File prefixes identify the subject — typically the area, part, or component name. Recommended and applied by default. A prefix makes a file distinguishable in search results, open-file lists, and folder listings regardless of whether it sits in its own subfolder or flat alongside other files.
+
+### The binder as a doctype
+
+The binder is a doctype defined by Documentation Methodology — its structure as a document, how a consumer reads it, what the manifest means. A binder assembles governed documents into a single file for delivery to the AI platform. The manifest records relative paths for every included document, preserving structural relationships when documents leave the file system and enter flat AI context.
+
+The concept of the binder — why it exists, how it is built, inclusion rules, how it delivers content — is owned by Working Practices / Content Delivery.
+
+## Rules
+
+### The ownership-designation rule
+
+Defining any doctype or block type must include naming its owner and residence. Part of being defined, not a separate later step. DocMeth owns the requirement to designate a home; each definition states which home.
+
+### The split test
+
+Externalise a block into its own document when keeping it in would compromise the primary role of its host — for example when register or open-items volume degrades the ability to search, understand, and use the host document. Below that line, keep it in; file management is easier. Same content, container chosen by scale.
+
+### The Contents/Summary edge
+
+Contents and Summary both feed the read-decision from different angles. Contents maps what is where — it lets the reader judge relevance. Summary gives what the document establishes — its substance in compressed form. Their roles must stay distinct: Contents is a navigation aid; Summary is a condensed statement of the document's contribution. Merging the two, or letting one drift into the other's territory, defeats both.
+
+### Language rules
+
+Four rules, applying to every governed document:
+
+1. Plain English wherever it will do.
+2. Meaning first, code second — name the thing before citing its identifier.
+3. Use the terms already in use on the project.
+4. Flag a new term rather than introducing it silently.
+
+## Boundaries
+
+Documentation Methodology does not own:
+
+- **Individual doctype definitions** — each lives with the component that knows the most about its subject.
+- **Individual block-type definitions** — same principle. DocMeth holds only the common catalogue.
+- **The binder concept** — why it exists, how it is used, inclusion rules, how it delivers content. Owned by Working Practices / Content Delivery.
+- **Change management methodology** — how change actions are collated, distributed, and executed. Owned by Migration. DocMeth owns the document-level mechanics consumed by that methodology: the Dependencies block and the conformance stamp.
+- **The cross-review process** — a collaboration convention owned by Working Practices.
+- **Packaging and delivery** — how a standard becomes a skill or binder entry. Owned by Infrastructure and Deployment.
+- **Rule-weight vocabulary** — the strength model (required, recommended, optional, information). Owned by Standards.
+
+## Carries to other components
+
+None at this time. All carries received from Project Design, Standards, and Core shaping have been absorbed into this design.
+
+---
+
+Version note: v2 — design pass complete, 2026-09-11. Replaces the v1 shell.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Design_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Working_v2.md -->
+Documentation Methodology | working | DocMeth_Working@v2 | 2026-09-11
 
 ## Confirmed items — session 2026-09-10
 
@@ -4205,10 +4435,47 @@ File prefixes identify the subject — typically the area, part, or component na
 
 The binder is owned as a doctype definition by Documentation Methodology — its structure as a document, how to read it, what a binder contains. The concept of the binder — why it exists, how it is built, inclusion rules, how it delivers content to the platform — is owned by Working Practices / Content Delivery.
 
+## Confirmed items — design pass 2026-09-11
+
+### Carries received and absorbed
+
+All carries to DocMeth from other component passes have been absorbed into the design document (DocMeth_Design@v2):
+
+- **The split test** (from Project Design) — when to externalise a block into its own document. Placed as a grammar rule.
+- **The ownership-designation rule** (from Project Design) — defining any doctype or block type must name its owner and residence. Placed as a grammar rule.
+- **The binder doctype definition** (from Project Design) — what a binder file is, how a consumer reads it, what the manifest means. Placed as a definition in the design.
+- **The Contents/Summary edge** (from Standards) — their roles must stay distinct. Placed as a grammar rule.
+- **Block-type recognition** (from Core shaping) — two-part test and HTML-comment marker placement. Placed as a definition.
+- **Identity and versioning** (from Core shaping) — name + @version, path. Placed as a definition.
+
+### Common block catalogue confirmed
+
+Seven blocks in the common catalogue: Declaration, Dependencies, Header, Footer, Contents, Summary, Version note. Tags stays out (Core-owned). References stays parked (no consumer).
+
+### Rendering model confirmed
+
+DocMeth owns the rendering model end to end — the format rendering rule, the density axis, the portability flag, and which formats the system supports. No explicit mapping tables at this stage — each format's own standards provide unambiguous defaults. No Infrastructure link for rendering unless a utility demonstrates the need.
+
+### Language rules confirmed
+
+Four language rules placed in DocMeth as grammar: plain English, meaning first / code second, use existing terms, flag new terms. Carried from the design-approach work. The aide-design-check skill consumes these; DocMeth's standard is their proper home.
+
+### Declaration as activation trigger
+
+The Declaration's presence is the trigger that causes DocMeth's grammar, standards, and behaviours to apply. A document with a Declaration is a governed document. Added to the model as the fifth concern (activation).
+
+### Contents and Summary optionality
+
+Both blocks are optional. They earn their place by function — Contents when a reader couldn't decide from the Declaration alone whether to keep reading, Summary when the document's substance needs a compressed statement. Often not relevant for machine-focused or skill-delivered documents. The doctype owner sets the default for their type.
+
+## Open items
+
+- **DocMeth standard** — blocked on Standards component (now complete). Can be authored.
+
 ---
 
-Version note: v1 — initial working document from session 2026-09-10.
-<!-- END SOURCE: Documentation Methodology/DocMeth_Working_v1.md -->
+Version note: v2 — updated with design-pass confirmations, 2026-09-11.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Working_v2.md -->
 
 ---
 
@@ -7915,230 +8182,6 @@ Project Design does **not** own:
 
 Version note: v1 — authored fresh from ProjectDesign_Design_Pending_v1, 2026-09-11.
 <!-- END SOURCE: Project Design/ProjectDesign_Design_v1.md -->
-
----
-
-<!-- BEGIN SOURCE: Project Design/ProjectDesign_Standard_v1.md -->
-Project Design — Standard | standard | ProjectDesign_Standard@v1 | 2026-09-11
-
-## What Project Design is
-
-Information. Project Design produces the design specification and manages the return from build. It owns both ends of the design-build loop — the outbound specification and reconciliation when build reports back. Purpose in two words: fluid in, precise out.
-
-Information. The flow: intent → capture and place → brief → design → commitments → register → handoff → build → reconcile.
-
-## Design is the default
-
-Recommended. A design almost always exists behind a standard, and a standard almost always has a design behind it. Authoring straight to standard is the exception — justified only where everything worth recording fits the standard without compromising either document.
-
-## The document set
-
-Information. Project Design owns four document types: brief, design, overview, and work register. It also owns two transition mechanisms — the design-build handoff and the build return — and the producer rule. It consumes generics: decisions, knowledge, WIP, open items, work item, and definition of done.
-
-Information. A design project is the scope of one design: a brief and the design that delivers it, together with the commitments entered into the work register. A naming convenience for a boundary that already exists, not a new entity. If it starts acquiring properties — a state, an owner, a lifecycle — that is the signal it was a mistake.
-
-## Brief
-
-Information. The brief fixes the problem and the bar for success before designing. The brief is the problem space; the design is the solution space. The brief must be complete enough that the design has everything it needs, without smuggling in solution decisions.
-
-### Brief sections
-
-**Required, always:**
-
-Required. **Purpose** — the problem or need, and why it is worth solving.
-
-Required. **Objectives** — what success looks like.
-
-Required. **Definition of done** — the completion bar. Short, accurate, concise — the primary success test.
-
-**Required in substance, may be light:**
-
-Recommended. **Requirements** — the conditions the solution must satisfy. May be a single line, but never absent: "no stated requirements" is a deliberate statement, not an omission.
-
-Recommended. **Scope and boundaries** — what is in, and what is explicitly out.
-
-Recommended. **Linked build project or build outcome** — which build the design feeds. Absent only where the design produces no build.
-
-**Optional, scale-dependent:**
-
-Optional. **Considerations** — constraints, background, stakeholders, business case, prior research, methodology, assumptions, risks.
-
-Optional. **Target / outcome** — the intended end state and any acceptance criteria. Separate from definition of done: the definition of done is the pass-or-fail test, the target is the broader described end state.
-
-Information. The brief scales by which sections are present and how deep each runs.
-
-### Brief boundary tests
-
-Required. These five tests settle where content belongs when the destination is not obvious. Apply them as tie-breakers during capture and placement.
-
-1. **Objectives vs requirements.** An objective is what success looks like; a requirement is a condition the solution must meet to get there. "Fast" is an objective; "responds within two seconds" is a requirement.
-
-2. **Considerations vs decisions.** A consideration is live input still bearing on the design; the moment it resolves into a choice it moves to decisions.
-
-3. **Requirements vs scope.** A requirement constrains the *solution*; scope bounds the *work*. "Must work offline" is a requirement; "the mobile client is out this phase" is scope. The tell: does it constrain the solution or the effort?
-
-4. **Target/outcome vs definition of done.** The condition you check to say "finished" is definition of done. What you are trying to bring about is target/outcome.
-
-5. **Requirement vs implementation choice.** A requirement states what the outcome must satisfy. A requirement written as "use X" rather than "must achieve Y" pre-decides the design inside the brief, closing the fluid space before it opens.
-
-## Design document
-
-### What the design is
-
-Information. The design is the current confirmed model and approach — the authoritative delivery of the brief. A point-in-time snapshot of what is true now. It must be sufficient on its own to produce outcomes, and it governs on conflict with any other document.
-
-Required. The design carries its own live reasoning inline — the rationale for the current approach. Duplication with decisions is accepted and expected.
-
-### Design criteria
-
-Required. A design is not done until all nine hold:
-
-1. It delivers the brief — every requirement addressed, or explicitly deferred or rejected with a reason.
-2. It is sufficient alone to produce the outcome.
-3. Every element carries its reasoning inline.
-4. It states the model.
-5. It states its boundaries — what it does not cover, and where it hands off.
-6. Workflow, behaviour, methodology rules and guidance are recorded in it.
-7. It is current state — no superseded content standing.
-8. Its thinking is routed to decisions and knowledge as produced — the producer obligation, not a later sweep.
-9. Current design contributions do not conflict materially — build is never handed a choice between unresolved designs.
-
-### Design advice
-
-Recommended. Group elements as model / rules / definitions / boundaries.
-
-Recommended. Lead with the model before elaborating. If the model will not state compactly, the model is wrong, not the write-up.
-
-Optional. Link elements back to brief items where the connection is not obvious.
-
-Optional. Include a worked example where the rules are abstract.
-
-### Reasoning routing
-
-Required. A design change and its reasoning are produced together. Reasoning is never left to live only in conversation.
-
-Required. Every design-element change is a retention checkpoint: anything removed from the design must survive in decisions. If not, add it before the removal stands.
-
-Information. Topic-scoped reasoning goes to decisions; reasoning with no owning topic goes to knowledge. Decisions and knowledge inform but never override design.
-
-### Coverage check
-
-Required. When the design is called done, walk the brief's requirements and confirm each is met, deferred, or rejected.
-
-## Overview
-
-Information. The overview is the project-scale snapshot — a pane-of-glass view of the whole design project. Also a deviation detector: anything that cannot be placed against the overview is either a branch or evidence the overview is missing something.
-
-Required. The overview carries: key objective, the chosen approach or delivery method, the top-level model, and key defining principles.
-
-Recommended. Include project-level scope and boundaries where a reader would otherwise misjudge the edges.
-
-Required. Overview entries are statements, not explanation — each is a recall handle with detail reachable on demand.
-
-### Scaling and the summary suppression rule
-
-Recommended. The overview sits inline in the design document for small projects. It splits to its own document when the project outgrows that.
-
-Required. While an overview lives inline, the host document does not also carry a summary. When the overview splits out, the source document gets its summary back.
-
-Information. A single-document project's overview and summary are the same thing.
-
-## Work register
-
-Information. The work register is the ledger of confirmed work owed and not yet delivered. Project Design owns it — the register is the one artefact where design is both source and target.
-
-Required. The register is default-on. Non-use must be stated explicitly.
-
-### Entries
-
-Required. Each entry carries five fields: source (the design element or decision that committed it), the commitment, what must change, target (where the change lands), and state.
-
-Recommended. Advice fields: handoff reference, return reference, area.
-
-Required. Each entry tags its origin as design-generated or directly-entered. The register admits confirmed non-design-generated work. The discipline that real design work should not bypass design is a judgement at entry, not a mechanism.
-
-### Writing rule
-
-Required. Items enter the register as logical blocks of work — coherent wholes individually completable, chunked at the point of writing. The axis is coherence, not build-effort sizing. No child items, no task tree — the register stays flat and every item is atomic.
-
-Optional. An item may carry an area label. An area is a label, not a container — areas do not own items, have no states, and nothing rolls up.
-
-### States
-
-Information. Four states: owed → handed off → returned, pending reconciliation → reconciled.
-
-### Immutability after handoff
-
-Required. Once handed off, an entry's description of the work owed is immutable — it is the record of what crossed the responsibility boundary.
-
-Required. Build never closes a register item. Design owns closure because design owns the commitment.
-
-Recommended. When a handed-off commitment is superseded, design determines the impact and remedy, makes the call explicitly, and records it.
-
-## Capture and place
-
-Information. Project Design conversations wander — tangents, triggers, exploration alongside focused work. The AI's job is that nothing said is left where it fell.
-
-### Three obligations on the AI
-
-Required. **Continuous capture, silently.** The moment something settles, shifts, or is raised, it is noted against a destination — then, not at session end. Nothing is held on the strength of "I'll remember."
-
-Required. **Placement by destination definitions.** Settled content goes to a permanent home — brief if problem-space, design if solution-space, decisions if topic-scoped reasoning, knowledge if reasoning with no owning topic. Unsettled content goes to a holding place — WIP for live thinking, open items for a parked question, the work register for confirmed work owed.
-
-Required. **Batched surfacing at natural breaks.** What was captured and where it is going is put in front of the user in plain language; agreed or corrected; only then written. When a topic closes mid-session, the AI offers the batch unprompted.
-
-### Placement rules
-
-Required. Placement defers to each destination's own standard for content. Capture and place holds no guidance of its own about what a decisions entry or a brief section should contain.
-
-Required. Homeless pieces are named, not dropped. Where there is genuinely nowhere proper, place it sensibly and raise a review task.
-
-Recommended. Err toward over-capture. Cheap to delete in review, expensive to lose.
-
-## The commitment-and-return loop
-
-Information. The circuit: a design change produces a commitment (register entry, owed) → handoff → build works → build return → reconciliation → the item closes, or the return provokes a design change producing fresh commitments.
-
-### The escalation boundary
-
-Required. Design owns the what and why; build owns the how. The test: does what build encountered change what is being delivered or why, or only how it gets delivered? How is build's call. What or why comes back.
-
-Required. If build cannot tell which side of the boundary it is on, it returns. An unnecessary return costs a message; silently absorbing a design change costs the design's authority.
-
-### The cost-and-complexity flag
-
-Required. When real cost or complexity materially exceeds what the design appeared to assume, build surfaces it before proceeding.
-
-Information. A flag with a default of proceed, not a return. If design does not intervene, build proceeds.
-
-### Design-build handoff
-
-Required. The handoff carries everything the build side needs to act without returning to the design conversation. Format free, sufficiency required.
-
-Recommended. The handoff has a ceiling as well as a floor — do not re-supply generic execution-platform knowledge the build environment already provides. Carry what is specific to this work.
-
-Required. Design must not overreach into build, even in the same session.
-
-### Build return
-
-Required. Every build handoff expects a build return. Fire-and-forget must be explicitly declared at the handoff.
-
-Required. Never bare. Every return carries what was actually done or what prevented it — accessible and comparable against the commitment.
-
-Required. A failure names its origin — design-side (unbuildable, unclear, conflicting) or build-side (environment, tooling). The response differs: a design fault re-enters design; a build fault means retry or fix, nothing for design to rework.
-
-Recommended. Return is proportional to the task. Sufficiency is "enough for design to make this decision about this task."
-
-Information. Five return states: confirmed, needs information, raises an issue, failed, done with deviation.
-
-### Reconciliation
-
-Required. Reconciliation is design's act of checking a return against its commitment and deciding the outcome — close it, accept a deviation, or send it back to owed.
-
-Information. Reconciliation fires on two return states only. Confirmed — check and close. Done with deviation — design decides whether to accept; accepting is a design change that may spawn a fresh commitment. The other three states (needs information, raises an issue, failed) deliver nothing to reconcile — the item stays owed.
-
-Information. An item that has been round the loop several times is a design smell worth surfacing — usually the design is wrong at a level above the item.
-<!-- END SOURCE: Project Design/ProjectDesign_Standard_v1.md -->
 
 ---
 
