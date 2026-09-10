@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 24** (2026-09-11).
+> **Binder Version 25** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -54,6 +54,7 @@ individual files.
 - `Project Design/ProjectDesign_Standard_v2.md` - sha256 `36d4c7c83bdd`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
 - `Standards/Standards_Authoring_Standard_v3.md` - sha256 `e9332446485a`
+- `Standards/Standards_Consumption_Standard_v1.md` - sha256 `50aebbf3c4d9`
 - `Standards/Standards_Decisions_v2.md` - sha256 `c0286118492c`
 - `Standards/Standards_Design_v2.md` - sha256 `cfedb41ac36c`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
@@ -8452,6 +8453,50 @@ Information. Triggering — how a standard gets loaded where it might be needed 
 
 Version note: v3 — adds applicability scope (new required rule), trigger description and segmentation (four required items), document-default weight (strength assignment), facilitative framing (discriminating guidance), trigger/scope distinction (deployment). Merges legacy binder review and voice session additions, 2026-09-11.
 <!-- END SOURCE: Standards/Standards_Authoring_Standard_v3.md -->
+
+---
+
+<!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v1.md -->
+Standards — Standard | standard | Standards_Consumption_Standard@v1 | 2026-09-11
+
+How to evaluate, combine, and operate under applicable AIDE standards at runtime in an AI session.
+
+## Applicability
+
+This standard applies when an AI session is operating under one or more AIDE standards. It does not apply during standard authoring — that is governed by the standards authoring standard.
+
+## Evaluate applicability before applying
+
+Required. A loaded standard is not automatically applicable. Before applying a standard, evaluate its declared applicability scope against the current situation. A standard whose scope does not match the current work is not applied, regardless of how it was loaded.
+
+## Combine applicable standards
+
+Required. Compatible applicable standards stack — combine them, do not choose between them. When multiple standards apply to the same work and their guidance does not conflict, follow all of them.
+
+## Resolve conflict
+
+Required. When two applicable items genuinely oppose each other on the same point, higher strength governs. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. The conflict record identifies the competing standards, the opposing items, and the work affected.
+
+Required. Do not manufacture conflict from different concerns that can both be satisfied. Two standards addressing different aspects of the same work are not in conflict merely because both apply.
+
+## Human override
+
+Required. Direct human instruction may override a standard within that person's authority. When the override displaces a required or recommended item:
+
+- state the standard's position and the material consequence of departure;
+- make the departure visible; and
+- continue under the human's instruction.
+
+Information. A human override does not change the standard — it authorises departure from it for the current work. The standard remains as written for all other application.
+
+## Reporting
+
+Recommended. Normal operation does not narrate every standard consulted. Surface what materially affects the work: blocking requirements, meaningful departures, conflicts, or a standard-driven consequence the work owner needs to know. Silent compliance is the expected state.
+
+---
+
+Version note: v1 — initial standard, authored from Standards_Design_v2 decisions D9 and D10. 2026-09-11.
+<!-- END SOURCE: Standards/Standards_Consumption_Standard_v1.md -->
 
 ---
 
