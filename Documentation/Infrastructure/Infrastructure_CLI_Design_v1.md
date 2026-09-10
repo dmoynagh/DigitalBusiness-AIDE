@@ -30,6 +30,8 @@ Any module in the subpackage that exposes these three things is a utility. No se
 
 The three existing utilities each become a module in this subpackage following this shape: the binder builder, the file-update packager, and version cleanup. Their internal logic is unchanged; only the entry point is standardised.
 
+The binder builder supports multiple binder definitions. Each settings file in the binder-builder subfolder defines a separate binder. When the utility runs, it discovers and builds all of them in sequence, reporting results per binder.
+
 **Consideration noted:** this dispatcher may grow into the full AIDE CLI later, but the design does not anticipate that. The registration model is simple enough to extend if that direction is taken, without needing to be redesigned for it now.
 
 ---
@@ -81,6 +83,16 @@ Underscore-prefixed folder at the documentation root. It is the single home for 
 - Any other operational state the dispatcher or utilities need per-project.
 
 The underscore prefix keeps it sorted to the top of the directory and signals that it is infrastructure, not content. It sits outside AIDE's document processing — consistent with the convention that underscore-prefixed folders are outside binder scope.
+
+Utility-specific settings files live in subfolders under `_aide/utilities/`, one per utility: `binder-builder/`, `file-update-package/`, `version-cleanup/`. This keeps utility configuration out of the `_aide/` root, which holds only the dispatcher settings. The same subfolder structure applies under `~/.aide/utilities/` for user-global utility settings.
+
+---
+
+## Project root detection
+
+The dispatcher walks up the directory tree from the current working directory looking for a folder named `_aide/`. If found, the directory containing `_aide/` is the project root. If the walk reaches the git repository boundary without finding `_aide/`, there is no project context — global settings only apply.
+
+This means `aide` works from any subfolder within a project. No hardcoded documentation root path, no configuration required.
 
 ---
 

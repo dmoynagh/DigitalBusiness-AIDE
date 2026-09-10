@@ -52,6 +52,14 @@ Registration discovers everything that exists in the subpackage. Settings decide
 
 This rides on the deep-merge settings model already settled. A global exclude hides a utility everywhere. A per-project exclude hides it for that project only. A per-project override can also restore a globally excluded utility. No new mechanism — it is just another setting following the same merge rules.
 
+## Project root detection — walk up to repo boundary
+
+Three options were considered: hardcoding the documentation root path in settings, using the git repo root directly, or walking up from the current directory. Walk-up was chosen. A hardcoded path is brittle and forces per-project configuration for something that should just work. Using the git root directly would require knowing the documentation folder's name within the repo, which is also configuration. Walking up and looking for `_aide/` is self-discovering — the folder's presence is both the marker and the configuration. The git repo boundary is the natural stop point, since `_aide/` above the repo root would belong to a different project.
+
+## Multi-binder — run all definitions found, not just one
+
+The original design assumed one binder settings file per project. In practice, the AIDE documentation already has two binders with different scopes and different file type rules — one for the full documentation set and one for the AI-facing subset. Erroring on multiple files forced the user to choose one, which defeated the purpose of having both. The utility now discovers all settings files in its subfolder and runs each. No configuration needed — presence is registration, the same principle as utility discovery in the dispatcher.
+
 ---
 
 Version note: v1 — reasoning from voice session 2026-09-10. All four items were settled in conversation; this document records the alternatives considered and the reasons for each choice.
