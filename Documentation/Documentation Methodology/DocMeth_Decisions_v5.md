@@ -1,4 +1,4 @@
-Documentation Methodology — Decisions | decisions | DocMeth_Decisions@v4 | 2026-09-12
+Documentation Methodology — Decisions | decisions | DocMeth_Decisions@v5 | 2026-09-12
 
 ## D1 — DocMeth owns grammar only, not individual definitions
 
@@ -28,7 +28,7 @@ The grouping syntax `name:[item1, item2]` tracks which owner contributed each de
 
 ## D5 — Common catalogue scope
 
-The common catalogue holds blocks usable by any document regardless of component: Declaration, Title, Description, Header, Body, Footer, Contents, Summary, Version note. Ten blocks. (Dependencies is a Declaration field, not a separate block.)
+The common catalogue holds blocks usable by any document regardless of component: Declaration, Title, Description, Header, Body, Footer, Contents, Summary, Version note. Nine blocks. (Dependencies is a Declaration field, not a separate block.)
 
 Tags was parked in the original catalogue session (no demonstrated consumer), resurrected as a Core capability (2026-09-09), and confirmed as Core-owned. Its block definition belongs to Core, not to DocMeth's common catalogue.
 
@@ -90,9 +90,9 @@ Title and description are inferred from natural document convention in prose for
 
 ## D18 — Dependency implications as an implicit default
 
-A type defined in a versioned schema standard implicitly carries that hosting standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the hosting standard.
+A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the defining standard.
 
-This preserves low-friction design and avoids repetitive boilerplate while guaranteeing the living-document change-management chain.
+This applies to component schema standards and to DocMeth's own Definitions Standard equally. It preserves low-friction design and avoids repetitive boilerplate while guaranteeing the living-document change-management chain.
 
 ## D19 — Format constraint as a doctype property
 
@@ -138,9 +138,9 @@ The methodology provides an implicit scaffold for every governed document: Decla
 
 ## D29 — Type-reference resolution
 
-Type names must be unique within their kind. Uniqueness is enforced at definition time. Unqualified names are the default. Dot-qualified form (`pd.brief`) disambiguates on collision, using the component's declared alias as prefix. The pattern extends to framework-level (`aide.pd.brief`) when needed, but the framework prefix is not defined until demonstrated.
+Type names must be unique within their owning component. Independently owned components may use the same name without coordination. Unqualified names are the default when unique within the document's active `uses` scope. Dot-qualified form (`pd.brief`) disambiguates on collision, using the component's declared alias as prefix. The pattern extends to framework-level (`aide.pd.brief`) when needed, but the framework prefix is not defined until demonstrated.
 
-Resolution path: a type's authoritative definition is in the schema standard listed in the document's `uses` field.
+Resolution path: a type's authoritative definition is in the defining standard listed in the document's `uses` field.
 
 Component alias uniqueness is carried to Core Structure.
 
@@ -158,7 +158,7 @@ The Declaration `date` field means "the date this version was produced." One mea
 
 ## D33 — Identity reference grammar and filename mirror grammar
 
-Two named grammars for the same versioning model. The identity reference grammar (`Name@vN`, `Name@vN-draftN`) is the primary, authoritative form. The filename mirror grammar (`Name_vN.ext`, `Name_vN-draftN.ext`) is decorative — never authoritative, identity wins on conflict.
+Two named grammars for the same versioning model. The identity reference grammar (`Name@vN`, `Name@vN-draftN`) is the primary, authoritative form. The filename mirror grammar (`Name_vN.ext`, `Name_vN-draftN.ext`) is decorative — never authoritative, identity wins on conflict. Draft numbering is required — every draft carries its sequence number, no unnumbered draft form exists.
 
 ## D34 — Canonical marker syntax
 
@@ -172,6 +172,22 @@ A definition is written as a heading naming the type, followed by labelled prope
 
 Dependencies (`uses`) is a Declaration field, not a separate block type. The Declaration is a container for all machine-readable governance information. Everything needed for a partial-read governance check is in one block.
 
+## D37 — Footer recognition is by placement, not by marker
+
+Footer is recognised by its position at the bottom of the document, with the horizontal rule as the boundary signal in markdown. This is placement recognition, not marker recognition. The `aide:block` marker syntax is reserved exclusively for typed block markers. A format-specific boundary convention is not a marker in the definition-contract sense.
+
+## D38 — Manifest as a binder block type
+
+The binder's manifest is a block type: it has fields (relative paths, structural metadata) and a defined format. The BEGIN/END source concatenation is a format convention of the binder doctype, not a block type — it describes how the binder renders its included content, not a content definition.
+
+## D39 — blocks field lists non-scaffold typed blocks
+
+The `blocks` field in the Declaration lists non-scaffold typed blocks actually present in the document. The scaffold (Declaration, Title, Description, Header, Body, Footer) is provided by the methodology and not re-stated. This prevents redundancy and makes `blocks` meaningful — it shows what the doctype adds.
+
+## D40 — Declaration overrides the compact rendering default
+
+Declaration renders compact fields across multiple lines (one per field group) rather than on a single line, because some fields are optional and variable-length. This is an explicit override of the default compact rendering rule, stated in the Declaration's definition.
+
 ---
 
-Version note: v4 — D25-D36 added from cross-review findings. D3, D4, D5, D10, D17, D18 updated for corrections. Declaration field renames applied throughout. 2026-09-12. Replaces v3.
+Version note: v5 — D37-D40 added from cross-review round 2. D5 count corrected. D18 broadened to any versioned standard. D29 uniqueness scoped to owning component. D33 draft numbering made required. 2026-09-12. Replaces v4.

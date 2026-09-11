@@ -1,4 +1,4 @@
-Documentation Methodology | design | DocMeth_Design@v4 | 2026-09-12
+Documentation Methodology | design | DocMeth_Design@v5 | 2026-09-12
 
 ## Summary
 
@@ -33,7 +33,7 @@ Name and purpose are always required. A property becomes required when omitting 
 
 ### Implicit dependency rule
 
-A type defined in a versioned schema standard implicitly carries that hosting standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the hosting standard.
+A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the defining standard.
 
 ### Definition representation
 
@@ -41,11 +41,11 @@ A definition is written as a heading naming the type, followed by labelled prope
 
 ### Type-reference resolution
 
-Type names must be unique within their kind — doctype names unique among doctypes, block-type names unique among block types. Uniqueness is enforced at definition time.
+Type names must be unique within their owning component — a component may not define two doctypes with the same name, or two block types with the same name. Independently owned components may use the same name without coordination.
 
-Unqualified names are the default. When a name collides within the document's `uses` scope, the dot-qualified form disambiguates: `pd.brief`, where the prefix is the component's declared alias. The dot pattern extends to framework-level (`aide.pd.brief`) if needed, but the framework prefix is not defined until a collision demonstrates the need.
+Unqualified names are the default when the name is unique within the document's active `uses` scope. When a name collides within that scope, the dot-qualified form disambiguates: `pd.brief`, where the prefix is the component's declared alias. The dot pattern extends to framework-level (`aide.pd.brief`) if needed, but the framework prefix is not defined until a collision demonstrates the need.
 
-Resolution path: a type's authoritative definition is in the schema standard listed in the document's `uses` field. The consumer reads the type name from the Declaration, finds the defining standard in `uses`, reads the definition there.
+Resolution path: a type's authoritative definition is in the defining standard listed in the document's `uses` field. The consumer reads the type name from the Declaration, finds the defining standard in `uses`, reads the definition there.
 
 ### Doctype definition
 
@@ -53,9 +53,9 @@ A doctype is the root definition for a document. Name and purpose are the only r
 
 Available vocabulary, stated when needed:
 
-- **Included blocktypes** — which blocks the doctype uses beyond the governed-document scaffold. For each: the optionality for this doctype (required, recommended, or optional) and any density override.
+- **Included blocktypes** — which non-scaffold blocks the doctype uses. The scaffold (Declaration, Title, Description, Header, Body, Footer) is provided by the methodology and not re-stated. For each included block: the optionality for this doctype (required, recommended, or optional) and any density override. The `blocks` field in the Declaration lists the non-scaffold typed blocks actually present in the document.
 - **Block positioning** — where a block goes if different from the block's own placement default, or to resolve ordering between blocks.
-- **Dependency implications** — stated only when different from the implicit rule (hosting standard).
+- **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Format constraint** — narrows the permitted formats when the type requires it (e.g. standards must be markdown for session loading).
 - **Owner and residence** — which component owns the definition and where it lives. Implicit from hosting location for most definitions; stated when not obvious.
 
@@ -74,7 +74,7 @@ Available vocabulary, stated when needed:
 - **Density** — compact or expanded. Stated when it matters; omitted when the content shape makes the rendering obvious.
 - **Recognition** — how this block is identified in a document. Three strategies: by subheading (a single heading or a group of adjacent subheadings), by placement (position identifies it), or by marker. Required when position does not unambiguously identify the block.
 - **Placement** — which container this block places into (header, body, footer, declaration, or a doctype-defined container) and any ordering hint against the boundary proximity principle.
-- **Dependency implications** — stated only when different from the implicit rule.
+- **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Conditional behaviour** — rules the block owns about its own behaviour in context ("if the document also includes block X, then do Y"). The block owns its rules; the doctype cannot impose them on inclusion.
 - **Container** — declares this block type as a placement destination for other blocks or content.
 - **Owner and residence** — as for doctypes.
@@ -120,7 +120,7 @@ The primary grammar for referencing a document's version:
 
 Absence of a draft marker means published and immutable. Published numbers are never reused. Next cycle opens immediately at the next integer.
 
-**Draft numbering** is optional in the scheme, on by default.
+**Draft numbering** is required. Every draft carries its sequence number.
 
 **Reference forms.** `@v27` resolves to the published contract; `@v27-draft` resolves to the highest draft present.
 
@@ -162,7 +162,7 @@ Working Practices owns the physical handling — how storage represents these st
 A small set of deterministic defaults for markdown rendering. Block definitions override these when they need to.
 
 - **Heading level** follows nesting: a top-level block uses `##`, a subheading within a block uses `###`. Deeper nesting adds levels.
-- **Compact fields** render as a single delimited line, pipe-separated, labelled. The Declaration is the model.
+- **Compact fields** render as a single delimited line, pipe-separated, labelled. A block definition may override this default — for example, the Declaration renders compact fields across multiple lines (one per field group) because some fields are optional and variable-length.
 - **Expanded fields** render as labelled list items under the block's heading: `- **FieldName:** value`.
 - **Containers** have no literal rendering — they are structural. Their children render in sequence.
 - **Title** is the markdown document heading (`#`).
@@ -245,4 +245,4 @@ Component names and aliases must be unique within the framework. Core Structure 
 
 ---
 
-Version note: v4 — cross-review findings F1-F14 applied. Governed-document scaffold, conditional completeness, implicit dependency rule, type-reference resolution, marker syntax, default markdown rendering, field-level optionality, definition representation, date semantics, identity/filename grammar separation added. Declaration field renames (blocks, uses). Dependencies resolved as Declaration field. Carries updated. 2026-09-12. Replaces v3.
+Version note: v5 — cross-review round 2 findings R1-R9 applied. Implicit dependency rule broadened to any versioned standard. Type uniqueness scoped to owning component. Draft numbering made required. Footer recognition changed to placement. Manifest defined as binder block type. Blocks field clarified as non-scaffold. Declaration compact rendering override made explicit. 2026-09-12. Replaces v4.

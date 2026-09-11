@@ -1,4 +1,4 @@
-Documentation Methodology — Schema Standard | standard | DocumentationMethodology_Schema_Standard@v2 | 2026-09-12
+Documentation Methodology — Schema Standard | standard | DocumentationMethodology_Schema_Standard@v3 | 2026-09-12
 
 Use when defining a new doctype or block type.
 
@@ -22,7 +22,7 @@ Required. A definition is written as a heading naming the type, followed by labe
 
 ### Implicit dependency rule
 
-Information. A type defined in a versioned schema standard implicitly carries that hosting standard as its dependency implication. A definition only states dependency implications explicitly when they differ from the hosting standard.
+Information. A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. A definition only states dependency implications explicitly when they differ from the defining standard.
 
 ## Doctype definition
 
@@ -32,7 +32,7 @@ Recommended. Available vocabulary for a doctype definition, each stated when nee
 
 - **Included blocktypes** — which blocks the doctype uses beyond the governed-document scaffold. For each: the optionality for this doctype (required, recommended, or optional) and any density override.
 - **Block positioning** — where a block goes if different from the block's own placement default, or to resolve ordering between blocks.
-- **Dependency implications** — stated only when different from the implicit rule.
+- **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Format constraint** — narrows the permitted formats when the type requires it.
 - **Owner and residence** — which component owns the definition. Implicit from hosting location for most definitions; stated when not obvious.
 
@@ -49,7 +49,7 @@ Recommended. Available vocabulary for a block-type definition, each stated when 
 - **Density** — compact or expanded. Stated when it matters; omitted when the content shape makes it obvious.
 - **Recognition** — how this block is identified. Three strategies: by subheading, by placement, or by marker. Required when position does not unambiguously identify the block.
 - **Placement** — which container this block places into and any ordering hint.
-- **Dependency implications** — stated only when different from the implicit rule.
+- **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Conditional behaviour** — rules the block owns about its own behaviour in context. The block owns its rules; the doctype cannot impose them on inclusion.
 - **Container** — declares this block as a placement destination for other blocks or content.
 - **Owner and residence** — as for doctypes.
@@ -80,11 +80,11 @@ Required. Content is defined in one place. Ambiguity is flagged rather than reso
 
 ## Type-reference resolution
 
-Required. Type names must be unique within their kind — doctype names unique among doctypes, block-type names unique among block types. Uniqueness is enforced at definition time.
+Required. Type names must be unique within their owning component. Independently owned components may use the same name without coordination.
 
-Recommended. Unqualified names are the default. The dot-qualified form disambiguates when a name collides within the document's `uses` scope: `pd.brief`, where the prefix is the component's declared alias.
+Recommended. Unqualified names are the default when the name is unique within the document's active `uses` scope. The dot-qualified form disambiguates on collision: `pd.brief`, where the prefix is the component's declared alias.
 
-Information. Resolution path: a type's authoritative definition is in the schema standard listed in the document's `uses` field.
+Information. Resolution path: a type's authoritative definition is in the defining standard listed in the document's `uses` field.
 
 ## Schema placement guidance
 
@@ -92,4 +92,4 @@ Recommended. When a component defines doctypes or block types, a separate schema
 
 ---
 
-Version note: v2 — cross-review findings applied. Conditional completeness, definition representation, implicit dependency rule, field-level optionality, marker syntax, type-reference resolution added. Recognition strengthened from recommended to required when position is ambiguous. 2026-09-12. Replaces v1.
+Version note: v3 — round 2 corrections. Implicit dependency rule broadened to any versioned standard. Type uniqueness scoped to owning component. Resolution path corrected. 2026-09-12. Replaces v2.

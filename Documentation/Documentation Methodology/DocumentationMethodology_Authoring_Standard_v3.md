@@ -1,4 +1,4 @@
-Documentation Methodology — Authoring Standard | standard | DocumentationMethodology_Authoring_Standard@v2 | 2026-09-12
+Documentation Methodology — Authoring Standard | standard | DocumentationMethodology_Authoring_Standard@v3 | 2026-09-12
 
 Use when authoring, structuring, or versioning a governed document.
 
@@ -27,7 +27,7 @@ Required. The Declaration carries labelled fields:
 - doctype (required) — the document's type
 - date (required) — the date this version was produced, YYYY-MM-DD
 - uses (optional) — standards this document depends on, as `standard@version` pairs. Conformance stamp, not constraint. The grouping syntax `name:[item1, item2]` tracks ownership.
-- blocks (optional) — block types this document includes. The grouping syntax tracks ownership.
+- blocks (optional) — non-scaffold typed blocks present in this document. The scaffold (Declaration, Title, Description, Header, Body, Footer) is not re-stated. The grouping syntax tracks ownership.
 
 Information. In markdown, the Declaration renders as a blockquote with labelled fields:
 
@@ -60,7 +60,7 @@ Required. Every document has an identity in its Declaration. Identity is authori
 
 Required. Absence of a draft marker means published and immutable. Published version numbers are never reused. Next cycle opens at the next integer.
 
-Recommended. Draft numbering is optional in the scheme, on by default.
+Required. Every draft carries its sequence number.
 
 Information. Reference forms: `@v27` resolves to the published contract; `@v27-draft` resolves to the highest draft present.
 
@@ -106,7 +106,7 @@ Required. A block is a named set of fields. Structured formats express fields as
 Information. Deterministic defaults for markdown. Block definitions override when needed.
 
 - **Heading level** follows nesting: a top-level block uses `##`, a subheading within a block uses `###`. Deeper nesting adds levels.
-- **Compact fields** render as a single delimited line, pipe-separated, labelled.
+- **Compact fields** render as a single delimited line, pipe-separated, labelled. A block definition may override this — the Declaration renders compact fields across multiple lines (one per field group).
 - **Expanded fields** render as labelled list items: `- **FieldName:** value`.
 - **Containers** have no literal rendering — structural only. Children render in sequence.
 - **Title** is the markdown document heading (`#`).
@@ -134,4 +134,4 @@ Required. Five rules applying to every governed document:
 
 ---
 
-Version note: v2 — cross-review findings applied. Governed-document scaffold, Declaration field renames (uses, blocks), date semantics, identity/filename grammar separation, default markdown rendering added. Declaration placement clarified as first block. 2026-09-12. Replaces v1.
+Version note: v3 — round 2 corrections. Draft numbering made required. Blocks field clarified as non-scaffold. Compact rendering override noted. 2026-09-12. Replaces v2.

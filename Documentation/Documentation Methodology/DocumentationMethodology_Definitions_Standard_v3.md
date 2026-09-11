@@ -1,4 +1,4 @@
-Documentation Methodology — Definitions Standard | standard | DocumentationMethodology_Definitions_Standard@v2 | 2026-09-12
+Documentation Methodology — Definitions Standard | standard | DocumentationMethodology_Definitions_Standard@v3 | 2026-09-12
 
 The doctypes and block types defined by Documentation Methodology, using its own definition contract.
 
@@ -16,8 +16,8 @@ Information. This standard contains DocMeth's own type definitions — the commo
   - doctype (required) — the document's type
   - date (required) — date this version was produced, YYYY-MM-DD
   - uses (optional) — standards this document depends on, flat list with grouping syntax
-  - blocks (optional) — block types this document includes, flat list with grouping syntax
-- **Density:** compact.
+  - blocks (optional) — non-scaffold typed blocks present in this document, flat list with grouping syntax
+- **Density:** compact. Overrides the single-line compact default — renders across multiple lines (one per field group) because some fields are optional and variable-length.
 - **Recognition:** by placement — first block, fixed topmost.
 - **Placement:** header, topmost.
 - **Container:** yes — a container for its labelled fields.
@@ -53,7 +53,7 @@ Information. This standard contains DocMeth's own type definitions — the commo
 - **Purpose:** Placement container for metadata and low-priority blocks. No semantics of its own.
 - **Container:** yes.
 - **Placement:** bottom of document.
-- **Recognition:** by marker — in markdown, a horizontal rule marks the footer start.
+- **Recognition:** by placement — everything after the boundary signal. In markdown, a horizontal rule marks the footer boundary.
 - **Conditional behaviour:** boundary proximity principle — footer runs low-to-high toward the end.
 
 ### Contents
@@ -80,13 +80,23 @@ Information. This standard contains DocMeth's own type definitions — the commo
 
 ## Common doctypes
 
+### Manifest
+
+- **Purpose:** Records relative paths and structural metadata for every document included in a binder.
+- **Fields:**
+  - entries (required) — list of relative paths preserving structural relationships
+- **Density:** compact.
+- **Recognition:** by placement — first content block in the binder body.
+- **Placement:** body, topmost.
+
 ### Binder
 
 - **Purpose:** Assembles governed documents into a single file for delivery to the AI platform.
-- **Included blocktypes:** Contents (required).
+- **Included blocktypes:** Contents (required), Manifest (required).
 - **Format constraint:** markdown.
+- **Format conventions:** source documents are concatenated after the manifest with BEGIN/END comment markers preserving document boundaries.
 
-Information. The binder's body contains a manifest recording relative paths for every included document, followed by source documents concatenated with BEGIN/END comment markers. These are structural conventions of the binder format, not block types. The binder concept — why it exists, how it is built, inclusion rules — is owned by Working Practices / Content Delivery.
+Information. The binder concept — why it exists, how it is built, inclusion rules — is owned by Working Practices / Content Delivery.
 
 ### Guide
 
@@ -103,4 +113,4 @@ Information. General-purpose — any component may produce one. Published and ve
 
 ---
 
-Version note: v2 — cross-review findings applied. Dependencies removed as separate block (now a Declaration field). Declaration fields given per-field optionality. Body added explicitly. Binder definition corrected (manifest and source region described as format conventions, not blocktypes). Field renames (uses, blocks). Block placement order corrected (Declaration first, Title/Description after). 2026-09-12. Replaces v1.
+Version note: v3 — round 2 corrections. Footer recognition changed to placement. Manifest added as block type. Binder format conventions separated from blocktypes. Declaration compact rendering override made explicit. Blocks field clarified as non-scaffold. 2026-09-12. Replaces v2.
