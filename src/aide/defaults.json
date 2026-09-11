@@ -1,0 +1,10 @@
+{
+  "exclude": [],
+  "batch": [],
+  "update": {
+    "repo_url": "https://github.com/dmoynagh/DigitalBusiness-AIDE.git"
+  },
+  "binder": {},
+  "fup": {},
+  "cleanup": {}
+}

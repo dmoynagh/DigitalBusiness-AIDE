@@ -1,0 +1,1238 @@
+========================================================================
+file update package   2026-09-11 00:15:01   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_2026-09-10.zip  (2026-09-11 00:01, 5,701 bytes)
+description:        Standards component — design and decisions documents from the design session
+------------------------------------------------------------------------
+
+[Standards]
+  CREATED           Standards/Standards_Design_v1.md  (6,757 bytes)
+  CREATED           Standards/Standards_Decisions_v1.md  (5,214 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Standards_2026-09-10.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_2026-09-10.zip
+                        Standards component — design and decisions documents from the design session
+  files replaced:       0
+  files created:        2
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 00:20:59   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            StandardsAuthoring_2026-09-11.zip  (2026-09-11 00:20, 2,470 bytes)
+description:        Standards authoring standard — first standard authored under its own rules
+------------------------------------------------------------------------
+
+[Standards]
+  CREATED           Standards/Standards_Authoring_Standard_v1.md  (4,148 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         StandardsAuthoring_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              StandardsAuthoring_2026-09-11.zip
+                        Standards authoring standard — first standard authored under its own rules
+  files replaced:       0
+  files created:        1
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 00:28:47   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            StandardsAuthoring_v2_2026-09-11.zip  (2026-09-11 00:28, 2,657 bytes)
+description:        Standards authoring standard v2 — five corrections from cross-review
+------------------------------------------------------------------------
+
+[Standards]
+  DELETED           Standards_Authoring_Standard_v1.md
+  REPLACED          Standards/Standards_Authoring_Standard_v2.md  (4,606 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         StandardsAuthoring_v2_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              StandardsAuthoring_v2_2026-09-11.zip
+                        Standards authoring standard v2 — five corrections from cross-review
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 00:39:08   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_Standard_2026-09-11.zip  (2026-09-11 00:39, 5,995 bytes)
+description:        Project Design standard v1 — authored from ProjectDesign_Design_Pending_v1 and ProjectDesign_StandardInputs_Pending_v1, following Standards_Authoring_Standard_v2
+------------------------------------------------------------------------
+
+[Project Design]
+  CREATED           Project Design/ProjectDesign_Standard_v1.md  (13,561 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         ProjectDesign_Standard_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_Standard_2026-09-11.zip
+                        Project Design standard v1 — authored from ProjectDesign_Design_Pending_v1 and ProjectDesign_StandardInputs_Pending_v1, following Standards_Authoring_Standard_v2
+  files replaced:       0
+  files created:        1
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 08:17:54   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_Masters_2026-09-11.zip  (2026-09-11 08:17, 22,240 bytes)
+description:        Project Design complete masters — design, decisions, standard, and folder index. Design and decisions authored fresh from pending files. Standard authored in the prior session.
+------------------------------------------------------------------------
+
+[Project Design]
+  CREATED           Project Design/ProjectDesign_Design_v1.md  (26,092 bytes)
+  CREATED           Project Design/ProjectDesign_Decisions_v1.md  (13,700 bytes)
+  CONFLICT          Project Design/ProjectDesign_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  CREATED           Project Design/_index.md  (479 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 created, 1 conflict, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_Masters_2026-09-11.zip
+                        Project Design complete masters — design, decisions, standard, and folder index. Design and decisions authored fresh from pending files. Standard authored in the prior session.
+  files replaced:       0
+  files created:        3
+  files moved:          0
+  files deleted:        0
+  conflicts:            1
+    - Project Design/ProjectDesign_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-11 08:29:25   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_Masters_2026-09-11.zip  (2026-09-11 08:17, 22,240 bytes)
+description:        Project Design complete masters — design, decisions, standard, and folder index. Design and decisions authored fresh from pending files. Standard authored in the prior session.
+------------------------------------------------------------------------
+
+[Project Design]
+  CONFLICT          Project Design/ProjectDesign_Design_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Project Design/ProjectDesign_Decisions_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Project Design/ProjectDesign_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Project Design/_index.md: not deployed - a file already exists there and the package did not name it as replaced
+
+------------------------------------------------------------------------
+Result: 4 conflict
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_Masters_2026-09-11.zip
+                        Project Design complete masters — design, decisions, standard, and folder index. Design and decisions authored fresh from pending files. Standard authored in the prior session.
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            4
+    - Project Design/ProjectDesign_Design_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Project Design/ProjectDesign_Decisions_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Project Design/ProjectDesign_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Project Design/_index.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered - no files were deployed
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 08:29:49   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Tools_2026-09-11.zip  (2026-09-11 08:28, 6,519 bytes)
+------------------------------------------------------------------------
+
+[Tools]
+  CREATED           Tools/Tools_Design_v1.md  (7,810 bytes)
+  CREATED           Tools/Tools_Decisions_v1.md  (7,161 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Tools_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Tools_2026-09-11.zip
+  files replaced:       0
+  files created:        2
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 08:33:38   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_Masters_2026-09-11.zip  (2026-09-11 08:33, 22,339 bytes)
+description:        Project Design complete masters — design, decisions, standard, and folder index. Design and decisions authored fresh from pending files. Standard authored in the prior session.
+------------------------------------------------------------------------
+
+[Project Design]
+  CONFLICT          Project Design/ProjectDesign_Design_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Project Design/ProjectDesign_Decisions_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Project Design/ProjectDesign_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Project Design/_index.md: not deployed - a file already exists there and the package did not name it as replaced
+
+------------------------------------------------------------------------
+Result: 4 conflict
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_Masters_2026-09-11.zip
+                        Project Design complete masters — design, decisions, standard, and folder index. Design and decisions authored fresh from pending files. Standard authored in the prior session.
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            4
+    - Project Design/ProjectDesign_Design_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Project Design/ProjectDesign_Decisions_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Project Design/ProjectDesign_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Project Design/_index.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered - no files were deployed
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 08:36:09   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_Masters_2026-09-11.zip  (2026-09-11 08:36, 27,956 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           ProjectDesign_Masters_2026-09-11.zip: files entry 1 (Project Design/ProjectDesign_Design_v1.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Design_v1.md" contains a folder separator
+  INVALID           ProjectDesign_Masters_2026-09-11.zip: files entry 2 (Project Design/ProjectDesign_Decisions_v1.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Decisions_v1.md" contains a folder separator
+  INVALID           ProjectDesign_Masters_2026-09-11.zip: files entry 3 (Project Design/ProjectDesign_Standard_v2.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Standard_v1.md" contains a folder separator
+  INVALID           ProjectDesign_Masters_2026-09-11.zip: files entry 4 (Project Design/_index.md): "replaces" is a filename, not a path - "Project Design/_index.md" contains a folder separator
+
+------------------------------------------------------------------------
+Result: 4 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_Masters_2026-09-11.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - ProjectDesign_Masters_2026-09-11.zip: files entry 1 (Project Design/ProjectDesign_Design_v1.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Design_v1.md" contains a folder separator
+    - ProjectDesign_Masters_2026-09-11.zip: files entry 2 (Project Design/ProjectDesign_Decisions_v1.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Decisions_v1.md" contains a folder separator
+    - ProjectDesign_Masters_2026-09-11.zip: files entry 3 (Project Design/ProjectDesign_Standard_v2.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Standard_v1.md" contains a folder separator
+    - ProjectDesign_Masters_2026-09-11.zip: files entry 4 (Project Design/_index.md): "replaces" is a filename, not a path - "Project Design/_index.md" contains a folder separator
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 08:36:26   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_Masters_2026-09-11.zip  (2026-09-11 08:36, 27,956 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           ProjectDesign_Masters_2026-09-11.zip: files entry 1 (Project Design/ProjectDesign_Design_v1.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Design_v1.md" contains a folder separator
+  INVALID           ProjectDesign_Masters_2026-09-11.zip: files entry 2 (Project Design/ProjectDesign_Decisions_v1.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Decisions_v1.md" contains a folder separator
+  INVALID           ProjectDesign_Masters_2026-09-11.zip: files entry 3 (Project Design/ProjectDesign_Standard_v2.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Standard_v1.md" contains a folder separator
+  INVALID           ProjectDesign_Masters_2026-09-11.zip: files entry 4 (Project Design/_index.md): "replaces" is a filename, not a path - "Project Design/_index.md" contains a folder separator
+
+------------------------------------------------------------------------
+Result: 4 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_Masters_2026-09-11.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - ProjectDesign_Masters_2026-09-11.zip: files entry 1 (Project Design/ProjectDesign_Design_v1.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Design_v1.md" contains a folder separator
+    - ProjectDesign_Masters_2026-09-11.zip: files entry 2 (Project Design/ProjectDesign_Decisions_v1.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Decisions_v1.md" contains a folder separator
+    - ProjectDesign_Masters_2026-09-11.zip: files entry 3 (Project Design/ProjectDesign_Standard_v2.md): "replaces" is a filename, not a path - "Project Design/ProjectDesign_Standard_v1.md" contains a folder separator
+    - ProjectDesign_Masters_2026-09-11.zip: files entry 4 (Project Design/_index.md): "replaces" is a filename, not a path - "Project Design/_index.md" contains a folder separator
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 08:40:47   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_Standard_v2_2026-09-11.zip  (2026-09-11 08:40, 6,413 bytes)
+description:        Project Design standard v2 (proportionality test added from old binder review) and updated folder index.
+------------------------------------------------------------------------
+
+[Project Design]
+  CREATED           Project Design/ProjectDesign_Standard_v2.md  (13,762 bytes)
+  DELETED           _index.md
+  REPLACED          Project Design/_index.md  (479 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         ProjectDesign_Standard_v2_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 created, 1 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_Standard_v2_2026-09-11.zip
+                        Project Design standard v2 (proportionality test added from old binder review) and updated folder index.
+  files replaced:       1
+  files created:        1
+  files moved:          0
+  files deleted:        1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 08:41:27   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Tools_Standard_2026-09-11.zip  (2026-09-11 08:41, 2,887 bytes)
+------------------------------------------------------------------------
+
+[Tools]
+  CREATED           Tools/Tools_Authoring_Standard_v1.md  (6,136 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Tools_Standard_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Tools_Standard_2026-09-11.zip
+  files replaced:       0
+  files created:        1
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 08:43:43   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_Standard_v2_2026-09-11.zip  (2026-09-11 08:43, 6,413 bytes)
+description:        Project Design standard v2 (proportionality test added from old binder review) and updated folder index.
+------------------------------------------------------------------------
+
+[Project Design]
+  CONFLICT          Project Design/ProjectDesign_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  DELETED           _index.md
+  REPLACED          Project Design/_index.md  (479 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 1 conflict, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_Standard_v2_2026-09-11.zip
+                        Project Design standard v2 (proportionality test added from old binder review) and updated folder index.
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            1
+    - Project Design/ProjectDesign_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-11 09:42:54   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_v2v3_2026-09-11.zip  (2026-09-11 09:42, 11,929 bytes)
+description:        Standards component — v2 design, v2 decisions, v3 authoring standard from legacy binder review
+------------------------------------------------------------------------
+
+[Standards]
+  DELETED           Standards_Design_v1.md
+  REPLACED          Standards/Standards_Design_v2.md  (10,681 bytes)
+  DELETED           Standards_Decisions_v1.md
+  REPLACED          Standards/Standards_Decisions_v2.md  (10,155 bytes)
+  DELETED           Standards_Authoring_Standard_v2.md
+  REPLACED          Standards/Standards_Authoring_Standard_v3.md  (7,139 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Standards_v2v3_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 replaced, 3 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_v2v3_2026-09-11.zip
+                        Standards component — v2 design, v2 decisions, v3 authoring standard from legacy binder review
+  files replaced:       3
+  files created:        0
+  files moved:          0
+  files deleted:        3
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 09:45:44   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_v2v3_2026-09-11.zip  (2026-09-11 09:45, 13,213 bytes)
+description:        Standards component — v2 design, v2 decisions, v3 authoring standard, v1 consumption standard
+------------------------------------------------------------------------
+
+[Standards]
+  SKIPPED           Standards/Standards_Design_v2.md: nothing replaced - "Standards_Design_v1.md" is not in the documentation tree
+  CONFLICT          Standards/Standards_Design_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Standards/Standards_Decisions_v2.md: nothing replaced - "Standards_Decisions_v1.md" is not in the documentation tree
+  CONFLICT          Standards/Standards_Decisions_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Standards/Standards_Authoring_Standard_v3.md: nothing replaced - "Standards_Authoring_Standard_v2.md" is not in the documentation tree
+  CONFLICT          Standards/Standards_Authoring_Standard_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  CREATED           Standards/Standards_Consumption_Standard_v1.md  (2,355 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 created, 3 conflict, 3 skipped, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_v2v3_2026-09-11.zip
+                        Standards component — v2 design, v2 decisions, v3 authoring standard, v1 consumption standard
+  files replaced:       0
+  files created:        1
+  files moved:          0
+  files deleted:        0
+  conflicts:            3
+    - Standards/Standards_Design_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Standards/Standards_Decisions_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Standards/Standards_Authoring_Standard_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-11 09:59:29   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Tools_v2_2026-09-11.zip  (2026-09-11 09:59, 7,294 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           Tools_v2_2026-09-11.zip: files entry 1 (Tools/Tools_Authoring_Standard_v2.md): "replaces" is only meaningful on a replace
+  INVALID           Tools_v2_2026-09-11.zip: files entry 2 (Tools/Tools_Decisions_v2.md): "replaces" is only meaningful on a replace
+
+------------------------------------------------------------------------
+Result: 2 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Tools_v2_2026-09-11.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - Tools_v2_2026-09-11.zip: files entry 1 (Tools/Tools_Authoring_Standard_v2.md): "replaces" is only meaningful on a replace
+    - Tools_v2_2026-09-11.zip: files entry 2 (Tools/Tools_Decisions_v2.md): "replaces" is only meaningful on a replace
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 10:01:04   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Tools_v2_2026-09-11.zip  (2026-09-11 10:00, 7,295 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           Tools_v2_2026-09-11.zip: files entry 1 (Tools/Tools_Authoring_Standard_v2.md): "replaces" is a filename, not a path - "Tools/Tools_Authoring_Standard_v1.md" contains a folder separator
+  INVALID           Tools_v2_2026-09-11.zip: files entry 2 (Tools/Tools_Decisions_v2.md): "replaces" is a filename, not a path - "Tools/Tools_Decisions_v1.md" contains a folder separator
+
+------------------------------------------------------------------------
+Result: 2 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Tools_v2_2026-09-11.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - Tools_v2_2026-09-11.zip: files entry 1 (Tools/Tools_Authoring_Standard_v2.md): "replaces" is a filename, not a path - "Tools/Tools_Authoring_Standard_v1.md" contains a folder separator
+    - Tools_v2_2026-09-11.zip: files entry 2 (Tools/Tools_Decisions_v2.md): "replaces" is a filename, not a path - "Tools/Tools_Decisions_v1.md" contains a folder separator
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 10:01:28   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Tools_v2_2026-09-11.zip  (2026-09-11 10:01, 7,295 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           Tools_v2_2026-09-11.zip: files entry 1 (Tools/Tools_Authoring_Standard_v2.md): "replaces" is a filename, not a path - "Tools/Tools_Authoring_Standard_v1.md" contains a folder separator
+  INVALID           Tools_v2_2026-09-11.zip: files entry 2 (Tools/Tools_Decisions_v2.md): "replaces" is a filename, not a path - "Tools/Tools_Decisions_v1.md" contains a folder separator
+
+------------------------------------------------------------------------
+Result: 2 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Tools_v2_2026-09-11.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - Tools_v2_2026-09-11.zip: files entry 1 (Tools/Tools_Authoring_Standard_v2.md): "replaces" is a filename, not a path - "Tools/Tools_Authoring_Standard_v1.md" contains a folder separator
+    - Tools_v2_2026-09-11.zip: files entry 2 (Tools/Tools_Decisions_v2.md): "replaces" is a filename, not a path - "Tools/Tools_Decisions_v1.md" contains a folder separator
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 10:02:21   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Tools_v2_2026-09-11.zip  (2026-09-11 10:02, 7,207 bytes)
+------------------------------------------------------------------------
+
+[Tools]
+  DELETED           Tools_Authoring_Standard_v1.md
+  REPLACED          Tools/Tools_Authoring_Standard_v2.md  (7,395 bytes)
+  DELETED           Tools_Decisions_v1.md
+  REPLACED          Tools/Tools_Decisions_v2.md  (9,143 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Tools_v2_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 replaced, 2 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Tools_v2_2026-09-11.zip
+  files replaced:       2
+  files created:        0
+  files moved:          0
+  files deleted:        2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 10:05:45   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_CrossReview_2026-09-11.zip  (2026-09-11 10:05, 4,848 bytes)
+description:        Standards — cross-review corrections: authoring standard v4, consumption standard v2
+------------------------------------------------------------------------
+
+[Standards]
+  DELETED           Standards_Authoring_Standard_v3.md
+  REPLACED          Standards/Standards_Authoring_Standard_v4.md  (6,870 bytes)
+  DELETED           Standards_Consumption_Standard_v1.md
+  REPLACED          Standards/Standards_Consumption_Standard_v2.md  (2,654 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Standards_CrossReview_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 replaced, 2 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_CrossReview_2026-09-11.zip
+                        Standards — cross-review corrections: authoring standard v4, consumption standard v2
+  files replaced:       2
+  files created:        0
+  files moved:          0
+  files deleted:        2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 10:18:52   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Tools_v3_2026-09-11.zip  (2026-09-11 10:18, 12,005 bytes)
+------------------------------------------------------------------------
+
+[Tools]
+  DELETED           Tools_Design_v1.md
+  REPLACED          Tools/Tools_Design_v2.md  (9,823 bytes)
+  DELETED           Tools_Authoring_Standard_v2.md
+  REPLACED          Tools/Tools_Authoring_Standard_v3.md  (8,004 bytes)
+  DELETED           Tools_Decisions_v2.md
+  REPLACED          Tools/Tools_Decisions_v3.md  (10,889 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Tools_v3_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 replaced, 3 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Tools_v3_2026-09-11.zip
+  files replaced:       3
+  files created:        0
+  files moved:          0
+  files deleted:        3
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 10:30:04   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Tools_v4_2026-09-11.zip  (2026-09-11 10:29, 12,488 bytes)
+------------------------------------------------------------------------
+
+[Tools]
+  DELETED           Tools_Design_v2.md
+  REPLACED          Tools/Tools_Design_v3.md  (10,217 bytes)
+  DELETED           Tools_Authoring_Standard_v3.md
+  REPLACED          Tools/Tools_Authoring_Standard_v4.md  (8,005 bytes)
+  DELETED           Tools_Decisions_v3.md
+  REPLACED          Tools/Tools_Decisions_v4.md  (12,005 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Tools_v4_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 replaced, 3 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Tools_v4_2026-09-11.zip
+  files replaced:       3
+  files created:        0
+  files moved:          0
+  files deleted:        3
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 10:35:33   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Tools_Final_2026-09-11.zip  (2026-09-11 10:35, 3,820 bytes)
+------------------------------------------------------------------------
+
+[Tools]
+  CREATED           Tools/_index.md  (855 bytes)
+
+[Standards]
+  DELETED           Standards_Authoring_Standard_v4.md
+  REPLACED          Standards/Standards_Authoring_Standard_v5.md  (7,075 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Tools_Final_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 created, 1 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Tools_Final_2026-09-11.zip
+  files replaced:       1
+  files created:        1
+  files moved:          0
+  files deleted:        1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 11:06:11   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_DesignPass_2026-09-11.zip  (2026-09-11 11:06, 12,119 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           DocMeth_DesignPass_2026-09-11.zip: files entry 1 (Documentation Methodology/DocMeth_Design_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Design_v1.md" contains a folder separator
+  INVALID           DocMeth_DesignPass_2026-09-11.zip: files entry 2 (Documentation Methodology/DocMeth_Decisions_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Decisions_v1.md" contains a folder separator
+  INVALID           DocMeth_DesignPass_2026-09-11.zip: files entry 3 (Documentation Methodology/DocMeth_Working_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Working_v1.md" contains a folder separator
+
+------------------------------------------------------------------------
+Result: 3 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_DesignPass_2026-09-11.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - DocMeth_DesignPass_2026-09-11.zip: files entry 1 (Documentation Methodology/DocMeth_Design_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Design_v1.md" contains a folder separator
+    - DocMeth_DesignPass_2026-09-11.zip: files entry 2 (Documentation Methodology/DocMeth_Decisions_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Decisions_v1.md" contains a folder separator
+    - DocMeth_DesignPass_2026-09-11.zip: files entry 3 (Documentation Methodology/DocMeth_Working_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Working_v1.md" contains a folder separator
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 11:07:56   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_DesignPass_2026-09-11.zip  (2026-09-11 11:06, 12,119 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           DocMeth_DesignPass_2026-09-11.zip: files entry 1 (Documentation Methodology/DocMeth_Design_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Design_v1.md" contains a folder separator
+  INVALID           DocMeth_DesignPass_2026-09-11.zip: files entry 2 (Documentation Methodology/DocMeth_Decisions_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Decisions_v1.md" contains a folder separator
+  INVALID           DocMeth_DesignPass_2026-09-11.zip: files entry 3 (Documentation Methodology/DocMeth_Working_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Working_v1.md" contains a folder separator
+
+------------------------------------------------------------------------
+Result: 3 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_DesignPass_2026-09-11.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - DocMeth_DesignPass_2026-09-11.zip: files entry 1 (Documentation Methodology/DocMeth_Design_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Design_v1.md" contains a folder separator
+    - DocMeth_DesignPass_2026-09-11.zip: files entry 2 (Documentation Methodology/DocMeth_Decisions_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Decisions_v1.md" contains a folder separator
+    - DocMeth_DesignPass_2026-09-11.zip: files entry 3 (Documentation Methodology/DocMeth_Working_v2.md): "replaces" is a filename, not a path - "Documentation Methodology/DocMeth_Working_v1.md" contains a folder separator
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 11:08:56   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_Standard_v2_2026-09-11.zip  (2026-09-11 08:43, 6,413 bytes)
+description:        Project Design standard v2 (proportionality test added from old binder review) and updated folder index.
+------------------------------------------------------------------------
+
+[Project Design]
+  CONFLICT          Project Design/ProjectDesign_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  DELETED           _index.md
+  REPLACED          Project Design/_index.md  (479 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 1 conflict, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_Standard_v2_2026-09-11.zip
+                        Project Design standard v2 (proportionality test added from old binder review) and updated folder index.
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            1
+    - Project Design/ProjectDesign_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-11 11:21:34   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_DesignPass_2026-09-11.zip  (2026-09-11 11:21, 12,119 bytes)
+description:        Documentation Methodology design pass — design, decisions, and working document. Replaces v1 shells.
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  DELETED           DocMeth_Design_v1.md
+  REPLACED          Documentation Methodology/DocMeth_Design_v2.md  (13,884 bytes)
+  DELETED           DocMeth_Decisions_v1.md
+  REPLACED          Documentation Methodology/DocMeth_Decisions_v2.md  (8,390 bytes)
+  DELETED           DocMeth_Working_v1.md
+  REPLACED          Documentation Methodology/DocMeth_Working_v2.md  (4,120 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         DocMeth_DesignPass_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 replaced, 3 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_DesignPass_2026-09-11.zip
+                        Documentation Methodology design pass — design, decisions, and working document. Replaces v1 shells.
+  files replaced:       3
+  files created:        0
+  files moved:          0
+  files deleted:        3
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 12:04:16   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_DesignPass_2026-09-11.zip  (2026-09-11 12:04, 13,423 bytes)
+description:        Documentation Methodology design pass — design, decisions, and working document. Replaces v1 shells.
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  SKIPPED           Documentation Methodology/DocMeth_Design_v2.md: nothing replaced - "DocMeth_Design_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Design_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Decisions_v2.md: nothing replaced - "DocMeth_Decisions_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Decisions_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Working_v2.md: nothing replaced - "DocMeth_Working_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Working_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+
+------------------------------------------------------------------------
+Result: 3 conflict, 3 skipped
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_DesignPass_2026-09-11.zip
+                        Documentation Methodology design pass — design, decisions, and working document. Replaces v1 shells.
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            3
+    - Documentation Methodology/DocMeth_Design_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Decisions_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Working_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered - no files were deployed
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-11 12:05:34   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            ProjectDesign_CrossReview_2026-09-11.zip  (2026-09-11 12:05, 23,680 bytes)
+description:        Project Design cross-review remediation — design v2, decisions v2, standard v3, updated index. Addresses findings PD-D1 through PD-S10 from external cross-review.
+------------------------------------------------------------------------
+
+[Project Design]
+  CREATED           Project Design/ProjectDesign_Design_v2.md  (27,147 bytes)
+  CREATED           Project Design/ProjectDesign_Decisions_v2.md  (14,480 bytes)
+  CREATED           Project Design/ProjectDesign_Standard_v3.md  (15,434 bytes)
+  DELETED           _index.md
+  REPLACED          Project Design/_index.md  (479 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         ProjectDesign_CrossReview_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 3 created, 1 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              ProjectDesign_CrossReview_2026-09-11.zip
+                        Project Design cross-review remediation — design v2, decisions v2, standard v3, updated index. Addresses findings PD-D1 through PD-S10 from external cross-review.
+  files replaced:       1
+  files created:        3
+  files moved:          0
+  files deleted:        1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 12:06:56   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_DesignPass_2026-09-11b.zip  (2026-09-11 12:06, 13,462 bytes)
+description:        Documentation Methodology — old-material pass additions (lifecycle states, claimed-versus-verified rule). Updates the v2 files deployed earlier today.
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  DELETED           DocMeth_Design_v2.md
+  REPLACED          Documentation Methodology/DocMeth_Design_v2.md  (15,012 bytes)
+  DELETED           DocMeth_Decisions_v2.md
+  REPLACED          Documentation Methodology/DocMeth_Decisions_v2.md  (9,504 bytes)
+  DELETED           DocMeth_Working_v2.md
+  REPLACED          Documentation Methodology/DocMeth_Working_v2.md  (5,213 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         DocMeth_DesignPass_2026-09-11b.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 replaced, 3 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_DesignPass_2026-09-11b.zip
+                        Documentation Methodology — old-material pass additions (lifecycle states, claimed-versus-verified rule). Updates the v2 files deployed earlier today.
+  files replaced:       3
+  files created:        0
+  files moved:          0
+  files deleted:        3
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 13:10:50   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            AIDE_Documentation_WIP_2026-09-11.zip  (2026-09-11 13:10, 3,141 bytes)
+description:        Root-level WIP for cross-component working state. One create.
+------------------------------------------------------------------------
+
+[.]
+  CREATED           AIDE_Documentation_WIP_v1.md  (6,189 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         AIDE_Documentation_WIP_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              AIDE_Documentation_WIP_2026-09-11.zip
+                        Root-level WIP for cross-component working state. One create.
+  files replaced:       0
+  files created:        1
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-11 16:31:23   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            AIDE_Documentation_WIP_2026-09-11.zip  (2026-09-11 13:11, 3,141 bytes)
+description:        Root-level WIP for cross-component working state. One create.
+------------------------------------------------------------------------
+
+[.]
+  CONFLICT          AIDE_Documentation_WIP_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+
+------------------------------------------------------------------------
+Result: 1 conflict
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              AIDE_Documentation_WIP_2026-09-11.zip
+                        Root-level WIP for cross-component working state. One create.
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            1
+    - AIDE_Documentation_WIP_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered - no files were deployed
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+

@@ -1,0 +1,2337 @@
+========================================================================
+binder builder   2026-09-10 22:27:08   DRY RUN (nothing written)
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v12.md: 45 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  WOULD CHECK      no changes detected since AIDE_Documentation_Binder_v12.md; binder would not be rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 would check
+========================================================================
+
+========================================================================
+binder builder   2026-09-10 22:30:49   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v12.md: 45 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v12.md; binder not rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-10 22:33:21   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v12.md: 45 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v12.md; binder not rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-10 22:34:08   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v12.md: 45 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v12.md; binder not rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-10 22:37:48   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v12.md: 1 added (Core/check test.txt) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         check test.txt  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 d6e28bcbd3c3)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 6ca6dc31f006)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v12.md
+  WRITTEN          AIDE_Documentation_Binder_v13.md  (46 files, 423290 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 46 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-10 22:38:26   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v13.md: 1 removed (Core/check test.txt) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 d6e28bcbd3c3)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 6ca6dc31f006)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v13.md
+  WRITTEN          AIDE_Documentation_Binder_v14.md  (45 files, 423152 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 45 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-10 22:41:11   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v14.md: 45 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v14.md; binder not rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-10 22:44:13   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v14.md: 2 changed (Infrastructure/Infrastructure_CLI_Decisions_v1.md, Infrastructure/Infrastructure_CLI_Design_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v14.md
+  WRITTEN          AIDE_Documentation_Binder_v15.md  (45 files, 425536 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 45 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 00:15:01   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v15.md: 2 added (Standards/Standards_Decisions_v1.md, Standards/Standards_Design_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Decisions_v1.md  (sha256 fb153d3db6bc)
+  INCLUDED         Standards_Design_v1.md  (sha256 60cebe0ab9f1)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v15.md
+  WRITTEN          AIDE_Documentation_Binder_v16.md  (47 files, 437870 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 47 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 00:20:59   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v16.md: 1 added (Standards/Standards_Authoring_Standard_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v1.md  (sha256 6acd42ed3ba0)
+  INCLUDED         Standards_Decisions_v1.md  (sha256 fb153d3db6bc)
+  INCLUDED         Standards_Design_v1.md  (sha256 60cebe0ab9f1)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v16.md
+  WRITTEN          AIDE_Documentation_Binder_v17.md  (48 files, 442231 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 48 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 00:28:47   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v17.md: 1 added, 1 removed (Standards/Standards_Authoring_Standard_v2.md, Standards/Standards_Authoring_Standard_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v2.md  (sha256 efd5f36981a2)
+  INCLUDED         Standards_Decisions_v1.md  (sha256 fb153d3db6bc)
+  INCLUDED         Standards_Design_v1.md  (sha256 60cebe0ab9f1)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v17.md
+  WRITTEN          AIDE_Documentation_Binder_v18.md  (48 files, 442689 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 48 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 00:39:08   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v18.md: 1 added (Project Design/ProjectDesign_Standard_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v2.md  (sha256 efd5f36981a2)
+  INCLUDED         Standards_Decisions_v1.md  (sha256 fb153d3db6bc)
+  INCLUDED         Standards_Design_v1.md  (sha256 60cebe0ab9f1)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v18.md
+  WRITTEN          AIDE_Documentation_Binder_v19.md  (49 files, 456460 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 49 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 08:17:54   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 13
+change detection: AIDE_Documentation_Binder_v19.md: 3 added (Project Design/ProjectDesign_Decisions_v1.md, Project Design/ProjectDesign_Design_v1.md, Project Design/_index.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 59f631d856df)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v2.md  (sha256 efd5f36981a2)
+  INCLUDED         Standards_Decisions_v1.md  (sha256 fb153d3db6bc)
+  INCLUDED         Standards_Design_v1.md  (sha256 60cebe0ab9f1)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v19.md
+  WRITTEN          AIDE_Documentation_Binder_v20.md  (52 files, 497301 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 52 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 08:29:49   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v20.md: 2 added (Tools/Tools_Decisions_v1.md, Tools/Tools_Design_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 59f631d856df)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v2.md  (sha256 efd5f36981a2)
+  INCLUDED         Standards_Decisions_v1.md  (sha256 fb153d3db6bc)
+  INCLUDED         Standards_Design_v1.md  (sha256 60cebe0ab9f1)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         Tools_Decisions_v1.md  (sha256 266576979e50)
+  INCLUDED         Tools_Design_v1.md  (sha256 d6c8195c6fb9)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v20.md
+  WRITTEN          AIDE_Documentation_Binder_v21.md  (54 files, 512587 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 54 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 08:40:47   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v21.md: 1 added, 1 changed (Project Design/ProjectDesign_Standard_v2.md, Project Design/_index.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v2.md  (sha256 efd5f36981a2)
+  INCLUDED         Standards_Decisions_v1.md  (sha256 fb153d3db6bc)
+  INCLUDED         Standards_Design_v1.md  (sha256 60cebe0ab9f1)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         Tools_Decisions_v1.md  (sha256 266576979e50)
+  INCLUDED         Tools_Design_v1.md  (sha256 d6c8195c6fb9)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v21.md
+  WRITTEN          AIDE_Documentation_Binder_v22.md  (55 files, 526559 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 55 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 08:41:27   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v22.md: 1 added (Tools/Tools_Authoring_Standard_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v2.md  (sha256 efd5f36981a2)
+  INCLUDED         Standards_Decisions_v1.md  (sha256 fb153d3db6bc)
+  INCLUDED         Standards_Design_v1.md  (sha256 60cebe0ab9f1)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         Tools_Authoring_Standard_v1.md  (sha256 6fd5d1c56d22)
+  INCLUDED         Tools_Decisions_v1.md  (sha256 266576979e50)
+  INCLUDED         Tools_Design_v1.md  (sha256 d6c8195c6fb9)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v22.md
+  WRITTEN          AIDE_Documentation_Binder_v23.md  (56 files, 532884 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 56 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 08:43:43   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v23.md: 56 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v23.md; binder not rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 09:42:54   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v23.md: 3 added, 3 removed (Standards/Standards_Authoring_Standard_v3.md, Standards/Standards_Decisions_v2.md, Standards/Standards_Design_v2.md, and 3 more) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v3.md  (sha256 e9332446485a)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         Tools_Authoring_Standard_v1.md  (sha256 6fd5d1c56d22)
+  INCLUDED         Tools_Decisions_v1.md  (sha256 266576979e50)
+  INCLUDED         Tools_Design_v1.md  (sha256 d6c8195c6fb9)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v23.md
+  WRITTEN          AIDE_Documentation_Binder_v24.md  (56 files, 544282 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 56 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 09:45:44   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v24.md: 1 added (Standards/Standards_Consumption_Standard_v1.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v3.md  (sha256 e9332446485a)
+  INCLUDED         Standards_Consumption_Standard_v1.md  (sha256 50aebbf3c4d9)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         Tools_Authoring_Standard_v1.md  (sha256 6fd5d1c56d22)
+  INCLUDED         Tools_Decisions_v1.md  (sha256 266576979e50)
+  INCLUDED         Tools_Design_v1.md  (sha256 d6c8195c6fb9)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v24.md
+  WRITTEN          AIDE_Documentation_Binder_v25.md  (57 files, 546856 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 57 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 10:02:20   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v25.md: 2 added, 2 removed (Tools/Tools_Authoring_Standard_v2.md, Tools/Tools_Decisions_v2.md, Tools/Tools_Authoring_Standard_v1.md, and 1 more) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v3.md  (sha256 e9332446485a)
+  INCLUDED         Standards_Consumption_Standard_v1.md  (sha256 50aebbf3c4d9)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         Tools_Authoring_Standard_v2.md  (sha256 25c6e2d07f46)
+  INCLUDED         Tools_Decisions_v2.md  (sha256 cc18a9ea41c1)
+  INCLUDED         Tools_Design_v1.md  (sha256 d6c8195c6fb9)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v25.md
+  WRITTEN          AIDE_Documentation_Binder_v26.md  (57 files, 550097 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 57 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 10:05:45   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v26.md: 2 added, 2 removed (Standards/Standards_Authoring_Standard_v4.md, Standards/Standards_Consumption_Standard_v2.md, Standards/Standards_Authoring_Standard_v3.md, and 1 more) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v4.md  (sha256 09fa02159c9f)
+  INCLUDED         Standards_Consumption_Standard_v2.md  (sha256 f473734c8974)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         Tools_Authoring_Standard_v2.md  (sha256 25c6e2d07f46)
+  INCLUDED         Tools_Decisions_v2.md  (sha256 cc18a9ea41c1)
+  INCLUDED         Tools_Design_v1.md  (sha256 d6c8195c6fb9)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v26.md
+  WRITTEN          AIDE_Documentation_Binder_v27.md  (57 files, 550127 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 57 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 10:18:52   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v27.md: 3 added, 3 removed (Tools/Tools_Authoring_Standard_v3.md, Tools/Tools_Decisions_v3.md, Tools/Tools_Design_v2.md, and 3 more) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v4.md  (sha256 09fa02159c9f)
+  INCLUDED         Standards_Consumption_Standard_v2.md  (sha256 f473734c8974)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         Tools_Authoring_Standard_v3.md  (sha256 e054fc395fef)
+  INCLUDED         Tools_Decisions_v3.md  (sha256 25730265fb04)
+  INCLUDED         Tools_Design_v2.md  (sha256 6891ee689b81)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v27.md
+  WRITTEN          AIDE_Documentation_Binder_v28.md  (57 files, 554495 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 57 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 10:30:04   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v28.md: 3 added, 3 removed (Tools/Tools_Authoring_Standard_v4.md, Tools/Tools_Decisions_v4.md, Tools/Tools_Design_v3.md, and 3 more) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v4.md  (sha256 09fa02159c9f)
+  INCLUDED         Standards_Consumption_Standard_v2.md  (sha256 f473734c8974)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         Tools_Authoring_Standard_v4.md  (sha256 c8d9e5ceca39)
+  INCLUDED         Tools_Decisions_v4.md  (sha256 8ce74a49af55)
+  INCLUDED         Tools_Design_v3.md  (sha256 70dee72bc66c)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v28.md
+  WRITTEN          AIDE_Documentation_Binder_v29.md  (57 files, 556006 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 57 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 10:35:33   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v29.md: 2 added, 1 removed (Standards/Standards_Authoring_Standard_v5.md, Tools/_index.md, Standards/Standards_Authoring_Standard_v4.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v1.md  (sha256 b349e5ec403e)
+  INCLUDED         DocMeth_Design_v1.md  (sha256 e747f8b0f5e2)
+  INCLUDED         DocMeth_Working_v1.md  (sha256 1af58d615fd8)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v1.md  (sha256 453aaeb09fb9)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v5.md  (sha256 af5113f73be9)
+  INCLUDED         Standards_Consumption_Standard_v2.md  (sha256 f473734c8974)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         _index.md  (sha256 7bb05b130edc)
+  INCLUDED         Tools_Authoring_Standard_v4.md  (sha256 c8d9e5ceca39)
+  INCLUDED         Tools_Decisions_v4.md  (sha256 8ce74a49af55)
+  INCLUDED         Tools_Design_v3.md  (sha256 70dee72bc66c)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v29.md
+  WRITTEN          AIDE_Documentation_Binder_v30.md  (58 files, 557192 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 58 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 11:08:56   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v30.md: 58 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v30.md; binder not rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 2 skipped, 1 no changes
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 11:21:34   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v30.md: 3 added, 4 removed (Documentation Methodology/DocMeth_Decisions_v2.md, Documentation Methodology/DocMeth_Design_v2.md, Documentation Methodology/DocMeth_Working_v2.md, and 4 more) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v2.md  (sha256 ed5b655e5102)
+  INCLUDED         DocMeth_Design_v2.md  (sha256 2a65933d8b2c)
+  INCLUDED         DocMeth_Working_v2.md  (sha256 fc11dd77bac2)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 3002bcf578cc)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v5.md  (sha256 af5113f73be9)
+  INCLUDED         Standards_Consumption_Standard_v2.md  (sha256 f473734c8974)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         _index.md  (sha256 7bb05b130edc)
+  INCLUDED         Tools_Authoring_Standard_v4.md  (sha256 c8d9e5ceca39)
+  INCLUDED         Tools_Decisions_v4.md  (sha256 8ce74a49af55)
+  INCLUDED         Tools_Design_v3.md  (sha256 70dee72bc66c)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v30.md
+  WRITTEN          AIDE_Documentation_Binder_v31.md  (57 files, 567620 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 57 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 12:05:33   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v31.md: 3 added, 1 changed (Project Design/ProjectDesign_Decisions_v2.md, Project Design/ProjectDesign_Design_v2.md, Project Design/ProjectDesign_Standard_v3.md, and 1 more) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v2.md  (sha256 ed5b655e5102)
+  INCLUDED         DocMeth_Design_v2.md  (sha256 2a65933d8b2c)
+  INCLUDED         DocMeth_Working_v2.md  (sha256 fc11dd77bac2)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 a1d262969ad0)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Decisions_v2.md  (sha256 0a07a453c42c)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Design_v2.md  (sha256 80a739c74e04)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+  INCLUDED         ProjectDesign_Standard_v3.md  (sha256 fe55bbec4f27)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v5.md  (sha256 af5113f73be9)
+  INCLUDED         Standards_Consumption_Standard_v2.md  (sha256 f473734c8974)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         _index.md  (sha256 7bb05b130edc)
+  INCLUDED         Tools_Authoring_Standard_v4.md  (sha256 c8d9e5ceca39)
+  INCLUDED         Tools_Decisions_v4.md  (sha256 8ce74a49af55)
+  INCLUDED         Tools_Design_v3.md  (sha256 70dee72bc66c)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v31.md
+  WRITTEN          AIDE_Documentation_Binder_v32.md  (60 files, 625308 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 60 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 12:06:56   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v32.md: 3 changed (Documentation Methodology/DocMeth_Decisions_v2.md, Documentation Methodology/DocMeth_Design_v2.md, Documentation Methodology/DocMeth_Working_v2.md) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 dd54608243d5)
+  INCLUDED         DocMeth_Decisions_v2.md  (sha256 5128284d365e)
+  INCLUDED         DocMeth_Design_v2.md  (sha256 a8c79739060e)
+  INCLUDED         DocMeth_Working_v2.md  (sha256 a19198f938b0)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 a1d262969ad0)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Decisions_v2.md  (sha256 0a07a453c42c)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Design_v2.md  (sha256 80a739c74e04)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+  INCLUDED         ProjectDesign_Standard_v3.md  (sha256 fe55bbec4f27)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v5.md  (sha256 af5113f73be9)
+  INCLUDED         Standards_Consumption_Standard_v2.md  (sha256 f473734c8974)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         _index.md  (sha256 7bb05b130edc)
+  INCLUDED         Tools_Authoring_Standard_v4.md  (sha256 c8d9e5ceca39)
+  INCLUDED         Tools_Decisions_v4.md  (sha256 8ce74a49af55)
+  INCLUDED         Tools_Design_v3.md  (sha256 70dee72bc66c)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v32.md
+  WRITTEN          AIDE_Documentation_Binder_v33.md  (60 files, 628643 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 60 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 12:20:14   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v33.md: 4 added, 3 removed, 1 changed (Documentation Methodology/DocumentationMethodology_Decisions_v2.md, Documentation Methodology/DocumentationMethodology_Design_v2.md, Documentation Methodology/DocumentationMethodology_Standard_v1.md, and 5 more) - rebuilding
+------------------------------------------------------------------------
+
+[Core]
+  INCLUDED         _index.md  (sha256 8e58c5e0026b)
+  INCLUDED         Core_AIDEMap.md  (sha256 e3b0c44298fc)
+  INCLUDED         Core_AIDEMap.yaml  (sha256 a3f651bdb590)
+  INCLUDED         Core_AIDEPrinciples_Decisions_v1.md  (sha256 655de3e64709)
+  INCLUDED         Core_AIDEPrinciples_Design_v1.md  (sha256 60e20e8d0b9d)
+  INCLUDED         Core_Brief_v1.md  (sha256 6c2e6280ea89)
+  INCLUDED         Core_Design_Documentation_Working_v1.md  (sha256 b2999c523397)
+  INCLUDED         Core_Structure_Decisions_v1.md  (sha256 2217f6768b89)
+  INCLUDED         Core_Structure_Design_v1.md  (sha256 f464dc43de50)
+  INCLUDED         Core_Tags_Working_v1.md  (sha256 ae6557378adf)
+  INCLUDED         Core_Working_v1.md  (sha256 9808a331b339)
+
+[Documentation Methodology]
+  INCLUDED         _index.md  (sha256 40a5ea377087)
+  INCLUDED         DocumentationMethodology_Decisions_v2.md  (sha256 00e602b26d73)
+  INCLUDED         DocumentationMethodology_Design_v2.md  (sha256 72fcfdcb92f7)
+  INCLUDED         DocumentationMethodology_Standard_v1.md  (sha256 75ad507e6cc4)
+  INCLUDED         DocumentationMethodology_Working_v2.md  (sha256 04f52437925c)
+
+[Infrastructure]
+  INCLUDED         _index.md  (sha256 fb736219786c)
+  INCLUDED         Infrastructure_CLI_Decisions_v1.md  (sha256 7a16726b5162)
+  INCLUDED         Infrastructure_CLI_Design_v1.md  (sha256 12e05744ff4a)
+  INCLUDED         Infrastructure_Working_v1.md  (sha256 1d7a11e25a57)
+
+[Infrastructure\binder-builder]
+  INCLUDED         binder_builder_Documentation_settings.json  (sha256 b9b89306305b)
+  INCLUDED         BinderBuilder_Design_v10.md  (sha256 e6573d80384e)
+  INCLUDED         README.md  (sha256 3ec5dab12e67)
+
+[Infrastructure\file-update-package]
+  INCLUDED         file_update_package_settings.json  (sha256 fce12837157e)
+  INCLUDED         FileUpdatePackage_Design_v1.md  (sha256 11ad3a9f4c94)
+  INCLUDED         README.md  (sha256 203b6f20f7ce)
+
+[Infrastructure\version-cleanup]
+  INCLUDED         README.md  (sha256 a978d666e85a)
+  INCLUDED         version_cleanup_settings.json  (sha256 c17e9142e485)
+  INCLUDED         VersionCleanup_Design_v3.md  (sha256 e6d1eb38aba5)
+
+[Principles]
+  INCLUDED         Principles_Decisions_v4.md  (sha256 2c31c26b5c66)
+  INCLUDED         Principles_Design_v4.md  (sha256 4bd5797d3d2e)
+
+[Project Design]
+  INCLUDED         _index.md  (sha256 a1d262969ad0)
+  INCLUDED         ProjectDesign_Decisions_v1.md  (sha256 0fc2d790dc5f)
+  INCLUDED         ProjectDesign_Decisions_v2.md  (sha256 0a07a453c42c)
+  INCLUDED         ProjectDesign_Design_v1.md  (sha256 c4a80e5fa894)
+  INCLUDED         ProjectDesign_Design_v2.md  (sha256 80a739c74e04)
+  INCLUDED         ProjectDesign_Standard_v2.md  (sha256 36d4c7c83bdd)
+  INCLUDED         ProjectDesign_Standard_v3.md  (sha256 fe55bbec4f27)
+
+[Standards]
+  INCLUDED         _index.md  (sha256 3bd4678a60c0)
+  INCLUDED         Standards_Authoring_Standard_v5.md  (sha256 af5113f73be9)
+  INCLUDED         Standards_Consumption_Standard_v2.md  (sha256 f473734c8974)
+  INCLUDED         Standards_Decisions_v2.md  (sha256 c0286118492c)
+  INCLUDED         Standards_Design_v2.md  (sha256 cfedb41ac36c)
+  INCLUDED         Standards_Working_v1.md  (sha256 9677537477ab)
+
+[Tools]
+  INCLUDED         _index.md  (sha256 7bb05b130edc)
+  INCLUDED         Tools_Authoring_Standard_v4.md  (sha256 c8d9e5ceca39)
+  INCLUDED         Tools_Decisions_v4.md  (sha256 8ce74a49af55)
+  INCLUDED         Tools_Design_v3.md  (sha256 70dee72bc66c)
+
+[Working Practices]
+  INCLUDED         _index.md  (sha256 f1d40d14c547)
+  INCLUDED         WP_Capture_Working_v1.md  (sha256 54171d4dea8b)
+  INCLUDED         WP_ContentDelivery_Working_v1.md  (sha256 6b858ff04f50)
+  INCLUDED         WP_WorkManagement_Working_v1.md  (sha256 59a0bba2401c)
+
+[Working Practices\FileOps]
+  INCLUDED         WP_FileOps_Working_v1.md  (sha256 f2ffcdd7c76f)
+
+[_binder]
+  DELETED          AIDE_Documentation_Binder_v33.md
+  WRITTEN          AIDE_Documentation_Binder_v34.md  (61 files, 638253 bytes)
+
+[_rebuild]
+  INCLUDED         AIDE_Component_PurposeLines_v2.md  (sha256 b1836489f28b)
+  INCLUDED         AIDE_Rebuild_Guide_v1.md  (sha256 01ceb45e507b)
+  INCLUDED         AIDE_Rebuild_Overview_v1.md  (sha256 5a65c44f5991)
+  INCLUDED         AIDE_Rebuild_SettledDecisions_v1.md  (sha256 33593102e982)
+  INCLUDED         ProjectDesign_Decisions_Pending_v1.md  (sha256 647aacf4c1ad)
+  INCLUDED         ProjectDesign_Design_Pending_v1.md  (sha256 587bc4c6165f)
+  INCLUDED         ProjectDesign_StandardInputs_Pending_v1.md  (sha256 710b74bb0958)
+  INCLUDED         ProjectDesign_WorkRegister_Pending_v1.md  (sha256 638ebbfb6eef)
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 61 included, 2 skipped, 1 written, 1 deleted
+========================================================================
+
+========================================================================
+binder builder   2026-09-11 13:10:50   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 14
+change detection: AIDE_Documentation_Binder_v34.md: 61 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[.]
+  SKIPPED          AIDE_Documentation_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v34.md; binder not rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 3 skipped, 1 no changes
+========================================================================
+

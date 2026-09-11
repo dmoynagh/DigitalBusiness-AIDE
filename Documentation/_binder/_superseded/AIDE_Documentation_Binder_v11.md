@@ -1,14 +1,22 @@
-# Documentation Binder
+# AIDE_Documentation Binder
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 5** (2026-09-10).
+> **Binder Version 11** (2026-09-10).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
 
 ## Binder manifest
 
+- `_rebuild/AIDE_Component_PurposeLines_v2.md` - sha256 `b1836489f28b`
+- `_rebuild/AIDE_Rebuild_Guide_v1.md` - sha256 `01ceb45e507b`
+- `_rebuild/AIDE_Rebuild_Overview_v1.md` - sha256 `5a65c44f5991`
+- `_rebuild/AIDE_Rebuild_SettledDecisions_v1.md` - sha256 `33593102e982`
+- `_rebuild/ProjectDesign_Decisions_Pending_v1.md` - sha256 `647aacf4c1ad`
+- `_rebuild/ProjectDesign_Design_Pending_v1.md` - sha256 `587bc4c6165f`
+- `_rebuild/ProjectDesign_StandardInputs_Pending_v1.md` - sha256 `710b74bb0958`
+- `_rebuild/ProjectDesign_WorkRegister_Pending_v1.md` - sha256 `638ebbfb6eef`
 - `Core/_index.md` - sha256 `8e58c5e0026b`
 - `Core/Core_AIDEMap.md` - sha256 `e3b0c44298fc`
 - `Core/Core_AIDEMap.yaml` - sha256 `a3f651bdb590`
@@ -25,19 +33,16 @@ individual files.
 - `Documentation Methodology/DocMeth_Design_v1.md` - sha256 `e747f8b0f5e2`
 - `Documentation Methodology/DocMeth_Working_v1.md` - sha256 `1af58d615fd8`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
-- `Infrastructure/binder-builder/binder_builder.py` - sha256 `0e833e66f750`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `e6573d80384e`
 - `Infrastructure/binder-builder/README.md` - sha256 `3ec5dab12e67`
-- `Infrastructure/file-update-package/file_update_package.py` - sha256 `b8ed8dd55035`
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `fce12837157e`
 - `Infrastructure/file-update-package/FileUpdatePackage_Design_v1.md` - sha256 `11ad3a9f4c94`
 - `Infrastructure/file-update-package/README.md` - sha256 `203b6f20f7ce`
-- `Infrastructure/Infrastructure_CLI_Decisions_v1.md` - sha256 `d6e28bcbd3c3`
-- `Infrastructure/Infrastructure_CLI_Design_v1.md` - sha256 `6ca6dc31f006`
+- `Infrastructure/Infrastructure_CLI_Decisions_v1.md` - sha256 `dd7782f21f2f`
+- `Infrastructure/Infrastructure_CLI_Design_v1.md` - sha256 `dcb38819e5a6`
 - `Infrastructure/Infrastructure_Working_v1.md` - sha256 `1d7a11e25a57`
 - `Infrastructure/version-cleanup/README.md` - sha256 `a978d666e85a`
-- `Infrastructure/version-cleanup/version_cleanup.py` - sha256 `e5b1a470b662`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `e6d1eb38aba5`
 - `Principles/Principles_Decisions_v4.md` - sha256 `2c31c26b5c66`
@@ -49,6 +54,3484 @@ individual files.
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
 - `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `6b858ff04f50`
 - `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `59a0bba2401c`
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/AIDE_Component_PurposeLines_v2.md -->
+# AIDE Component Purpose Lines
+
+Version 2. 2026-09-08. Rewritten against the rebuild overview per finding F2. Supersedes the item 7 table in the WIP.
+
+---
+
+## Active components
+
+| # | Component | Purpose line | Key boundaries |
+|---|---|---|---|
+| 1 | Principles | Give any AI the durable, portable reasoning and premises to think and act well — independent of platform or methodology. | Portability is the defining test. Includes verification as a premise and the base human-side behavioural premises. |
+| 2 | Working Practices | Own the conventions and behaviours for how an AI and user actually work together across surfaces. | Includes the human working model as its own standard. May grow into a container with sub-components. |
+| 3 | Documentation Methodology | Define how documents are structured and created — the generic mechanics. | Owns the grammar. Not a registry of types belonging to other components. Specific types live with whoever knows the most. |
+| 4 | Project Design | Produce the design specification. | One scalable architecture. Owns both ends of the design-build loop: handoff, return, reconciliation, and the work register. |
+| 5 | Build | Take the design specification and execute it — produce the outcome, report what was done. | Creates from the spec, thinking not transcribing. Owns how code is structured. Likely an umbrella with different build paths. |
+| 6 | Standards | Make sure standards are applied, honoured and kept current across the environment. | As a capability, owns the definition of a standard and the authoring guidance including leanness. |
+| 7 | Tools | Encapsulate a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. | Owns the definition of a tool. Individual tools are owned by their consuming component. |
+| 8 | Migration | Keep things current when something they depend on changes — collate, distribute and execute change actions. | Detection varies by consumer; the mechanism is generic. Documents against standards is the primary consumer. |
+| 9 | Messaging | Carry a message across any boundary reliably, with a known envelope and delivery convention. | General-purpose transport. Any component or logic can use it. External AI and Code handoffs are consumers, not owners. |
+| 10 | External AI | Bring another AI into your work — review, research, parallel solutioning, or consultation. | Modes, not separate components. Consumes Messaging. Mode is the contract; interaction pattern is a separate axis. |
+| 11 | Deployment | Get the publishable capabilities live in a session, on whatever surface is in use. | Simple pipeline: build into a plugin, push to marketplace, account reloads. Includes the deployable-length weight gate. |
+| 12 | Core | Hold whatever shared requirements have no natural home elsewhere. | Deferred by design, resolved last. Carries the settled Index, Domain and Bootstrap work forward. |
+
+## Held — resolved by demonstrated need
+
+| Candidate | Original rationale | Resolution trigger |
+|---|---|---|
+| Tags | Removed duplication of labelling behaviour across components. | Reappears if the new design shows the same duplication. |
+| Scope | Removed duplication of applicability-decision logic. | Reappears if runtime applicability needs a shared definition. |
+| Dependencies | Removed duplication of dependency-declaration behaviour. | Reappears if multiple components need a shared dependency methodology. |
+
+## Deferred
+
+| Concern | Reason | Trigger |
+|---|---|---|
+| Environment and platform concerns | Single platform, no current need. | Multi-platform deployment or a need to track deployed state. |
+<!-- END SOURCE: _rebuild/AIDE_Component_PurposeLines_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/AIDE_Rebuild_Guide_v1.md -->
+# AIDE Rebuild — Guide
+
+Version 1. 2026-09-08. Unmanaged working document.
+
+What this is: a review of the rebuild as it stands at WIP v22, read against the design
+approach agreed on 8 September, the handoff analysis of 3 September, and the old corpus
+binders. It says what is working and must be kept, where the work has drifted and how to
+put it right, and the route to continue on. Written to be argued with once, then acted on.
+
+How it was produced: the rebuild WIP read in full; the design-approach WIP; the handoff
+analysis; the Principles binder; the outlines and key sections of the Core, Working
+Practices, Build and Capabilities binders. Findings carry a strength. Where a finding is a
+matter for your call, it says so.
+
+The single-sentence version: **the rebuild has produced good design and no overview,
+and it is still building the machine before living with the framework.**
+
+---
+
+## 1. What is right — keep, and make load-bearing
+
+These are the things that are carrying the rebuild. They should be named as its method,
+not left implicit inside a 3,400-line working document.
+
+- **Two phases, one test.** Confirm what a component is for and how it works until it is
+  clear and effective; then read the old material as a source and carry only what earns a
+  place. Presence in the old version proves nothing. And the check on Claude: if the
+  old-material pass produces a long list of calls for you, the design review was not
+  finished. *Strong. This is the method.*
+- **Tests over lists.** The escalation boundary is one question (does this change what or
+  why, or only how). The brief's boundary tests separate confusable neighbours. The rule for
+  what goes into a standard is "needed at the moment of application". Each of these replaced
+  an enumeration, and each is better for it because a test does not rot. *Strong — make it
+  an explicit house rule for every component.*
+- **The hole-not-a-carry rule.** An old item that only earns its place under an assumption
+  the confirmed model does not state is a hole in the design, not a carry. This is the
+  design-check skill's "can it be placed?" question, discovered independently. *Strong.*
+- **Obligations with a default, not thresholds.** The cost-and-complexity flag: build has a
+  duty to flag, judges "materially" itself, and proceeds if design does not intervene. No
+  number. *Strong.*
+- **Ownership designation at definition time.** Defining any doctype or block type names
+  its owner and residence. *Strong.*
+- **Block-level portability.** Define logic as block types; promote to generic only on
+  demonstrated shared meaning. Lowers the stakes on every ownership call. *Strong.*
+- **The three-layer output** — design (elaboration and reasoning), decisions (the thinking),
+  standard (lean, memory-resident, cross-reviewed by a separate AI). *Strong.*
+- **Naming what already exists rather than inventing.** Pending content is capture-and-place
+  output, named. The design project is a naming convenience, not an entity. *Strong — and
+  the test that came with it is worth keeping: if a naming convenience starts acquiring
+  properties, it was a mistake.*
+- **Facilitate, not constrain** actually changed a decision (the superseded-after-handoff
+  rule became a judgement, not a procedure). That is the sign it is a real principle.
+
+---
+
+## 2. Findings
+
+Ordered by consequence. Each states the finding, the evidence, and the recommendation.
+
+### F1 — The rebuild has no overview. Strong.
+
+**Finding.** Check 1 of the design approach — is the overview complete enough that the layer
+below could be executed excellently from it by someone not in the conversation — has never
+been run on the rebuild as a whole. The sections that would be the overview (the lifecycle
+model, the design half, AIDE's scope and containers, structure versus transport) have read
+"unchanged from v2, not yet written up" since the start and were downgraded to documentation
+debt at v10. The handoff analysis recommended a periodic one-page restatement of the model
+"as if from scratch, no history" on 3 September. It has not been done.
+
+**Consequence already visible.** Four separate items in the WIP are one gap: cross-component
+wiring "never reviewed as a whole"; the build project found defined nowhere, by accident;
+three candidate components whose survival depends on a demonstrated need there is nowhere to
+demonstrate; Working Practices drifting back toward a dumping ground through one-at-a-time
+"provisional" placements. Each is the missing overview showing through.
+
+**Recommendation.** Write the rebuild overview before Standards. One page. Purpose; the
+component list with purpose lines; how the components wire to each other; the generic
+things every component consumes; what sits outside AIDE. A draft skeleton is in section 5
+so this starts from something rather than nothing. Cross-review it with a separate AI — it
+is the highest-value artefact the rebuild will produce.
+
+### F2 — The settled material contradicts itself, and stays labelled settled. Strong.
+
+**Finding.** The component purpose-line table (item 7, recorded as complete and settled) says
+Project Design "does not need to know about build" and that "handover mechanics belong to
+working practices"; that Working Practices owns "work registers"; and that Standards "owns
+use, application, and migration of standards" while Migration is listed as its own
+component. The Project Design pass then settled the opposite on all three: Project Design
+owns both ends of the loop, the handoff, the return and the register. Both positions stand
+in the same document with no amendment note on the table.
+
+The v21 register error had the same shape — a claim carried unchanged, never tested against
+the new model, then quoted back as settled.
+
+**Recommendation.** Two things. First, when something is superseded, strike it; do not
+annotate around it. A document that holds both positions will be quoted back wrong. Second,
+the purpose-line table is rewritten once, against the overview, as part of F1 — it becomes
+the overview's component list. The stale rows are Project Design, Working Practices,
+Standards and Migration.
+
+### F3 — The machine is still being built before the framework is lived with. Strong.
+
+**Finding.** The handoff analysis's central argument was that the framework and the machine
+that produces it are two products, the second was built first, and Stage 0 — hand-deliver
+the content and live with it for two weeks — was the strong recommendation. The rebuild's own
+standing driver says the same: standards and behaviours should be live in your sessions.
+
+What the rebuild has done since: settled change management end to end (500 lines,
+twenty-three requirements, scored) before a single standard exists in the new form; built a
+tool pipeline as a gate before the first master; scoped a Stage 0 deliverable and not
+delivered it. Meanwhile the one thing that did go live — the design-check skill — was
+hand-authored in an hour, deployed at account level, and is already changing how this
+session is run. It is the first empirical evidence the rebuild has produced about its own
+deployment model, and it came from Stage 0 thinking, not from the pipeline.
+
+**Recommendation.** Make "live in a session" part of every component's definition of done,
+alongside standard authored and cross-reviewed. Author Principles' and Project Design's
+standards at deployable length and deploy them by hand the day they land — a skill, or a
+line in instructions — before their production chain exists. Treat the design-check skill as
+Stage 0's first delivery rather than a side project, and add to it as standards land. This
+is the handoff analysis's recommendation, one week later and still right.
+
+### F4 — Change management is well designed and probably ahead of need. Moderate-to-strong; your call.
+
+**Finding.** The section is closed, coherent, and its thirty-second statement is good. Two
+things weigh against it. It was settled before Standards was defined, before Documentation
+Methodology was reviewed, and before the overview existed, so it has not been checked for
+proportion against anything above it. And its own account of the old model's failure is that
+"the mechanism was designed, declared fifty-five times, and never asked to do anything" — a
+full detection-and-execution model is being re-designed for a mechanism that has never run
+once. The rebuild's own policy is demonstrated requirement, and the sledgehammer judgement
+was applied to Deployment for exactly this reason.
+
+**Recommendation.** Keep the model statement and the migration-record shape (condition,
+action, success check; every version has a record; ships with the standard) — that is the
+portable asset and it costs nothing to carry. Defer the detection and execution machinery
+until one standard has actually changed version after being deployed, then build what that
+event shows is needed. If you disagree, record it as a decision; the design is sound enough
+that the cost of being early is bounded.
+
+### F5 — Verification is unowned. Moderate-to-strong.
+
+**Finding.** The handoff analysis named verification — checkable claim, probe, evidence — as
+the significant under-engineered area and its first open question. The rebuild does not
+mention it. Since then the rebuild has had two corpus-integrity incidents of exactly that
+kind: a version written to disk before its batch was agreed (v15), and a carry recorded as
+settled that was never tested (v21). Neither would have been caught by review, because both
+read fine.
+
+**Recommendation.** Name the owner when Working Practices is worked. WP4 (verify inspectable
+facts) and WP5 (distinguish generated intent from applied state) already exist there and
+are the seed; P9 and P10 are the premises. It may be one working practice, not a component.
+Decide it deliberately; do not let it stay homeless.
+
+### F6 — Nobody owns the context budget. Moderate.
+
+**Finding.** Also from the handoff analysis, also unaddressed. The binder set is 1.4 MB; the
+old Documentation Methodology standard alone ran to roughly 700 lines. The rebuild's
+"needed at the moment of application" test and the lean-standard bar go some way, but
+nothing owns how much AIDE material may be resident at once, and the current project context
+holds thirteen old binders plus two versions of the WIP.
+
+**Recommendation.** Standards owns the deployable-length budget for a standard. The
+always-on budget across standards is a Core question and can wait for Core — but the
+overview should name it as Core's, so it is not lost.
+
+### F7 — The old corpus is loaded into the project that is doing the design. Moderate-to-strong.
+
+**Finding.** The handoff analysis: "Do not hold design conversations in a project loaded
+with the superseded corpus. The new project should carry binders only, with older material
+available on request." The rebuild's own method says shaping should not be done inside a
+context loaded with the old corpus. This project's knowledge holds the full old binder set
+and two WIP versions. Every design answer is being generated with the old material in reach,
+which is the anchoring the method exists to prevent.
+
+**Recommendation.** Remove the old binders and the superseded WIP from project knowledge.
+Keep them in the repo; fetch a specific binder when the old-material pass for that component
+runs, then remove it again. Project knowledge should hold: the current WIP, the
+design-approach WIP, this guide, and the new masters as they land.
+
+### F8 — Component count against a solo developer. Moderate; your call.
+
+**Finding.** Thirteen settled components, Core and Deployment deferred, three candidates.
+Five of the thirteen are ways of involving another AI — Review, Research, Parallel
+solutioning, Consultation, Messaging — and three of those were added new during a rebuild
+whose policy is demonstrated requirement. The standing rule that mode and interaction pattern
+are separate axes already frames these as modes of one thing.
+
+**Recommendation.** Test each against "have I actually done this in the last month". The
+consistent shape under the rebuild's own rules is one component for working with external
+AIs, with Review, Research, Parallel solutioning and Consultation as its modes, and
+Messaging as the transport underneath. That is an option, not a finding; the split costs
+little now and the overview is where to decide it.
+
+### F9 — The working document has become the persisted memory. Strong; mechanical.
+
+**Finding.** 210 KB, 3,440 lines, twenty-two nested version summaries before the contents.
+The model says the working document is the staging buffer and the binder is persisted
+memory. The pending-content rule says settled content waits under its destination document.
+Neither is being applied to the WIP itself.
+
+**Recommendation.** Split it once, mechanically, in Claude Code:
+
+- Settled Project Design content → a pending-content file per destination master (design,
+  decisions, standard-inputs, register), ready to become the masters.
+- Settled rebuild-wide content (doctype model, block catalogue, versioning, format, change
+  management, decisions doctype) → one "settled rebuild decisions" file, to be mined when
+  Documentation Methodology and Standards are worked.
+- The WIP keeps: purpose, method, the overview once written, current position, open items,
+  next actions. Under 500 lines. Version note: one line, current version only — the
+  rebuild's own Version Note block definition says exactly this.
+
+### F10 — Provisional placements are piling up in Working Practices. Moderate-to-strong.
+
+**Finding.** Carried to Working Practices "provisionally" or "to confirm when worked": WIP and
+open items; decisions and knowledge ownership; shaping behaviour; the no-knowledge-lost
+rule and its three behaviours; session-transition commands; the nomination model; the
+six-stage procedure; P6 and Guidance Profiles; the work item; definition of done; the
+pending-content rule. The design-approach WIP adds the overview-first working behaviour as an
+open ownership call. The WIP itself notes Working Practices "was becoming a dumping ground".
+
+Two of these already have homes in the existing Working Practices design and were not
+reconciled before being proposed: **WP7 — work in layers before detail** is the overview-first
+behaviour; WP8, WP12 and WP13 are the no-knowledge-lost behaviours. The reconcile-before-
+proposing rule applies to the design-approach placement plan too.
+
+**Recommendation.** Stop placing one at a time. When the overview exists, allocate the whole
+list in one pass against the three placement bands. Start the Working Practices pass from
+WP1–WP13, and treat each provisional item as a candidate against them: confirmation,
+contradiction, or genuinely new.
+
+### F11 — The six-stage procedure is the apparatus the design approach replaces. Moderate-to-strong.
+
+**Finding.** It was demoted to a "silent checklist" at v21 and still reads "adopted, general"
+in the Project Design section. The design-check skill's two checks — is the overview complete
+enough; does the design hold against it — do the same job with no stages, and they are what
+this session is actually running.
+
+**Recommendation.** Retire the six-stage list. Per component: confirm purpose and
+objectives; write the component's overview; run Check 1; design; run Check 2; author the
+standard; cross-review; deploy; then the old-material pass. That is the method restated
+with the checks in it, and it is short enough to hold.
+
+### F12 — The design-approach value claim is P3 and P4 sharpened, not a new premise. Moderate.
+
+**Finding.** The placement plan proposes the top-two-levels claim as a new Principles premise,
+with a check that it does not duplicate the model-before-machinery premise. Read against the
+binder: P3 (state the model before building machinery on it) and P4 (keep the working set
+human-comprehensible; layered progression — intent, then model, then detail) already carry
+it. What the 8 September session added is the strength of the claim and the two checks.
+
+**Recommendation.** A decisions entry strengthening P3 and P4, not a tenth premise. The checks
+go to Project Design's standard as planned. Principles' element list stays at nine.
+
+### F13 — Small closures the model already settles. Moderate each.
+
+- **Register admits confirmed non-design work: yes.** The register's gap is temporal —
+  confirmed, not yet delivered — and origin is not part of that definition. Old D12 said
+  the same.
+- **Difficulty-as-evidence — one home.** State it once in Project Design's commitment-and-
+  return section; the build-side cost-and-complexity flag is its consumer. Do not restate it
+  in Build.
+- **The design-check skill's permanent placement:** Project Design, as its standard's
+  deployment output. Confirm when the standard is authored; nothing to do before.
+- **The language profile:** retire it. The four language rules in the design-approach WIP
+  are what survives, and they go to Documentation Methodology as grammar.
+- **Decision identifiers collide across corpora.** A reference crossing threads names its
+  corpus. Documentation Methodology's, low weight, note it and move on.
+
+---
+
+## 3. Reshaping the work done
+
+In order. Each names the surface.
+
+1. **Strip project knowledge** (you, manual). Old binders and WIP v20 out; keep them in the
+   repo. F7.
+2. **Split the WIP** (Claude Code). Per F9. Strike superseded text rather than annotating it.
+   Rewrite the version note to one line. Run version cleanup. This is the pipeline's first
+   real use.
+3. **Write the rebuild overview** (chat, with you). Start from section 5. Probe the
+   boundaries, look for silences, read the model back. Run Check 1. Cross-review with a
+   separate AI. F1.
+4. **Rewrite the component list against the overview** (chat). The purpose-line table
+   becomes the overview's component list; stale rows corrected; the collaboration-component
+   question and the three candidates decided or explicitly deferred with a trigger. F2, F8.
+5. **Run Check 2 over Project Design's settled elements** (chat, Claude runs it, findings
+   listed). Each element placed against its own model — one flow, three holding places, one
+   seam — and against the overview. Expected findings: difficulty-as-evidence duplicated
+   (F13); capture-and-place's three obligations checked for proportion; the pending-content
+   rule and the work item placed outside Project Design's model and noted as Working
+   Practices dependencies. Nothing rewritten; findings only. Then the coverage check against
+   the six requirements.
+6. **Allocate the provisional Working Practices list in one pass** (chat), against WP1–WP13
+   and the placement bands. F10.
+
+None of this reopens settled design. It is placement, reconciliation and housekeeping.
+
+---
+
+## 4. Continuing the rebuild
+
+### The per-component method, restated with the checks in it
+
+1. Confirm purpose and objectives. The purpose line is a filter, not a description.
+2. Write the component's overview — its model and approach on a page.
+3. **Check 1.** Could the design be executed excellently from this overview by someone not in
+   the conversation? If not, probe; do not descend.
+4. Design. Derive from the model, not from single requirements. Commit within the model;
+   surface only forks the model does not settle.
+5. **Check 2.** Each element: placeable, context in its own description, proportionate,
+   derived from the model. Coverage check once against the objectives. Anything that does
+   not trace is listed as an addition.
+6. Author the standard at deployable length. Cross-review by a separate AI.
+7. Deploy it by hand — skill, instruction line, whichever fits. Live is part of done.
+8. Old-material pass: Claude runs it against the confirmed design; carries with reasons,
+   contradictions, holes returned to step 4. Fetch the old binder for this pass only.
+
+**Definition of done for a component:** doctypes and block types defined with owners;
+workflow and behaviour recorded in the design; thinking routed to decisions and knowledge;
+standard authored, cross-reviewed and live in a session; old-material pass complete.
+
+### Sequence
+
+1. Standards next — it unblocks Principles' and Project Design's sign-off, and the authoring
+   bar, the application-time test, the deployable-length budget, the Contents/Summary edge
+   and the cross-review step are all inputs already recorded. Its overview should be short:
+   what a standard is, how it is authored, how it is applied, how it is kept current (the
+   migration-record shape from F4, the rest deferred).
+2. Author and deploy Principles' and Project Design's standards. Stage 0 begins here.
+3. Working Practices — absorbs the provisional list, the design-approach working behaviour
+   (as WP7 strengthened), the human working model from the handoff analysis, verification's
+   home (F5), and the session-transition commands.
+4. Documentation Methodology — the grammar; the doctype and block model, catalogue,
+   versioning, format and language rules are already settled and mostly need placing.
+5. Build, then the collaboration components, then Deployment when Stage 0 has shown what it
+   needs, then Core last.
+
+### Standing checks, for Claude, every session
+
+- Orient before starting: what this is, why now, your role, what done looks like.
+- Read the design-check skill before any design output; run Check 2 before you see it.
+- Reconcile against settled material before proposing — including against the existing
+  Working Practices and Principles, not only the WIP.
+- If the old-material pass is producing a long list of calls for you, stop; the design
+  review was not finished.
+- When something is superseded, strike it.
+- Say once if the model looks wrong, then move on when you have heard it.
+
+---
+
+## 5. Draft rebuild overview — a skeleton to complete, not a proposal to accept
+
+Assembled from the settled purpose lines, the Core binder's system boundary, and the Project
+Design pass. Silences are marked as questions; they are the probes to run first.
+
+**Purpose.** AIDE makes the standards and behaviours that shape how AI works with you live in
+your sessions, on whatever surface is in use. Everything else exists to produce, deliver and
+keep current that content.
+
+**The model — what kind of thing AIDE is.** A set of components, each owning a purpose, a
+design, its decisions, and a lean standard that is loaded into AI sessions. Components
+consume a small set of generic things (documents, live-state artefacts, principles). A
+production path takes each standard from design to a deployed form. Development projects
+consume AIDE; they are not part of it.
+
+**The components and their purpose lines.** The thirteen settled lines, corrected per F2 —
+Project Design owns both ends of the design-build loop; Working Practices owns generic
+operating behaviour and live state, not the register; Standards owns application and
+currency; Migration is either Standards' mechanism or a component, decided here.
+
+**How they wire — the flow.**
+intent → Project Design (brief, design, commitments) → handoff → Build → return →
+reconcile. Standards and Principles are loaded into every session and shape all of it.
+Review and the other collaboration modes can be invoked at any point. Documentation
+Methodology is the grammar everything is written in. Deployment takes standards live. Core
+holds what has no other home.
+
+**What every component consumes.** Decisions, knowledge, WIP, open items, work item,
+definition of done; the doctype and block model; the binder; versioning.
+
+**Outside AIDE.** Which binders exist and what they contain; project repositories and their
+lifecycles; platform behaviour, which is verified not assumed.
+
+**Silences to probe (Check 1).**
+- Is Migration a component or a Standards mechanism?
+- What is the relationship between Standards and Tools, and where does the deployable-length
+  budget live?
+- Where does verification live?
+- How does a session know which components are loaded — is that Core, Deployment, or the
+  binder?
+- Is there one collaboration component or five?
+- What is a build project, and does anything depend on the answer before Build is worked?
+- What does Deployment's Stage 0 actually consist of now that one skill is live?
+
+When those are answered, read the model back. If the shape holds, Check 1 passes and
+Standards can start.
+
+---
+
+## 6. What this guide does not do
+
+It does not reopen settled design. It does not propose new mechanisms — every action above
+is placement, reconciliation, or applying a rule the rebuild already holds. Where it
+disagrees with a settled position (F4, F8), it says so once and leaves the call with you.
+<!-- END SOURCE: _rebuild/AIDE_Rebuild_Guide_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/AIDE_Rebuild_Overview_v1.md -->
+# AIDE Rebuild — Overview
+
+Version 1. 2026-09-08.
+
+---
+
+## Purpose
+
+AIDE makes the standards and behaviours that shape how AI works with you live in your sessions, on whatever surface is in use. Everything else in AIDE exists to produce, deliver and keep that content current.
+
+---
+
+## The model — what kind of thing AIDE is
+
+AIDE is a set of components. Each component is a defined area of functionality with a declared purpose, scope and ownership. A component owns its own documents and decisions.
+
+Some components produce capabilities — standards and tools that are delivered into the AI environment. A capability is a component whose purpose is providing a mechanism by which functionality is delivered to the AI environment. Producing capabilities is not a requirement; a component that exists solely to organise and govern a body of work is still a component.
+
+There are two types of capability:
+
+- A **standard** defines rules, expectations, guidance and context that shape decisions and behaviour while work is being done. It can include procedures, but those procedures are guidance within the operating context rather than a separately invoked operation.
+
+- A **tool** encapsulates a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. It normally defines its inputs, preconditions, ordered procedure, decision points, escalation conditions, outputs, and failure behaviour.
+
+Standards and tools are defined platform-neutral — the what — and transformed into platform-specific delivery. On Claude, that means a skill in a plugin.
+
+A third kind of repeatable operation exists outside the AI session: a **utility** encapsulates a repeatable operation that acts on the corpus, environment or infrastructure from outside the session. It does not load into session context or shape in-session decisions. Examples: the binder-builder, the file-update packager, version-cleanup scripts. Utilities are not capabilities.
+
+**Leanness is a governing principle.** Everything deployable — standards, tools, anything that loads into a session — is written as lean as possible without compromising its purpose or outcomes. The cost of length is baked into authoring from the start: the standards for building standards and building tools carry the discriminating guidance on how to write lean. A weight gate at deployment checks the combined load of a plugin and flags if the total is getting too big.
+
+---
+
+## The components
+
+Twelve components, listed by the work they do.
+
+### Foundations
+
+**Principles** gives any AI the durable, portable reasoning and premises to think and act well, independent of platform or methodology. Portability is the defining test — if a candidate principle only makes sense inside AIDE, it is not a principle. Verification lives here as a premise: where possible, build in mechanical verification so claims and outcomes can be checked against inspectable evidence. The base premises about how the system behaves on the human side also live here.
+
+**Working Practices** owns the conventions and behaviours for how an AI and user actually work together across surfaces — work in progress, handoffs, preservation of active state. The human working model — tiering, per-item confidence, the assumptions and gap-fill report, drift detection, definition-of-done at commission time — is a standard within Working Practices. The per-user override model is a future direction only; single user for now.
+
+**Documentation Methodology** owns how documents are structured and created — the generic mechanics. Naming, document types, lifecycle, the master-versus-generated distinction, the doctype and block model, format, versioning, language rules. It is the grammar everything else is written in.
+
+### The design-and-build path
+
+**Project Design** produces the design specification. One scalable architecture from simple single-document to complex multi-document structures. It owns both ends of the design-build loop: the handoff to Build and the return and reconciliation. It defines its own block types (objectives, requirements, considerations) and document types.
+
+**Build** takes the design specification and executes it — produces the outcome and reports what was done. It creates from the specification, thinking rather than transcribing, and owns how the code is structured. Build is likely an umbrella with different build paths depending on what is being produced — code projects, standards, tools — each potentially its own path.
+
+### Capabilities
+
+**Standards** makes sure standards are applied, honoured and kept current across the environment. As a capability, it owns what a standard is and how one is authored — including the authoring guidance that enforces leanness.
+
+**Tools** owns what a tool is — the definition, shape and authoring guidance. Individual tools are owned by the component that needs them.
+
+### Shared mechanisms
+
+**Migration** owns the generic mechanism for keeping things current when something they depend on changes. It collates and distributes change actions (the migration record, accumulation, shipping the fix with the thing it serves) and executes them (the three-part task shape, atomic transitions, user prompt, stamp management). Detection is the one part that varies by consumer; each consumer defines its own. Documents against standards is the primary consumer, but it also covers skills, bootstraps, binder definitions, project knowledge, code project structure, and platform configuration.
+
+**Messaging** is a general-purpose transport component — a standard for creating and carrying messages that any component or logic can use to move something across a boundary. Cross-process, cross-session, cross-AI, cross-project. It owns the envelope and the delivery convention. It does not care who uses it or why.
+
+### Collaboration
+
+**External AI** owns how and when another AI is brought into your work. The former separate components — Review, Research, Parallel Solutioning and Consultation — are modes within it. Mode is the contract (what role the external AI plays); interaction pattern (one-shot, multi-round, conversational) is a separate axis. External AI consumes Messaging as its transport.
+
+### Delivery
+
+**Deployment** takes the publishable capabilities, builds them into a plugin, pushes it to the git marketplace, and the account reloads. Deploy as each component completes, so the framework is tested in use. This is also where the deployable-length weight gate lives, flagging if the combined load of a plugin is getting too big.
+
+### Residual
+
+**Core** is deferred by design and resolved last. It is defined by whatever shared requirements are left that no other component naturally owns. It holds the existing settled work on the Index, Domain and Bootstrap — those designs carry forward. Core's shape is not forced until everything else has declared what it needs.
+
+---
+
+## How the components wire together
+
+Intent enters through Project Design, which produces a specification and hands it to Build. Build creates the outcome and returns it; Project Design reconciles.
+
+Principles and Working Practices are loaded into every session and shape all of it. Documentation Methodology is the grammar everything is written in.
+
+Standards and Tools define what capabilities are and how they are authored. Migration keeps documents and other consumers current when standards change. Messaging carries structured communication across any boundary.
+
+External AI can be invoked at any point — review, research, parallel solutioning, consultation — consuming Messaging as its transport.
+
+Deployment takes capabilities live. Core holds what has no other home.
+
+---
+
+## What every component consumes
+
+Each component uses the shared constructs already settled in the rebuild:
+
+- documents, decisions, knowledge and WIP (the doctype and block model)
+- binders (the generated consumption artefact)
+- versioning
+- the work item and definition of done
+- principles and working practices
+
+These are the common grammar. A component does not re-derive them.
+
+---
+
+## The build sequence
+
+Standards and Tools are worked first — they define what capabilities are and how they are authored, which is prerequisite to all other component output. Their standards also carry the leanness guidance.
+
+Then a simple Deployment component, so capabilities can be shipped.
+
+Then deploy-and-test as each subsequent component completes its design. The sequence after Deployment follows the per-component method in the rebuild guide: purpose and objectives; component overview; Check 1; design; Check 2; author the standard; deploy; old-material pass.
+
+---
+
+## Outside AIDE
+
+Which binders exist and what they contain; project repositories and their lifecycles; platform behaviour, which is verified not assumed.
+
+---
+
+## Open items
+
+These are recorded explicitly as unresolved. Each has a stated trigger for resolution.
+
+**Component boundaries and structure.** What makes something a component, where the boundaries fall, and whether components can contain sub-components. At least Working Practices and Build show signs of wanting nesting. The three held candidates also feed into this discussion. Trigger: resolve before or during the Standards pass, because the definition of a component is foundational.
+
+**Utilities and infrastructure placement.** Utilities are defined but where they and infrastructure sit organisationally in the framework is not settled — they are currently a tack-on. Trigger: resolve when a utility needs to be built or documented and there is nowhere to put it.
+
+**The Capability-as-deployable-unit question.** The old model had an extensive Capability Definition contract — elements, releases, production checkpoints, build target profiles. In the simplified model, does anything still own what a capability looks like when packaged? Or is that just Deployment's concern? Trigger: resolve during the Standards or Deployment pass.
+
+**Whether domains exist as a concept.** The old model said development domains consume AIDE; they are not components of it. Whether that concept carries forward has no demonstrated need yet. Trigger: resolve if and when the relationship between AIDE and consuming projects needs to be defined.
+
+---
+
+## Held and deferred
+
+**Tags, Scope and Dependencies** are held, not resolved. They earned their place in the old model by removing duplication of similar behaviour across multiple components. They come back only if the new design shows the same duplication reappearing. Resolution is by demonstrated need during component design, not before.
+
+**Environment and platform concerns** are deferred. The old Core design held runtime knowledge of surfaces, channels, models, access references and deployed state. Single platform for now; no requirement yet to track this. Trigger: multi-platform deployment or a need to track deployment state.
+<!-- END SOURCE: _rebuild/AIDE_Rebuild_Overview_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/AIDE_Rebuild_SettledDecisions_v1.md -->
+# AIDE Rebuild — Settled Decisions
+
+> **Version 1** (2026-09-08). Extracted from AIDE_Rebuild_WIP_v23 per rebuild guide F9. Settled rebuild-wide content — doctype model, block catalogue, versioning, format rules, change management, decisions doctype, and generic constructs produced during component passes. To be mined when Documentation Methodology and Standards are worked.
+
+---
+
+## 2b. Process scaffolding dropped (2026-09-07)
+
+Five overlapping frames were running at once, most of them Claude's, and the
+director's time was going on working out what was happening rather than on
+decisions. Collapsed to the two phases above.
+
+| Frame | Origin | Disposition |
+|---|---|---|
+| Six-stage review procedure | Claude | **Silent checklist.** Still a reasonable prompt list for "have we actually confirmed the purpose", but no longer tracked, and findings are not labelled against it. |
+| Two-part sweep (omissions / approach) | Agreed, a genuine distinction | **Collapsed to one sweep** under the single test. The split cost more than it returned: real findings did not sort cleanly into the two halves, and the sorting was load on the director. |
+| Buckets A / B / C | Claude, invented mid-sweep | **Dropped entirely.** Findings are *carried, with the reason it earns its place* or *not carried*; parked only where something genuinely blocks. |
+| Three-layer authoring model | Settled by the director | **Kept.** It describes the output — design, decisions, standard — not the process. |
+| The four binder-editing items | Work arising | **A list, not a frame.** Calling it one made it sound structural. |
+
+**No completed work needs redoing.** Principles and Project Design were worked in
+this order regardless; only the labelling changes.
+
+---
+
+## 6a. Infrastructure — the payload boundary
+
+Payload = Standards, Tools, guidance loaded into the AI to shape behaviour (Capabilities).
+Infrastructure = machinery that acts on the corpus and is never loaded into an AI session.
+
+### Tool work done (prior session, folded in here)
+
+Two Infrastructure utilities exist as Python, each with a design doc:
+
+- **VersionCleanup** (`VersionCleanup_Design_v2`) — carries the "a tool cleans up after itself"
+  principle and the three-form path model.
+- **BinderBuilder** (`BinderBuilder_Design_v1`) — captures format, manifest, the supersession rule
+  as D7 with a rejected alternative, and the ratified three-form path model.
+
+### Tool placement (settled)
+
+- Masters for the utilities live in an **Infrastructure** folder under the documentation root.
+- Running instances are copied into an **`_tools`** folder at the documentation root — master
+  versus execution point.
+- These are Infrastructure utilities, NOT capability Tools. Infrastructure is machinery acting on
+  the corpus, never loaded into an AI session.
+
+### Consequence from the versioning model (this session)
+
+VersionCleanup must be revised to understand **draft state**, not just a trailing `_v<number>`:
+- group `v27-draft1 ... v27-draftN` together;
+- treat flat `v27` as a different, terminal, immutable thing — not merely the highest number in the
+  group;
+- parse the generic `-{key}{n}` suffix and validate the key against the defined set (one member
+  today: `draft`).
+
+---
+
+## 6c. Rebuild-wide policy — demonstrated requirement
+
+**Set aside anything without a demonstrated requirement.** If a need surfaces, it comes back with a
+reason. Applied this session to the Internal section, Temporary owner-labelled state, Overview,
+Type metadata, and (pending filter) Dependencies/Tags/References.
+
+---
+
+## 7. Decisions doctype — CLOSED
+
+**Done criteria:** no valuable knowledge is lost. Design + Decisions together must allow the full
+development path to be recreated and understood. Framing: other docs are a snapshot of the now;
+Decisions and knowledge are everything else.
+
+Eight agreed points:
+
+1. **Purpose broadened.** Accumulated reasoning, alternatives, learnings and decision history
+   valuable to a topic's past, present and future evolution — not only the direct path to the
+   current position.
+2. **Knowledge boundary.** Topic-scoped reasoning goes to Decisions; reasoning with no owning topic
+   goes to Knowledge. Cross-topic reasoning lives where it most applies; single record + reference
+   preferred over duplication; prompt the user if in doubt.
+3. **Two new triggers.** (a) investigation/reasoning that shaped understanding whether or not it
+   produced a decision; (b) content removed or replaced in any document — check it survives
+   elsewhere, capture if valuable. Trigger (b) makes supersession an active checkpoint.
+4. **Immutability relaxed.** Compaction allowed — consolidate duplicates, merge related reasoning —
+   provided substance survives and temporal reference is retained where sequence affects
+   interpretation. Changing a past decision's meaning is a new decision, not compaction. A
+   cumulative log is not required.
+5. **Authority tightened.** Design must be sufficient alone to produce the outcome; reasoning
+   pertinent to current design choices belongs in Design. Decisions informs but does not override
+   or supplement Design as executable authority. Design governs on conflict.
+6. **Retention chain.** Conversation to WIP/Working to Decisions. Reasoning is persisted to WIP or
+   Working when those update, then promoted to Decisions as Design is confirmed. Same-pass rule
+   retained.
+7. **Scope follows Design.** Absorbed into parent when Design merges; may split when Design splits
+   and volume warrants. Split by closure state, not chronology.
+8. **Exclusions unchanged.** Editorial, formatting, metadata, migration, mechanical maintenance
+   alone do not create an entry.
+
+Two variants drafted (in transcript): a fuller design-length definition, and a standard-length
+version roughly half the length (rationale stripped, operative rules kept) for use inside a skill.
+
+---
+
+## 8. Doctype / block-type model — AGREED
+
+Terminology change: "doctypes and sections" becomes "doctypes and block types." A block is a subset
+of document content that may span one or more sections. Sections remain the unit of navigation,
+storage and organisation.
+
+Four rules:
+
+- A **doctype** is the root definition for a document; states what it defines and which blocks it
+  includes.
+- A **block** is a named content definition mapping to one or more sections; blocks may include
+  other blocks; composition recurses; no cycles.
+- **Shared content is a block, not inheritance.** Universals live in a common block that doctypes
+  include.
+- **One source of truth.** Content defined in one place. Flag ambiguity rather than resolve
+  silently.
+
+Also: hosting rules attach to the block, not the section — one authoritative instance per semantic
+scope, permitted hosts owner-defined, moves between hosts are structural not semantic. Contiguity
+of a block's sections is a default, not a rule.
+
+**A doctype includes a block as defined; it does not modify it.** A doctype may not suppress a
+block's fields, add fields to it, or otherwise adjust its shape on inclusion. Defining a derived
+block type that overrides a base is the same design in another form and is equally excluded. Where
+two doctypes need different shapes, those are two blocks, which may share a smaller common block —
+composition, not override. Added on review (v8): override-on-include is inheritance under another
+name and brings back what the cuts below removed — precedence when two doctypes adjust the same
+block differently, drift when the base changes underneath, and a reader unable to tell what shape a
+block actually has here. The accepted cost is duplication between near-identical blocks, which is
+visible; override chains are not. Revisit on a demonstrated case per §6c (the demonstrated-
+requirement rule).
+
+**Cut as over-engineered:** multiple doctype inheritance, abstract doctypes, block self-assignment
+to doctypes (push model), collision precedence machinery (most-specific / last-declared). Residual
+collision rule: doctype defines resolution if needed; otherwise flag to user.
+
+DocMeth owns the doctype/block structure, how to use and apply it.
+
+Catalogue scope: DocMeth holds only blocks common across documents or usable by any document.
+Area/owner-specific blocks are defined in their topical area and merge at runtime. No central
+repository.
+
+### Catalogue preamble (rendering model)
+
+- A block is a named set of **fields** with meaning.
+- A block has a default **density**: compact or expanded. Doctype may override.
+- Rendering follows the **format rendering rule**: structured formats express fields as native
+  properties; prose formats express them as a heading or a delimited line.
+- A block may use whatever structures suit its information (sections, tables, lists). Each maps to a
+  native default in the format in use. **If anything a block defines would not port cleanly across
+  formats, flag it for confirmation rather than deciding silently.**
+
+---
+
+## 9. Block catalogue
+
+### Closed
+
+**Declaration** (renamed from "preamble"). Mandatory in every governed document; its presence is
+the DocMeth conformance marker and the corpus recognition mechanism. First block, fixed placement,
+not overridable. Fields: title, doctype (root of the composition chain), identity, date. Density
+compact. No separate version field — identity carries the version.
+- Structured formats: a reserved top-level `aide` key holding the fields as sub-properties (nested,
+  one level: `aide.identity`, not `aide_identity`). Presence of `aide` = governed.
+- Markdown: a single delimited line, fixed field order (title, doctype, identity, date),
+  delimiter ` | `. Pipe chosen over middot and semicolon: ASCII, no collision with title text, and
+  it reads as structure rather than punctuation. Revisit only if a renderer treats the line as a
+  table.
+- The name "Declaration" lives in the methodology, not in the document; nothing emits the word.
+
+**Header, Footer** — placement containers only, no semantics. Blocks declare they place into them
+and may carry a hint. Ties resolved by doctype instruction or defined method. Containers are
+themselves blocks. No literal marker line in markdown; footer start already marked by a horizontal
+rule; body start is the first heading that is not Contents or Summary.
+
+**Boundary proximity principle.** Value increases toward the file boundaries. Header runs
+high-to-low from the top; footer runs low-to-high to the end (most important closest to file
+start/end). Containers declare the gradient; blocks place against it.
+
+**Version note** — metadata, top of footer (low-value end). One line, current version only, never
+a list. Historical version notes do not accumulate anywhere; Decisions holds what mattered.
+
+**Contents** — lets a reader decide whether to read the document and what it covers, at lowest cost.
+Primary consumer is a file-scanning AI making a partial-read-and-stop decision; humans benefit too.
+- Curated semantic map, grouped descriptive entries, not a heading repetition.
+- Stable heading or section-number locators, never line numbers.
+- Rendered inline / delimited, never a vertical list (expressed as density: compact).
+- Placed immediately after the Declaration, before Summary.
+- Included when a file-scanning agent could not decide whether to keep reading from the Declaration
+  alone; doctype owners may set a per-type default.
+- Doctype owner defines depth.
+
+**Summary** — states what the document establishes, absorbed quickly.
+- States the key model, key points and defining items — the substance, not a gesture at it.
+- Stated, not explained. No expansion, reasoning or qualification; that is the body's role.
+- The body expands, it does not restate. Re-establishing what the Summary states is a defect.
+- Placed after Contents, before the body.
+- Omitted only where the document is short enough that the Summary would substantially restate it.
+- Doctype owner defines applicability and depth.
+- Default exclusions: Decisions, WIP, WorkRegister, OpenItems, Index, structured data.
+
+**Body** — the document's substance.
+- Every governed document has a body; the only mandatory content block.
+- Holds the authority; body governs on conflict with Summary.
+- Expands what the Summary states; does not restate it.
+- Structure is doctype-defined; the block model imposes no section shape.
+- Everything not claimed by another block is body (default host).
+- Density expanded.
+
+**Dependencies** — the standards this document is built on, and the version of each it was last
+brought into line with. Closed this session; resolved by the change-management work (§11a).
+- Field form: a flat list of `standard@version` pairs, one entry per standard.
+- Contents: direct and inherited standards alike, listed explicitly and not distinguished. Flat and
+  self-contained so detection reads one field and needs no graph walk.
+- The version is a **conformance stamp** — what the document reached — not a constraint. No presence
+  levels (`!`, `!!`) and no exact pins (`@!vN`); those were runtime-availability concerns and belong
+  to deployment currency, which the change-management work separated out.
+- A document does not list its own identity's standard; identity carries that version.
+- **Placement: header, immediately after Declaration, before Contents.** Moved from the footer
+  position the old model used. The currency check gates use, so a partial read from the top must be
+  able to answer "may I use this" without reading to the end — which is the boundary-proximity
+  principle applied to the consumer that runs first.
+- Kept a separate block rather than folded into the Declaration: Declaration is fixed, compact and
+  not overridable, and a variable-length list would change its character.
+- Name: `Dependencies` retained over `Implements`, `GovernedBy`, `Uses` and `Conformance`. The word
+  carries the necessity — the standard must be present for the document to function — which is what
+  CM-Q6 (no modification where standards are absent) turns on. The value's shape changed, so no
+  reader will mistake it for the old field.
+- Markdown: `Dependencies: A@vN, B@vN` — pipe separates Declaration fields, comma separates list
+  members, so the two header lines are visibly different shapes.
+- Structured formats: a `dependencies` key as a sibling of `aide`, holding the list.
+
+Structural blocks total four: Declaration, Header, Body, Footer. Contents and Summary place into
+Header. Body is between Header and Footer.
+
+### Parked (need a case through the filter)
+
+**Parking confirmed this session.** These blocks exist to serve downstream machinery — drift
+detection, classification, citation. Until the components that consume them come through the filter
+and demonstrate the need, there is nothing to anchor the decision to; deciding now would be deciding
+ahead of requirement. They return when the component that needs them does. (Dependencies has since
+been closed — see above and §11a.)
+
+- **Tags** — footer property, AIDE_Tags-owned.
+- **References** — footer, citation without conformance semantics; "related reading." Was to be
+  decided with Dependencies; that dependency is now discharged, so References can be taken on its
+  own merits when its consumer appears.
+- **Overview** — returns as a discussion. Case to test is a topic-or-corpus-scale TLDR, not the old
+  document-level one.
+
+### Set aside
+
+- **Internal section** — purpose overlaps Decisions; old spec already warned against using it as a
+  hidden second body.
+- **Temporary owner-labelled state** — no current user.
+
+### Cut
+
+- **Type metadata** — superseded by doctype in the Declaration.
+
+---
+
+## 10. Versioning model — CLOSED
+
+Applies to versioning generally; the two-rhythm split applies at the publish boundary.
+
+- **Identity** — authoritative, in the Declaration. Carries the contract version and draft state:
+  `@v27-draft2` while working, `@v27` on publish. Absence of a draft marker means published and
+  immutable.
+- **Filename** — informative, mirrors the identity: `_v27-draft2.md` then `_v27.md`. Never
+  authoritative.
+- **Draft numbering** — filename and identity both carry the draft number and match; identity wins
+  on conflict. Draft numbering is optional in the scheme, on by default. Self-describing is the
+  better failure mode (a file pasted without its name still states what it is).
+- **Reference forms** — `@v27` resolves to the published contract; `@v27-draft` resolves to the
+  highest draft present.
+- **Publish** — drops the draft marker in both identity and filename; creates the immutable
+  contract. Published numbers are never reused.
+- **Next cycle** — opens immediately at the next integer, `@v28-draft1`. No live drafts ever sit
+  under a published version.
+- **`.n`** — reserved, unused. Available for minor published releases later without colliding with
+  draft counters.
+- **Naming grammar** — `{name}_v{integer}-{key}{n}`. Exactly one key defined: `draft`. An undefined
+  key is a conformance error, not a tolerated variant. Expressed as a named token, not a hardcoded
+  literal, so adding a key later is a list addition, not a grammar reinterpretation.
+
+Design documents (and other unpublished docs) run on a single rhythm — identity and file move
+together. Only published outcomes (Standards, deployed contracts) use the two-rhythm split.
+
+Every document has an identity in its Declaration regardless of publish state; filename is
+informative only. This is a corpus-integrity requirement: the filename can be renamed and is
+outside the content, so it cannot be authoritative.
+
+Versioning documentation to revise: naming grammar, publish transition, published immutability,
+reference forms, `.n` reservation, draft support.
+
+---
+
+## 11. Format and rendering model — CLOSED
+
+- Governed documents today are Markdown. Filename grammar fixes `.md`.
+- Escape hatches already in the corpus: **Assets** (filename/format fixed by consuming tool) and
+  **Unmanaged files** (held but not governed).
+- Future doctypes may use other formats: machine-readable / performance docs stay Markdown; Design,
+  Brief, Overview, Guides could be HTML. YAML and JSON usable as document types or embedded inside
+  docs as defined by blocks.
+
+### HTML assessment (searched this session)
+
+The pro-HTML position is a personal opinion piece by an Anthropic Claude Code engineer (Thariq
+Shihipar, 9 May 2026), not Anthropic guidance. Its argument is human engagement with long
+plans/audits/reports, not machine consumption. HTML is less token-efficient than Markdown; the
+"more info per size" claim is expressiveness per screen line, not tokens. Markdown is still held to
+win for chained agent handoffs, short content, and git repos where diffs matter — the exact profile
+of this corpus. Recommendation: no change now. HTML earns a place only for long human-facing
+artefacts, e.g. a topic-scale Overview if that returns.
+
+### Rendering model
+
+- **Format rendering rule** (DocMeth, stated once): a block is a named set of fields; structured
+  formats express fields as native properties; prose formats express them as a heading or delimited
+  line.
+- **Density axis:** compact or expanded, per-block default, doctype override. Compact/expanded
+  render per format (markdown inline vs headings; JSON flow vs pretty-print).
+- **Per-format default mapping table:** each abstraction maps to one native construct by default, so
+  any block renders with zero per-block, per-format instruction. HTML defaults: fields to a
+  description list (`dl`, `dt`/`dd`); compact to inline; expanded to block; header/body/footer to
+  their natural HTML equivalents. A correct document needs no per-block HTML; styling
+  (colour, collapsibility, layout) is separate optional polish.
+- **Renderers per format** are separate specs (Infrastructure), not DocMeth core and not block
+  definitions. Markdown renderer trivial; HTML renderer substantial. Build none now.
+- **Portability flag:** anything a block defines that would not port cleanly across formats is
+  flagged for confirmation, not decided silently.
+
+---
+
+## 11a. Change management — SETTLED
+
+Reworked from a blank page this session (2026-09-06), per the brief this section commissioned in
+v4. The v4 content is superseded; what survives from it is noted inline.
+
+### The split that unblocked it
+
+The subject had been running as one problem and behaving like a spider's web. It is three:
+
+- **A — Change definition.** What changed, in which version, and what the fix is.
+- **B — Detection.** Which documents are behind, and how that is known.
+- **C — Execution.** Who applies the fix, where, when, and with what authority.
+
+Every attempt to settle one moved the other two. The old corpus fused them as well: the Dependencies
+footer line carried both a conformance fact (B) and a runtime-presence level (C). Separated, each is
+tractable. **All three are now settled** (see the SETTLED headers below).
+
+### Scope
+
+Change management is defined **for standards**. Reuse as a general framework for other item types is
+a nice-to-have, not a constraint on this design. Standard granularity also resolves the
+dependency-granularity question that v4 worked twice: a document depends on a standard, and the
+standard's internal doctype and block structure is the standard's own business. Same conclusion as
+v4, reached as a consequence rather than a choice.
+
+---
+
+### A. Change definition — SETTLED
+
+> **Publishing a standard version requires a migration record for that version. The record is a set
+> of condition-to-action tasks that take a document from the previous version to this one.
+> Conditions are evaluated against definitions, not inferred from document content. "No action" is
+> stated, not implied. One accumulating migration file per standard, held alongside it and shipped
+> with it.**
+
+Points, each settled this session:
+
+- **Migration is created at publish, not after.** A version is not published until its migration
+  record is written. This is enforceable as a publish gate rather than remembered as a discipline —
+  which matters, because the recorded failure of the old model was not bad design but that nothing
+  ever executed. **The gate is a presence check** — a record exists for the version being published,
+  and it is either a set of tasks or an explicit "no action." Whether the tasks are *correct* is not
+  checkable by anything, which is why the check is cheap and still worth having. It lives in the
+  publish operation, not in a separate tool, and **has no override**: an override would be used
+  exactly when someone is in a hurry, which is when the record is most likely to be forgotten, and a
+  missing record is invisible afterwards because absence looks identical to "nothing to do." The
+  accepted cost is that publishing is slightly heavier every time, including for the many versions
+  whose honest answer is "no action" — the right trade, since fifty-three cheap records beat one
+  silently missing one.
+- **Every version has a record, including "no action."** Positive declaration. Absence is ambiguous
+  (nothing changed, or the author forgot); presence is a fact. Retained from the old model's
+  positive-posture rule.
+- **A task has three parts: condition, action, success check.** Revised on review (v8); previously
+  stated as condition-to-action only, which left "succeeded" undefined and made the atomic-write
+  rule rest on nothing. A standard may publish several doctypes and block types; the **condition**
+  decides applicability — *if the document's doctype is X*, *if the doctype uses block type Y* — so
+  one migration covers a corpus of differently-shaped documents. The **action** states the work. The
+  **success check** states what must be true of the document afterwards, in terms that can be tested
+  against it: field present, field non-empty, block present, block absent, value matching a pattern.
+- **The success check is authored, not self-assessed.** It is written before the work is done, by
+  someone other than whoever applies it, which is why it is worth more than the applier's own
+  verdict — the same reason a test written before the code is worth more than one written after.
+  Nothing is written to the document until every applicable task's check passes.
+- **A task whose success cannot be stated as a checkable outcome is not a migration task.** That is
+  the same self-test as the one below: if the change cannot be expressed this way, it is a
+  restructure and belongs with a human.
+- **Form: structured conditions and success checks, prose actions.** Conditions and checks are
+  evaluated mechanically and must be machine-readable. Actions are carried out by an AI, so prose is
+  correct — forcing them into structure would amount to building a transformation language, which is
+  the over-engineering to avoid.
+- **Conditions resolve against the doctype definition, never against document content.** The doctype
+  definition is the only source of truth for which block types a doctype currently uses. Inferring
+  block usage from what a document looks like is guesswork and breaks the fail-visibly rule.
+- **Held beside the definition, not inside it.** Definitions are payload and load into sessions;
+  every token counts. Migration content is read only when migration is needed. Same seam as the
+  payload/infrastructure boundary in §6a (what loads into an AI session versus what acts on the
+  corpus from outside). The old model already did this as `migrations.md` alongside the standard.
+- **Accumulates.** Every transition from the supported baseline to current is retained, so a
+  document several versions behind can walk forward step by step. Pruning is possible only once
+  nothing is proven to be sitting at the pruned version — which is the one job that requires a
+  wide check.
+- **Ships with the standard.** Without the fix present at the point the need is detected, all
+  detection can do is stop work. Detection without remedy is a blocked session, which is the failure
+  mode that causes a check to be disabled.
+
+**Consequence worth noting.** The migration file is the portable asset and the executor is a
+convenience built on top of it. Every consumption path — runtime check, another repo, a batch run,
+or a human reading it — reads the same file. Nothing else has to be portable.
+
+---
+
+### B. Detection — SETTLED
+
+**The question detection answers:** does this document need work under the current standards, and
+what work.
+
+**Runtime is the only complete picture.** A document loaded for use is loaded with the things it
+depends on; that is the only moment where document, applicable standards, their versions and their
+migration records all exist together. This was the premise of the original methodology and it is
+correct. It also composes without tracking: a document in a repository untouched for eight months
+is checked the moment it is next used, and nobody had to remember that repository existed.
+
+**Read is use.** If a document is read, a currency check runs.
+
+Six detection questions were worked (numbered CM-Q1 to CM-Q6 to avoid collision with the Q-series in
+§14, the rebuild-wide open questions). All six are now closed.
+
+**CM-Q1 — which standards apply to a document?** *Settled: declaration, repaired by migration.*
+Derivation from doctype is truer; declaration is the practical compromise. The known risk of
+declaration is a stale association — a doctype moves from standard A to standard B and the
+document's declared dependency no longer reflects reality. That is repairable by an ordinary
+condition-to-action task in A's migration: *if doctype is X, add standard B as a dependency*. So
+declaration stops being lossy, at declaration cost. **A corpus-wide "global action" that all
+documents check regardless of standard versioning was considered and rejected** as a second
+mechanism sitting permanently in the check path; the demonstrated-requirement rule (§6c) applies.
+Revisit only if a case forces it.
+
+**CM-Q2 — what was the document last brought into line with?** *Settled: the Dependencies block, one
+`standard@version` pair per standard.* The document must carry this; nothing else remembers. A
+single whole-document value was ruled out by the cross-standard case, where each standard is used at
+its own current available version independently — one value cannot express A at v4 while B is at v6.
+Conformance version and dependency declaration are held in **one field**, not two: two lists over the
+same set can diverge, and a conformance entry for a standard you do not depend on says nothing.
+**The field is machine-findable** — fixed header position, predictable shape — so a named-scope
+operation or any later wide scan can read it without parsing whole documents. Full block definition
+in §9 (the block catalogue).
+
+**CM-Q5 — where does the wrong/old severity live?** *Settled: on the task, not the version.* The
+governing test:
+
+> **Blocking = the old shape produces a *wrong* result. Non-blocking = the old shape produces an
+> *old* result.**
+
+The user's framing was discoverability — if a change alters whether a document can be found and
+used, it must be applied before use. Widened slightly: a renamed field that now means something
+else, or a consumer silently reading a moved block and getting nothing, are also wrong rather than
+merely dated. A release can genuinely mix both kinds; version-level severity forces the whole
+release up to its most severe member, so one wrong-making change makes three cosmetic ones blocking.
+This restores the old model's original task-level classification, which a later decision had moved
+to release level.
+
+**CM-Q6 — can detection run without the standard present?** *Settled: no, and that is a safety rule.*
+If the standards are not present the session is operating outside the methodology environment.
+That is a legitimate choice, at the user's risk — but **documents must not be modified there.**
+
+**CM-Q3 — is a wide corpus scan part of the model?** *Settled: no.* Worked from what a wide scan
+would be *for*. Three candidate purposes: correctness, pruning, planning.
+
+- **Correctness does not need it.** An unused document has no impact whether it is ahead or behind,
+  and blocking work applies before use. Read-time observation is complete for every document at the
+  moment that document matters.
+- **Pruning does need it** — history can only be pruned once nothing is proven to sit behind the
+  pruned version, and the documents you would need to hear from are exactly the ones nobody reads.
+  **Pruning is deferred**, so this purpose is not live.
+- **Planning is marginal** and never blocking.
+
+With pruning deferred, no purpose remains. **No wide scan in the model.** What is retained is the
+CM-Q2 constraint that the stamp stays machine-findable, which costs nothing now and keeps the
+pruning option open without retro-fitting later. The named-scope operation in execution (E5) also
+provides the means to bring a defined tree fully current on demand, should pruning ever be wanted.
+
+**CM-Q4 — what does detection produce?** *Settled: a work list, per document, at read time.* Sorting
+blocking from non-blocking requires knowing which tasks apply, which requires evaluating conditions
+against definitions. A cheap summary carried alongside the tasks — *does any version in this range
+contain a blocking task?* — answers the cheap question without evaluating the full set.
+
+**Accepted consequence, recorded so it is seen as decided rather than missed.** Non-blocking work is
+made visible at read time, but only to whoever is reading. If nobody reads a document, nobody learns
+it is behind. This is the same shape as the old model's failure, and it is accepted here for a
+reason the old model did not have: the old model deferred work *silently and indefinitely* with no
+way to ask, whereas here the information is surfaced every time the document is used, and
+`/migrations` (below) lets the user ask deliberately. The residual — documents nobody opens — is
+accepted because an unread document has no consumer to harm.
+
+### Cross-standard dependencies — SETTLED
+
+The case: a block type owned by standard B is used by a doctype owned by standard A, and the block
+type changes.
+
+**Standards declare dependencies on standards. Documents inherit them.** A document implementing a
+doctype from A declares A, and also A's declared dependencies, including B. A change to the block
+type moves B's version and produces B's migration; the document is reached through the inherited
+dependency. This reuses the standards-declare-their-own-dependencies cascade already noted in v4
+rather than adding a construct.
+
+**Each standard is used at its own current available version, independently.** Not "the newest
+standard wins." If B is at v6 and A still declares B at v4, the document records B at the version it
+actually read the block type from — v6. A stamp claiming v4 when the session used v6 would be a lie.
+
+**Consequence: A can be behind its own dependency without A's version moving.** The document is
+internally consistent; the standards are not. This is a standard-to-standard currency problem and it
+is invisible to document-level detection.
+
+Two solutions were considered and one rejected:
+
+- **Rejected — publish multiple versions of a standard and let documents pull the matching one.**
+  Compatibility-matrix machinery, and it creates retrieval ambiguity for an AI deciding which to
+  use.
+- **Rejected — halt all work whenever a standard is behind a standard it depends on.** Considered
+  and argued down. Any standard update would block the environment until every dependent standard
+  was republished, one at a time, creating a self-inflicted outage whose only lesson is to avoid
+  updating standards. It also treats every mismatch as wrong when most are merely old, which
+  contradicts the task-level severity settled at CM-Q5.
+- **Adopted — apply the wrong/old test to the mismatch itself.** Halt on the consequence, not the
+  condition. B's migration may carry tasks conditioned on a dependent standard's behaviour — *if you
+  extend this block type's X field, do this* — so A becomes detectably behind through the ordinary
+  mechanism. A document loading A then gets either "A is behind, nothing applies to you" (proceed,
+  flagged) or "A is behind and it affects the block type you use" (block).
+
+**Falls out of this, flagged now to avoid surprise at format-definition time:** the condition
+vocabulary must be wider than "is this doctype X." It has to express conditions about another
+standard's behaviour. Cross-standard coordination lives in migration instructions, because the
+standard author is the only party who knows what needs coordinating.
+
+---
+
+### C. Execution — SETTLED
+
+Detection has produced a work list on a document about to be used. Six questions, all closed.
+
+**E1 — who may act?** *Settled: authority is a filesystem fact, not a construct.* A session modifies
+documents that are in the tree it is working in and writable. If a document is not writable, the
+session may request a writable copy. No ownership register is maintained. A standard delivered in a
+plugin is reported, never modified — its migration belongs to whoever owns the plugin and runs in
+their workflow.
+
+**E2 — what happens at the moment of detection?** *Settled: notify, then offer the choice.* The user
+is told, and chooses whether and where to migrate. If migration is deferred to another session, the
+resuming session simply runs detection again — no new mechanism, no state carried.
+
+**Where deferral is permitted, the split is by what the session is about to do:**
+
+- **Reading — may proceed on authorisation.** The migration tasks are shown to the user, who judges
+  whether they affect the work in hand. The wrongness affects only what comes out, the user has been
+  told what it is, and nothing propagates.
+- **Writing — may not proceed.** Saving a document known to be behind authors new content under old
+  rules and entrenches it, and the stamp cannot advance because no migration ran. That is not a
+  deferred problem but a manufactured one — the corpus is made worse by proceeding.
+
+The proceed-anyway decision is **session-scoped and never recorded in the document**. A persisted
+override is invisible and outlives its reason. The accepted cost, confirmed on review: a document
+you have deliberately chosen to leave behind will re-prompt in every new session.
+
+**Rejected — the executor evaluates whether the pending tasks affect the work in hand.** Considered
+and discarded. It is a correctness call the executor cannot be accountable for, and getting it wrong
+produces a document that looks right and is wrong — the silent failure the whole design exists to
+prevent. It would also require a model of what the requested work touches, which would be the
+largest new construct in the design for the thinnest benefit. The tasks are human-readable and
+author-written; showing them to the user puts the decision with the party who can be accountable
+for it, and keeps the executor dumb (R5).
+
+**E5 — batch and binder loads.** *Settled: detect fully, then present one decision.* Detection is
+read-only (R17), so nothing prevents it running across everything before any execution happens. The
+single-document case is then a batch of one — same detection, same report, same decision point, no
+special handling.
+
+**Rejected — stop mid-load, migrate, continue.** Interleaves execution with a load already in
+progress, consumes context exactly where R3 says not to, repeats per affected document, and needs
+re-entrancy and partial-load state. It is the option that feels most helpful and behaves worst.
+
+**Independent of binder methodology.** How binders are built and loaded is not yet defined in the new
+system, so execution does not depend on knowing a load in advance. When a migration need is
+detected, the user is prompted with two questions:
+
+| | Here | Elsewhere |
+|---|---|---|
+| **This document** | update in this session | new session — in chat, offer cowork or code |
+| **All docs in context** | update in this session | new session — in chat, offer cowork or code |
+
+**Defaults (confirmed):** *this document / this session* for one; *all docs / new session* for
+several. Context cost scales with document count, not with the size of any single fix.
+
+**"Docs in context" means the same thing on every surface** — documents currently loaded, evaluated
+at the moment of the prompt. No accumulation, no session ledger, no tracking. A document read an
+hour ago and since dropped from context is not included; it is caught next time it is read.
+
+**Rejected — a per-surface definition of scope** (chat: context; cowork: context; code: current
+repo or wherever write access exists). Two faults. It makes the same phrase mean four documents in
+chat and seven hundred in code, which is the corpus sweep re-entering through a prompt option. And
+it folds write access into scope, when write access is E1 authority — a gate on whether you *may*
+act, not a definition of what is *in* scope.
+
+**Named-scope operation, code only.** Scanning and migrating a whole tree, repository, or other
+defined scope is a **directed command, not a detection mode** — the user names the scope, the
+executor acts. Nothing runs it automatically or on a schedule. Three constraints: **scope is
+explicit and never defaulted** (no implicit "current repo"); it **reports before it acts** (counts
+and blocking/non-blocking breakdown, then confirmation, using the same read-only detection); and
+**the ordinary execution rules apply unchanged**. This is also what would make pruning possible
+later, since a named tree can be brought fully current on demand.
+
+**Migration is an AI task on every surface.** Established on review (v8), correcting an earlier
+implication. Because actions are prose written for an AI to interpret, no script can be the thing
+that applies them. On code, a script is a *launcher* only: it enumerates a named scope, reads
+stamps, sequences the work, collects failures and resumes. The per-document work — evaluate
+conditions, apply actions, verify success checks, write — is the AI's on every surface. There is no
+verification-strength difference between surfaces; the difference is only how much un-intelligent
+surrounding automation exists. This also means "the executor" is one actor, not a script directing an
+AI, and the stamp is written by whoever did the work, after the checks pass, in the same operation
+as the document.
+
+**Commands.** `/migrations` reports and changes nothing; `/migrate` runs the same detection then
+offers the same prompt and acts. In chat and cowork their scope is documents in context, identical
+to a read-triggered check — the named-scope operation stays code-only. `/migrate` reuses the E5
+prompt rather than replacing it: one path through execution, two entry points. Their value is that
+the user can take the initiative rather than only being interrupted, which serves R2 better than
+read-triggering alone. This restores the old model's diagnostic/destructive split, which was right.
+Names may be revisited if collisions appear.
+
+**E6 — failure partway.** *Settled: transition is atomic; the run banks what completed.* Two levels,
+and the distinction matters because "migration" was doing double duty:
+
+- A **transition** is one version step (v28 to v29) containing a set of tasks.
+- A **run** is the whole walk (v26 to v29), which is three transitions in sequence.
+
+**Within a transition: all tasks succeed or nothing is written.** There is no stamp value that
+describes a half-applied transition — the document is no longer v28 and not yet v29, so any recorded
+version is a lie. In practice the executor works on a copy and writes back only on complete success,
+so "rollback" means nothing was written; a crash mid-transition is indistinguishable from a failure
+mid-transition, and there is nothing to undo. No journal or rollback mechanism is needed.
+
+**Across a run: each completed transition is kept and stamped.** A document at v26 whose third
+transition fails ends cleanly at v28, with the failure reported and its reason recorded. Discarding
+banked work because a later step failed would mean repeating it on every attempt and never making
+progress past one bad transition. This is the old model's stepwise-durable rule, correctly scoped.
+
+Both rules exist to protect one property: **the stamp only ever holds a version the document
+genuinely reached.**
+
+**The stamp is written in the same operation as the transition, atomically.** Written separately, a
+crash between them leaves a converged document claiming the old version, which is then migrated
+twice.
+
+---
+
+### The model in thirty seconds
+
+> **Publishing a standard version requires a migration record for it — condition-to-action tasks
+> that carry a document from the previous version to this one, shipped with the standard. When a
+> document is read, it is checked: the standards it declares, what it was last brought into line
+> with, what is current. Anything that makes the old shape *wrong* is applied before use; anything
+> that merely makes it *old* can wait, but is shown every time. The user chooses whether to migrate
+> this document or everything in context, here or in another session. Each version step succeeds
+> whole or not at all, and the stamp only ever records a version the document actually reached.**
+
+---
+
+### Requirements schedule
+
+Built to score models against; scored below.
+
+**Knowns**
+
+- **K1.** The full dependency-and-version picture for a document exists only at runtime, when it is
+  loaded with what it depends on.
+- **K2.** Multiple repositories with independent lifecycles; ~790 documents growing 10–30 a week.
+- **K3.** A document is composed from several definitions; those definitions are published by
+  standards.
+- **K4.** Shape changes are rare; improvements are frequent.
+- **K5.** Standards arrive via plugins/skills the consuming session does not own.
+- **K6.** Runtime observability differs per surface; startup checks are best-effort in chat.
+- **K7.** The doctype definition is the only source of truth for which block types a doctype
+  currently uses.
+
+**Requirements**
+
+Scope
+- **R0.** Change management is defined for standards; extensibility to other item types is a
+  nice-to-have, not a constraint.
+
+The migration record
+- **R5.** The mechanism carries no standard-specific knowledge — everything specific to a standard
+  lives in its migration record, so the mechanism never needs updating when a standard changes.
+  *(Reworded on review; previously "the executor is dumb," which misdescribed it — see R23.)*
+- **R23.** The action fully describes the work to be done. The executor carries out what the action
+  states; it does not infer intent, fill gaps, or improve on the instruction. Reasoning is used in
+  service of applying the action as written — resolving how to express the change in this document's
+  format, or locating where the action's target sits — not in deciding what the work is. Where an
+  action requires judgement, it must say so explicitly. This is the principle behind R10.
+- **R6.** A version is not published until its migration record is written.
+- **R7.** Migration content is held beside the definition, not inside it.
+- **R8.** History accumulates; prunable only once nothing is proven to sit behind.
+- **R13.** Every version has a migration record, including an explicit "no action."
+- **R14.** A migration record is a set of condition-to-action tasks; conditions evaluate against
+  definitions.
+- **R15.** The migration record travels with the standard.
+- **R22.** Conditions are read from the doctype definition and cover inclusion only — *is the
+  doctype X*, *does the doctype use block type Y*. **Reduced on review (v8).** It previously required
+  a wider vocabulary able to interrogate how a doctype modified an included block. With doctype
+  modification of included blocks disallowed in §8, no such case arises and the requirement shrinks
+  to what the settled conditions already do.
+
+Detection
+- **R4.** Wrong before old: a change making old shape produce a wrong result applies before use; an
+  old-result change may wait.
+- **R9.** "What is outstanding?" is answerable without opening every document.
+- **R16.** Detection is bounded by what is observable where it runs, and states its own scope. A
+  clean result means "nothing outstanding among what I could see."
+- **R17.** Detection is read-only; it never modifies a document.
+- **R18.** Where required standards are absent, documents are not modified.
+- **R19.** Severity is per task, not per version.
+- **R20.** A cheap summary answers "could blocking work apply here" without evaluating the full task
+  set.
+- **R21.** A standard behind its own declared dependencies is a detectable state.
+
+Execution
+- **R1.** A session modifies only what it has authority over; plugin-delivered content is reported,
+  never modified.
+- **R2.** Migration is raised in the workflow and automated — never silent, never hand-edited.
+- **R3.** Execution never consumes the working session's context without the user choosing it.
+- **R10.** Preserve unrelated content; fail visibly rather than guess.
+- **R11.** Migration alone creates no Decisions entry.
+
+Whole
+- **R12.** The model is statable in thirty seconds.
+
+---
+
+### Schedule scored
+
+Against the settled model. Amber means satisfied by discipline or convention rather than mechanism.
+
+| | Requirement | |
+|---|---|---|
+| R0 | Scoped to standards | pass |
+| R1 | Authority — modify only what you own | pass (E1) |
+| R2 | Raised in workflow, automated, never silent | pass (E2, commands) |
+| R3 | Never consumes working context unchosen | pass (E2, E5 defaults) |
+| R4 | Wrong before old | pass (CM-Q5) |
+| R5 | Mechanism carries no standard-specific knowledge | pass |
+| R6 | No publish without a migration record | pass — presence check in the publish operation, no override |
+| R7 | Held beside the definition | pass |
+| R8 | History accumulates, prunable later | pass — pruning deferred, option preserved by CM-Q2 |
+| R10 | Preserve unrelated content; fail visibly | pass — backed by R23 (the action is the whole scope of the work) and by per-task success checks |
+| R11 | No Decisions entry for migration | pass |
+| R12 | Statable in thirty seconds | pass |
+| R13 | Every version has a record, including "no action" | pass |
+| R14 | Condition-to-action; conditions on definitions | pass |
+| R15 | Travels with the standard | pass |
+| R16 | Detection states its own scope | pass |
+| R17 | Detection is read-only | pass |
+| R18 | No modification where standards absent | pass |
+| R19 | Severity per task | pass |
+| R20 | Cheap summary for the blocking question | pass |
+| R21 | Standard behind its dependencies is detectable | pass — near-trivial once doctype modification of included blocks is disallowed; standards are governed documents and are checked on read like any other |
+| R22 | Conditions read from the doctype definition, inclusion only | pass |
+| R23 | Action fully describes the work | pass — stated as a principle; enforced in practice by the success check |
+
+**R9 — "what is outstanding" answerable without opening every document — is withdrawn.** It was the
+requirement the wide scan existed to serve, and it fell with it (CM-Q3). It is now a **stated
+limitation**: corpus-wide currency cannot be answered. What can be answered is that every document
+used is current, which under the settled model is the only claim that bears on correctness.
+
+**No ambers remain after the v8 review.** Both cleared for reasons worth recording: R10 gained a
+principle behind it (R23, the action is the whole scope of the work) and a mechanical backstop (the
+per-task success check); R21 shrank once doctype modification of included blocks was disallowed,
+since the stale-adjustment risk it guarded against can no longer arise.
+
+**The one gap the review found was success.** The model said a transition writes only if all tasks
+succeed, without saying what succeeding meant for an AI applying text instructions — atomic-on-
+success with success undefined. The three-part task closes it. Three further review points shrank to
+nothing once doctype modification was disallowed, which is the better outcome: the model got smaller
+under review rather than larger.
+
+**Standing, by choice: no reconciliation path.** Every comparable system that started lazy later
+added a sweep. This one does not, and the correctness argument holds — an unused document harms
+nobody. The operability cost is real: migration history can never be simplified, and corpus currency
+cannot be stated. Mitigated by the machine-findable stamp (CM-Q2) and the code-side named-scope
+command (E5). Debt with a repayment plan, not a hole.
+
+---
+
+### From the old methodology — keep unchanged
+
+Assessed against the full decision chain in the Capabilities core binder. The user's suspicion that
+this is an application problem more than a design one is largely borne out: the mechanism was
+designed, declared fifty-five times, and never asked to do anything.
+
+- **Owner authors the transition; the mechanism carries no standard-specific knowledge.** Right, and now R5. (The old wording was "the executor is dumb"; reworded on review — the applier reasons, it just does not decide what the work is.)
+- **Transition shape** — version, statement of change, ordered items, success condition. Exactly
+  what an executor needs. Keep unchanged.
+- **Positive declaration; never infer deltas by diffing definition text.** Right and load-bearing.
+- **The checkpoint records *proven* conformance, not the version that happens to be installed.**
+  Subtle and right.
+- **Stepwise durable, records partial progress.** Required for any batch execution.
+- **Authority boundary** — mutate only what you own, report the rest. Already the correct answer to
+  the plugin-ownership problem in C.
+- **"Preserve unrelated content; do not rewrite merely to make the document look newer."** The
+  single most important sentence in the old migration material, currently buried as one item inside
+  one transition. **Promote to a standing rule.** An AI sweeping a document will want to violate it
+  on every pass, because tidying always looks like improvement.
+- **Fail visibly rather than guess** where declarations are contradictory.
+- **Migration alone creates no Decisions entry.**
+
+**What actually failed, stated plainly.** Not the runtime-observation premise, which is sound. Three
+things: severity was moved from task level to release level; non-blocking work waited for a save
+that frequently never came, with no way to ask how much was outstanding; and the result was declared
+the designed steady state, which closed the question rather than answering it. Across the visible
+binder set: roughly fifty-three transitions declared "no action," exactly one on-update, exactly one
+required, and no evidence any document ever traversed either.
+
+### Considered and withdrawn this session
+
+Recorded so it is not re-proposed. A **change-time push model** was worked at length — sweep the
+corpus when a definition changes, converge before commit, treat the stamp as evidence rather than
+trigger. It was withdrawn on two grounds the user raised: it cannot reach documents in project
+repositories with independent lifecycles without manual per-repository tracking, which is the
+original problem wearing a different hat; and runtime observation gets that case right for free,
+because the check costs nothing when the material is already loaded. What survives from it is the
+audit use — a wide check is how you learn it is safe to prune migration history (R8) — and with
+pruning deferred at CM-Q3 that purpose is not live. What survives is the code-side named-scope
+operation (E5), which provides the same reach as a directed command rather than as a check.
+
+### Owed next
+
+Nothing outstanding in the model. Carried forward to the corpus build:
+
+1. **Author the migration-format standard**, carrying the three-part task shape (condition, action,
+   success check), the structured/prose form split, R23 (the action fully describes the work) and
+   R10 (preserve unrelated content) as hard inputs. Authored with the doctype set, not before it.
+2. Land the R6 publish gate wherever the publish operation is defined.
+
+---
+
+## 12. Filter rules
+
+Unchanged from v2. The eight-question sieve; disposition per item is moves as-is / moves reshaped /
+left behind. Owner = whoever knows the most. Live why stays with the current document; historical
+why goes to Decisions.
+
+---
+
+## 13. Folder structure
+
+Unchanged from v2. `AIDE/documentation/` holds all AIDE documentation; `_rebuild/` holds this
+rebuild's working docs; `documentation_old/` is the previous corpus, source to mine not to edit.
+`_rebuild` docs need not conform to full spec but use simple visible versioning.
+
+Adds this session: an **Infrastructure** folder under the documentation root for tool masters, and
+an **`_tools`** folder at the documentation root for running instances.
+
+---
+
+## From cross-session items
+
+### Binder definition (raised 2026-09-07)
+
+The binder is used constantly and defined nowhere in the rebuild. The binder
+**doctype** — what a binder file looks like, how a consumer reads it, what the
+manifest means — belongs to Documentation Methodology as a small definition. The
+binder **builder tool** stays in Infrastructure. Which binders exist and what
+they contain is a user decision, defined in the file system, outside AIDE's
+scope.
+
+Binder purpose (stated fresh): make management of many master files easy by
+producing a single file containing the full contents of the masters it includes,
+so one file can be removed from context and one added. A binder is a **complete
+replacement** for the individual masters it contains — load the binder instead of
+the masters, never both.
+
+Builder configuration model: include paths, include file types, exclude patterns
+and paths, destination path. The builder runs, detects file changes within its
+scope and rebuilds if changes. Binders increment version each time they are built
+due to new changes. Multiple binders can be defined for different context scopes
+for different chat projects. For AIDE specifically, likely one binder for the
+whole corpus.
+
+### Durability test — binder-class versus working-class (from Claude-Code, 2026-09-08)
+
+The rule for what belongs in the binder versus the working document is
+**durability, not cadence**. Everything that outlives the session is
+binder-class — it goes into a master document and therefore into the binder.
+Open items are register-class (durable, belong in the binder, written at master
+update); interim items live in the working document until then. Aligns with the
+pending-content rule (v22): the working document holds current working state and
+pending content destined for masters not yet written.
+
+Settled with Claude-Code; recorded in BinderBuilder_Design v7 on their side.
+
+### Binder-settings outcomes (from Claude-Code, 2026-09-08)
+
+Five changes committed on Code's side (BinderBuilder_Design v7):
+
+1. **JSON added** to recognised file types.
+2. **Path-qualified file exclusions** now supported (not just filename patterns).
+3. **`*_Working_*` exclusion removed** — working documents are not defined in the
+   rebuild; premature to exclude by name convention.
+4. **Empty-scope rule reversed** — an empty scope now writes an empty binder
+   rather than preserving a potentially stale one.
+5. **Binder file naming** now carries the binder name.
+
+### Masters focus and no-binder-references rule (2026-09-08)
+
+Two standing rules:
+
+1. **Master files are the unit of work.** Binders are a delivery convenience — a
+   concatenation of masters for context loading. Authoring attention stays on
+   masters; binder rebuilds are downstream and automatic. Verification of
+   content happens against masters, not binders.
+2. **No document references binders except the binder definition itself.** Binders
+   are a current mechanism for working around context-loading limitations; that
+   mechanism may change. Coupling other documents to binders creates references
+   that go stale when the mechanism does.
+
+---
+
+## Generic constructs settled during the Project Design pass
+
+### Three-layer authoring model (applies to every component)
+
+Settled 2026-09-07 while reviewing Principles; general to the rebuild.
+
+1. **Design document** — elaborates each element: what it is, and the reasoning
+   for why it exists. Depth and clarification live here.
+2. **Decisions** — records the thinking and valuable knowledge worked through to
+   get there, as normal.
+3. **Standard** — the published artefact. Hard bar: extremely brief and
+   concise, because it is loaded into memory and applied constantly alongside a
+   stack of other standards. No bloat, no restating, nothing superfluous —
+   **but brevity is never bought at the cost of what the standard is trying to
+   achieve.** Lean and accurate, both. This authoring bar is itself an input to
+   defining the Standards component.
+
+**Standing step:** each authored standard is reviewed by a separate AI before
+acceptance, to confirm it implements the design in a form that is usable and
+lean.
+
+**Sign-off rule that falls out of this:** a component's design pass being
+complete does not sign the component off. Sign-off waits until its standard is
+authored (which needs the Standards component defined) and cross-reviewed.
+
+### Block-level portability convention (general, strong)
+
+**Define logic as block types wherever possible, not doctypes.** The block is
+the portable unit. Keep doctypes with the topic that owns them; when a block
+turns out to have shared meaning, promote just that block to a generic context
+and let topic-specific doctypes reference it.
+
+This lowers the stakes on every ownership call — a wrong call costs a block
+promotion, not a doctype migration.
+
+**Exemplar:** definition of done started life as a brief element but is
+principle-level, so it wants to be a generic block that the Project Design brief
+consumes.
+
+**Caution recorded:** promote because a block *has* shared meaning, not because
+it *could*. Same demonstrated-need bar (§6c), or this drifts into the
+interconnection web flagged during the migration work.
+
+### Component project documentation — definition of done (general pattern)
+
+Not a one-off for Project Design. This is the completion gate for **any**
+component's project documentation, and it sits on top of whatever done criteria
+that component already carries.
+
+1. Its **doctypes and block types are defined** — including, per the ownership
+   rule below, where each one lives.
+2. Its **workflow, behaviour, methodology rules and guidance are recorded in the
+   design**.
+3. All **thinking and knowledge behind them are recorded in decisions and
+   knowledge**.
+
+**Consequence.** This reopened Principles, whose design pass was previously
+recorded complete — a design pass is not done until all three hold.
+
+### The work item — the base workflow entity (settled 2026-09-07)
+
+**Owner: Working Practices.** It is about how work is conducted, not how
+documents are shaped, so it fails the Documentation Methodology test and passes
+the generic-operating-behaviour band. It is deliberately **cross-side** — design
+raises work items, build raises work items, so does anything else.
+
+**Definition.** A work item is an **encapsulated unit of something pending in a
+workflow** — something that needs attention, or is being worked through. It is
+raised from any source: the human, a build return, a session noticing a
+consequence, another component handing something in. Its weight is **not decided
+at the moment it is raised**.
+
+**Two axes.** The item is the stable thing; what varies around it is:
+
+- **Type** — what kind of thing it turned out to be, determined on judgement.
+- **State** — open, current, closed. These are **views**, not different entities:
+  "the open work items" is a filter, not a separate list.
+
+**Naming.** "Work items" serves as both the singular noun and the collective term
+for the set at any scope — a session, a project, whatever is meant. There is no
+separate container doctype; the collection is just the plural. So: *add this to
+work items*, *what are the open work items*, *remove that from work items*.
+
+**Types — deliberately not enumerated yet. Moderate.** Capture-and-place is
+expected to surface the real type list; enumerating now would be inventing.
+Record the types as an **output** of that work, not an input to it.
+
+**The fates.** What can become of a work item — chosen by the session on context,
+not applied from a routing table:
+
+- **dealt with in conversation**, leaving no trace, because it warranted none;
+- **resolved and recorded as a decision**, where it settled something with
+  reasoning worth keeping;
+- **parked as an open item**, where it is live but unresolved;
+- **captured into WIP**, where it is active thinking mid-flight;
+- **become committed work**, landing in the work register.
+
+**The one governing rule.** *No knowledge lost.* A work item may be dropped, but
+only by a **decision** that it carries nothing worth keeping. Escalation is a
+judgement; disappearance is not an accident.
+
+**Defined concept, scalable implementation.** The work item and its collection
+exist as a defined model; a session may realise them not at all, lightly, ad hoc,
+or in full — chosen by scale, severity, importance and the nature of the
+workflow. Same pattern as everything else in this rebuild: define the shape, let
+the implementation flex.
+
+**Precedent checked.** This is the mainstream architecture, arrived at
+independently: Azure DevOps and agile use *work item* as a generic base with type
+specialising it; Jira and GitHub use *issue* with type or labels doing the same
+job; ITIL names its types hard (incident, problem, change, request) but shares
+one state lifecycle; Kanban makes the card the unit and the column the state; and
+GTD supplies the discipline that nothing leaves the intake un-judged — which is
+no-knowledge-lost under another name. **Work item** was chosen as the base word
+because it is plain, side-neutral, and already how the work is spoken about.
+
+### Definition of done — the generic block (settled 2026-09-07)
+
+**Promoted to a generic block type. Owner: Working Practices.**
+
+**Why Working Practices and not Documentation Methodology.** A definition of done
+is not a structural property of a document — a document cannot assess itself. It
+is exercised in the *act* of judging whether something is complete, which is a
+comparative judgement made during work. That is generic operating behaviour, so
+it sits in band 2, alongside the workflow moments that invoke it: a brief closing
+out, a build returning, a review concluding.
+
+**Why generic rather than Project-Design-owned.** Shared meaning is
+**demonstrated**, not merely possible — it is already recorded at principle
+level, and Build needs a completion test of its own. That clears the
+promote-only-on-demonstrated-shared-meaning bar.
+
+**The block carries the invariant, not the content.** The invariant is a
+**property**: a definition of done must be **testable or assessable** — a bar you
+can actually check something against. That is what makes it a definition of done
+rather than an aspiration, and it is true everywhere it is used.
+
+**Consumers fill the content.** The brief's definition of done, Build's, a
+review's — each consuming parent block or doctype expands what its done actually
+contains, in its own context. **The generic block guarantees the shape; the
+parent supplies the substance.** This is the block-versus-parent split applied,
+and it is a better fit than a loose principle because it makes the requirement
+structural and checkable.
+
+### Ownership designation — a rule for Documentation Methodology
+
+**Defining any doctype or block type must include naming its owner and
+residence.** Part of being defined, not a separate later step.
+
+**Home: Documentation Methodology**, because that is where doctypes and block
+types are defined *as concepts* — the grammar. Clean separation: **Documentation
+Methodology owns the requirement to designate a home; each definition states
+which home.**
+
+**Why it is worth a rule.** This has bitten repeatedly — a thing gets defined,
+its residence gets deferred to "placement later", and placement then has to
+re-derive a decision that was obvious at definition time. It is the routing rule
+stated at the point of definition. **Strong.**
+
+*Applied retroactively this pass: definition of done → Working Practices; work
+item → Working Practices; work register → Project Design; the ownership rule
+itself → Documentation Methodology.*
+<!-- END SOURCE: _rebuild/AIDE_Rebuild_SettledDecisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/ProjectDesign_Decisions_Pending_v1.md -->
+# Project Design — Decisions (Pending Content)
+
+> **Version 1** (2026-09-08). Pending content extracted from AIDE_Rebuild_WIP_v23 per rebuild guide F9. Reasoning, rejected alternatives, corrections, and decisions from the Project Design pass. Ready to feed ProjectDesign_Decisions when masters are authored.
+
+---
+
+### The six-stage per-component review procedure (adopted, general)
+
+Adopted 2026-09-07; applies to every component review from here. This procedure
+is itself a working-practices artefact to capture when working practices is
+worked.
+
+1. Clarify purpose.
+2. Clarify objectives, model approach.
+3. Discuss and resolve key issues.
+4. Review requirements, resolve changes.
+5. Work through how the brief is delivered — the design.
+6. Review design output — standards etc.
+
+**Stages 4 and 6 author FORWARD first — amended 2026-09-07, general.** The
+original legacy check anchored the work on the old material and then asked what
+justified keeping it, which quietly gave the old corpus a default seat. Inverted:
+
+1. **Author forward from the brief.** Derive requirements — and later the
+   standard — from purpose and objectives, without reading the old design first.
+2. **Then run a two-part sweep of the old corpus, as a resource, not a gate:**
+   - **Omissions sweep** — is there a requirement the old design met that the
+     forward design does not? Missing, not merely absent.
+   - **Approach sweep** — how was it implemented before, and is there a learning
+     or technique worth lifting?
+
+The old corpus never gets a default seat. This is what makes the
+demonstrated-requirement rule (§6c) actually bite. **Strong.**
+
+### Stage 3 — Key issues resolved
+
+- **Work register survives.** The gap it fills is **temporal, not
+  interpersonal** — something must hold "design says X, build hasn't caught up
+  yet." Not team scaffolding.
+- **Live-state granularity by nomination.** A topic can nominate which WIP or
+  work register it uses, so a cluster of topics can share one.
+- **WIP is the staging buffer — current memory; the binder is persisted
+  memory.** Register items ride the design-change binder update for free.
+  Completion and acknowledgement also stage in WIP and flush on the next pass.
+  This resolves the churn objection.
+- **The live-state trio moves to working practices** — WIP, work register and
+  open items all live there. *(Superseded later in this pass — the work register
+  comes home to Project Design; WIP and open items stay generic. See the
+  component-ownership boundary section.)*
+- **Producer guarantee.** The obligation lives with Project Design at
+  requirement weight — a design change is not complete until the register entry
+  exists. Enforced by the producer, never by the receiver. *(The original split —
+  obligation here, artefact in working practices — was withdrawn later in this
+  pass; the register itself is now Project Design's.)*
+- **Handoff artefact judged by sufficiency.** Primarily AI-written and AI-read.
+  The test is whether it carries everything the executing side needs. Slight
+  over-weight is acceptable; depth proportionate to the work. *(Amended later in
+  this pass — the sufficiency test survives, but it now attaches to the
+  design-build handoff rather than to a fixed work-package doctype.)*
+- **Register default-on.** The register is the default. Non-use must be
+  **explicitly stated** in the design or brief. Where the AI believes a project
+  should not have one, it prompts, and the result is recorded. This is P5
+  (authoritative evidence over incidental inference) and P10 (confirmed state
+  over assumed state) applied.
+
+### Findings from the existing binder (ProjectDesign_Binder_v6)
+
+*(Early reconnaissance, taken during stage 3. Superseded in coverage by the full
+two-part sweep recorded below — see **Binder sweep part 1 — omissions**. The five
+findings here stand; the sweep is the complete pass.)*
+
+1. **The seam already exists but points at the wrong owner.** D12 separates the
+   producer rule (Project Design) from the admission boundary; §3 assigns
+   general work-register type and admission semantics to Documentation
+   Methodology. Item 7 already overruled that. The binder is **stale, not
+   wrong-headed**. **D12 needs rewording to point at Working Practices**, and
+   the work-package doctype (§7, `AIDE_WorkPackage@v3`) follows.
+2. **Proportionate fill is already designed.** §6 lists six fields a register
+   item carries "proportionately." Extend that to the work package rather than
+   inventing a new rule.
+3. **Default-on is a genuine strengthening.** §6 currently only forbids an
+   implicit "implementation later" assumption; it does not require a
+   declaration. Record as a change.
+4. **§9 already answers part of the handover seam** — routine reversible detail
+   goes to Build; objective, major scope, acceptance, ownership, architecture
+   and policy return to Project Design. Confirm, do not reopen.
+5. **§8 returned-pending state (D13) survives** on demonstrated need — losing
+   the thread mid-reconcile is a real solo failure mode. **Moderate.**
+
+### Doctype ownership — the clean line (settled)
+
+**Documentation Methodology owns the methodology only** — what a doctype is,
+what a block is, headers, footers, metadata, versioning, common structural
+standards. **The grammar.** Individual doctype definitions live with the topic
+that owns them.
+
+*(The allocation originally recorded here was reworked later in the same pass —
+Working Practices was accumulating other components' specifics. See
+**component-ownership boundary — reworked** below for the governing test and the
+final allocation. Summary: Project Design owns brief, design, overview and the
+work register; WIP, open items, decisions and knowledge stay generic.)*
+- Shaping behaviour — how brief and design get evolved — is defined in Working
+  Practices for now; move later only if demonstrated.
+- **The split test belongs to Documentation Methodology** as part of the
+  grammar.
+
+Decisions and Knowledge themselves are **already locked** (see §7) — objective
+"no valuable knowledge lost," Decisions takes what is topic-scoped, Knowledge
+takes what has no owning topic, Design governs on conflict. No reopening; the
+only change here is who owns the doctype definition.
+
+### No knowledge lost — the fundamental rule (to Working Practices)
+
+Preserving knowledge outranks churn every time. The balance is real but **not
+symmetric**. Claude carries responsibility for this and should push when it sees
+loss happening. Three behaviours:
+
+- **Session-close sweep** — before a chat ends, anything pending is written to
+  WIP or to documents.
+- **Session-start check** — a new chat looks back at recent previous chats to
+  confirm nothing failed to make it in. Within Claude's actual capability; it
+  can read recent conversations.
+- **Periodic consolidation prompt** — when WIP gets heavy, suggest a pass to
+  flush to documents and regenerate the binder.
+
+Governing principle: do whatever the platform's capabilities and limits allow to
+ensure nothing that needs recording is lost.
+
+### Session-transition commands (to Working Practices, design later)
+
+Commands marking work-session transitions, distinguished on two axes — how much
+gets flushed, and whether there is a continuation. Names are Dave's to set;
+working labels only.
+
+- **Full stop** — session over; strongest sweep.
+- **Checkpoint and continue** — a natural break to stop a chat bloating; flush
+  plus a handoff of where we were and what is next.
+- **Flush without closing** — commit to WIP, or push to masters plus binder,
+  while the chat continues.
+
+**Rationale — strong yes.** An explicit command removes Claude's need to *infer*
+session end, which makes the no-knowledge-loss sweep reliable rather than
+best-effort.
+
+### Live-state set justified; elasticity and the split test
+
+**The journey is as valuable as the conclusion.** Recorded knowledge is
+intellectual property and knowledge capital regardless of team size. Retention
+test: *if you had to rework or redo this, what would you want to know, and what
+will have value for future evolution.* The solo-developer volume objection is
+withdrawn — the cost is the work of recording, and that work is Claude's to
+carry.
+
+- **Elasticity model.** Same content, container chosen by scale. A block lives
+  inside its host document for a small project and splits into its own doctype
+  when it grows. Applies to open items, the register, even register-inside-design
+  for a tiny project.
+- **The split test — locked, strong.** Externalise a block into its own document
+  **when keeping it in would compromise the primary role of its host** — for
+  example when register or open-items volume degrades the ability to search,
+  understand and use the design. Below that line, keep it in; file management is
+  easier.
+- **Open items defined:** the ongoing design task list, including future and
+  next-stage items that extend design scope. Owned by Working Practices.
+
+### Brief — mandatory, and a composite block
+
+- **A brief is mandatory. Always.** Standalone or incorporated into another
+  document, but never absent. Design is the *delivery* of the brief, so design
+  cannot exist without one.
+- **Brief is a composite block type containing its element blocks** — purpose,
+  objectives, requirements, considerations, target/outcome, and definition of
+  done. That composite unit can be the body of a standalone brief document, or
+  sit at the head of a design document for a small project. **Strong.**
+- **The brief's home is scale-dependent, and the split test governs it**
+  (settled 2026-09-07). For a small project the brief block lives inline at the
+  head of the design; as it grows it branches out into its own standalone brief
+  doctype. The trigger is the split test already locked: externalise when
+  keeping the block inline would compromise the primary role of its host — here,
+  when the brief's bulk starts degrading the design's readability and use. Same
+  content, container chosen by scale. **Brief and design are therefore not two
+  mandatory separate documents** — they are one composite that is either joined
+  or split. **Strong.**
+- **Purpose and objectives are distinct and both earn their place** — purpose is
+  why the thing exists; objectives are what it must achieve.
+  **Moderate-to-strong.**
+
+### Definition of done — a core pillar, at principle level
+
+> **Amended 2026-09-07 — see "Definition of done — the generic block" below.**
+> Definition of done is now a **generic block type owned by Working Practices**.
+> The principle-level recording stands as the signal that pushed it there; the
+> block is where it actually lives. The Principles consequence recorded at the
+> foot of this subsection is superseded by that placement.
+
+**Recorded at principle level, not merely as a Project Design rule.** It is
+elementary, to be kept front of mind and carried through everything, and it is a
+protection mechanism for effective working.
+
+The brief largely defines done: purpose addressed, requirements met,
+considerations factored in, plus any target criteria set. It governs how briefs
+are written, how work packages are judged sufficient, and how build return is
+reconciled. **Strong.**
+
+**Consequence to action:** Principles' design pass is recorded above as complete
+with nine premises. This adds a candidate premise. Principles must be revisited
+to place definition-of-done before its standard is authored.
+
+### Overview — SURVIVES as a Project Design doctype
+
+Overview was **parked, not killed**, in the block-catalogue session, with the
+discussion explicitly reserved for later. That discussion is this one. The
+parked return condition was *topic-or-corpus scale*; the case made here
+**corrects that** — the real return condition is **function**, at project scale.
+
+Claude recommended cutting Overview and **withdrew the recommendation** on the
+argument below.
+
+**Purpose.** A single pane-of-glass snapshot of a whole project — an accurate,
+concise snapshot that can be loaded into the head quickly. It solves the single
+biggest problem in working with AI: **information overload**, when working
+across five or ten topics and switching between build work and design work. It
+gives context for anything discussed without re-reading the documentation set.
+It is also a **deviation detector** — a concise snapshot surfaces anything that
+does not align with the objective or the model.
+
+**Content.** Key objective; the chosen approach or delivery method; the model at
+top level; key defining principles.
+
+**Register — statements, not explanation.** Where something can simply be
+stated, it is stated. Short and brief. Brevity is a strong benefit because it
+makes the Overview cheap to load — **but that drive for brevity must not
+compromise the information the Overview needs to contain.**
+
+**Recall-and-drill.** Each statement is a handle: it triggers memory recall, and
+where more is needed it can be asked for, or the session or document where it is
+fully defined can be read. An Overview entry carries an implicit "the detail
+lives elsewhere."
+
+**Elasticity.** Inline in the design or the brief for small projects; split out
+into its own document per the split test.
+
+**Owner:** Project Design. **Audience:** primarily human, primarily Dave — a
+legitimate design driver.
+
+### Design inbox — the inbound entry point (RETIRED as a named thing)
+
+> **Superseded 2026-09-07 — see "The work item" below.** The inbox was never a
+> place or a doctype; it was the lifecycle of things raised into a workflow, and
+> "inbox" smuggled in a queue-and-processor flavour that does not apply. The
+> mechanism survives in full as the **work item** and its fates. The word is
+> retired. What follows is kept as the reasoning that produced the work item, not
+> as a live definition.
+
+Separated out from build return, which is the better cut: build return is
+build answering a handoff; the inbox is anything arriving that design must
+consider.
+
+**A single inbound entry point for anything requiring design attention, from any
+source.** Source is an attribute, not a separate mechanism:
+
+- the human raises something;
+- a review or collaborative session with another AI surfaces a design-relevant
+  issue;
+- build sends an unsolicited signal — including from work in another area that
+  turns out to bear on this design scope.
+
+**Defining property: flexible handling proportional to significance.** It is a
+doorway with a routing rule, not a ledger — items disperse to their real homes:
+
+- raised and resolved inside the session → a light note, possibly just a
+  decisions entry recording that it was discussed and where it came from;
+- still pending → an **open item**;
+- active thinking attached → stages in **WIP**;
+- carries or needs a document → a working document, tagged back to the entry.
+
+A build return that "raises an issue" then **feeds** the design inbox — which is
+how the two connect without being the same thing.
+
+**Flag for later:** the design inbox smells generic — a build or review session
+could want one too. Under the block-level portability convention this does not
+need deciding now: define it here, promote it to a generic block only if shared
+meaning is demonstrated. **Do not pre-solve.**
+
+### The catalogue this design work will produce (settled 2026-09-07)
+
+What the Project Design design pass is committed to defining, at note level.
+
+**Doctypes owned by Project Design:**
+
+| Doctype | What it covers |
+|---|---|
+| Brief | The problem space — purpose, objectives, requirements, considerations, scope and boundaries, target/outcome, definition of done. Composite; inline or split by scale. |
+| Design | The confirmed model and approach, carrying its own live "why"; the primary source for the handoff. |
+| Overview | The project-scale pane-of-glass snapshot; also a deviation detector. |
+| Work register | The ledger of confirmed commitments build has not yet delivered. |
+
+**Block types owned here and consumed by the brief:** purpose, objectives,
+requirements, considerations, scope and boundaries, target/outcome — the six
+brief element blocks.
+
+**Definition of done** is the exception in that list: it wants to be a
+**generic, principle-level block** that the brief consumes, not a
+Project-Design-only block. Consistent with its recording at principle level, and
+with the block-level portability convention. *(Resolved 2026-09-07 — promoted to a
+generic block owned by Working Practices. See below.)*
+
+**Owned mechanisms, deliberately not fixed doctypes:** the design-build handoff,
+the build return, the design inbox. *(The design inbox was retired 2026-09-07 and
+replaced by the work item, owned by Working Practices. The handoff and the build
+return stand.)*
+
+### Facilitate, not constrain — captured, home deferred
+
+**The position.** AIDE exists to **facilitate and empower, not to constrain or be
+a source of friction**. Documentation must facilitate, not inhibit, control, or
+be draconian.
+
+**Not new.** It was recorded in the 3 September session and has been sitting
+inert in this document since. It surfaced again while defining the design doctype
+and is the reason that doctype is criteria-plus-advice rather than a schema, and
+the reason the superseded-after-handoff rule is a judgement rather than a
+procedure.
+
+**Not a Principles premise.** It fails the portability test that governs
+Principles — it is about **AIDE's own character**, not a universal premise that
+holds outside AIDE.
+
+**Home deferred — a decision to make later.** It belongs to AIDE's **root
+defining material**. Its form and its home are open until **Core** is worked
+(Core is deferred to last) and until we know what else lives at the root. The
+content is captured here so nothing is lost in the meantime.
+
+### Binder sweep part 1 — omissions (complete 2026-09-07)
+
+The first half of the two-part sweep of `ProjectDesign_Binder_v6` — the existing
+Project Design binder (Index v7, Design v7, Decisions v5 with D1–D22, and the
+published Standard v6). Read against the finished forward design. **This is
+reading an existing document and producing edits, not open design conversation.**
+
+The forward-to-binder direction is the whole design pass and needs no
+enumeration: none of capture-and-place, the work item, the design doctype, the
+work register, the handoff, the build return or the commitment-and-return loop
+appears in the binder at all. That is the authoring job, not a finding. The
+findings run the other way.
+
+#### Bucket A — genuine omissions (the binder held something the forward design did not)
+
+Eight candidates raised. Five carried, two dropped, one parked.
+
+**Carried:**
+
+1. **Build is never handed a choice between conflicting current designs.**
+   Recovered from binder §11 and D16 (the many-to-many design-contribution rule).
+   Material conflicts among current contributions are reconciled *before*
+   handoff. **Strong.** Written up as the design doctype's ninth required
+   property.
+2. **State the model compactly before elaborating it.** Recovered from binder §4
+   and D5 (the two-layer intent/system-then-model checkpoint), compressed to its
+   operative test: if it will not state cleanly, the model is wrong, not the
+   write-up. **Moderate.** Written up as design doctype advice.
+3. **Handoff sufficiency has a ceiling.** Recovered from the old Standard's
+   handoff clause — do not re-supply generic execution-platform knowledge the
+   build environment already provides. **Moderate.** Written up on the
+   design–build handoff.
+4. **A requirement stays distinct from an implementation choice.** Recovered
+   from binder §3. **Strong.** Written up as the brief's fifth boundary test, and
+   goes into the brief standard as well as the design.
+5. **The brief names the linked build project or build outcome.** *Not a binder
+   finding — surfaced by the director while working item 6 below, and kept rather
+   than dropped with it.* **Moderate-to-strong.** Written up in the brief
+   section specification.
+
+**Dropped:**
+
+6. **Cross-topic reconciliation** (binder §12 and D18 — topic ownership fixes the
+   destination but not where the work is physically done). **Absorbed by
+   capture-and-place**, which already guarantees every settled piece reaches its
+   right destination whatever topic that sits in. Claude's initial "strong" rating
+   was withdrawn as wrong once the director explained the topic model.
+7. **No generic top-level workflow owner** (binder §5 and D3). Half of it is
+   already implied by §1's purpose-and-boundary statement, which is kept; the
+   other half may be contradicted once Working Practices is worked. Dropped —
+   see if a need arises later.
+
+**Parked:**
+
+8. **One authoritative instance per scope** (binder §11, the semantic-section
+   hosting rule permitting brief/purpose/requirements to be hosted compactly
+   inside a domain control document). Blocked: **the concept of *domains* has not
+   been reviewed or decided**, and the rule is written entirely in domain
+   language.
+
+**Noted, not resolved:**
+
+- **When independent design review fires** (binder §3, §8 and the old Standard's
+  Review clause). The director's note: **design-review instructions and
+  methodology will likely reside in Project Design**, but revisit after the
+  Review component is confirmed.
+
+#### Bucket B — superseded, retired or contradicted (the binder must give these up)
+
+Raised and inventoried this pass; **the four binder-editing items ride here and
+are not yet worked.**
+
+- **The work-package doctype** (`AIDE_WorkPackage@v3`). Reaches much further than
+  binder §7: the Index references, the §2 flow diagram, §3, §10's release
+  lineage, the Standard's handoff clause, D4, D7, D8, D12, and the dependency
+  footers of all four documents. Retired in favour of the design–build handoff.
+- **Partial coverage** (binder §7 and D8 — a work package selects manageable
+  *portions* of register obligations and identifies covered item IDs and
+  portions). Dissolved: register items are written as logical blocks of work.
+  Also drops the "partial/blocked" branch in §8 and D9.
+- **Work-register ownership** (binder §3 and D12, which assign general register
+  type and admission semantics to Documentation Methodology). The register comes
+  home to Project Design outright. **Raises a live question rather than settling
+  one:** D12 explicitly held the register is *not* exclusively design-generated.
+  Under sole ownership, does it still admit confirmed non-design work? Keep it
+  open; do not close it by omission.
+- **The Overview escalation rule** (binder §13, D20 and D21), which makes Overview
+  an overflow valve for a Summary that would bloat the design and requires the
+  design Summary to survive in reduced form. **Direct contradiction** with the
+  forward design, which makes Overview a purposeful pane-of-glass and deviation
+  detector with its own required/advice content, and inverts the Summary rule.
+  The forward design wins.
+- **"Removed after reconciliation"** (D7). The forward register has *reconciled*
+  as a state. Removal versus retention is an open call.
+- **Binder §9's escalation framing** — superseded by the what/why-versus-how
+  boundary with return-if-unsure, plus the cost-and-complexity flag. The §9
+  authority list (objective, major scope, acceptance, ownership, architecture,
+  policy) still holds as illustration.
+- **Binder §2's core model flow** — replaced by intent → capture and place →
+  brief → design → commitments → register → handoff → build → reconcile.
+- **Binder §3's "Intent / Brief"** — thin, and permits a light brief. Superseded
+  by mandatory-brief and the section specification.
+- **Binder-local and lineage material** — D10 (container path), D11/D14/D19/D22
+  (release issuance), §10's intended output and lineage note, and the
+  `MigrationSummary` / `Transition` blocks. None carries forward.
+- **Any surviving build-side "work package" is renamed *build package***, so it
+  cannot collide with work item. **Strong.**
+
+#### Bucket C — confirm and carry unchanged
+
+Binder §1's purpose and boundary, including "does not own the physical container";
+§6's ban on the implicit "implementation later" assumption, now strengthened by
+register default-on; "build should not need Decisions history", which matches
+design-is-sufficient-alone; §8's "execution evidence does not silently rewrite
+Design" and "Build does not close the obligation"; D13's returned-pending state,
+already re-adopted as the register state *returned-pending-reconciliation*; and
+the old Standard's "apply proportionately" and "keep the model simple".
+
+> **CORRECTED 2026-09-07 (v22).** This list also carried the old Index's binder
+> boundary — *the live register loads separately from the stable binder* — on the
+> grounds that it matched WIP-as-current-memory, binder-as-persisted-memory.
+> **That carry was wrong and is withdrawn.** It was taken from the old binder
+> without being tested against the new model, and confirm-and-carry is where
+> scrutiny is thinnest. See the register/binder correction below.
+
+#### Named rather than dropped — three homeless items
+
+1. **Does AIDE use the concept of *domains*?** Undecided, never reviewed, and now
+   blocking bucket A item 8. The binder uses the term throughout.
+2. **"Design project" and "build project" are undefined terms.** Both were used
+   as if they are units; neither is defined anywhere in the rebuild. The new brief
+   property depends on *build project* meaning something specific. **Recommended
+   to be worked before part 2 of the sweep, since the approach sweep hits the same
+   terms. Moderate.**
+3. **"A brief is the root of a design."** Stated tentatively. Sits close to what
+   is settled (brief mandatory, design is the delivery of the brief, brief inline
+   at the head of the design) but "root" adds a hierarchy claim those do not make.
+   Restatement or small addition — not guessed either way.
+
+#### Method note
+
+A raised-once observation, recorded and not pressed: the four binder-editing
+items are phrased as edits to the v6 binder, while the rebuild method holds that
+a previous item is a source of knowledge only — author fresh. Claude's
+recommendation was to treat all four as decisions recorded against the *new*
+Project Design documents, with D12 superseded by a new decision rather than
+reworded in place. **Moderate-to-strong.** The director's call either way.
+
+### Binder sweep part 2 — approach (complete 2026-09-07); the sweep is closed
+
+The second half of the sweep of `ProjectDesign_Binder_v6` — the existing Project
+Design binder (Index v7, Design v7, Decisions v5 carrying D1–D22, and the
+published Standard v6). Part 1 asked whether the binder held a requirement the
+forward design had missed. **Part 2 asked whether the binder's structure and
+framing still fit the design it now has to express.**
+
+*(Recorded under the collapsed method — see the method restatement. The
+part 1 / part 2 split and the A/B/C buckets are retained here only because that
+is how the work was actually done; neither continues.)*
+
+#### Reconciliation first — most of part 2 was application, not discovery
+
+**Checked against already-settled material before being proposed, which is the
+correction this pass produced.** On that check, most of part 2 turns out to apply
+settled rules rather than decide anything.
+
+*Already settled; part 2 only confirms or applies:*
+
+- ~~The work register loading separately from the binder.~~ **WITHDRAWN in v22 —
+  this was an untested carry, not settled material. See the correction below.**
+- Brief and overview as conditional documents rather than fixed members of the
+  set — the split test and the scale-dependent brief home already decide this.
+- The four-group structure — this is the **design doctype's own advice** applied
+  to Project Design's own document. Not a finding.
+- Stating the model compactly — carried in part 1.
+- **The whole of decisions maintenance** — see below. Zero new decisions.
+- The proportionate field list — already in use as the required/advice field
+  split on the work register and the overview.
+- Contents as a grouped semantic map — already settled in the Contents block
+  definition (curated semantic map, grouped descriptive entries, not heading
+  repetition).
+- No conflicting designs at handoff — carried in part 1.
+- Design-is-the-default disposing of the zero-design permission — a settled rule
+  applied, not a new call.
+- The work-package doctype was **already withdrawn** on 7 September, so retiring
+  it in the new documents is bookkeeping.
+- The build-package rename was already agreed. **Strong.**
+
+#### Genuinely new — adopted
+
+1. **The Project Design document set is design, decisions, standard and work
+   register. No Index.** *Deferred, not dropped:* whether an index doctype is
+   needed at all gets worked once the other components have run and a need has
+   either arisen or not. The old Index's five jobs are already split elsewhere —
+   document register and container path to the repo configuration file and the
+   binder builder configuration (user-level, outside AIDE); binder boundary and
+   live state answered by the binder definition; local configuration was empty.
+   What remains is topic identity plus the recorded direction that build-project
+   identity lives at the topic root, and that depends on the unreviewed index
+   doctype anyway. **Work register is a document in the set**, and **inside the
+   binder** *(corrected in v22 — v21 wrongly recorded it as excluded)*. **Brief
+   and overview are conditional**, governed by the split test. **Knowledge is
+   created on demand**, not pre-created empty.
+2. **The design document is authored in four groups, not a flat numbered run.
+   Strong.** The old document is thirteen sections whose order is publication
+   history rather than meaning — the original ten, then the many-to-many and
+   cross-topic sections appended at one release, then the orientation section at
+   the next, with nothing reorganised. The cost is scattering: the handoff
+   appears in three separate sections, the work register in three, and overview
+   does not surface until the thirteenth. The new order is **model** (purpose and
+   boundary, then the flow — intent, capture and place, brief, design,
+   commitments, register, handoff, build, reconcile — stated compactly);
+   **definitions** (brief and its blocks, design, overview, work register, the
+   design-build handoff, the build return, design project); **rules**
+   (capture-and-place, the commitment rule, register invariants, handoff and
+   return sufficiency, reconciliation, the cost-and-complexity flag, the
+   what/why-versus-how boundary); **boundaries** (what Project Design does not
+   own). Definitions sit second despite the settled ordering correction that
+   elements come first, because the model section is a flow and a paragraph
+   rather than elaboration — it orients and hands straight over. Both hold
+   provided the model stays compact, which is also the part 1 carry.
+3. **Rule weight markers are lifted. Strong.** The per-section `Weight:
+   Requirement` and per-document `Default weight: Expectation` labels. This is
+   exactly the needed-at-the-moment-of-application test: a lean memory-resident
+   standard has to say which lines bind. **The vocabulary itself is flagged to
+   Standards** — lift the technique, settle the home there. *Moderate on the
+   home.*
+4. **Fenced pseudo-flow blocks are lifted. Moderate-to-strong.** Compact
+   statement of a model or a branch; directly serves state-the-model-compactly.
+5. **The proportionate field list is named as a technique. Strong.** Required
+   fields versus advice fields, applied proportionately. Already in use; naming
+   it makes it reusable.
+6. **All four binder-editing items resolve as decisions recorded against the new
+   documents, not edits to the old ones. Strong.** This is the rebuild method
+   applied — a previous item is a source of knowledge only. So work-register
+   ownership is recorded by a **new decision that supersedes D12** (the old
+   decision splitting register ownership between Documentation Methodology and
+   Project Design), rather than D12 being reworded in place.
+7. **The orientation section (§13 of the binder) is dropped entirely. Strong.**
+   It makes Overview an overflow valve for a Summary that would bloat the design,
+   and requires the design Summary to survive in reduced form. **Direct
+   contradiction** with the forward design, which makes Overview a purposeful
+   pane-of-glass and deviation detector and inverts the Summary rule. The one
+   salvageable line — someone opening the design directly must still understand
+   what it is — is already settled as design-is-sufficient-alone.
+8. **The semantic-hosting park narrows. Moderate-to-strong.** Only the permission
+   to host brief, purpose and requirements compactly inside a domain control
+   document was ever blocked; the externalise-only-when-warranted half is already
+   delivered by the split test. **And with domains now closed, the park falls
+   away entirely** — see below.
+
+#### The many-to-many and cross-topic sections (§11–§12 of the binder)
+
+- **Many-to-many design contributions (§11):** split verdict. The
+  reconcile-conflicts-before-handoff half is **already carried** from part 1. The
+  "zero, one or several design documents, author directly to the outcome" half is
+  **contradicted by design-is-the-default — dropped. Strong.**
+- **Cross-topic reconciliation (§12):** dropped in part 1 as absorbed by
+  capture-and-place. **Confirmed, no residue.**
+
+#### Decisions maintenance — closed, no new decisions
+
+The old decisions document shows three failure modes: superseded-in-substance
+entries still reading as current; four entries (D11, D14, D19, D22) recording
+nothing but "publish version 2 / 3 / 5 / 6"; and no way to tell current from
+historical without reading all twenty-two.
+
+**Claude proposed append-only. Withdrawn — it contradicts a settled rule.** The
+locked Decisions and Knowledge rules already govern this under the immutability
+clause: **compaction is allowed** — consolidate duplicates, merge related
+reasoning — provided substance survives and temporal reference is kept where
+sequence affects interpretation; **a cumulative log is not required**; and
+**changing a past decision's meaning is a new decision, not compaction**.
+
+Applied to the sprawl:
+
+- **Compaction is the maintenance mechanism. Strong.** The register-as-ledger
+  decision and the register-ownership-split decision (D7 and D12) are the case in
+  point — same subject, one refining the other across two reviews, currently two
+  entries with a "clarification of D7" paragraph buried inside the second. Those
+  compact into one entry carrying the current position and the reasoning that
+  reached it, temporal reference kept.
+- **Meaning changes are new entries. Strong.** Hence the new decision superseding
+  D12 rather than a reword.
+- **Release-issuance entries never create entries at all. Strong.** The
+  exclusions clause already keeps metadata and migration out.
+- **No cumulative log**, so stable identifiers are a convenience rather than a
+  guarantee, and the document is maintained for current usefulness.
+
+**Nothing new to decide. The maintenance model was already settled; the
+twenty-two-entry sprawl is what it looks like unapplied.**
+
+#### Withdrawn — the dependency-footer lift
+
+Claude proposed lifting the old dependency and reference footers, including the
+`!` presence marker. **Wrong, and inconsistent with settled work.** The
+**dependencies block** — the standards a document is built on and the version of
+each it was last brought into line with — was closed by the change-management
+work: a flat list of identity-and-version conformance stamps; **moved from the
+footer to the header**, immediately after the Declaration, so a partial read from
+the top can answer "may I use this"; and the presence markers `!` and `!!`
+**explicitly removed** as deployment-currency concerns. The **references block**
+(related reading, citation without conformance semantics) is **parked** awaiting a
+consumer. Neither is available to lift. **Withdrawn.**
+
+#### Domains — CLOSED. AIDE does not adopt the concept
+
+**Decided 2026-09-07.** No case for domains has been raised by anyone, including
+Claude, and the director held no preference either way — so it is closed as a
+**considered no**, not an omission.
+
+The old corpus uses "domain" for two jobs. **One** is asserting that Project
+Design is not software-shaped — the domain-independence decision (D2) and the
+purpose statement's list of software, documentation, capability, business and
+creative work. That is a genericness claim: **it needs an adjective, not a
+noun.** **The other** is naming an owner for production workflows that are
+neither Project Design nor Build — the domain-owned-workflows section (§5 of the
+binder). **Topics already do that**: they are hierarchical, they group documents,
+and they own things. Domain would be a second ownership axis alongside topic with
+no stated relationship between them, which is the shape of a term used before it
+was defined.
+
+**Where a real case could still appear:** if topics turn out to be purely a filing
+hierarchy and something else is needed to name a field of practice carrying its
+own conventions across topics. Nothing has demonstrated that, and Build and
+Working Practices are unworked, so it would surface there. **Dropping under
+demonstrated-need is reversible; adopting an undefined term across the corpus is
+not.**
+
+**Consequences.** The parked sweep finding (one authoritative instance per scope,
+with domain-control-document hosting) **falls away rather than resolving** — it
+has no referent. And **the claim survives, the word does not**: wherever the new
+documents would have said "domain-independent" or "domain-owned", they say
+*generic across kinds of work* and *topic-owned*. That is a vocabulary strip on
+carried material, not a design change.
+
+#### "A brief is the root of a design" — CLOSED as restatement
+
+**No change. Moderate.** The brief is mandatory, the design is the delivery of the
+brief, and the brief sits inline at the head of the design until scale splits it
+out. "Root" adds a tree the flat model does not have. Recorded as restating
+settled material rather than adding a hierarchy claim.
+
+#### The work register lives inside the binder — CORRECTION (2026-09-07)
+
+**Raised by the director against v21, and he is right.** v21 stated in three
+places that the work register loads separately from the binder as live state.
+
+**Provenance of the error.** The claim entered through sweep part 1's
+confirm-and-carry-unchanged list, sourced from the **old** binder's Index. It was
+carried because it rhymed with WIP-as-current-memory / binder-as-persisted-memory,
+never tested against the new model, and then quoted back this session as settled.
+**This is precisely the failure the reconcile-before-proposing standing rule was
+added to catch**, and it slipped through because confirm-and-carry is the list
+that gets the least scrutiny. *Lesson recorded: a carry-unchanged entry is a
+proposal, not a settled fact, and gets the same test as any other.*
+
+**The corrected position, in the director's terms:**
+
+- **The work register is inside the binder**, updated in a pass.
+- **Items may be written to the working document in the interim**, and are moved
+  to the register when masters are updated.
+- **The working document is checked for register items in addition to those in
+  the register itself.**
+- Rationale: **a limited number of working documents and a small number of
+  binders to manage in context.**
+
+**Why this is better, not merely different.** The old exclusion exists to stop
+register churn forcing binder rebuilds. This cadence *removes* the problem rather
+than working around it — the register is written at master update, and master
+update is when the binder rebuilds anyway, so the two are already synchronised
+and there is no churn to avoid. The old rule only makes sense if the register is
+edited continuously, which under this model it is not.
+
+**The decisive argument is context cost**, and it had been underweighted.
+Separate loading means every session loads binder plus working document plus
+register, multiplied by however many registers exist — and the design already
+permits a cluster of topics to share one, so the count is real and unbounded.
+
+**Nothing in the design breaks.** Handoff immutability is unaffected: build reads
+the handoff, not the register. Return-driven state changes are design acts, so
+they land in the working document and flush at master update like everything
+else.
+
+#### Pending content — the working document's second role (settled 2026-09-07)
+
+**Generalised by the director from the register correction.** The register is not
+a special case: *design, decisions, brief, open items — almost any document can
+have pending content in the working document, and this must be checked.*
+
+**This is not a new mechanism.** Capture-and-place already produces it: when
+something is captured and its destination master is not being written this pass,
+it has to go somewhere, and that somewhere is the working document. **Pending
+content is placed content whose destination has not yet been written.** The
+filing obligation that puts it there is the same one that keeps it accurate — no
+new construct, no new obligation on the director, no bookkeeping that can rot.
+
+**The rule, stated once:**
+
+> The working document holds two things: **current working state**, and **pending
+> content destined for master documents not yet written**. Pending content is held
+> **under its destination document**, because capture-and-place already knows the
+> destination at the moment of filing. A master document is therefore **not
+> authoritative alone** between updates — the current position on any document is
+> that document *plus* its pending content in the working document. At master
+> update the pending content is written out and clears.
+
+The destination-labelled organisation is load-bearing. An undifferentiated pending
+pile puts the burden on the reader to work out what applies to them; content filed
+under its destination makes the check a lookup.
+
+**Two consequences recorded with it. Strong.**
+
+- **The working document is always loaded with the topic.** There is no cheap way
+  to know whether pending content exists without loading it, and it is small.
+- **Reading a master in order to act on it means checking its pending section
+  first.** A read-time gate, the same shape as the dependencies currency check.
+
+**Where it does NOT go. Strong.** Not duplicated into each doctype — the
+register, design, decisions, brief and open items all share the property, and
+repeating it breaks one-source-of-truth and guarantees drift. It is a property of
+the two-tier memory model, not of any one document type. And **not an index of
+which masters have pending content**: that is a second source of truth about the
+working document's own contents, it needs maintaining, and it rots.
+
+**Ownership — flagged, not closed.** It sits in Working Practices as part of the
+working document's definition, since Working Practices owns the live-state layer.
+The *read obligation* is arguably a corpus-reading mechanic and so Documentation
+Methodology's. **Recommendation: keep it whole in Working Practices rather than
+split it. Moderate.** A rule half-defined in two places is worse than one placed
+imperfectly. Revisit when Working Practices is worked — that pass will test it.
+
+#### Still open after the sweep
+
+- **Does the work register still admit confirmed non-design work?** Raised by
+  part 1 when register ownership came home; the old D12 explicitly held that it
+  did. **Open — not to be closed by omission.**
+- **Stage 6** — design output and standards — **blocked on Standards.** *The
+  sweep completing does not make Project Design finished.*
+<!-- END SOURCE: _rebuild/ProjectDesign_Decisions_Pending_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/ProjectDesign_Design_Pending_v1.md -->
+# Project Design — Design (Pending Content)
+
+> **Version 1** (2026-09-08). Pending content extracted from AIDE_Rebuild_WIP_v23 per rebuild guide F9. Settled design elements — the model, definitions, and rules. Ready to feed ProjectDesign_Design when masters are authored.
+>
+> The forward design pass is complete to the Standards block. All six requirements delivered. The binder sweep is complete end to end. Stage 6 (design output and standards) remains, blocked on the Standards component.
+
+---
+
+## Purpose and objectives
+
+### Stage 1 — Purpose (settled)
+
+Original binder line confirmed, then extended: Project Design produces a
+coherent specification for work of any size **and manages the response from
+build as it pertains to design** — it owns both ends of the loop, not just the
+outbound half.
+
+**Sharpened final form:** provide a fluid environment, but produce an accurate,
+clear specification that build can act on. Fluid in, precise out.
+
+### Stage 2 — Objectives (settled)
+
+1. Stay fluid enough to think freely — support open design conversation
+   (purpose, stakeholders, outcomes, requirements, considerations, background,
+   business case, prior research and methodology in the area, and more).
+2. Stay structured enough to converge — scribe with a filing system. Claude
+   writes and places each piece into the right doctype and section, asks when
+   unsure, and flags when there is nowhere for something to live.
+3. Guarantee no confirmed design commitment goes silently undelivered — the
+   producer rule into the work register.
+4. Group owed work into areas at the design side; build decides units of work.
+   The design-build handoff sits at that seam. *(Amended later in this pass —
+   "work package" as a fixed doctype was withdrawn; see the handoff section.)*
+5. Scale from trivial to complex without changing method.
+
+**"Domain-generic" demoted from objective to constraint** on how the objectives
+are written — as an objective it was inviting creative-production reach.
+
+**Build return states:** confirmed, needs information, raises an issue, failed,
+and **done with deviation**.
+
+**Cost-discovery loop — owed.** Build may flag that a design element is
+unbuildable, unclear, or disproportionately expensive; design then resolves it.
+Binder §9 (simplicity and escalation) partly covers this as scope-and-authority
+but not as cost discovery. Sharpen. **Moderate.**
+
+## Requirements
+
+### Stage 4 — Requirements (forward-derived, accepted)
+
+Derived forward from purpose and objectives, before reading the old design.
+Written as what the component must provide or guarantee.
+
+1. **Hold a fluid design space** — support open conversation across the full
+   input set (purpose, stakeholders, outcomes, requirements, considerations,
+   background, business case, prior research, methodology), with no ceremony
+   blocking thinking.
+2. **Converge into an accurate, actionable specification** — a guarantee of
+   *placement*, not merely of capture.
+3. **Never silently swallow a homeless piece** — ask, or flag that there is
+   nowhere for it to live. Nothing is dropped because it did not fit.
+4. **Guarantee no confirmed commitment goes undelivered** — the producer rule at
+   requirement weight.
+5. **Own the return from build** — reconcile the five return states; run cost
+   discovery.
+6. **Scale trivial to complex without changing method** — including at block
+   level, with detail and language held proportional to scale.
+
+**Deliberately excluded:** "domain-generic" (a constraint on wording, not a
+requirement); "group owed work into areas / package at the seam" (a mechanism
+serving requirements 4 and 5, not a requirement in itself).
+
+## Design shape
+
+### Stage 5 — Design shape (accepted)
+
+**One flow, three holding places, one seam.**
+
+- **Flow:** intent → capture and place → brief → design → commitments →
+  register → handoff → build → reconcile.
+- **Holding places:** brief, design, overview — plus the register, now Project
+  Design's own.
+- **Seam:** the design–build handoff.
+
+Three things to specify: the **capture-and-place mechanism**; **brief-to-design
+delivery and elasticity**; the **commitment-and-return loop**.
+
+**Ordering correction (Dave, accepted — strong).** Define **the elements of a
+Project Design first**. Placement is routing, and each element's definition *is*
+the routing rule; capture-and-place cannot be specified without its
+destinations.
+
+## The elements of a Project Design
+
+### The elements of a Project Design — the destination map
+
+**Brief element blocks** (the finest-grained destinations): purpose, objectives,
+requirements, considerations, scope and boundaries, target/outcome, definition
+of done. Specified in the next section.
+
+**Owned doctypes and mechanisms:** design (the current confirmed model and
+approach — the delivery of the brief, authoritative, governs on conflict);
+overview (project snapshot); work register (the ledger of confirmed commitments
+build has not delivered); the design–build handoff and build return (transition
+mechanisms, not fixed doctypes); the design inbox (entry point).
+
+**Consumed generics:** decisions (topic-scoped reasoning), knowledge (reasoning
+with no owning topic), WIP (current staging memory), open items (the ongoing
+task list).
+
+**Boundary tests — where capture-and-place has to decide.** Each brief section
+now carries three fields: what it holds, its weight, and a boundary test where it
+has a confusable neighbour. The four tests:
+
+- **Objectives vs requirements.** An objective is what success looks like; a
+  requirement is a condition the solution must meet to get there. "Fast" is an
+  objective; "responds within two seconds" is a requirement.
+- **Considerations vs decisions.** A consideration is live input still bearing
+  on the design; the moment it resolves into a choice it moves to decisions.
+- **Requirements vs scope.** A requirement is a condition the *solution* must
+  satisfy; scope is the boundary of the *work* — what is in and deliberately
+  out. "Must work offline" is a requirement; "the mobile client is out this
+  phase" is scope. The tell for a confusable out-of-scope item: does it
+  constrain the solution or the effort?
+- **Target/outcome vs definition of done.** Definition of done is the
+  completion test — the short, checkable pass-or-fail bar. Target/outcome is the
+  described end state, and may be qualitative or aspirational. If it is the
+  condition you check to say "finished," it is definition of done; if it
+  describes what you are trying to bring about, it is target/outcome.
+
+### Brief — section specification (settled)
+
+The brief's job, consistent with established brief / PID / design-brief
+practice: **fix the problem and the bar for success before designing.** The
+failure mode all such practice guards against is solutioning too early. The
+brief is the problem space; the design is the solution space. The brief must be
+complete enough that the design has everything to meet, without smuggling in
+solution decisions.
+
+**Required, always — the irreducible core:**
+
+- **Purpose** — the problem or need, and why it is worth solving. Never
+  optional; without it there is nothing to design against.
+- **Objectives** — what success looks like. The ends.
+- **Definition of done** — the completion bar. Even trivial work needs to know
+  when it is finished. **Short, accurate, concise — it is the primary success
+  test.**
+
+**Required in substance, may be light:**
+
+- **Requirements** — the conditions the solution must satisfy. May be a single
+  line, but never absent: "no stated requirements" must be a deliberate
+  statement, not an omission. Register default-on logic applied to the brief.
+- **Linked build project or build outcome** — which build the design feeds.
+  *(Added by the binder sweep, 2026-09-07.)* Absent only where the design
+  produces no build. The relationship is **many-to-one**: one build project may
+  have several design projects, each managing a different area or part. It also
+  gives the work register's target field something stable to point at.
+  **Moderate-to-strong.** Depends on *design project* and *build project* being
+  defined — a named open item.
+- **Scope and boundaries** — what is in, and what is explicitly out.
+  **Split out from considerations rather than folded into it —
+  moderate-to-strong, accepted.** Out-of-scope / non-goals is one of the
+  highest-value things a brief carries and it gets lost when buried.
+
+**Optional, scale- and scenario-dependent:**
+
+- **Considerations** — constraints, background, stakeholders, business case,
+  prior research, methodology in the area, assumptions, risks. The context bag;
+  flexes hugest with scale.
+- **Target / outcome** — the intended end state and any acceptance criteria.
+  **Kept separate from definition of done — accepted.** Rationale: definition of
+  done is specific and focused, the primary success test; target/outcome is
+  elaboration and broadening. Different jobs, so they do not collapse.
+
+Seven sections: three hard-required, two required-in-substance, two optional.
+*(Eight after the binder sweep added the linked build project/outcome, which is
+required in substance. The linked build project property depends on "build
+project" being defined — currently deferred, with topic-root documentation as the
+direction. See the design-project and build-project section below.)* The brief scales by which sections are present and how
+deep each runs — the block-level scaling rule doing its work inside the brief
+itself.
+
+**Fifth boundary test — added by the binder sweep, 2026-09-07.** A **requirement**
+states what the outcome must satisfy and stays **distinct from an implementation
+choice**. The classic failure is a requirement written as "use X" rather than
+"must achieve Y", which pre-decides the design inside the brief. That runs
+directly against Project Design's purpose — fluid in, precise out — because a
+solution smuggled into the brief closes the fluid space before it opens.
+**Strong.** By the Standards principle (needed at the moment of application), it
+goes into the brief standard as well as the design.
+
+### Design document — definition and reasoning routing (settled)
+
+**Definition.** The Design is the current confirmed model and approach — the
+authoritative *delivery* of the brief. A point-in-time snapshot of what is true
+now; it must be **sufficient on its own** to produce outcomes, and it **governs
+on conflict**. For Project Design specifically, that delivery *is* the tools and
+standards that define and provide the AI-to-AI infrastructure — the Design is
+not prose about a solution, it is the producer of the payload other components
+run on. It is therefore the **primary source for the build handoff**, which is
+built from it.
+
+**Design carries its own live "why" inline (settled).** The Design holds not
+just the what but the rationale for the approach chosen — the live slice of
+reasoning relevant now. This gives context and makes Design genuinely
+self-sufficient for the handoff. **Duplication with Decisions is accepted and
+expected.** This honours the already-locked authority clause: "reasoning
+pertinent to a current design choice belongs in Design."
+
+- **Design holds the live why** — the rationale for the current approach.
+- **Decisions holds the fuller why** — the evolutionary record, including paths
+  not taken and reasoning that no longer bears on the current snapshot.
+
+**Every design-element change is a retention checkpoint (settled).** When a
+design element changes, anything removed from Design must be checked to survive
+in Decisions; if not, it is added *before* the removal stands. This is the
+locked content-removal trigger — the "moment of loss" — pointed at the document
+most likely to churn.
+
+**Decisions/knowledge routing is a producer obligation.** Because the Design is
+only a snapshot, the reasoning behind each tool and standard choice is not in it
+and is lost unless captured as the design is worked. The locked Decisions and
+Knowledge rules (see §7) are *placed into* the design workflow — not changed:
+
+- **Same-pass rule** — a design change and its reasoning are produced together;
+  reasoning is never left to live only in conversation.
+- **Retention chain** — conversation → WIP or Working → Decisions/Knowledge,
+  promoted as the design is confirmed.
+- **Triggers** — confirmed design position changes; a requirement established or
+  materially revised; a credible alternative rejected; formative reasoning that
+  shaped understanding; content removed or replaced (check it survives
+  elsewhere, capture if valuable).
+- **Split** — topic-scoped reasoning to Decisions; homeless reasoning to
+  Knowledge.
+- **Authority** — Decisions and Knowledge inform; they never override or
+  supplement Design as the executable authority. Design governs on conflict.
+
+The single thing this *adds* to the locked definition is placement, not change:
+the producer of a design change owns producing its reasoning entry, the same
+shape as the work-register producer rule. **Design and its reasoning are one
+obligation, not two.**
+
+### Overview — required and advice (settled 2026-09-07)
+
+Refines the Overview section above into the same criteria-plus-advice shape as
+the design doctype. The purpose, register and Summary-suppression material there
+stands unchanged.
+
+**Required:** key objective; the chosen approach or delivery method; the
+top-level model; key defining principles.
+
+**Advice:** project-level scope and boundaries, where a reader would otherwise
+misjudge the edges.
+
+**Register:** statements, not explanation. Each entry is a **recall handle** with
+the detail reachable on demand. Brevity is a strong benefit but never bought at
+the cost of what the Overview must contain.
+
+**Elasticity:** inline for small projects, and while inline the host document
+carries no Summary; when it splits out, the source document gets its Summary
+back. For a single-document project, Overview and Summary are the same artefact.
+
+### Overview and Summary — the relationship (locked)
+
+They do not make each other redundant, but no document ever carries both.
+
+- **Summary** — the document's TLDR, held inside the document it describes.
+  Key model, key points, defining items; stated, not explained.
+- **Overview** — the whole project's snapshot, standing above the document set.
+  Typically somewhat larger than a Summary, because it carries the project
+  rather than one document.
+
+**The suppression rule — strong.** While an Overview lives inline in a document,
+that document does **not** also carry a Summary; the Overview is already doing
+the orienting job at a superset level. The moment the Overview branches out to
+its own document, the source document **gets a Summary back** — a shorter,
+document-only TLDR. One in, the other out.
+
+**Small-scale collapse.** Where a project is a single document, the Overview and
+that document's Summary are the same artefact, not two.
+**Moderate-to-strong.**
+
+**Edge to keep clean when Standards is worked (flagged, not resolved):** Contents
+and Summary both feed the read-decision from different angles — Contents maps
+*what is where* to judge relevance; Summary gives *what the document
+establishes*. Their edges need to stay distinct. This does not affect Overview.
+
+### Work item and work register — distinct in kind (settled 2026-09-07)
+
+They were briefly collapsed — register entries treated as work items that had
+reached a committed state — and that was **wrong and is not the model**. There is
+**no subset relationship and none should be implied.**
+
+- A **work item** is a generic entity flowing through a workflow: raised, judged,
+  given a fate. Broad, any-source, any-side.
+- A **work register entry** exists *because a design change had a downstream
+  impact that has not yet been delivered.* It is produced by the
+  consequence-capture rule, not by something being raised. Different origin,
+  different purpose, different owner.
+
+Collapsing them would erase exactly the meaning that makes the register worth
+having.
+
+**Name reviewed and kept.** With the meaning locked, the name was reopened and
+tested — delivery register, obligations register, consequence register, impact
+register, pending work register. *Obligations* was rejected as too amorphous to
+state plainly what the thing is, which is Dave's own plain-language rule applied
+to our own naming. **Work register** stands: concrete, side-neutral, and it reads
+cleanly as *the register of work owed* now that work item and work register are
+firmly separated. **Moderate-to-strong.**
+
+**Consequence for the binder sweep.** Any surviving build-side "work package"
+should be renamed **build package**, so the word "work" is left free and the two
+never collide. The work-package doctype is being retired in that sweep anyway.
+**Strong.**
+
+### Work register — definition (settled 2026-09-07)
+
+**Owner: Project Design.** The register is the one artefact where **design is
+both source and target** — the only thing Project Design both produces and
+consumes — which is why its states must reconcile against build return.
+
+**What it holds.** Confirmed work owed and not yet fully delivered. **Not ideas,
+not maybes** — those are work items and go to open items or stay in
+conversation. **Default-on**; non-use must be stated explicitly.
+
+**Entry — required fields:**
+
+- **Source** — the design element or decision that committed it.
+- **The commitment** — what was committed.
+- **What must change** — the required output or implementation change.
+- **Target** — where the change lands.
+- **State.**
+
+**Entry — advice fields:** handoff reference, return reference, **area**.
+
+**Writing rule — logical blocks of work (settled 2026-09-07, strong).** Items go
+to the register as **logical blocks of work** — coherent wholes that mean
+something on their own terms, each individually completable or completable
+together. Design does the chunking **at the point of writing the entry**, not
+afterwards when a partial return forces the question. The axis is *coherence,
+not build-effort sizing*; completability tends to follow from coherence rather
+than needing to be aimed at separately.
+
+This is what dissolves partial coverage. There are **no child items and no task
+tree** — the register stays flat and every item is atomic: owed or discharged.
+Build may take items singly or swallow several in one handoff, since build owns
+units of work. If an item cannot be completed by one handoff, that is a sign
+design wrote it too coarse, not a call for rollup machinery.
+
+**Area — a flat optional label (settled 2026-09-07, strong).** An item may carry
+an area. An **area is a label, not a container**: areas do not own items, have no
+states, are never completed, and nothing rolls up. It exists so design can hand
+off a coherent bundle and so the register can be read by theme rather than as one
+long list. Design does the labelling because design holds the coherence view that
+build does not. This delivers stage 2 objective 4 (design groups owed work into
+areas; build decides units of work) at almost no cost and cannot grow into a
+hierarchy.
+
+**States — four:**
+
+1. **owed**
+2. **handed off**
+3. **returned, pending reconciliation**
+4. **reconciled**
+
+**Mapping to the five build-return states:**
+
+| Build return | Register consequence |
+|---|---|
+| Confirmed | Reconcile and close. |
+| Needs information | Back to owed; the issue becomes a work item for design. |
+| Raises an issue | Back to owed; the issue becomes a work item for design. |
+| Failed | Back to owed. |
+| Done with deviation | Returned-pending; design decides whether to accept. Accepting is itself a design change, which produces a new commitment. |
+
+**Invariant — build never closes a register item. Strong.** Design owns closure
+because design owns the commitment.
+
+### Superseded register items — the handoff is the immutability boundary
+
+**Not yet handed off (owed).** The entry is mutable. Superseded → amend in place.
+No longer relevant → remove it; removal is a retention trigger, so the withdrawal
+and its reason go to decisions in the same pass.
+
+**Already handed off.** The entry's description of the work owed is
+**immutable — absolutely.** It is the record of what crossed the responsibility
+boundary and nothing may rewrite it.
+
+**Everything else is a design judgement.** A fixed procedure was drafted here —
+freeze the entry, raise a superseding entry, notify build, reconcile — and
+**withdrawn**. The right answer genuinely varies: build might have finished the
+work, not started it, or be halfway through, and the remedy might be stop work,
+let it complete and amend after, or accept what lands and adjust the design. A
+fixed rule would get most of those wrong.
+
+**So the requirement is narrow and strong: design determines the impact and the
+remedy, makes the call explicitly, and records it.** Not that it follows a set
+path. The register carries the outcome of the call; the reasoning goes to
+decisions.
+
+**Advice, not procedure:** a superseding commitment usually wants its own entry;
+telling build sooner is usually better than later.
+
+*Noted: this is the first time facilitate-not-constrain changed a decision rather
+than sitting inert in this document.*
+
+## Mechanisms
+
+### Design–build handoff — the bridgehead (settled)
+
+**The work-package doctype is withdrawn as a fixed artefact.** It was designed
+very early in the original AI-workflow implementation to meet a real
+requirement, and has never been reviewed since. Replaced by the **design–build
+handoff**: a transition point whose mechanism is deliberately *not* fully
+defined and which varies by build context.
+
+**The invariant is the responsibility boundary, not the artefact.** Project
+Design owns through to the work register; the handoff is where responsibility
+crosses to build.
+
+- **Design must not overreach into build — even in the same session. Strong.**
+  The transition point exists precisely to stop design running, controlling or
+  managing build. Design produces what build needs; build works; build comes
+  back if it needs to. Same session or not, the routing point is the same and
+  the separation of responsibility holds.
+- **Shape varies with scenario** — a one-line message for trivial work, a full
+  package for complex work; it may not physically move at all when design and
+  build share a session; it changes with the build product, the tooling and the
+  environment (chat → Cowork or Code).
+- **Multiple builders.** One design may hand off to several builders for
+  different components or elements, each returning independently across the same
+  bridgehead.
+- **Sufficiency is the one firm requirement. Strong.** Whatever crosses must
+  carry everything the build side needs to act without returning to the design
+  conversation. **Format free, sufficiency required.**
+- **Sufficiency has a ceiling as well as a floor.** *(Added by the binder sweep,
+  2026-09-07. Moderate.)* Do **not** re-supply generic execution-platform
+  knowledge the build environment already provides — the toolchain, the repo
+  conventions, the language. The handoff carries what is specific to *this* work.
+  A floor with no ceiling pushes toward bloated handoffs, which costs real
+  context when they are AI-written and AI-read. Same shape as the Standards
+  principle: what goes in is decided by what is needed at the moment of
+  application.
+
+### Build return — transactional by default (settled, strong)
+
+**Every build handoff expects a build return.** A confirmation of the work is
+the default, because without it there is no reliable transactional system —
+nothing can establish that a handoff completed.
+
+- **Fire-and-forget is allowed but must be explicitly declared** in that
+  workflow, at the point the handoff is created. Same shape as register
+  default-on: the safe state is expected-return, and the exception must be
+  stated, never assumed.
+- A handoff and its return are a **matched pair**. An open handoff with no
+  return is an incomplete transaction the system should be able to see.
+- **Return states** (from stage 2): confirmed, needs information, raises an
+  issue, failed, done with deviation.
+- **Naming — moderate-to-strong:** *build handoff* outbound, *build return*
+  inbound. Both deliberately format-free.
+
+### Capture-and-place — the filing obligation (settled 2026-09-07)
+
+**Reframed at the outset of this pass.** An earlier framing treated this as a
+workflow-entity question — capture as an act, placement as a fate, the work item
+as its subject. That was wrong and was dropped. The real thing is narrower and
+more useful: **a Project Design conversation wanders** — tangents, triggers,
+exploration, alongside focused work on a topic — and the AI's job is that nothing
+said gets left where it fell. Each thing that emerged gets put where it belongs.
+
+**The requirement, in the director's words:** he stays focused on the knowledge
+and on working the item, issue, idea or concept, trusting the AI to file
+everything necessary in the appropriate place, with **no valuable knowledge
+lost**.
+
+**Three obligations on the AI. One on the director: none.**
+
+1. **Continuous capture, silently.** The moment something in the conversation
+   settles, shifts or is raised, it is noted against a destination — *then*, not
+   at session end. Nothing is held on the strength of "I'll remember." This is
+   the part that fails if left late: in a long chat the early material drifts out
+   of reach and a session-close sweep recovers only what is still visible.
+2. **Placement by the destination definitions.** Settled things go to a permanent
+   home — the **brief** if problem-space, the **design** if solution-space,
+   **decisions** if it is topic-scoped reasoning, **knowledge** if it is
+   reasoning with no owning topic. Unsettled things go to a holding place — **WIP**
+   for live thinking, **open items** for a parked question, the **work register**
+   for confirmed work owed. The four brief boundary tests (objectives vs
+   requirements; considerations vs decisions; requirements vs scope;
+   target/outcome vs definition of done) are **tie-breakers inside the brief, not
+   top-level choices**.
+3. **Batched surfacing at natural breaks.** What was captured and where it is
+   going is put in front of the director in plain language; he agrees or
+   corrects; only then is it written. The existing no-output-until-agreed
+   standing rule already does this job — no second mechanism is needed.
+
+**The director may override any placement at any time — "that's a decision",
+"don't keep that" — but never has to. If he says nothing, it still lands.**
+
+**Two safety rules underneath:**
+
+- **Homeless pieces are named, not dropped.** Anything that cannot be placed is
+  surfaced in the batch rather than quietly left out. Where there is genuinely
+  nowhere proper, the **interim-placement rule** applies: place it sensibly for
+  now and raise a review task against Project Design. *(This closes the
+  interim-placement item by absorption.)*
+- **Err toward over-capture.** Cheap to delete in review, expensive to lose.
+  Including tangents that went nowhere: the *reason* a line was abandoned is
+  often the keepable part, and that is a knowledge entry rather than a deletion.
+
+**Accepted weak point:** the AI's judgement of what counts as valuable. That is
+the risk the director is knowingly accepting; over-capture is the mitigation.
+
+**Batch triggers — inherited, not invented.** The three session-transition
+commands already recorded (full stop; checkpoint and continue; flush without
+closing) are the batch triggers. Capture-and-place does not need its own break
+points. Each implies a different batch: full stop flushes everything including
+loose ends, checkpoint flushes plus produces the handoff, flush-without-closing
+writes and carries on. **Added:** when a topic closes mid-chat, the AI offers the
+batch unprompted rather than waiting for a command — this keeps batches small
+enough to review. **Strong.** *(Dependency, not a blocker: the commands themselves
+are designed in Working Practices; capture-and-place works whatever they end up
+called.)*
+
+**Placement defers to the destination's own standard for content. Strong.**
+Capture-and-place routes to a destination; the destination's standard says what
+belongs in it. This mechanism holds **no guidance of its own** about what a
+decisions entry or a brief section should contain — that would be a second source
+of truth competing with the standard and rotting against it. Until the standards
+exist, the definitions in this WIP serve; the standard supersedes once authored.
+
+**Struck:** the expectation that this session would surface the **work item type
+list**. That expectation came from the dropped framing. The type list stays with
+Working Practices, to be surfaced when the work item is designed there, or left
+unenumerated if nothing demands it (demonstrated-need rule). **Moderate-to-strong.**
+
+### The commitment-and-return loop (settled 2026-09-07)
+
+Delivers **requirement 5** — Project Design owns the return from build, including
+cost discovery. The circuit: a design change produces a **commitment** (register
+entry, *owed*) → **handoff**, responsibility crosses → build works → **build
+return** in one of five states → **reconciliation** → the item closes, or the
+return provokes a design change which produces fresh commitments.
+
+**A. The escalation boundary — what comes back.**
+
+Design owns the *what and why*; build owns the *how*. The test is one question:
+**does what build encountered change what is being delivered or why, or only how
+it gets delivered?** How is build's call. What or why comes back.
+
+The old binder §6 of the Project Design binder (the section on simplicity and
+escalation, numbered §9 there) enumerated instead: objective, major scope,
+acceptance, ownership, architecture, policy. **That enumeration is demoted to
+worked examples; the single test is the rule. Moderate-to-strong** — a list is
+arguable at the margin and rots as the system grows; a test does not. Same move
+as facilitate-not-constrain made on the design doctype and on superseded register
+items.
+
+**Tiebreak — if build cannot tell which side it is on, it returns. Strong.** An
+unnecessary return costs a message. Silently absorbing a design change costs the
+design's authority, and is exactly the silent-swallowing failure this component
+exists to prevent. Cheap error one way, expensive the other, so the default is
+deliberately asymmetric.
+
+**B. The cost-and-complexity flag** *(this discharges the owed cost-discovery
+item)*.
+
+Something that looks simple in design can turn out complex in build. Rather than
+build persevering and silently carrying that cost, it flags: *this is looking
+more extensive and complicated than it probably seemed from the design side — do
+you want to review the design elements, or are you happy to proceed?*
+
+- **What is being protected** is the *value-versus-cost* judgement, and that
+  judgement is design's, because only design holds the why.
+- **An obligation, not a threshold. Strong.** When the real cost or complexity
+  **materially exceeds what the design appeared to assume**, build surfaces it
+  before proceeding. No number, no how-long-is-a-piece-of-string test — just the
+  duty to flag, and build's own judgement of "materially". A rule with a number
+  would be exactly the friction facilitate-not-constrain exists to remove.
+- **A flag with a default of proceed, not a return. Strong.** If design does not
+  intervene, build proceeds. The loop keeps moving; it does not choke waiting for
+  permission on every bump.
+- **Deliberately unshaped, with a review hook.** Demonstrated-need applied to
+  itself: ship the obligation, watch how it behaves, and shape it only if the
+  flags come too often (false positives) or too rarely (missed flags). Do not
+  pre-engineer a threshold that is not yet known to be needed.
+
+So build has **two distinct reasons to come back**, crossing the same bridgehead
+at different weights: a **return** for a genuine what/why question it cannot
+resolve, and a **flag** where it *can* proceed but the price has moved.
+
+**C. Reconciliation — defined as an act.**
+
+- **Who:** design, always. Build reports; design decides.
+- **Against what:** the original commitment — what the register said was owed.
+  Not "did build do something", but "did build do *the thing that was promised*".
+- **What "reconciled" asserts:** the commitment is **discharged** — delivered
+  reality now matches the design and nothing is left owed on this item. This is
+  the word that makes the register trustworthy: if it meant "build said done",
+  the register would be build's opinion; meaning "design confirmed the promise is
+  kept", it is a reliable statement of what has actually been delivered.
+- **Definition (strong):** reconciliation is design's act of checking a return
+  against its commitment and deciding the outcome — **close it, accept a
+  deviation, or send it back to owed**. One act, three endings.
+- **It fires on two return states only.** *Confirmed* — check and close.
+  *Done with deviation* — design must decide whether the deviation is acceptable;
+  accepting is itself a design change and may spawn a fresh commitment; rejecting
+  returns it to owed. *Needs information*, *raises an issue* and *failed* deliver
+  nothing, so there is nothing to reconcile — the item stays owed and routes back
+  into the design conversation.
+
+**D. Return sufficiency — the mirror of handoff sufficiency.**
+
+The handoff must carry everything build needs to act without returning to the
+design conversation. The return must carry everything **design** needs to
+reconcile without going back to build. **Sufficient out, sufficient in**, each
+defined by what the *receiving* side must do without re-crossing. Insufficient
+information is not a valid return — it collapses into *needs information* and
+comes straight back.
+
+- **Never bare. Strong.** "Done" is not a return. "An issue occurred" is not a
+  return. Every return carries a real description of what was actually done, or
+  what actually prevented it — **accessible and comparable** so design can hold
+  it against the commitment.
+- **Attribution on failure. Strong.** A failure has two possible origins and the
+  return must say which: **design-side** (unbuildable, unclear, conflicting —
+  design's to resolve) or **build-side** (a configuration, environment, file or
+  tooling fault that has nothing to do with the design being wrong). The response
+  differs completely: a design fault re-enters the design conversation; a
+  build-side fault means the design is fine — retry or fix the environment,
+  nothing for design to rework. **Selectivity is allowed** on deep internal build
+  faults: build reports enough to establish *it was build, not you*, without
+  necessarily exposing the whole internal cause.
+- **Proportional to the task. Strong.** A trivial task delivered by a one-line
+  message earns a brief return; a high-impact, high-risk, critical task earns
+  fuller reporting, because design has a heavier decision to make. Sufficiency is
+  never a fixed volume — it is "enough for design to make *this* decision about
+  *this* task."
+- **Review results ride in the return.** Where the work was reviewed, the return
+  says so and carries the result. A review is evidence bearing directly on
+  whether the commitment is genuinely met, so it belongs in the return rather
+  than in a separate channel.
+
+**E. Partial coverage — dissolved, not mechanised.** See the register writing
+rule above: items are written as **logical blocks of work**, no children, no
+tree. A return covering less than an item is not a partial-coverage case — it is
+*done with deviation* or an issue, and reconciliation already handles it.
+
+**F. Convergence — no mechanism. Moderate.** A return can provoke a design
+change, which spawns commitments, which spawn handoffs, one of which raises
+another issue. Nothing terminates this, and nothing should: **every trip round
+the loop is provoked by something real**. If issues keep coming, the loop is not
+failing — the design is being told something. The goal is not the loop stopping
+but **the register emptying**, which happens when nothing is owed. The only
+addition is **visibility**: an item that has been round the loop several times is
+a design smell worth surfacing — usually the design is wrong at a level above the
+item. Not blocked, not stopped, just visible.
+
+## Rules and positions
+
+### Design is the default (settled 2026-09-07)
+
+**Authored forward, not derived from the old corpus.** Recorded per the rebuild
+method: an old-corpus item is a *source of knowledge*, never a thing to modify
+in place. The old decision D15 ("design is knowledge, not a mandatory document
+pipeline") is reference material for reasoning already explored — it is not
+carried forward, amended, or downgraded. If its reasoning holds anything not
+captured here, it comes back through the omissions sweep.
+
+**The position.** A design almost always exists, and a standard almost always
+has a design behind it. Authoring straight to a standard with no design is the
+**exception, and it has to justify itself** — taken only where genuinely
+everything worth recording fits the standard without compromising either
+document.
+
+**The reason it holds.** The standard is deliberately lean and functional
+because it is memory-resident and applied alongside many others. The design is
+descriptive and complete. Force everything into the standard alone and one of
+the two is compromised: either the standard bloats past the conciseness gate, or
+the design's reasoning and elaboration are simply never recorded. There will be
+very few cases where all the information worth recording could sit in the
+standard alone. **Strong.**
+
+### Design doctype — criteria and advice (settled 2026-09-07)
+
+**The atomic unit.** A design element is a **two-part unit: the statement of what
+is true, plus its inline why.** A separate reasoning block was considered and
+rejected — the reading pattern demands the why *at* the element, and inline is
+what makes the retention checkpoint (above) a natural act rather than a
+bolted-on chore.
+
+**Why this is criteria and not a schema.** Design composition varies a great deal
+by project type and by the nature of the build outcome. So the doctype describes
+a **base framework and methodology**, to be implemented as appropriate provided
+it meets the published criteria and considers the recommendations. This is the
+**facilitate-not-constrain** position doing its work: AIDE exists to facilitate
+and empower, not to constrain or be a source of friction. **Strong.**
+
+**Required — the design is not done until all eight hold:**
+
+1. **It delivers the brief** — every requirement is addressed, or explicitly
+   deferred or rejected with a reason.
+2. **It is sufficient alone** to produce the outcome.
+3. **Every element carries its why inline.**
+4. **It states the model.**
+5. **It states its boundaries** — what it does not cover, and where it hands off.
+   This is what makes handoff sufficiency checkable rather than a matter of
+   opinion.
+6. **Workflow, behaviour, methodology rules and guidance are recorded in it.**
+7. **It is current state** — no superseded content left standing.
+8. **Its thinking is routed to decisions and knowledge as produced** — the
+   producer obligation, not a later sweep.
+
+**Added by the binder sweep, 2026-09-07 — a ninth required property. Strong.**
+
+9. **Current design contributions do not conflict materially.** Where several
+   current contributions bear on the same outcome, they are reconciled **before**
+   handoff. **Build is never handed a choice between unresolved designs** — that
+   is a design act and it does not cross the bridgehead. Recovered from the old
+   binder's many-to-many contribution model, which the forward design had no
+   equivalent for.
+
+**Advice — considered, not imposed:**
+
+- Group elements as model / rules / definitions / boundaries.
+- Lead with the model before elaborating.
+- **State the model compactly before elaborating it; if it will not state
+  cleanly, the model is wrong, not the write-up.** *(Added by the binder sweep,
+  2026-09-07 — the old binder's two-layer design checkpoint, compressed to its
+  operative test. Moderate. The six-stage review procedure already builds this in
+  for component work; this covers every other design.)*
+- Link elements back to brief items where the connection is not obvious.
+- Include a worked example where the rules are abstract.
+
+**Traceability — the coverage check (strong).** Per-element links back to
+requirements were rejected as overkill: the links rot on every edit and the
+maintenance cost buys little. Replaced by a **coverage check run once, when the
+design is called done** — walk the brief's requirements and confirm each is met,
+deferred or rejected. Criterion 1 above is what that check tests.
+
+### Component-ownership boundary — reworked (governing test)
+
+The first allocation pushed too much into Working Practices, which was becoming
+a dumping ground for other components' specifics. **Test adopted** (the
+provider–consumer test Documentation Methodology already uses):
+
+> **Does the thing exist and carry meaning outside Project Design?**
+
+Yes → it is generic and lives with the generic owner. No → it belongs to Project
+Design.
+
+Applied:
+
+- **Work register — comes HOME to Project Design. Strong.** The temporal gap it
+  fills between design and build only exists *because* Project Design owns both
+  ends of the loop. Splitting the producer rule from its own ledger was the
+  mistake.
+- **WIP — stays generic (Working Practices). Strong.** Any session stages
+  thinking, including code and build sessions.
+- **Open items — stays generic. Moderate-to-strong.** Build is the proof case:
+  build sessions accrue deferred sub-tasks and follow-ups, which is an
+  open-items list, not WIP staging.
+- **Decisions and Knowledge — stay generic. Moderate.** Provisional home Working
+  Practices; confirm when that component is worked.
+
+**Three placement bands:**
+
+1. **Universal grammar** → Documentation Methodology.
+2. **Generic operating behaviour and live state** → Working Practices.
+3. **Component-specific** → the component itself.
+
+## Definitions
+
+### Design project and build project — defined 2026-09-07
+
+**Design project** is the scope of one design: a brief and the design that
+delivers it, together with the commitments that design has entered into the work
+register. **A naming convenience for a boundary that already exists**, not a new
+entity, container or doctype; it owns nothing new. If it starts acquiring
+properties — a state, an owner, a lifecycle — that is the signal it was a
+mistake. One topic may hold several design projects; no conflict with the topic
+hierarchy.
+
+**Build project** — deferred under the demonstrated-requirement rule. The brief
+carries a **plain identifier** for its linked build project; the definition
+question waits until something demonstrates the need. **Recorded as the
+direction** (not settled): the build project's identity is documented at the
+**root of the topic** that holds its designs, which is where the old corpus put
+it via the topic-root Index. That direction depends on the **Index doctype**,
+which is unreviewed in the rebuild, and sits next to the parked **domains**
+question.
+
+**Finding behind the deferral:** the build project is defined *nowhere* in the
+current corpus. Build's binder has **Build Target** (a producer-side output
+requirement, explicitly not a repository or project) and pushes Target
+Definitions out to "the specialised producer/domain". AI Deployment has
+**Deployment Target** (the install realisation). The old model carried the
+design-to-build linkage through the transient WorkPackage, so nothing durable
+holds it.
+
+**Cardinality:** many-to-one is the common case (several design projects feed one
+build project). Many-to-many is allowed — a design handing off to several
+builders is already in the model. The brief names the build project; the specific
+outcome per handoff is what the work register's target field carries.
+
+**Structural knowledge captured from the director (not yet placed as decisions):**
+topics group documents and are hierarchical; a topic may hold several designs; a
+build project may have several design projects, each managing a different area or
+part; a brief is the root of a design (stated tentatively — sits close to what is
+settled but "root" adds a hierarchy claim those do not make; open).
+
+### Project Design doctype set as it now stands
+
+**Owned:** brief (composite block, mandatory), design, overview, **work
+register**, plus the producer rule. The **design-build handoff** and the **build
+return** are owned transition mechanisms rather than fixed doctypes. *(The design
+inbox is retired — replaced by the work item, a generic owned by Working
+Practices.)*
+**Consumed generics:** decisions, knowledge, WIP, open items, **work item**,
+**definition of done**.
+<!-- END SOURCE: _rebuild/ProjectDesign_Design_Pending_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/ProjectDesign_StandardInputs_Pending_v1.md -->
+# Project Design — Standard Inputs (Pending Content)
+
+> **Version 1** (2026-09-08). Pending content extracted from AIDE_Rebuild_WIP_v23 per rebuild guide F9. Items explicitly flagged as belonging in the Project Design standard. Feeds the standard when the Standards component unblocks stage 6.
+
+---
+
+## Items flagged for the brief standard
+
+Five boundary tests, each with its definition, flagged for inclusion in the brief standard. Source flag: "By the Standards principle (needed at the moment of application), it goes into the brief standard as well as the design" and "the four brief boundary tests go into the brief standard, not only into the design."
+
+1. **Objectives vs requirements.** An objective is what success looks like; a
+   requirement is a condition the solution must meet to get there. "Fast" is an
+   objective; "responds within two seconds" is a requirement.
+2. **Considerations vs decisions.** A consideration is live input still bearing
+   on the design; the moment it resolves into a choice it moves to decisions.
+3. **Requirements vs scope.** A requirement is a condition the *solution* must
+   satisfy; scope is the boundary of the *work* — what is in and deliberately
+   out. "Must work offline" is a requirement; "the mobile client is out this
+   phase" is scope. The tell for a confusable out-of-scope item: does it
+   constrain the solution or the effort?
+4. **Target/outcome vs definition of done.** Definition of done is the
+   completion test — the short, checkable pass-or-fail bar. Target/outcome is the
+   described end state, and may be qualitative or aspirational. If it is the
+   condition you check to say "finished," it is definition of done; if it
+   describes what you are trying to bring about, it is target/outcome.
+5. **Requirement vs implementation choice.** A **requirement**
+   states what the outcome must satisfy and stays **distinct from an implementation
+   choice**. The classic failure is a requirement written as "use X" rather than
+   "must achieve Y", which pre-decides the design inside the brief. That runs
+   directly against Project Design's purpose — fluid in, precise out — because a
+   solution smuggled into the brief closes the fluid space before it opens.
+   **Strong.**
+
+---
+
+## The "needed at the moment of application" test
+
+A Standards-wide principle, the director's own generalisation: what goes into a standard is decided by **"is this needed at the moment of application"**, not **"is this the definition of the thing."**
+
+Placement, routing and other runtime judgements happen from whatever is memory-resident, so *discriminating* guidance — the tell that separates a thing from its confusable neighbour — belongs in the lean standard even though it reads like elaboration. This sharpens the three-layer authoring model rather than contradicting it.
+
+**Immediate effect:** the four brief boundary tests go into the brief standard, not only into the design. **Moderate-to-strong.**
+
+This is a Standards-wide principle and an input to the Standards component definition.
+
+---
+
+## The Contents/Summary edge
+
+Contents and Summary both feed the read-decision from different angles — Contents maps *what is where* to judge relevance; Summary gives *what the document establishes*. Their edges need to stay distinct.
+
+Flagged for Standards — the director's note is that "this will be a common issue."
+
+---
+
+## Rule weight markers
+
+The per-section `Weight: Requirement` and per-document `Default weight: Expectation` labels. This is exactly the needed-at-the-moment-of-application test: a lean memory-resident standard has to say which lines bind.
+
+**The vocabulary itself is flagged to Standards** — lift the technique, settle the home there. *Moderate on the home.*
+<!-- END SOURCE: _rebuild/ProjectDesign_StandardInputs_Pending_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/ProjectDesign_WorkRegister_Pending_v1.md -->
+# Project Design — Work Register (Pending Content)
+
+> **Version 1** (2026-09-08). Pending content extracted from AIDE_Rebuild_WIP_v23 per rebuild guide F9. Work owed by Project Design and items carried to other components.
+
+---
+
+## Owed — Project Design
+
+**The forward design pass is COMPLETE**, to the limit of the Standards block. All
+six requirements are delivered. Closed this pass, and no longer owed:
+capture-and-place (the filing obligation); the commitment-and-return loop
+(delivering requirement 5); register grouping into areas (a flat optional label);
+the interim-placement rule (closed by absorption into capture-and-place); and
+sharpening the old binder's escalation section into an explicit cost-discovery
+loop (delivered as the cost-and-complexity flag, which is more than a sharpened
+sentence).
+
+**The binder sweep is COMPLETE end to end** — part 1 (omissions) and part 2
+(approach) both closed, and both open items with it. Closed since v20: **domains**
+(AIDE does not adopt the concept), **brief-as-root** (restatement, no change), and
+**all four binder-editing items** (resolved as decisions against the new
+documents rather than edits to the old ones).
+
+**Remaining:**
+
+- **Stage 6** (design output and standards) — blocked on Standards. **This is the
+  only remaining item.** *The sweep completing does not make Project Design
+  finished.*
+- **Does the work register still admit confirmed non-design work?** Raised by
+  part 1 when register ownership came home. Open; not to be closed by omission.
+- *(Resolved by part 2 — retained for the record.)* **The four binder-editing
+  items**, inventoried by part 1.
+  They are **not** design work:
+  - Reword D12 (the decision on work-register ownership) and bring
+    **work-register ownership home to Project Design** in the binder.
+  - Retire the work-package doctype (binder §7, the handoff-to-build section, and
+    its `AIDE_WorkPackage@v3` target) in favour of the design-build handoff.
+  - Examine binder §11–§13 (design contributions many-to-many; semantic-section
+    hosting; cross-topic reconciliation; and the Design/Brief/Overview
+    orientation).
+  - Rename any surviving build-side **work package** to **build package**, so it
+    cannot collide with work item. **Strong.**
+- **Facilitate, not constrain** — its form and home are deferred to Core.
+
+**Then the completeness check** against the component definition of done set
+earlier: doctypes and block types defined (done); workflow, behaviour and
+methodology rules recorded in the design (done); all thinking routed to decisions
+and knowledge (this WIP write, plus authoring).
+
+---
+
+## Carried to other components from this pass
+
+- **To Principles:** definition of done as a candidate premise (reopens the
+  Principles element list).
+- **To Working Practices:** WIP and open items; decisions and knowledge doctype
+  ownership (provisional — confirm when Working Practices is worked); the
+  shaping behaviour for brief and design; the no-knowledge-lost rule and its
+  three behaviours; the session-transition commands; the nomination model for
+  live-state granularity; the six-stage review procedure and its forward-design
+  amendment; P6 and the Guidance Profiles review (from Principles);
+  **the work item** as the base workflow entity with its types, states and fates;
+  **definition of done** as a generic block carrying the testable-or-assessable
+  invariant.
+- **To Build:** confirm that build's own learnings route correctly under the
+  existing Decisions/Knowledge lock — a learning *about the design* passes up, a
+  learning about *build technique* stays in build. A check, not new work.
+  **Strong.** **Added this pass:** build must be able to **recognise it is
+  holding a what/why question** rather than a how question, and must be able to
+  **judge when cost has materially exceeded the design's apparent assumption**.
+  Both are obligations the escalation boundary and the cost flag place on build;
+  neither is designed here.
+- **To Documentation Methodology:** the split test, as part of the grammar;
+  **the ownership-designation rule** — defining any doctype or block type must
+  name its owner and residence; **the binder doctype** — what a binder file is,
+  how a consumer reads it, what the manifest means (small definition; builder
+  tool and binder configuration are not Doc Methodology's).
+- **To Standards:** the Contents/Summary edge. **Added this pass, and general —
+  the director's note is that "this will be a common issue":** the test for what
+  goes into a standard is **not** "is this the definition of the thing" but **"is
+  this needed at the moment of application"**. Placement, routing and other
+  runtime judgements happen from whatever is memory-resident, so *discriminating*
+  guidance — the tell that separates a thing from its confusable neighbour —
+  belongs in the lean standard even though it reads like elaboration. This
+  sharpens the three-layer authoring model rather than contradicting it.
+  **Immediate effect:** the four brief boundary tests go into the brief standard,
+  not only into the design. **Moderate-to-strong.**
+- **To Core:** **facilitate, not constrain** — content captured above; its form
+  and its home at AIDE's root are an open decision, to be made when Core is
+  worked.
+
+---
+
+## Open question
+
+- **Does the work register still admit confirmed non-design work?** Raised by
+  part 1 when register ownership came home; the old D12 explicitly held that it
+  did. **Open — not to be closed by omission.**
+<!-- END SOURCE: _rebuild/ProjectDesign_WorkRegister_Pending_v1.md -->
 
 ---
 
@@ -729,1924 +4212,6 @@ Infrastructure is machinery that acts on the corpus and environment from outside
 
 Infrastructure utilities are not capability Tools. Capabilities (Standards, Tools) are loaded into the AI session to shape behaviour. Utilities run outside the session, acting on files, folders, and the environment.
 <!-- END SOURCE: Infrastructure/_index.md -->
-
----
-
-<!-- BEGIN SOURCE: Infrastructure/binder-builder/binder_builder.py -->
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-binder builder - gather the documents of a defined scope into one file.
-
-WHAT IT DOES
-    Walks a folder tree, collects every in-scope file, and writes them into a
-    single Markdown "binder" that can be dropped into an AI session's context,
-    so a whole topic loads as one artefact rather than as many files.
-
-    The binder carries a header, a manifest of what it contains with a sha256
-    digest per file, and then each source file verbatim between comment
-    delimiters.
-
-WHAT IT DOES NOT DO
-    It does not resolve versions - that is version cleanup's job, run first -
-    and it does not deploy. It collects and assembles, nothing else.
-
-    Source content is copied UNMODIFIED. No reformatting, no heading demotion,
-    no normalisation. A binder that alters its sources would be worse than no
-    binder at all.
-
-HOW IT IS RUN
-    Live by default. Pass --dry-run to see the report without writing
-    anything. It reads its settings from a JSON file sitting beside this
-    script, so it can simply be double-clicked on Windows.
-
-    A settings file IS a binder definition - it declares the scope. Several
-    definitions can sit in one folder, as binder_builder_settings.json plus any
-    number of binder_builder_settings_<something>.json beside it. One run keeps
-    all of them current; name one or more binders on the command line to run
-    only those.
-
-    A rebuild is skipped when nothing in scope has changed since the last
-    binder was written: the manifest inside that binder carries a digest per
-    file, and comparing it against this run's digests answers the question
-    without keeping any state of its own. Pass --force to rebuild anyway.
-
-DESIGN NOTE
-    This is one tool that does one thing, and a sibling to version cleanup.
-    The path logic, settings loader and plan/apply split below are deliberately
-    the same shape as that tool's, copied rather than imported: there is no
-    shared module, no plugin system and no base class between them.
-
-Python 3.8 or newer. Standard library only.
-"""
-
-import argparse
-import datetime
-import fnmatch
-import hashlib
-import json
-import os
-import re
-import shutil
-import sys
-from dataclasses import dataclass, field
-from pathlib import Path
-
-
-# ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
-# Path(__file__) is this script's own file. .resolve() turns it into a full,
-# unambiguous path, and .parent gives the folder holding it. Everything the
-# tool reads or writes hangs off this folder rather than off the "current
-# working directory", because the working directory depends on *how* the script
-# was launched (double-click, terminal, scheduler) and is therefore unreliable.
-# It also means each copy of the tool uses its own settings and its own log.
-SCRIPT_DIR = Path(__file__).resolve().parent
-
-# A settings file is named for the binder it defines, so a folder holding four
-# of them can be read without opening any of them:
-#
-#   binder_builder_AIDE_Documentation_settings.json
-#   binder_builder_ProjectDesign_settings.json
-#
-# The name in the filename is not what the tool reads - the "name" setting
-# inside the file is - so the two can in principle disagree. --list prints them
-# side by side, which is where a disagreement shows up.
-SETTINGS_FILENAME_FORMAT = "binder_builder_{name}_settings.json"
-
-# What a fresh copy of the tool writes for itself, before anyone has told it
-# what the binder is called.
-DEFAULT_BINDER_NAME = "Documentation"
-
-# The name this tool used before definitions were named, kept working because
-# settings files carrying it exist. It sorts first when present.
-LEGACY_SETTINGS_FILENAME = "binder_builder_settings.json"
-
-# Deliberately wider than the format above. It matches the named form, the
-# legacy plain name, and the "binder_builder_settings_<x>.json" spelling
-# documented between v5 and v8 - none of which should stop working because the
-# convention was tidied.
-SETTINGS_GLOB = "binder_builder*settings*.json"
-
-# A log is named for its binder too, so four definitions in one folder do not
-# interleave four runs in one file. A definition can still point several
-# binders at one log by setting log_file explicitly.
-LOG_FILENAME_FORMAT = "binder_builder_{name}.log"
-SUPERSEDED_FOLDER_NAME = "_superseded"
-
-# Folders skipped unless the settings explicitly include them. The leading
-# underscore rule is the important one: it keeps the walk out of _superseded
-# and out of the tool's own _binder output, which is what makes it impossible
-# for a binder to contain a previous binder.
-ASSET_FOLDER_NAMES = ("assets", "images", "img", "media")
-
-DEFAULT_FILE_TYPES = ("md", "yaml", "yml", "json", "txt", "py")
-
-# Matches "<Name>_Binder_v<number>.md" so the output folder can be scanned for
-# the highest version already written. The name is substituted in escaped, and
-# matching is done against a case-folded filename, so the pattern itself does
-# not need to worry about case.
-BINDER_FILENAME = "{name}_Binder_v{number}.md"
-
-# Spots "C:" or "D:" at the start of a settings path, so a Windows path in a
-# settings file being run on Mac or Linux fails loudly rather than being
-# mistaken for a relative pattern that then silently never matches anything.
-WINDOWS_DRIVE = re.compile(r"^[A-Za-z]:")
-
-# Digests are truncated sha256. Twelve hex characters is plenty to answer
-# "is this binder still in step with the masters" without filling the manifest
-# with noise.
-DIGEST_LENGTH = 12
-
-# Change detection reads the manifest back out of the previous binder, so these
-# three constants describe the header that build_binder_text writes. They are
-# not a second definition of the format - they are a reader for it, and the two
-# have to be changed together.
-MANIFEST_HEADING = "## Binder manifest"
-
-# "- `<label>` - sha256 `<digest>`". The separator between the two is matched
-# loosely, so a manifest written with an en dash - or tidied by hand - still
-# parses. A line that does not match at all makes the whole manifest
-# unreadable, and an unreadable manifest means rebuild.
-MANIFEST_ENTRY = re.compile(
-    r"^-\s+`(?P<label>[^`]+)`.*?sha256\s+`(?P<digest>[0-9a-fA-F]+)`\s*$"
-)
-
-# A binder that announced itself as incomplete is never used as a comparison
-# baseline. It is missing files by definition, so "nothing changed" measured
-# against it would hold the hole open indefinitely.
-INCOMPLETE_MARKER = "INCOMPLETE BINDER"
-
-# The settings file is shipped with the tool, but if someone deletes it - or
-# copies just the .py file to a new location - we write this back out rather
-# than failing. Keeping the defaults as *text* (not as a Python dictionary that
-# gets dumped to JSON) means the file we create is byte-for-byte the file we
-# ship, comments and ordering included.
-#
-# JSON has no comment syntax, so the explanatory lines are carried as ordinary
-# keys beginning with "_comment". The loader ignores them. That keeps the file
-# valid JSON, readable by any editor and parseable by the standard library.
-DEFAULT_SETTINGS_JSON = """{
-  "_comment": "Settings for the binder builder. This file IS the binder definition - it declares what the binder contains. One binder per copy of the tool: a second binder means a second folder with its own copy of the script and its own settings, not a second entry here. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
-
-  "_comment_name": "The binder's name. Used in the heading (\\"<name> Binder\\"), in the binder filename (\\"<name>_Binder_v<number>.md\\"), and in this settings file's own name (\\"binder_builder_<name>_settings.json\\") and log (\\"binder_builder_<name>.log\\"). It also identifies this binder on the command line, and no two definitions in one folder may share it.",
-  "name": "Documentation",
-
-  "_comment_root": "The folder the binder is built from, including everything beneath it unless subfolders is false. A relative path is resolved against the folder this script lives in, so \\"..\\" means the parent folder. Give a full path such as \\"C:/Users/you/Documents\\" to point somewhere else. Forward slashes are safe on Windows.",
-  "root": "..",
-
-  "_comment_subfolders": "true walks the whole tree from root. false collects from root only.",
-  "subfolders": true,
-
-  "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \\"C:/Docs/_binder\\" - names one exact folder. ROOT-ANCHORED - \\"~/_binder\\" - names one exact folder, measured from the root above. RELATIVE - \\"_binder\\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
-
-  "_comment_defaults": "The tool skips two kinds of folder by default, without any entry in exclude. (1) Any folder whose name starts with an underscore. (2) The asset folders: assets, images, img and media. Use include to override a default skip for a specific folder. include does not include a default-skipped folder's own default-skipped children, so including _rebuild does not include _rebuild/_superseded.",
-
-  "_comment_include": "Folders skipped by default that should be collected from anyway. See _comment_defaults above for what is skipped, and why including one folder does not include its underscore-prefixed children.",
-  "include": [],
-
-  "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. A relative entry here is powerful: \\"_superseded\\" would skip every _superseded folder in the tree.",
-  "exclude": [],
-
-  "_comment_file_types": "File extensions to collect, without the dot.",
-  "file_types": ["md", "yaml", "yml", "json", "txt", "py"],
-
-  "_comment_exclude_files": "Files to skip. Applied AFTER file_types has chosen what to collect, so this setting only ever removes, and it is the last word. Three forms, the same convention include and exclude use for folders. FILENAME - \\"*_WIP_*\\" - matched against the name wherever the file appears. ROOT-ANCHORED - \\"~/_rebuild/*.json\\" - one exact path, measured from the root. TRAILING - \\"_rebuild/*.json\\" - a pattern rather than a place: any file whose path ends with those segments, so one entry covers a _rebuild folder wherever it appears.",
-
-  "_comment_exclude_files_wildcards": "? matches one character. In the two path forms * stops at a folder separator and ** crosses them: \\"~/_rebuild/*.json\\" is JSON directly in _rebuild, while \\"~/_rebuild/**/*.json\\" is JSON in _rebuild and everything beneath it. The filename form has no separators to stop at.",
-
-  "_comment_exclude_files_convention": "The working document - work in progress, working notes - is what belongs here: it is loaded separately when active state is needed. The test is durability, not cadence. Work registers and open-items documents outlive the session and belong IN the binder, so never exclude them here. Example: [\\"*_WIP_*\\", \\"*_WIP.*\\"]",
-  "exclude_files": [],
-
-  "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. Everything not named here follows, sorted by path. A name that matches nothing in scope is reported, not silently ignored.",
-  "order": [],
-
-  "_comment_output": "The folder the binder is written to. Absolute, or \\"~/\\" for root-anchored, or relative to the script folder. The default \\"~/_binder\\" is an underscore folder inside the root, so it is skipped by the walk and a binder can never contain itself.",
-  "output": "~/_binder",
-
-  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \\"~/\\" for root-anchored, or relative to the script folder. Leave this out entirely and the log is named for the binder - binder_builder_<name>.log - which is what keeps four definitions in one folder from interleaving four runs in one file. Set it explicitly to point several binders at one log on purpose.",
-  "log_file": "binder_builder_Documentation.log"
-}
-"""
-
-
-# ---------------------------------------------------------------------------
-# Small record types
-# ---------------------------------------------------------------------------
-# A dataclass is Python shorthand for "a class that just holds these fields".
-# The lines below generate the constructor for us. Used here instead of loose
-# tuples so that report code can say event.kind rather than event[0].
-
-@dataclass
-class Event:
-    """One line of the report: something that happened, or failed to."""
-    kind: str      # see REPORT_KINDS
-    folder: Path   # the folder it concerns
-    detail: str    # human-readable description
-
-
-# The vocabulary, in the order a summary line lists it. INCLUDED/WOULD INCLUDE
-# and WRITTEN/WOULD WRITE are the same event seen live and in a dry run, which
-# is the same shape version cleanup uses for MOVED/WOULD MOVE. CONFLICT and
-# ERROR mean exactly what they mean there.
-REPORT_KINDS = (
-    "INCLUDED",      # file placed in the binder
-    "WOULD INCLUDE", # dry run: the same file, nothing written
-    "SKIPPED",       # in a collected folder, deliberately left out
-    "UNMATCHED",     # an "order" entry naming a file that is not in scope
-    "NO CHANGES",    # nothing in scope has changed; the binder was not rebuilt
-    "WOULD CHECK",   # dry run: the same comparison, reported not acted on
-    "WRITTEN",       # the binder file itself
-    "WOULD WRITE",   # dry run equivalent
-    "SUPERSEDED",    # the previous binder moved into _superseded
-    "WOULD SUPERSEDE",
-    "CONFLICT",      # a destination name is already taken; nothing overwritten
-    "EMPTY",         # nothing in scope; no binder written, previous left alone
-    "INCOMPLETE",    # a source could not be read; the binder has a hole in it
-    "ERROR",         # filesystem refusal
-)
-
-
-@dataclass
-class FilePattern:
-    """One compiled exclude_files entry."""
-    text: str          # exactly as written in the settings, for the report
-    kind: str          # "name", "path" or "trailing"
-    regex: object      # compiled regex for path/trailing; None for name
-
-
-@dataclass
-class SourceFile:
-    """One file selected for the binder, with its place in the order."""
-    path: Path
-    sort_key: tuple
-
-
-@dataclass
-class BinderPart:
-    """One assembled section of the binder body, and its digest."""
-    path: Path
-    label: str      # how the file is named in the manifest and delimiters
-    text: str       # the section as it will appear, delimiters included
-    digest: str     # sha256 of the source bytes written, truncated
-
-
-# ---------------------------------------------------------------------------
-# Settings
-# ---------------------------------------------------------------------------
-
-def create_default_settings(settings_path):
-    """
-    Write the shipped defaults out. Used when a folder holds no definition at
-    all, so a bare copy of the script explains itself rather than failing.
-    """
-    print("No settings file found. Creating one with default values:")
-    print("  {}".format(settings_path))
-    print("This file is a binder definition, so it almost certainly needs "
-          "editing.")
-    print("Review it, then run the tool again.")
-    print("")
-    settings_path.write_text(DEFAULT_SETTINGS_JSON, encoding="utf-8")
-
-
-def load_settings(settings_path):
-    """
-    Read one settings file.
-
-    Returns a plain dictionary. Raises ValueError with a readable message if
-    the file is not valid JSON - a mistyped settings file should stop that
-    binder with an explanation, not with a stack trace.
-    """
-    text = settings_path.read_text(encoding="utf-8")
-    try:
-        settings = json.loads(text)
-    except json.JSONDecodeError as error:
-        # The exception carries the line and column of the problem, which is
-        # the single most useful thing to show someone fixing the file.
-        raise ValueError(
-            "The settings file is not valid JSON.\n"
-            "  file: {}\n"
-            "  problem: {} (line {}, column {})\n"
-            "Common causes: a missing comma, a trailing comma after the last "
-            "item, or a single backslash inside a path (write \\\\ or use /)."
-            .format(settings_path, error.msg, error.lineno, error.colno)
-        )
-
-
-    if not isinstance(settings, dict):
-        raise ValueError(
-            "The settings file must contain a JSON object (a {{ ... }} block), "
-            "but it contains {}.".format(type(settings).__name__)
-        )
-
-    return settings
-
-
-def read_string_list(settings, key):
-    """Read a settings value that must be a list of strings, or absent."""
-    values = settings.get(key)
-    if values is None:
-        return []
-    if not isinstance(values, list):
-        raise ValueError(
-            'Setting "{}" must be a list, written in square brackets, for '
-            'example ["one", "two"].'.format(key)
-        )
-    return [str(value).strip() for value in values if str(value).strip()]
-
-
-def read_flag(settings, key, default):
-    """Read a true/false setting, rejecting the string "true" politely."""
-    value = settings.get(key, default)
-    if isinstance(value, bool):
-        return value
-    raise ValueError(
-        'Setting "{}" must be true or false, without quotes around it.'
-        .format(key)
-    )
-
-
-# ---------------------------------------------------------------------------
-# Path forms
-# ---------------------------------------------------------------------------
-# Three spellings are accepted, because the tree needs two different kinds of
-# statement: "this exact folder" and "any folder shaped like this".
-#
-#   absolute        "C:/Docs/_binder"   one exact folder
-#   root-anchored   "~/_binder"         one exact folder, measured from root
-#   relative        "_binder"           a PATTERN: every folder whose path
-#                                       ends with those segments
-#
-# The relative form is the interesting one. It is not resolved once at startup;
-# it is a shape the walk tests every folder against, so a single "_binder"
-# entry covers a _binder subfolder wherever one turns up in the tree. Several
-# segments work too: "_binder/current" matches any .../_binder/current.
-#
-# Note that "~" does NOT mean the home folder here. Python's expanduser is
-# deliberately never called on these settings, so "~/" always means the root of
-# the tree being collected from and can never quietly resolve to
-# C:\\Users\\someone.
-#
-# This is the same model as version cleanup, ratified as the Infrastructure-wide
-# convention. Two sibling tools with different path semantics would be a trap.
-
-def tidy_setting_text(value, label):
-    """Trim a settings value and normalise its separators to forward slashes."""
-    text = str(value).strip().replace("\\", "/")
-    if not text:
-        raise ValueError('Setting "{}" contains an empty path.'.format(label))
-    return text
-
-
-def resolve_one_folder(text, label, root=None):
-    """
-    Resolve a settings value that names ONE place: absolute, "~/" measured from
-    the root, or relative to the script's own folder.
-
-    Used for the root, the output folder and the log file. Include and exclude
-    go through parse_scope_entry instead, because they also accept patterns.
-    """
-    if text.startswith("~"):
-        if root is None:
-            raise ValueError(
-                'Setting "{}" cannot use "~/", because "~/" means "measured '
-                'from the root" and this setting is what defines the root. '
-                'Use a full path, or a path relative to the script folder.'
-                .format(label)
-            )
-        if not text.startswith("~/"):
-            raise ValueError(
-                'Setting "{}": "~" means the root folder, so it has to be '
-                'written as "~/something".'.format(label)
-            )
-        return (root / text[2:]).resolve()
-
-    path = Path(text)
-    if not path.is_absolute():
-        if WINDOWS_DRIVE.match(text):
-            raise ValueError(
-                'Setting "{}" is "{}", which looks like a Windows path, but '
-                "this is not Windows.".format(label, text)
-            )
-        # resolve() also removes any ".." segments, so two spellings of the
-        # same folder compare equal later on.
-        path = SCRIPT_DIR / path
-    return path.resolve()
-
-
-def parse_scope_entry(text, label, root):
-    """
-    Classify one include or exclude entry.
-
-    Returns ("folder", Path) for the absolute and "~/" forms, or
-    ("pattern", (segments...)) for the relative form.
-    """
-    if text.startswith("~"):
-        return ("folder", resolve_one_folder(text, label, root))
-
-    path = Path(text)
-    if path.is_absolute():
-        return ("folder", path.resolve())
-    if WINDOWS_DRIVE.match(text):
-        raise ValueError(
-            'Setting "{}" contains "{}", which looks like a Windows path, but '
-            "this is not Windows.".format(label, text)
-        )
-
-    # Anything else is a pattern. Splitting on "/" and dropping empty pieces
-    # tolerates a stray leading or trailing slash.
-    segments = tuple(part for part in text.split("/") if part)
-    if not segments or "." in segments:
-        raise ValueError(
-            'Setting "{}" contains "{}", which does not name anything.'
-            .format(label, text)
-        )
-    if ".." in segments:
-        raise ValueError(
-            'Setting "{}" contains "{}". A relative entry is a pattern tested '
-            'against every folder in the tree, so ".." has no meaning in one. '
-            'Write "~/..." to anchor at the root, or give a full path.'
-            .format(label, text)
-        )
-    return ("pattern", segments)
-
-
-def normalise(path):
-    """
-    Case-fold a path the way the local filesystem does.
-
-    os.path.normcase lowercases on Windows, where FOO and foo are the same
-    folder, and changes nothing on Mac or Linux. Comparing paths through it
-    avoids both false misses on Windows and false matches elsewhere.
-    """
-    return Path(os.path.normcase(str(path)))
-
-
-# ---------------------------------------------------------------------------
-# Folder scope
-# ---------------------------------------------------------------------------
-
-def is_inside(path, folder):
-    """True if `path` is `folder` itself, or anywhere beneath it."""
-    try:
-        normalise(path).relative_to(normalise(folder))
-        return True
-    except ValueError:
-        # relative_to raises when path is not under folder. Catching that is
-        # the standard pathlib way of asking this question.
-        return False
-
-
-@dataclass
-class Scope:
-    """
-    Everything the walk needs in order to decide which folders are in play.
-
-    Entries arrive already sorted into exact folders and patterns, so the walk
-    itself stays readable: it asks questions, it does not parse settings.
-    """
-    root: Path
-    subfolders: bool = True
-    include_folders: list = field(default_factory=list)
-    include_patterns: list = field(default_factory=list)
-    exclude_folders: list = field(default_factory=list)
-    exclude_patterns: list = field(default_factory=list)
-    include_text: list = field(default_factory=list)   # as typed, for the report
-    exclude_text: list = field(default_factory=list)
-
-    def parts_below_root(self, path):
-        """The folder's path as case-folded segments measured from the root."""
-        try:
-            relative = path.relative_to(self.root)
-        except ValueError:
-            return None
-        return tuple(os.path.normcase(part) for part in relative.parts)
-
-    def matches_pattern(self, path, patterns):
-        """
-        True if the folder's path ENDS WITH one of the patterns.
-
-        This trailing-segment test is what makes "_binder" mean "any _binder
-        folder, wherever it appears". Because the comparison is made against
-        the path measured from the root, a pattern can never reach above the
-        root, and the root itself is never matched: it has no segments to
-        compare.
-        """
-        parts = self.parts_below_root(path)
-        if parts is None:
-            return False
-        for pattern in patterns:
-            length = len(pattern)
-            if length > len(parts):
-                continue
-            wanted = tuple(os.path.normcase(part) for part in pattern)
-            if parts[-length:] == wanted:
-                return True
-        return False
-
-    def leads_to_include_pattern(self, path):
-        """
-        True if something deeper down could still match a multi-segment
-        include pattern.
-
-        For "_binder/current", a folder ending in "_binder" is not itself
-        included, but the walk has to pass through it to reach "current".
-        Testing every *proper* prefix of every pattern is exactly that
-        lookahead. Single-segment patterns have no proper prefix and contribute
-        nothing here, which is right: they match the folder itself or not at
-        all.
-        """
-        parts = self.parts_below_root(path)
-        if parts is None:
-            return False
-        for pattern in self.include_patterns:
-            for length in range(1, len(pattern)):
-                if length > len(parts):
-                    continue
-                wanted = tuple(os.path.normcase(part)
-                               for part in pattern[:length])
-                if parts[-length:] == wanted:
-                    return True
-        return False
-
-    def is_excluded(self, path):
-        """Excluded folders, and everything inside them, are never touched."""
-        if any(is_inside(path, folder) for folder in self.exclude_folders):
-            return True
-        return self.matches_pattern(path, self.exclude_patterns)
-
-    def is_included(self, path):
-        """True if this exact folder was named, or it matches a pattern."""
-        if any(normalise(path) == normalise(folder)
-               for folder in self.include_folders):
-            return True
-        return self.matches_pattern(path, self.include_patterns)
-
-    def is_skipped_by_default(self, path):
-        """
-        Folders left out unless the settings ask for them.
-
-        The underscore rule is the load-bearing one: it keeps the walk out of
-        _superseded and out of the tool's own _binder output folder, which is
-        what makes it structurally impossible for a binder to include a binder.
-        Asset folders are excluded by name because their contents are not
-        documents.
-        """
-        name = path.name
-        if name.startswith("_"):
-            return True
-        return os.path.normcase(name) in ASSET_FOLDER_NAMES
-
-    def should_descend(self, path):
-        """
-        Should the walk go *into* this folder?
-
-        Note the difference between descending and collecting. A folder that is
-        not itself collected from may still need to be walked through, because
-        something deeper down is on the include list. It is traversed, but its
-        own files are left alone.
-        """
-        if self.is_excluded(path):
-            return False
-        if not self.is_skipped_by_default(path):
-            return True
-        if self.is_included(path):
-            return True
-        # Is this folder on the way to an exactly-named include?
-        if any(is_inside(folder, path) for folder in self.include_folders):
-            return True
-        return self.leads_to_include_pattern(path)
-
-    def should_collect(self, path):
-        """Should this folder's own files go into the binder?"""
-        if self.is_excluded(path):
-            return False
-        if not self.is_skipped_by_default(path):
-            return True
-        # Only an explicit include overrides the default skip. Note that
-        # including a folder does not include its underscore-prefixed children:
-        # each folder is asked this question in its own right.
-        return self.is_included(path)
-
-
-def build_scope(root, subfolders, include_values, exclude_values):
-    """Turn the raw include and exclude settings into a Scope."""
-    scope = Scope(root=root, subfolders=subfolders)
-
-    for label, values in (("include", include_values),
-                          ("exclude", exclude_values)):
-        for value in values:
-            text = tidy_setting_text(value, label)
-            kind, resolved = parse_scope_entry(text, label, root)
-            if label == "include":
-                scope.include_text.append(text)
-                target = (scope.include_folders if kind == "folder"
-                          else scope.include_patterns)
-            else:
-                scope.exclude_text.append(text)
-                target = (scope.exclude_folders if kind == "folder"
-                          else scope.exclude_patterns)
-            target.append(resolved)
-
-    return scope
-
-
-def folders_to_collect(scope):
-    """
-    Walk the tree from the root and return the folders whose files belong in
-    the binder, in a stable, predictable order.
-    """
-    root = scope.root
-
-    if not scope.subfolders:
-        # "subfolders": false means the root and nothing else. An explicit
-        # exclude of the root still wins.
-        return [] if scope.is_excluded(root) else [root]
-
-    found = []
-
-    # os.walk visits every folder beneath root. With topdown=True (the default)
-    # it hands us the list of subfolder names *before* descending, and editing
-    # that list in place prunes the walk - the standard way to skip whole
-    # branches cheaply. Pruning is also what makes exclusion inherited: once a
-    # folder is skipped, nothing inside it is ever looked at, so there is no
-    # need to ask again further down. Symbolic links to folders are not
-    # followed by default, which is what we want: a link should not cause the
-    # same documents to appear in the binder twice.
-    for dirpath, dirnames, _filenames in os.walk(root):
-        current = Path(dirpath)
-
-        # dirnames[:] = ... replaces the contents of the existing list rather
-        # than rebinding the name. os.walk only notices the former.
-        dirnames[:] = sorted(
-            name for name in dirnames if scope.should_descend(current / name)
-        )
-
-        if current == root:
-            # The root was chosen deliberately by whoever edited the settings,
-            # so the default skips do not apply to it. An explicit exclude
-            # still does.
-            collect = not scope.is_excluded(current)
-        else:
-            collect = scope.should_collect(current)
-
-        if collect:
-            found.append(current)
-
-    return found
-
-
-# ---------------------------------------------------------------------------
-# File selection
-# ---------------------------------------------------------------------------
-
-# exclude_files takes the same three path forms as include and exclude, which
-# is the Infrastructure-wide convention (D6). Applied to files rather than
-# folders they read as:
-#
-#   name         "*_WIP_*"             a filename, matched wherever it appears
-#   root-anchored "~/_rebuild/*.json"  one exact path, measured from the root
-#   trailing     "_rebuild/*.json"     a PATTERN: any file whose path ends
-#                                      with those segments, so one entry
-#                                      covers a _rebuild folder at any depth
-#
-# An entry with no "/" in it is the first form and behaves exactly as it always
-# did. That is what keeps every existing settings file working unchanged.
-#
-# The wildcards are glob's, NOT fnmatch's, and the difference is the whole
-# point: fnmatch's "*" matches "/" as well, so "~/_rebuild/*.json" under
-# fnmatch would also match _rebuild/anything/deep/x.json and the qualification
-# would mean nothing. Here "*" stops at a separator and "**" is the segment
-# that crosses them.
-
-def fold_path(text):
-    """
-    Case-fold a relative path the way the local filesystem does, keeping "/"
-    as the separator.
-
-    os.path.normcase cannot be used alone here: on Windows it rewrites "/" as
-    "\\" as well as lowercasing, which would compile a pattern over
-    backslashes and then match it against a forward-slash path. Folding and
-    then restoring the separator keeps the platform's case rule and the
-    tool's one spelling of a path.
-    """
-    return os.path.normcase(text.replace("\\", "/")).replace("\\", "/")
-
-
-def translate_segment(segment):
-    """Turn one glob segment into regex source. "*" does not cross "/"."""
-    out = []
-    for character in segment:
-        if character == "*":
-            out.append("[^/]*")
-        elif character == "?":
-            out.append("[^/]")
-        else:
-            out.append(re.escape(character))
-    return "".join(out)
-
-
-def glob_to_regex(pattern, trailing=False):
-    """
-    Compile a "/"-separated glob into a regex over a forward-slash path.
-
-        _rebuild/*.json      _rebuild/notes.json          yes
-                             _rebuild/sub/notes.json      no
-        _rebuild/**/*.json   _rebuild/notes.json          yes
-                             _rebuild/sub/deep/notes.json yes
-
-    "**" is zero or more whole path segments, so it covers the folder itself
-    as well as everything under it. `trailing` anchors the pattern at the end
-    of the path rather than at the root, which is the third form above.
-    """
-    segments = [part for part in pattern.split("/") if part]
-    pieces = []
-    for index, segment in enumerate(segments):
-        last = index == len(segments) - 1
-        if segment == "**":
-            # As the final segment "**" means "everything from here down";
-            # anywhere else it means "any number of intervening folders",
-            # including none, so it carries its own separator.
-            pieces.append(".+" if last else "(?:[^/]+/)*")
-        else:
-            pieces.append(translate_segment(segment) + ("" if last else "/"))
-    prefix = "(?:.*/)?" if trailing else ""
-    return re.compile("^" + prefix + "".join(pieces) + "$")
-
-
-def compile_exclude_files(values, label="exclude_files"):
-    """
-    Sort the exclude_files entries into the three forms and compile them.
-
-    Raises ValueError for an entry that cannot mean anything, rather than
-    letting it sit in the settings quietly matching nothing.
-    """
-    compiled = []
-    for value in values:
-        original = str(value).strip()
-        tidied = original.replace("\\", "/")
-        if not tidied:
-            continue
-
-        if tidied.startswith("~"):
-            if not tidied.startswith("~/"):
-                raise ValueError(
-                    'Setting "{}" contains "{}": "~" means the root folder, '
-                    'so it has to be written as "~/something".'
-                    .format(label, original)
-                )
-            body = tidied[2:]
-            kind = "path"
-        elif "/" in tidied:
-            body = tidied
-            kind = "trailing"
-        else:
-            compiled.append(FilePattern(original, "name", None))
-            continue
-
-        segments = [part for part in body.split("/") if part]
-        if not segments:
-            raise ValueError(
-                'Setting "{}" contains "{}", which does not name anything.'
-                .format(label, original)
-            )
-        if ".." in segments:
-            raise ValueError(
-                'Setting "{}" contains "{}". A file pattern is matched '
-                'against a path measured from the root, so ".." has no '
-                'meaning in one.'.format(label, original)
-            )
-        compiled.append(FilePattern(
-            original, kind,
-            glob_to_regex(fold_path("/".join(segments)),
-                          trailing=(kind == "trailing")),
-        ))
-    return compiled
-
-
-def excluded_by(entry, relative_path, patterns):
-    """
-    The first exclude_files pattern that drops this file, or None.
-
-    Returning the pattern rather than a boolean is what lets the report name
-    which entry did it - the question anyone with four patterns in a settings
-    file actually has.
-    """
-    for pattern in patterns:
-        if pattern.kind == "name":
-            # fnmatch case-folds through os.path.normcase, so a filename
-            # pattern follows the local filesystem exactly as folder
-            # comparison does.
-            if fnmatch.fnmatch(entry.name, pattern.text):
-                return pattern
-        elif pattern.regex.match(relative_path):
-            return pattern
-    return None
-
-
-def binder_name_pattern(name):
-    """
-    Matches any binder belonging to this definition: "<Name>_Binder_v<N>.md".
-
-    Used twice, for two different reasons: to find the highest version already
-    written, and to keep the tool's own output out of its own input.
-    """
-    return re.compile(
-        r"^" + re.escape(os.path.normcase(name)) + r"_binder_v(\d+)\.md$"
-    )
-
-
-def collect_files(scope, folders, file_types, exclude_files, order,
-                  output_folder, output_path, name):
-    """
-    Choose the files that go into the binder, in binder order. Nothing is read
-    here beyond the directory listings.
-
-    Returns (sources, events). Splitting selection from assembly - and both
-    from writing - is what makes --dry-run trustworthy: the dry run takes
-    exactly the same decisions as a live run, and only the last step differs.
-    """
-    sources = []
-    events = []
-
-    # Order entries are matched on filename, case-folded the way the local
-    # filesystem folds names. The dictionary maps a folded filename to its
-    # position in the list, which becomes the primary sort key.
-    order_rank = {}
-    for position, name in enumerate(order):
-        order_rank.setdefault(os.path.normcase(name), position)
-    order_seen = set()
-
-    wanted_extensions = {"." + extension.lstrip(".").lower()
-                         for extension in file_types}
-
-    own_binder = binder_name_pattern(name)
-
-    for folder in folders:
-        try:
-            entries = sorted(folder.iterdir())
-        except OSError as error:
-            events.append(Event("ERROR", folder,
-                                "cannot read folder: {}".format(error)))
-            continue
-
-        for entry in entries:
-            if not entry.is_file():
-                continue  # subfolders are visited in their own right
-
-            # The defensive self-inclusion check. The output folder is normally
-            # underscore-prefixed and therefore already outside the walk, but
-            # if someone points "output" at a collected folder, the binder must
-            # not swallow itself. Two things are refused: the file this run is
-            # about to write, and any earlier binder of this same definition
-            # sitting in the output folder. The second is the one that actually
-            # bites - this run's own output does not exist yet, but last run's
-            # does, and including it would nest a binder inside a binder and
-            # double the corpus on every build.
-            if normalise(entry) == normalise(output_path):
-                events.append(Event(
-                    "SKIPPED", folder,
-                    "{}: this is the binder's own output file".format(entry.name)
-                ))
-                continue
-            if normalise(entry.parent) == normalise(output_folder) and \
-                    own_binder.match(os.path.normcase(entry.name)):
-                events.append(Event(
-                    "SKIPPED", folder,
-                    "{}: this is an earlier version of this binder"
-                    .format(entry.name)
-                ))
-                continue
-
-            if entry.suffix.lower() not in wanted_extensions:
-                # Not reported. A document tree is full of files of other
-                # types and listing every one of them would bury the report.
-                continue
-
-            # The path a pattern is matched against is measured from the
-            # root and spelled with forward slashes, so one settings file
-            # behaves the same on every platform.
-            relative_path = fold_path(relative_to(entry, scope.root))
-            excluding = excluded_by(entry, relative_path, exclude_files)
-            if excluding is not None:
-                events.append(Event(
-                    "SKIPPED", folder,
-                    '{}: matches exclude_files pattern "{}"'
-                    .format(entry.name, excluding.text)
-                ))
-                continue
-
-            folded = os.path.normcase(entry.name)
-            if folded in order_rank:
-                rank = order_rank[folded]
-                order_seen.add(folded)
-            else:
-                # Everything not named in "order" sorts after everything that
-                # is. len(order_rank) is one past the last explicit position.
-                rank = len(order_rank)
-
-            # Within a rank, sort by path so the binder is reproducible.
-            # normcase keeps the ordering consistent with how the filesystem
-            # itself compares names.
-            sources.append(SourceFile(
-                path=entry,
-                sort_key=(rank, os.path.normcase(str(entry))),
-            ))
-
-    sources.sort(key=lambda source: source.sort_key)
-
-    # An "order" entry that matched nothing is a quiet defect: the binder is
-    # assembled in an order its author did not get. Say so.
-    for name in order:
-        if os.path.normcase(name) not in order_seen:
-            events.append(Event(
-                "UNMATCHED", scope.root,
-                'order entry "{}" matched no file in scope'.format(name)
-            ))
-
-    return sources, events
-
-
-# ---------------------------------------------------------------------------
-# Assembly
-# ---------------------------------------------------------------------------
-# Encoding, stated rather than inherited from the platform:
-#
-#   READ   the file's bytes, then decode as UTF-8. The "utf-8-sig" codec is
-#          used, which is plain UTF-8 except that it removes a byte-order mark
-#          if one is present. This is the single deviation from byte-for-byte
-#          copying, and it is deliberate: a BOM is a start-of-file marker, and
-#          leaving one embedded halfway down a binder produces a stray U+FEFF
-#          in the middle of the text.
-#   WRITE  UTF-8, no BOM, opened in BINARY mode so that no line-ending
-#          translation can happen. Line endings therefore pass through exactly
-#          as they were in the source.
-#
-# Nothing else is altered: no reformatting, no heading demotion, no trimming,
-# no normalisation of blank lines. The one adjustment is that a newline is
-# added after a source that does not end with one, so that the closing
-# delimiter sits on its own line.
-
-BEGIN_DELIMITER = "<!-- BEGIN SOURCE: {label} -->"
-END_DELIMITER = "<!-- END SOURCE: {label} -->"
-
-
-def read_source(path):
-    """
-    Read one source file. Returns (text, digest).
-
-    The digest is taken over the bytes that will actually be written into the
-    binder - text.encode("utf-8") - and not over a separate read of the file.
-    That is what makes the manifest a statement about the binder rather than a
-    statement about the tree at some other moment.
-
-    Raises OSError for a filesystem refusal and UnicodeDecodeError for a file
-    that is not text; both mean the binder cannot contain this file.
-    """
-    data = path.read_bytes()
-    text = data.decode("utf-8-sig")
-    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()[:DIGEST_LENGTH]
-    return text, digest
-
-
-def assemble_parts(sources, root):
-    """
-    Read every source and build its section of the binder body.
-
-    Returns (parts, missing, events). `missing` holds the files that could not
-    be read: if it is not empty the binder has a hole in it, and every caller
-    downstream treats that as loud.
-    """
-    parts = []
-    missing = []
-    events = []
-
-    for source in sources:
-        label = relative_to(source.path, root).replace("\\", "/")
-        try:
-            text, digest = read_source(source.path)
-        except UnicodeDecodeError as error:
-            missing.append(label)
-            events.append(Event(
-                "ERROR", source.path.parent,
-                "{} is not UTF-8 text and was left out: {}"
-                .format(source.path.name, error.reason)
-            ))
-            continue
-        except OSError as error:
-            missing.append(label)
-            events.append(Event(
-                "ERROR", source.path.parent,
-                "{} could not be read and was left out: {}"
-                .format(source.path.name, error)
-            ))
-            continue
-
-        # The one permitted adjustment: guarantee the closing delimiter starts
-        # on a line of its own. An empty file gets no added newline beyond the
-        # one that separates the two delimiters.
-        body = text
-        if body and not body.endswith("\n"):
-            body += "\n"
-
-        parts.append(BinderPart(
-            path=source.path,
-            label=label,
-            text="{}\n{}{}\n".format(
-                BEGIN_DELIMITER.format(label=label),
-                body,
-                END_DELIMITER.format(label=label),
-            ),
-            digest=digest,
-        ))
-
-    return parts, missing, events
-
-
-def build_binder_text(name, version, parts, missing):
-    """
-    Compose the whole binder: header, manifest, then the bodies.
-
-    The manifest is written from the same `parts` list that produces the body,
-    in the same order, using digests computed during assembly. The manifest and
-    the body cannot describe different things because they are generated from
-    one source of truth in one pass.
-    """
-    today = datetime.date.today().isoformat()
-
-    lines = []
-    lines.append("# {} Binder".format(name))
-    lines.append("")
-    lines.append("> **Generated Binder - do not edit directly.** Edit the "
-                 "individual master documents")
-    lines.append("> and regenerate the Binder.")
-    lines.append("> **Binder Version {}** ({}).".format(version, today))
-    lines.append("")
-    lines.append("This Binder is a current-context consumption artefact; "
-                 "authoritative masters remain")
-    lines.append("individual files.")
-    lines.append("")
-
-    # An empty binder says so on its own face. The alternative - a file with a
-    # manifest reading "(no files)" and nothing after it - looks like a build
-    # that went wrong, and a reader has no way to tell whether the scope was
-    # empty or the tool was.
-    if not parts:
-        lines.append("> **EMPTY BINDER - nothing was in scope when this was "
-                     "built.**")
-        lines.append(">")
-        lines.append("> This is a statement about the tree, not a failure: "
-                     "the scope genuinely")
-        lines.append("> contained no files. If that is unexpected, the scope "
-                     "settings are where")
-        lines.append("> to look.")
-        lines.append("")
-
-    # An incomplete binder announces itself in its own first screenful. A
-    # reader who never sees the console report or the log still cannot mistake
-    # it for the whole topic.
-    if missing:
-        lines.append("> **INCOMPLETE BINDER - {} source file(s) could not be "
-                     "read and are missing:**".format(len(missing)))
-        for label in missing:
-            lines.append("> - `{}`".format(label))
-        lines.append(">")
-        lines.append("> Do not treat this Binder as a complete statement of "
-                     "its scope until it is rebuilt.")
-        lines.append("")
-
-    lines.append("## Binder manifest")
-    lines.append("")
-    if parts:
-        for part in parts:
-            lines.append("- `{}` - sha256 `{}`".format(part.label, part.digest))
-    else:
-        lines.append("- (no files)")
-    lines.append("")
-
-    header = "\n".join(lines) + "\n"
-
-    sections = []
-    for part in parts:
-        sections.append("---\n\n" + part.text)
-
-    return header + "\n".join(sections)
-
-
-# ---------------------------------------------------------------------------
-# Change detection
-# ---------------------------------------------------------------------------
-# The binder is a derived artefact. If every source is byte-for-byte what it was
-# when the last binder was written, rebuilding produces the same content under a
-# new version number and pushes a perfectly good binder into _superseded for
-# nothing. That is merely untidy when someone runs the tool by hand, and
-# genuinely wasteful once another tool runs it after every deploy.
-#
-# The comparison needs no new state, because the answer is already in the
-# binder: the manifest lists every file it contains with a digest of that file's
-# content. Comparing that manifest against the digests computed for this run
-# answers "has anything in scope changed" exactly - additions and removals
-# included, since the comparison is over the set of files as well as over the
-# digests.
-#
-# Every uncertainty resolves towards rebuilding. No previous binder, an
-# unreadable one, a manifest that will not parse, a previous build stamped
-# INCOMPLETE, a source that could not be read this time, or --force: build. An
-# unnecessary rebuild costs a version number. A wrongly skipped one leaves a
-# binder that misrepresents the tree, which is the failure this tool exists to
-# prevent.
-
-
-def parse_binder_manifest(path):
-    """
-    Read the manifest out of an existing binder.
-
-    Returns a dictionary of label -> digest, or None if the binder cannot serve
-    as a baseline: unreadable, not UTF-8, no manifest heading, a manifest line
-    in an unexpected shape, or a binder stamped INCOMPLETE. None means "cannot
-    compare", and cannot compare always means rebuild.
-    """
-    try:
-        text = path.read_text(encoding="utf-8-sig")
-    except (OSError, UnicodeDecodeError):
-        return None
-
-    lines = text.splitlines()
-
-    try:
-        start = lines.index(MANIFEST_HEADING)
-    except ValueError:
-        return None
-
-    # Only the header above the manifest is examined for the incomplete stamp,
-    # so a source file that happens to discuss incomplete binders - this tool's
-    # own design document, for one - cannot trip it.
-    if any(INCOMPLETE_MARKER in line for line in lines[:start]):
-        return None
-
-    manifest = {}
-    for line in lines[start + 1:]:
-        entry = line.strip()
-        if not entry:
-            continue
-        # The manifest ends where the body begins.
-        if entry.startswith("---") or entry.startswith("<!-- BEGIN SOURCE"):
-            break
-        if entry == "- (no files)":
-            continue
-        match = MANIFEST_ENTRY.match(entry)
-        if not match:
-            # One unreadable entry means this binder's contents cannot be
-            # established. Guessing at the rest would be worse than rebuilding.
-            return None
-        manifest[match.group("label")] = match.group("digest").lower()
-
-    return manifest
-
-
-def compare_to_manifest(manifest, parts):
-    """
-    Compare this run's assembled parts against a previous binder's manifest.
-
-    Returns (unchanged, description). The description is written for the report
-    in both cases, so a run always states what the comparison found rather than
-    only stating what it decided.
-    """
-    current = {part.label: part.digest.lower() for part in parts}
-
-    added = sorted(set(current) - set(manifest))
-    removed = sorted(set(manifest) - set(current))
-    changed = sorted(label for label in set(current) & set(manifest)
-                     if current[label] != manifest[label])
-
-    if not (added or removed or changed):
-        return True, "{} file(s) in scope, all matching the manifest".format(
-            len(current))
-
-    counts = ", ".join(
-        "{} {}".format(len(group), word)
-        for group, word in ((added, "added"),
-                            (removed, "removed"),
-                            (changed, "changed"))
-        if group
-    )
-
-    # Name a few. A run that rebuilds should say why in terms of the tree and
-    # not only in numbers, but a scope-wide change must not print a hundred
-    # lines to say so.
-    named = (added + removed + changed)
-    shown = named[:3]
-    remainder = len(named) - len(shown)
-    return False, "{} ({}{})".format(
-        counts,
-        ", ".join(shown),
-        ", and {} more".format(remainder) if remainder else "",
-    )
-
-
-# ---------------------------------------------------------------------------
-# Versioning and output
-# ---------------------------------------------------------------------------
-
-def next_binder_version(output_folder, name):
-    """
-    Work out this binder's version number by looking at the output folder.
-
-    The folder is the truth; no version is recorded in settings, because a
-    number kept in settings drifts from reality the first time a file is moved
-    by hand. Scan for existing binders of this name, take the highest, add one.
-
-    Returns (version, previous_path). previous_path is the binder being
-    replaced, or None if this is the first.
-    """
-    pattern = binder_name_pattern(name)
-
-    highest = 0
-    previous = None
-    if output_folder.is_dir():
-        for entry in sorted(output_folder.iterdir()):
-            if not entry.is_file():
-                continue
-            match = pattern.match(os.path.normcase(entry.name))
-            if not match:
-                continue
-            number = int(match.group(1))
-            if number > highest:
-                highest = number
-                previous = entry
-
-    return highest + 1, previous
-
-
-def write_binder(output_folder, filename, text):
-    """
-    Write the binder. Binary mode, UTF-8, no BOM, no newline translation.
-
-    Text mode would rewrite "\\n" as "\\r\\n" on Windows, which would silently
-    alter every source line ending in the file. Binary mode is the guarantee
-    that what was read is what is written.
-    """
-    output_folder.mkdir(parents=True, exist_ok=True)
-    path = output_folder / filename
-    with open(path, "wb") as handle:
-        handle.write(text.encode("utf-8"))
-    return path
-
-
-def supersede_previous(previous, dry_run):
-    """
-    Move the binder this run replaced into _superseded beside it.
-
-    A tool cleans up after itself. The output folder is normally underscore-
-    prefixed, so version cleanup skips it by design and would have to be
-    explicitly pointed at it purely to tidy after every build. And this is not
-    general supersession: the tool knows the single file it just replaced, so
-    there is no scanning, grouping or version reasoning here.
-
-    Nothing is ever overwritten.
-    """
-    folder = previous.parent
-    destination = folder / SUPERSEDED_FOLDER_NAME / previous.name
-
-    if dry_run:
-        return Event("WOULD SUPERSEDE", folder,
-                     "{} -> {}/".format(previous.name, SUPERSEDED_FOLDER_NAME))
-
-    if destination.exists():
-        return Event(
-            "CONFLICT", folder,
-            "{} left in place: {}/{} already exists"
-            .format(previous.name, SUPERSEDED_FOLDER_NAME, previous.name)
-        )
-
-    try:
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        # A last existence check immediately before the move: the destination
-        # could have appeared since, and shutil.move would silently overwrite
-        # it on Linux and macOS.
-        if destination.exists():
-            return Event(
-                "CONFLICT", folder,
-                "{} left in place: {}/{} appeared during the run"
-                .format(previous.name, SUPERSEDED_FOLDER_NAME, previous.name)
-            )
-        shutil.move(str(previous), str(destination))
-        return Event("SUPERSEDED", folder,
-                     "{} -> {}/".format(previous.name, SUPERSEDED_FOLDER_NAME))
-    except OSError as error:
-        return Event("ERROR", folder,
-                     "{} could not be superseded: {}"
-                     .format(previous.name, error))
-
-
-# ---------------------------------------------------------------------------
-# Reporting
-# ---------------------------------------------------------------------------
-
-def relative_to(path, root):
-    """Show a path relative to the root when possible - shorter to read."""
-    try:
-        relative = path.relative_to(root)
-    except ValueError:
-        return str(path)
-    return str(relative) if str(relative) != "." else "."
-
-
-def build_report(name, scope, settings_path, dry_run, folder_count, events,
-                 change_note=None):
-    """
-    Build the run report as a list of lines.
-
-    One function produces both the on-screen report and the log entry, so the
-    two can never drift apart.
-    """
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    mode = "DRY RUN (nothing written)" if dry_run else "LIVE"
-
-    lines = []
-    lines.append("=" * 72)
-    lines.append("binder builder   {}   {}".format(timestamp, mode))
-    lines.append("binder:   {}".format(name))
-    lines.append("root:     {}".format(scope.root))
-    lines.append("settings: {}".format(settings_path))
-    if not scope.subfolders:
-        lines.append("subfolders: false - root folder only")
-    # Scope overrides are echoed only when in use. They decide which folders
-    # were collected from, so a log entry is not self-explaining without them.
-    if scope.include_text:
-        lines.append("include:  {}".format(", ".join(scope.include_text)))
-    if scope.exclude_text:
-        lines.append("exclude:  {}".format(", ".join(scope.exclude_text)))
-    lines.append("folders collected from: {}".format(folder_count))
-    # Every run states what the change comparison found, including the runs
-    # that went on to rebuild. A log entry that only recorded the skips would
-    # leave the reader guessing why the other runs did not skip.
-    if change_note:
-        lines.append("change detection: {}".format(change_note))
-    lines.append("-" * 72)
-
-    if not events:
-        lines.append("Nothing happened, which should not be possible - please "
-                     "report this.")
-    else:
-        # Events are reported grouped by folder, which is how someone reading
-        # the report actually thinks about the tree.
-        current_folder = None
-        for event in events:
-            if event.folder != current_folder:
-                current_folder = event.folder
-                lines.append("")
-                lines.append("[{}]".format(relative_to(event.folder,
-                                                       scope.root)))
-            lines.append("  {:<16} {}".format(event.kind, event.detail))
-
-    counts = {}
-    for event in events:
-        counts[event.kind] = counts.get(event.kind, 0) + 1
-
-    summary = ", ".join(
-        "{} {}".format(counts[kind], kind.lower())
-        for kind in REPORT_KINDS if kind in counts
-    ) or "nothing to do"
-
-    lines.append("")
-    lines.append("-" * 72)
-    lines.append("Result: {}".format(summary))
-    lines.append("=" * 72)
-    return lines
-
-
-def append_to_log(log_path, lines):
-    """
-    Append one entry to the log. The log is never rewritten or trimmed.
-
-    Failing to write the log must not lose the report that is already on
-    screen, so a problem here is reported and swallowed.
-    """
-    try:
-        log_path.parent.mkdir(parents=True, exist_ok=True)
-        # "a" is append mode: the file is created if absent, and writes always
-        # go to the end. newline="\n" leaves line endings to us, so the log
-        # looks the same on every platform.
-        with open(log_path, "a", encoding="utf-8", newline="\n") as log_file:
-            log_file.write("\n".join(lines))
-            log_file.write("\n\n")
-        return True
-    except OSError as error:
-        print("WARNING: could not write the log file {}: {}"
-              .format(log_path, error))
-        return False
-
-
-# ---------------------------------------------------------------------------
-# Several definitions in one folder
-# ---------------------------------------------------------------------------
-# A settings file is a binder definition, and a folder may hold any number of
-# them: binder_builder_settings.json plus binder_builder_settings_<x>.json
-# beside it. One run keeps them all current.
-#
-# This works because a build reads nothing global. Every path, every scope and
-# every log in a build comes out of one Definition, so running four is running
-# one four times - and change detection means the three that did not change
-# cost a manifest comparison each and no writes at all.
-#
-# A binder is identified by its `name` setting. That was already required to be
-# unique: it names the output file and drives the version scan, so two
-# definitions sharing a name would supersede each other's binders on alternate
-# runs. Sharing is therefore refused rather than resolved.
-
-
-@dataclass
-class Definition:
-    """
-    One binder definition: one settings file, resolved and checked.
-
-    The whole of a binder is in here, which is what lets several of them sit in
-    one folder without interfering: nothing about a build reads global state,
-    so building four is building one, four times.
-    """
-    settings_path: Path
-    name: str
-    scope: Scope = None
-    file_types: list = field(default_factory=list)
-    exclude_files: list = field(default_factory=list)
-    order: list = field(default_factory=list)
-    output_folder: Path = None
-    log_path: Path = None
-
-
-def settings_sort_key(path):
-    """The legacy plain settings file first, then the rest alphabetically."""
-    folded = os.path.normcase(path.name)
-    first = folded == os.path.normcase(LEGACY_SETTINGS_FILENAME)
-    return (0 if first else 1, folded)
-
-
-def discover_settings_files():
-    """
-    Every settings file in the script's own folder, in report order.
-
-    A folder holding none at all gets the shipped default written into it, so a
-    bare copy of the script explains itself rather than failing.
-    """
-    found = sorted((path for path in SCRIPT_DIR.glob(SETTINGS_GLOB)
-                    if path.is_file()), key=settings_sort_key)
-    if found:
-        return found
-
-    settings_path = SCRIPT_DIR / SETTINGS_FILENAME_FORMAT.format(
-        name=DEFAULT_BINDER_NAME)
-    create_default_settings(settings_path)
-    return [settings_path]
-
-
-def duplicate_names(definitions):
-    """Definitions grouped by name, keeping only the names used twice."""
-    groups = {}
-    for definition in definitions:
-        groups.setdefault(os.path.normcase(definition.name), []).append(
-            definition)
-    return {name: group for name, group in groups.items() if len(group) > 1}
-
-
-def select_definitions(definitions, wanted):
-    """
-    Narrow the definitions to the ones named on the command line.
-
-    A selector matches a binder's name, or the filename of its settings file
-    with or without the extension, case-insensitively. Returns (chosen,
-    unmatched); nothing is run while anything is unmatched, because "build
-    these four" half-done is worse than not started.
-    """
-    if not wanted:
-        return list(definitions), []
-
-    chosen = []
-    unmatched = []
-    for selector in wanted:
-        folded = os.path.normcase(selector.strip())
-        match = None
-        for definition in definitions:
-            names = (os.path.normcase(definition.name),
-                     os.path.normcase(definition.settings_path.name),
-                     os.path.normcase(definition.settings_path.stem))
-            if folded in names:
-                match = definition
-                break
-        if match is None:
-            unmatched.append(selector)
-        elif not any(existing is match for existing in chosen):
-            chosen.append(match)
-    return chosen, unmatched
-
-
-def describe_definitions(definitions, broken):
-    """The --list output, and the "what is available" half of an error."""
-    lines = ["binder definitions in {}".format(SCRIPT_DIR), ""]
-    if not definitions and not broken:
-        lines.append("  (none)")
-    for definition in definitions:
-        lines.append("  {}".format(definition.name))
-        lines.append("      settings: {}".format(
-            definition.settings_path.name))
-        lines.append("      root:     {}".format(definition.scope.root))
-        lines.append("      output:   {}".format(definition.output_folder))
-    for settings_path, error in broken:
-        lines.append("  (unreadable)")
-        lines.append("      settings: {}".format(settings_path.name))
-        lines.append("      problem:  {}".format(
-            str(error).splitlines()[0]))
-    return lines
-
-
-def build_roll_up(statuses, broken):
-    """
-    The one line that says how the folder as a whole came out.
-
-    Printed only when more than one binder ran, or when a settings file could
-    not be read - so a folder holding a single definition reports exactly what
-    it always did, and anything reading the last "Result:" line of the output
-    keeps working either way.
-    """
-    counts = {}
-    for status in statuses:
-        counts[status] = counts.get(status, 0) + 1
-    if broken:
-        counts["unreadable"] = len(broken)
-
-    tally = ", ".join(
-        "{} {}".format(counts[word], word)
-        for word in ("rebuilt", "unchanged", "empty", "with problems",
-                     "unreadable")
-        if word in counts
-    ) or "nothing to do"
-
-    return [
-        "=" * 72,
-        "Result: {} binder(s) - {}".format(len(statuses), tally),
-        "=" * 72,
-    ]
-
-
-# ---------------------------------------------------------------------------
-# Entry point
-# ---------------------------------------------------------------------------
-
-def pause_before_exit():
-    """
-    Hold the console open so a double-clicked run can be read.
-
-    Skipped when there is no interactive console attached - otherwise a
-    scheduled or piped run would hang forever waiting for a keypress.
-    """
-    if not sys.stdin or not sys.stdin.isatty():
-        return
-    try:
-        input("\nPress Enter to close...")
-    except (EOFError, KeyboardInterrupt):
-        pass
-
-
-def load_definition(settings_path):
-    """
-    Read one settings file and resolve it into a Definition.
-
-    Raises ValueError with a readable message for anything wrong with it. The
-    caller reports that against this one definition and carries on with the
-    others: one mistyped settings file must not stop the other three binders
-    from being kept current.
-    """
-    settings = load_settings(settings_path)
-
-    name = str(settings.get("name", "Documentation")).strip()
-    if not name:
-        raise ValueError('Setting "name" cannot be empty - it names the '
-                         "binder and its file.")
-    # The name becomes a filename, so it cannot contain path separators or
-    # the characters Windows refuses in one.
-    if any(character in name for character in '\\/:*?"<>|'):
-        raise ValueError(
-            'Setting "name" is "{}", which contains a character that '
-            'cannot appear in a filename.'.format(name)
-        )
-
-    # The root is resolved first, because "~/" in the other settings is
-    # measured from it.
-    root = resolve_one_folder(
-        tidy_setting_text(settings.get("root", ".."), "root"), "root"
-    )
-    if not root.is_dir():
-        raise ValueError(
-            'The "root" setting does not point at a folder that exists:\n'
-            "  {}".format(root)
-        )
-
-    subfolders = read_flag(settings, "subfolders", True)
-    scope = build_scope(root, subfolders,
-                        read_string_list(settings, "include"),
-                        read_string_list(settings, "exclude"))
-
-    output_folder = resolve_one_folder(
-        tidy_setting_text(settings.get("output", "~/_binder"), "output"),
-        "output", root=root
-    )
-    # A definition that says nothing about its log gets one named for itself,
-    # rather than all four definitions in a folder appending to one file.
-    log_path = resolve_one_folder(
-        tidy_setting_text(
-            settings.get("log_file", LOG_FILENAME_FORMAT.format(name=name)),
-            "log_file"),
-        "log_file", root=root
-    )
-
-    return Definition(
-        settings_path=settings_path,
-        name=name,
-        scope=scope,
-        file_types=(read_string_list(settings, "file_types")
-                    or list(DEFAULT_FILE_TYPES)),
-        exclude_files=compile_exclude_files(
-            read_string_list(settings, "exclude_files")),
-        order=read_string_list(settings, "order"),
-        output_folder=output_folder,
-        log_path=log_path,
-    )
-
-
-def build_binder(definition, dry_run, force):
-    """
-    Build one binder. Returns a status word for the roll-up: "rebuilt",
-    "unchanged", "empty", or "with problems".
-
-    Everything below this line is the tool as it always was - one settings
-    file, one scope, one binder. Running four of them is the caller's job.
-    """
-    name = definition.name
-    scope = definition.scope
-    root = scope.root
-    settings_path = definition.settings_path
-    file_types = definition.file_types
-    exclude_files = definition.exclude_files
-    order = definition.order
-    output_folder = definition.output_folder
-    log_path = definition.log_path
-
-    version, previous = next_binder_version(output_folder, name)
-    filename = BINDER_FILENAME.format(name=name, number=version)
-    output_path = output_folder / filename
-
-    # --- decide -----------------------------------------------------------
-    folders = folders_to_collect(scope)
-    sources, events = collect_files(scope, folders, file_types, exclude_files,
-                                    order, output_folder, output_path, name)
-    parts, missing, assembly_events = assemble_parts(sources, root)
-    events.extend(assembly_events)
-
-    # --- compare ----------------------------------------------------------
-    # Asked before anything is reported as included, because a run that
-    # rebuilds nothing should not claim to have included anything. Every branch
-    # that cannot answer the question with confidence rebuilds.
-    rebuild = True
-    change_note = None
-    if force:
-        change_note = "not consulted (--force): rebuilding unconditionally"
-    elif previous is None:
-        change_note = "no previous binder to compare against: building"
-    elif missing:
-        change_note = ("not consulted: {} source file(s) could not be read "
-                       "this run".format(len(missing)))
-    else:
-        manifest = parse_binder_manifest(previous)
-        if manifest is None:
-            change_note = ("{} could not be read as a baseline: rebuilding"
-                           .format(previous.name))
-        else:
-            unchanged, description = compare_to_manifest(manifest, parts)
-            rebuild = not unchanged
-            change_note = "{}: {} - {}".format(
-                previous.name, description,
-                "rebuilding" if rebuild else "binder not rebuilt",
-            )
-
-    # --- act --------------------------------------------------------------
-    # An empty scope is a fact about the tree, and the binder records it like
-    # any other. It is called out separately because it is the one outcome that
-    # is far more often a mistake in the settings than a true statement, and
-    # nobody should have to infer it from a binder with nothing in it.
-    if not parts:
-        events.append(Event(
-            "EMPTY", root,
-            "no files in scope - {}".format(
-                "the current binder already records that" if not rebuild
-                else "an empty binder {} written so the tree is not "
-                     "misrepresented".format("would be" if dry_run else "is"))
-        ))
-
-    if not rebuild:
-        # Nothing is written, nothing is superseded, and no version number is
-        # consumed. The previous binder remains the current one.
-        events.append(Event(
-            "WOULD CHECK" if dry_run else "NO CHANGES", output_folder,
-            "no changes detected since {}; binder {} rebuilt"
-            .format(previous.name, "would not be" if dry_run else "not")
-        ))
-    else:
-        for part in parts:
-            events.append(Event(
-                "WOULD INCLUDE" if dry_run else "INCLUDED",
-                part.path.parent,
-                "{}  (sha256 {})".format(part.path.name, part.digest)
-            ))
-
-        binder_text = build_binder_text(name, version, parts, missing)
-
-        if missing:
-            events.append(Event(
-                "INCOMPLETE", output_folder,
-                "{} source file(s) could not be read; the binder is stamped "
-                "INCOMPLETE and the previous binder has been left in place"
-                .format(len(missing))
-            ))
-
-        written_ok = True
-        if dry_run:
-            events.append(Event(
-                "WOULD WRITE", output_folder,
-                "{}  ({} files, {} bytes)"
-                .format(filename, len(parts),
-                        len(binder_text.encode("utf-8")))
-            ))
-        else:
-            try:
-                written = write_binder(output_folder, filename, binder_text)
-                events.append(Event(
-                    "WRITTEN", output_folder,
-                    "{}  ({} files, {} bytes)"
-                    .format(written.name, len(parts), written.stat().st_size)
-                ))
-            except OSError as error:
-                written_ok = False
-                events.append(Event("ERROR", output_folder,
-                                    "could not write {}: {}"
-                                    .format(filename, error)))
-
-        # Supersede only a genuinely successful, complete write. An incomplete
-        # binder must not displace the last good one, and neither must a write
-        # that failed.
-        if previous is not None and written_ok and not missing:
-            events.append(supersede_previous(previous, dry_run))
-
-    # --- report -----------------------------------------------------------
-    # Report in folder order rather than in the order things happened, so
-    # everything concerning one folder appears together.
-    events.sort(key=lambda event: (str(event.folder), event.kind))
-
-    lines = build_report(name, scope, settings_path, dry_run, len(folders),
-                         events, change_note)
-    print("\n".join(lines))
-
-    # Dry runs are logged too, clearly marked, so the log is a complete record
-    # of every time the tool was pointed at the tree. Definitions sharing a
-    # log_file share a log, in the order they ran.
-    append_to_log(log_path, lines)
-    print("\nLog: {}".format(log_path))
-
-    # The status word feeds the roll-up line when more than one binder ran.
-    # "with problems" wins over everything else: an ERROR is what decides the
-    # exit code, and a run that both wrote a binder and hit an error wrote an
-    # incomplete one.
-    if any(event.kind == "ERROR" for event in events):
-        return "with problems"
-    if not rebuild:
-        return "unchanged"
-    return "empty" if not parts else "rebuilt"
-
-
-def report_settings_problem(settings_path, error):
-    """One block for a settings file that could not be used."""
-    print("=" * 72)
-    print("SETTINGS PROBLEM")
-    print("settings: {}".format(settings_path))
-    print("-" * 72)
-    print(error)
-    print("=" * 72)
-    print("")
-
-
-def run(dry_run, force, wanted, show_list):
-    """
-    Build every binder defined in this folder, or the ones named.
-
-    Returns an exit code: 0 for success, 1 for a problem.
-    """
-    definitions = []
-    broken = []                       # (settings_path, error)
-    for settings_path in discover_settings_files():
-        try:
-            definitions.append(load_definition(settings_path))
-        except (ValueError, OSError, UnicodeDecodeError) as error:
-            broken.append((settings_path, error))
-
-    # Two definitions with one name would take turns superseding each other's
-    # binder. Nothing runs until it is sorted out.
-    duplicates = duplicate_names(definitions)
-    if duplicates:
-        print("SETTINGS PROBLEM")
-        print("Two binder definitions cannot share a name - the name decides "
-              "the output")
-        print("filename, so each build would supersede the other's binder.")
-        for group in duplicates.values():
-            print("")
-            print('  "{}" is used by:'.format(group[0].name))
-            for definition in group:
-                print("    {}".format(definition.settings_path.name))
-        return 1
-
-    if show_list:
-        print("\n".join(describe_definitions(definitions, broken)))
-        return 1 if broken else 0
-
-    chosen, unmatched = select_definitions(definitions, wanted)
-    if unmatched:
-        print("NOTHING RUN")
-        print("No binder is defined here under {}:".format(
-            "these names" if len(unmatched) > 1 else "this name"))
-        for selector in unmatched:
-            print('  "{}"'.format(selector))
-        print("")
-        print("\n".join(describe_definitions(definitions, broken)))
-        return 1
-
-    # A settings file that cannot be read is a fact about this folder rather
-    # than about the selection, so it is reported either way - including when
-    # the run was narrowed to binders that are perfectly fine.
-    for settings_path, error in broken:
-        report_settings_problem(settings_path, error)
-
-    statuses = []
-    for definition in chosen:
-        statuses.append(build_binder(definition, dry_run, force))
-        print("")
-
-    if len(chosen) > 1 or broken:
-        print("\n".join(build_roll_up(statuses, broken)))
-
-    had_problems = bool(broken) or "with problems" in statuses
-    return 1 if had_problems else 0
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Assemble the documents of a defined scope into a single "
-                    "binder file. Every {} in the script's own folder is one "
-                    "binder definition - conventionally named {} - and all of "
-                    "them are built unless some are named."
-                    .format(SETTINGS_GLOB,
-                            SETTINGS_FILENAME_FORMAT.format(name="<name>"))
-    )
-    parser.add_argument(
-        "binders",
-        nargs="*",            # zero or more; zero means every definition
-        metavar="BINDER",
-        help="the binder(s) to build, by name - or by settings filename. "
-             "Default: every definition in this folder.",
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",  # present = True, absent = False
-        help="report what would be assembled without writing anything",
-    )
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="rebuild even when nothing in scope has changed since the last "
-             "binder was written",
-    )
-    parser.add_argument(
-        "--list",
-        action="store_true",
-        dest="show_list",
-        help="list the binder definitions in this folder and build nothing",
-    )
-    args = parser.parse_args()
-
-    try:
-        exit_code = run(args.dry_run, args.force, args.binders,
-                        args.show_list)
-    except KeyboardInterrupt:
-        print("\nInterrupted.")
-        exit_code = 1
-
-    pause_before_exit()
-    return exit_code
-
-
-# When Python runs a file directly, it sets __name__ to "__main__". This guard
-# is the conventional way to say "only do this when run, not when imported".
-if __name__ == "__main__":
-    sys.exit(main())
-<!-- END SOURCE: Infrastructure/binder-builder/binder_builder.py -->
 
 ---
 
@@ -4062,1337 +5627,6 @@ on the corpus and is never loaded into an AI session itself.
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/file-update-package/file_update_package.py -->
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-file update package - deploy a package of updated documents into the tree.
-
-WHAT IT DOES
-    Takes a FileUpdatePackage - a zip file produced by a Chat or Cowork
-    session, carrying updated documentation files and a manifest describing
-    them - and deploys those files into the master tree.
-
-        find the newest package in the drop folder
-        validate it: a zip, with a manifest, naming files it actually contains
-        show the package's instructions to the user and wait, if it has any
-        for each file: move the document it replaces into _superseded,
-                       then write the new one
-        run the binder builder
-        move the package into _superseded
-        report what happened, and hold the window open until it is read
-
-WHAT IT DOES NOT DO
-    It does not merge, patch or edit. A package carries whole files and this
-    tool places them. It does not decide what should be in a package, and it
-    does not resolve versions beyond moving the single file each manifest entry
-    names - general supersession is version cleanup's job.
-
-    It never overwrites. A file already sitting where a package wants to write,
-    and not named as the one being replaced, is reported as a CONFLICT and left
-    exactly where it is.
-
-HOW IT IS RUN
-    Live by default. Pass --dry-run to see the report without changing
-    anything. It reads its settings from a JSON file sitting beside this
-    script, so it can simply be double-clicked on Windows.
-
-    The completion summary is the point of the run, not an afterthought: it is
-    the user's confirmation that the deploy did what they expected, and the
-    window stays open until they have read it.
-
-DESIGN NOTE
-    This is one tool that does one thing, and a sibling to version cleanup and
-    the binder builder. The path logic, settings loader, plan/apply split and
-    report shape below are deliberately the same as theirs, copied rather than
-    imported: there is no shared module, no plugin system and no base class
-    between them.
-
-Python 3.8 or newer. Standard library only.
-"""
-
-import argparse
-import datetime
-import difflib
-import json
-import os
-import re
-import shutil
-import subprocess
-import sys
-import zipfile
-from dataclasses import dataclass, field
-from pathlib import Path
-
-
-# ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
-# Path(__file__) is this script's own file. .resolve() turns it into a full,
-# unambiguous path, and .parent gives the folder holding it. Everything the
-# tool reads or writes hangs off this folder rather than off the "current
-# working directory", because the working directory depends on *how* the script
-# was launched (double-click, terminal, scheduler) and is therefore unreliable.
-# It also means each copy of the tool uses its own settings and its own log.
-SCRIPT_DIR = Path(__file__).resolve().parent
-
-SETTINGS_FILENAME = "file_update_package_settings.json"
-SUPERSEDED_FOLDER_NAME = "_superseded"
-
-# The manifest sits at the root of the package and is the package's statement
-# of what it contains. A zip without one is not a FileUpdatePackage.
-MANIFEST_NAME = "_manifest.json"
-
-PACKAGE_SUFFIX = ".zip"
-
-# Spots "C:" or "D:" at the start of a path, so a Windows path in a settings
-# file being run on Mac or Linux fails loudly rather than being mistaken for a
-# relative pattern that then silently never matches anything. Also used on
-# manifest paths, where a drive letter is never legitimate.
-WINDOWS_DRIVE = re.compile(r"^[A-Za-z]:")
-
-# How long the binder builder is given before the deploy stops waiting for it.
-# The trigger is best-effort: a binder builder that hangs must not hang the
-# report of a deploy that has already happened.
-BINDER_TIMEOUT_SECONDS = 600
-
-# Folder names this corpus has settled on. The check that uses them does not
-# rename anything - it only says, in the completion summary, that a folder is
-# one character away from a convention. The known offender is the misspelled
-# "_superceded" at the documentation root, which is deliberately left alone: it
-# is underscore-prefixed, so every tool skips it, and reconciling it is a human
-# act rather than a tool's.
-CONVENTION_FOLDER_NAMES = (
-    "_superseded",
-    "_fileupdatepackages",
-    "_binder",
-    "_tools",
-    "_config",
-    "_rebuild",
-)
-
-# difflib's similarity ratio, 0.0 to 1.0. At 0.85 a one-character misspelling of
-# a convention name is caught and an unrelated folder is not. The check is
-# advisory - it never changes what the tool does or what it exits with - but a
-# summary that cries wolf stops being read, so it is paired with the underscore
-# rule below rather than being loosened.
-NAMING_SIMILARITY = 0.85
-
-# The settings file is shipped with the tool, but if someone deletes it - or
-# copies just the .py file to a new location - we write this back out rather
-# than failing. Keeping the defaults as *text* (not as a Python dictionary that
-# gets dumped to JSON) means the file we create is byte-for-byte the file we
-# ship, comments and ordering included.
-#
-# JSON has no comment syntax, so the explanatory lines are carried as ordinary
-# keys beginning with "_comment". The loader ignores them. That keeps the file
-# valid JSON, readable by any editor and parseable by the standard library.
-DEFAULT_SETTINGS_JSON = """{
-  "_comment": "Settings for the file update package deployer. Edit the values below. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
-
-  "_comment_documentation_root": "The root of the document tree packages are deployed into. Manifest paths are measured from here. A relative path is resolved against the folder this script lives in, so \\"..\\" means the parent folder - which is what an instance sitting in _tools wants. Give a full path such as \\"C:/Users/you/Documents\\" to point somewhere else. Forward slashes are safe on Windows. This setting cannot use \\"~/\\", because \\"~/\\" means \\"measured from the documentation root\\" and this is the setting that defines it.",
-  "documentation_root": "..",
-
-  "_comment_paths": "The three settings below accept three kinds of path. ABSOLUTE - \\"C:/Docs/_fileupdatepackages\\". ROOT-ANCHORED - \\"~/_fileupdatepackages\\" - measured from the documentation root above. RELATIVE - \\"_fileupdatepackages\\" - measured from the folder this script lives in. Note that ~ means the documentation root here, never your home folder.",
-
-  "_comment_drop_folder": "Where packages are put to be deployed. The newest unprocessed .zip in this folder is the one that gets processed; the rest wait. Processed packages are moved into a _superseded subfolder of it.",
-  "drop_folder": "~/_fileupdatepackages",
-
-  "_comment_binder_builder": "The binder builder script to run after a deploy. Point this at the running instance, not at the master copy, so it uses that instance's settings. Set it to \\"\\" to skip the trigger entirely.",
-  "binder_builder": "~/_tools/binder_builder.py",
-
-  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \\"~/\\" for root-anchored, or relative to the script folder.",
-  "log_file": "file_update_package.log"
-}
-"""
-
-
-# ---------------------------------------------------------------------------
-# Small record types
-# ---------------------------------------------------------------------------
-# A dataclass is Python shorthand for "a class that just holds these fields".
-# The lines below generate the constructor for us. Used here instead of loose
-# tuples so that report code can say event.kind rather than event[0].
-
-@dataclass
-class Event:
-    """One line of the report: something that happened, or failed to."""
-    kind: str      # see REPORT_KINDS
-    folder: Path   # the folder it concerns
-    detail: str    # human-readable description
-
-
-# The vocabulary, in the order a summary line lists it. The paired live and dry
-# run words are the same shape the sibling tools use for MOVED/WOULD MOVE and
-# INCLUDED/WOULD INCLUDE. CONFLICT and ERROR carry their meanings exactly.
-REPORT_KINDS = (
-    "DEPLOYED",        # an updated file written over its predecessor's place
-    "WOULD DEPLOY",    # dry run equivalent
-    "CREATED",         # a file that did not exist before
-    "WOULD CREATE",
-    "SUPERSEDED",      # the document a manifest entry replaces, moved aside
-    "WOULD SUPERSEDE",
-    "CONFLICT",        # a destination is taken, or a supersession is ambiguous
-    "SKIPPED",         # nothing to do, or a package left waiting its turn
-    "INVALID",         # not a package, or a manifest that cannot be trusted
-    "BINDER",          # the binder builder was triggered, and what it said
-    "PROCESSED",       # the package itself, moved into _superseded
-    "WOULD PROCESS",
-    "ERROR",           # filesystem refusal, or a failed binder builder run
-)
-
-
-@dataclass
-class ManifestEntry:
-    """One file a package asks to be deployed."""
-    path: str          # as written in the manifest, forward slashes
-    action: str        # "create" or "update"
-    replaces: str      # filename of the document being superseded, or ""
-    relative: Path     # the same path, validated and turned into a Path
-
-
-@dataclass
-class Manifest:
-    """A package's statement of what it contains."""
-    description: str = ""
-    user_instructions: str = ""
-    entries: list = field(default_factory=list)
-
-
-@dataclass
-class Outcome:
-    """
-    The facts the completion summary states that the event list cannot.
-
-    Counts are derived from the events, so they are not held here. What is held
-    is everything the summary must say about the run as a whole: which package,
-    whether the user saw its instructions, what the binder builder did, and
-    whether the package was filed away afterwards.
-    """
-    package: Path = None
-    package_line: str = ""      # name, date and size, taken before it moves
-    description: str = ""
-    instructions: str = "none in this package"
-    binder: str = "not triggered"
-    package_state: str = "left in the drop folder"
-    entry_count: int = 0        # files the manifest asked for
-    naming: list = field(default_factory=list)   # (relative path, expected)
-
-
-# ---------------------------------------------------------------------------
-# Settings
-# ---------------------------------------------------------------------------
-
-def load_settings(settings_path):
-    """
-    Read the settings file, creating it from the shipped defaults if missing.
-
-    Returns a plain dictionary. Raises ValueError with a readable message if
-    the file exists but is not valid JSON - a mistyped settings file should
-    stop the run with an explanation, not with a stack trace.
-    """
-    if not settings_path.exists():
-        print("No settings file found. Creating one with default values:")
-        print("  {}".format(settings_path))
-        print("Check the paths in it, then run the tool again.")
-        print("")
-        settings_path.write_text(DEFAULT_SETTINGS_JSON, encoding="utf-8")
-
-    text = settings_path.read_text(encoding="utf-8")
-    try:
-        settings = json.loads(text)
-    except json.JSONDecodeError as error:
-        # The exception carries the line and column of the problem, which is
-        # the single most useful thing to show someone fixing the file.
-        raise ValueError(
-            "The settings file is not valid JSON.\n"
-            "  file: {}\n"
-            "  problem: {} (line {}, column {})\n"
-            "Common causes: a missing comma, a trailing comma after the last "
-            "item, or a single backslash inside a path (write \\\\ or use /)."
-            .format(settings_path, error.msg, error.lineno, error.colno)
-        )
-
-    if not isinstance(settings, dict):
-        raise ValueError(
-            "The settings file must contain a JSON object (a {{ ... }} block), "
-            "but it contains {}.".format(type(settings).__name__)
-        )
-
-    return settings
-
-
-# ---------------------------------------------------------------------------
-# Path forms
-# ---------------------------------------------------------------------------
-# The same three spellings the sibling tools accept:
-#
-#   absolute        "C:/Docs/_fileupdatepackages"   one exact folder
-#   root-anchored   "~/_fileupdatepackages"         measured from the root
-#   relative        "_fileupdatepackages"           measured from the script
-#
-# This tool has no include or exclude lists, so there is nowhere for the
-# folder-relative *pattern* form to apply: every setting here names one place,
-# and the relative spelling is therefore resolved against the script folder,
-# exactly as `root`, `output` and `log_file` are in the other two tools.
-#
-# Note that "~" does NOT mean the home folder here. Python's expanduser is
-# deliberately never called on these settings, so "~/" always means the
-# documentation root and can never quietly resolve to C:\\Users\\someone.
-
-def tidy_setting_text(value, label):
-    """Trim a settings value and normalise its separators to forward slashes."""
-    text = str(value).strip().replace("\\", "/")
-    if not text:
-        raise ValueError('Setting "{}" contains an empty path.'.format(label))
-    return text
-
-
-def resolve_one_folder(text, label, root=None):
-    """
-    Resolve a settings value that names ONE place: absolute, "~/" measured from
-    the documentation root, or relative to the script's own folder.
-    """
-    if text.startswith("~"):
-        if root is None:
-            raise ValueError(
-                'Setting "{}" cannot use "~/", because "~/" means "measured '
-                'from the documentation root" and this setting is what defines '
-                'that root. Use a full path, or a path relative to the script '
-                'folder - ".." is the folder above this script, which is what '
-                'an instance sitting in a _tools folder wants.'.format(label)
-            )
-        if not text.startswith("~/"):
-            raise ValueError(
-                'Setting "{}": "~" means the documentation root, so it has to '
-                'be written as "~/something".'.format(label)
-            )
-        return (root / text[2:]).resolve()
-
-    path = Path(text)
-    if not path.is_absolute():
-        if WINDOWS_DRIVE.match(text):
-            raise ValueError(
-                'Setting "{}" is "{}", which looks like a Windows path, but '
-                "this is not Windows.".format(label, text)
-            )
-        # resolve() also removes any ".." segments, so two spellings of the
-        # same folder compare equal later on.
-        path = SCRIPT_DIR / path
-    return path.resolve()
-
-
-def normalise(path):
-    """
-    Case-fold a path the way the local filesystem does.
-
-    os.path.normcase lowercases on Windows, where FOO and foo are the same
-    folder, and changes nothing on Mac or Linux. Comparing paths through it
-    avoids both false misses on Windows and false matches elsewhere.
-    """
-    return Path(os.path.normcase(str(path)))
-
-
-def is_inside(path, folder):
-    """True if `path` is `folder` itself, or anywhere beneath it."""
-    try:
-        normalise(path).relative_to(normalise(folder))
-        return True
-    except ValueError:
-        # relative_to raises when path is not under folder. Catching that is
-        # the standard pathlib way of asking this question.
-        return False
-
-
-def relative_to(path, root):
-    """Show a path relative to the root when possible - shorter to read."""
-    try:
-        relative = path.relative_to(root)
-    except ValueError:
-        return str(path)
-    return str(relative) if str(relative) != "." else "."
-
-
-# ---------------------------------------------------------------------------
-# Finding the package
-# ---------------------------------------------------------------------------
-
-def find_packages(drop_folder):
-    """
-    Every unprocessed package in the drop folder, newest first.
-
-    Only the top level is looked at, which is what keeps processed packages -
-    which live in the _superseded subfolder - from being found again. The sort
-    is by modification time, with the name as a tie-breaker so that two files
-    written in the same second still come out in a stable order.
-    """
-    if not drop_folder.is_dir():
-        return []
-
-    packages = []
-    for entry in sorted(drop_folder.iterdir()):
-        if not entry.is_file():
-            continue
-        if entry.suffix.lower() != PACKAGE_SUFFIX:
-            continue
-        try:
-            modified = entry.stat().st_mtime
-        except OSError:
-            modified = 0.0
-        packages.append((modified, os.path.normcase(entry.name), entry))
-
-    packages.sort(key=lambda item: (item[0], item[1]), reverse=True)
-    return [entry for _modified, _name, entry in packages]
-
-
-def describe_package(path):
-    """A short "when and how big" line for the report header."""
-    try:
-        stat = path.stat()
-    except OSError:
-        return path.name
-    when = datetime.datetime.fromtimestamp(stat.st_mtime)
-    return "{}  ({}, {:,} bytes)".format(
-        path.name, when.strftime("%Y-%m-%d %H:%M"), stat.st_size)
-
-
-# ---------------------------------------------------------------------------
-# Reading and validating the manifest
-# ---------------------------------------------------------------------------
-# Validation is a gate, not a filter. A package either deploys as a whole or is
-# rejected as a whole: a manifest naming a file the zip does not contain is a
-# package built wrongly, and deploying the half of it that happens to be
-# present would leave the tree in a state nobody designed.
-#
-# The one thing checked with real suspicion is the shape of each path. A zip is
-# an untrusted input, and a member path containing ".." or a drive letter would
-# write outside the documentation root - the "zip slip" mistake. Every path is
-# therefore checked before it is used, and the resolved destination is checked
-# again to be inside the root.
-
-def safe_relative_path(text):
-    """
-    Turn a manifest path into a relative Path, or raise ValueError.
-
-    Refused: an empty path, an absolute one, a drive letter, and any ".."
-    segment. A manifest path is always measured from the documentation root and
-    always points downwards.
-    """
-    if not isinstance(text, str) or not text.strip():
-        raise ValueError("the path is empty")
-
-    tidied = text.strip().replace("\\", "/")
-    while tidied.startswith("./"):
-        tidied = tidied[2:]
-
-    if tidied.startswith("/") or Path(tidied).is_absolute():
-        raise ValueError('"{}" is an absolute path'.format(text))
-    if WINDOWS_DRIVE.match(tidied):
-        raise ValueError('"{}" names a drive'.format(text))
-
-    segments = [part for part in tidied.split("/") if part and part != "."]
-    if not segments:
-        raise ValueError('"{}" does not name a file'.format(text))
-    if ".." in segments:
-        raise ValueError(
-            '"{}" contains "..", which would write outside the documentation '
-            "root".format(text)
-        )
-    if tidied.endswith("/"):
-        raise ValueError('"{}" names a folder, not a file'.format(text))
-
-    return Path(*segments)
-
-
-def read_manifest(archive, names):
-    """
-    Read and check the manifest. Returns (manifest, problems).
-
-    `problems` is a list of readable strings. If it is not empty the package is
-    INVALID and nothing at all is deployed from it.
-    """
-    problems = []
-
-    if MANIFEST_NAME not in names:
-        return None, ["the package contains no {}".format(MANIFEST_NAME)]
-
-    try:
-        raw = archive.read(MANIFEST_NAME).decode("utf-8-sig")
-    except (KeyError, OSError, zipfile.BadZipFile) as error:
-        return None, ["{} could not be read: {}".format(MANIFEST_NAME, error)]
-    except UnicodeDecodeError:
-        return None, ["{} is not UTF-8 text".format(MANIFEST_NAME)]
-
-    try:
-        data = json.loads(raw)
-    except json.JSONDecodeError as error:
-        return None, [
-            "{} is not valid JSON: {} (line {}, column {})"
-            .format(MANIFEST_NAME, error.msg, error.lineno, error.colno)
-        ]
-
-    if not isinstance(data, dict):
-        return None, [
-            "{} must contain a JSON object, but it contains {}"
-            .format(MANIFEST_NAME, type(data).__name__)
-        ]
-
-    manifest = Manifest(
-        description=str(data.get("description", "")).strip(),
-        user_instructions=str(data.get("user_instructions", "")).strip(),
-    )
-
-    listed = data.get("files")
-    if not isinstance(listed, list) or not listed:
-        return None, [
-            '{} has no "files" list, or it is empty'.format(MANIFEST_NAME)
-        ]
-
-    seen = {}
-    for position, item in enumerate(listed, start=1):
-        where = "files entry {}".format(position)
-        if not isinstance(item, dict):
-            problems.append("{} is not an object".format(where))
-            continue
-
-        try:
-            relative = safe_relative_path(item.get("path", ""))
-        except ValueError as error:
-            problems.append("{}: {}".format(where, error))
-            continue
-
-        path = str(item.get("path", "")).strip().replace("\\", "/")
-        action = str(item.get("action", "")).strip().lower()
-        if action not in ("create", "update"):
-            problems.append(
-                '{} ({}): action is "{}", but it must be "create" or "update"'
-                .format(where, path, item.get("action", ""))
-            )
-            continue
-
-        replaces = str(item.get("replaces", "") or "").strip()
-        if replaces and action != "update":
-            problems.append(
-                '{} ({}): "replaces" is only meaningful on an update'
-                .format(where, path)
-            )
-            continue
-        if replaces and ("/" in replaces or "\\" in replaces):
-            problems.append(
-                '{} ({}): "replaces" is a filename, not a path - "{}" contains '
-                "a folder separator".format(where, path, replaces)
-            )
-            continue
-
-        # The archive must actually contain what the manifest promises.
-        if path not in names:
-            problems.append(
-                "{}: the package does not contain \"{}\"".format(where, path))
-            continue
-
-        # Two entries writing the same destination is a package built wrongly:
-        # whichever ran second would hit its own predecessor as a CONFLICT.
-        key = os.path.normcase(str(relative))
-        if key in seen:
-            problems.append(
-                '{} ({}): the same path is listed twice (entries {} and {})'
-                .format(where, path, seen[key], position)
-            )
-            continue
-        seen[key] = position
-
-        manifest.entries.append(ManifestEntry(
-            path=path, action=action, replaces=replaces, relative=relative,
-        ))
-
-    if not manifest.entries and not problems:
-        problems.append('{} lists no usable files'.format(MANIFEST_NAME))
-
-    return manifest, problems
-
-
-# ---------------------------------------------------------------------------
-# The user instructions gate
-# ---------------------------------------------------------------------------
-
-def acknowledge_instructions(instructions, dry_run):
-    """
-    Show the package's instructions and wait for the user to acknowledge them.
-
-    Deliberately placed BEFORE any file is written, so that stopping here -
-    with Ctrl+C - stops a deploy that has not started rather than one that is
-    half done.
-
-    Returns a phrase for the completion summary. The wait is skipped when there
-    is no interactive console, for the same reason the exit pause is: a run
-    triggered by another tool must not block forever on a keypress nobody is
-    there to press.
-    """
-    print("")
-    print("=" * 72)
-    print("INSTRUCTIONS FROM THIS PACKAGE")
-    print("-" * 72)
-    for line in instructions.splitlines() or [instructions]:
-        print(line)
-    print("=" * 72)
-
-    if dry_run:
-        print("(dry run - a live run would wait for you here)")
-        return "present, shown; not gated in a dry run"
-
-    if not sys.stdin or not sys.stdin.isatty():
-        print("(no interactive console - continuing without acknowledgement)")
-        return "present, shown; NOT acknowledged - no interactive console"
-
-    try:
-        input("\nPress Enter to continue with the deploy, "
-              "or Ctrl+C to stop... ")
-    except EOFError:
-        return "present, shown; not acknowledged - console closed"
-    return "present, shown and acknowledged"
-
-
-# ---------------------------------------------------------------------------
-# Deploying
-# ---------------------------------------------------------------------------
-
-def find_replaced_file(documentation_root, target, replaces):
-    """
-    Find the document a manifest entry supersedes. Returns a list of matches.
-
-    Looked for beside the new file first, which is where a superseded version
-    almost always is - v7 and v8 of one document live in the same folder. Only
-    if it is not there is the rest of the tree searched, and _superseded
-    folders are skipped throughout: a file already filed away is not a
-    candidate for being filed away again.
-
-    A list is returned rather than one path because "found in three places" is
-    a real answer, and one this tool must not resolve by guessing.
-    """
-    wanted = os.path.normcase(replaces)
-
-    beside = target.parent / replaces
-    if beside.is_file():
-        return [beside]
-
-    found = []
-    for dirpath, dirnames, filenames in os.walk(documentation_root):
-        # dirnames[:] = ... replaces the contents of the existing list rather
-        # than rebinding the name. os.walk only notices the former.
-        dirnames[:] = sorted(
-            name for name in dirnames
-            if os.path.normcase(name) != SUPERSEDED_FOLDER_NAME
-        )
-        for filename in filenames:
-            if os.path.normcase(filename) == wanted:
-                found.append(Path(dirpath) / filename)
-    return found
-
-
-def supersede(path, dry_run):
-    """
-    Move one document into _superseded beside it. Returns an Event.
-
-    Nothing is ever overwritten: a taken destination is a CONFLICT and the file
-    stays where it is. This is the same shape, and the same guarantee, as the
-    binder builder's supersession of its own previous output.
-    """
-    folder = path.parent
-    destination = folder / SUPERSEDED_FOLDER_NAME / path.name
-
-    if dry_run:
-        return Event("WOULD SUPERSEDE", folder,
-                     "{} -> {}/".format(path.name, SUPERSEDED_FOLDER_NAME))
-
-    if destination.exists():
-        return Event(
-            "CONFLICT", folder,
-            "{} left in place: {}/{} already exists"
-            .format(path.name, SUPERSEDED_FOLDER_NAME, path.name)
-        )
-
-    try:
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        # A last existence check immediately before the move: the destination
-        # could have appeared since, and shutil.move would silently overwrite
-        # it on Linux and macOS.
-        if destination.exists():
-            return Event(
-                "CONFLICT", folder,
-                "{} left in place: {}/{} appeared during the run"
-                .format(path.name, SUPERSEDED_FOLDER_NAME, path.name)
-            )
-        shutil.move(str(path), str(destination))
-        return Event("SUPERSEDED", folder,
-                     "{} -> {}/".format(path.name, SUPERSEDED_FOLDER_NAME))
-    except OSError as error:
-        return Event("ERROR", folder,
-                     "{} could not be superseded: {}".format(path.name, error))
-
-
-def write_member(archive, member, target):
-    """
-    Write one file out of the package.
-
-    Binary mode throughout: the bytes in the package are the bytes on disk,
-    with no encoding assumption and no line-ending translation. zipfile's own
-    extract() is deliberately not used, because it derives the destination from
-    the member name - and the destination here has already been validated.
-    """
-    data = archive.read(member)
-    target.parent.mkdir(parents=True, exist_ok=True)
-    with open(target, "wb") as handle:
-        handle.write(data)
-    return len(data)
-
-
-def deploy_entry(archive, entry, documentation_root, dry_run):
-    """
-    Deploy one manifest entry. Returns a list of Events, in the order they
-    happened: the supersession first, then the write.
-
-    The two questions are asked in this order deliberately. An update whose
-    predecessor sits at the same path can only be written after that
-    predecessor has been moved aside, and the never-overwrite check that
-    follows is then a genuine test rather than a formality.
-    """
-    events = []
-    target = (documentation_root / entry.relative).resolve()
-    folder = target.parent
-
-    # Belt and braces after safe_relative_path: the resolved destination must
-    # still be inside the documentation root. A symbolic link in the tree could
-    # otherwise carry a well-formed relative path somewhere else entirely.
-    if not is_inside(target, documentation_root):
-        return [Event(
-            "CONFLICT", documentation_root,
-            "{}: resolves outside the documentation root and was not deployed"
-            .format(entry.path)
-        )]
-
-    # Does anything stand between this entry and its destination? Normally the
-    # answer is simply "is something already there", but an update whose
-    # predecessor sits at the destination itself clears its own way.
-    occupied = target.exists()
-
-    if entry.action == "update":
-        # No "replaces" named means the entry updates the file at its own path,
-        # which is the file that then has to be moved aside.
-        wanted = entry.replaces or target.name
-        matches = find_replaced_file(documentation_root, target, wanted)
-
-        if len(matches) == 1:
-            previous = matches[0]
-            event = supersede(previous, dry_run)
-            events.append(event)
-            cleared = event.kind in ("SUPERSEDED", "WOULD SUPERSEDE")
-
-            if normalise(previous) == normalise(target):
-                # The document being replaced IS the destination. In a live run
-                # it has just been moved; in a dry run it has not, but it would
-                # have been, and reporting a conflict against a file the run
-                # itself would have moved would make the dry run a liar.
-                if not cleared:
-                    events.append(Event(
-                        "CONFLICT", folder,
-                        "{}: not deployed - {} could not be moved out of the "
-                        "way".format(entry.path, previous.name)
-                    ))
-                    return events
-                occupied = False
-        elif not matches:
-            events.append(Event(
-                "SKIPPED", folder,
-                "{}: nothing superseded - \"{}\" is not in the documentation "
-                "tree".format(entry.path, wanted)
-            ))
-        else:
-            events.append(Event(
-                "CONFLICT", folder,
-                "{}: \"{}\" was found in {} places and none were moved ({})"
-                .format(entry.path, wanted, len(matches),
-                        ", ".join(relative_to(match, documentation_root)
-                                  for match in matches))
-            ))
-
-    # Never overwrite. By this point an update's predecessor has been moved out
-    # of the way, so anything still sitting at the destination is a file this
-    # package did not account for.
-    if occupied:
-        events.append(Event(
-            "CONFLICT", folder,
-            "{}: not deployed - a file already exists there and the package "
-            "did not name it as superseded".format(entry.path)
-        ))
-        return events
-
-    # The live word and its dry-run twin, kept as a pair rather than derived
-    # from one another: "WOULD " + "DEPLOYED" would read "WOULD DEPLOYED".
-    kind, would = (("CREATED", "WOULD CREATE") if entry.action == "create"
-                   else ("DEPLOYED", "WOULD DEPLOY"))
-    if dry_run:
-        events.append(Event(
-            would, folder,
-            "{}  ({:,} bytes)".format(entry.path,
-                                      archive.getinfo(entry.path).file_size)
-        ))
-        return events
-
-    try:
-        written = write_member(archive, entry.path, target)
-        events.append(Event(kind, folder,
-                            "{}  ({:,} bytes)".format(entry.path, written)))
-    except (OSError, zipfile.BadZipFile, KeyError) as error:
-        events.append(Event("ERROR", folder,
-                            "{} could not be written: {}"
-                            .format(entry.path, error)))
-    return events
-
-
-# ---------------------------------------------------------------------------
-# The binder builder trigger
-# ---------------------------------------------------------------------------
-
-def trigger_binder_builder(script_path, dry_run):
-    """
-    Run the binder builder. Returns (Event, summary phrase).
-
-    Best-effort by design: the deploy has already happened by the time this
-    runs, and a binder that could not be rebuilt does not undo it. A failure
-    here is reported as an ERROR against the binder step and the deploy still
-    stands.
-
-    The binder builder decides for itself whether a rebuild is needed - it
-    compares the tree against the manifest of the current binder - so this is
-    an unconditional call, made after every deploy.
-
-    stdin is closed rather than inherited, which is what stops the binder
-    builder pausing for a keypress at the end of its own run: it skips that
-    pause when it has no interactive console.
-    """
-    folder = script_path.parent
-
-    if dry_run:
-        return (Event("BINDER", folder,
-                      "would run {}".format(script_path.name)),
-                "would be triggered (dry run)")
-
-    if not script_path.is_file():
-        return (Event("ERROR", folder,
-                      "binder builder not run: {} does not exist"
-                      .format(script_path)),
-                "NOT triggered - {} does not exist".format(script_path))
-
-    try:
-        result = subprocess.run(
-            [sys.executable, str(script_path)],
-            cwd=str(folder),
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            timeout=BINDER_TIMEOUT_SECONDS,
-        )
-    except subprocess.TimeoutExpired:
-        return (Event("ERROR", folder,
-                      "binder builder did not finish within {} seconds"
-                      .format(BINDER_TIMEOUT_SECONDS)),
-                "FAILED - did not finish within {} seconds"
-                .format(BINDER_TIMEOUT_SECONDS))
-    except OSError as error:
-        return (Event("ERROR", folder,
-                      "binder builder could not be started: {}".format(error)),
-                "FAILED - could not be started: {}".format(error))
-
-    output = result.stdout.decode("utf-8", errors="replace")
-    # The binder builder's own summary line is the one thing worth carrying up
-    # into this report. Its full report is in its own log, which the line that
-    # follows points at.
-    outcome = ""
-    for line in output.splitlines():
-        if line.startswith("Result:"):
-            outcome = line[len("Result:"):].strip()
-    if not outcome:
-        outcome = "no result line in its output"
-
-    if result.returncode != 0:
-        return (Event("ERROR", folder,
-                      "binder builder exited {}: {}"
-                      .format(result.returncode, outcome)),
-                "ran and FAILED (exit {}) - {}"
-                .format(result.returncode, outcome))
-
-    return (Event("BINDER", folder, "binder builder run: {}".format(outcome)),
-            "triggered - {}".format(outcome))
-
-
-# ---------------------------------------------------------------------------
-# Folder naming check
-# ---------------------------------------------------------------------------
-# Advisory only. It reports, it never renames, and it never changes the exit
-# code. A misspelled underscore folder is skipped by every tool in this family
-# for the same reason a correctly spelled one is, so it does no damage - but it
-# silently splits a convention in two, and the only way that gets noticed is if
-# something says so.
-
-def check_folder_naming(documentation_root):
-    """
-    Find folders whose names are near-misses of a convention name.
-
-    Returns a list of (path relative to the root, the name it probably meant).
-
-    Only folders whose names begin with an underscore are considered, which is
-    the class every convention name belongs to.
-    """
-    findings = []
-    for dirpath, dirnames, _filenames in os.walk(documentation_root):
-        for name in sorted(dirnames):
-            lowered = name.lower()
-            # Only underscore folders are candidates. Every convention name is
-            # one, and the restriction is what keeps an ordinary folder out of
-            # the summary: "file-update-package", the master folder of this very
-            # tool, scores 0.86 against "_fileupdatepackages" on similarity
-            # alone and is obviously not a misspelling of it.
-            if not lowered.startswith("_"):
-                continue
-            if lowered in CONVENTION_FOLDER_NAMES:
-                continue
-            close = difflib.get_close_matches(
-                lowered, CONVENTION_FOLDER_NAMES, n=1,
-                cutoff=NAMING_SIMILARITY)
-            if close:
-                folder = Path(dirpath) / name
-                findings.append(
-                    (relative_to(folder, documentation_root), close[0]))
-    return findings
-
-
-# ---------------------------------------------------------------------------
-# Reporting
-# ---------------------------------------------------------------------------
-
-def count_kinds(events):
-    """How many of each kind of event, for the summary line and the totals."""
-    counts = {}
-    for event in events:
-        counts[event.kind] = counts.get(event.kind, 0) + 1
-    return counts
-
-
-def build_completion_summary(events, outcome, dry_run):
-    """
-    The block that holds the window open, as a list of lines.
-
-    This is the primary output of the tool. Someone who reads nothing else
-    should be able to tell from these lines whether the deploy did what they
-    expected, and if it did not, which file was involved and why.
-    """
-    counts = count_kinds(events)
-    deployed = counts.get("DEPLOYED", 0) + counts.get("WOULD DEPLOY", 0)
-    created = counts.get("CREATED", 0) + counts.get("WOULD CREATE", 0)
-    superseded = counts.get("SUPERSEDED", 0) + counts.get("WOULD SUPERSEDE", 0)
-    conflicts = [event for event in events if event.kind == "CONFLICT"]
-    errors = [event for event in events if event.kind == "ERROR"]
-    invalid = [event for event in events if event.kind == "INVALID"]
-
-    def row(label, value):
-        return "  {:<22}{}".format(label, value)
-
-    lines = []
-    lines.append("=" * 72)
-    lines.append("COMPLETION SUMMARY{}".format(
-        "   (DRY RUN - nothing was changed)" if dry_run else ""))
-    lines.append("-" * 72)
-
-    if outcome.package is None:
-        lines.append(row("package:", "none - nothing to deploy"))
-    else:
-        lines.append(row("package:", outcome.package.name))
-        if outcome.description:
-            lines.append(row("", outcome.description))
-
-    lines.append(row("files updated:", deployed))
-    lines.append(row("files created:", created))
-    lines.append(row("files superseded:", superseded))
-
-    lines.append(row("conflicts:", len(conflicts)))
-    for event in conflicts:
-        lines.append("    - {}".format(event.detail))
-
-    lines.append(row("errors:", len(errors)))
-    for event in errors:
-        lines.append("    - {}".format(event.detail))
-
-    # A rejected package is not an error in the tool - nothing was attempted
-    # and nothing failed - so it is counted separately from one, and the row
-    # only appears when there is something to say.
-    if invalid:
-        lines.append(row("package rejected:",
-                         "nothing in it was deployed"))
-        for event in invalid:
-            lines.append("    - {}".format(event.detail))
-
-    lines.append(row("user instructions:", outcome.instructions))
-    lines.append(row("binder builder:", outcome.binder))
-    lines.append(row("the package is now:", outcome.package_state))
-
-    # The naming check speaks here and nowhere else. It is advisory: it names
-    # what it found and leaves the decision to a person.
-    if outcome.naming:
-        lines.append(row("folder naming:",
-                         "{} folder(s) close to a convention name but not "
-                         "matching it".format(len(outcome.naming))))
-        for found, expected in outcome.naming:
-            lines.append("    - {}  (expected \"{}\")".format(found, expected))
-    else:
-        lines.append(row("folder naming:", "no misspelled folders found"))
-
-    lines.append("-" * 72)
-
-    # The final status line. Note that conflicts count as errors here: the
-    # deploy did not do everything the package asked for, and saying otherwise
-    # on the one line most likely to be read alone would be a lie of omission.
-    # Did every file the manifest asked for actually land?
-    complete = (outcome.entry_count > 0
-                and deployed + created == outcome.entry_count
-                and not conflicts)
-
-    if errors or conflicts or invalid:
-        if deployed + created == 0:
-            status = "FAILED - nothing was deployed"
-        elif complete:
-            status = ("COMPLETED WITH ERRORS - every file was deployed, but a "
-                      "later step failed")
-        else:
-            status = "COMPLETED WITH ERRORS - the deploy is incomplete"
-    elif outcome.package is None:
-        status = "COMPLETED SUCCESSFULLY - there was nothing to do"
-    elif dry_run:
-        status = "COMPLETED SUCCESSFULLY - dry run, nothing was changed"
-    else:
-        status = "COMPLETED SUCCESSFULLY"
-
-    lines.append(status)
-    lines.append("=" * 72)
-    return lines
-
-
-def build_report(settings_path, documentation_root, drop_folder, dry_run,
-                 events, outcome):
-    """
-    Build the run report as a list of lines.
-
-    One function produces both the on-screen report and the log entry, so the
-    two can never drift apart.
-    """
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    mode = "DRY RUN (nothing changed)" if dry_run else "LIVE"
-
-    lines = []
-    lines.append("=" * 72)
-    lines.append("file update package   {}   {}".format(timestamp, mode))
-    lines.append("documentation root: {}".format(documentation_root))
-    lines.append("settings:           {}".format(settings_path))
-    lines.append("drop folder:        {}".format(drop_folder))
-    if outcome.package is not None:
-        lines.append("package:            {}".format(outcome.package_line))
-        if outcome.description:
-            lines.append("description:        {}".format(outcome.description))
-    lines.append("-" * 72)
-
-    if not events:
-        lines.append("Nothing happened, which should not be possible - please "
-                     "report this.")
-    else:
-        # Events are reported in the order they happened rather than sorted:
-        # a deploy is a sequence, and a supersession followed by the write that
-        # depended on it reads as one story. The folder heading still changes
-        # as the run moves through the tree.
-        current_folder = None
-        for event in events:
-            if event.folder != current_folder:
-                current_folder = event.folder
-                lines.append("")
-                lines.append("[{}]".format(
-                    relative_to(event.folder, documentation_root)))
-            lines.append("  {:<17} {}".format(event.kind, event.detail))
-
-    counts = count_kinds(events)
-    summary = ", ".join(
-        "{} {}".format(counts[kind], kind.lower())
-        for kind in REPORT_KINDS if kind in counts
-    ) or "nothing to do"
-
-    lines.append("")
-    lines.append("-" * 72)
-    lines.append("Result: {}".format(summary))
-    lines.extend(build_completion_summary(events, outcome, dry_run))
-    return lines
-
-
-def append_to_log(log_path, lines):
-    """
-    Append one entry to the log. The log is never rewritten or trimmed.
-
-    Failing to write the log must not lose the report that is already on
-    screen, so a problem here is reported and swallowed.
-    """
-    try:
-        log_path.parent.mkdir(parents=True, exist_ok=True)
-        # "a" is append mode: the file is created if absent, and writes always
-        # go to the end. newline="\n" leaves line endings to us, so the log
-        # looks the same on every platform.
-        with open(log_path, "a", encoding="utf-8", newline="\n") as log_file:
-            log_file.write("\n".join(lines))
-            log_file.write("\n\n")
-        return True
-    except OSError as error:
-        print("WARNING: could not write the log file {}: {}"
-              .format(log_path, error))
-        return False
-
-
-# ---------------------------------------------------------------------------
-# Entry point
-# ---------------------------------------------------------------------------
-
-def pause_before_exit():
-    """
-    Hold the console open so a double-clicked run can be read.
-
-    Skipped when there is no interactive console attached - otherwise a
-    scheduled or piped run would hang forever waiting for a keypress.
-    """
-    if not sys.stdin or not sys.stdin.isatty():
-        return
-    try:
-        input("\nPress Enter to close...")
-    except (EOFError, KeyboardInterrupt):
-        pass
-
-
-def run(dry_run):
-    """The whole job. Returns an exit code: 0 for success, 1 for a problem."""
-    settings_path = SCRIPT_DIR / SETTINGS_FILENAME
-
-    try:
-        settings = load_settings(settings_path)
-
-        # The documentation root is resolved first, because "~/" in the other
-        # settings is measured from it.
-        documentation_root = resolve_one_folder(
-            tidy_setting_text(settings.get("documentation_root", ".."),
-                              "documentation_root"),
-            "documentation_root",
-        )
-        drop_folder = resolve_one_folder(
-            tidy_setting_text(settings.get("drop_folder",
-                                           "~/_fileupdatepackages"),
-                              "drop_folder"),
-            "drop_folder", root=documentation_root,
-        )
-        binder_setting = str(settings.get("binder_builder",
-                                          "~/_tools/binder_builder.py")).strip()
-        binder_path = None
-        if binder_setting:
-            binder_path = resolve_one_folder(
-                tidy_setting_text(binder_setting, "binder_builder"),
-                "binder_builder", root=documentation_root,
-            )
-        log_path = resolve_one_folder(
-            tidy_setting_text(settings.get("log_file",
-                                           "file_update_package.log"),
-                              "log_file"),
-            "log_file", root=documentation_root,
-        )
-    except ValueError as error:
-        print("SETTINGS PROBLEM")
-        print(error)
-        return 1
-
-    if not documentation_root.is_dir():
-        print("SETTINGS PROBLEM")
-        print('The "documentation_root" setting does not point at a folder '
-              "that exists:")
-        print("  {}".format(documentation_root))
-        print("  (from settings file {})".format(settings_path))
-        return 1
-
-    events = []
-    outcome = Outcome()
-    # The naming check runs on every run, package or no package. It is the one
-    # thing here that reports on the tree rather than on the deploy, and a run
-    # that found nothing to deploy is as good a moment to mention it as any.
-    outcome.naming = check_folder_naming(documentation_root)
-
-    packages = find_packages(drop_folder)
-
-    if not packages:
-        events.append(Event(
-            "SKIPPED", drop_folder,
-            "no packages found in {}".format(
-                drop_folder if drop_folder.is_dir()
-                else "{} (the folder does not exist)".format(drop_folder))
-        ))
-        return finish(events, outcome, settings_path, documentation_root,
-                      drop_folder, dry_run, log_path)
-
-    package = packages[0]
-    outcome.package = package
-    # Described now, while it is still where it was found: by the time the
-    # report is built the package may have been moved into _superseded.
-    outcome.package_line = describe_package(package)
-    # Only the newest is processed. Batching packages would mean deciding what
-    # to do when the third of five conflicts, and the answer to that is a
-    # person looking at the report - so the rest simply wait their turn.
-    for waiting in packages[1:]:
-        events.append(Event(
-            "SKIPPED", drop_folder,
-            "{}: waiting - only the newest package is processed in a run"
-            .format(waiting.name)
-        ))
-
-    # --- validate ---------------------------------------------------------
-    if not zipfile.is_zipfile(package):
-        events.append(Event("INVALID", drop_folder,
-                            "{} is not a zip file".format(package.name)))
-        return finish(events, outcome, settings_path, documentation_root,
-                      drop_folder, dry_run, log_path)
-
-    try:
-        archive = zipfile.ZipFile(package)
-    except (zipfile.BadZipFile, OSError) as error:
-        events.append(Event("INVALID", drop_folder,
-                            "{} could not be opened: {}"
-                            .format(package.name, error)))
-        return finish(events, outcome, settings_path, documentation_root,
-                      drop_folder, dry_run, log_path)
-
-    with archive:
-        names = set(archive.namelist())
-        manifest, problems = read_manifest(archive, names)
-
-        if problems:
-            # Validation is a gate: a package that is wrong in one place is not
-            # deployed in the places it happens to be right.
-            for problem in problems:
-                events.append(Event(
-                    "INVALID", drop_folder,
-                    "{}: {}".format(package.name, problem)))
-            return finish(events, outcome, settings_path, documentation_root,
-                          drop_folder, dry_run, log_path)
-
-        outcome.description = manifest.description
-        outcome.entry_count = len(manifest.entries)
-
-        # --- the gate -----------------------------------------------------
-        if manifest.user_instructions:
-            outcome.instructions = acknowledge_instructions(
-                manifest.user_instructions, dry_run)
-
-        # --- deploy -------------------------------------------------------
-        for entry in manifest.entries:
-            events.extend(deploy_entry(archive, entry, documentation_root,
-                                       dry_run))
-
-    counts = count_kinds(events)
-    wrote_something = any(counts.get(kind) for kind in
-                          ("DEPLOYED", "WOULD DEPLOY",
-                           "CREATED", "WOULD CREATE"))
-    incomplete = bool(counts.get("CONFLICT") or counts.get("ERROR"))
-
-    # --- the binder builder ----------------------------------------------
-    if binder_path is None:
-        outcome.binder = "not triggered - no binder_builder set in settings"
-    elif not wrote_something:
-        outcome.binder = "not triggered - no files were deployed"
-    else:
-        event, phrase = trigger_binder_builder(binder_path, dry_run)
-        events.append(event)
-        outcome.binder = phrase
-
-    # --- file the package away -------------------------------------------
-    # A partial deploy leaves the package in the drop folder. Whoever sorts the
-    # conflict out needs the package still to hand, and a package filed under
-    # _superseded reads as one that was fully applied.
-    if incomplete:
-        outcome.package_state = ("left in the drop folder - the deploy was "
-                                 "not complete")
-    elif not wrote_something:
-        outcome.package_state = "left in the drop folder - nothing was deployed"
-    else:
-        event = supersede(package, dry_run)
-        if event.kind in ("SUPERSEDED", "WOULD SUPERSEDE"):
-            event = Event(
-                "WOULD PROCESS" if dry_run else "PROCESSED", drop_folder,
-                "{} -> {}/".format(package.name, SUPERSEDED_FOLDER_NAME))
-            outcome.package_state = "{}moved to {}/".format(
-                "would be " if dry_run else "", SUPERSEDED_FOLDER_NAME)
-        else:
-            outcome.package_state = ("left in the drop folder - it could not "
-                                     "be moved")
-        events.append(event)
-
-    return finish(events, outcome, settings_path, documentation_root,
-                  drop_folder, dry_run, log_path)
-
-
-def finish(events, outcome, settings_path, documentation_root, drop_folder,
-           dry_run, log_path):
-    """
-    Report, log, and return the exit code.
-
-    Every path out of run() comes through here, so a run that stopped at
-    validation produces the same shaped report - and the same completion
-    summary - as one that deployed twenty files.
-    """
-    lines = build_report(settings_path, documentation_root, drop_folder,
-                         dry_run, events, outcome)
-    print("\n".join(lines))
-
-    # Dry runs are logged too, clearly marked, so the log is a complete record
-    # of every time the tool was pointed at the tree.
-    append_to_log(log_path, lines)
-    print("\nLog: {}".format(log_path))
-
-    # Exit code follows the sibling tools: 0 unless something refused. Note the
-    # consequence, which is stated in the design document: a CONFLICT and an
-    # INVALID package both exit 0, because nothing failed - the tool did
-    # exactly what it should with what it was given. The completion summary is
-    # where a person reads that, and it says FAILED in plain words.
-    return 1 if any(event.kind == "ERROR" for event in events) else 0
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Deploy a FileUpdatePackage into the documentation tree. "
-                    "Reads its settings from {} beside the script."
-                    .format(SETTINGS_FILENAME)
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",  # present = True, absent = False
-        help="report what would be deployed without changing anything",
-    )
-    args = parser.parse_args()
-
-    try:
-        exit_code = run(args.dry_run)
-    except KeyboardInterrupt:
-        print("\nInterrupted.")
-        exit_code = 1
-
-    pause_before_exit()
-    return exit_code
-
-
-# When Python runs a file directly, it sets __name__ to "__main__". This guard
-# is the conventional way to say "only do this when run, not when imported".
-if __name__ == "__main__":
-    sys.exit(main())
-<!-- END SOURCE: Infrastructure/file-update-package/file_update_package.py -->
-
----
-
 <!-- BEGIN SOURCE: Infrastructure/file-update-package/file_update_package_settings.json -->
 {
   "_comment": "Settings for the file update package deployer. Edit the values below. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
@@ -6138,12 +6372,6 @@ The three existing utilities already use JSON settings files. YAML is friendlier
 
 Deep merge means a per-project settings file overrides individual values without needing to restate the surrounding structure. The alternative — full replacement per key — would force a project to copy an entire settings block just to change one value inside it. That is more brittle and harder to keep in step with the global defaults as they evolve.
 
-## Three-layer settings — package defaults separated from user global
-
-The original design had two layers: global settings with the installed package, and per-project overrides. This missed a problem: pip overwrites the package directory on every update, so any user-edited global settings (a custom exclude list, a repo URL override) would be lost on the next `aide update`.
-
-The fix separates immutable package defaults (shipped with the package, never edited) from user-global settings (`~/.aide/settings.json`, survives updates). Per-project remains the third layer. The auto-update state file already lived at `~/.aide/state.json`, so the convention was already established — settings just needed to follow it.
-
 ## The `_aide` folder — Dave's initiative
 
 The original proposal placed per-project settings under `_utilities`. Dave pushed back: he wanted the number of root-level operational folders kept lean and preferred one generic home for machine-facing files rather than several purpose-specific ones. The folder would hold settings, logs, and utilities as a subfolder only if needed.
@@ -6242,17 +6470,16 @@ JSON. This matches the format already used by the existing utility settings file
 
 ### Locations
 
-Three levels, each overriding the one before:
+Two levels:
 
-- **Package defaults** live with the installed package. Immutable — shipped as part of the package and overwritten on every update. Never edited by the user.
-- **User global** live at `~/.aide/settings.json` (on Windows, `C:\Users\<user>\.aide\`). The user's own global settings — their exclude list, repo URL, anything they want everywhere. Survives updates. Created on first use if absent; skipped silently if missing.
-- **Per-project settings** live under `_aide/` at the documentation root of the project. These override both layers above for work in that project.
+- **Global settings** live with the installed package. These are the defaults and apply everywhere.
+- **Per-project settings** live under `_aide/` at the documentation root of the project. These override global settings for work in that project.
 
 ### Merge behaviour
 
-Deep merge at each layer. Package defaults are merged with user-global settings, then the result is merged with per-project settings. A key present in a higher layer replaces the same key from the layer below; everything else is inherited.
+Deep merge. A per-project settings file overrides individual values without needing to restate the entire global structure. A key present in the project file replaces the same key in the global file; everything else is inherited.
 
-This means each layer only declares what it changes. A user who wants a global exclude list sets it once in `~/.aide/settings.json`. A project that needs different exclude rules states those rules and inherits everything else.
+This means a project only declares what it changes. A project that needs different exclude rules states those rules and inherits everything else from global.
 
 ---
 
@@ -6576,836 +6803,6 @@ Two cases where the tool deliberately does nothing and tells you instead:
 It tidies versions. It does not build binders and it does not deploy anything.
 Those are separate tools, run in sequence.
 <!-- END SOURCE: Infrastructure/version-cleanup/README.md -->
-
----
-
-<!-- BEGIN SOURCE: Infrastructure/version-cleanup/version_cleanup.py -->
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-version cleanup - move superseded document versions out of the live tree.
-
-WHAT IT DOES
-    Walks a folder tree. In each folder it looks for files whose names are
-    identical apart from a "_v<number>" suffix just before the extension.
-    The highest number stays where it is; every lower version is moved into a
-    "_superseded" subfolder of the folder it came from.
-
-        Foo_v8.md + Foo_v9.md   ->  Foo_v8.md moves, Foo_v9.md stays
-        Foo.md    + Foo_v1.md   ->  Foo.md moves (no suffix counts as v0)
-        Foo_v3.md alone         ->  nothing happens
-
-    Grouping is always within a single folder. The walk is recursive, but
-    Foo_v8.md in one folder is never compared with Foo_v9.md in another.
-
-HOW IT IS RUN
-    Live by default. Pass --dry-run to see the report without changing
-    anything. It reads its settings from a JSON file sitting beside this
-    script, so it can simply be double-clicked on Windows.
-
-DESIGN NOTE
-    This is one tool that does one thing. Sibling tools (binder assembly is
-    next) will be separate scripts run in sequence, so there is deliberately no
-    plugin system, no action registry and no shared base class here.
-
-Python 3.8 or newer. Standard library only.
-"""
-
-import argparse
-import datetime
-import json
-import os
-import re
-import shutil
-import sys
-from dataclasses import dataclass, field
-from pathlib import Path
-
-
-# ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
-# Path(__file__) is this script's own file. .resolve() turns it into a full,
-# unambiguous path, and .parent gives the folder holding it. Everything the
-# tool reads or writes hangs off this folder rather than off the "current
-# working directory", because the working directory depends on *how* the script
-# was launched (double-click, terminal, scheduler) and is therefore unreliable.
-# It also means each copy of the tool uses its own settings and its own log.
-SCRIPT_DIR = Path(__file__).resolve().parent
-
-SETTINGS_FILENAME = "version_cleanup_settings.json"
-SUPERSEDED_FOLDER_NAME = "_superseded"
-
-# The matching rule, as a regular expression, applied to a filename with its
-# extension already stripped off:
-#   ^          start of the name
-#   (?P<base>.+)   one or more characters, captured as "base" - the document
-#                  identity. ".+" rather than ".*" so a file literally named
-#                  "_v1.md" is not read as an empty document name.
-#   _[vV]      the literal separator; upper or lower case v is accepted
-#   (?P<number>\d+)  one or more digits, captured as "number"
-#   $          end of the name - the suffix must be the last thing before the
-#              extension, so "Foo_v2_draft.md" is deliberately not a match.
-VERSION_SUFFIX = re.compile(r"^(?P<base>.+)_[vV](?P<number>\d+)$")
-
-# Spots "C:" or "D:" at the start of a settings path, so a Windows path in a
-# settings file being run on Mac or Linux fails loudly rather than being
-# mistaken for a relative pattern that then silently never matches anything.
-WINDOWS_DRIVE = re.compile(r"^[A-Za-z]:")
-
-# The settings file is shipped with the tool, but if someone deletes it - or
-# copies just the .py file to a new location - we write this back out rather
-# than failing. Keeping the defaults as *text* (not as a Python dictionary that
-# gets dumped to JSON) means the file we create is byte-for-byte the file we
-# ship, comments and ordering included.
-#
-# JSON has no comment syntax, so the explanatory lines are carried as ordinary
-# keys beginning with "_comment". The loader ignores them. That keeps the file
-# valid JSON, readable by any editor and parseable by the standard library.
-DEFAULT_SETTINGS_JSON = """{
-  "_comment": "Settings for the version cleanup tool. Edit the values below. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
-
-  "_comment_root": "The folder to tidy, including everything beneath it. A relative path is resolved against the folder this script lives in, so \\"..\\" means the parent folder. Give a full path such as \\"C:/Users/you/Documents\\" to point somewhere else. Forward slashes are safe on Windows.",
-  "root": "..",
-
-  "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \\"C:/Docs/_binder\\" - names one exact folder. ROOT-ANCHORED - \\"~/_binder\\" - names one exact folder, measured from the root above. RELATIVE - \\"_binder\\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
-
-  "_comment_include": "Folders whose names start with an underscore are skipped by default. List any that should be processed anyway. Example: [\\"_binder\\"] processes every _binder folder in the tree; [\\"~/_binder\\"] processes only the one at the top.",
-  "include": [],
-
-  "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. A relative entry here is powerful: \\"_superseded\\" would skip every _superseded folder in the tree.",
-  "exclude": [],
-
-  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \\"~/\\" for root-anchored, or relative to the script folder.",
-  "log_file": "version_cleanup.log"
-}
-"""
-
-
-# ---------------------------------------------------------------------------
-# Small record types
-# ---------------------------------------------------------------------------
-# A dataclass is Python shorthand for "a class that just holds these fields".
-# The lines below generate the constructor for us. Used here instead of loose
-# tuples so that report code can say event.kind rather than event[0].
-
-@dataclass
-class Event:
-    """One line of the report: something that happened, or failed to."""
-    kind: str      # MOVED / WOULD MOVE / CONFLICT / AMBIGUOUS / ERROR
-    folder: Path   # the folder it happened in
-    detail: str    # human-readable description
-
-
-@dataclass
-class PlannedMove:
-    """One file that should move, and where it should move to."""
-    source: Path
-    destination: Path
-    reason: str    # e.g. "v7 superseded by v9"
-
-
-# ---------------------------------------------------------------------------
-# Settings
-# ---------------------------------------------------------------------------
-
-def load_settings(settings_path):
-    """
-    Read the settings file, creating it from the shipped defaults if missing.
-
-    Returns a plain dictionary. Raises ValueError with a readable message if
-    the file exists but is not valid JSON - a mistyped settings file should
-    stop the run with an explanation, not with a stack trace.
-    """
-    if not settings_path.exists():
-        print("No settings file found. Creating one with default values:")
-        print("  {}".format(settings_path))
-        print("Review it, then run the tool again if the defaults are wrong.")
-        print("")
-        settings_path.write_text(DEFAULT_SETTINGS_JSON, encoding="utf-8")
-
-    text = settings_path.read_text(encoding="utf-8")
-    try:
-        settings = json.loads(text)
-    except json.JSONDecodeError as error:
-        # The exception carries the line and column of the problem, which is
-        # the single most useful thing to show someone fixing the file.
-        raise ValueError(
-            "The settings file is not valid JSON.\n"
-            "  file: {}\n"
-            "  problem: {} (line {}, column {})\n"
-            "Common causes: a missing comma, a trailing comma after the last "
-            "item, or a single backslash inside a path (write \\\\ or use /)."
-            .format(settings_path, error.msg, error.lineno, error.colno)
-        )
-
-    if not isinstance(settings, dict):
-        raise ValueError(
-            "The settings file must contain a JSON object (a {{ ... }} block), "
-            "but it contains {}.".format(type(settings).__name__)
-        )
-
-    return settings
-
-
-# ---------------------------------------------------------------------------
-# Path forms
-# ---------------------------------------------------------------------------
-# Three spellings are accepted, because the tree needs two different kinds of
-# statement: "this exact folder" and "any folder shaped like this".
-#
-#   absolute        "C:/Docs/_binder"   one exact folder
-#   root-anchored   "~/_binder"         one exact folder, measured from root
-#   relative        "_binder"           a PATTERN: every folder whose path
-#                                       ends with those segments
-#
-# The relative form is the interesting one. It is not resolved once at startup;
-# it is a shape the walk tests every folder against, so a single "_binder"
-# entry covers a _binder subfolder wherever one turns up in the tree. Several
-# segments work too: "_binder/current" matches any .../_binder/current.
-#
-# Note that "~" does NOT mean the home folder here. Python's expanduser is
-# deliberately never called on these settings, so "~/" always means the root of
-# the tree being tidied and can never quietly resolve to C:\Users\someone.
-
-def tidy_setting_text(value, label):
-    """Trim a settings value and normalise its separators to forward slashes."""
-    text = str(value).strip().replace("\\", "/")
-    if not text:
-        raise ValueError('Setting "{}" contains an empty path.'.format(label))
-    return text
-
-
-def resolve_one_folder(text, label, root=None):
-    """
-    Resolve a settings value that names ONE place: absolute, "~/" measured from
-    the root, or relative to the script's own folder.
-
-    Used for the root and the log file. Include and exclude go through
-    parse_scope_entry instead, because they also accept patterns.
-    """
-    if text.startswith("~"):
-        if root is None:
-            raise ValueError(
-                'Setting "{}" cannot use "~/", because "~/" means "measured '
-                'from the root" and this setting is what defines the root. '
-                'Use a full path, or a path relative to the script folder.'
-                .format(label)
-            )
-        if not text.startswith("~/"):
-            raise ValueError(
-                'Setting "{}": "~" means the root folder, so it has to be '
-                'written as "~/something".'.format(label)
-            )
-        return (root / text[2:]).resolve()
-
-    path = Path(text)
-    if not path.is_absolute():
-        if WINDOWS_DRIVE.match(text):
-            raise ValueError(
-                'Setting "{}" is "{}", which looks like a Windows path, but '
-                "this is not Windows.".format(label, text)
-            )
-        # resolve() also removes any ".." segments, so two spellings of the
-        # same folder compare equal later on.
-        path = SCRIPT_DIR / path
-    return path.resolve()
-
-
-def parse_scope_entry(text, label, root):
-    """
-    Classify one include or exclude entry.
-
-    Returns ("folder", Path) for the absolute and "~/" forms, or
-    ("pattern", (segments...)) for the relative form.
-    """
-    if text.startswith("~"):
-        return ("folder", resolve_one_folder(text, label, root))
-
-    path = Path(text)
-    if path.is_absolute():
-        return ("folder", path.resolve())
-    if WINDOWS_DRIVE.match(text):
-        raise ValueError(
-            'Setting "{}" contains "{}", which looks like a Windows path, but '
-            "this is not Windows.".format(label, text)
-        )
-
-    # Anything else is a pattern. Splitting on "/" and dropping empty pieces
-    # tolerates a stray leading or trailing slash.
-    segments = tuple(part for part in text.split("/") if part)
-    if not segments or "." in segments:
-        raise ValueError(
-            'Setting "{}" contains "{}", which does not name anything.'
-            .format(label, text)
-        )
-    if ".." in segments:
-        raise ValueError(
-            'Setting "{}" contains "{}". A relative entry is a pattern tested '
-            'against every folder in the tree, so ".." has no meaning in one. '
-            'Write "~/..." to anchor at the root, or give a full path.'
-            .format(label, text)
-        )
-    return ("pattern", segments)
-
-
-def normalise(path):
-    """
-    Case-fold a path the way the local filesystem does.
-
-    os.path.normcase lowercases on Windows, where FOO and foo are the same
-    folder, and changes nothing on Mac or Linux. Comparing paths through it
-    avoids both false misses on Windows and false matches elsewhere.
-    """
-    return Path(os.path.normcase(str(path)))
-
-
-# ---------------------------------------------------------------------------
-# Folder scope
-# ---------------------------------------------------------------------------
-
-def is_inside(path, folder):
-    """True if `path` is `folder` itself, or anywhere beneath it."""
-    try:
-        normalise(path).relative_to(normalise(folder))
-        return True
-    except ValueError:
-        # relative_to raises when path is not under folder. Catching that is
-        # the standard pathlib way of asking this question.
-        return False
-
-
-@dataclass
-class Scope:
-    """
-    Everything the walk needs in order to decide which folders are in play.
-
-    Entries arrive already sorted into exact folders and patterns, so the walk
-    itself stays readable: it asks questions, it does not parse settings.
-    """
-    root: Path
-    include_folders: list = field(default_factory=list)
-    include_patterns: list = field(default_factory=list)
-    exclude_folders: list = field(default_factory=list)
-    exclude_patterns: list = field(default_factory=list)
-    include_text: list = field(default_factory=list)   # as typed, for the report
-    exclude_text: list = field(default_factory=list)
-
-    def parts_below_root(self, path):
-        """The folder's path as case-folded segments measured from the root."""
-        try:
-            relative = path.relative_to(self.root)
-        except ValueError:
-            return None
-        return tuple(os.path.normcase(part) for part in relative.parts)
-
-    def matches_pattern(self, path, patterns):
-        """
-        True if the folder's path ENDS WITH one of the patterns.
-
-        This trailing-segment test is what makes "_binder" mean "any _binder
-        folder, wherever it appears". Because the comparison is made against
-        the path measured from the root, a pattern can never reach above the
-        root, and the root itself is never matched: it has no segments to
-        compare.
-        """
-        parts = self.parts_below_root(path)
-        if parts is None:
-            return False
-        for pattern in patterns:
-            length = len(pattern)
-            if length > len(parts):
-                continue
-            wanted = tuple(os.path.normcase(part) for part in pattern)
-            if parts[-length:] == wanted:
-                return True
-        return False
-
-    def leads_to_include_pattern(self, path):
-        """
-        True if something deeper down could still match a multi-segment
-        include pattern.
-
-        For "_binder/current", a folder ending in "_binder" is not itself
-        included, but the walk has to pass through it to reach "current".
-        Testing every *proper* prefix of every pattern is exactly that
-        lookahead. Single-segment patterns have no proper prefix and contribute
-        nothing here, which is right: they match the folder itself or not at
-        all.
-        """
-        parts = self.parts_below_root(path)
-        if parts is None:
-            return False
-        for pattern in self.include_patterns:
-            for length in range(1, len(pattern)):
-                if length > len(parts):
-                    continue
-                wanted = tuple(os.path.normcase(part)
-                               for part in pattern[:length])
-                if parts[-length:] == wanted:
-                    return True
-        return False
-
-    def is_excluded(self, path):
-        """Excluded folders, and everything inside them, are never touched."""
-        if any(is_inside(path, folder) for folder in self.exclude_folders):
-            return True
-        return self.matches_pattern(path, self.exclude_patterns)
-
-    def is_included(self, path):
-        """True if this exact folder was named, or it matches a pattern."""
-        if any(normalise(path) == normalise(folder)
-               for folder in self.include_folders):
-            return True
-        return self.matches_pattern(path, self.include_patterns)
-
-    def should_descend(self, path):
-        """
-        Should the walk go *into* this folder?
-
-        Note the difference between descending and processing. An underscore
-        folder that is not itself included may still need to be walked through,
-        because something deeper down is on the include list. It is traversed,
-        but its own files are left alone.
-        """
-        if self.is_excluded(path):
-            return False
-        if not path.name.startswith("_"):
-            return True
-        if self.is_included(path):
-            return True
-        # Is this folder on the way to an exactly-named include?
-        if any(is_inside(folder, path) for folder in self.include_folders):
-            return True
-        return self.leads_to_include_pattern(path)
-
-    def should_process(self, path):
-        """Should this folder's own files be compared and tidied?"""
-        if self.is_excluded(path):
-            return False
-        if not path.name.startswith("_"):
-            return True
-        # The underscore rule is what keeps the tool out of the _superseded
-        # folders it creates. Only an explicit include overrides it.
-        return self.is_included(path)
-
-
-def build_scope(root, include_values, exclude_values):
-    """Turn the raw include and exclude settings into a Scope."""
-    scope = Scope(root=root)
-
-    for label, values in (("include", include_values),
-                          ("exclude", exclude_values)):
-        if values is None:
-            continue
-        if not isinstance(values, list):
-            raise ValueError(
-                'Setting "{}" must be a list of paths, written in square '
-                'brackets, for example ["_binder"].'.format(label)
-            )
-        for value in values:
-            text = tidy_setting_text(value, label)
-            kind, resolved = parse_scope_entry(text, label, root)
-            if label == "include":
-                scope.include_text.append(text)
-                target = (scope.include_folders if kind == "folder"
-                          else scope.include_patterns)
-            else:
-                scope.exclude_text.append(text)
-                target = (scope.exclude_folders if kind == "folder"
-                          else scope.exclude_patterns)
-            target.append(resolved)
-
-    return scope
-
-
-def folders_to_process(scope):
-    """
-    Walk the tree from the root and return the folders whose files should be
-    compared, in a stable, predictable order.
-    """
-    found = []
-    root = scope.root
-
-    # os.walk visits every folder beneath root. With topdown=True (the default)
-    # it hands us the list of subfolder names *before* descending, and editing
-    # that list in place prunes the walk - the standard way to skip whole
-    # branches cheaply. Pruning is also what makes exclusion inherited: once a
-    # folder is skipped, nothing inside it is ever looked at, so there is no
-    # need to ask again further down. Symbolic links to folders are not
-    # followed by default, which is what we want: a link should not cause the
-    # same tree to be tidied twice.
-    for dirpath, dirnames, _filenames in os.walk(root):
-        current = Path(dirpath)
-
-        # dirnames[:] = ... replaces the contents of the existing list rather
-        # than rebinding the name. os.walk only notices the former.
-        dirnames[:] = sorted(
-            name for name in dirnames if scope.should_descend(current / name)
-        )
-
-        if current == root:
-            # The root was chosen deliberately by whoever edited the settings,
-            # so the underscore rule does not apply to it. An explicit exclude
-            # still does.
-            process = not scope.is_excluded(current)
-        else:
-            process = scope.should_process(current)
-
-        if process:
-            found.append(current)
-
-    return found
-
-
-# ---------------------------------------------------------------------------
-# The matching rule
-# ---------------------------------------------------------------------------
-
-def split_version(file_path):
-    """
-    Split a filename into (document identity, extension, version number).
-
-    Path.stem is the filename without its final extension; Path.suffix is that
-    extension including the dot. A file with no _v suffix is version 0, which
-    is what makes "Foo.md is superseded by Foo_v1.md" fall out of the same
-    comparison as everything else rather than needing a special case.
-    """
-    stem = file_path.stem
-    extension = file_path.suffix
-
-    match = VERSION_SUFFIX.match(stem)
-    if match:
-        return match.group("base"), extension, int(match.group("number"))
-    return stem, extension, 0
-
-
-def plan_folder(folder):
-    """
-    Work out what should move in one folder. Nothing is changed here.
-
-    Returns (moves, events). Splitting the decision from the action is what
-    makes --dry-run trustworthy: the dry run and the live run take exactly the
-    same decisions, and only the second half of the program differs.
-    """
-    moves = []
-    events = []
-
-    # Group the folder's files by (identity, extension). A dictionary of lists:
-    # the key identifies the document, the list holds its versions.
-    groups = {}
-    try:
-        entries = sorted(folder.iterdir())
-    except OSError as error:
-        events.append(Event("ERROR", folder, "cannot read folder: {}".format(error)))
-        return moves, events
-
-    for entry in entries:
-        if not entry.is_file():
-            continue  # subfolders are visited in their own right by the walk
-        base, extension, version = split_version(entry)
-        # setdefault returns the existing list for this key, or inserts a new
-        # empty list first. Saves the usual "if key not in dict" dance.
-        groups.setdefault((base, extension), []).append((version, entry))
-
-    for (base, extension), members in sorted(groups.items()):
-        if len(members) < 2:
-            continue  # a file with no versioned sibling stays put
-
-        numbers = [version for version, _entry in members]
-        highest = max(numbers)
-
-        # Two files can only share a version number through leading zeros
-        # (Foo_v08 and Foo_v8) or a case difference in the _v. Which one is
-        # current is then genuinely unclear, so the tool declines to guess and
-        # leaves the whole group alone for a human to sort out.
-        if len(set(numbers)) != len(numbers):
-            names = ", ".join(entry.name for _version, entry in members)
-            events.append(Event(
-                "AMBIGUOUS", folder,
-                "{}{}: duplicate version numbers, nothing moved ({})"
-                .format(base, extension, names)
-            ))
-            continue
-
-        superseded_dir = folder / SUPERSEDED_FOLDER_NAME
-
-        for version, entry in sorted(members):
-            if version == highest:
-                continue  # the current version stays exactly where it is
-
-            destination = superseded_dir / entry.name
-
-            # Never overwrite. An existing file of the same name in
-            # _superseded means two different documents are competing for one
-            # archive slot; that is a decision for a person, not for a script.
-            if destination.exists():
-                events.append(Event(
-                    "CONFLICT", folder,
-                    "{} left in place: {}/{} already exists"
-                    .format(entry.name, SUPERSEDED_FOLDER_NAME, entry.name)
-                ))
-                continue
-
-            moves.append(PlannedMove(
-                source=entry,
-                destination=destination,
-                reason="v{} superseded by v{}".format(version, highest),
-            ))
-
-    return moves, events
-
-
-# ---------------------------------------------------------------------------
-# Doing the work
-# ---------------------------------------------------------------------------
-
-def apply_moves(moves, dry_run):
-    """
-    Carry out the planned moves (or, in a dry run, describe them).
-
-    Returns the list of events describing what happened.
-    """
-    events = []
-
-    for move in moves:
-        folder = move.source.parent
-
-        if dry_run:
-            events.append(Event(
-                "WOULD MOVE", folder,
-                "{}  ({})".format(move.source.name, move.reason)
-            ))
-            continue
-
-        try:
-            # Created lazily, so folders with nothing to archive never gain an
-            # empty _superseded. mkdir with exist_ok=True is a no-op if it is
-            # already there.
-            move.destination.parent.mkdir(exist_ok=True)
-
-            # A last existence check immediately before the move. plan_folder
-            # already checked, but the destination could have appeared since -
-            # and shutil.move would silently overwrite it on Linux and macOS.
-            if move.destination.exists():
-                events.append(Event(
-                    "CONFLICT", folder,
-                    "{} left in place: {}/{} appeared during the run"
-                    .format(move.source.name, SUPERSEDED_FOLDER_NAME,
-                            move.source.name)
-                ))
-                continue
-
-            shutil.move(str(move.source), str(move.destination))
-            events.append(Event(
-                "MOVED", folder,
-                "{}  ({})".format(move.source.name, move.reason)
-            ))
-        except OSError as error:
-            # A locked file, a read-only folder, a permissions problem. Report
-            # it and carry on with the rest - one bad file should not abandon
-            # the whole tree half-tidied.
-            events.append(Event(
-                "ERROR", folder,
-                "{} could not be moved: {}".format(move.source.name, error)
-            ))
-
-    return events
-
-
-# ---------------------------------------------------------------------------
-# Reporting
-# ---------------------------------------------------------------------------
-
-def build_report(scope, settings_path, dry_run, folder_count, events):
-    """
-    Build the run report as a list of lines.
-
-    One function produces both the on-screen report and the log entry, so the
-    two can never drift apart.
-    """
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    mode = "DRY RUN (nothing changed)" if dry_run else "LIVE"
-
-    lines = []
-    lines.append("=" * 72)
-    lines.append("version cleanup   {}   {}".format(timestamp, mode))
-    lines.append("root:     {}".format(scope.root))
-    lines.append("settings: {}".format(settings_path))
-    # Scope overrides are echoed only when in use. They decide which folders
-    # were touched, so a log entry is not self-explaining without them.
-    if scope.include_text:
-        lines.append("include:  {}".format(", ".join(scope.include_text)))
-    if scope.exclude_text:
-        lines.append("exclude:  {}".format(", ".join(scope.exclude_text)))
-    lines.append("folders processed: {}".format(folder_count))
-    lines.append("-" * 72)
-
-    if not events:
-        lines.append("Nothing to do - every document in the tree is already "
-                     "at its current version.")
-    else:
-        # Events are reported grouped by folder, which is how someone reading
-        # the report actually thinks about the tree.
-        current_folder = None
-        for event in events:
-            if event.folder != current_folder:
-                current_folder = event.folder
-                lines.append("")
-                lines.append("[{}]".format(relative_to(event.folder,
-                                                       scope.root)))
-            lines.append("  {:<11} {}".format(event.kind, event.detail))
-
-    counts = {}
-    for event in events:
-        counts[event.kind] = counts.get(event.kind, 0) + 1
-
-    summary = ", ".join(
-        "{} {}".format(counts[kind], kind.lower())
-        for kind in ("MOVED", "WOULD MOVE", "CONFLICT", "AMBIGUOUS", "ERROR")
-        if kind in counts
-    ) or "no changes"
-
-    lines.append("")
-    lines.append("-" * 72)
-    lines.append("Result: {}".format(summary))
-    lines.append("=" * 72)
-    return lines
-
-
-def relative_to(path, root):
-    """Show a path relative to the root when possible - shorter to read."""
-    try:
-        relative = path.relative_to(root)
-    except ValueError:
-        return str(path)
-    return str(relative) if str(relative) != "." else "."
-
-
-def append_to_log(log_path, lines):
-    """
-    Append one entry to the log. The log is never rewritten or trimmed.
-
-    Failing to write the log must not lose the report that is already on
-    screen, so a problem here is reported and swallowed.
-    """
-    try:
-        log_path.parent.mkdir(parents=True, exist_ok=True)
-        # "a" is append mode: the file is created if absent, and writes always
-        # go to the end. newline="" leaves line endings to us, so the log looks
-        # the same on every platform.
-        with open(log_path, "a", encoding="utf-8", newline="\n") as log_file:
-            log_file.write("\n".join(lines))
-            log_file.write("\n\n")
-        return True
-    except OSError as error:
-        print("WARNING: could not write the log file {}: {}"
-              .format(log_path, error))
-        return False
-
-
-# ---------------------------------------------------------------------------
-# Entry point
-# ---------------------------------------------------------------------------
-
-def pause_before_exit():
-    """
-    Hold the console open so a double-clicked run can be read.
-
-    Skipped when there is no interactive console attached - otherwise a
-    scheduled or piped run would hang forever waiting for a keypress.
-    """
-    if not sys.stdin or not sys.stdin.isatty():
-        return
-    try:
-        input("\nPress Enter to close...")
-    except (EOFError, KeyboardInterrupt):
-        pass
-
-
-def run(dry_run):
-    """The whole job. Returns an exit code: 0 for success, 1 for a problem."""
-    settings_path = SCRIPT_DIR / SETTINGS_FILENAME
-
-    try:
-        settings = load_settings(settings_path)
-        # The root is resolved first, because "~/" in the other settings is
-        # measured from it.
-        root = resolve_one_folder(
-            tidy_setting_text(settings.get("root", ".."), "root"), "root"
-        )
-        scope = build_scope(root, settings.get("include"),
-                            settings.get("exclude"))
-        log_path = resolve_one_folder(
-            tidy_setting_text(settings.get("log_file", "version_cleanup.log"),
-                              "log_file"),
-            "log_file", root=root
-        )
-    except ValueError as error:
-        print("SETTINGS PROBLEM")
-        print(error)
-        return 1
-
-    if not root.is_dir():
-        print("SETTINGS PROBLEM")
-        print('The "root" setting does not point at a folder that exists:')
-        print("  {}".format(root))
-        print("  (from settings file {})".format(settings_path))
-        return 1
-
-    folders = folders_to_process(scope)
-
-    all_events = []
-    for folder in folders:
-        moves, plan_events = plan_folder(folder)
-        all_events.extend(plan_events)
-        all_events.extend(apply_moves(moves, dry_run))
-
-    # Report in folder order rather than in the order things happened, so
-    # conflicts and moves in the same folder appear together.
-    all_events.sort(key=lambda event: (str(event.folder), event.kind))
-
-    lines = build_report(scope, settings_path, dry_run, len(folders),
-                         all_events)
-    print("\n".join(lines))
-
-    # Dry runs are logged too, clearly marked, so the log is a complete record
-    # of every time the tool was pointed at the tree.
-    append_to_log(log_path, lines)
-    print("\nLog: {}".format(log_path))
-
-    had_problems = any(event.kind in ("ERROR",) for event in all_events)
-    return 1 if had_problems else 0
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Move superseded document versions into _superseded "
-                    "subfolders. Reads its settings from {} beside the script."
-                    .format(SETTINGS_FILENAME)
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",  # present = True, absent = False
-        help="report what would move without changing anything",
-    )
-    args = parser.parse_args()
-
-    try:
-        exit_code = run(args.dry_run)
-    except KeyboardInterrupt:
-        print("\nInterrupted.")
-        exit_code = 1
-
-    pause_before_exit()
-    return exit_code
-
-
-# When Python runs a file directly, it sets __name__ to "__main__". This guard
-# is the conventional way to say "only do this when run, not when imported".
-if __name__ == "__main__":
-    sys.exit(main())
-<!-- END SOURCE: Infrastructure/version-cleanup/version_cleanup.py -->
 
 ---
 

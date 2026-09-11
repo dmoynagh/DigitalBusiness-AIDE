@@ -1,0 +1,16 @@
+pyproject.toml
+src/aide/__init__.py
+src/aide/__main__.py
+src/aide/cli.py
+src/aide/defaults.json
+src/aide/settings.py
+src/aide/updater.py
+src/aide/utilities/__init__.py
+src/aide/utilities/binder.py
+src/aide/utilities/cleanup.py
+src/aide/utilities/fup.py
+src/aide_tools.egg-info/PKG-INFO
+src/aide_tools.egg-info/SOURCES.txt
+src/aide_tools.egg-info/dependency_links.txt
+src/aide_tools.egg-info/entry_points.txt
+src/aide_tools.egg-info/top_level.txt

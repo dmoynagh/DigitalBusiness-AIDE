@@ -146,3 +146,111 @@ COMPLETION SUMMARY
 COMPLETED SUCCESSFULLY
 ========================================================================
 
+========================================================================
+file update package   2026-09-10 14:31:31   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            CoreStructure_2026-09-10.zip  (2026-09-10 14:31, 21,301 bytes)
+description:        Core Structure design, AIDE Principles design, DocMeth/WP/Infrastructure/Standards scaffolding — session 2026-09-10
+------------------------------------------------------------------------
+
+[Core]
+  CREATED           Core/_index.md  (1,275 bytes)
+  CREATED           Core/Core_Structure_Design_v1.md  (5,080 bytes)
+  CREATED           Core/Core_Structure_Decisions_v1.md  (5,789 bytes)
+  CREATED           Core/Core_AIDEPrinciples_Design_v1.md  (3,017 bytes)
+  CREATED           Core/Core_AIDEPrinciples_Decisions_v1.md  (2,932 bytes)
+
+[Documentation Methodology]
+  CREATED           Documentation Methodology/_index.md  (492 bytes)
+  CREATED           Documentation Methodology/DocMeth_Design_v1.md  (389 bytes)
+  CREATED           Documentation Methodology/DocMeth_Decisions_v1.md  (300 bytes)
+  CREATED           Documentation Methodology/DocMeth_Working_v1.md  (1,506 bytes)
+
+[Working Practices]
+  CREATED           Working Practices/_index.md  (1,237 bytes)
+
+[Working Practices\FileOps]
+  CREATED           Working Practices/FileOps/WP_FileOps_Working_v1.md  (2,378 bytes)
+
+[Working Practices]
+  CREATED           Working Practices/WP_Capture_Working_v1.md  (1,712 bytes)
+  CREATED           Working Practices/WP_ContentDelivery_Working_v1.md  (1,647 bytes)
+
+[Infrastructure]
+  CREATED           Infrastructure/_index.md  (799 bytes)
+  CREATED           Infrastructure/Infrastructure_Working_v1.md  (2,756 bytes)
+
+[Standards]
+  CREATED           Standards/_index.md  (507 bytes)
+  CREATED           Standards/Standards_Working_v1.md  (1,118 bytes)
+
+[_tools]
+  BINDER            binder builder run: 29 included, 2 skipped, 1 written, 1 superseded
+
+[_fileupdatepackages]
+  PROCESSED         CoreStructure_2026-09-10.zip -> _superseded/
+
+------------------------------------------------------------------------
+Result: 17 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              CoreStructure_2026-09-10.zip
+                        Core Structure design, AIDE Principles design, DocMeth/WP/Infrastructure/Standards scaffolding — session 2026-09-10
+  files updated:        0
+  files created:        17
+  files superseded:     0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered - 29 included, 2 skipped, 1 written, 1 superseded
+  the package is now:   moved to _superseded/
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-10 14:54:33   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Reconciliation_2026-09-10.zip  (2026-09-10 14:54, 12,056 bytes)
+description:        Knowledge reconciliation — unwritten decisions from 2026-09-09 and 2026-09-10 sessions. Three new working documents plus four edit instructions for existing files.
+------------------------------------------------------------------------
+
+[Core]
+  CREATED           Core/Core_Working_v1.md  (1,594 bytes)
+  CREATED           Core/Core_Tags_Working_v1.md  (2,007 bytes)
+
+[Working Practices]
+  CREATED           Working Practices/WP_WorkManagement_Working_v1.md  (1,914 bytes)
+
+[_tools]
+  BINDER            binder builder run: 32 included, 2 skipped, 1 written, 1 superseded
+
+[_fileupdatepackages]
+  PROCESSED         Reconciliation_2026-09-10.zip -> _superseded/
+
+------------------------------------------------------------------------
+Result: 3 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Reconciliation_2026-09-10.zip
+                        Knowledge reconciliation — unwritten decisions from 2026-09-09 and 2026-09-10 sessions. Three new working documents plus four edit instructions for existing files.
+  files updated:        0
+  files created:        3
+  files superseded:     0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered - 32 included, 2 skipped, 1 written, 1 superseded
+  the package is now:   moved to _superseded/
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+

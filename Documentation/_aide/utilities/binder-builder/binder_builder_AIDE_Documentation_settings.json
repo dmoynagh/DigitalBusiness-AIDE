@@ -4,8 +4,8 @@
   "_comment_name": "The binder's name. Used in the heading (\"<name> Binder\") and in the filename (\"<name>_Binder_v<number>.md\"). It also identifies this binder on the command line, and no two definitions in one folder may share it.",
   "name": "AIDE_Documentation",
 
-  "_comment_root": "The folder the binder is built from, including everything beneath it unless subfolders is false. A relative path is resolved against the folder this script lives in, so \"..\" means the parent folder.",
-  "root": "..",
+  "_comment_root": "The folder the binder is built from, including everything beneath it unless subfolders is false. \"~/\" means the project root (the folder containing _aide/). A relative path is resolved against the folder this settings file lives in.",
+  "root": "~/",
 
   "_comment_subfolders": "true walks the whole tree from root. false collects from root only.",
   "subfolders": true,
@@ -21,7 +21,7 @@
   "exclude": [],
 
   "_comment_file_types": "File extensions to collect, without the dot. json is here so that data and configuration documents are carried. Note that nothing currently excludes JSON: the _tools and _config folders are underscore-prefixed and so out of scope anyway, and Infrastructure is excluded, but JSON dropped into _rebuild WOULD be collected. Add \"~/_rebuild/*.json\" to exclude_files if that becomes a problem.",
-  "file_types": ["md", "yaml", "yml", "json"],
+  "file_types": ["md", "yaml", "yml", "json","txt"],
 
   "_comment_exclude_files": "Files to skip. Applied AFTER file_types has chosen what to collect, so this setting only ever removes, and it is the last word. Three forms, the same convention include and exclude use for folders. FILENAME - \"*_WIP_*\" - matched against the name wherever the file appears. ROOT-ANCHORED - \"~/_rebuild/*.json\" - one exact path, measured from the root. TRAILING - \"_rebuild/*.json\" - a pattern rather than a place: any file whose path ends with those segments.",
 

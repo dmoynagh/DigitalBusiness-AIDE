@@ -1,0 +1,37 @@
+========================================================================
+version cleanup   2026-09-10 22:47:58   DRY RUN (nothing changed)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 12
+------------------------------------------------------------------------
+Nothing to do - every document in the tree is already at its current version.
+
+------------------------------------------------------------------------
+Result: no changes
+========================================================================
+
+========================================================================
+version cleanup   2026-09-11 11:11:19   DRY RUN (nothing changed)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 13
+------------------------------------------------------------------------
+
+[Project Design]
+  WOULD DELETE  ProjectDesign_Standard_v1.md  (v1 superseded by v2)
+
+------------------------------------------------------------------------
+Result: 1 would delete
+========================================================================
+
+========================================================================
+version cleanup   2026-09-11 11:11:37   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 13
+------------------------------------------------------------------------
+
+[Project Design]
+  DELETED       ProjectDesign_Standard_v1.md  (v1 superseded by v2)
+
+------------------------------------------------------------------------
+Result: 1 deleted
+========================================================================
+
