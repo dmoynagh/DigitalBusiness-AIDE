@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 34** (2026-09-11).
+> **Binder Version 35** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -29,6 +29,8 @@ individual files.
 - `Core/Core_Tags_Working_v1.md` - sha256 `ae6557378adf`
 - `Core/Core_Working_v1.md` - sha256 `9808a331b339`
 - `Documentation Methodology/_index.md` - sha256 `40a5ea377087`
+- `Documentation Methodology/DocMeth_Brief_v1.md` - sha256 `d5cbfd4959b3`
+- `Documentation Methodology/DocMeth_Working_v3.md` - sha256 `5c2f5a389b03`
 - `Documentation Methodology/DocumentationMethodology_Decisions_v2.md` - sha256 `00e602b26d73`
 - `Documentation Methodology/DocumentationMethodology_Design_v2.md` - sha256 `72fcfdcb92f7`
 - `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `75ad507e6cc4`
@@ -4177,6 +4179,246 @@ Documentation Methodology defines how documents are structured and created — t
 
 None declared.
 <!-- END SOURCE: Documentation Methodology/_index.md -->
+
+---
+
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Brief_v1.md -->
+Documentation Methodology — Brief | brief | DocumentationMethodology_Brief@v1 | 2026-09-11
+
+## Purpose
+
+Documentation Methodology provides document structure and authoring standards to documents that opt into them via the AIDE Framework.
+
+It defines structures, behaviours, features and building blocks that govern how a document is composed, how its content is navigated, and how it is used.
+
+It produces standards for two consumers: AIDE framework development, to define and extend the methodology's building blocks; and framework users, to author and use governed documents.
+
+## Value
+
+A framework of flexible consistency that makes documents easier to manage, author and navigate. Documents carry defined structure and parts so that knowledge can be applied to them, not just inferred from content.
+
+The methodology facilitates, it does not dictate. Documents opt in where the methodology adds value, and can use its architecture and features in full or in part. Users and machines can step outside the defined standards and create custom conventions. Where DocMeth conventions are adopted, its full functionality applies. Where they are not, DocMeth assists where it can — but not where its assistance is unwanted. Nothing is enforced; the benefit scales with adoption.
+
+Low friction — adopting the methodology should cost less effort than the value it returns. The framework is scalable, relevant and empowering — it serves the document, not the other way around.
+
+## Objectives
+
+1. An extensible definition structure that lets any component define new document types and building blocks without modifying the methodology itself.
+2. A recognition mechanism that lets a consumer identify a governed document and determine its type from a partial read.
+3. A composition model that lets documents be assembled from reusable parts without inheritance.
+4. Definitions and logic defined once, reused and applied where needed or specified.
+5. Support a defined range of document formats. Each format must produce unambiguous output from the same abstractions.
+6. Document identity and versioning that is authoritative regardless of filename or location.
+7. Consistent writing and integrity conventions across all governed content.
+8. Documents are living — they carry the structural information needed to participate in change. They declare their dependencies, can be detected as behind, and can receive updates.
+
+## Requirements
+
+- The definition contract must be self-contained: a consumer must be able to define a new doctype or block type from the standard alone, without inventing conventions.
+- The primary format (markdown) must produce deterministic output from the abstractions — no ambiguity in how blocks render.
+- Block optionality in a doctype must be separate from the rules governing a block once included.
+
+## Scope and boundaries
+
+**In scope:**
+
+- The meta-model: what a doctype is, what a block type is, how they compose.
+- The definition contract: the grammar for defining new doctypes and block types.
+- The common block catalogue: blocks available to any document.
+- Identity, versioning, and lifecycle states.
+- Format support and rendering conventions.
+- Language and integrity rules for governed content.
+- The binder as a doctype (structure and reading rules; the concept and tooling are owned elsewhere).
+- Guidance on where doctype and block-type definitions should live within a component's document set.
+
+**Out of scope:**
+
+- Individual doctype and block-type definitions owned by other components.
+- The binder concept, tooling, and inclusion rules (Working Practices / Infrastructure).
+- Change management delivery mechanism (Migration).
+- Packaging and deployment of standards (Infrastructure / Deployment).
+- The strength model vocabulary — required, recommended, optional, information (Standards).
+- Path authority and root scope (Core Structure).
+
+## Considerations
+
+**Schema definition placement.** When a component defines doctypes or block types, the default recommendation is a separate schema standard with its own version track, distinct from the component's operational standards. This keeps schema changes and operational changes on independent migration paths and improves discoverability for consumers defining new documents. The split test is the override — if the schema definitions are small and change at the same rate as the operational content, keeping them together is acceptable. DocMeth provides this as guidance; the component owner decides.
+
+**Two-consumer distinction.** The definition contract serves framework developers (defining and extending types); the authored standard serves framework users (authoring and using documents). Both must be served by the same standard, but the definition contract is the gap the current design does not address.
+
+## Linked build outcome
+
+DocumentationMethodology_Standard_v2 — reauthored from the completed design.
+
+## Definition of done — black-box acceptance test
+
+Given only the resulting standard, an independent AI must be able to:
+
+- Define a new doctype
+- Define a new block type
+- Author a governed document conforming to a known doctype
+- Recognise the structure of a governed document it has not seen before
+- Apply the versioning rules correctly
+
+— without inventing any convention not stated in the standard.
+
+---
+
+Version note: v1 — standalone brief split from design per the split test. 2026-09-11.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Brief_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Working_v3.md -->
+Documentation Methodology | working | DocMeth_Working@v3 | 2026-09-11
+
+## Confirmed items — session 2026-09-10
+
+### File naming convention
+
+Recommended pattern: `{Prefix}_{DocType}_v{N}.md`. Applied by default, not enforced. Deviate and you manage your own file identification. The header is authoritative for identity, doctype, and path; the filename mirrors for human readability.
+
+### Format fits the job
+
+Choose the format that best serves the document's primary consumer and content shape. Markdown for prose-heavy documents. Yaml or json for structured data. Html where appropriate. The declaration header and block model work across formats — this is already settled in the block catalogue rendering rules. Format is a considered choice, not a default.
+
+### Prefix convention
+
+File prefixes identify the subject — typically the area, part, or component name. Recommended and applied by default. A prefix makes a file distinguishable in search results, open-file lists, and folder listings regardless of whether it sits in its own subfolder or flat alongside other files.
+
+### Binder as a doctype
+
+The binder is owned as a doctype definition by Documentation Methodology — its structure as a document, how to read it, what a binder contains. The concept of the binder — why it exists, how it is built, inclusion rules, how it delivers content to the platform — is owned by Working Practices / Content Delivery.
+
+## Confirmed items — design pass 2026-09-11
+
+### Carries received and absorbed
+
+All carries to DocMeth from other component passes have been absorbed into the design document (DocMeth_Design@v2):
+
+- **The split test** (from Project Design) — when to externalise a block into its own document. Placed as a grammar rule.
+- **The ownership-designation rule** (from Project Design) — defining any doctype or block type must name its owner and residence. Placed as a grammar rule.
+- **The binder doctype definition** (from Project Design) — what a binder file is, how a consumer reads it, what the manifest means. Placed as a definition in the design.
+- **The Contents/Summary edge** (from Standards) — their roles must stay distinct. Placed as a grammar rule.
+- **Block-type recognition** (from Core shaping) — two-part test and HTML-comment marker placement. Placed as a definition.
+- **Identity and versioning** (from Core shaping) — name + @version, path. Placed as a definition.
+
+### Common block catalogue confirmed
+
+Seven blocks in the common catalogue: Declaration, Dependencies, Header, Footer, Contents, Summary, Version note. Tags stays out (Core-owned). References stays parked (no consumer).
+
+### Rendering model confirmed
+
+DocMeth owns the rendering model end to end — the format rendering rule, the density axis, the portability flag, and which formats the system supports. No explicit mapping tables at this stage — each format's own standards provide unambiguous defaults. No Infrastructure link for rendering unless a utility demonstrates the need.
+
+### Language rules confirmed
+
+Four language rules placed in DocMeth as grammar: plain English, meaning first / code second, use existing terms, flag new terms. Carried from the design-approach work. The aide-design-check skill consumes these; DocMeth's standard is their proper home.
+
+### Declaration as activation trigger
+
+The Declaration's presence is the trigger that causes DocMeth's grammar, standards, and behaviours to apply. A document with a Declaration is a governed document. Added to the model as the fifth concern (activation).
+
+### Contents and Summary optionality
+
+Both blocks are optional. They earn their place by function — Contents when a reader couldn't decide from the Declaration alone whether to keep reading, Summary when the document's substance needs a compressed statement. Often not relevant for machine-focused or skill-delivered documents. The doctype owner sets the default for their type.
+
+## Old-material pass — 2026-09-11
+
+Legacy binder (DocumentationMethodology_Binder_v9, five documents) reviewed against the new design. Two items earned their place:
+
+- **Lifecycle states** (Current, Superseded, Archived) — semantic states independent of physical storage, common across all documents. Added to the design as a definition, placed alongside identity and versioning.
+- **The claimed-versus-verified rule** — do not compose plausible metadata where the fact should be observed or read. Added to the design as a fifth language/integrity rule.
+
+One item noted for awareness, no action taken:
+
+- **Assets and Unmanaged files** — the legacy binder defined categories for files outside governed behaviour. The three-tier file model handles the inclusion question. Revisit only if a utility or tool demonstrates the need for a formal distinction.
+
+Everything else in the legacy binder either already exists in the new design, belongs to another component (Working Practices, Project Design, Build, Migration), or was cut/parked during the rebuild.
+
+## Rework session — 2026-09-11
+
+### Brief completed
+
+DocMeth_Brief_v1.md produced as a standalone governed document. Contains: Purpose, Value, 8 Objectives, Requirements, Scope and boundaries, Considerations, Linked build outcome, Definition of done. The definition of done is a black-box acceptance test — an independent AI must be able to define a new doctype, define a new block type, author a governed document, recognise the structure of one it hasn't seen, and apply versioning rules, without inventing any convention not stated in the standard.
+
+### Naming convention change
+
+DocMeth_ prefix for design, decisions, working, brief, overview, index. DocumentationMethodology_ full name retained for standards only. Filenames updated as documents are re-output through working; any not renamed caught in a FUP at end of work.
+
+### Design principle — machine-first definition contract
+
+The definition contract (how a doctype or block type is defined) is primarily for machine consumption. Its shape should be driven by what the AI needs to apply it reliably. Structured where structure makes it deterministic, prose where judgement is needed, but always formally delineated — declared, not buried in flowing text.
+
+### Finding — Guide doctype
+
+A guide is a human-facing output document, the counterpart to the standard. Standard for the machine, guide for the human. General-purpose — any component may produce one. Defined by DocMeth as a common doctype available to all. Ships with what it explains — a deployed standard, a capability, a tool. Published and versioned like a standard. Distinct from the internal design doctype: design is development-time reasoning, guide is use-time explanation for someone using the thing in the world.
+
+Example uses: a catalogue of every doctype and block type in AIDE as a human-readable manual; a human companion to a standard explaining what it means and how it applies in workflow.
+
+### Finding — Aggregation model
+
+One model, several output forms — index, navigation view, concatenated collation. Input is documents carrying self-describing blocks. The binder is deliberately kept separate for now; possible overlap reviewed later, only if it doesn't compromise the binder's role.
+
+### Finding — Four self-describing blocks (depth ordering)
+
+Four blocks that make a document self-describing, ordered by depth, clustered at the top of the document in the header region:
+
+1. **Title** — what it's called. New common block.
+2. **Description** — what it is, a line. New common block.
+3. **Contents** — what's in it, the map. Already exists.
+4. **Summary** — what it establishes, the substance. Already exists.
+
+Aggregation picks how deep it needs to go — a navigation index may need only title and description; a richer collation may pull summary too.
+
+### Finding — Title and description inference
+
+Title and description may be explicitly declared or inferred from ordinary document convention — title at the top the way titles always do, description as a block of text beneath it. Inference suits low-cost uses like aggregation. Explicit marking is the optional upgrade for machine certainty.
+
+This is not special inference machinery. It follows the existing rendering rule: in structured formats (YAML, JSON) these blocks are keyed because labelling is native to those formats; in prose/markdown they are positional because that is native to prose. Same block, expressed the way each format naturally expresses things.
+
+### Finding — Recognition as a block-type definition property
+
+Recognition is a required property every block-type definition must state: how is this block identified in a document? Three strategies:
+
+- **By subheading** — a single heading, or a group of adjacent/near subheadings that together carry the block. The default for most blocks.
+- **By placement** — position identifies it (e.g. title at top, description beneath title).
+- **By marker** — a hidden HTML tag, used only where heading or placement can't discriminate: variable subheading, or repeatable instances.
+
+Structure-first recognition; marker is the fallback. The marker's form and content are defined once in DocMeth's block-type standard, available to any definition that needs it.
+
+## Carries to other components
+
+### Standards — clarification block
+
+Standards load at session start, so size is a permanent memory cost. Reasoning and justification against a rule risk bloating the standard. Solution: the standard doctype has two parts — the standard itself (lean, stated rules) and clarification (reasoning, justification). Two blocks, joined when small, split by the split test when clarification would bloat the loaded standard. Split inside the skill — standard ships lean, clarification adjacent, consulted only on doubt. Term agreed: "clarification."
+
+### PD finding PD-F1 — Design two-part structure
+
+The design doctype has no formal two-part structure in PD's standard. The design-check skill names the model/approach layer and Check 1 tests at that boundary, but PD doesn't recognise it as part of the design doctype. Recommendation (strong): design has two recognised parts — the approach (model and architecture, tested by Check 1) and the detailed design (tested by Check 2). Approach belongs in design, not the brief, because it is solution space. Agreed.
+
+### PD finding PD-F2 — Doctype definitions needed
+
+Once DocMeth's definition contract exists, all components owning doctypes must define them using it. After DocMeth standards are defined, review all existing components and get them to apply DocMeth standards to their doctype definitions.
+
+### PD finding PD-F3 — Schema placement guidance
+
+Schema definition placement guidance (separate vs combined standard) is DocMeth-owned guidance. PD's standard should reference it when advising components on their document sets.
+
+## Open items
+
+- **Design approach** — next step. Read design v2 back against the brief's 8 objectives, confirm it passes Check 1, extend into the definition contract. Start in a fresh chat.
+- **DocMeth overview** — build after the approach layer settles, not before.
+- **Design gaps to close** — doctype definition properties; block-type definition properties; recognition marker content; markdown format mapping; separate block optionality from governing rules; fix "inherited" wording; remove path-authority claim; restore compressed-out application rules.
+- **DocMeth standard** — author as DocumentationMethodology_Standard_v2 from the completed design. Run black-box acceptance test before accepting.
+- **Cross-review** — both design and standard, in the register.
+- **PD carries** — add PD findings to Documentation WIP as carries to the PD standard update.
+- **FUP** — at end of work, rename any files still carrying the old DocumentationMethodology_ prefix.
+
+---
+
+Version note: v3 — added rework-session findings (brief, guide doctype, aggregation model, self-describing blocks, inference, recognition property, naming convention), carries to Standards and PD, and updated open items. 2026-09-11.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Working_v3.md -->
 
 ---
 
