@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 32** (2026-09-11).
+> **Binder Version 33** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -29,9 +29,9 @@ individual files.
 - `Core/Core_Tags_Working_v1.md` - sha256 `ae6557378adf`
 - `Core/Core_Working_v1.md` - sha256 `9808a331b339`
 - `Documentation Methodology/_index.md` - sha256 `dd54608243d5`
-- `Documentation Methodology/DocMeth_Decisions_v2.md` - sha256 `ed5b655e5102`
-- `Documentation Methodology/DocMeth_Design_v2.md` - sha256 `2a65933d8b2c`
-- `Documentation Methodology/DocMeth_Working_v2.md` - sha256 `fc11dd77bac2`
+- `Documentation Methodology/DocMeth_Decisions_v2.md` - sha256 `5128284d365e`
+- `Documentation Methodology/DocMeth_Design_v2.md` - sha256 `a8c79739060e`
+- `Documentation Methodology/DocMeth_Working_v2.md` - sha256 `a19198f938b0`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `e6573d80384e`
@@ -4247,9 +4247,21 @@ Defining any doctype or block type must include naming its owner and residence. 
 
 DocMeth owns the requirement to designate a home. Each definition states which home. Clean separation: the grammar says "you must name an owner"; each definition does so.
 
+## D13 — Lifecycle states are grammar
+
+Three semantic lifecycle states (Current, Superseded, Archived) belong to DocMeth because they describe what state any governed document can be in, regardless of who owns the doctype. They are independent of physical storage — Working Practices owns how the file system represents them.
+
+The legacy binder carried these in §13. They survived the old-material review because they are genuinely common across all documents and are not specific to any workflow or component.
+
+## D14 — The claimed-versus-verified rule
+
+Do not compose plausible metadata where the fact should be observed or read. This rule was a requirement-weight item in the legacy standard and has been a recurring problem in practice — most notably composed timestamps in messaging that were future-dated or wrong because a value was produced rather than read.
+
+The rule belongs in DocMeth as a document-integrity rule because it governs how metadata is produced in any governed document. It joins the four language rules as a fifth writing/integrity rule.
+
 ---
 
-Version note: v2 — decisions authored from the design pass, 2026-09-11. Replaces the v1 shell.
+Version note: v2 — decisions authored from the design pass, 2026-09-11. D13-D14 added from legacy binder review. Replaces the v1 shell.
 <!-- END SOURCE: Documentation Methodology/DocMeth_Decisions_v2.md -->
 
 ---
@@ -4347,6 +4359,16 @@ Every document has an identity in its Declaration regardless of publish state. I
 
 **Two rhythms.** Design documents and other unpublished documents run on a single rhythm — identity and file move together. Published outcomes (standards, deployed contracts) use a two-rhythm split at the publish boundary.
 
+### Lifecycle states
+
+Three semantic states, independent of physical storage:
+
+- **Current** — the issued authoritative version the corpus resolves for normal use.
+- **Superseded** — an older issued version, or a document displaced or withdrawn without reaching an archival disposition of its own.
+- **Archived** — a document whose type-specific lifecycle reaches a terminal disposition; the final record is frozen except through the type's permitted correction route.
+
+A doctype may define completion, withdrawal, absorption, or another terminal path that determines the correct disposition. Working Practices owns the physical handling — how storage represents these states, file movement, retention, and cleanup.
+
 ### Format and rendering
 
 **Supported formats.** Markdown is the primary format. YAML and JSON are usable as document formats or embedded inside documents as defined by blocks. HTML is available for long human-facing artefacts when a document demonstrates the need. The declaration and block model work across all supported formats.
@@ -4385,14 +4407,15 @@ Externalise a block into its own document when keeping it in would compromise th
 
 Contents and Summary both feed the read-decision from different angles. Contents maps what is where — it lets the reader judge relevance. Summary gives what the document establishes — its substance in compressed form. Their roles must stay distinct: Contents is a navigation aid; Summary is a condensed statement of the document's contribution. Merging the two, or letting one drift into the other's territory, defeats both.
 
-### Language rules
+### Language and integrity rules
 
-Four rules, applying to every governed document:
+Five rules, applying to every governed document:
 
 1. Plain English wherever it will do.
 2. Meaning first, code second — name the thing before citing its identifier.
 3. Use the terms already in use on the project.
 4. Flag a new term rather than introducing it silently.
+5. Do not compose plausible metadata, times, versions, paths, or delivery facts where the fact should be observed or read. Distinguish verified state, declared state, and unknown state. Where a value cannot be verified, represent that limitation explicitly rather than producing a plausible substitute.
 
 ## Boundaries
 
@@ -4412,7 +4435,7 @@ None at this time. All carries received from Project Design, Standards, and Core
 
 ---
 
-Version note: v2 — design pass complete, 2026-09-11. Replaces the v1 shell.
+Version note: v2 — design pass complete, 2026-09-11. Includes lifecycle states and claimed-versus-verified rule from legacy binder review. Replaces the v1 shell.
 <!-- END SOURCE: Documentation Methodology/DocMeth_Design_v2.md -->
 
 ---
@@ -4471,13 +4494,26 @@ The Declaration's presence is the trigger that causes DocMeth's grammar, standar
 
 Both blocks are optional. They earn their place by function — Contents when a reader couldn't decide from the Declaration alone whether to keep reading, Summary when the document's substance needs a compressed statement. Often not relevant for machine-focused or skill-delivered documents. The doctype owner sets the default for their type.
 
+## Old-material pass — 2026-09-11
+
+Legacy binder (DocumentationMethodology_Binder_v9, five documents) reviewed against the new design. Two items earned their place:
+
+- **Lifecycle states** (Current, Superseded, Archived) — semantic states independent of physical storage, common across all documents. Added to the design as a definition, placed alongside identity and versioning.
+- **The claimed-versus-verified rule** — do not compose plausible metadata where the fact should be observed or read. Added to the design as a fifth language/integrity rule.
+
+One item noted for awareness, no action taken:
+
+- **Assets and Unmanaged files** — the legacy binder defined categories for files outside governed behaviour. The three-tier file model handles the inclusion question. Revisit only if a utility or tool demonstrates the need for a formal distinction.
+
+Everything else in the legacy binder either already exists in the new design, belongs to another component (Working Practices, Project Design, Build, Migration), or was cut/parked during the rebuild.
+
 ## Open items
 
 - **DocMeth standard** — blocked on Standards component (now complete). Can be authored.
 
 ---
 
-Version note: v2 — updated with design-pass confirmations, 2026-09-11.
+Version note: v2 — updated with design-pass confirmations and old-material pass results, 2026-09-11.
 <!-- END SOURCE: Documentation Methodology/DocMeth_Working_v2.md -->
 
 ---
