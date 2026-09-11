@@ -3,15 +3,16 @@
 Role: component design
 Aliases: DocMeth, DM
 
-Documentation Methodology defines how documents are structured and created — the generic mechanics. It owns the grammar of documents: doctypes, block types, the declaration, rendering rules, and the structural conventions that make documents portable and machine-readable. It is not a registry of types belonging to other components — specific doctypes and block types live with whoever knows the most about them.
+Documentation Methodology defines how documents are structured and created — the generic mechanics. It owns the grammar of documents: doctypes, block types, the declaration, the definition contract, rendering rules, and the structural conventions that make documents portable and machine-readable. It is not a registry of types belonging to other components — specific doctypes and block types live with whoever knows the most about them.
 
 ## Documents
 
 | Prefix | Document | Type |
 |---|---|---|
-| DocumentationMethodology_ | Design v2 | design |
-| DocumentationMethodology_ | Decisions v2 | decisions |
-| DocumentationMethodology_ | Working v2 | working |
+| DocMeth_ | Design v3 | design |
+| DocMeth_ | Decisions v3 | decisions |
+| DocMeth_ | Working v5 | working |
+| DocMeth_ | Brief v1 | brief |
 | DocumentationMethodology_ | Standard v1 | standard |
 
 ## Parts
