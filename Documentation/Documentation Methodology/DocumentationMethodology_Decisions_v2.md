@@ -1,4 +1,4 @@
-Documentation Methodology — Decisions | decisions | DocMeth_Decisions@v2 | 2026-09-11
+Documentation Methodology — Decisions | decisions | DocumentationMethodology_Decisions@v2 | 2026-09-11
 
 ## D1 — DocMeth owns grammar only, not individual definitions
 

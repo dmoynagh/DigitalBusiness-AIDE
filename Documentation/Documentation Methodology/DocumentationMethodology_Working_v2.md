@@ -1,4 +1,4 @@
-Documentation Methodology | working | DocMeth_Working@v2 | 2026-09-11
+Documentation Methodology | working | DocumentationMethodology_Working@v2 | 2026-09-11
 
 ## Confirmed items — session 2026-09-10
 
@@ -22,7 +22,7 @@ The binder is owned as a doctype definition by Documentation Methodology — its
 
 ### Carries received and absorbed
 
-All carries to DocMeth from other component passes have been absorbed into the design document (DocMeth_Design@v2):
+All carries to DocMeth from other component passes have been absorbed into the design document (DocumentationMethodology_Design@v2):
 
 - **The split test** (from Project Design) — when to externalise a block into its own document. Placed as a grammar rule.
 - **The ownership-designation rule** (from Project Design) — defining any doctype or block type must name its owner and residence. Placed as a grammar rule.
