@@ -1,4 +1,4 @@
-Documentation Methodology — Definitions Standard | standard | DocumentationMethodology_Definitions_Standard@v3 | 2026-09-12
+Documentation Methodology — Definitions Standard | standard | DocumentationMethodology_Definitions_Standard@v4 | 2026-09-12
 
 The doctypes and block types defined by Documentation Methodology, using its own definition contract.
 
@@ -78,23 +78,23 @@ Information. This standard contains DocMeth's own type definitions — the commo
 - **Recognition:** by placement — top of footer.
 - **Placement:** footer, topmost (low-value end of the footer gradient).
 
-## Common doctypes
-
 ### Manifest
 
 - **Purpose:** Records relative paths and structural metadata for every document included in a binder.
 - **Fields:**
-  - entries (required) — list of relative paths preserving structural relationships
+  - entries (required) — list of relative paths preserving structural relationships. Renders as a markdown table with columns for path and document identity.
 - **Density:** compact.
 - **Recognition:** by placement — first content block in the binder body.
 - **Placement:** body, topmost.
+
+## Common doctypes
 
 ### Binder
 
 - **Purpose:** Assembles governed documents into a single file for delivery to the AI platform.
 - **Included blocktypes:** Contents (required), Manifest (required).
 - **Format constraint:** markdown.
-- **Format conventions:** source documents are concatenated after the manifest with BEGIN/END comment markers preserving document boundaries.
+- **Format conventions:** source documents are concatenated after the manifest. Each source document is delimited by `<!-- BEGIN SOURCE: relative/path.md -->` before and `<!-- END SOURCE: relative/path.md -->` after, where the path matches the manifest entry.
 
 Information. The binder concept — why it exists, how it is built, inclusion rules — is owned by Working Practices / Content Delivery.
 
@@ -113,4 +113,4 @@ Information. General-purpose — any component may produce one. Published and ve
 
 ---
 
-Version note: v3 — round 2 corrections. Footer recognition changed to placement. Manifest added as block type. Binder format conventions separated from blocktypes. Declaration compact rendering override made explicit. Blocks field clarified as non-scaffold. 2026-09-12. Replaces v2.
+Version note: v4 — round 3 corrections. Manifest moved to common blocks. Binder BEGIN/END syntax defined. Manifest table rendering defined. Format conventions property used. 2026-09-12. Replaces v3.

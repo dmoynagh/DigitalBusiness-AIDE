@@ -1,4 +1,4 @@
-Documentation Methodology | design | DocMeth_Design@v5 | 2026-09-12
+Documentation Methodology | design | DocMeth_Design@v6 | 2026-09-12
 
 ## Summary
 
@@ -33,7 +33,7 @@ Name and purpose are always required. A property becomes required when omitting 
 
 ### Implicit dependency rule
 
-A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the defining standard.
+A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the defining standard. Dependency implications from the document's doctype and included block types populate the Declaration's `uses` field automatically.
 
 ### Definition representation
 
@@ -57,6 +57,7 @@ Available vocabulary, stated when needed:
 - **Block positioning** — where a block goes if different from the block's own placement default, or to resolve ordering between blocks.
 - **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Format constraint** — narrows the permitted formats when the type requires it (e.g. standards must be markdown for session loading).
+- **Format conventions** — format-specific structural behaviour owned by the doctype. Stated when the type has rendering conventions beyond what block definitions and the default markdown rendering cover.
 - **Owner and residence** — which component owns the definition and where it lives. Implicit from hosting location for most definitions; stated when not obvious.
 
 A doctype includes a block as defined — it does not modify it. A doctype may not suppress a block's fields, add fields, or adjust a block's shape on inclusion. Where two doctypes need different shapes, those are two blocks, which may share a smaller common block. Composition, not inheritance.
@@ -245,4 +246,4 @@ Component names and aliases must be unique within the framework. Core Structure 
 
 ---
 
-Version note: v5 — cross-review round 2 findings R1-R9 applied. Implicit dependency rule broadened to any versioned standard. Type uniqueness scoped to owning component. Draft numbering made required. Footer recognition changed to placement. Manifest defined as binder block type. Blocks field clarified as non-scaffold. Declaration compact rendering override made explicit. 2026-09-12. Replaces v4.
+Version note: v6 — round 3 corrections. Dependency-to-uses propagation rule made explicit. Format conventions added as doctype vocabulary. 2026-09-12. Replaces v5.

@@ -1,4 +1,4 @@
-Documentation Methodology — Authoring Standard | standard | DocumentationMethodology_Authoring_Standard@v3 | 2026-09-12
+Documentation Methodology — Authoring Standard | standard | DocumentationMethodology_Authoring_Standard@v4 | 2026-09-12
 
 Use when authoring, structuring, or versioning a governed document.
 
@@ -26,7 +26,7 @@ Required. The Declaration carries labelled fields:
 - identity (required) — name + @version, the authoritative reference
 - doctype (required) — the document's type
 - date (required) — the date this version was produced, YYYY-MM-DD
-- uses (optional) — standards this document depends on, as `standard@version` pairs. Conformance stamp, not constraint. The grouping syntax `name:[item1, item2]` tracks ownership.
+- uses (optional) — standards this document depends on, as `standard@version` pairs. Populated automatically from the dependency implications of the document's doctype and included block types. Conformance stamp, not constraint. The grouping syntax `name:[item1, item2]` tracks ownership.
 - blocks (optional) — non-scaffold typed blocks present in this document. The scaffold (Declaration, Title, Description, Header, Body, Footer) is not re-stated. The grouping syntax tracks ownership.
 
 Information. In markdown, the Declaration renders as a blockquote with labelled fields:
@@ -34,7 +34,7 @@ Information. In markdown, the Declaration renders as a blockquote with labelled 
 ```
 > identity: Name@vN | doctype: type | date: YYYY-MM-DD
 > uses: StandardA@v1, ComponentName:[StandardB@v2, StandardC@v1]
-> blocks: Declaration, Summary, ComponentName:[Brief, WorkRegister]
+> blocks: Summary, ComponentName:[Brief, WorkRegister]
 ```
 
 Information. In structured formats (YAML, JSON), a reserved top-level `aide` key holds the Declaration fields as sub-properties (nested one level: `aide.identity`, not `aide_identity`). Presence of `aide` = governed.
@@ -134,4 +134,4 @@ Required. Five rules applying to every governed document:
 
 ---
 
-Version note: v3 — round 2 corrections. Draft numbering made required. Blocks field clarified as non-scaffold. Compact rendering override noted. 2026-09-12. Replaces v2.
+Version note: v4 — round 3 corrections. Uses field propagation rule added. Blocks example corrected. Compact rendering override noted. 2026-09-12. Replaces v3.

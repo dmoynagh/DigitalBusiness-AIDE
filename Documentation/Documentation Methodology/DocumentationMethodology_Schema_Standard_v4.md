@@ -1,4 +1,4 @@
-Documentation Methodology — Schema Standard | standard | DocumentationMethodology_Schema_Standard@v3 | 2026-09-12
+Documentation Methodology — Schema Standard | standard | DocumentationMethodology_Schema_Standard@v4 | 2026-09-12
 
 Use when defining a new doctype or block type.
 
@@ -24,6 +24,8 @@ Required. A definition is written as a heading naming the type, followed by labe
 
 Information. A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. A definition only states dependency implications explicitly when they differ from the defining standard.
 
+Required. Dependency implications from the document's doctype and included block types populate the Declaration's `uses` field automatically. The `uses` field is syntactically optional in the Declaration but is present whenever resolved dependencies exist.
+
 ## Doctype definition
 
 Required. A doctype definition states a name and a purpose.
@@ -34,6 +36,7 @@ Recommended. Available vocabulary for a doctype definition, each stated when nee
 - **Block positioning** — where a block goes if different from the block's own placement default, or to resolve ordering between blocks.
 - **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Format constraint** — narrows the permitted formats when the type requires it.
+- **Format conventions** — format-specific structural behaviour owned by the doctype. Stated when the type has rendering conventions beyond what block definitions and the default markdown rendering cover.
 - **Owner and residence** — which component owns the definition. Implicit from hosting location for most definitions; stated when not obvious.
 
 Required. A doctype includes a block as defined and does not modify it. No field suppression, no field addition, no shape adjustment on inclusion.
@@ -92,4 +95,4 @@ Recommended. When a component defines doctypes or block types, a separate schema
 
 ---
 
-Version note: v3 — round 2 corrections. Implicit dependency rule broadened to any versioned standard. Type uniqueness scoped to owning component. Resolution path corrected. 2026-09-12. Replaces v2.
+Version note: v4 — round 3 corrections. Dependency-to-uses propagation rule added. Format conventions added to doctype vocabulary. Type resolution wording corrected. 2026-09-12. Replaces v3.

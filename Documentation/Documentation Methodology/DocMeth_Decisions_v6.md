@@ -1,4 +1,4 @@
-Documentation Methodology — Decisions | decisions | DocMeth_Decisions@v5 | 2026-09-12
+Documentation Methodology — Decisions | decisions | DocMeth_Decisions@v6 | 2026-09-12
 
 ## D1 — DocMeth owns grammar only, not individual definitions
 
@@ -188,6 +188,14 @@ The `blocks` field in the Declaration lists non-scaffold typed blocks actually p
 
 Declaration renders compact fields across multiple lines (one per field group) rather than on a single line, because some fields are optional and variable-length. This is an explicit override of the default compact rendering rule, stated in the Declaration's definition.
 
+## D41 — Dependency implications propagate to uses
+
+Dependency implications from the document's doctype and included block types populate the Declaration's `uses` field automatically. This is the connecting rule between the implicit dependency mechanism and the `uses` field. The `uses` field is syntactically optional but present whenever resolved dependencies exist.
+
+## D42 — Format conventions as a doctype property
+
+Format conventions is a doctype vocabulary property for format-specific structural behaviour owned by the doctype — rendering conventions beyond what block definitions and the default markdown rendering cover. Binder demonstrated the need: its BEGIN/END source-document delimiting is a format convention, not a block definition.
+
 ---
 
-Version note: v5 — D37-D40 added from cross-review round 2. D5 count corrected. D18 broadened to any versioned standard. D29 uniqueness scoped to owning component. D33 draft numbering made required. 2026-09-12. Replaces v4.
+Version note: v6 — D41-D42 added. Round 3 corrections. 2026-09-12. Replaces v5.
