@@ -51,10 +51,23 @@ The Declaration's presence is the trigger that causes DocMeth's grammar, standar
 
 Both blocks are optional. They earn their place by function — Contents when a reader couldn't decide from the Declaration alone whether to keep reading, Summary when the document's substance needs a compressed statement. Often not relevant for machine-focused or skill-delivered documents. The doctype owner sets the default for their type.
 
+## Old-material pass — 2026-09-11
+
+Legacy binder (DocumentationMethodology_Binder_v9, five documents) reviewed against the new design. Two items earned their place:
+
+- **Lifecycle states** (Current, Superseded, Archived) — semantic states independent of physical storage, common across all documents. Added to the design as a definition, placed alongside identity and versioning.
+- **The claimed-versus-verified rule** — do not compose plausible metadata where the fact should be observed or read. Added to the design as a fifth language/integrity rule.
+
+One item noted for awareness, no action taken:
+
+- **Assets and Unmanaged files** — the legacy binder defined categories for files outside governed behaviour. The three-tier file model handles the inclusion question. Revisit only if a utility or tool demonstrates the need for a formal distinction.
+
+Everything else in the legacy binder either already exists in the new design, belongs to another component (Working Practices, Project Design, Build, Migration), or was cut/parked during the rebuild.
+
 ## Open items
 
 - **DocMeth standard** — blocked on Standards component (now complete). Can be authored.
 
 ---
 
-Version note: v2 — updated with design-pass confirmations, 2026-09-11.
+Version note: v2 — updated with design-pass confirmations and old-material pass results, 2026-09-11.

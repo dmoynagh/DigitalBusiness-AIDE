@@ -78,6 +78,18 @@ Defining any doctype or block type must include naming its owner and residence. 
 
 DocMeth owns the requirement to designate a home. Each definition states which home. Clean separation: the grammar says "you must name an owner"; each definition does so.
 
+## D13 — Lifecycle states are grammar
+
+Three semantic lifecycle states (Current, Superseded, Archived) belong to DocMeth because they describe what state any governed document can be in, regardless of who owns the doctype. They are independent of physical storage — Working Practices owns how the file system represents them.
+
+The legacy binder carried these in §13. They survived the old-material review because they are genuinely common across all documents and are not specific to any workflow or component.
+
+## D14 — The claimed-versus-verified rule
+
+Do not compose plausible metadata where the fact should be observed or read. This rule was a requirement-weight item in the legacy standard and has been a recurring problem in practice — most notably composed timestamps in messaging that were future-dated or wrong because a value was produced rather than read.
+
+The rule belongs in DocMeth as a document-integrity rule because it governs how metadata is produced in any governed document. It joins the four language rules as a fifth writing/integrity rule.
+
 ---
 
-Version note: v2 — decisions authored from the design pass, 2026-09-11. Replaces the v1 shell.
+Version note: v2 — decisions authored from the design pass, 2026-09-11. D13-D14 added from legacy binder review. Replaces the v1 shell.

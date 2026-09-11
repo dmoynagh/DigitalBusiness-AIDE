@@ -90,6 +90,16 @@ Every document has an identity in its Declaration regardless of publish state. I
 
 **Two rhythms.** Design documents and other unpublished documents run on a single rhythm — identity and file move together. Published outcomes (standards, deployed contracts) use a two-rhythm split at the publish boundary.
 
+### Lifecycle states
+
+Three semantic states, independent of physical storage:
+
+- **Current** — the issued authoritative version the corpus resolves for normal use.
+- **Superseded** — an older issued version, or a document displaced or withdrawn without reaching an archival disposition of its own.
+- **Archived** — a document whose type-specific lifecycle reaches a terminal disposition; the final record is frozen except through the type's permitted correction route.
+
+A doctype may define completion, withdrawal, absorption, or another terminal path that determines the correct disposition. Working Practices owns the physical handling — how storage represents these states, file movement, retention, and cleanup.
+
 ### Format and rendering
 
 **Supported formats.** Markdown is the primary format. YAML and JSON are usable as document formats or embedded inside documents as defined by blocks. HTML is available for long human-facing artefacts when a document demonstrates the need. The declaration and block model work across all supported formats.
@@ -128,14 +138,15 @@ Externalise a block into its own document when keeping it in would compromise th
 
 Contents and Summary both feed the read-decision from different angles. Contents maps what is where — it lets the reader judge relevance. Summary gives what the document establishes — its substance in compressed form. Their roles must stay distinct: Contents is a navigation aid; Summary is a condensed statement of the document's contribution. Merging the two, or letting one drift into the other's territory, defeats both.
 
-### Language rules
+### Language and integrity rules
 
-Four rules, applying to every governed document:
+Five rules, applying to every governed document:
 
 1. Plain English wherever it will do.
 2. Meaning first, code second — name the thing before citing its identifier.
 3. Use the terms already in use on the project.
 4. Flag a new term rather than introducing it silently.
+5. Do not compose plausible metadata, times, versions, paths, or delivery facts where the fact should be observed or read. Distinguish verified state, declared state, and unknown state. Where a value cannot be verified, represent that limitation explicitly rather than producing a plausible substitute.
 
 ## Boundaries
 
@@ -155,4 +166,4 @@ None at this time. All carries received from Project Design, Standards, and Core
 
 ---
 
-Version note: v2 — design pass complete, 2026-09-11. Replaces the v1 shell.
+Version note: v2 — design pass complete, 2026-09-11. Includes lifecycle states and claimed-versus-verified rule from legacy binder review. Replaces the v1 shell.
