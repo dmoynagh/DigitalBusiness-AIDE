@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 38** (2026-09-12).
+> **Binder Version 39** (2026-09-12).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -28,14 +28,14 @@ individual files.
 - `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
 - `Core/Core_Tags_Working_v1.md` - sha256 `ae6557378adf`
 - `Core/Core_Working_v1.md` - sha256 `9808a331b339`
-- `Documentation Methodology/_index.md` - sha256 `024029c9d172`
+- `Documentation Methodology/_index.md` - sha256 `9d6b39855520`
 - `Documentation Methodology/DocMeth_Brief_v1.md` - sha256 `d5cbfd4959b3`
-- `Documentation Methodology/DocMeth_Decisions_v4.md` - sha256 `45a2b5449dc4`
-- `Documentation Methodology/DocMeth_Design_v4.md` - sha256 `640c49326274`
-- `Documentation Methodology/DocMeth_Working_v6.md` - sha256 `7f72aea08ce0`
-- `Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md` - sha256 `598fd44df507`
-- `Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md` - sha256 `63d8557f04ff`
-- `Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md` - sha256 `0eb00630cd79`
+- `Documentation Methodology/DocMeth_Decisions_v5.md` - sha256 `b688fdd0d564`
+- `Documentation Methodology/DocMeth_Design_v5.md` - sha256 `3e0775317b0c`
+- `Documentation Methodology/DocMeth_Working_v7.md` - sha256 `b9c4531c2e9a`
+- `Documentation Methodology/DocumentationMethodology_Authoring_Standard_v3.md` - sha256 `7043febeeb0b`
+- `Documentation Methodology/DocumentationMethodology_Definitions_Standard_v3.md` - sha256 `a198576b909b`
+- `Documentation Methodology/DocumentationMethodology_Schema_Standard_v3.md` - sha256 `36f41dcd069f`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `e6573d80384e`
@@ -4171,13 +4171,13 @@ Documentation Methodology defines how documents are structured and created — t
 
 | Prefix | Document | Type |
 |---|---|---|
-| DocMeth_ | Design v4 | design |
-| DocMeth_ | Decisions v4 | decisions |
-| DocMeth_ | Working v6 | working |
+| DocMeth_ | Design v5 | design |
+| DocMeth_ | Decisions v5 | decisions |
+| DocMeth_ | Working v7 | working |
 | DocMeth_ | Brief v1 | brief |
-| DocumentationMethodology_ | Schema Standard v2 | standard |
-| DocumentationMethodology_ | Authoring Standard v2 | standard |
-| DocumentationMethodology_ | Definitions Standard v2 | standard |
+| DocumentationMethodology_ | Schema Standard v3 | standard |
+| DocumentationMethodology_ | Authoring Standard v3 | standard |
+| DocumentationMethodology_ | Definitions Standard v3 | standard |
 
 ## Parts
 
@@ -4273,8 +4273,8 @@ Version note: v1 — standalone brief split from design per the split test. 2026
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Decisions_v4.md -->
-Documentation Methodology — Decisions | decisions | DocMeth_Decisions@v4 | 2026-09-12
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Decisions_v5.md -->
+Documentation Methodology — Decisions | decisions | DocMeth_Decisions@v5 | 2026-09-12
 
 ## D1 — DocMeth owns grammar only, not individual definitions
 
@@ -4304,7 +4304,7 @@ The grouping syntax `name:[item1, item2]` tracks which owner contributed each de
 
 ## D5 — Common catalogue scope
 
-The common catalogue holds blocks usable by any document regardless of component: Declaration, Title, Description, Header, Body, Footer, Contents, Summary, Version note. Ten blocks. (Dependencies is a Declaration field, not a separate block.)
+The common catalogue holds blocks usable by any document regardless of component: Declaration, Title, Description, Header, Body, Footer, Contents, Summary, Version note. Nine blocks. (Dependencies is a Declaration field, not a separate block.)
 
 Tags was parked in the original catalogue session (no demonstrated consumer), resurrected as a Core capability (2026-09-09), and confirmed as Core-owned. Its block definition belongs to Core, not to DocMeth's common catalogue.
 
@@ -4366,9 +4366,9 @@ Title and description are inferred from natural document convention in prose for
 
 ## D18 — Dependency implications as an implicit default
 
-A type defined in a versioned schema standard implicitly carries that hosting standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the hosting standard.
+A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the defining standard.
 
-This preserves low-friction design and avoids repetitive boilerplate while guaranteeing the living-document change-management chain.
+This applies to component schema standards and to DocMeth's own Definitions Standard equally. It preserves low-friction design and avoids repetitive boilerplate while guaranteeing the living-document change-management chain.
 
 ## D19 — Format constraint as a doctype property
 
@@ -4414,9 +4414,9 @@ The methodology provides an implicit scaffold for every governed document: Decla
 
 ## D29 — Type-reference resolution
 
-Type names must be unique within their kind. Uniqueness is enforced at definition time. Unqualified names are the default. Dot-qualified form (`pd.brief`) disambiguates on collision, using the component's declared alias as prefix. The pattern extends to framework-level (`aide.pd.brief`) when needed, but the framework prefix is not defined until demonstrated.
+Type names must be unique within their owning component. Independently owned components may use the same name without coordination. Unqualified names are the default when unique within the document's active `uses` scope. Dot-qualified form (`pd.brief`) disambiguates on collision, using the component's declared alias as prefix. The pattern extends to framework-level (`aide.pd.brief`) when needed, but the framework prefix is not defined until demonstrated.
 
-Resolution path: a type's authoritative definition is in the schema standard listed in the document's `uses` field.
+Resolution path: a type's authoritative definition is in the defining standard listed in the document's `uses` field.
 
 Component alias uniqueness is carried to Core Structure.
 
@@ -4434,7 +4434,7 @@ The Declaration `date` field means "the date this version was produced." One mea
 
 ## D33 — Identity reference grammar and filename mirror grammar
 
-Two named grammars for the same versioning model. The identity reference grammar (`Name@vN`, `Name@vN-draftN`) is the primary, authoritative form. The filename mirror grammar (`Name_vN.ext`, `Name_vN-draftN.ext`) is decorative — never authoritative, identity wins on conflict.
+Two named grammars for the same versioning model. The identity reference grammar (`Name@vN`, `Name@vN-draftN`) is the primary, authoritative form. The filename mirror grammar (`Name_vN.ext`, `Name_vN-draftN.ext`) is decorative — never authoritative, identity wins on conflict. Draft numbering is required — every draft carries its sequence number, no unnumbered draft form exists.
 
 ## D34 — Canonical marker syntax
 
@@ -4448,15 +4448,31 @@ A definition is written as a heading naming the type, followed by labelled prope
 
 Dependencies (`uses`) is a Declaration field, not a separate block type. The Declaration is a container for all machine-readable governance information. Everything needed for a partial-read governance check is in one block.
 
+## D37 — Footer recognition is by placement, not by marker
+
+Footer is recognised by its position at the bottom of the document, with the horizontal rule as the boundary signal in markdown. This is placement recognition, not marker recognition. The `aide:block` marker syntax is reserved exclusively for typed block markers. A format-specific boundary convention is not a marker in the definition-contract sense.
+
+## D38 — Manifest as a binder block type
+
+The binder's manifest is a block type: it has fields (relative paths, structural metadata) and a defined format. The BEGIN/END source concatenation is a format convention of the binder doctype, not a block type — it describes how the binder renders its included content, not a content definition.
+
+## D39 — blocks field lists non-scaffold typed blocks
+
+The `blocks` field in the Declaration lists non-scaffold typed blocks actually present in the document. The scaffold (Declaration, Title, Description, Header, Body, Footer) is provided by the methodology and not re-stated. This prevents redundancy and makes `blocks` meaningful — it shows what the doctype adds.
+
+## D40 — Declaration overrides the compact rendering default
+
+Declaration renders compact fields across multiple lines (one per field group) rather than on a single line, because some fields are optional and variable-length. This is an explicit override of the default compact rendering rule, stated in the Declaration's definition.
+
 ---
 
-Version note: v4 — D25-D36 added from cross-review findings. D3, D4, D5, D10, D17, D18 updated for corrections. Declaration field renames applied throughout. 2026-09-12. Replaces v3.
-<!-- END SOURCE: Documentation Methodology/DocMeth_Decisions_v4.md -->
+Version note: v5 — D37-D40 added from cross-review round 2. D5 count corrected. D18 broadened to any versioned standard. D29 uniqueness scoped to owning component. D33 draft numbering made required. 2026-09-12. Replaces v4.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Decisions_v5.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Design_v4.md -->
-Documentation Methodology | design | DocMeth_Design@v4 | 2026-09-12
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Design_v5.md -->
+Documentation Methodology | design | DocMeth_Design@v5 | 2026-09-12
 
 ## Summary
 
@@ -4491,7 +4507,7 @@ Name and purpose are always required. A property becomes required when omitting 
 
 ### Implicit dependency rule
 
-A type defined in a versioned schema standard implicitly carries that hosting standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the hosting standard.
+A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the defining standard.
 
 ### Definition representation
 
@@ -4499,11 +4515,11 @@ A definition is written as a heading naming the type, followed by labelled prope
 
 ### Type-reference resolution
 
-Type names must be unique within their kind — doctype names unique among doctypes, block-type names unique among block types. Uniqueness is enforced at definition time.
+Type names must be unique within their owning component — a component may not define two doctypes with the same name, or two block types with the same name. Independently owned components may use the same name without coordination.
 
-Unqualified names are the default. When a name collides within the document's `uses` scope, the dot-qualified form disambiguates: `pd.brief`, where the prefix is the component's declared alias. The dot pattern extends to framework-level (`aide.pd.brief`) if needed, but the framework prefix is not defined until a collision demonstrates the need.
+Unqualified names are the default when the name is unique within the document's active `uses` scope. When a name collides within that scope, the dot-qualified form disambiguates: `pd.brief`, where the prefix is the component's declared alias. The dot pattern extends to framework-level (`aide.pd.brief`) if needed, but the framework prefix is not defined until a collision demonstrates the need.
 
-Resolution path: a type's authoritative definition is in the schema standard listed in the document's `uses` field. The consumer reads the type name from the Declaration, finds the defining standard in `uses`, reads the definition there.
+Resolution path: a type's authoritative definition is in the defining standard listed in the document's `uses` field. The consumer reads the type name from the Declaration, finds the defining standard in `uses`, reads the definition there.
 
 ### Doctype definition
 
@@ -4511,9 +4527,9 @@ A doctype is the root definition for a document. Name and purpose are the only r
 
 Available vocabulary, stated when needed:
 
-- **Included blocktypes** — which blocks the doctype uses beyond the governed-document scaffold. For each: the optionality for this doctype (required, recommended, or optional) and any density override.
+- **Included blocktypes** — which non-scaffold blocks the doctype uses. The scaffold (Declaration, Title, Description, Header, Body, Footer) is provided by the methodology and not re-stated. For each included block: the optionality for this doctype (required, recommended, or optional) and any density override. The `blocks` field in the Declaration lists the non-scaffold typed blocks actually present in the document.
 - **Block positioning** — where a block goes if different from the block's own placement default, or to resolve ordering between blocks.
-- **Dependency implications** — stated only when different from the implicit rule (hosting standard).
+- **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Format constraint** — narrows the permitted formats when the type requires it (e.g. standards must be markdown for session loading).
 - **Owner and residence** — which component owns the definition and where it lives. Implicit from hosting location for most definitions; stated when not obvious.
 
@@ -4532,7 +4548,7 @@ Available vocabulary, stated when needed:
 - **Density** — compact or expanded. Stated when it matters; omitted when the content shape makes the rendering obvious.
 - **Recognition** — how this block is identified in a document. Three strategies: by subheading (a single heading or a group of adjacent subheadings), by placement (position identifies it), or by marker. Required when position does not unambiguously identify the block.
 - **Placement** — which container this block places into (header, body, footer, declaration, or a doctype-defined container) and any ordering hint against the boundary proximity principle.
-- **Dependency implications** — stated only when different from the implicit rule.
+- **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Conditional behaviour** — rules the block owns about its own behaviour in context ("if the document also includes block X, then do Y"). The block owns its rules; the doctype cannot impose them on inclusion.
 - **Container** — declares this block type as a placement destination for other blocks or content.
 - **Owner and residence** — as for doctypes.
@@ -4578,7 +4594,7 @@ The primary grammar for referencing a document's version:
 
 Absence of a draft marker means published and immutable. Published numbers are never reused. Next cycle opens immediately at the next integer.
 
-**Draft numbering** is optional in the scheme, on by default.
+**Draft numbering** is required. Every draft carries its sequence number.
 
 **Reference forms.** `@v27` resolves to the published contract; `@v27-draft` resolves to the highest draft present.
 
@@ -4620,7 +4636,7 @@ Working Practices owns the physical handling — how storage represents these st
 A small set of deterministic defaults for markdown rendering. Block definitions override these when they need to.
 
 - **Heading level** follows nesting: a top-level block uses `##`, a subheading within a block uses `###`. Deeper nesting adds levels.
-- **Compact fields** render as a single delimited line, pipe-separated, labelled. The Declaration is the model.
+- **Compact fields** render as a single delimited line, pipe-separated, labelled. A block definition may override this default — for example, the Declaration renders compact fields across multiple lines (one per field group) because some fields are optional and variable-length.
 - **Expanded fields** render as labelled list items under the block's heading: `- **FieldName:** value`.
 - **Containers** have no literal rendering — they are structural. Their children render in sequence.
 - **Title** is the markdown document heading (`#`).
@@ -4703,58 +4719,50 @@ Component names and aliases must be unique within the framework. Core Structure 
 
 ---
 
-Version note: v4 — cross-review findings F1-F14 applied. Governed-document scaffold, conditional completeness, implicit dependency rule, type-reference resolution, marker syntax, default markdown rendering, field-level optionality, definition representation, date semantics, identity/filename grammar separation added. Declaration field renames (blocks, uses). Dependencies resolved as Declaration field. Carries updated. 2026-09-12. Replaces v3.
-<!-- END SOURCE: Documentation Methodology/DocMeth_Design_v4.md -->
+Version note: v5 — cross-review round 2 findings R1-R9 applied. Implicit dependency rule broadened to any versioned standard. Type uniqueness scoped to owning component. Draft numbering made required. Footer recognition changed to placement. Manifest defined as binder block type. Blocks field clarified as non-scaffold. Declaration compact rendering override made explicit. 2026-09-12. Replaces v4.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Design_v5.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Working_v6.md -->
-Documentation Methodology | working | DocMeth_Working@v6 | 2026-09-12
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Working_v7.md -->
+Documentation Methodology | working | DocMeth_Working@v7 | 2026-09-12
 
 ## Session history
 
-Sessions 2026-09-10 through 2026-09-11 confirmed items, design pass, old-material pass, rework session, and definition contract session. All settled items moved to Design v3→v4 and Decisions v3→v4.
+Sessions 2026-09-10 through 2026-09-12. Definition contract, cross-review round 1 (14 findings, all applied), cross-review round 2 (9 findings, all applied). All settled items in Design v5 and Decisions v5.
 
-## Cross-review — 2026-09-11/12
-
-External cross-review of Design v3, Decisions v3, and three standards (Schema v1, Authoring v1, Definitions v1) produced 14 findings. All findings triaged as real defects or partly valid; none rejected. All applied in Design v4, Decisions v4, and all three standards at v2.
+## Cross-review round 2 — 2026-09-12
 
 Key resolutions:
-- Declaration is first block; Title and Description follow it (F1)
-- Minimal markdown rendering default defined (F2)
-- Canonical marker syntax `<!-- aide:block:TypeName -->` (F3)
-- Definition representation made normative (F4)
-- Conditional completeness rules added (F5)
-- Field-level optionality added (F6)
-- Implicit dependency rule: hosting standard is default (F7)
-- Dependencies resolved as Declaration field, not separate block (F8)
-- Type-reference resolution with dot-qualified naming (F9)
-- Governed-document scaffold defined (F10)
-- Self-conformance defects fixed (F11)
-- Date = "date this version was produced" (F12)
-- Identity grammar and filename grammar named separately (F13)
-- D25 records three-standard split supersedes brief constraint (F14)
-- Declaration fields renamed: `uses` (was dependencies), `blocks` (was blocktypes)
-- Component alias uniqueness carried to Core
+- Implicit dependency rule broadened to any versioned standard, not just schema standards (R1)
+- Type uniqueness scoped to owning component, not framework-wide (R2)
+- Draft numbering made required (R3)
+- Grammar correction vs migration distinguished — F11 grammar complete, header migration pending (R4)
+- Footer recognition changed to placement with horizontal rule as boundary signal (R5)
+- Manifest defined as binder block type (R6)
+- Blocks field lists non-scaffold typed blocks only (R7)
+- Declaration compact rendering override made explicit (R8)
+- D5 count corrected to nine (R9)
 
 ## Open items
 
-- **Cross-review round 2** — resubmit Design v4, Decisions v4, and three standards at v2 for acceptance test rerun.
+- **Cross-review round 3** — resubmit Design v5, Decisions v5, three standards at v3 for acceptance test rerun.
+- **Standards header migration** — grammar correction complete. Migration of DocMeth documents to the blockquote Declaration format is a separate task after acceptance. Carry to Migration.
 - **DocMeth overview** — build after design settles fully.
-- **Schema review** — survey all components with doctype/block-type definitions against the contract (assessment produced, DocMeth_Schema_Review_v1). Rework is a separate task per component.
-- **Standards header migration** — all DocMeth documents still use the old positional Declaration format. Migration to the blockquote format is a separate task after the standards are accepted. Carry to Migration.
-- **PD carries** — PD-F1, PD-F2, PD-F3 in Design v4 carries section. Add to AIDE_Documentation_WIP.
-- **Core carry** — component alias uniqueness rule. Add to AIDE_Documentation_WIP.
+- **Schema review** — survey all components with doctype/block-type definitions against the contract. Rework per component.
+- **PD carries** — PD-F1, PD-F2, PD-F3 in Design v5 carries section.
+- **Core carry** — component alias uniqueness rule.
+- **FUP deployer utility** — user_instructions should display after success statement, not before deploy prompt.
 
 ---
 
-Version note: v6 — cross-review findings absorbed. All settled material in design and decisions. 2026-09-12.
-<!-- END SOURCE: Documentation Methodology/DocMeth_Working_v6.md -->
+Version note: v7 — cross-review round 2 findings absorbed. 2026-09-12.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Working_v7.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md -->
-Documentation Methodology — Authoring Standard | standard | DocumentationMethodology_Authoring_Standard@v2 | 2026-09-12
+<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Authoring_Standard_v3.md -->
+Documentation Methodology — Authoring Standard | standard | DocumentationMethodology_Authoring_Standard@v3 | 2026-09-12
 
 Use when authoring, structuring, or versioning a governed document.
 
@@ -4783,7 +4791,7 @@ Required. The Declaration carries labelled fields:
 - doctype (required) — the document's type
 - date (required) — the date this version was produced, YYYY-MM-DD
 - uses (optional) — standards this document depends on, as `standard@version` pairs. Conformance stamp, not constraint. The grouping syntax `name:[item1, item2]` tracks ownership.
-- blocks (optional) — block types this document includes. The grouping syntax tracks ownership.
+- blocks (optional) — non-scaffold typed blocks present in this document. The scaffold (Declaration, Title, Description, Header, Body, Footer) is not re-stated. The grouping syntax tracks ownership.
 
 Information. In markdown, the Declaration renders as a blockquote with labelled fields:
 
@@ -4816,7 +4824,7 @@ Required. Every document has an identity in its Declaration. Identity is authori
 
 Required. Absence of a draft marker means published and immutable. Published version numbers are never reused. Next cycle opens at the next integer.
 
-Recommended. Draft numbering is optional in the scheme, on by default.
+Required. Every draft carries its sequence number.
 
 Information. Reference forms: `@v27` resolves to the published contract; `@v27-draft` resolves to the highest draft present.
 
@@ -4862,7 +4870,7 @@ Required. A block is a named set of fields. Structured formats express fields as
 Information. Deterministic defaults for markdown. Block definitions override when needed.
 
 - **Heading level** follows nesting: a top-level block uses `##`, a subheading within a block uses `###`. Deeper nesting adds levels.
-- **Compact fields** render as a single delimited line, pipe-separated, labelled.
+- **Compact fields** render as a single delimited line, pipe-separated, labelled. A block definition may override this — the Declaration renders compact fields across multiple lines (one per field group).
 - **Expanded fields** render as labelled list items: `- **FieldName:** value`.
 - **Containers** have no literal rendering — structural only. Children render in sequence.
 - **Title** is the markdown document heading (`#`).
@@ -4890,13 +4898,13 @@ Required. Five rules applying to every governed document:
 
 ---
 
-Version note: v2 — cross-review findings applied. Governed-document scaffold, Declaration field renames (uses, blocks), date semantics, identity/filename grammar separation, default markdown rendering added. Declaration placement clarified as first block. 2026-09-12. Replaces v1.
-<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md -->
+Version note: v3 — round 2 corrections. Draft numbering made required. Blocks field clarified as non-scaffold. Compact rendering override noted. 2026-09-12. Replaces v2.
+<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Authoring_Standard_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md -->
-Documentation Methodology — Definitions Standard | standard | DocumentationMethodology_Definitions_Standard@v2 | 2026-09-12
+<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Definitions_Standard_v3.md -->
+Documentation Methodology — Definitions Standard | standard | DocumentationMethodology_Definitions_Standard@v3 | 2026-09-12
 
 The doctypes and block types defined by Documentation Methodology, using its own definition contract.
 
@@ -4914,8 +4922,8 @@ Information. This standard contains DocMeth's own type definitions — the commo
   - doctype (required) — the document's type
   - date (required) — date this version was produced, YYYY-MM-DD
   - uses (optional) — standards this document depends on, flat list with grouping syntax
-  - blocks (optional) — block types this document includes, flat list with grouping syntax
-- **Density:** compact.
+  - blocks (optional) — non-scaffold typed blocks present in this document, flat list with grouping syntax
+- **Density:** compact. Overrides the single-line compact default — renders across multiple lines (one per field group) because some fields are optional and variable-length.
 - **Recognition:** by placement — first block, fixed topmost.
 - **Placement:** header, topmost.
 - **Container:** yes — a container for its labelled fields.
@@ -4951,7 +4959,7 @@ Information. This standard contains DocMeth's own type definitions — the commo
 - **Purpose:** Placement container for metadata and low-priority blocks. No semantics of its own.
 - **Container:** yes.
 - **Placement:** bottom of document.
-- **Recognition:** by marker — in markdown, a horizontal rule marks the footer start.
+- **Recognition:** by placement — everything after the boundary signal. In markdown, a horizontal rule marks the footer boundary.
 - **Conditional behaviour:** boundary proximity principle — footer runs low-to-high toward the end.
 
 ### Contents
@@ -4978,13 +4986,23 @@ Information. This standard contains DocMeth's own type definitions — the commo
 
 ## Common doctypes
 
+### Manifest
+
+- **Purpose:** Records relative paths and structural metadata for every document included in a binder.
+- **Fields:**
+  - entries (required) — list of relative paths preserving structural relationships
+- **Density:** compact.
+- **Recognition:** by placement — first content block in the binder body.
+- **Placement:** body, topmost.
+
 ### Binder
 
 - **Purpose:** Assembles governed documents into a single file for delivery to the AI platform.
-- **Included blocktypes:** Contents (required).
+- **Included blocktypes:** Contents (required), Manifest (required).
 - **Format constraint:** markdown.
+- **Format conventions:** source documents are concatenated after the manifest with BEGIN/END comment markers preserving document boundaries.
 
-Information. The binder's body contains a manifest recording relative paths for every included document, followed by source documents concatenated with BEGIN/END comment markers. These are structural conventions of the binder format, not block types. The binder concept — why it exists, how it is built, inclusion rules — is owned by Working Practices / Content Delivery.
+Information. The binder concept — why it exists, how it is built, inclusion rules — is owned by Working Practices / Content Delivery.
 
 ### Guide
 
@@ -5001,13 +5019,13 @@ Information. General-purpose — any component may produce one. Published and ve
 
 ---
 
-Version note: v2 — cross-review findings applied. Dependencies removed as separate block (now a Declaration field). Declaration fields given per-field optionality. Body added explicitly. Binder definition corrected (manifest and source region described as format conventions, not blocktypes). Field renames (uses, blocks). Block placement order corrected (Declaration first, Title/Description after). 2026-09-12. Replaces v1.
-<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md -->
+Version note: v3 — round 2 corrections. Footer recognition changed to placement. Manifest added as block type. Binder format conventions separated from blocktypes. Declaration compact rendering override made explicit. Blocks field clarified as non-scaffold. 2026-09-12. Replaces v2.
+<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Definitions_Standard_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md -->
-Documentation Methodology — Schema Standard | standard | DocumentationMethodology_Schema_Standard@v2 | 2026-09-12
+<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Schema_Standard_v3.md -->
+Documentation Methodology — Schema Standard | standard | DocumentationMethodology_Schema_Standard@v3 | 2026-09-12
 
 Use when defining a new doctype or block type.
 
@@ -5031,7 +5049,7 @@ Required. A definition is written as a heading naming the type, followed by labe
 
 ### Implicit dependency rule
 
-Information. A type defined in a versioned schema standard implicitly carries that hosting standard as its dependency implication. A definition only states dependency implications explicitly when they differ from the hosting standard.
+Information. A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. A definition only states dependency implications explicitly when they differ from the defining standard.
 
 ## Doctype definition
 
@@ -5041,7 +5059,7 @@ Recommended. Available vocabulary for a doctype definition, each stated when nee
 
 - **Included blocktypes** — which blocks the doctype uses beyond the governed-document scaffold. For each: the optionality for this doctype (required, recommended, or optional) and any density override.
 - **Block positioning** — where a block goes if different from the block's own placement default, or to resolve ordering between blocks.
-- **Dependency implications** — stated only when different from the implicit rule.
+- **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Format constraint** — narrows the permitted formats when the type requires it.
 - **Owner and residence** — which component owns the definition. Implicit from hosting location for most definitions; stated when not obvious.
 
@@ -5058,7 +5076,7 @@ Recommended. Available vocabulary for a block-type definition, each stated when 
 - **Density** — compact or expanded. Stated when it matters; omitted when the content shape makes it obvious.
 - **Recognition** — how this block is identified. Three strategies: by subheading, by placement, or by marker. Required when position does not unambiguously identify the block.
 - **Placement** — which container this block places into and any ordering hint.
-- **Dependency implications** — stated only when different from the implicit rule.
+- **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Conditional behaviour** — rules the block owns about its own behaviour in context. The block owns its rules; the doctype cannot impose them on inclusion.
 - **Container** — declares this block as a placement destination for other blocks or content.
 - **Owner and residence** — as for doctypes.
@@ -5089,11 +5107,11 @@ Required. Content is defined in one place. Ambiguity is flagged rather than reso
 
 ## Type-reference resolution
 
-Required. Type names must be unique within their kind — doctype names unique among doctypes, block-type names unique among block types. Uniqueness is enforced at definition time.
+Required. Type names must be unique within their owning component. Independently owned components may use the same name without coordination.
 
-Recommended. Unqualified names are the default. The dot-qualified form disambiguates when a name collides within the document's `uses` scope: `pd.brief`, where the prefix is the component's declared alias.
+Recommended. Unqualified names are the default when the name is unique within the document's active `uses` scope. The dot-qualified form disambiguates on collision: `pd.brief`, where the prefix is the component's declared alias.
 
-Information. Resolution path: a type's authoritative definition is in the schema standard listed in the document's `uses` field.
+Information. Resolution path: a type's authoritative definition is in the defining standard listed in the document's `uses` field.
 
 ## Schema placement guidance
 
@@ -5101,8 +5119,8 @@ Recommended. When a component defines doctypes or block types, a separate schema
 
 ---
 
-Version note: v2 — cross-review findings applied. Conditional completeness, definition representation, implicit dependency rule, field-level optionality, marker syntax, type-reference resolution added. Recognition strengthened from recommended to required when position is ambiguous. 2026-09-12. Replaces v1.
-<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md -->
+Version note: v3 — round 2 corrections. Implicit dependency rule broadened to any versioned standard. Type uniqueness scoped to owning component. Resolution path corrected. 2026-09-12. Replaces v2.
+<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Schema_Standard_v3.md -->
 
 ---
 
