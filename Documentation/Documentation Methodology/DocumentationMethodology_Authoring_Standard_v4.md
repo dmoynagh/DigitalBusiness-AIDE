@@ -1,4 +1,7 @@
-Documentation Methodology — Authoring Standard | standard | DocumentationMethodology_Authoring_Standard@v4 | 2026-09-12
+# Documentation Methodology — Authoring Standard
+
+> identity: DocumentationMethodology_Authoring_Standard@v4 | doctype: standard | date: 2026-09-12
+> uses: DocumentationMethodology_Definitions_Standard@v4
 
 Use when authoring, structuring, or versioning a governed document.
 

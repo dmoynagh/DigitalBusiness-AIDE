@@ -1,4 +1,6 @@
-Documentation Methodology — Decisions | decisions | DocMeth_Decisions@v6 | 2026-09-12
+# Documentation Methodology — Decisions
+
+> identity: DocMeth_Decisions@v6 | doctype: decisions | date: 2026-09-12
 
 ## D1 — DocMeth owns grammar only, not individual definitions
 

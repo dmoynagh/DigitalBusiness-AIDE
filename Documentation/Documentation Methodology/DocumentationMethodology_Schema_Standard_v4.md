@@ -1,4 +1,6 @@
-Documentation Methodology — Schema Standard | standard | DocumentationMethodology_Schema_Standard@v4 | 2026-09-12
+# Documentation Methodology — Schema Standard
+
+> identity: DocumentationMethodology_Schema_Standard@v4 | doctype: standard | date: 2026-09-12
 
 Use when defining a new doctype or block type.
 

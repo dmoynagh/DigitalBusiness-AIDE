@@ -1,16 +1,20 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v1 | 2026-09-11
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v3 | 2026-09-12
 
 ## Active threads
 
-### DocMeth rework — definition-contract gap
+### DocMeth — standards header migration
 
-DocMeth design pass completed 2026-09-11 but cross-review identified a primary objective gap: the design describes the model (what a doctype is, what a block is) without specifying the grammar for defining instances (how you write a doctype definition, what properties a block-type definition must contain). The standard consequently cannot enable a consumer to define a new type from it alone.
+DocMeth definition contract accepted after three cross-review rounds (14 + 9 + 4 findings, all resolved). Design v6, Decisions v6, three standards at v4 (Schema, Authoring, Definitions). The grammar is settled and the standard set passes its own black-box acceptance test.
 
-**Direction:** reopen the design with a proper brief (inline). Address the definition-contract gap, the recognition marker content, and minimum format mapping for markdown. Reauthor the standard from the completed design. Cross-review again.
+**Remaining action:** migrate the three standards' own headers from the legacy positional format to the accepted blockquote Declaration format. Mechanical — no grammar change. Carry to Migration.
+
+**Cross-review required:** no — unless migration introduces a substantive grammar change.
 
 **Lesson applied:** every design pass must have a brief before design starts. Definition of done is the acceptance gate. The black-box acceptance test (can a fresh AI perform the operations from the standard alone?) is the concrete form of the definition of done for any standard.
 
-**Cross-review required:** yes — both the reworked design and the reauthored standard. The gap was fundamental, not editorial.
+### DocMeth — schema review across components
+
+All components owning doctypes or block types must define them using the accepted definition contract (PD-F2). Assessment produced (DocMeth_Schema_Review_v1). Rework is a separate task per component, each producing a schema standard. Recommended priority: DocMeth (done), then PD, Standards, Core, WP.
 
 ---
 
@@ -37,6 +41,16 @@ Add to the standard: a design almost always has a brief (standalone or inline). 
 
 **Cross-review required:** included in the PD standard update above — one review covers both.
 
+### PD carries from DocMeth
+
+Three carries from the DocMeth design to PD:
+
+- **PD-F1 — Design two-part structure.** The design doctype has two recognised parts: the approach (tested by Check 1) and the detailed design (tested by Check 2).
+- **PD-F2 — Doctype definitions needed.** All components owning doctypes must define them using the definition contract.
+- **PD-F3 — Schema placement guidance.** PD's standard should reference DocMeth's schema placement guidance when advising components on their document sets.
+
+**Cross-review required:** included in the PD standard update.
+
 ---
 
 ## Pending — Principles
@@ -57,11 +71,31 @@ From the design-approach work. These are not new premises — they would strengt
 
 ---
 
+## Pending — Standards
+
+### Clarification block
+
+The standard doctype has two parts: the standard itself (lean, stated rules) and clarification (reasoning, justification). Two blocks, joined when small, split by the split test when clarification would bloat the loaded standard. Carry from DocMeth.
+
+---
+
+## Pending — Core
+
+### Component alias uniqueness
+
+Component names and aliases must be unique within the framework. Aliases are used as type-reference prefixes in the dot-qualified naming grammar (`pd.brief`). Core Structure owns this rule.
+
+---
+
 ## Pending — Working Practices
 
 ### Overview-first working behaviour
 
 The discipline of staying at the overview level until it could drive excellent execution, probing rather than diving, is broader than design. It's a human-AI working behaviour that applies to research, planning, and any structured thinking. PD owns the design-specific application; WP owns the generic working behaviour when WP is built.
+
+### `/more` command
+
+AI-presented prompts (migration prompts, task summaries, session information) should be concise by default. The `/more` command expands the current prompt with additional detail. Belongs alongside the session-transition commands when those are designed.
 
 ### Items accumulated for WP from other passes
 
@@ -75,16 +109,28 @@ The discipline of staying at the overview level until it could drive excellent e
 
 ---
 
+## Pending — Infrastructure
+
+### FUP manifest — `user_instructions` field clarification
+
+The `user_instructions` field in the FUP manifest is only for tasks the user must do outside the AI platform — manual file system actions the deployer cannot reach (e.g. copy a file somewhere, delete a folder). All client-side instructions (download the FUP, run it, next tasks in the AI client) are presented in chat alongside the FUP, not in the manifest. Carry to the FUP design document as a clarification.
+
+### FUP deployer — user_instructions display order
+
+The `user_instructions` message should display after the deploy success statement, not before the deploy prompt. Currently displays before. Log for Code session.
+
+---
+
 ## Cross-review register
 
 Tracks changes that need external AI review before acceptance. Items are added as work produces them and cleared when review is completed.
 
 | Item | Reason | Status |
 |---|---|---|
-| DocMeth Design v3 + Standard v2 | Fundamental rework — definition-contract gap | Pending — rework not started |
+| DocMeth definition contract (Design v6, Decisions v6, Schema/Authoring/Definitions Standards v4) | Definition-contract gap — fundamental rework | **Accepted** — three rounds, all findings resolved. Migration pending. |
 | PD Standard update (design-approach + brief gate + operations/acceptance tests) | New gates that downstream work is built against | Pending — update not started |
 | Principles premise strengthening | Foundational — changes propagate to all components | Pending — not started |
 
 ---
 
-Version note: v1 — initial WIP, 2026-09-11. Captures pending placement decisions, the DocMeth rework direction, and the cross-review register.
+Version note: v3 — DocMeth cross-review accepted. PD carries (PD-F1/F2/F3), Standards clarification carry, Core alias uniqueness carry added. Schema review thread added. FUP deployer display-order task added. 2026-09-12.

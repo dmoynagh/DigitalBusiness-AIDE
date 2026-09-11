@@ -1,4 +1,6 @@
-Documentation Methodology | working | DocMeth_Working@v8 | 2026-09-12
+# Documentation Methodology — Working
+
+> identity: DocMeth_Working@v8 | doctype: working | date: 2026-09-12
 
 ## Session history
 

@@ -1,4 +1,6 @@
-Documentation Methodology | design | DocMeth_Design@v6 | 2026-09-12
+# Documentation Methodology — Design
+
+> identity: DocMeth_Design@v6 | doctype: design | date: 2026-09-12
 
 ## Summary
 

@@ -1236,3 +1236,490 @@ COMPLETION SUMMARY
 FAILED - nothing was deployed
 ========================================================================
 
+========================================================================
+file update package   2026-09-11 20:27:49   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  SKIPPED           no packages found in C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+
+------------------------------------------------------------------------
+Result: 1 skipped
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              none - nothing to deploy
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY - there was nothing to do
+========================================================================
+
+========================================================================
+file update package   2026-09-11 23:47:51   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_DefinitionContract_2026-09-11.zip  (2026-09-11 23:47, 16,467 bytes)
+description:        DocMeth definition contract — Design v3, Decisions v3, Working v5, updated index
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  CREATED           Documentation Methodology/DocMeth_Design_v3.md  (21,084 bytes)
+  CREATED           Documentation Methodology/DocMeth_Decisions_v3.md  (12,919 bytes)
+  DELETED           DocMeth_Working_v4.md
+  REPLACED          Documentation Methodology/DocMeth_Working_v5.md  (3,405 bytes)
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (798 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         DocMeth_DefinitionContract_2026-09-11.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 replaced, 2 created, 2 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_DefinitionContract_2026-09-11.zip
+                        DocMeth definition contract — Design v3, Decisions v3, Working v5, updated index
+  files replaced:       2
+  files created:        2
+  files moved:          0
+  files deleted:        2
+  conflicts:            0
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-12 00:17:24   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_DefinitionContract_2026-09-11.zip  (2026-09-12 00:17, 23,956 bytes)
+description:        DocMeth definition contract — Design v3, Decisions v3, three split standards, Working v5, updated index
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  CONFLICT          Documentation Methodology/DocMeth_Design_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Documentation Methodology/DocMeth_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  CREATED           Documentation Methodology/DocumentationMethodology_Schema_Standard_v1.md  (4,893 bytes)
+  CREATED           Documentation Methodology/DocumentationMethodology_Authoring_Standard_v1.md  (5,881 bytes)
+  CREATED           Documentation Methodology/DocumentationMethodology_Definitions_Standard_v1.md  (6,050 bytes)
+  SKIPPED           Documentation Methodology/DocMeth_Working_v5.md: nothing replaced - "DocMeth_Working_v4.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Working_v5.md: not deployed - a file already exists there and the package did not name it as replaced
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (937 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 3 created, 1 deleted, 3 conflict, 1 skipped, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_DefinitionContract_2026-09-11.zip
+                        DocMeth definition contract — Design v3, Decisions v3, three split standards, Working v5, updated index
+  files replaced:       1
+  files created:        3
+  files moved:          0
+  files deleted:        1
+  conflicts:            3
+    - Documentation Methodology/DocMeth_Design_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Working_v5.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-12 10:22:50   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_CrossReview_Revision_2026-09-12.zip  (2026-09-12 10:22, 24,445 bytes)
+description:        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  DELETED           DocMeth_Design_v3.md
+  REPLACED          Documentation Methodology/DocMeth_Design_v4.md  (19,715 bytes)
+  DELETED           DocMeth_Decisions_v3.md
+  REPLACED          Documentation Methodology/DocMeth_Decisions_v4.md  (15,182 bytes)
+  DELETED           DocumentationMethodology_Schema_Standard_v1.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md  (6,223 bytes)
+  DELETED           DocumentationMethodology_Authoring_Standard_v1.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md  (7,445 bytes)
+  DELETED           DocumentationMethodology_Definitions_Standard_v1.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md  (5,697 bytes)
+  DELETED           DocMeth_Working_v5.md
+  REPLACED          Documentation Methodology/DocMeth_Working_v6.md  (2,417 bytes)
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (964 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         DocMeth_CrossReview_Revision_2026-09-12.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 7 replaced, 7 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_CrossReview_Revision_2026-09-12.zip
+                        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+  files replaced:       7
+  files created:        0
+  files moved:          0
+  files deleted:        7
+  conflicts:            0
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-12 10:30:40   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_CrossReview_Revision_2026-09-12.zip  (2026-09-12 10:27, 24,399 bytes)
+description:        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  SKIPPED           Documentation Methodology/DocMeth_Design_v4.md: nothing replaced - "DocMeth_Design_v3.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Design_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Decisions_v4.md: nothing replaced - "DocMeth_Decisions_v3.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: nothing replaced - "DocumentationMethodology_Schema_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: nothing replaced - "DocumentationMethodology_Authoring_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: nothing replaced - "DocumentationMethodology_Definitions_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Working_v6.md: nothing replaced - "DocMeth_Working_v5.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Working_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (964 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 6 conflict, 6 skipped, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_CrossReview_Revision_2026-09-12.zip
+                        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            6
+    - Documentation Methodology/DocMeth_Design_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Working_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-12 10:33:03   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_CrossReview_Revision_2026-09-12.zip  (2026-09-12 10:27, 24,399 bytes)
+description:        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  SKIPPED           Documentation Methodology/DocMeth_Design_v4.md: nothing replaced - "DocMeth_Design_v3.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Design_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Decisions_v4.md: nothing replaced - "DocMeth_Decisions_v3.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: nothing replaced - "DocumentationMethodology_Schema_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: nothing replaced - "DocumentationMethodology_Authoring_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: nothing replaced - "DocumentationMethodology_Definitions_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Working_v6.md: nothing replaced - "DocMeth_Working_v5.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Working_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (964 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 6 conflict, 6 skipped, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_CrossReview_Revision_2026-09-12.zip
+                        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            6
+    - Documentation Methodology/DocMeth_Design_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Working_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-12 10:35:43   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_CrossReview_Revision_2026-09-12.zip  (2026-09-12 10:27, 24,399 bytes)
+description:        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  SKIPPED           Documentation Methodology/DocMeth_Design_v4.md: nothing replaced - "DocMeth_Design_v3.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Design_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Decisions_v4.md: nothing replaced - "DocMeth_Decisions_v3.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: nothing replaced - "DocumentationMethodology_Schema_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: nothing replaced - "DocumentationMethodology_Authoring_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: nothing replaced - "DocumentationMethodology_Definitions_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Working_v6.md: nothing replaced - "DocMeth_Working_v5.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Working_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (964 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 6 conflict, 6 skipped, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_CrossReview_Revision_2026-09-12.zip
+                        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            6
+    - Documentation Methodology/DocMeth_Design_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Working_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-12 10:37:41   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_CrossReview_Revision_2026-09-12.zip  (2026-09-12 10:37, 24,352 bytes)
+description:        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  SKIPPED           Documentation Methodology/DocMeth_Design_v4.md: nothing replaced - "DocMeth_Design_v3.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Design_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Decisions_v4.md: nothing replaced - "DocMeth_Decisions_v3.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: nothing replaced - "DocumentationMethodology_Schema_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: nothing replaced - "DocumentationMethodology_Authoring_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: nothing replaced - "DocumentationMethodology_Definitions_Standard_v1.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Working_v6.md: nothing replaced - "DocMeth_Working_v5.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Working_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (964 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 6 conflict, 6 skipped, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_CrossReview_Revision_2026-09-12.zip
+                        DocMeth cross-review revision — Design v4, Decisions v4, three standards v2, Working v6, updated index
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            6
+    - Documentation Methodology/DocMeth_Design_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Schema_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Authoring_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_Definitions_Standard_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Working_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-12 10:52:28   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_CrossReview_Round2_2026-09-12.zip  (2026-09-12 10:52, 24,888 bytes)
+description:        DocMeth cross-review round 2 — Design v5, Decisions v5, three standards v3, Working v7
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  DELETED           DocMeth_Design_v4.md
+  REPLACED          Documentation Methodology/DocMeth_Design_v5.md  (20,196 bytes)
+  DELETED           DocMeth_Decisions_v4.md
+  REPLACED          Documentation Methodology/DocMeth_Decisions_v5.md  (16,984 bytes)
+  DELETED           DocumentationMethodology_Schema_Standard_v2.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Schema_Standard_v3.md  (6,133 bytes)
+  DELETED           DocumentationMethodology_Authoring_Standard_v2.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Authoring_Standard_v3.md  (7,542 bytes)
+  DELETED           DocumentationMethodology_Definitions_Standard_v2.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Definitions_Standard_v3.md  (6,041 bytes)
+  DELETED           DocMeth_Working_v6.md
+  REPLACED          Documentation Methodology/DocMeth_Working_v7.md  (1,772 bytes)
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (964 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         DocMeth_CrossReview_Round2_2026-09-12.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 7 replaced, 7 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_CrossReview_Round2_2026-09-12.zip
+                        DocMeth cross-review round 2 — Design v5, Decisions v5, three standards v3, Working v7
+  files replaced:       7
+  files created:        0
+  files moved:          0
+  files deleted:        7
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-12 11:07:37   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_CrossReview_Round3_2026-09-12.zip  (2026-09-12 11:07, 25,126 bytes)
+description:        DocMeth cross-review round 3 — Design v6, Decisions v6, three standards v4, Working v8
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  DELETED           DocMeth_Design_v5.md
+  REPLACED          Documentation Methodology/DocMeth_Design_v6.md  (20,299 bytes)
+  DELETED           DocMeth_Decisions_v5.md
+  REPLACED          Documentation Methodology/DocMeth_Decisions_v6.md  (17,597 bytes)
+  DELETED           DocumentationMethodology_Schema_Standard_v3.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Schema_Standard_v4.md  (6,591 bytes)
+  DELETED           DocumentationMethodology_Authoring_Standard_v3.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Authoring_Standard_v4.md  (7,628 bytes)
+  DELETED           DocumentationMethodology_Definitions_Standard_v3.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Definitions_Standard_v4.md  (6,149 bytes)
+  DELETED           DocMeth_Working_v7.md
+  REPLACED          Documentation Methodology/DocMeth_Working_v8.md  (1,378 bytes)
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (964 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         DocMeth_CrossReview_Round3_2026-09-12.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 7 replaced, 7 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_CrossReview_Round3_2026-09-12.zip
+                        DocMeth cross-review round 3 — Design v6, Decisions v6, three standards v4, Working v8
+  files replaced:       7
+  files created:        0
+  files moved:          0
+  files deleted:        7
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+

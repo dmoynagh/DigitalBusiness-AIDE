@@ -1,4 +1,7 @@
-Documentation Methodology — Definitions Standard | standard | DocumentationMethodology_Definitions_Standard@v4 | 2026-09-12
+# Documentation Methodology — Definitions Standard
+
+> identity: DocumentationMethodology_Definitions_Standard@v4 | doctype: standard | date: 2026-09-12
+> uses: DocumentationMethodology_Schema_Standard@v4
 
 The doctypes and block types defined by Documentation Methodology, using its own definition contract.
 

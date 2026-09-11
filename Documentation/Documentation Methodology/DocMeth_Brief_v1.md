@@ -1,4 +1,6 @@
-Documentation Methodology — Brief | brief | DocumentationMethodology_Brief@v1 | 2026-09-11
+# Documentation Methodology — Brief
+
+> identity: DocumentationMethodology_Brief@v1 | doctype: brief | date: 2026-09-11
 
 ## Purpose
 

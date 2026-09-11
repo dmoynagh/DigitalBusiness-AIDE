@@ -35,3 +35,39 @@ folders processed: 13
 Result: 1 deleted
 ========================================================================
 
+========================================================================
+version cleanup   2026-09-12 11:13:03   DRY RUN (nothing changed)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 13
+------------------------------------------------------------------------
+
+[.]
+  WOULD DELETE  AIDE_Documentation_WIP_v2.md  (v2 superseded by v3)
+
+[Project Design]
+  WOULD DELETE  ProjectDesign_Decisions_v1.md  (v1 superseded by v2)
+  WOULD DELETE  ProjectDesign_Design_v1.md  (v1 superseded by v2)
+  WOULD DELETE  ProjectDesign_Standard_v2.md  (v2 superseded by v3)
+
+------------------------------------------------------------------------
+Result: 4 would delete
+========================================================================
+
+========================================================================
+version cleanup   2026-09-12 11:13:11   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 13
+------------------------------------------------------------------------
+
+[.]
+  DELETED       AIDE_Documentation_WIP_v2.md  (v2 superseded by v3)
+
+[Project Design]
+  DELETED       ProjectDesign_Decisions_v1.md  (v1 superseded by v2)
+  DELETED       ProjectDesign_Design_v1.md  (v1 superseded by v2)
+  DELETED       ProjectDesign_Standard_v2.md  (v2 superseded by v3)
+
+------------------------------------------------------------------------
+Result: 4 deleted
+========================================================================
+
