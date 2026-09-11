@@ -13,7 +13,9 @@ Documentation Methodology defines how documents are structured and created — t
 | DocMeth_ | Decisions v3 | decisions |
 | DocMeth_ | Working v5 | working |
 | DocMeth_ | Brief v1 | brief |
-| DocumentationMethodology_ | Standard v1 | standard |
+| DocumentationMethodology_ | Schema Standard v1 | standard |
+| DocumentationMethodology_ | Authoring Standard v1 | standard |
+| DocumentationMethodology_ | Definitions Standard v1 | standard |
 
 ## Parts
 
