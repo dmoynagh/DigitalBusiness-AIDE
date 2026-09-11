@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 31** (2026-09-11).
+> **Binder Version 32** (2026-09-11).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -47,10 +47,13 @@ individual files.
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `e6d1eb38aba5`
 - `Principles/Principles_Decisions_v4.md` - sha256 `2c31c26b5c66`
 - `Principles/Principles_Design_v4.md` - sha256 `4bd5797d3d2e`
-- `Project Design/_index.md` - sha256 `3002bcf578cc`
+- `Project Design/_index.md` - sha256 `a1d262969ad0`
 - `Project Design/ProjectDesign_Decisions_v1.md` - sha256 `0fc2d790dc5f`
+- `Project Design/ProjectDesign_Decisions_v2.md` - sha256 `0a07a453c42c`
 - `Project Design/ProjectDesign_Design_v1.md` - sha256 `c4a80e5fa894`
+- `Project Design/ProjectDesign_Design_v2.md` - sha256 `80a739c74e04`
 - `Project Design/ProjectDesign_Standard_v2.md` - sha256 `36d4c7c83bdd`
+- `Project Design/ProjectDesign_Standard_v3.md` - sha256 `fe55bbec4f27`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
 - `Standards/Standards_Authoring_Standard_v5.md` - sha256 `af5113f73be9`
 - `Standards/Standards_Consumption_Standard_v2.md` - sha256 `f473734c8974`
@@ -7685,9 +7688,9 @@ Project Design produces a coherent specification for work of any size and manage
 
 | Prefix | Document | Type |
 |---|---|---|
-| ProjectDesign_ | Design v1 | design |
-| ProjectDesign_ | Decisions v1 | decisions |
-| ProjectDesign_ | Standard v2 | standard |
+| ProjectDesign_ | Design v2 | design |
+| ProjectDesign_ | Decisions v2 | decisions |
+| ProjectDesign_ | Standard v3 | standard |
 
 ## Parts
 
@@ -7838,6 +7841,153 @@ Not duplicated into each doctype — the property belongs to the two-tier memory
 
 Version note: v1 — authored fresh from ProjectDesign_Decisions_Pending_v1, 2026-09-11.
 <!-- END SOURCE: Project Design/ProjectDesign_Decisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Project Design/ProjectDesign_Decisions_v2.md -->
+Project Design — Decisions | decisions | ProjectDesign_Decisions@v2 | 2026-09-11
+
+## D1 — Work register survives and comes home to Project Design
+
+The gap the register fills is temporal, not interpersonal — something must hold "design says X, build hasn't caught up yet." The register is the one artefact where design is both source and target, which is why its states must reconcile against build return. Splitting the producer rule from its own ledger was the original model's mistake. The provider-consumer test settles it: the temporal gap only exists because Project Design owns both ends of the loop — it does not carry meaning outside Project Design.
+
+The alternative — register in Working Practices, producer obligation in Project Design — was tried and withdrawn during this pass.
+
+## D2 — Work item and work register are distinct in kind
+
+There is no subset relationship and none should be implied. A work item is a generic entity flowing through a workflow: raised, judged, given a fate. A design-generated work register entry exists because a design change had a downstream impact that has not yet been delivered. The register also admits directly-entered confirmed work (see D16). The distinction between work item and register entry is purpose and state, not exclusively origin — different purpose, different owner, different lifecycle. Collapsing them would erase exactly the meaning that makes the register worth having.
+
+The name "work register" was reopened and tested against alternatives (delivery register, obligations register, consequence register, impact register, pending work register). "Obligations" was rejected as too amorphous. "Work register" stands: concrete, side-neutral, and reads cleanly as the register of work owed now that work item and work register are firmly separated.
+
+## D3 — The design-build handoff replaces the work-package doctype
+
+The work-package doctype was designed very early in the original implementation and never reviewed. It was a fixed artefact; the invariant it protected — the responsibility boundary — does not require one. Replaced by the design-build handoff: a transition point whose mechanism varies by build context.
+
+The old doctype's reach was wide: Index references, the flow diagram, the handoff clause, the release lineage, and six decisions (D4, D7, D8, D12 and others). All of these either fall away or are re-grounded in the new mechanism.
+
+Any surviving build-side "work package" is renamed build package so the word "work" is left free and the two never collide.
+
+## D4 — The design doctype is criteria and advice, not a schema
+
+Design composition varies a great deal by project type and build outcome. A schema would constrain composition; criteria describe what the design must achieve regardless of its shape. This is the facilitate-not-constrain position doing its work: AIDE exists to facilitate and empower, not to constrain or be a source of friction.
+
+Nine required criteria, four advice items. The criteria tell the author what a good design must do; the advice tells how others have done it well.
+
+## D5 — Design carries its own live reasoning inline
+
+A design element is a two-part unit: the statement of what is true, plus its inline why. A separate reasoning block was considered and rejected — the reading pattern demands the why at the element, and inline is what makes the retention checkpoint a natural act rather than a bolted-on chore.
+
+Duplication with decisions is accepted and expected: design holds the live why; decisions holds the fuller why, including paths not taken. The authority clause governs: reasoning pertinent to a current design choice belongs in the design.
+
+## D6 — Overview survives as a Project Design doctype
+
+Overview was parked in the block-catalogue session, with discussion reserved for the design pass. The parked return condition was topic-or-corpus scale; this pass corrects that — the real return condition is function, at project scale.
+
+The overview is a purposeful pane-of-glass snapshot and deviation detector, not an overflow valve for a bloated summary. This directly contradicts the old binder's orientation section, which made overview an escalation from summary. The forward design wins; the old orientation section is dropped entirely.
+
+## D7 — The summary suppression rule
+
+Overview and summary do not make each other redundant, but no document ever carries both. While an overview lives inline, the host document does not also carry a summary. The moment the overview branches out to its own document, the source document gets a summary back. The rule prevents double-orienting, which wastes context and confuses consumers about which one governs.
+
+## D8 — Capture and place reframed as a filing obligation, not a workflow entity
+
+An earlier framing treated capture as an act, placement as a fate, and the work item as its subject. That was wrong. The real thing is narrower: a design conversation wanders, and the AI's job is that nothing said gets left where it fell. Each piece gets put where it belongs.
+
+The work-item type list — expected in the earlier framing — does not belong here. It stays with Working Practices, to be surfaced when the work item is designed there, or left unenumerated if nothing demands it.
+
+## D9 — The what/why vs how boundary replaces the old escalation list
+
+The old binder enumerated what returns to design: objective, major scope, acceptance, ownership, architecture, policy. That enumeration is demoted to illustration; a single test replaces it: does what build encountered change what is being delivered or why, or only how it gets delivered? A list is arguable at the margin and rots as the system grows; a test does not.
+
+The tiebreak — if build cannot tell which side it is on, it returns — makes the default deliberately asymmetric. An unnecessary return costs a message. Silently absorbing a design change costs the design's authority.
+
+## D10 — The cost-and-complexity flag is an obligation, not a threshold
+
+Rather than prescribe a numeric or percentage trigger, the flag is an obligation on build's judgement: when the real cost or complexity materially exceeds what the design appeared to assume, build surfaces it. No threshold, no how-long-is-a-piece-of-string test. A rule with a number would be exactly the friction facilitate-not-constrain exists to remove.
+
+The flag defaults to proceed — if design does not intervene, build continues. This gives build two distinct reasons to come back, at different weights: a return for a genuine what/why question, and a flag where it can proceed but the price has moved.
+
+## D11 — Superseded register items: judgement, not procedure
+
+A fixed procedure was drafted for handling superseded items after handoff (freeze the entry, raise a superseding entry, notify build, reconcile) and withdrawn. The right answer genuinely varies — build might have finished, not started, or be halfway through. A fixed rule would get most cases wrong.
+
+The requirement is narrow and strong: design determines the impact and the remedy, makes the call explicitly, and records it. Not that it follows a set path. This is the first instance in this design where facilitate-not-constrain changed a decision rather than sitting inert.
+
+## D12 — Partial coverage dissolved by the register writing rule
+
+Register items are written as logical blocks of work — no children, no task tree. A return covering less than an item is not a partial-coverage case; it is done with deviation or an issue, and reconciliation already handles it. This dissolves the old model's partial/blocked branch and the work-package coverage-ID mechanism.
+
+## D13 — No convergence mechanism for the loop
+
+A return can provoke a design change, which spawns commitments, which spawn handoffs. Nothing terminates this, and nothing should: every trip round the loop is provoked by something real. If issues keep coming, the loop is not failing — the design is being told something. The only addition is visibility: an item that has been round several times is a design smell worth surfacing.
+
+## D14 — Domain-generic demoted from objective to constraint
+
+"Domain-generic" invited creative-production reach when stated as an objective. Demoted to a constraint on how the objectives are written. The claim survives — the purpose and requirements are generic across kinds of work — but as a property of the specification, not a thing to pursue.
+
+## D15 — Design is the default — authored forward, not derived from the old corpus
+
+The old decision D15 ("design is knowledge, not a mandatory document pipeline") was reference material for reasoning already explored. It is not carried forward, amended, or downgraded. The position is restated from the new design: a design almost always exists, and a standard almost always has a design behind it. Authoring straight to standard is the exception. The design holds the reasoning; the standard holds the conclusion. Forcing everything into the standard alone compromises one or the other.
+
+## D16 — Register admits non-design-generated work
+
+The old D12 explicitly held the register is not exclusively design-generated. Under sole ownership by Project Design, the question was whether it still admits confirmed non-design work. Resolved: yes. Each item tags its origin as design-generated or directly-entered. The discipline that real design work should not bypass design is a judgement at entry, not a mechanism.
+
+## D17 — The six-stage per-component review procedure
+
+Adopted as a general procedure for every component review:
+
+1. Clarify purpose.
+2. Clarify objectives, model, approach.
+3. Discuss and resolve key issues.
+4. Review requirements, resolve changes.
+5. Work through how the brief is delivered — the design.
+6. Review design output — standards etc.
+
+Stages 4 and 6 author forward first: derive requirements from purpose and objectives without reading the old design, then run a two-part sweep of the old corpus as a resource (omissions sweep, approach sweep). The old corpus never gets a default seat.
+
+## D18 — Domains closed as a considered no
+
+No case for domains was raised by anyone. The old corpus used "domain" for two jobs: asserting Project Design is not software-shaped (a genericness claim needing an adjective, not a noun) and naming an owner for production workflows (which topics already do). Domain would be a second ownership axis alongside topic with no stated relationship. The claim survives; the word does not.
+
+## D19 — The binder sweep findings
+
+### Omissions (part 1) — five carried, two dropped, one parked
+
+**Carried:** (1) build is never handed conflicting current designs — ninth design criterion; (2) state the model compactly — design advice; (3) handoff sufficiency has a ceiling — handoff mechanism; (4) requirement distinct from implementation choice — fifth boundary test; (5) linked build project or build outcome — brief section.
+
+**Dropped:** (6) cross-topic reconciliation — absorbed by capture and place; (7) no generic top-level workflow owner — partly implied by purpose, rest may contradict Working Practices.
+
+**Parked then fallen away:** (8) one authoritative instance per scope — blocked on domains, which are now closed.
+
+### Approach (part 2) — eight items adopted
+
+(1) The document set is design, decisions, standard and work register — no index (deferred, not dropped). (2) Four-group design structure (model / definitions / rules / boundaries). (3) Rule weight markers lifted — vocabulary flagged to Standards. (4) Fenced pseudo-flow blocks lifted. (5) Proportionate field list named as a technique. (6) All binder-editing items resolve as decisions against the new documents. (7) The orientation section dropped entirely — direct contradiction with the forward design. (8) The semantic-hosting park falls away with domains.
+
+### Decisions maintenance — no new mechanism needed
+
+The locked decisions/knowledge rules already govern compaction, immutability, and maintenance. The old decisions document's sprawl (22 entries with superseded material reading as current, release-issuance entries recording nothing) is what the settled rules look like unapplied. Compaction is the maintenance mechanism; meaning changes are new entries; release-issuance entries never create entries at all.
+
+## D20 — The work register lives inside the binder
+
+The register is placed inside the binder rather than loaded separately. The old exclusion was carried from the old binder without being tested against the new model. The decisive argument is context cost: separate loading means every session loads binder plus working document plus register, multiplied by however many registers exist. The register is written at master update, which is when the binder rebuilds anyway — the two are already synchronised and there is no churn to avoid.
+
+This is a placement decision. The register's operational semantics (fields, states, writing rule, immutability) are defined in the Design; how it is stored and when it is physically written are Documentation Methodology and Working Practices concerns that this decision informs.
+
+## D21 — Pending content carries the authority of its destination
+
+The working document holds pending content destined for master documents not yet updated. The two-tier model means a master document is not the complete current truth between updates — the current position is the master plus its pending content.
+
+This does not conflict with doctype authority. The design document governs on conflict with decisions or knowledge — that is about the relationship between doctypes. Pending design content in the working document has the same authority as the design master it is destined for, because it is design content, not because it is in the working document. Pending decisions content has decisions-level authority. The tier changes where content lives, not what authority it carries.
+
+Two consequences: the working document is always loaded with the topic; reading a master in order to act on it means checking its pending section first.
+
+Not duplicated into each doctype — the property belongs to the two-tier memory model, not any one document type.
+
+---
+
+Version note: v2 — cross-review remediation: D2 origin qualified against D16 (PD-DEC1), D20 reframed as placement decision (PD-DEC3), D21 resolved against design authority model (PD-DEC4). 2026-09-11.
+<!-- END SOURCE: Project Design/ProjectDesign_Decisions_v2.md -->
 
 ---
 
@@ -8185,6 +8335,353 @@ Version note: v1 — authored fresh from ProjectDesign_Design_Pending_v1, 2026-0
 
 ---
 
+<!-- BEGIN SOURCE: Project Design/ProjectDesign_Design_v2.md -->
+Project Design — Design | design | ProjectDesign_Design@v2 | 2026-09-11
+
+## Brief
+
+**Purpose.** Provide a fluid environment for design thinking, but produce an accurate, clear specification that build can act on. Fluid in, precise out. Project Design owns both ends of the design-build loop — not just the outbound specification, but the response from build as it pertains to design.
+
+**Objectives.**
+
+1. Stay fluid enough to think freely — support open design conversation across the full input set (purpose, stakeholders, outcomes, requirements, considerations, background, business case, prior research, methodology).
+2. Stay structured enough to converge — the AI writes and places each piece into the right doctype and section, asks when unsure, and flags when there is nowhere for something to live.
+3. Guarantee no confirmed design commitment goes silently undelivered — the producer rule into the work register.
+4. Group owed work into areas at the design side; build decides units of work. The design-build handoff sits at that seam.
+5. Scale from trivial to complex without changing method.
+
+**Requirements.**
+
+1. **Hold a fluid design space** — support open conversation across the full input set, with no ceremony blocking thinking.
+2. **Converge into an accurate, actionable specification** — a guarantee of placement, not merely of capture.
+3. **Never silently swallow a homeless piece** — ask, or flag that there is nowhere for it to live. Nothing is dropped because it did not fit.
+4. **Guarantee no confirmed commitment goes undelivered** — the producer rule at requirement weight.
+5. **Own the return from build** — reconcile the five return states; run cost discovery.
+6. **Scale trivial to complex without changing method** — including at block level, with detail and language held proportional to scale. Judge the amount of structure by consequence, reach, reversibility and uncertainty.
+
+**Definition of done.** The design specifies every element, mechanism and rule needed for a project design to flow from intent through to reconciliation. All six requirements are delivered, or explicitly deferred with a reason.
+
+## The design shape
+
+**One flow, three holding places, one seam.**
+
+The flow: intent → capture and place → brief → design → commitments → register → handoff → build → reconcile.
+
+The holding places: brief, design, overview — plus the work register, which is Project Design's own.
+
+The seam: the design-build handoff — where responsibility crosses from design to build.
+
+Three things to specify: the capture-and-place mechanism; brief-to-design delivery and elasticity; and the commitment-and-return loop. But the elements of a Project Design must be defined first — placement is routing, and each element's definition is the routing rule.
+
+## The document set
+
+**Owned doctypes:** brief (a composite block, mandatory), design, overview, and work register.
+
+**The producer rule.** Whenever a confirmed design change creates downstream work that is not already represented in the register, that work must be entered as a register item in the same pass. An existing register item that already covers the obligation is not duplicated. This is the mechanism that delivers Requirement 4 — the guarantee that no confirmed commitment goes silently undelivered.
+
+**Owned transition mechanisms:** the design-build handoff and the build return. These are mechanisms, not fixed doctypes — their shape varies with the scenario.
+
+**Consumed generics:** decisions, knowledge, WIP, open items, work item, definition of done.
+
+A **design project** is the scope of one design: a brief and the design that delivers it, together with the commitments entered into the work register. A naming convenience for a boundary that already exists, not a new entity. If it starts acquiring properties — a state, an owner, a lifecycle — that is the signal it was a mistake.
+
+**Build project** is deferred under the demonstrated-requirement rule. The brief carries a plain identifier for its linked build project; the definition question waits until something demonstrates the need. Recorded direction: the build project's identity is documented at the root of the topic that holds its designs.
+
+Cardinality: many-to-one is the common case (several design projects feed one build project). Many-to-many is allowed.
+
+## Brief
+
+### What the brief is
+
+The brief fixes the problem and the bar for success before designing. The brief is the problem space; the design is the solution space. The brief must be complete enough that the design has everything it needs, without smuggling in solution decisions.
+
+A brief is mandatory — always. Standalone or inline at the head of a design document, but never absent. Design is the delivery of the brief, so design cannot exist without one.
+
+The brief is a composite block type containing its element blocks. The composite unit can be the body of a standalone brief document or sit at the head of a design document for a small project. The split test governs when it branches out: externalise when keeping the block inline would compromise the primary role of its host.
+
+### Brief sections
+
+**Required, always — the irreducible core:**
+
+- **Purpose** — the problem or need, and why it is worth solving.
+- **Objectives** — what success looks like.
+- **Definition of done** — the completion bar. Short, accurate, concise — the primary success test. Definition of done is a generic block type owned by Working Practices; the brief consumes it.
+
+**Required in substance, may be light:**
+
+- **Requirements** — the conditions the solution must satisfy. May be a single line, but never absent: "no stated requirements" is a deliberate statement, not an omission.
+- **Scope and boundaries** — what is in, and what is explicitly out. Split from considerations because out-of-scope is one of the highest-value things a brief carries and it gets lost when buried.
+- **Linked build project or build outcome** — which build the design feeds. Absent only where the design produces no build.
+
+**Optional, scale- and scenario-dependent:**
+
+- **Considerations** — constraints, background, stakeholders, business case, prior research, methodology, assumptions, risks.
+- **Target / outcome** — the intended end state and any acceptance criteria. Separate from definition of done: definition of done is the pass-or-fail test; target/outcome is the broader described end state.
+
+The brief scales by which sections are present and how deep each runs.
+
+### Brief boundary tests
+
+Five tests settling where content belongs when the destination is not obvious. These are boundary tests involving brief content — some resolve placement within the brief, others resolve the boundary between the brief and a neighbouring destination (decisions, design).
+
+1. **Objectives vs requirements.** An objective is what success looks like; a requirement is a condition the solution must meet to get there. "Fast" is an objective; "responds within two seconds" is a requirement.
+2. **Considerations vs decisions.** A consideration is live input still bearing on the design; the moment it resolves into a choice it moves to decisions.
+3. **Requirements vs scope.** A requirement constrains the solution; scope bounds the work. "Must work offline" is a requirement; "the mobile client is out this phase" is scope. The tell: does it constrain the solution or the effort?
+4. **Target/outcome vs definition of done.** The condition you check to say "finished" is definition of done. What you are trying to bring about is target/outcome.
+5. **Requirement vs implementation choice.** A requirement states what the outcome must satisfy. A requirement written as "use X" rather than "must achieve Y" pre-decides the design inside the brief, closing the fluid space before it opens. This runs directly against Project Design's purpose — fluid in, precise out.
+
+## Design document
+
+### What the design is
+
+The design is the current confirmed model and approach — the authoritative delivery of the brief. A point-in-time snapshot of what is true now; it must be sufficient on its own to produce outcomes, and it governs on conflict. It is the primary source for the build handoff.
+
+The design carries its own live reasoning inline. Duplication with decisions is accepted and expected: design holds the live why for the current approach; decisions holds the fuller why, including paths not taken and reasoning that no longer bears on the current snapshot. This makes the design genuinely self-sufficient for the handoff without requiring the reader to find the reasoning elsewhere.
+
+The design document is the authoritative doctype — it governs on conflict with decisions or knowledge. Between master updates, the current position on the design is the master document plus any pending design content in the working document. Pending content has the same authority as the master it is destined for.
+
+### Design criteria
+
+The design is not done until all nine hold:
+
+1. **It delivers the brief** — every requirement is addressed, or explicitly deferred or rejected with a reason.
+2. **It is sufficient alone** to produce the outcome.
+3. **Every element carries its why inline.**
+4. **It states the model.**
+5. **It states its boundaries** — what it does not cover, and where it hands off.
+6. **Workflow, behaviour, methodology rules and guidance are recorded in it.**
+7. **It is current state** — no superseded content left standing.
+8. **Its thinking is routed to decisions and knowledge as produced** — the producer obligation, not a later sweep.
+9. **Current design contributions do not conflict materially.** Where several current contributions bear on the same outcome, they are reconciled before handoff. Build is never handed a choice between unresolved designs.
+
+### Design advice
+
+- Group elements as model / rules / definitions / boundaries.
+- Lead with the model before elaborating. State it compactly; if it will not state cleanly, the model is wrong, not the write-up.
+- Link elements back to brief items where the connection is not obvious.
+- Include a worked example where the rules are abstract.
+
+### Reasoning routing
+
+Because the design is only a snapshot, the reasoning behind each choice is lost unless captured as the design is worked. The routing is a producer obligation:
+
+**Same-pass rule** — a design change and its reasoning are produced together; reasoning is never left to live only in conversation.
+
+**Retention checkpoint** — every design-element change triggers a check: anything removed from the design must survive in decisions; if not, it is added before the removal stands. This is the locked content-removal trigger pointed at the document most likely to churn.
+
+**Split** — topic-scoped reasoning to decisions; reasoning with no owning topic to knowledge.
+
+**Authority** — decisions and knowledge inform; they never override or supplement the design as the executable authority. Design governs on conflict.
+
+### Coverage check
+
+A coverage check is run once, when the design is called done — walk the brief's requirements and confirm each is met, deferred, or rejected. Per-element traceability links were rejected: they rot on every edit and the maintenance cost buys little. The coverage check tests criterion 1 above.
+
+## Overview
+
+### What the overview is
+
+A single pane-of-glass snapshot of a whole project — an accurate, concise snapshot that can be loaded into the head quickly. It solves the single biggest problem in working with AI: information overload when working across five or ten topics and switching between build and design work. It gives context for anything discussed without re-reading the documentation set, and serves as a deviation detector — a concise snapshot surfaces anything that does not align with the objective or the model.
+
+**Owner:** Project Design. **Audience:** primarily human.
+
+### Overview content
+
+**Required:** key objective; the chosen approach or delivery method; the top-level model; key defining principles.
+
+**Advice:** project-level scope and boundaries, where a reader would otherwise misjudge the edges.
+
+**Register:** statements, not explanation. Each entry is a recall handle with the detail reachable on demand. Brevity is a strong benefit but never bought at the cost of what the overview must contain.
+
+### Overview scaling
+
+Inline in the design or the brief for small projects; split out into its own document per the split test. Where a project is a single document, the overview and that document's summary are the same artefact, not two.
+
+**The summary suppression rule.** While an overview lives inline in a document, that document does not also carry a summary — the overview is already doing the orienting job at a superset level. The moment the overview branches out to its own document, the source document gets a summary back.
+
+## Work register
+
+### What the work register is
+
+The ledger of confirmed work owed and not yet fully delivered. Not ideas, not maybes — those are work items and go to open items or stay in conversation. Default-on: non-use must be stated explicitly.
+
+**Owner:** Project Design. The register is the one artefact where design is both source and target — the only thing Project Design both produces and consumes — which is why its states must reconcile against build return.
+
+### Work register fields
+
+**Required:** source (the design element or decision that committed it); the commitment (what was committed); what must change (the required output or implementation change); target (where the change lands); state.
+
+**Advice:** handoff reference, return reference, area.
+
+### Origin tagging
+
+Each item tags its origin as design-generated or directly-entered. The register admits confirmed non-design-generated work. The discipline that real design work should not bypass design is a judgement at entry, not a mechanism.
+
+### Writing rule — logical blocks of work
+
+Items go to the register as logical blocks of work — coherent wholes that mean something on their own terms, each individually completable or completable together. Design does the chunking at the point of writing the entry, not afterwards when a partial return forces the question. The axis is coherence, not build-effort sizing.
+
+There are no child items and no task tree — the register stays flat and every item is atomic: owed or discharged. Build may take items singly or swallow several in one handoff, since build owns units of work. If an item cannot be completed by one handoff, that is a sign design wrote it too coarse.
+
+### Area — a flat optional label
+
+An item may carry an area. An area is a label, not a container: areas do not own items, have no states, are never completed, and nothing rolls up. It exists so design can hand off a coherent bundle and so the register can be read by theme. Design does the labelling because design holds the coherence view that build does not.
+
+### States
+
+Four states:
+
+1. **Owed**
+2. **Handed off**
+3. **Returned, pending reconciliation**
+4. **Reconciled**
+
+Build return states map to register consequences: confirmed → reconcile and close. Needs information or raises an issue → back to owed, the issue becomes a work item for design. Failed → back to owed. Done with deviation → returned-pending; design decides whether to accept.
+
+**Invariant:** build never closes a register item. Design owns closure because design owns the commitment.
+
+### Immutability after handoff
+
+**Not yet handed off (owed):** the entry is mutable. Superseded → amend in place. No longer relevant → remove it; removal is a retention trigger, so the withdrawal and its reason go to decisions in the same pass.
+
+**Already handed off:** the description of the work owed is immutable. It is the record of what crossed the responsibility boundary and nothing may rewrite it. Design determines the impact and the remedy, makes the call explicitly, and records it. The register carries the outcome; the reasoning goes to decisions.
+
+Advice: a superseding commitment usually wants its own entry; telling build sooner is usually better than later.
+
+## Capture and place
+
+### What capture and place is
+
+A Project Design conversation wanders — tangents, triggers, exploration alongside focused work. The AI's job is that nothing said gets left where it fell. Each thing that emerged gets put where it belongs.
+
+The requirement: the director stays focused on the knowledge and on working the item, trusting the AI to file everything necessary in the appropriate place, with no valuable knowledge lost.
+
+### Three obligations on the AI
+
+1. **Continuous capture, silently.** The moment something in the conversation settles, shifts or is raised, it is noted against a destination — then, not at session end. Nothing is held on the strength of "I'll remember." A session-close sweep recovers only what is still visible; the early material in a long chat drifts out of reach.
+
+2. **Placement by destination definitions.** Settled things go to a permanent home — the brief if problem-space, the design if solution-space, decisions if topic-scoped reasoning, knowledge if reasoning with no owning topic. Unsettled content goes to a holding place — WIP for live thinking, open items for a parked question. Confirmed but undelivered work goes to the work register — not unsettled, but not yet delivered. The brief boundary tests resolve placement involving brief content.
+
+3. **Batched surfacing at natural breaks.** What was captured and where it is going is put in front of the director in plain language; he agrees or corrects; only then is it written.
+
+The director may override any placement at any time but never has to. If he says nothing, it still lands.
+
+### Placement rules
+
+**Placement defers to the destination's own standard for content.** Capture and place routes to a destination; the destination's standard says what belongs in it. This mechanism holds no guidance of its own about what a decisions entry or a brief section should contain — that would be a second source of truth.
+
+**Homeless pieces are named, not dropped.** Anything that cannot be placed is surfaced in the batch rather than quietly left out. Where there is genuinely nowhere proper, the interim-placement rule applies: place it sensibly for now and raise a review task.
+
+**Err toward over-capture.** Cheap to delete in review, expensive to lose. Including tangents that went nowhere: the reason a line was abandoned is often the keepable part, and that is a knowledge entry.
+
+**Batch triggers.** The session-transition commands (full stop, checkpoint and continue, flush without closing) are the batch triggers. When a topic closes mid-chat, the AI offers the batch unprompted rather than waiting for a command.
+
+## The commitment-and-return loop
+
+The circuit: a design change produces a commitment (register entry, owed) → handoff, responsibility crosses → build works → build return in one of five states → reconciliation → the item closes, or the return provokes a design change which produces fresh commitments.
+
+### The escalation boundary
+
+Design owns the what and why; build owns the how. The test: does what build encountered change what is being delivered or why, or only how it gets delivered? How is build's call. What or why comes back.
+
+**Tiebreak:** if build cannot tell which side it is on, it returns. An unnecessary return costs a message. Silently absorbing a design change costs the design's authority and is exactly the silent-swallowing failure this component exists to prevent.
+
+### The cost-and-complexity flag
+
+Something that looks simple in design can turn out complex in build. Rather than build persevering and silently carrying that cost, it flags: this is looking more extensive and complicated than it probably seemed from the design side — do you want to review, or are you happy to proceed?
+
+What is being protected is the value-versus-cost judgement, and that judgement is design's, because only design holds the why.
+
+An obligation, not a threshold. When the real cost or complexity materially exceeds what the design appeared to assume, build surfaces it before proceeding. No number — just the duty to flag, and build's own judgement of "materially."
+
+A flag with a default of proceed, not a return. If design does not intervene, build proceeds. The loop keeps moving.
+
+### The design-build handoff
+
+The handoff is where responsibility crosses from design to build. The work-package doctype is withdrawn — replaced by a transition point whose mechanism varies with the build context.
+
+- **Design must not overreach into build — even in the same session.** The transition point exists to stop design running, controlling or managing build.
+- **Shape varies with scenario** — a one-line message for trivial work, a full package for complex work; it may not physically move when design and build share a session.
+- **Multiple builders.** One design may hand off to several builders for different components, each returning independently.
+- **Sufficiency is the one firm requirement.** Whatever crosses must carry everything the build side needs to act without returning to the design conversation. Format free, sufficiency required.
+- **Sufficiency has a ceiling as well as a floor.** Do not re-supply generic execution-platform knowledge the build environment already provides. The handoff carries what is specific to this work.
+
+### Build return
+
+Every build handoff expects a build return. A confirmation of the work is the default, because without it nothing can establish that a handoff completed. Fire-and-forget is allowed but must be explicitly declared.
+
+A handoff and its return are a matched pair. An open handoff with no return is an incomplete transaction.
+
+**Return states:** confirmed, needs information, raises an issue, failed, done with deviation.
+
+**Return sufficiency:** the return must carry everything design needs to reconcile without going back to build. Sufficient out, sufficient in.
+
+- **Never bare.** "Done" is not a return. Every return carries a real description of what was actually done, or what prevented it — accessible and comparable so design can hold it against the commitment.
+- **Attribution on failure.** A failure has two possible origins and the return must say which: design-side (unbuildable, unclear, conflicting) or build-side (a configuration, environment, file or tooling fault). The response differs completely. Selectivity is allowed on deep internal build faults: build reports enough to establish it was build, not design, without exposing the whole internal cause.
+- **Proportional to the task.** A trivial task earns a brief return; a high-impact task earns fuller reporting, because design has a heavier decision to make.
+- **Review results ride in the return.** Where the work was reviewed, the return says so and carries the result.
+
+### Reconciliation
+
+Reconciliation is design's act of checking a return against its commitment and deciding the outcome — close it, accept a deviation, or send it back to owed. One act, three endings.
+
+Who: design, always. Build reports; design decides.
+
+Against what: the original commitment — what the register said was owed. Not "did build do something" but "did build do the thing that was promised."
+
+It fires on two return states: confirmed (check and close) and done with deviation (design decides whether the deviation is acceptable; accepting is itself a design change and may spawn a fresh commitment; rejecting returns it to owed). The other three states deliver nothing to reconcile — the item stays owed and routes back into the design conversation.
+
+### Loop visibility
+
+An item that has been round the loop several times is a design smell worth surfacing — usually the design is wrong at a level above the item. Not blocked, not stopped, just visible. Every trip round the loop is provoked by something real; the goal is not the loop stopping but the register emptying.
+
+## Design is the default
+
+A design almost always exists behind a standard, and a standard almost always has a design behind it. Authoring straight to standard is the exception — justified only where everything worth recording fits the standard without compromising either document. The design holds the reasoning, alternatives and constraints; the standard holds the conclusion. Forcing everything into the standard alone either bloats it past the conciseness gate or leaves the reasoning unrecorded.
+
+## Component-ownership boundary
+
+The governing test — the provider-consumer test Documentation Methodology already uses: **does the thing exist and carry meaning outside Project Design?** Yes → it is generic and lives with the generic owner. No → it belongs to Project Design.
+
+Applied: the work register comes home to Project Design (the temporal gap it fills only exists because Project Design owns both ends of the loop). WIP stays generic (any session stages thinking). Open items stay generic (build sessions accrue deferred sub-tasks). Decisions and knowledge stay generic (provisional home Working Practices).
+
+**Three placement bands:**
+1. Universal grammar → Documentation Methodology.
+2. Generic operating behaviour and live state → Working Practices.
+3. Component-specific → the component itself.
+
+## Boundaries
+
+Project Design does **not** own:
+
+- **WIP, open items, decisions, knowledge** — generic doctypes, provisional home Working Practices.
+- **The work item** — a generic workflow entity owned by Working Practices.
+- **Definition of done** — a generic block type owned by Working Practices; the brief consumes it.
+- **Document structure and block grammar** — Documentation Methodology.
+- **Session-transition commands** — Working Practices.
+- **The shaping behaviour for brief and design** — how they get evolved in conversation; Working Practices for now.
+
+## Carries to other components
+
+**To Principles:** definition of done as a candidate premise.
+
+**To Working Practices:** WIP and open items; decisions and knowledge doctype ownership; the shaping behaviour for brief and design; the no-knowledge-lost rule; the session-transition commands; the nomination model for live-state granularity; the six-stage review procedure; the work item as the base workflow entity; definition of done as a generic block.
+
+**To Build:** build must recognise it is holding a what/why question rather than a how question, and must judge when cost has materially exceeded the design's apparent assumption.
+
+**To Documentation Methodology:** the split test; the ownership-designation rule; the binder doctype definition.
+
+**To Standards:** the Contents/Summary edge.
+
+**To Core:** facilitate, not constrain — its form and home at AIDE's root are deferred.
+
+---
+
+Version note: v2 — cross-review remediation: producer rule specified (PD-D1), boundary test framing corrected (PD-D2), capture-and-place three bands (PD-D3), proportionality factors added (PD-S8), model advice items merged (PD-DEC2), two-tier model acknowledged (PD-DEC4/D21). 2026-09-11.
+<!-- END SOURCE: Project Design/ProjectDesign_Design_v2.md -->
+
+---
+
 <!-- BEGIN SOURCE: Project Design/ProjectDesign_Standard_v2.md -->
 Project Design — Standard | standard | ProjectDesign_Standard@v2 | 2026-09-11
 
@@ -8408,6 +8905,250 @@ Information. Reconciliation fires on two return states only. Confirmed — check
 
 Information. An item that has been round the loop several times is a design smell worth surfacing — usually the design is wrong at a level above the item.
 <!-- END SOURCE: Project Design/ProjectDesign_Standard_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: Project Design/ProjectDesign_Standard_v3.md -->
+Project Design — Standard | standard | ProjectDesign_Standard@v3 | 2026-09-11
+
+Rules for briefs, design documents, work registers, capture-and-place, and the design-build handoff-return loop.
+
+## Applicability
+
+Information. Apply this standard when doing design work (writing or evolving a brief, design, or overview), managing the work register, performing capture and place during a design conversation, handing off to build, processing a build return, or reconciling a return against a commitment.
+
+## What Project Design is
+
+Information. Project Design produces the design specification and manages the return from build. It owns both ends of the design-build loop — the outbound specification and reconciliation when build reports back. Purpose in two words: fluid in, precise out.
+
+Information. The flow: intent → capture and place → brief → design → commitments → register → handoff → build → reconcile.
+
+Recommended. **Proportionality test.** Judge the amount of structure by consequence, reach, reversibility and uncertainty. Small clear tasks do not require ceremony merely to imitate a large project.
+
+## Design is the default
+
+Recommended. A design almost always exists behind a standard, and a standard almost always has a design behind it. Authoring straight to standard is the exception — justified only where everything worth recording fits the standard without compromising either document.
+
+## The document set
+
+Information. Project Design owns four document types: brief, design, overview, and work register. It also owns two transition mechanisms — the design-build handoff and the build return — and the producer rule. It consumes generics: decisions, knowledge, WIP, open items, work item, and definition of done.
+
+Required. **The producer rule.** Whenever a confirmed design change creates downstream work that is not already represented in the register, that work must be entered as a register item in the same pass. An existing item that already covers the obligation is not duplicated.
+
+Information. A design project is the scope of one design: a brief and the design that delivers it, together with the commitments entered into the work register. A naming convenience for a boundary that already exists, not a new entity. If it starts acquiring properties — a state, an owner, a lifecycle — that is the signal it was a mistake.
+
+## Brief
+
+Information. The brief fixes the problem and the bar for success before designing. The brief is the problem space; the design is the solution space. The brief must be complete enough that the design has everything it needs, without smuggling in solution decisions.
+
+Required. A brief is mandatory — always. Standalone or inline at the head of a design document, but never absent.
+
+### Brief sections
+
+**Required, always:**
+
+Required. **Purpose** — the problem or need, and why it is worth solving.
+
+Required. **Objectives** — what success looks like.
+
+Required. **Definition of done** — the completion bar. Short, accurate, concise — the primary success test.
+
+**Required in substance, may be light:**
+
+Required. **Requirements** — the conditions the solution must satisfy. May be a single line, but never absent: "no stated requirements" is a deliberate statement, not an omission.
+
+Required. **Scope and boundaries** — what is in, and what is explicitly out. May be light for small projects.
+
+Required. **Linked build project or build outcome** — which build the design feeds. Absent only where the design produces no build.
+
+**Optional, scale-dependent:**
+
+Optional. **Considerations** — constraints, background, stakeholders, business case, prior research, methodology, assumptions, risks.
+
+Optional. **Target / outcome** — the intended end state and any acceptance criteria. Separate from definition of done: the definition of done is the pass-or-fail test, the target is the broader described end state.
+
+Information. The brief scales by which sections are present and how deep each runs.
+
+### Brief boundary tests
+
+Required. These five boundary tests involving brief content settle where content belongs when the destination is not obvious — some resolve placement within the brief, others resolve the boundary between the brief and a neighbouring destination.
+
+1. **Objectives vs requirements.** An objective is what success looks like; a requirement is a condition the solution must meet to get there. "Fast" is an objective; "responds within two seconds" is a requirement.
+
+2. **Considerations vs decisions.** A consideration is live input still bearing on the design; the moment it resolves into a choice it moves to decisions.
+
+3. **Requirements vs scope.** A requirement constrains the *solution*; scope bounds the *work*. "Must work offline" is a requirement; "the mobile client is out this phase" is scope. The tell: does it constrain the solution or the effort?
+
+4. **Target/outcome vs definition of done.** The condition you check to say "finished" is definition of done. What you are trying to bring about is target/outcome.
+
+5. **Requirement vs implementation choice.** A requirement states what the outcome must satisfy. A requirement written as "use X" rather than "must achieve Y" pre-decides the design inside the brief, closing the fluid space before it opens.
+
+## Design document
+
+### What the design is
+
+Information. The design is the current confirmed model and approach — the authoritative delivery of the brief. A point-in-time snapshot of what is true now. It must be sufficient on its own to produce outcomes, and it governs on conflict with any other document.
+
+Required. The design carries its own live reasoning inline — the rationale for the current approach. Duplication with decisions is accepted and expected.
+
+### Design criteria
+
+Required. A design is not done until all nine hold:
+
+1. It delivers the brief — every requirement addressed, or explicitly deferred or rejected with a reason.
+2. It is sufficient alone to produce the outcome.
+3. Every element carries its reasoning inline.
+4. It states the model.
+5. It states its boundaries — what it does not cover, and where it hands off.
+6. Workflow, behaviour, methodology rules and guidance are recorded in it.
+7. It is current state — no superseded content standing.
+8. Its thinking is routed to decisions and knowledge as produced — the producer obligation, not a later sweep.
+9. Current design contributions do not conflict materially — build is never handed a choice between unresolved designs.
+
+### Design advice
+
+Recommended. Group elements as model / rules / definitions / boundaries.
+
+Recommended. Lead with the model before elaborating. If the model will not state compactly, the model is wrong, not the write-up.
+
+Optional. Link elements back to brief items where the connection is not obvious.
+
+Optional. Include a worked example where the rules are abstract.
+
+### Reasoning routing
+
+Required. A design change and its reasoning are produced together. Reasoning is never left to live only in conversation.
+
+Required. Every design-element change is a retention checkpoint: anything removed from the design must survive in decisions. If not, add it before the removal stands.
+
+Information. Topic-scoped reasoning goes to decisions; reasoning with no owning topic goes to knowledge. Decisions and knowledge inform but never override design.
+
+### Coverage check
+
+Required. When the design is called done, walk the brief's requirements and confirm each is met, deferred, or rejected.
+
+## Overview
+
+Information. The overview is the project-scale snapshot — a pane-of-glass view of the whole design project. Also a deviation detector: anything that cannot be placed against the overview is either a branch or evidence the overview is missing something.
+
+Required. The overview carries: key objective, the chosen approach or delivery method, the top-level model, and key defining principles.
+
+Recommended. Include project-level scope and boundaries where a reader would otherwise misjudge the edges.
+
+Required. Overview entries are statements, not explanation — each is a recall handle with detail reachable on demand.
+
+### Scaling and the summary suppression rule
+
+Recommended. The overview sits inline in the design document or the brief for small projects. It splits to its own document per the split test — externalise when keeping it inline would compromise the primary role of its host.
+
+Required. While an overview lives inline, the host document does not also carry a summary. When the overview splits out, the source document gets its summary back.
+
+Information. A single-document project's overview and summary are the same thing.
+
+## Work register
+
+Information. The work register is the ledger of confirmed work owed and not yet delivered. Project Design owns it — the register is the one artefact where design is both source and target.
+
+Required. The register is default-on. Non-use must be stated explicitly.
+
+### Entries
+
+Required. Each entry carries five fields: source (the design element or decision that committed it), the commitment, what must change, target (where the change lands), and state.
+
+Recommended. Advice fields: handoff reference, return reference, area.
+
+Required. Each entry tags its origin as design-generated or directly-entered. The register admits confirmed non-design-generated work. The discipline that real design work should not bypass design is a judgement at entry, not a mechanism.
+
+### Writing rule
+
+Required. Items enter the register as logical blocks of work — coherent wholes individually completable, chunked at the point of writing. The axis is coherence, not build-effort sizing. No child items, no task tree — the register stays flat and every item is atomic.
+
+Optional. An item may carry an area label. An area is a label, not a container — areas do not own items, have no states, and nothing rolls up.
+
+### States
+
+Information. Four states: owed → handed off → returned, pending reconciliation → reconciled.
+
+### Register maintenance
+
+Required. While an item is owed and not yet handed off, it may be amended in place when superseded, or removed when no longer relevant. Removal is a retention trigger — the withdrawal and its reason go to decisions in the same pass.
+
+### Immutability after handoff
+
+Required. Once handed off, an entry's description of the work owed is immutable — it is the record of what crossed the responsibility boundary.
+
+Required. Build never closes a register item. Design owns closure because design owns the commitment.
+
+Required. When a handed-off commitment is superseded, design determines the impact and remedy, makes the call explicitly, and records it.
+
+## Capture and place
+
+Information. Project Design conversations wander — tangents, triggers, exploration alongside focused work. The AI's job is that nothing said is left where it fell.
+
+### Three obligations on the AI
+
+Required. **Continuous capture, silently.** The moment something settles, shifts, or is raised, it is noted against a destination — then, not at session end. Nothing is held on the strength of "I'll remember."
+
+Required. **Placement by destination definitions.** Settled content goes to a permanent home — brief if problem-space, design if solution-space, decisions if topic-scoped reasoning, knowledge if reasoning with no owning topic. Unsettled content goes to a holding place — WIP for live thinking, open items for a parked question. Confirmed but undelivered work goes to the work register.
+
+Required. **Batched surfacing at natural breaks.** What was captured and where it is going is put in front of the user in plain language, providing an opportunity to correct placement. If no correction is given, the placement stands — silence does not block persistence. When a topic closes mid-session, the AI offers the batch unprompted.
+
+### Placement rules
+
+Required. Placement defers to each destination's own standard for content. Capture and place holds no guidance of its own about what a decisions entry or a brief section should contain.
+
+Required. Homeless pieces are named, not dropped. Where there is genuinely nowhere proper, place it sensibly and raise a review task.
+
+Recommended. Err toward over-capture. Cheap to delete in review, expensive to lose.
+
+## The commitment-and-return loop
+
+Information. The circuit: a design change produces a commitment (register entry, owed) → handoff → build works → build return → reconciliation → the item closes, or the return provokes a design change producing fresh commitments.
+
+### The escalation boundary
+
+Required. Design owns the what and why; build owns the how. The test: does what build encountered change what is being delivered or why, or only how it gets delivered? How is build's call. What or why comes back.
+
+Required. If build cannot tell which side of the boundary it is on, it returns. An unnecessary return costs a message; silently absorbing a design change costs the design's authority.
+
+### The cost-and-complexity flag
+
+Required. When real cost or complexity materially exceeds what the design appeared to assume, build surfaces it before proceeding.
+
+Information. A flag with a default of proceed, not a return. If design does not intervene, build proceeds.
+
+### Design-build handoff
+
+Required. The handoff carries everything the build side needs to act without returning to the design conversation. Format free, sufficiency required.
+
+Recommended. The handoff has a ceiling as well as a floor — do not re-supply generic execution-platform knowledge the build environment already provides. Carry what is specific to this work.
+
+Required. Design must not overreach into build, even in the same session.
+
+### Build return
+
+Required. Every build handoff expects a build return. Fire-and-forget must be explicitly declared at the handoff.
+
+Required. Never bare. Every return carries what was actually done or what prevented it — accessible and comparable against the commitment.
+
+Required. A failure names its origin — design-side (unbuildable, unclear, conflicting) or build-side (environment, tooling). The response differs: a design fault re-enters design; a build fault means retry or fix, nothing for design to rework.
+
+Required. The return carries everything design needs to reconcile without going back to build. Sufficiency is symmetrical with handoff sufficiency.
+
+Recommended. Return detail is proportional to the task — a trivial task earns a brief return, a high-impact task earns fuller reporting.
+
+Required. Where the work was reviewed, the return identifies that a review was performed and carries the result.
+
+Information. Five return states: confirmed, needs information, raises an issue, failed, done with deviation.
+
+### Reconciliation
+
+Required. Reconciliation is design's act of checking a return against its commitment and deciding the outcome — close it, accept a deviation, or send it back to owed.
+
+Information. Reconciliation fires on two return states only. Confirmed — check and close. Done with deviation — design decides whether to accept; accepting is a design change that may spawn a fresh commitment. The other three states (needs information, raises an issue, failed) deliver nothing to reconcile — the item stays owed.
+
+Information. An item that has been round the loop several times is a design smell worth surfacing — usually the design is wrong at a level above the item.
+<!-- END SOURCE: Project Design/ProjectDesign_Standard_v3.md -->
 
 ---
 
