@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 41** (2026-09-12).
+> **Binder Version 42** (2026-09-13).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -17,13 +17,14 @@ individual files.
 - `_rebuild/ProjectDesign_Design_Pending_v1.md` - sha256 `587bc4c6165f`
 - `_rebuild/ProjectDesign_StandardInputs_Pending_v1.md` - sha256 `710b74bb0958`
 - `_rebuild/ProjectDesign_WorkRegister_Pending_v1.md` - sha256 `638ebbfb6eef`
-- `Core/_index.md` - sha256 `8e58c5e0026b`
+- `Core/_index.md` - sha256 `d177f77812eb`
 - `Core/Core_AIDEMap.md` - sha256 `e3b0c44298fc`
 - `Core/Core_AIDEMap.yaml` - sha256 `a3f651bdb590`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
 - `Core/Core_AIDEPrinciples_Design_v1.md` - sha256 `60e20e8d0b9d`
 - `Core/Core_Brief_v1.md` - sha256 `6c2e6280ea89`
 - `Core/Core_Design_Documentation_Working_v1.md` - sha256 `b2999c523397`
+- `Core/Core_Schema_Standard_v1.md` - sha256 `dc4ee250329f`
 - `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
 - `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
 - `Core/Core_Tags_Working_v1.md` - sha256 `ae6557378adf`
@@ -33,9 +34,9 @@ individual files.
 - `Documentation Methodology/DocMeth_Decisions_v6.md` - sha256 `fc41e619a847`
 - `Documentation Methodology/DocMeth_Design_v6.md` - sha256 `8b5d6a24a5d7`
 - `Documentation Methodology/DocMeth_Working_v8.md` - sha256 `b94c28da8ad2`
-- `Documentation Methodology/DocumentationMethodology_Authoring_Standard_v4.md` - sha256 `ad5b83e204c6`
-- `Documentation Methodology/DocumentationMethodology_Definitions_Standard_v4.md` - sha256 `e54b680c61c9`
-- `Documentation Methodology/DocumentationMethodology_Schema_Standard_v4.md` - sha256 `d52b14c0b531`
+- `Documentation Methodology/DocumentationMethodology_Authoring_Standard_v4.md` - sha256 `01a5782287dc`
+- `Documentation Methodology/DocumentationMethodology_Definitions_Standard_v4.md` - sha256 `0afdaff9b7cb`
+- `Documentation Methodology/DocumentationMethodology_Schema_Standard_v4.md` - sha256 `0d355d93a24a`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `e6573d80384e`
@@ -51,18 +52,19 @@ individual files.
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `e6d1eb38aba5`
 - `Principles/Principles_Decisions_v4.md` - sha256 `2c31c26b5c66`
 - `Principles/Principles_Design_v4.md` - sha256 `4bd5797d3d2e`
-- `Project Design/_index.md` - sha256 `a1d262969ad0`
+- `Project Design/_index.md` - sha256 `589d24282970`
 - `Project Design/ProjectDesign_Decisions_v2.md` - sha256 `0a07a453c42c`
 - `Project Design/ProjectDesign_Design_v2.md` - sha256 `80a739c74e04`
-- `Project Design/ProjectDesign_Standard_v3.md` - sha256 `fe55bbec4f27`
+- `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `b3f80cfe062f`
+- `Project Design/ProjectDesign_Standard_v3.md` - sha256 `fd5ac0fd7efc`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
-- `Standards/Standards_Authoring_Standard_v5.md` - sha256 `af5113f73be9`
-- `Standards/Standards_Consumption_Standard_v2.md` - sha256 `f473734c8974`
+- `Standards/Standards_Authoring_Standard_v5.md` - sha256 `cb72bc7e0e85`
+- `Standards/Standards_Consumption_Standard_v2.md` - sha256 `b340d11315e3`
 - `Standards/Standards_Decisions_v2.md` - sha256 `c0286118492c`
 - `Standards/Standards_Design_v2.md` - sha256 `cfedb41ac36c`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
 - `Tools/_index.md` - sha256 `7bb05b130edc`
-- `Tools/Tools_Authoring_Standard_v4.md` - sha256 `c8d9e5ceca39`
+- `Tools/Tools_Authoring_Standard_v4.md` - sha256 `497b9d3b918c`
 - `Tools/Tools_Decisions_v4.md` - sha256 `8ce74a49af55`
 - `Tools/Tools_Design_v3.md` - sha256 `70dee72bc66c`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
@@ -3564,6 +3566,12 @@ Core is the root entry to AIDE — the framework's self-description, component m
 
 **Capabilities.** A term covering output definitions — Standards, Tools, Utilities. Components that define things delivering and adding functionality.
 
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| Core_ | Schema Standard v1 | standard |
+
 ## Parts
 
 **Structure** (prefix `Core_Structure_`)
@@ -3942,6 +3950,45 @@ AIDE is a living, evolving system. Learn something while working, stop, design t
 5. **Area boundary mechanism** — area boundaries are declared in documents, not by folders. The precise mechanism (property, marker block, doc type implication) is for the design.
 6. **Core Brief v2** — drafted but needs rework to reflect this session. The fork structure is abandoned; Core's objectives now include stating AIDE's outcomes with components delivering them.
 <!-- END SOURCE: Core/Core_Design_Documentation_Working_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Core/Core_Schema_Standard_v1.md -->
+> identity: Core_Schema_Standard@v1 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
+
+# Core — Schema Standard
+
+The doctypes and block types defined by Core, using the Documentation Methodology definition contract.
+
+## What this standard is for
+
+Information. This standard defines Core's types. These definitions are provisional pending Core's design pass.
+
+## Doctypes
+
+### Index
+
+- **Purpose:** The identity, entry point, and root source for a component or topic. Carries folder metadata, the component name, role, aliases, document listing, and parts declaration. One per scope.
+- **Format constraint:** markdown.
+- **Format conventions:** the filename is `_index.md`. The leading underscore sorts it to the top of a directory listing.
+
+Information. The index document's content and structural role are defined in the Core component once that design pass is complete. This definition is provisional.
+
+## Block types
+
+### Tags
+
+- **Purpose:** Classification labels for a governed document.
+- **Placement:** footer.
+- **Fields:**
+  - tags (optional) — a flat list of classification labels.
+
+Deferred under the demonstrated-requirement rule (D21). Defined so the concept is not lost. Returns when a consumer demonstrates need.
+
+---
+
+Version note: v1 — initial schema standard. Provisional pending Core's design pass. 2026-09-12.
+<!-- END SOURCE: Core/Core_Schema_Standard_v1.md -->
 
 ---
 
@@ -4773,10 +4820,9 @@ Version note: v8 — cross-review round 3 findings absorbed. 2026-09-12.
 ---
 
 <!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Authoring_Standard_v4.md -->
-# Documentation Methodology — Authoring Standard
+> identity: DocumentationMethodology_Authoring_Standard@v4 | doctype: standard | updated: 2026-09-12
 
-> identity: DocumentationMethodology_Authoring_Standard@v4 | doctype: standard | date: 2026-09-12
-> uses: DocumentationMethodology_Definitions_Standard@v4
+# Documentation Methodology — Authoring Standard
 
 Use when authoring, structuring, or versioning a governed document.
 
@@ -4803,16 +4849,14 @@ Required. The Declaration carries labelled fields:
 
 - identity (required) — name + @version, the authoritative reference
 - doctype (required) — the document's type
-- date (required) — the date this version was produced, YYYY-MM-DD
+- updated (required) — the date this version was produced, YYYY-MM-DD
 - uses (optional) — standards this document depends on, as `standard@version` pairs. Populated automatically from the dependency implications of the document's doctype and included block types. Conformance stamp, not constraint. The grouping syntax `name:[item1, item2]` tracks ownership.
 - blocks (optional) — non-scaffold typed blocks present in this document. The scaffold (Declaration, Title, Description, Header, Body, Footer) is not re-stated. The grouping syntax tracks ownership.
 
-Information. In markdown, the Declaration renders as a blockquote with labelled fields:
+Information. In markdown, the Declaration renders as a single blockquote line with labelled, pipe-delimited fields:
 
 ```
-> identity: Name@vN | doctype: type | date: YYYY-MM-DD
-> uses: StandardA@v1, ComponentName:[StandardB@v2, StandardC@v1]
-> blocks: Summary, ComponentName:[Brief, WorkRegister]
+> identity: Name@vN | doctype: standard | updated: YYYY-MM-DD | uses: Dep1@vN, Dep2@vN
 ```
 
 Information. In structured formats (YAML, JSON), a reserved top-level `aide` key holds the Declaration fields as sub-properties (nested one level: `aide.identity`, not `aide_identity`). Presence of `aide` = governed.
@@ -4884,7 +4928,7 @@ Required. A block is a named set of fields. Structured formats express fields as
 Information. Deterministic defaults for markdown. Block definitions override when needed.
 
 - **Heading level** follows nesting: a top-level block uses `##`, a subheading within a block uses `###`. Deeper nesting adds levels.
-- **Compact fields** render as a single delimited line, pipe-separated, labelled. A block definition may override this — the Declaration renders compact fields across multiple lines (one per field group).
+- **Compact fields** render as a single delimited line, pipe-separated, labelled.
 - **Expanded fields** render as labelled list items: `- **FieldName:** value`.
 - **Containers** have no literal rendering — structural only. Children render in sequence.
 - **Title** is the markdown document heading (`#`).
@@ -4918,10 +4962,9 @@ Version note: v4 — round 3 corrections. Uses field propagation rule added. Blo
 ---
 
 <!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Definitions_Standard_v4.md -->
-# Documentation Methodology — Definitions Standard
+> identity: DocumentationMethodology_Definitions_Standard@v4 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
 
-> identity: DocumentationMethodology_Definitions_Standard@v4 | doctype: standard | date: 2026-09-12
-> uses: DocumentationMethodology_Schema_Standard@v4
+# Documentation Methodology — Definitions Standard
 
 The doctypes and block types defined by Documentation Methodology, using its own definition contract.
 
@@ -4937,10 +4980,10 @@ Information. This standard contains DocMeth's own type definitions — the commo
 - **Fields:**
   - identity (required) — name + @version, the authoritative reference
   - doctype (required) — the document's type
-  - date (required) — date this version was produced, YYYY-MM-DD
+  - updated (required) — date this version was produced, YYYY-MM-DD
   - uses (optional) — standards this document depends on, flat list with grouping syntax
   - blocks (optional) — non-scaffold typed blocks present in this document, flat list with grouping syntax
-- **Density:** compact. Overrides the single-line compact default — renders across multiple lines (one per field group) because some fields are optional and variable-length.
+- **Density:** compact. One blockquote line, all present fields labelled, pipe-delimited.
 - **Recognition:** by placement — first block, fixed topmost.
 - **Placement:** header, topmost.
 - **Container:** yes — a container for its labelled fields.
@@ -5042,9 +5085,9 @@ Version note: v4 — round 3 corrections. Manifest moved to common blocks. Binde
 ---
 
 <!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Schema_Standard_v4.md -->
-# Documentation Methodology — Schema Standard
+> identity: DocumentationMethodology_Schema_Standard@v4 | doctype: standard | updated: 2026-09-12
 
-> identity: DocumentationMethodology_Schema_Standard@v4 | doctype: standard | date: 2026-09-12
+# Documentation Methodology — Schema Standard
 
 Use when defining a new doctype or block type.
 
@@ -5072,13 +5115,17 @@ Information. A type defined in a versioned standard implicitly carries that defi
 
 Required. Dependency implications from the document's doctype and included block types populate the Declaration's `uses` field automatically. The `uses` field is syntactically optional in the Declaration but is present whenever resolved dependencies exist.
 
+Required. `uses` lists the standards whose change would specifically require review of this document. Universal dependencies — standards whose change triggers review of the entire governed corpus — are exempt because they carry no discrimination power. Three qualify as universal: the Authoring Standard (governs all governed documents), the common and scaffold block definitions in the Definitions Standard (present or available in all governed documents), and the standard doctype definition in the Standards Authoring Standard (every standard is one). A standard that defines its own doctype does not list itself.
+
+Required. Nested included blocks participate in dependency propagation — a block that includes another block acquires that block's defining standard as a dependency implication, which propagates to the hosting document's `uses` field under the same rules as direct inclusions.
+
 ## Doctype definition
 
 Required. A doctype definition states a name and a purpose.
 
 Recommended. Available vocabulary for a doctype definition, each stated when needed:
 
-- **Included blocktypes** — which blocks the doctype uses beyond the governed-document scaffold. For each: the optionality for this doctype (required, recommended, or optional) and any density override.
+- **Included blocktypes** — which blocks the doctype uses beyond the governed-document scaffold. For each: the optionality for this doctype (required, recommended, optional, or conditional) and any density override. A conditional entry states its condition — for example: "required when the design feeds a build, omitted otherwise."
 - **Block positioning** — where a block goes if different from the block's own placement default, or to resolve ordering between blocks.
 - **Dependency implications** — stated only when different from the implicit rule (defining standard).
 - **Format constraint** — narrows the permitted formats when the type requires it.
@@ -5093,8 +5140,8 @@ Required. A block-type definition states a name and a purpose.
 
 Recommended. Available vocabulary for a block-type definition, each stated when needed:
 
-- **Fields** — the named fields the block contains, with optionality per field (required, recommended, or optional) and any value constraints. Stated when the block has structured properties; omitted for content-only blocks.
-- **Subheadings** — when the block spans multiple sections, declares them with optionality per subheading (required, recommended, or optional).
+- **Fields** — the named fields the block contains, with optionality per field (required, recommended, optional, or conditional) and any value constraints. Stated when the block has structured properties; omitted for content-only blocks.
+- **Subheadings** — when the block spans multiple sections, declares them with optionality per subheading (required, recommended, optional, or conditional).
 - **Density** — compact or expanded. Stated when it matters; omitted when the content shape makes it obvious.
 - **Recognition** — how this block is identified. Three strategies: by subheading, by placement, or by marker. Required when position does not unambiguously identify the block.
 - **Placement** — which container this block places into and any ordering hint.
@@ -5102,6 +5149,7 @@ Recommended. Available vocabulary for a block-type definition, each stated when 
 - **Conditional behaviour** — rules the block owns about its own behaviour in context. The block owns its rules; the doctype cannot impose them on inclusion.
 - **Container** — declares this block as a placement destination for other blocks or content.
 - **Owner and residence** — as for doctypes.
+- **Included blocktypes** — which blocks this block includes. The same semantics as for doctypes: for each included block, the optionality for this parent block (required, recommended, optional, or conditional) and any density override. A block may not include itself; composition must not cycle (see Composition rules).
 
 ## Block-type recognition
 
@@ -5127,13 +5175,17 @@ Required. Blocks may include other blocks; composition recurses; no cycles. Shar
 
 Required. Content is defined in one place. Ambiguity is flagged rather than resolved silently.
 
+Required. The `blocks` Declaration field lists only directly hosted non-scaffold typed blocks, not the recursive closure of blocks included by other blocks. A Brief instance lists `Brief` in `blocks`; it does not also list blocks that Brief itself includes.
+
 ## Type-reference resolution
 
-Required. Type names must be unique within their owning component. Independently owned components may use the same name without coordination.
+Required. Type names must be unique within each kind in their owning component — a component may not define two doctypes with the same name, or two block types with the same name. The same name may intentionally exist as both a doctype and a block type within one component, distinguished by kind. Independently owned components may use the same name without coordination.
 
 Recommended. Unqualified names are the default when the name is unique within the document's active `uses` scope. The dot-qualified form disambiguates on collision: `pd.brief`, where the prefix is the component's declared alias.
 
-Information. Resolution path: a type's authoritative definition is in the defining standard listed in the document's `uses` field.
+Information. Resolution path: a non-universal type's authoritative definition resolves through its defining standard in the document's `uses` field. Universal types — those whose defining standard is exempt from `uses` under the universal-dependency rule — resolve through the framework's universal standards without appearing in `uses`. The three universal standards are `DocumentationMethodology_Authoring_Standard` (governs all governed documents), `DocumentationMethodology_Definitions_Standard` (common and scaffold blocks), and `Standards_Authoring_Standard` (the standard doctype).
+
+Required. Type references in Declaration fields (`doctype`, `blocks`) are serialized in lowercase. Definition headings are the display form; lowercase is the reference form. Type-name matching is case-insensitive. `uses` entries are document identity references and preserve the authoritative identity form, including version.
 
 ## Schema placement guidance
 
@@ -8355,6 +8407,7 @@ Project Design produces a coherent specification for work of any size and manage
 | ProjectDesign_ | Design v2 | design |
 | ProjectDesign_ | Decisions v2 | decisions |
 | ProjectDesign_ | Standard v3 | standard |
+| ProjectDesign_ | Schema Standard v1 | standard |
 
 ## Parts
 
@@ -8857,8 +8910,99 @@ Version note: v2 — cross-review remediation: producer rule specified (PD-D1), 
 
 ---
 
+<!-- BEGIN SOURCE: Project Design/ProjectDesign_Schema_Standard_v1.md -->
+> identity: ProjectDesign_Schema_Standard@v1 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
+
+# Project Design — Schema Standard
+
+The doctypes and block types defined by Project Design, using the Documentation Methodology definition contract.
+
+## What this standard is for
+
+Information. This standard defines Project Design's types — the block types that carry the functionality, and the doctypes that host them. For the definition grammar, see the Documentation Methodology Schema Standard. For rules governing how these types are used, see the Project Design Standard.
+
+## Block types
+
+### Brief
+
+- **Purpose:** Define the problem and the bar for success before designing. The problem space; the design is the solution space.
+- **Subheadings:**
+  - Purpose (required)
+  - Objectives (required)
+  - Definition of done (required) — see Included blocktypes
+  - Requirements (required)
+  - Scope and boundaries (required)
+  - Linked build project or build outcome (required when the design feeds a build, omitted otherwise)
+  - Considerations (optional)
+  - Target / outcome (optional)
+- **Included blocktypes:** Definition of done (required) — a generic block type owned by Working Practices. The brief consumes it because its invariant (testable-or-assessable) has demonstrated shared meaning beyond the brief. Provisional: the defining standard is not yet published; `uses` will be updated when Working Practices publishes its schema.
+- **Recognition:** by subheading — `Brief`, or by placement at the head of a design document.
+
+Information. The brief is a composite block — its subheadings form a unit that can sit inline in a design or be the body of a standalone brief document. The split test governs when it branches out. Custom content beyond the defined subheadings is permitted. What each subheading should contain and the boundary tests between them are defined in the Project Design Standard.
+
+Information. The Definition of done block type is owned by Working Practices, whose schema standard is not yet published. When it is, `ProjectDesign_Schema_Standard` will add it to its `uses` field.
+
+### Work register
+
+- **Purpose:** The ledger of confirmed work owed and not yet delivered.
+- **Fields:**
+  - source (required)
+  - commitment (required)
+  - what must change (required)
+  - target (required)
+  - state (required) — owed, handed off, returned pending reconciliation, or reconciled
+  - origin tag (required) — design-generated or directly-entered
+  - handoff reference (optional)
+  - return reference (optional)
+  - area (optional)
+- **Recognition:** by subheading — `Work register` or `Register`.
+
+Information. The register can sit inline in the design for small projects and split to its own document per the split test. Writing rules, state semantics, immutability after handoff, and maintenance rules are defined in the Project Design Standard.
+
+### Overview
+
+- **Purpose:** A project-scale snapshot — concise context for anything discussed without re-reading the documentation set. Also a deviation detector.
+- **Recognition:** by subheading — `Overview`, or by placement in a design document.
+
+Information. The overview can sit inline in a design or brief for small projects and be the body of a standalone overview document. The split test governs when it branches out. Content guidance and the summary suppression rule are defined in the Project Design Standard.
+
+## Doctypes
+
+### Brief
+
+- **Purpose:** A standalone document hosting the brief block.
+- **Included blocktypes:** Brief (required), Contents (recommended), Version note (optional).
+
+### Design
+
+- **Purpose:** The confirmed model and approach — the authoritative delivery of the brief. Sufficient on its own to produce outcomes. Carries its own live reasoning inline.
+- **Included blocktypes:** Brief (optional — inline per the split test), Work register (optional — inline per the split test), Contents (recommended), Summary (recommended), Version note (optional).
+
+Information. Design composition is criteria and advice, not a schema. The criteria, advice, reasoning routing, and coverage check are defined in the Project Design Standard. Placement rules and the summary suppression rule are defined in the Project Design Standard.
+
+### Overview
+
+- **Purpose:** A project-scale snapshot — concise context for anything discussed without re-reading the documentation set. Also a deviation detector.
+- **Included blocktypes:** Overview (required), Contents (optional), Version note (optional).
+
+Information. The overview sits inline in the design or the brief for small projects and splits to its own document per the split test. Content guidance and the summary suppression rule are defined in the Project Design Standard.
+
+### Work register
+
+- **Purpose:** A standalone document hosting the work register block.
+- **Included blocktypes:** Work register (required), Contents (optional), Version note (optional).
+
+---
+
+Version note: v1 — initial schema standard. Defines Project Design's three block types and four doctypes using the Documentation Methodology definition contract. 2026-09-12.
+<!-- END SOURCE: Project Design/ProjectDesign_Schema_Standard_v1.md -->
+
+---
+
 <!-- BEGIN SOURCE: Project Design/ProjectDesign_Standard_v3.md -->
-Project Design — Standard | standard | ProjectDesign_Standard@v3 | 2026-09-11
+> identity: ProjectDesign_Standard@v3 | doctype: standard | updated: 2026-09-12 | uses: ProjectDesign_Schema_Standard@v1
+
+# Project Design — Standard
 
 Rules for briefs, design documents, work registers, capture-and-place, and the design-build handoff-return loop.
 
@@ -9002,7 +9146,7 @@ Required. The register is default-on. Non-use must be stated explicitly.
 
 ### Entries
 
-Required. Each entry carries five fields: source (the design element or decision that committed it), the commitment, what must change, target (where the change lands), and state.
+Required. Each entry carries six fields: source (the design element or decision that committed it), the commitment, what must change, target (where the change lands), state, and origin tag.
 
 Recommended. Advice fields: handoff reference, return reference, area.
 
@@ -9114,7 +9258,9 @@ As a capability, Standards owns the definition of what a standard is, the author
 ---
 
 <!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v5.md -->
-Standards — Standard | standard | Standards_Authoring_Standard@v5 | 2026-09-11
+> identity: Standards_Authoring_Standard@v5 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
+
+# Standards — Authoring Standard
 
 How to design, author, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
 
@@ -9187,6 +9333,25 @@ Information. Triggering — how a standard gets loaded where it might be needed 
 
 **Each standard lives with its owning component.** Required. Standards is a methodological component — it defines how to build a standard, not where standards live. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
+## Schema definitions
+
+Information. Standards owns two types. The split test says to keep them here — two definitions, same change cadence as the authoring rules.
+
+### Standard
+
+- **Purpose:** Shape decisions and behaviour at the moment of application. Lean, memory-resident, applied alongside many others.
+- **Included blocktypes:** Clarification (optional), Contents (recommended), Summary (optional), Version note (optional).
+- **Format constraint:** markdown.
+
+Information. The authoring rules, strength vocabulary, trigger description, applicability scope, and deployment guidance are defined elsewhere in this standard. The consumption contract is defined in the Standards Consumption Standard.
+
+### Clarification
+
+- **Purpose:** Reasoning and justification supporting the standard's stated rules. The design-side "why" surfaced into the standard where it helps the consumer apply the rules.
+- **Recognition:** by subheading — `Clarification`.
+
+Information. Governed by the split test: stays in the standard when small, removed when it would bloat the loaded standard. When removed, the reasoning lives in the design document.
+
 ---
 
 Version note: v5 — adds invocability test pointer to Tools (carry from Tools design), 2026-09-11.
@@ -9195,7 +9360,9 @@ Version note: v5 — adds invocability test pointer to Tools (carry from Tools d
 ---
 
 <!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v2.md -->
-Standards — Standard | standard | Standards_Consumption_Standard@v2 | 2026-09-11
+> identity: Standards_Consumption_Standard@v2 | doctype: standard | updated: 2026-09-12 | uses: Standards_Authoring_Standard@v5
+
+# Standards — Consumption Standard
 
 How to evaluate, combine, and operate under applicable AIDE standards at runtime in an AI session.
 
@@ -9498,7 +9665,11 @@ Tools is a methodological component. It defines how to create its type; individu
 ---
 
 <!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v4.md -->
-Tools — Standard | standard | Tools_Authoring_Standard@v4 | 2026-09-11
+> identity: Tools_Authoring_Standard@v4 | doctype: standard | updated: 2026-09-12 | uses: Standards_Authoring_Standard@v5
+
+# Tools — Authoring Standard
+
+How tools are authored, published, and versioned within the AIDE framework.
 
 ## What a tool is
 
