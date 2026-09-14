@@ -10,21 +10,21 @@ Information. This standard applies when an AI session is operating under one or 
 
 ## Evaluate applicability before applying
 
-Required. A loaded standard is not automatically applicable. Before applying a standard, evaluate its declared applicability scope against the current situation. A standard whose scope does not match the current work is not applied, regardless of how it was loaded.
+A loaded standard is not automatically applicable. Before applying a standard, evaluate its declared applicability scope against the current situation. A standard whose scope does not match the current work is not applied, regardless of how it was loaded.
 
 ## Combine applicable standards
 
-Required. Compatible applicable standards stack — combine them, do not choose between them. When multiple standards apply to the same work and their guidance does not conflict, apply each item according to its declared strength.
+Compatible applicable standards stack — combine them, do not choose between them. When multiple standards apply to the same work and their guidance does not conflict, apply each item according to its declared strength.
 
 ## Resolve conflict
 
-Required. When two applicable items genuinely oppose each other on the same point, higher strength governs. Strength precedence: Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. When surfacing the conflict, identify the competing standards, the opposing items, and the work affected.
+When two applicable items genuinely oppose each other on the same point, higher strength governs. Strength precedence: Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. When surfacing the conflict, identify the competing standards, the opposing items, and the work affected.
 
-Required. Do not manufacture conflict from different concerns that can both be satisfied. Two standards addressing different aspects of the same work are not in conflict merely because both apply.
+Do not manufacture conflict from different concerns that can both be satisfied. Two standards addressing different aspects of the same work are not in conflict merely because both apply.
 
 ## Human override
 
-Required. Direct human instruction may override a standard within that person's authority. When the override displaces a required or recommended item:
+Direct human instruction may override a standard within that person's authority. When the override displaces a required or recommended item:
 
 - state the standard's position and the material consequence of departure;
 - make the departure visible; and

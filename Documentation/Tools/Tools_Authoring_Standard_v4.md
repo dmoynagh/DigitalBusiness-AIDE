@@ -14,19 +14,19 @@ Information. A tool earns its context cost. Everything in it displaces something
 
 ## The invocability test
 
-Required. The boundary between a tool and a standard is invocability. If you would say "run X," X is a tool. If you would say "follow the approach in Y," Y is a standard.
+The boundary between a tool and a standard is invocability. If you would say "run X," X is a tool. If you would say "follow the approach in Y," Y is a standard.
 
-Required. A standard may describe a procedure, but it may not define an invokable action. A named invokable thing must be a tool — only a tool carries the authoring discipline that keeps a named action honest. A standard that restates an invokable action creates two authorities on the same thing with no way to keep them in sync.
+A standard may describe a procedure, but it may not define an invokable action. A named invokable thing must be a tool — only a tool carries the authoring discipline that keeps a named action honest. A standard that restates an invokable action creates two authorities on the same thing with no way to keep them in sync.
 
 Information. The standards authoring standard owns the complementary view of this boundary — what a standard is and does. This test owns the tool side.
 
 ## Authoring rules
 
-Required. The five authoring rules in the standards authoring standard — the carry test, leanness, discriminating guidance, strength assignment, and self-containment — apply to all capabilities. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. The rules are not restated here; they are consumed as capability-wide methodology.
+The five authoring rules in the standards authoring standard — the carry test, leanness, discriminating guidance, strength assignment, and self-containment — apply to all capabilities. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. The rules are not restated here; they are consumed as capability-wide methodology.
 
 ## Authoring concerns
 
-Required. Seven concerns a tool author must address. These are not a template — the author decides how to meet them, in whatever structure the content demands.
+Seven concerns a tool author must address. These are not a template — the author decides how to meet them, in whatever structure the content demands.
 
 **Inputs.** What the tool needs in order to run.
 
@@ -52,11 +52,11 @@ Recommended. The behavioural discipline for handling inputs, decision points, an
 - Ask once, preferably batched, for genuinely missing required inputs.
 - Escalate genuine conflicts, authority decisions, or material uncertainty the tool does not own.
 
-Required. A tool must not silently fail for want of information that could reasonably have been requested.
+A tool must not silently fail for want of information that could reasonably have been requested.
 
 ## Idempotency
 
-Required. The author declares whether the tool is safe to run again, stated alongside its purpose. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs this before deciding whether to re-run.
+The author declares whether the tool is safe to run again, stated alongside its purpose. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs this before deciding whether to re-run.
 
 ## The staging clause
 
@@ -72,11 +72,11 @@ Information. This is common. A component or feature specified in a design often 
 
 ## Trigger description
 
-Required. Every tool carries a trigger description. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
+Every tool carries a trigger description. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
 
 ## Applicability scope
 
-Required. Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns. The trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
+Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns. The trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
 
 ## Document-default strength
 
@@ -86,7 +86,7 @@ Information. A tool may declare a document-level default strength so the author 
 
 **Design is the default.** Recommended. A design almost always exists behind a tool. Authoring straight to a tool is the exception — reserved for cases where the action is simple enough that a design would restate rather than elaborate.
 
-**Author fresh.** Required. A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle — each output is derived from the design that governs it, not from its own prior version.
+**Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle — each output is derived from the design that governs it, not from its own prior version.
 
 **No prescribed template.** Information. A tool has no fixed structure. The author decides what it contains and how it is organised, provided the authoring concerns above are addressed and the capability-wide authoring rules are met.
 
@@ -96,7 +96,7 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ## Ownership
 
-**Each tool lives with its owning component.** Required. Tools is a methodological component — it defines how to build a tool, not where tools live. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Each tool lives with its owning component.** Tools is a methodological component — it defines how to build a tool, not where tools live. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
 ---
 
