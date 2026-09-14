@@ -2350,3 +2350,204 @@ COMPLETION SUMMARY
 COMPLETED SUCCESSFULLY
 ========================================================================
 
+========================================================================
+file update package   2026-09-14 23:47:59   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            standards_review_fup.zip  (2026-09-14 23:46, 15,546 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           standards_review_fup.zip: the package contains no _manifest.json
+
+------------------------------------------------------------------------
+Result: 1 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              standards_review_fup.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - standards_review_fup.zip: the package contains no _manifest.json
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-14 23:48:57   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            standards_review_fup.zip  (2026-09-14 23:48, 15,338 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           standards_review_fup.zip: files entry 1 (Tools/Tools_Authoring_Standard_v5.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 2 (Tools/Tools_Decisions_v5.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 3 (Tools/Tools_Design_v4.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 4 (Core/Core_Schema_Standard_v2.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 5 (Standards/Standards_Consumption_Standard_v3.md): action is "", but it must be "create", "replace" or "move"
+
+------------------------------------------------------------------------
+Result: 5 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              standards_review_fup.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - standards_review_fup.zip: files entry 1 (Tools/Tools_Authoring_Standard_v5.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 2 (Tools/Tools_Decisions_v5.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 3 (Tools/Tools_Design_v4.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 4 (Core/Core_Schema_Standard_v2.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 5 (Standards/Standards_Consumption_Standard_v3.md): action is "", but it must be "create", "replace" or "move"
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-14 23:49:16   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            standards_review_fup.zip  (2026-09-14 23:49, 15,338 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           standards_review_fup.zip: files entry 1 (Tools/Tools_Authoring_Standard_v5.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 2 (Tools/Tools_Decisions_v5.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 3 (Tools/Tools_Design_v4.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 4 (Core/Core_Schema_Standard_v2.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 5 (Standards/Standards_Consumption_Standard_v3.md): action is "", but it must be "create", "replace" or "move"
+
+------------------------------------------------------------------------
+Result: 5 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              standards_review_fup.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - standards_review_fup.zip: files entry 1 (Tools/Tools_Authoring_Standard_v5.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 2 (Tools/Tools_Decisions_v5.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 3 (Tools/Tools_Design_v4.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 4 (Core/Core_Schema_Standard_v2.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 5 (Standards/Standards_Consumption_Standard_v3.md): action is "", but it must be "create", "replace" or "move"
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-14 23:50:02   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            standards_review_fup.zip  (2026-09-14 23:49, 15,338 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           standards_review_fup.zip: files entry 1 (Tools/Tools_Authoring_Standard_v5.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 2 (Tools/Tools_Decisions_v5.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 3 (Tools/Tools_Design_v4.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 4 (Core/Core_Schema_Standard_v2.md): action is "", but it must be "create", "replace" or "move"
+  INVALID           standards_review_fup.zip: files entry 5 (Standards/Standards_Consumption_Standard_v3.md): action is "", but it must be "create", "replace" or "move"
+
+------------------------------------------------------------------------
+Result: 5 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              standards_review_fup.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - standards_review_fup.zip: files entry 1 (Tools/Tools_Authoring_Standard_v5.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 2 (Tools/Tools_Decisions_v5.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 3 (Tools/Tools_Design_v4.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 4 (Core/Core_Schema_Standard_v2.md): action is "", but it must be "create", "replace" or "move"
+    - standards_review_fup.zip: files entry 5 (Standards/Standards_Consumption_Standard_v3.md): action is "", but it must be "create", "replace" or "move"
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-14 23:51:16   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            standards_review_fup_v2.zip  (2026-09-14 23:50, 15,350 bytes)
+------------------------------------------------------------------------
+
+[Tools]
+  DELETED           Tools_Authoring_Standard_v4.md
+  REPLACED          Tools/Tools_Authoring_Standard_v5.md  (8,149 bytes)
+  DELETED           Tools_Decisions_v4.md
+  REPLACED          Tools/Tools_Decisions_v5.md  (12,949 bytes)
+  DELETED           Tools_Design_v3.md
+  REPLACED          Tools/Tools_Design_v4.md  (8,600 bytes)
+
+[Core]
+  DELETED           Core_Schema_Standard_v1.md
+  REPLACED          Core/Core_Schema_Standard_v2.md  (1,176 bytes)
+
+[Standards]
+  DELETED           Standards_Consumption_Standard_v2.md
+  REPLACED          Standards/Standards_Consumption_Standard_v3.md  (2,554 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         standards_review_fup_v2.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 5 replaced, 5 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              standards_review_fup_v2.zip
+  files replaced:       5
+  files created:        0
+  files moved:          0
+  files deleted:        5
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
