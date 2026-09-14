@@ -1,4 +1,4 @@
-> identity: Standards_Authoring_Standard@v6 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
+> identity: Standards_Authoring_Standard@v7 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Standards — Authoring Standard
 
@@ -39,6 +39,8 @@ The class distinction affects design effort, not authoring rules. Both classes f
 **Strength assignment.** Every item carries a strength, selected by the author from the vocabulary below. The default strength is Required. Items that depart from the default carry their own strength explicitly — nearest declaration wins. This means: tag only the exceptions. Most items in a well-designed standard are Required and carry no explicit tag. Over-use of Recommended or Optional weakens the standard; over-use of Information turns it into a reference document.
 
 **Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but must not depend on it being loaded.
+
+**Acceptance test.** Before accepting a standard, test: given only this standard and its declared dependencies, can a fresh AI perform the representative operations covered by the applicability statement? If it cannot, the standard fails the self-containment rule and must not be published.
 
 **Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Frame scope through behaviour and relevance, not through a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
 
@@ -121,4 +123,4 @@ Information. Governed by the split test: stays in the standard when small, remov
 
 ---
 
-Version note: v6 — Two-class distinction (task vs carried) added. Solving-model design sequence added to "Designing a standard." Default-Required strength assignment approach. "No consumer, no rule" and "Name your principles" added as authoring rules. "Earn your place" added as design rule. `uses` updated to SchemaAuthoring v1. 2026-09-14.
+Version note: v7 — Acceptance test added as concrete form of the self-containment rule (PD carry D24). 2026-09-14.
