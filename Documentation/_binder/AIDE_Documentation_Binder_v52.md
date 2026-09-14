@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 51** (2026-09-14).
+> **Binder Version 52** (2026-09-14).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -59,10 +59,10 @@ individual files.
 - `Principles/Principles_Design_v4.md` - sha256 `4bd5797d3d2e`
 - `Principles/Principles_Standard_v1.md` - sha256 `3ffe60875e5c`
 - `Project Design/_index.md` - sha256 `589d24282970`
-- `Project Design/ProjectDesign_Decisions_v2.md` - sha256 `0a07a453c42c`
-- `Project Design/ProjectDesign_Design_v2.md` - sha256 `80a739c74e04`
+- `Project Design/ProjectDesign_Decisions_v3.md` - sha256 `bf46cd41252b`
+- `Project Design/ProjectDesign_Design_v3.md` - sha256 `1c207128551b`
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
-- `Project Design/ProjectDesign_Standard_v3.md` - sha256 `523e786fb89e`
+- `Project Design/ProjectDesign_Standard_v4.md` - sha256 `9f0d29d659e1`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
 - `Standards/Standards_Authoring_Standard_v6.md` - sha256 `68bb3fcf5bd5`
 - `Standards/Standards_Consumption_Standard_v2.md` - sha256 `71e817bb117e`
@@ -9278,8 +9278,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Project Design/ProjectDesign_Decisions_v2.md -->
-Project Design — Decisions | decisions | ProjectDesign_Decisions@v2 | 2026-09-11
+<!-- BEGIN SOURCE: Project Design/ProjectDesign_Decisions_v3.md -->
+Project Design — Decisions | decisions | ProjectDesign_Decisions@v3 | 2026-09-14
 
 ## D1 — Work register survives and comes home to Project Design
 
@@ -9337,7 +9337,7 @@ The tiebreak — if build cannot tell which side it is on, it returns — makes 
 
 ## D10 — The cost-and-complexity flag is an obligation, not a threshold
 
-Rather than prescribe a numeric or percentage trigger, the flag is an obligation on build's judgement: when the real cost or complexity materially exceeds what the design appeared to assume, build surfaces it. No threshold, no how-long-is-a-piece-of-string test. A rule with a number would be exactly the friction facilitate-not-constrain exists to remove.
+Rather than prescribe a numeric or percentage trigger, the flag is an obligation on build's judgement: when the real cost or complexity materially exceeds what the design appeared to assume, build surfaces it before proceeding. No threshold, no how-long-is-a-piece-of-string test. A rule with a number would be exactly the friction facilitate-not-constrain exists to remove.
 
 The flag defaults to proceed — if design does not intervene, build continues. This gives build two distinct reasons to come back, at different weights: a return for a genuine what/why question, and a flag where it can proceed but the price has moved.
 
@@ -9418,15 +9418,47 @@ Two consequences: the working document is always loaded with the topic; reading 
 
 Not duplicated into each doctype — the property belongs to the two-tier memory model, not any one document type.
 
+## D22 — The four weaknesses of layered design
+
+Four weaknesses of strict layered design were raised and worked through. Three were already answered by existing principles; only one needed genuinely new material, and even that reused an existing mechanism pointed in a new direction. A coherent principle absorbing its own weaknesses is a good sign about the principle.
+
+**1. Cross-cutting concerns** — some concerns span every branch and a pure tree has nowhere for them. Answered by the context rule: it is not about position in a tree, it is about context being clear. A cross-cutting concern is described as such.
+
+**2. Top-down can harden a wrong model before implementation tests it** — elaborate lower layers can make a wrong upper layer look more settled rather than less. Answered by difficulty-as-evidence: difficulty is evidence about the model, and the question is asked at every implementation decision rather than only when something visibly breaks. This is the existing build-side cost-and-complexity flag pointed in a new direction.
+
+**3. Rigidity and ceremony** — "connect every element upward" could harden into mandatory citation and become apparatus. Collapsed into the context rule, which already limits explicit statement to where it cannot be inferred.
+
+**4. The design tree is not the build structure** — answered by the existing design-build separation: design produces the specification, build creates from it and owns its own structure.
+
+## D23 — Brief gate softened from absolute to default-with-override
+
+The v2 design stated the brief as "mandatory — always... never absent." The update softens this to "required, override must be explicit." The proportionality test already in the design covers the rationale: a truly trivial task — fix a typo, rename a file — does not need a brief, and forcing one would be the apparatus failure the design approach exists to prevent.
+
+The override must be explicit so it is a conscious decision, not a drift. This mirrors the design-is-the-default rule: both are default-on, override-must-be-explicit.
+
+## D24 — Black-box acceptance test carried to Standards
+
+The black-box acceptance test ("given only this standard, can a fresh AI perform the representative operations?") was listed under the PD standard update in the WIP. Placed instead in the Standards Authoring Standard as a concrete form of the self-containment rule. The consumer of this test is anyone accepting any standard — that is Standards' domain, not PD's.
+
+PD's contribution is the operations test, which tests design completeness. The acceptance test tests standard completeness. Related but different owners.
+
+## D25 — Difficulty-as-evidence: one home, two consumers
+
+Difficulty-as-evidence now has a single statement in the PD design, in the commitment-and-return loop. It names both sides: the cost-and-complexity flag is build surfacing cost to design; difficulty-as-evidence is design asking whether the model above is causing the difficulty below. One principle, two directions, one home.
+
+The alternative — two separate statements in PD and Build — would drift apart. A single statement with both sides consuming it is more robust.
+
+The Principles-level question (candidate P3 strengthening) is carried separately and does not depend on this placement.
+
 ---
 
-Version note: v2 — cross-review remediation: D2 origin qualified against D16 (PD-DEC1), D20 reframed as placement decision (PD-DEC3), D21 resolved against design authority model (PD-DEC4). 2026-09-11.
-<!-- END SOURCE: Project Design/ProjectDesign_Decisions_v2.md -->
+Version note: v3 — adds D22 (four weaknesses of layered design), D23 (brief gate softened to default-with-override), D24 (black-box acceptance test carried to Standards), D25 (difficulty-as-evidence single home). 2026-09-14. Replaces v2.
+<!-- END SOURCE: Project Design/ProjectDesign_Decisions_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Project Design/ProjectDesign_Design_v2.md -->
-Project Design — Design | design | ProjectDesign_Design@v2 | 2026-09-11
+<!-- BEGIN SOURCE: Project Design/ProjectDesign_Design_v3.md -->
+Project Design — Design | design | ProjectDesign_Design@v3 | 2026-09-14
 
 ## Brief
 
@@ -9463,6 +9495,80 @@ The seam: the design-build handoff — where responsibility crosses from design 
 
 Three things to specify: the capture-and-place mechanism; brief-to-design delivery and elasticity; and the commitment-and-return loop. But the elements of a Project Design must be defined first — placement is routing, and each element's definition is the routing rule.
 
+## The design approach
+
+### Design is layers
+
+Design is structured as layers, each the one above at greater depth: purpose, then objectives and requirements and considerations, then the model and approach — how it is architected, its base principles and framework — then implementation.
+
+The top two levels — purpose, and the model and approach — have close to a one-to-one relationship with the success of the project. Everything built, delivered, deployed and maintained traces back to their quality. The overview is therefore the highest-value work, not the preamble to it. Time at the overview level is the highest-return time available.
+
+### The context rule
+
+Every element's place in the model must be visible. The model is part tree, part web, part horizontal — an element may relate to two or three things above it, or span everything as a cross-cutting concern. It is not about tying an element to a position in a tree.
+
+Context is carried in the element's own description, not in separate wiring, references or notation. It is stated explicitly only where it cannot be implied or inferred.
+
+Connecting an element up is a design-time act before it is a documentation act: it is done so the designer can see where the element fits, which is what makes anomalies, deviations and branches visible.
+
+### The overview as the map
+
+Read the overview once and it builds the whole picture of the design's structure and framework. Then any element can be placed against it quickly — which part does this relate to, where does it sit in the model.
+
+An element that cannot be placed is either a branch, or evidence the overview is missing something. Both are findings.
+
+This gives the overview structural work to do, not decorative work, and is why the overview must be genuinely complete at the top.
+
+### Derive from the model
+
+Understand the model — what it is, why it is shaped that way, and what it implies — before designing against it. Then the detail largely falls out. Deriving a solution from a single requirement, without that understanding, produces work broader than needed or inconsistent with everything around it.
+
+### Two-part design structure
+
+A design has two recognised parts:
+
+1. **The approach** — the model, the key principles, the framework: what the design is and why it is shaped that way. Tested by the overview completeness check.
+2. **The detailed design** — elaboration of each element within that framework. Tested by the element quality check.
+
+### Overview completeness check
+
+Run before descending from the approach into detailed design.
+
+**The test:** could the detailed design be executed excellently from this overview, by someone who was not part of the conversation?
+
+If no, the overview is not finished. Do not descend. Complete it instead.
+
+**How to complete it — probe, do not dive:**
+
+- Take anything the overview treats as a boundary or an edge. Ask what lies beyond it. This reliably surfaces things neither party knew were missing.
+- Look for silences — what would normally be settled at this level and is not mentioned.
+- Read the model back for coherence. Do the parts connect, or are there loose ends.
+- Where the person has ranged around or brain-dumped, order it into the overview and read it back for cohesion and gaps.
+
+Where the overview is silent on something that matters, ask. This is the cheapest moment to resolve it.
+
+### Element quality check
+
+Run over any design element before the person sees it. Four questions per element:
+
+**1. Can it be placed?** Which part of the overview does it relate to, where does it sit in the model? An element that cannot be placed is either a branch, or evidence the overview is missing something. Both are findings. Neither is silently kept.
+
+**2. Is its context clear in its own description?** Context is carried in the element's description, not in separate wiring. State it explicitly only where it cannot be implied or inferred. Do not add citations, references or notation for their own sake — that is the ceremony this is meant to prevent.
+
+**3. Is it proportionate to the intent above it?** Output markedly more elaborate than the intent it serves means either the intent was more complex than it looked, or it has been over-built.
+
+**4. Was it derived from the model, or from a single requirement?** Anchoring to one point produces work that is broader than needed or inconsistent with what surrounds it.
+
+**Coverage:** when the design is called done, check once that every objective in the overview is delivered. Anything present that does not trace to the overview is listed separately as an addition, not woven in.
+
+### Operations test
+
+For every significant objective, determine what a consumer must be able to do when the objective is met. Test whether the design specifies enough for that operation to be performed deterministically. If the consumer would have to invent a convention, the design is incomplete.
+
+### Design and build
+
+Design produces the specification. Build creates from it, thinking rather than transcribing, and owns how the code is structured. The design tree does not dictate the build's structure.
+
 ## The document set
 
 **Owned doctypes:** brief (a composite block, mandatory), design, overview, and work register.
@@ -9472,6 +9578,8 @@ Three things to specify: the capture-and-place mechanism; brief-to-design delive
 **Owned transition mechanisms:** the design-build handoff and the build return. These are mechanisms, not fixed doctypes — their shape varies with the scenario.
 
 **Consumed generics:** decisions, knowledge, WIP, open items, work item, definition of done.
+
+Components owning doctypes or block types must define them using the Documentation Methodology definition contract. For guidance on schema placement — when definitions belong in their own standard versus inline — see the Documentation Methodology Schema Authoring Standard.
 
 A **design project** is the scope of one design: a brief and the design that delivers it, together with the commitments entered into the work register. A naming convenience for a boundary that already exists, not a new entity. If it starts acquiring properties — a state, an owner, a lifecycle — that is the signal it was a mistake.
 
@@ -9485,7 +9593,7 @@ Cardinality: many-to-one is the common case (several design projects feed one bu
 
 The brief fixes the problem and the bar for success before designing. The brief is the problem space; the design is the solution space. The brief must be complete enough that the design has everything it needs, without smuggling in solution decisions.
 
-A brief is mandatory — always. Standalone or inline at the head of a design document, but never absent. Design is the delivery of the brief, so design cannot exist without one.
+A brief is required before design starts — standalone or inline at the head of a design document. Design without a brief is the exception and requires explicit override.
 
 The brief is a composite block type containing its element blocks. The composite unit can be the body of a standalone brief document or sit at the head of a design document for a small project. The split test governs when it branches out: externalise when keeping the block inline would compromise the primary role of its host.
 
@@ -9563,15 +9671,13 @@ Because the design is only a snapshot, the reasoning behind each choice is lost 
 
 **Authority** — decisions and knowledge inform; they never override or supplement the design as the executable authority. Design governs on conflict.
 
-### Coverage check
-
-A coverage check is run once, when the design is called done — walk the brief's requirements and confirm each is met, deferred, or rejected. Per-element traceability links were rejected: they rot on every edit and the maintenance cost buys little. The coverage check tests criterion 1 above.
-
 ## Overview
 
 ### What the overview is
 
 A single pane-of-glass snapshot of a whole project — an accurate, concise snapshot that can be loaded into the head quickly. It solves the single biggest problem in working with AI: information overload when working across five or ten topics and switching between build and design work. It gives context for anything discussed without re-reading the documentation set, and serves as a deviation detector — a concise snapshot surfaces anything that does not align with the objective or the model.
+
+The overview holds the shape of the model. Any element should be placeable against it quickly — which part does this relate to, where does it sit in the model. An element that cannot be placed is either a branch, or evidence the overview is missing something. Both are findings. This gives the overview structural work to do, not decorative work, and is why the overview must be genuinely complete at the top.
 
 **Owner:** Project Design. **Audience:** primarily human.
 
@@ -9686,6 +9792,14 @@ An obligation, not a threshold. When the real cost or complexity materially exce
 
 A flag with a default of proceed, not a return. If design does not intervene, build proceeds. The loop keeps moving.
 
+### Difficulty as evidence
+
+When something is becoming hard, expensive or elaborate to implement, that is evidence the model or approach may need review — not that the implementation needs more cleverness. At each implementation decision, ask whether a change in the model would make this better, easier, more robust or more comprehensive.
+
+This is the design-time face of the cost-and-complexity flag. The flag is build surfacing cost to design; difficulty-as-evidence is design asking whether the model above is causing the difficulty below.
+
+A single small accommodation is usually absorbed. The same accommodation recurring across several elements is the strongest signal to raise it, however small each instance looks. Recurrence is visible from across the work in a way it is not from any single element.
+
 ### The design-build handoff
 
 The handoff is where responsibility crosses from design to build. The work-package doctype is withdrawn — replaced by a transition point whose mechanism varies with the build context.
@@ -9753,22 +9867,22 @@ Project Design does **not** own:
 
 ## Carries to other components
 
-**To Principles:** definition of done as a candidate premise.
+**To Principles:** definition of done as a candidate premise. Difficulty-as-evidence, do-not-build-apparatus, and simple-and-well-conceived as candidate premise strengthenings (P3, P4).
 
-**To Working Practices:** WIP and open items; decisions and knowledge doctype ownership; the shaping behaviour for brief and design; the no-knowledge-lost rule; the session-transition commands; the nomination model for live-state granularity; the six-stage review procedure; the work item as the base workflow entity; definition of done as a generic block.
+**To Working Practices:** WIP and open items; decisions and knowledge doctype ownership; the shaping behaviour for brief and design; the no-knowledge-lost rule; the session-transition commands; the nomination model for live-state granularity; the six-stage review procedure; the work item as the base workflow entity; definition of done as a generic block. The overview-first working behaviour (stay at the overview, probe don't dive, commit within the model) — part is design-specific and part is generic human-AI working behaviour.
 
 **To Build:** build must recognise it is holding a what/why question rather than a how question, and must judge when cost has materially exceeded the design's apparent assumption.
 
 **To Documentation Methodology:** the split test; the ownership-designation rule; the binder doctype definition.
 
-**To Standards:** the Contents/Summary edge.
+**To Standards:** the Contents/Summary edge. The black-box acceptance test (can a fresh AI perform the operations from only the standard?) as a concrete form of the self-containment rule.
 
 **To Core:** facilitate, not constrain — its form and home at AIDE's root are deferred.
 
 ---
 
-Version note: v2 — cross-review remediation: producer rule specified (PD-D1), boundary test framing corrected (PD-D2), capture-and-place three bands (PD-D3), proportionality factors added (PD-S8), model advice items merged (PD-DEC2), two-tier model acknowledged (PD-DEC4/D21). 2026-09-11.
-<!-- END SOURCE: Project Design/ProjectDesign_Design_v2.md -->
+Version note: v3 — design-approach content placed: new "The design approach" section (layering model, context rule, overview-as-map, derive-from-model, two-part structure, overview completeness check, element quality check, operations test, design-and-build separation). Difficulty-as-evidence added to the commitment-and-return loop. Overview strengthened with structural/map role. Brief gate softened from "mandatory — always" to "required, override must be explicit". DocMeth definition-contract and schema-placement pointers added. Carries updated: Principles premise strengthenings, WP overview-first behaviour, Standards black-box acceptance test. 2026-09-14. Replaces v2.
+<!-- END SOURCE: Project Design/ProjectDesign_Design_v3.md -->
 
 ---
 
@@ -9861,8 +9975,8 @@ Version note: v1 — initial schema standard. Defines Project Design's three blo
 
 ---
 
-<!-- BEGIN SOURCE: Project Design/ProjectDesign_Standard_v3.md -->
-> identity: ProjectDesign_Standard@v3 | doctype: standard | updated: 2026-09-12 | uses: ProjectDesign_Schema_Standard@v1
+<!-- BEGIN SOURCE: Project Design/ProjectDesign_Standard_v4.md -->
+> identity: ProjectDesign_Standard@v4 | doctype: standard | updated: 2026-09-14 | uses: ProjectDesign_Schema_Standard@v1
 
 # Project Design — Standard
 
@@ -9880,7 +9994,9 @@ Information. The flow: intent → capture and place → brief → design → com
 
 Recommended. **Proportionality test.** Judge the amount of structure by consequence, reach, reversibility and uncertainty. Small clear tasks do not require ceremony merely to imitate a large project.
 
-## Design is the default
+## Default methodology
+
+A brief is required before design starts. Design without a brief is the exception and requires explicit override.
 
 Recommended. A design almost always exists behind a standard, and a standard almost always has a design behind it. Authoring straight to standard is the exception — justified only where everything worth recording fits the standard without compromising either document.
 
@@ -9892,11 +10008,13 @@ Information. Project Design owns four document types: brief, design, overview, a
 
 Information. A design project is the scope of one design: a brief and the design that delivers it, together with the commitments entered into the work register. A naming convenience for a boundary that already exists, not a new entity. If it starts acquiring properties — a state, an owner, a lifecycle — that is the signal it was a mistake.
 
+Information. Components owning doctypes or block types must define them using the Documentation Methodology definition contract. The Project Design Schema Standard defines this component's types. For guidance on schema placement — when definitions belong in their own standard versus inline — see the Documentation Methodology Schema Authoring Standard.
+
 ## Brief
 
 Information. The brief fixes the problem and the bar for success before designing. The brief is the problem space; the design is the solution space. The brief must be complete enough that the design has everything it needs, without smuggling in solution decisions.
 
-A brief is mandatory — always. Standalone or inline at the head of a design document, but never absent.
+A brief is required — standalone or inline at the head of a design document. Omission requires explicit override.
 
 ### Brief sections
 
@@ -9946,6 +10064,8 @@ Information. The design is the current confirmed model and approach — the auth
 
 The design carries its own live reasoning inline — the rationale for the current approach. Duplication with decisions is accepted and expected.
 
+Information. A design has two recognised parts. The first part — the approach — states the model, the key principles, and the framework: what the design is and why it is shaped that way. The second part — the detailed design — elaborates each element within that framework. The approach is tested by the overview completeness check; the detailed design is tested by the element quality check. Both checks are defined below.
+
 ### Design criteria
 
 A design is not done until all nine hold:
@@ -9960,15 +10080,54 @@ A design is not done until all nine hold:
 8. Its thinking is routed to decisions and knowledge as produced — the producer obligation, not a later sweep.
 9. Current design contributions do not conflict materially — build is never handed a choice between unresolved designs.
 
+### Operations test
+
+For every significant objective, determine what a consumer must be able to do when the objective is met. Test whether the design specifies enough for that operation to be performed deterministically. If the consumer would have to invent a convention, the design is incomplete.
+
 ### Design advice
 
 Recommended. Group elements as model / rules / definitions / boundaries.
 
 Recommended. Lead with the model before elaborating. If the model will not state compactly, the model is wrong, not the write-up.
 
+Recommended. **Derive from the model, not from a single requirement.** Understand what the model is, why it is shaped that way, and what it implies before designing against it. A solution derived from one requirement in isolation tends to be broader than needed or inconsistent with what surrounds it.
+
+Recommended. **Context rule.** Every design element's place in the model should be visible, carried in the element's own description. The model is part tree, part web, part horizontal — an element may relate to several things above it, or span everything as a cross-cutting concern. State context explicitly only where it cannot be implied or inferred. Context that requires separate wiring, references or notation is ceremony the design should not need.
+
 Optional. Link elements back to brief items where the connection is not obvious.
 
 Optional. Include a worked example where the rules are abstract.
+
+### Overview completeness check
+
+Run before descending from the approach into detailed design.
+
+**The test:** could the detailed design be executed excellently from this overview, by someone who was not part of the conversation?
+
+If no, the overview is not finished. Do not descend. Complete it instead.
+
+**How to complete it — probe, do not dive:**
+
+- Take anything the overview treats as a boundary or an edge. Ask what lies beyond it.
+- Look for silences — what would normally be settled at this level and is not mentioned.
+- Read the model back for coherence. Do the parts connect, or are there loose ends.
+- Where the person has ranged around or brain-dumped, order it into the overview and read it back for cohesion and gaps.
+
+Where the overview is silent on something that matters, ask. This is the cheapest moment to resolve it.
+
+### Element quality check
+
+Run over any design element before the person sees it. Four questions per element:
+
+**1. Can it be placed?** Which part of the overview does it relate to, where does it sit in the model? An element that cannot be placed is either a branch, or evidence the overview is missing something. Both are findings. Neither is silently kept.
+
+**2. Is its context clear in its own description?** Context is carried in the element's description, not in separate wiring. State it explicitly only where it cannot be implied or inferred.
+
+**3. Is it proportionate to the intent above it?** Output markedly more elaborate than the intent it serves means either the intent was more complex than it looked, or it has been over-built.
+
+**4. Was it derived from the model, or from a single requirement?** Anchoring to one point produces work that is broader than needed or inconsistent with what surrounds it.
+
+**Coverage:** when the design is called done, check once that every objective in the overview is delivered. Anything present that does not trace to the overview is listed separately as an addition, not woven in.
 
 ### Reasoning routing
 
@@ -9978,13 +10137,11 @@ Every design-element change is a retention checkpoint: anything removed from the
 
 Information. Topic-scoped reasoning goes to decisions; reasoning with no owning topic goes to knowledge. Decisions and knowledge inform but never override design.
 
-### Coverage check
-
-When the design is called done, walk the brief's requirements and confirm each is met, deferred, or rejected.
-
 ## Overview
 
 Information. The overview is the project-scale snapshot — a pane-of-glass view of the whole design project. Also a deviation detector: anything that cannot be placed against the overview is either a branch or evidence the overview is missing something.
+
+The overview holds the shape of the model. Any element should be placeable against it quickly — which part does this relate to, where does it sit in the model. This gives the overview structural work to do, not decorative work, and is why the overview must be genuinely complete at the top.
 
 The overview carries: key objective, the chosen approach or delivery method, the top-level model, and key defining principles.
 
@@ -10072,6 +10229,12 @@ When real cost or complexity materially exceeds what the design appeared to assu
 
 Information. A flag with a default of proceed, not a return. If design does not intervene, build proceeds.
 
+### Difficulty as evidence
+
+When something is becoming hard, expensive or elaborate to implement, that is evidence the model or approach may need review — not that the implementation needs more cleverness. At each implementation decision, ask whether a change in the model would make this better, easier, more robust or more comprehensive.
+
+Recommended. A single small accommodation is usually absorbed. The same accommodation recurring across several elements is the strongest signal to raise it, however small each instance looks. Recurrence is visible from across the work in a way it is not from any single element.
+
 ### Design-build handoff
 
 The handoff carries everything the build side needs to act without returning to the design conversation. Format free, sufficiency required.
@@ -10103,7 +10266,11 @@ Reconciliation is design's act of checking a return against its commitment and d
 Information. Reconciliation fires on two return states only. Confirmed — check and close. Done with deviation — design decides whether to accept; accepting is a design change that may spawn a fresh commitment. The other three states (needs information, raises an issue, failed) deliver nothing to reconcile — the item stays owed.
 
 Information. An item that has been round the loop several times is a design smell worth surfacing — usually the design is wrong at a level above the item.
-<!-- END SOURCE: Project Design/ProjectDesign_Standard_v3.md -->
+
+---
+
+Version note: v4 — design-approach content folded in: two-part design structure (PD-F1), overview completeness check and element quality check as application-time guidance, operations test, context rule and derive-from-model as design advice, difficulty-as-evidence in the commitment-and-return loop. Brief-required gate made explicit with override. Overview section strengthened with structural/map role. DocMeth definition-contract and schema-placement pointers added (PD-F2, PD-F3). "Design is the default" renamed to "Default methodology" and expanded. Black-box acceptance test carried to Standards Authoring Standard. 2026-09-14. Replaces v3.
+<!-- END SOURCE: Project Design/ProjectDesign_Standard_v4.md -->
 
 ---
 
