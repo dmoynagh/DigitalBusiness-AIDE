@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 62** (2026-09-15).
+> **Binder Version 63** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -55,9 +55,9 @@ individual files.
 - `Infrastructure/version-cleanup/README.md` - sha256 `307a43363adb`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `329d08514ab2`
-- `Principles/Principles_Decisions_v4.md` - sha256 `2c31c26b5c66`
-- `Principles/Principles_Design_v4.md` - sha256 `4bd5797d3d2e`
-- `Principles/Principles_Standard_v1.md` - sha256 `3ffe60875e5c`
+- `Principles/Principles_Decisions_v5.md` - sha256 `f13fd4242919`
+- `Principles/Principles_Design_v5.md` - sha256 `fe6c6db40228`
+- `Principles/Principles_Standard_v2.md` - sha256 `dbe4c008b80d`
 - `Project Design/_index.md` - sha256 `589d24282970`
 - `Project Design/ProjectDesign_Decisions_v3.md` - sha256 `61029b610785`
 - `Project Design/ProjectDesign_Design_v3.md` - sha256 `845df7d3ba79`
@@ -8939,13 +8939,13 @@ one build.
 
 ---
 
-<!-- BEGIN SOURCE: Principles/Principles_Decisions_v4.md -->
+<!-- BEGIN SOURCE: Principles/Principles_Decisions_v5.md -->
 # Principles — Decisions
 
-> **Version 4** (2026-09-08). Authored fresh in the AIDE rebuild. Compacted
+> **Version 5** (2026-09-15). Authored fresh in the AIDE rebuild. Compacted
 > from v3 where decisions still stand; new decisions added from the design pass.
 >
-> Created: 2026-08-27 | Last modified: 2026-09-08
+> Created: 2026-08-27 | Last modified: 2026-09-15
 
 ## D1 — Principles is a top-level topic, independently deployable
 
@@ -9021,18 +9021,40 @@ Definition of done has been promoted to a generic block type owned by Working
 Practices, carrying a testable-or-assessable invariant. Whether it also earns a
 place as a Principles premise is an open question — it reopens the Principles
 element list once Working Practices completes its definition.
-<!-- END SOURCE: Principles/Principles_Decisions_v4.md -->
+
+## D10 — P3 strengthened: difficulty-as-evidence and apparatus-avoidance
+
+Two strengthenings to the model-before-elaboration premise, both carried from the design-approach work (F12 pattern — sharpen existing premises, not new ones).
+
+Difficulty-as-evidence adds the feedback signal P3 lacked. P3 previously said "state the model first" — sequential, one direction. The strengthening makes it bidirectional: when elaboration becomes difficult, that is evidence the model above needs review. The recurrence pattern (same accommodation appearing across several elements) is especially strong evidence. This is the portable root of the operational rule already placed in Project Design's commitment-and-return section (PD D25).
+
+Apparatus-avoidance makes P3's failure mode explicit as a positive injunction. The previous failure mode described the symptom ("detailed mechanisms make an average premise look settled") without naming the specific form. The strengthening names it: stages, phases, procedural machinery built around a principle that is not yet well enough conceived.
+
+Both pass the portability test — they hold outside AIDE. Difficulty-as-evidence is universal (hard implementation suggests wrong abstraction). Apparatus-avoidance is universal (procedure around a principle means the principle isn't clear enough).
+
+## D11 — P4 strengthened: proportionality signal
+
+P4 previously said "keep the working set small enough to hold" and "use layered progression" but carried no test for whether the layers were proportionate. The strengthening adds the signal: output markedly more elaborate than the intent above it is a warning that the solution is not yet well enough conceived.
+
+Passes the portability test — in any domain, a solution vastly more complex than the problem statement suggests either the problem isn't understood or the solution isn't well-conceived.
+
+Same F12 pattern as D10 — strengthen the existing premise, not a new one. The premise count stays at nine.
 
 ---
 
-<!-- BEGIN SOURCE: Principles/Principles_Design_v4.md -->
+Version note: v5 — adds D10 (P3 strengthened: difficulty-as-evidence and apparatus-avoidance) and D11 (P4 strengthened: proportionality signal). Three candidate premise strengthenings from the design-approach work, all resolved as strengthenings per F12 pattern. 2026-09-15.
+<!-- END SOURCE: Principles/Principles_Decisions_v5.md -->
+
+---
+
+<!-- BEGIN SOURCE: Principles/Principles_Design_v5.md -->
 # Principles — Design
 
-> **Version 4** (2026-09-08). Authored fresh in the AIDE rebuild from the
+> **Version 5** (2026-09-15). Authored fresh in the AIDE rebuild from the
 > confirmed design pass. Not a modification of v3 — the previous version is a
 > source of knowledge only.
 >
-> Created: 2026-08-27 | Last modified: 2026-09-08
+> Created: 2026-08-27 | Last modified: 2026-09-15
 
 ## Brief
 
@@ -9090,16 +9112,22 @@ exist; mechanism settles how.
 ### P3 — Model before elaboration
 
 State the model before building detailed machinery on it. Elaboration should be
-checked against a visible model rather than gradually replacing it.
+checked against a visible model rather than gradually replacing it. When
+elaboration becomes difficult — especially when the same accommodation recurs
+across elements — that is evidence the model needs review, not that the
+elaboration needs more effort.
 
-*Failure mode:* detailed mechanisms make an average or misunderstood premise look
-settled merely because later work depends on it.
+*Failure mode:* building apparatus — stages, phases, procedural machinery —
+around a principle that is not yet well enough conceived. The apparatus makes an
+average model look settled because later work depends on it.
 
 ### P4 — Keep the working set human-comprehensible
 
 The active conceptual working set should remain small enough for the human owner
 to hold and challenge at once. Too much detail too early does not only slow
-work — it removes the human from meaningful design participation.
+work — it removes the human from meaningful design participation. Output
+markedly more elaborate than the intent above it is a warning that the solution
+is not yet well enough conceived.
 
 Use layered progression: intent and premises, then model, then detail.
 
@@ -9182,12 +9210,12 @@ This design records only that the mechanism exists and is housed elsewhere.
 Produce the standard `AIDE_Principles` — short, portable, platform-neutral,
 independently deployable. The standard is authored separately once the Standards
 component defines its form.
-<!-- END SOURCE: Principles/Principles_Design_v4.md -->
+<!-- END SOURCE: Principles/Principles_Design_v5.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Principles/Principles_Standard_v1.md -->
-> identity: Principles_Standard@v1 | doctype: standard | updated: 2026-09-14
+<!-- BEGIN SOURCE: Principles/Principles_Standard_v2.md -->
+> identity: Principles_Standard@v2 | doctype: standard | updated: 2026-09-15
 
 # Principles
 
@@ -9213,13 +9241,13 @@ Ask what something is for before deciding how it works. A mechanism with unclear
 
 ## Model before elaboration
 
-State the model before building detailed machinery on it. Elaboration should be checked against a visible model rather than gradually replacing it.
+State the model before building detailed machinery on it. Elaboration should be checked against a visible model rather than gradually replacing it. When elaboration becomes difficult — especially when the same accommodation recurs across elements — that is evidence the model needs review, not that the elaboration needs more effort.
 
-*Failure mode:* detailed mechanisms make an average or misunderstood premise look settled merely because later work depends on it.
+*Failure mode:* building apparatus — stages, phases, procedural machinery — around a principle that is not yet well enough conceived. The apparatus makes an average model look settled because later work depends on it.
 
 ## Keep the working set human-comprehensible
 
-The active conceptual working set should remain small enough for the human owner to hold and challenge at once. Too much detail too early does not only slow work — it removes the human from meaningful design participation.
+The active conceptual working set should remain small enough for the human owner to hold and challenge at once. Too much detail too early does not only slow work — it removes the human from meaningful design participation. Output markedly more elaborate than the intent above it is a warning that the solution is not yet well enough conceived.
 
 Use layered progression: intent and premises, then model, then detail.
 
@@ -9247,8 +9275,8 @@ Actions that materially change state must not be silently treated as completed w
 
 ---
 
-Version note: v1 — authored from Principles_Design_v4. Nine premises.
-<!-- END SOURCE: Principles/Principles_Standard_v1.md -->
+Version note: v2 — P3 strengthened (difficulty-as-evidence, apparatus-avoidance). P4 strengthened (proportionality signal). D10, D11. 2026-09-15.
+<!-- END SOURCE: Principles/Principles_Standard_v2.md -->
 
 ---
 
