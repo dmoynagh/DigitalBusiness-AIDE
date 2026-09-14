@@ -40,7 +40,9 @@ The class distinction affects design effort, not authoring rules. Both classes f
 
 **Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but must not depend on it being loaded.
 
-**Acceptance test.** Before accepting a standard, test: given only this standard, its declared dependencies, and the ambient framework context available within its applicability scope, can a fresh AI perform the representative operations covered by the applicability statement? If it cannot, the standard fails the self-containment rule and must not be published.
+**Acceptance test.** Before accepting a standard, test: given only this standard, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations covered by the applicability statement? If it cannot, the standard fails the self-containment rule and must not be published.
+
+Information. Ambient framework context means framework capabilities the architecture guarantees will be present without a `uses` declaration — universal standards and independently triggered skills.
 
 **Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Frame scope through behaviour and relevance, not through a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
 
@@ -109,7 +111,7 @@ Information. Standards owns two types. The split test says to keep them here —
 ### Standard
 
 - **Purpose:** Shape decisions and behaviour at the moment of application. Lean, memory-resident, applied alongside many others.
-- **Included blocktypes:** Clarification (optional), Contents (recommended), Summary (optional), Version note (optional).
+- **Included blocktypes:** Clarification (optional), Contents (optional), Summary (optional), Version note (optional).
 - **Format constraint:** markdown.
 
 Information. The authoring rules, strength vocabulary, trigger description, applicability scope, and deployment guidance are defined elsewhere in this standard. The consumption contract is defined in the Standards Consumption Standard.
@@ -123,4 +125,4 @@ Information. Governed by the split test: stays in the standard when small, remov
 
 ---
 
-Version note: v8 — Acceptance test amended for ambient framework context (D21). The test now includes ambient framework context available within the standard's applicability scope, alongside declared dependencies. Carried from Tools cross-review round 3. 2026-09-15.
+Version note: v8 — Acceptance test amended for ambient framework context (D21). The test now includes ambient framework context guaranteed to be present for the representative operation, alongside declared dependencies. Information-strength definition added. Tools acceptance-test restatement synced. Carried from Tools cross-review round 3. 2026-09-15.

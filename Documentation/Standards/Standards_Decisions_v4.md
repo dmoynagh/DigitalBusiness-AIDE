@@ -148,10 +148,12 @@ The acceptance test previously said "given only this standard and its declared d
 
 The exclusion was unintentional. The self-containment rule ensures a standard works without its design document present — it was never meant to exclude framework infrastructure the standard legitimately operates within. The Tools cross-review (round 3) exposed the gap: a tool that relies on the design-approach skill would fail the literal test despite working correctly in AIDE's actual architecture.
 
-The fix adds "and the ambient framework context available within its applicability scope" after "its declared dependencies." This covers universal standards, triggered skills, and any future delivery mechanism that provides framework-level context without per-document dependency declarations.
+The fix adds "and the ambient framework context guaranteed to be present for the representative operation" after "its declared dependencies." This covers universal standards, triggered skills, and any future delivery mechanism that provides framework-level context without per-document dependency declarations. "Guaranteed" is the operative word — the criterion is architectural guarantee, not scope overlap, preserving the distinction between applicability and triggering established in D11.
 
-The Tools Authoring Standard has an explicit restatement of the acceptance test that will need to match. That update is downstream — handled by normal dependency propagation when Tools is next worked.
+An Information-strength definition of "ambient framework context" was added to the standard adjacent to the acceptance test, per cross-review finding F1: the standard must define the category it introduces.
+
+The Tools Authoring Standard restatement was synced in the same change to avoid a live inconsistency (cross-review finding F3).
 
 ---
 
-Version note: v4 — adds D21 (acceptance test amended for ambient framework context). Carried from Tools cross-review round 3. 2026-09-15.
+Version note: v4 — adds D21 (acceptance test amended for ambient framework context). Cross-review: two defects remediated (F1 definition added, F2 "guaranteed" replaces "available within scope"), one concern accepted (F3 Tools sync included). Carried from Tools cross-review round 3. 2026-09-15.
