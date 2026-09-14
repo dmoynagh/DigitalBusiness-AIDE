@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 43** (2026-09-14).
+> **Binder Version 44** (2026-09-14).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -33,15 +33,15 @@ individual files.
 - `Core/Core_Working_v1.md` - sha256 `9808a331b339`
 - `Documentation Methodology/_index.md` - sha256 `c3441fd9e4b4`
 - `Documentation Methodology/DocMeth_Brief_v1.md` - sha256 `60c5cf3f5d79`
-- `Documentation Methodology/DocMeth_Decisions_v6.md` - sha256 `fc41e619a847`
+- `Documentation Methodology/DocMeth_Decisions_v7.md` - sha256 `15daf15e27ef`
 - `Documentation Methodology/DocMeth_Design_v6.md` - sha256 `8b5d6a24a5d7`
 - `Documentation Methodology/DocMeth_SchemaAuthoring_Standard_Draft.md` - sha256 `24a2532f370c`
 - `Documentation Methodology/DocMeth_SchemaDefinitions_Standard_Draft.md` - sha256 `d8757a5dbcdf`
 - `Documentation Methodology/DocMeth_Standard_Draft.md` - sha256 `5847d0b42534`
-- `Documentation Methodology/DocMeth_Working_v8.md` - sha256 `b94c28da8ad2`
-- `Documentation Methodology/DocumentationMethodology_Authoring_Standard_v4.md` - sha256 `01a5782287dc`
-- `Documentation Methodology/DocumentationMethodology_Definitions_Standard_v4.md` - sha256 `0afdaff9b7cb`
-- `Documentation Methodology/DocumentationMethodology_Schema_Standard_v4.md` - sha256 `0d355d93a24a`
+- `Documentation Methodology/DocMeth_Working_v9.md` - sha256 `952a2287d1d0`
+- `Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md` - sha256 `37a837a65cb3`
+- `Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md` - sha256 `8098d9714c57`
+- `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `8301aa2a0395`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `e6573d80384e`
@@ -4654,211 +4654,140 @@ Version note: v1 — standalone brief split from design per the split test. 2026
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Decisions_v6.md -->
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Decisions_v7.md -->
+> identity: DocMeth_Decisions@v7 | doctype: decisions | updated: 2026-09-14
+
 # Documentation Methodology — Decisions
 
-> identity: DocMeth_Decisions@v6 | doctype: decisions | date: 2026-09-12
+All settled items. v7 reflects the clean-sheet rebuild of 2026-09-14. Decisions from v6 that still hold are carried; decisions superseded by the rebuild are marked. New decisions from the rebuild session are added.
 
 ## D1 — DocMeth owns grammar only, not individual definitions
 
-Individual doctype and block-type definitions live with the component that knows the most about them. DocMeth defines what a doctype is, what a block is, how they compose, and the common catalogue of blocks usable by any document. This is the "grammar versus vocabulary" line: DocMeth owns the rules of the language; components own the words.
-
-The alternative — DocMeth as a central registry of all types — was considered and rejected. A registry would accumulate detail from every component and become the single largest document in the framework, would require every component to file definitions with DocMeth rather than owning them, and would create a coordination bottleneck where no component can define a new type without a DocMeth update. The what-knows-most-about-it ownership rule settles it.
+Carried from v6. Individual doctype and block-type definitions live with the component that knows the most about them. DocMeth defines what a doctype is, what a block is, how they compose, and the common catalogue of blocks usable by any document.
 
 ## D2 — Composition, not inheritance
 
-Doctypes compose blocks by inclusion. A doctype includes a block as defined and does not modify it — no field suppression, no field addition, no shape adjustment on inclusion. Where two doctypes need different shapes, those are two blocks sharing a smaller common block if warranted.
-
-Override-on-include is inheritance under another name: it brings back precedence when two doctypes adjust the same block differently, drift when the base changes underneath, and a reader unable to tell what shape a block actually has. The accepted cost is duplication between near-identical blocks, which is visible; override chains are not. Revisit on a demonstrated case per the demonstrated-requirement rule.
-
-Also cut as over-engineered: multiple doctype inheritance, abstract doctypes, block self-assignment to doctypes (push model), collision precedence machinery.
+Carried from v6. Doctypes compose blocks by inclusion. A doctype includes a block as defined and does not modify it. Where two doctypes need different shapes, those are two blocks. Override-on-include is inheritance under another name. Also cut: multiple doctype inheritance, abstract doctypes, block self-assignment, collision precedence machinery.
 
 ## D3 — Declaration as conformance marker and activation trigger
 
-The Declaration's presence is both the corpus recognition mechanism (is this a governed document?) and the activation trigger (DocMeth applies). This dual role avoids needing a separate governance flag. A document without a Declaration is outside the methodology — legitimate, at the user's risk.
-
-The Declaration is the first block in a governed document, fixed topmost. Title and Description follow it, recognised by placement. The Declaration is fixed and not overridable. Its fields (identity, doctype, date, uses, blocks) are labelled. Dependencies (`uses`) and blocktypes (`blocks`) are Declaration fields, not separate blocks.
+Carried from v6. The Declaration's presence is both the recognition mechanism (is this a governed document?) and the activation trigger (DocMeth applies). A document with a Declaration is a governed document.
 
 ## D4 — Dependencies as a Declaration field
 
-Dependencies (`uses`) is a labelled field within the Declaration, not a separate block type. It was originally a separate header block, then a footer block in the old model. Folding it into the Declaration keeps all machine-readable governance information in one container, readable in a single partial read from the top.
-
-The grouping syntax `name:[item1, item2]` tracks which owner contributed each dependency.
+Carried from v6. Dependencies (`uses`) is a labelled field within the Declaration, not a separate block. The grouping syntax `name:[item1, item2]` tracks which owner contributed each dependency.
 
 ## D5 — Common catalogue scope
 
-The common catalogue holds blocks usable by any document regardless of component: Declaration, Title, Description, Header, Body, Footer, Contents, Summary, Version note. Nine blocks. (Dependencies is a Declaration field, not a separate block.)
-
-Tags was parked in the original catalogue session (no demonstrated consumer), resurrected as a Core capability (2026-09-09), and confirmed as Core-owned. Its block definition belongs to Core, not to DocMeth's common catalogue.
-
-References remains parked — no consumer has appeared. It returns on its own merits when one does.
+Updated from v6. The common catalogue holds: Declaration, Title, Description, Body, Footer, Contents, Summary, Version note, Manifest. Nine blocks. Header removed as a named element (D26).
 
 ## D6 — Contents and Summary are optional
 
-Both blocks earn their place by function, not by rule. Contents earns inclusion when a reader could not decide from the Declaration alone whether to keep reading. Summary earns inclusion when the document's substance needs a compressed statement. Often not relevant for machine-focused or skill-delivered documents. The doctype owner decides the default for their type: on, off, or conditional.
+Carried from v6. Both blocks earn their place by function, not by rule. The doctype owner decides the default for their type.
 
 ## D7 — The Contents/Summary edge as a grammar rule
 
-Contents maps what is where (navigation); Summary gives what the document establishes (substance). The edge between them was flagged by Standards as a common issue for standards authors and carried to DocMeth as document-structure grammar. DocMeth owns the edge definition because it defines both blocks.
+Carried from v6. Contents maps what is where; Summary gives what the document establishes. DocMeth owns the edge definition because it defines both blocks.
 
 ## D8 — The split test as grammar
 
-The split test (externalise a block when keeping it in would compromise the primary role of its host) was carried from Project Design as part of the grammar. It belongs in DocMeth because it governs the relationship between a block and its host document — a structural concern, not a design-process concern. The trigger is not a size threshold but a functional test.
+Carried from v6. Externalise a block when keeping it in would compromise the primary role of its host.
 
-## D9 — Language rules as grammar
+## D9 — Identity and versioning as a single function
 
-The four language rules (plain English, meaning first / code second, use existing terms, flag new terms) were carried from the design-approach work. They belong in DocMeth because they govern how any governed document is written. The aide-design-check skill currently carries these rules. Once DocMeth's standard is authored, the skill consumes the standard rather than carrying the rules itself.
+Carried from v6 in substance, merged. Identity owns the name. Versioning owns the version format and behaviour. Both use the Declaration and filename inference. Combined into one section to eliminate cross-referencing.
 
-## D10 — Rendering model with minimal markdown defaults
+## D10 — Declaration labelled blockquote format
 
-The format rendering rule states that each format's own existing standards provide a clear default mapping. A small set of deterministic markdown defaults is defined: heading levels follow nesting, compact fields render as pipe-delimited labelled lines, expanded fields render as labelled list items, containers are structural with no literal rendering, title is `#`, description is first paragraph beneath title.
+Carried from v6 (was D16). Multi-line blockquote with labelled, pipe-delimited fields. Structured formats use an `aide` container key.
 
-Block definitions override these defaults when needed. No full mapping system — the defaults handle the common case. If a format gap appears beyond what the defaults cover, DocMeth authors the mapping then.
+## D11 — Title and Description as self-describing blocks after Declaration
 
-## D11 — No Infrastructure link for rendering
+Carried from v6 (was D17). Recognised by placement, following the Declaration.
 
-The grammar tells the AI how to express a block in each format, and the AI applies those rules when authoring. No separate renderer utility is needed. If a utility ever needed to render blocks, that utility's spec would consume DocMeth's grammar.
+## D12 — The claimed-versus-verified rule
 
-## D12 — Owner and residence is optional, not required
+Carried from v6 (was D14). Do not compose plausible metadata where the fact should be observed. Fifth writing/integrity rule.
 
-Owner and residence is implicit from the hosting location for most definitions. Stated only when not obvious. The process discipline — decide the owner when you define the thing — stays as methodology.
+## D13 — Lifecycle states dropped
 
-## D13 — Lifecycle states are grammar
+**Supersedes v6 D13.** Lifecycle states (Current, Superseded, Archived) were introduced without a demonstrated consumer and no operational behaviour was defined for them. Dropped. Add when something needs them with the behaviour attached.
 
-Three semantic lifecycle states (Current, Superseded, Archived) belong to DocMeth because they describe what state any governed document can be in. They are independent of physical storage — Working Practices owns how the file system represents them.
+## D14 — The definition contract is facilitative, not prescriptive
 
-## D14 — The claimed-versus-verified rule
+Carried from v6 (was D15). Name and purpose are the only always-required properties. Everything else is available vocabulary.
 
-Do not compose plausible metadata where the fact should be observed or read. This rule belongs in DocMeth as a document-integrity rule. It joins the four language rules as a fifth writing/integrity rule.
+## D15 — Density absorbed into Content
 
-## D15 — The definition contract is facilitative, not prescriptive
+**New.** The separate Density property was absorbed into the blocktype Content property. Content now describes the full shape of a block — headings, sections, fields, density — in one place.
 
-The definition contract is the language for defining doctypes and block types. Name and purpose are the only always-required properties. Everything else is available vocabulary — stated when it adds value, omitted when it doesn't.
+## D16 — Conditional behaviour replaced by Instructions
 
-The alternative — a mandatory property list where every definition must address every field — was rejected as counter to the facilitate-not-control principle.
+**New.** The Conditional behaviour property was replaced by Instructions — a clearer name that covers the same ground and extends to doctype-level and document-level instructions.
 
-## D16 — Declaration header evolved to labelled blockquote
+## D17 — Container property dropped
 
-The original Declaration was a single pipe-delimited line with positional fields. The evolved form is a multi-line blockquote with labelled fields. Labelled fields replace positional because the field set has grown beyond what positional ordering can carry unambiguously. Blockquote provides visual distinction and structural detectability in markdown.
+**New.** Footer is the only element that functions as a container in practice, and it is defined by its boundary signal. A generic Container property added formalism without function.
 
-## D17 — Title and Description as self-describing blocks after Declaration
+## D18 — Owner and residence property dropped
 
-Title and Description are self-describing blocks recognised by placement, following the Declaration. Order: Declaration → Title → Description → Contents → Summary → Body.
+**New.** Implicit from where the definition lives. The existing standard acknowledged this but kept the property anyway.
 
-Title and description are inferred from natural document convention in prose formats (position and shape) and keyed in structured formats. This follows the format rendering rule — no special inference machinery.
+## D19 — Header dropped as a named structural element
 
-## D18 — Dependency implications as an implicit default
+**New.** The elements that sit in the header area (Declaration, Title, Description) are defined individually by placement. Naming the container added formalism without function.
 
-A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. The document's `uses` field is populated automatically. A definition only states dependency implications explicitly when they differ from the defining standard.
+## D20 — Three-standard split by load profile
 
-This applies to component schema standards and to DocMeth's own Definitions Standard equally. It preserves low-friction design and avoids repetitive boilerplate while guaranteeing the living-document change-management chain.
+**New.** DocMeth splits into three standards based on load profile, not topic:
+- **DocumentationMethodology_Standard** (main, always-on) — what DocMeth is, how it works, what to do with it
+- **DocumentationMethodology_SchemaDefinitions_Standard** (always-on) — the type definitions DocMeth owns
+- **DocumentationMethodology_SchemaAuthoring_Standard** (on-demand) — how to define new types
 
-## D19 — Format constraint as a doctype property
+A fourth standard (DocumentationMethodology_Authoring_Standard) is planned for when authoring guidance grows enough to justify its own load. Currently in the main standard.
 
-A doctype can constrain the permitted formats when the type requires it. The format-fits-the-job principle says format is a considered choice — the doctype is the thing that carries the consideration.
+## D21 — Content-triggered application with graceful degradation
 
-## D20 — Density has no default
+**New.** DocMeth can add value to a document that isn't formally governed. Individual features activate from defined elements or patterns in a document — if what a feature needs is present, it can apply. The Declaration is the primary trigger but not the only one.
 
-Neither compact nor expanded is assumed. Density is stated when it matters, omitted when the content shape makes it obvious, and not applicable to blocks without structured fields.
+## D22 — Instructions as a composable scoped mechanism
 
-## D21 — Tags deferred from the definition contract
+**New.** Instructions are rules applied to documents, scoped from general to specific: DocMeth defaults → doctype → block → document. More specific scope takes precedence. Document-level instructions must be stated under a heading recognised as instructions, or in a doctype-defined blocktype. Body prose without either is content, not instructions.
 
-Tags is deferred. The concept is sound but ahead of demonstrated requirement. The grouping syntax is independently useful in `uses` and `blocks` fields. Tags returns when a consumer demonstrates need.
+## D23 — Source-defined dependency propagation, one-level only
 
-## D22 — Containers settled at four, general role deferred
+**New.** Each standard defines which of its dependencies should propagate to the `uses` field of consuming documents. Propagation is one level — the consuming document applies propagation rules for the standards it directly lists, not recursively. The defining standard itself always belongs in `uses`. Universal standards (the main DocMeth standard) are exempt.
 
-Four containers are settled: Header, Footer, Body, and Declaration. Any block type can serve as a container by being targeted for placement. New containers are created by defining a block type and having the doctype position it — no additional mechanism needed. A general formal treatment of the container role is deferred until the four settled containers prove insufficient.
+This replaces the universal-exemption list approach from the existing standards, where three named standards were exempt by identity.
 
-## D23 — Lifecycle terminal path dropped from doctype contract
+## D24 — Blocktype spec simplified to six properties
 
-A doctype may describe terminal paths in its documentation, but this is not a formal property in the definition contract.
+**New.** Name, Purpose, Content, Placement (optional), Recognition (optional), Instructions. Fields, Subheadings, and Density merged into Content. Container, Owner/residence, Dependency implications, and Conditional behaviour dropped.
 
-## D24 — Self-describing blocks and the aggregation model
+## D25 — Doctype spec simplified to four properties
 
-Four blocks make a document self-describing: title, description, contents, summary. Title and Description are common blocks. The aggregation model consumes self-describing blocks: one model, several output forms. The binder is kept separate.
+**New.** Name, Purpose, Content, Instructions. Content carries blocktypes with optionality, ordering, metadata, conventions. Format constraint and Format conventions sit in Instructions where needed.
 
-## D25 — Three-standard split supersedes single-standard constraint
+## D26 — Default and override as a governing principle
 
-The brief's statement that both consumers "must be served by the same standard" is superseded. The three standards (Schema, Authoring, Definitions) serve different consumers with different change cadences. This follows the schema placement guidance DocMeth itself defines.
+**New.** DocMeth defines default behaviour; defaults can be overridden by logic inherited by, applied to, or defined within the document. This is a principle, not a per-feature rule.
 
-The brief is a historical record and is not rewritten. This decision records the departure.
+## D27 — Grouping syntax is organisational only
 
-## D26 — Conditional completeness rules
+**New.** The grouping syntax (`prefix:[items]`) flattens to type names — the prefix is not part of the type name. Dot-qualified disambiguation (`pd.Brief`) is separate from grouping and used only to resolve collisions.
 
-Name and purpose are always required. Other properties become required when omitting them would leave the definition ambiguous: a block whose position does not identify it must state its recognition; a block with structured fields must declare them. This preserves the facilitative model while preventing definitions that cannot subsequently be rendered or recognised.
+## D28 — Version increment behaviour
 
-## D27 — Field-level optionality
+**New.** Saving a draft increments the draft number. Publishing increments the published version number. A new versioned document starts at `v1-draft1`.
 
-The Fields vocabulary item accepts per-field optionality (required, recommended, or optional) and value constraints. This separates block-level optionality (the doctype's choice to include a block) from field-level rules (the block's own internal structure), as the brief requires.
+## D29 — Type resolution path
 
-## D28 — Governed-document scaffold
-
-The methodology provides an implicit scaffold for every governed document: Declaration, Title, Description, Header, Body, Footer. Doctypes add content blocks beyond this scaffold. Containers exist structurally even when empty. This eliminates ambiguity about what a doctype must explicitly include versus what the methodology provides.
-
-## D29 — Type-reference resolution
-
-Type names must be unique within their owning component. Independently owned components may use the same name without coordination. Unqualified names are the default when unique within the document's active `uses` scope. Dot-qualified form (`pd.brief`) disambiguates on collision, using the component's declared alias as prefix. The pattern extends to framework-level (`aide.pd.brief`) when needed, but the framework prefix is not defined until demonstrated.
-
-Resolution path: a type's authoritative definition is in the defining standard listed in the document's `uses` field.
-
-Component alias uniqueness is carried to Core Structure.
-
-## D30 — Default markdown rendering
-
-A small set of deterministic defaults closes the gap between the format rendering rule and the brief's requirement for unambiguous markdown output. Heading levels follow nesting, compact fields are pipe-delimited labelled lines, expanded fields are labelled list items, containers are structural, title is `#`, description is first paragraph beneath title. Block definitions override when needed.
-
-## D31 — Declaration field renames
-
-`dependencies` renamed to `uses`; `blocktypes` renamed to `blocks`. Shorter, plainer, consistent with the plain-English rule. `identity` and `doctype` retained — already short and unambiguous.
-
-## D32 — Date semantics
-
-The Declaration `date` field means "the date this version was produced." One meaning, no ambiguity. Created date and modified date were considered and rejected — created date is historical metadata, modified date is what the Declaration date already is, and maintaining both creates a composed-metadata risk.
-
-## D33 — Identity reference grammar and filename mirror grammar
-
-Two named grammars for the same versioning model. The identity reference grammar (`Name@vN`, `Name@vN-draftN`) is the primary, authoritative form. The filename mirror grammar (`Name_vN.ext`, `Name_vN-draftN.ext`) is decorative — never authoritative, identity wins on conflict. Draft numbering is required — every draft carries its sequence number, no unnumbered draft form exists.
-
-## D34 — Canonical marker syntax
-
-The marker for block-type recognition is an HTML comment with the `aide:block:` prefix: `<!-- aide:block:TypeName -->`. For repeated instances: `<!-- aide:block:TypeName:instance-id -->`. The `aide:` namespace prevents collision. The `block:` segment is extensible for future marker types.
-
-## D35 — Definition representation
-
-A definition is written as a heading naming the type, followed by labelled properties as list items. Name is the heading. Purpose is the first property. In structured formats, a keyed object with the same property names. This makes the representation normative rather than observable only by imitation.
-
-## D36 — Dependencies resolved as Declaration field
-
-Dependencies (`uses`) is a Declaration field, not a separate block type. The Declaration is a container for all machine-readable governance information. Everything needed for a partial-read governance check is in one block.
-
-## D37 — Footer recognition is by placement, not by marker
-
-Footer is recognised by its position at the bottom of the document, with the horizontal rule as the boundary signal in markdown. This is placement recognition, not marker recognition. The `aide:block` marker syntax is reserved exclusively for typed block markers. A format-specific boundary convention is not a marker in the definition-contract sense.
-
-## D38 — Manifest as a binder block type
-
-The binder's manifest is a block type: it has fields (relative paths, structural metadata) and a defined format. The BEGIN/END source concatenation is a format convention of the binder doctype, not a block type — it describes how the binder renders its included content, not a content definition.
-
-## D39 — blocks field lists non-scaffold typed blocks
-
-The `blocks` field in the Declaration lists non-scaffold typed blocks actually present in the document. The scaffold (Declaration, Title, Description, Header, Body, Footer) is provided by the methodology and not re-stated. This prevents redundancy and makes `blocks` meaningful — it shows what the doctype adds.
-
-## D40 — Declaration overrides the compact rendering default
-
-Declaration renders compact fields across multiple lines (one per field group) rather than on a single line, because some fields are optional and variable-length. This is an explicit override of the default compact rendering rule, stated in the Declaration's definition.
-
-## D41 — Dependency implications propagate to uses
-
-Dependency implications from the document's doctype and included block types populate the Declaration's `uses` field automatically. This is the connecting rule between the implicit dependency mechanism and the `uses` field. The `uses` field is syntactically optional but present whenever resolved dependencies exist.
-
-## D42 — Format conventions as a doctype property
-
-Format conventions is a doctype vocabulary property for format-specific structural behaviour owned by the doctype — rendering conventions beyond what block definitions and the default markdown rendering cover. Binder demonstrated the need: its BEGIN/END source-document delimiting is a format convention, not a block definition.
+**New.** Type definitions are found by loading the standards referenced in `uses`, then resolving type names against the definitions in those standards. Unqualified names must resolve to exactly one definition; ambiguous names use dot-qualified form.
 
 ---
 
-Version note: v6 — D41-D42 added. Round 3 corrections. 2026-09-12. Replaces v5.
-<!-- END SOURCE: Documentation Methodology/DocMeth_Decisions_v6.md -->
+Version note: v7 — clean-sheet rebuild. Twenty-nine decisions; thirteen carried from v6, sixteen new or superseded. 2026-09-14. Replaces v6.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Decisions_v7.md -->
 
 ---
 
@@ -5537,418 +5466,546 @@ The migration methodology governs how change actions are defined and applied. Do
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Working_v8.md -->
-# Documentation Methodology — Working
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Working_v9.md -->
+> identity: DocMeth_Working@v9 | doctype: working | updated: 2026-09-14
 
-> identity: DocMeth_Working@v8 | doctype: working | date: 2026-09-12
+# Documentation Methodology — Working
 
 ## Session history
 
-Sessions 2026-09-10 through 2026-09-12. Definition contract, three cross-review rounds (14 + 9 + 4 findings, all applied). All settled items in Design v6 and Decisions v6.
+Session 2026-09-14. Clean-sheet rebuild of the Documentation Methodology standards. Dave guided concept and shape; three new standards authored, cross-reviewed twice, all defects resolved, published as v1.
 
-## Cross-review round 3 — 2026-09-12
+## What was done
 
-Key resolutions:
-- Dependency-to-uses propagation rule made explicit (F1)
-- Blocks example corrected — Declaration removed (F2)
-- Format conventions added as doctype vocabulary property (F3)
-- Manifest moved to common block types (F4)
-- Binder BEGIN/END syntax defined deterministically (rendering)
-- Manifest table rendering defined (rendering)
+- **Clean-sheet rebuild** — built the main standard from Dave's concept, starting with purpose, principles, key functions, then defining each function iteratively
+- **Three-standard structure** — split by load profile: main (always-on), schema definitions (always-on), schema authoring (on-demand)
+- **Two cross-review rounds** — first round found 7 defects, all fixed; second round found 3 residual defects, all fixed; all 8 acceptance operations pass
+- **Published** — three standards versioned as v1 with Declarations, replacing the existing v4 set
+- **Decisions updated** — v7, twenty-nine decisions (thirteen carried, sixteen new/superseded)
+
+## Current state
+
+- **DocumentationMethodology_Standard_v1** — published, always-on, 246 lines
+- **DocumentationMethodology_SchemaDefinitions_Standard_v1** — published, always-on, 91 lines
+- **DocumentationMethodology_SchemaAuthoring_Standard_v1** — published, on-demand, 130 lines
+- **DocMeth_Decisions_v7** — published
+- **DocMeth_Design_v6** — superseded in substance by the v1 standards; the design was done output-first this session and decisions captured in v7. A new design document reflecting the current architecture is deferred unless needed
+
+## Superseded documents
+
+- DocumentationMethodology_Authoring_Standard_v4 → replaced by DocumentationMethodology_Standard_v1
+- DocumentationMethodology_Schema_Standard_v4 → replaced by DocumentationMethodology_SchemaAuthoring_Standard_v1
+- DocumentationMethodology_Definitions_Standard_v4 → replaced by DocumentationMethodology_SchemaDefinitions_Standard_v1
+- DocMeth_Decisions_v6 → replaced by DocMeth_Decisions_v7
 
 ## Open items
 
-- **Cross-review round 4** — resubmit for acceptance test. Expecting pass.
-- **Standards header migration** — grammar complete. Migration to blockquote Declaration format pending. Carry to Migration.
-- **DocMeth overview** — build after design settles fully.
-- **Schema review** — survey all components with doctype/block-type definitions against the contract. Rework per component.
-- **PD carries** — PD-F1, PD-F2, PD-F3 in Design v6 carries section.
-- **Core carry** — component alias uniqueness rule.
-- **FUP deployer utility** — user_instructions should display after success statement, not before deploy prompt.
+- **Migration action** — other standards with `uses` referencing the old v4 identities need updating. Known affected: Standards_Authoring_Standard (uses DocMeth Schema v4), PD_Schema_Standard (uses DocMeth Schema v4), Core_Schema_Standard (uses DocMeth Schema v4), DocMeth_SchemaDefinitions (uses DocMeth SchemaAuthoring v1 — already current)
+- **Binder rebuild** — the DocMeth binder needs rebuilding with the new standards replacing the old
+- **Schema review** — survey all component schema definitions against the simplified definition contract
+- **Design document** — v6 is superseded in substance. A v7 reflecting the current architecture can be authored if needed; the standards and decisions are the authoritative sources
+- **Fourth standard** — DocumentationMethodology_Authoring_Standard planned for when authoring content grows enough to justify splitting from the main standard
+- **Uses semantics update** — the dependency map in AIDE_Documentation_WIP needs updating for the new standard identities and the source-defined propagation model
 
 ---
 
-Version note: v8 — cross-review round 3 findings absorbed. 2026-09-12.
-<!-- END SOURCE: Documentation Methodology/DocMeth_Working_v8.md -->
+Version note: v9 — clean-sheet rebuild session. Replaces v8. 2026-09-14.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Working_v9.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Authoring_Standard_v4.md -->
-> identity: DocumentationMethodology_Authoring_Standard@v4 | doctype: standard | updated: 2026-09-12
+<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md -->
+> identity: DocumentationMethodology_SchemaAuthoring_Standard@v1 | doctype: standard | updated: 2026-09-14
 
-# Documentation Methodology — Authoring Standard
+# Documentation Methodology — Schema Authoring Standard
 
-Use when authoring, structuring, or versioning a governed document.
+Use when defining new blocktypes or doctypes, or modifying existing ones.
 
-## What this standard is for
+This standard defines the rules for writing schema definitions — the definition contract. For the types DocMeth itself defines, see the Schema Definitions standard. For how schema is used in documents, see the main Documentation Methodology standard.
 
-Information. This standard defines how to author and use governed documents — the Declaration, identity, versioning, format, and writing conventions. For defining new types, see the Schema Standard. For the common types DocMeth defines, see the Definitions Standard.
+---
 
-## The governed-document scaffold
+## The definition contract
 
-Information. The methodology provides an implicit scaffold for every governed document:
+The definition contract is the grammar for defining new blocktypes and doctypes. It facilitates — it does not mandate structure where structure adds no value. A minimal definition is a name and a purpose. A complex definition uses as many properties as it needs.
 
-- **Declaration** — the first block, fixed topmost. Every governed document has one.
-- **Title** — recognised by placement, immediately after Declaration. The human-readable name.
-- **Description** — recognised by placement, immediately after Title. What the document is, in a line.
-- **Header, Body, Footer** — structural containers. Every governed document has them. Containers exist structurally even when they contain no explicitly declared blocks.
+---
 
-Information. A doctype adds content blocks beyond this scaffold. Contents, Summary, Version note, and all component-defined blocks are doctype choices, not methodology defaults.
+## Blocktype definition
 
-## The Declaration — recognition and activation
+A blocktype is defined with the following properties. Name and Purpose are always required. Other properties are stated when they add value.
 
-Required. Every governed document has a Declaration. It is the first block, fixed topmost, not overridable. Its presence is what makes a document governed.
+- **Name** — what the block is called. The heading in the definition.
+- **Purpose** — what it's for. Always the first property.
+- **Content** — what the block contains: headings, sections, general content, named fields with optionality (required, recommended, optional). As specific or generic as the author deems necessary. Used for recognition, authoring and interpretation. Included blocktypes are defined here.
+- **Placement** — (optional) where in the document the block belongs. Defaults to general document flow, or as defined by the including doctype.
+- **Recognition** — (optional) how to identify this block when its content definition alone is not sufficient. Three strategies in preference order: by subheading, by placement, by marker.
+- **Instructions** — block-specific rules applied when authoring, reading or using this block.
 
-Required. The Declaration carries labelled fields:
+### Conditional completeness
 
-- identity (required) — name + @version, the authoritative reference
-- doctype (required) — the document's type
-- updated (required) — the date this version was produced, YYYY-MM-DD
-- uses (optional) — standards this document depends on, as `standard@version` pairs. Populated automatically from the dependency implications of the document's doctype and included block types. Conformance stamp, not constraint. The grouping syntax `name:[item1, item2]` tracks ownership.
-- blocks (optional) — non-scaffold typed blocks present in this document. The scaffold (Declaration, Title, Description, Header, Body, Footer) is not re-stated. The grouping syntax tracks ownership.
+A property becomes required when omitting it would leave the definition ambiguous. A block whose content and position do not identify it must state its recognition. A block with structured fields must declare them in its content. The test: would a consumer be unable to recognise, render or use the block without this property? If yes, include it.
 
-Information. In markdown, the Declaration renders as a single blockquote line with labelled, pipe-delimited fields:
+### Composition
 
+Blocktypes can include other blocktypes — defined in the content specification. Composition recurses but must not cycle. A blocktype may not include itself, directly or indirectly.
+
+Shared content across doctypes is a block that doctypes include — not inheritance. Content is defined in one place.
+
+### Recognition strategies
+
+When a block cannot be identified by its content alone:
+
+1. **By subheading** — the block is identified by a heading matching its blocktype name. The block's content extends from that heading to the next heading at the same or higher level. This is the default and preferred strategy for most blocks.
+2. **By placement** — position in the document identifies it. Used for blocks with fixed positions (e.g. Title after Declaration).
+3. **By marker** — an HTML comment placed after the heading. The fallback when subheading and placement cannot discriminate.
+
+Marker syntax:
 ```
-> identity: Name@vN | doctype: standard | updated: YYYY-MM-DD | uses: Dep1@vN, Dep2@vN
+<!-- aide:block:TypeName -->
 ```
 
-Information. In structured formats (YAML, JSON), a reserved top-level `aide` key holds the Declaration fields as sub-properties (nested one level: `aide.identity`, not `aide_identity`). Presence of `aide` = governed.
+For repeated instances of the same block type:
+```
+<!-- aide:block:TypeName:instance-id -->
+```
 
-Information. The name "Declaration" is methodology vocabulary — nothing in the document emits the word.
+The `aide:block:` prefix is reserved. Markers are placed after the heading, not before, so they survive content chunking.
 
-## Self-describing blocks
+---
 
-Information. Four blocks make a document self-describing, ordered by depth in the header region: title (what it's called), description (what it is), contents (what's in it), summary (what it establishes).
+## Doctype definition
 
-Information. Title and description are inferred from natural document convention in prose formats (position and shape) and keyed in structured formats. This follows the format rendering rule.
+A doctype is defined with the following properties. Name and Purpose are always required.
 
-## Identity and versioning
+- **Name** — what the document type is called. The heading in the definition.
+- **Purpose** — what this type of document is for, its role and behaviour. Always the first property.
+- **Content** — what the doctype defines for its documents: blocktypes with optionality (required, recommended, optional), ordering, metadata, conventions, and any other information that applies.
+- **Instructions** — doctype-specific rules applied when authoring, reading or using documents of this type.
 
-### Identity reference grammar
+### The no-modification rule
 
-Required. The primary grammar for referencing a document's version:
+A doctype includes a blocktype as defined — it does not modify it. No field suppression, no field addition, no shape adjustment on inclusion. The block's own definition is authoritative for its content, fields and structure.
 
-`{Name}@v{integer}` — published, immutable.
-`{Name}@v{integer}-draft{n}` — working draft.
+Where two doctypes need different shapes for similar content, define two blocktypes. They may share a smaller common blocktype through composition. This is composition, not inheritance — visible duplication is preferred over hidden override chains.
 
-Required. Every document has an identity in its Declaration. Identity is authoritative; the filename mirrors it. Identity wins on conflict.
+### Doctype-level placement
 
-Required. Absence of a draft marker means published and immutable. Published version numbers are never reused. Next cycle opens at the next integer.
+A doctype may specify where each of its included blocktypes is placed in the document and their ordering relative to each other. This overrides the block's own default placement for documents of this type.
 
-Required. Every draft carries its sequence number.
+---
 
-Information. Reference forms: `@v27` resolves to the published contract; `@v27-draft` resolves to the highest draft present.
+## Definition representation
 
-Information. `.n` is reserved, unused — available for minor published releases later.
+A definition is written as a heading naming the type, followed by labelled properties as list items. Name is the heading. Purpose is the first property. Remaining properties follow in any order.
 
-### Filename mirror grammar
+In structured formats (YAML, JSON), a definition is a keyed object with the same property names.
 
-Recommended. The filename mirrors the identity for human readability. Never authoritative.
+Example — a blocktype definition:
 
-`{Name}_v{integer}.{ext}` — published.
-`{Name}_v{integer}-draft{n}.{ext}` — working draft.
+### Work register
 
-Information. Naming keys: `{name}_v{integer}-{key}{n}`. One key defined: `draft`. An undefined key is a conformance error.
+- **Purpose:** The ledger of confirmed work owed and not yet delivered.
+- **Content:** Entries listed under subheadings by status. Fields per entry: description (required), source (required), status (required), notes (optional).
+- **Recognition:** by subheading.
+- **Placement:** body.
+- **Instructions:** Updated at the end of each session. Completed items are removed, not marked done.
 
-### Two rhythms
+---
 
-Information. Design documents run on a single rhythm — identity and file move together. Published outcomes use a two-rhythm split at the publish boundary.
+## Dependency propagation
 
-## Lifecycle states
+When a standard defines blocktypes or doctypes, it should specify which of its dependencies should propagate to the `uses` field of documents that consume those types. A standard that inherits other standards for its own internal behaviour, but where those inherited standards have no direct application to consuming documents, does not propagate them.
 
-Information. Three semantic states, independent of physical storage:
+State the propagation rule in the standard itself, typically as a short section at the top (see the Schema Definitions standard for an example).
 
-- **Current** — the issued authoritative version for normal use.
-- **Superseded** — an older issued version, or a document displaced without reaching archival.
-- **Archived** — terminal disposition; the record is frozen except through the type's permitted correction route.
+---
 
-Information. Working Practices owns physical handling.
+## Placement guidance
 
-## File conventions
+(Recommended) When a component defines blocktypes or doctypes, the default recommendation is a separate schema standard with its own version track, distinct from the component's operational standards. This keeps schema changes and operational changes on independent version paths and improves discoverability.
 
-Recommended. File naming pattern: `{Prefix}_{DocType}_v{N}.md`. Applied by default, not enforced. The Declaration is authoritative; the filename mirrors for readability.
+The override: if the schema definitions are small and change at the same rate as the operational content, keeping them together is acceptable. The component owner decides.
 
-Recommended. File prefixes identify the subject — the area, part, or component name.
-
-## Format and rendering
-
-Recommended. Choose the format that best serves the document's primary consumer and content shape. Format is a considered choice, not a default. Markdown is the primary format; YAML, JSON, and HTML are available where the content warrants them.
-
-Required. A block is a named set of fields. Structured formats express fields as native properties; prose formats express them as a heading or delimited line. Each format's own standards provide the default mapping.
-
-### Default markdown rendering
-
-Information. Deterministic defaults for markdown. Block definitions override when needed.
-
-- **Heading level** follows nesting: a top-level block uses `##`, a subheading within a block uses `###`. Deeper nesting adds levels.
-- **Compact fields** render as a single delimited line, pipe-separated, labelled.
-- **Expanded fields** render as labelled list items: `- **FieldName:** value`.
-- **Containers** have no literal rendering — structural only. Children render in sequence.
-- **Title** is the markdown document heading (`#`).
-- **Description** is the first paragraph beneath the title.
-
-Required. Anything a block defines that would not port cleanly across formats is flagged for confirmation, not decided silently.
+---
 
 ## The split test
 
-Recommended. Externalise a block into its own document when keeping it in would compromise the primary role of its host. Below that line, keep it in — file management is easier.
-
-## The Contents/Summary edge
-
-Recommended. Contents maps what is where (navigation). Summary gives what the document establishes (substance). Their roles must stay distinct.
-
-## Language and integrity
-
-Required. Five rules applying to every governed document:
-
-1. Plain English wherever it will do.
-2. Meaning first, code second — name the thing before citing its identifier.
-3. Use the terms already in use on the project.
-4. Flag a new term rather than introducing it silently.
-5. Do not compose plausible metadata, times, versions, paths, or delivery facts where the fact should be observed or read. Distinguish verified state, declared state, and unknown state.
+(Recommended) Externalise a block into its own document when keeping it in would compromise the primary role of its host. Below that line, keep it in — file management is easier. This applies to blocks within documents and to definitions within standards.
 
 ---
 
-Version note: v4 — round 3 corrections. Uses field propagation rule added. Blocks example corrected. Compact rendering override noted. 2026-09-12. Replaces v3.
-<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Authoring_Standard_v4.md -->
+## Checklist — before publishing a definition
+
+1. Does it have a name and purpose?
+2. Could a consumer recognise the block or apply the doctype from this definition alone?
+3. Are all structured fields declared with optionality?
+4. If the block's content and position do not identify it, is a recognition strategy stated?
+5. Does the definition use the properties from the contract, or invent its own?
+6. Is the dependency propagation rule stated in the hosting standard?
+7. Does the definition follow the no-modification rule — no inherited block is adjusted on inclusion?
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Definitions_Standard_v4.md -->
-> identity: DocumentationMethodology_Definitions_Standard@v4 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
+Version note: v1 — clean-sheet rebuild. Replaces DocumentationMethodology_Schema_Standard_v4. Definition contract simplified (6 blocktype properties, 4 doctype properties). Worked example and pre-publish checklist added. 2026-09-14.
+<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md -->
 
-# Documentation Methodology — Definitions Standard
+---
 
-The doctypes and block types defined by Documentation Methodology, using its own definition contract.
+<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md -->
+> identity: DocumentationMethodology_SchemaDefinitions_Standard@v1 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
 
-## What this standard is for
+# Documentation Methodology — Schema Definitions Standard
 
-Information. This standard contains DocMeth's own type definitions — the common block catalogue and the common doctypes. Component-specific types are defined by their owning component using the Schema Standard. For the definition grammar itself, see the Schema Standard. For authoring governed documents, see the Authoring Standard.
+The blocktypes and doctypes defined by Documentation Methodology.
 
-## Common block types
+Component-specific types are defined by their owning component. This standard defines only the common types that DocMeth provides to all governed documents.
+
+## Dependency propagation
+
+Documents using these types should add `DocumentationMethodology_SchemaDefinitions_Standard@v1` to their `uses` field.
+
+---
+
+## Common blocktypes
 
 ### Declaration
 
-- **Purpose:** Machine-readable identity and activation block. Its presence makes a document governed.
-- **Fields:**
-  - identity (required) — name + @version, the authoritative reference
-  - doctype (required) — the document's type
-  - updated (required) — date this version was produced, YYYY-MM-DD
-  - uses (optional) — standards this document depends on, flat list with grouping syntax
-  - blocks (optional) — non-scaffold typed blocks present in this document, flat list with grouping syntax
-- **Density:** compact. One blockquote line, all present fields labelled, pipe-delimited.
-- **Recognition:** by placement — first block, fixed topmost.
-- **Placement:** header, topmost.
-- **Container:** yes — a container for its labelled fields.
+- **Purpose:** Identity and activation block. Its presence makes a document governed.
+- **Content:** Labelled fields — identity (required), doctype (optional), blocks (optional), updated (optional), uses (optional). Renders as a blockquote with pipe-delimited fields in markdown.
+- **Placement:** first block, fixed topmost.
 
 ### Title
 
-- **Purpose:** What the document is called. The human-readable name.
-- **Recognition:** by placement — immediately after Declaration. In markdown, the `#` heading.
-- **Placement:** header, after Declaration.
+- **Purpose:** The document's human-readable name.
+- **Content:** A single heading. In markdown, the `#` heading.
+- **Placement:** immediately after Declaration.
+- **Recognition:** by placement.
 
 ### Description
 
 - **Purpose:** What the document is, in a line.
-- **Recognition:** by placement — first paragraph after Title.
-- **Placement:** header, after Title.
-
-### Header
-
-- **Purpose:** Placement container for blocks that serve the read-decision. No semantics of its own.
-- **Container:** yes.
-- **Placement:** top of document.
-- **Conditional behaviour:** boundary proximity principle — value increases toward the file boundary. Header runs high-to-low from the top.
+- **Content:** A single paragraph.
+- **Placement:** immediately after Title.
+- **Recognition:** by placement.
 
 ### Body
 
-- **Purpose:** The document's substance. Default host for content not claimed by another container.
-- **Container:** yes.
-- **Placement:** between header and footer.
-- **Recognition:** by placement — the first heading that is not Contents or Summary.
+- **Purpose:** The document's substance. Default host for content not placed elsewhere.
+- **Placement:** between the header elements and the footer.
 
 ### Footer
 
-- **Purpose:** Placement container for metadata and low-priority blocks. No semantics of its own.
-- **Container:** yes.
+- **Purpose:** Metadata and low-priority content at the bottom of the document.
+- **Content:** In markdown, a horizontal rule marks the footer boundary. Content below the rule is footer content.
 - **Placement:** bottom of document.
-- **Recognition:** by placement — everything after the boundary signal. In markdown, a horizontal rule marks the footer boundary.
-- **Conditional behaviour:** boundary proximity principle — footer runs low-to-high toward the end.
+- **Recognition:** by placement — everything after the boundary signal.
 
 ### Contents
 
-- **Purpose:** A curated semantic map letting a reader decide whether to read the document and what it covers.
-- **Density:** compact (rendered inline / delimited, never a vertical list).
+- **Purpose:** A curated map letting a reader decide whether to read the document and what it covers. Navigation, not substance.
+- **Content:** Compact, rendered inline — never a vertical list.
+- **Placement:** after Description, before Summary.
 - **Recognition:** by subheading.
-- **Placement:** header, after Description, before Summary.
-- **Conditional behaviour:** earns its place when the Declaration alone is not enough for a reader to decide whether to keep reading. The doctype owner sets the default (on, off, or conditional) and defines depth.
+- **Instructions:** (Recommended) Earns its place when the Declaration alone is not enough for a reader to decide whether to keep reading. The doctype owner sets the default. Contents maps what is where; Summary gives what the document establishes — keep these roles distinct.
 
 ### Summary
 
 - **Purpose:** States what the document establishes, absorbed quickly. The substance, not a gesture at it.
+- **Content:** Stated, not explained — expansion is the body's role. The body does not restate what Summary states.
+- **Placement:** after Contents (or after Description if no Contents).
 - **Recognition:** by subheading.
-- **Placement:** header, after Contents (or after Description if no Contents).
-- **Conditional behaviour:** earns its place when the document's substance needs a compressed statement. Stated, not explained — expansion is the body's role. The body does not restate what the Summary states. The doctype owner governs whether Summary is used.
+- **Instructions:** (Recommended) Earns its place when the document's substance needs a compressed statement. The doctype owner governs whether Summary is used.
 
 ### Version note
 
-- **Purpose:** Current version metadata. One line, current version only. Historical version notes do not accumulate; the decisions document holds what mattered.
-- **Density:** compact.
+- **Purpose:** Current version metadata. One line, current version only.
+- **Content:** A single compact line. Historical version notes do not accumulate.
+- **Placement:** footer, topmost.
 - **Recognition:** by placement — top of footer.
-- **Placement:** footer, topmost (low-value end of the footer gradient).
 
 ### Manifest
 
 - **Purpose:** Records relative paths and structural metadata for every document included in a binder.
-- **Fields:**
-  - entries (required) — list of relative paths preserving structural relationships. Renders as a markdown table with columns for path and document identity.
-- **Density:** compact.
-- **Recognition:** by placement — first content block in the binder body.
+- **Content:** Entries as a markdown table with columns for path and document identity.
 - **Placement:** body, topmost.
+- **Recognition:** by placement — first content block in the binder body.
+
+---
 
 ## Common doctypes
 
 ### Binder
 
 - **Purpose:** Assembles governed documents into a single file for delivery to the AI platform.
-- **Included blocktypes:** Contents (required), Manifest (required).
-- **Format constraint:** markdown.
-- **Format conventions:** source documents are concatenated after the manifest. Each source document is delimited by `<!-- BEGIN SOURCE: relative/path.md -->` before and `<!-- END SOURCE: relative/path.md -->` after, where the path matches the manifest entry.
-
-Information. The binder concept — why it exists, how it is built, inclusion rules — is owned by Working Practices / Content Delivery.
+- **Content:** Contents (required), Manifest (required). Source documents are concatenated after the manifest, each delimited by `<!-- BEGIN SOURCE: relative/path.md -->` and `<!-- END SOURCE: relative/path.md -->`.
+- **Instructions:** Format is markdown. The binder concept, tooling and inclusion rules are owned by Working Practices.
 
 ### Guide
 
-- **Purpose:** A human-facing output document, the counterpart to the standard. Standard for the machine, guide for the human. Ships with what it explains.
-- **Included blocktypes:** Contents (recommended), Summary (optional), Version note (optional).
-
-Information. General-purpose — any component may produce one. Published and versioned like a standard. Distinct from the design doctype: design is development-time reasoning, guide is use-time explanation.
-
-## Parked
-
-**Tags** — Core owns the definition. Returns to the common catalogue only if DocMeth grammar needs to know about it specifically.
-
-**References** — no consumer has appeared. Decide on its own merits when one does.
+- **Purpose:** A human-facing document, the counterpart to the standard. Standard for the machine, guide for the human. Ships with what it explains.
+- **Content:** Contents (recommended), Summary (optional), Version note (optional).
+- **Instructions:** General-purpose — any component may produce one. Published and versioned like a standard.
 
 ---
 
-Version note: v4 — round 3 corrections. Manifest moved to common blocks. Binder BEGIN/END syntax defined. Manifest table rendering defined. Format conventions property used. 2026-09-12. Replaces v3.
-<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Definitions_Standard_v4.md -->
+Version note: v1 — clean-sheet rebuild. Replaces the definitions portion of DocumentationMethodology_Definitions_Standard_v4. Manifest blocktype added. 2026-09-14.
+<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Schema_Standard_v4.md -->
-> identity: DocumentationMethodology_Schema_Standard@v4 | doctype: standard | updated: 2026-09-12
+<!-- BEGIN SOURCE: Documentation Methodology/DocumentationMethodology_Standard_v1.md -->
+> identity: DocumentationMethodology_Standard@v1 | doctype: standard | updated: 2026-09-14
 
-# Documentation Methodology — Schema Standard
+# Documentation Methodology — Standard
 
-Use when defining a new doctype or block type.
+Make building, authoring, managing and maintaining documents easier in an AI-driven development environment.
 
-## What this standard is for
+## What it does
 
-Information. This standard defines the grammar for defining new doctypes and block types — the definition contract. It is for framework developers extending the type vocabulary. For authoring governed documents, see the Authoring Standard. For the common types DocMeth defines, see the Definitions Standard.
+Provides content standards, structure and management to documentation. Extends AI platforms (standards) and provides human guides.
 
-## The definition contract
+## Approach and key principles
 
-Required. The definition contract is the grammar for defining new doctypes and block types. Name and purpose are the only always-required properties. All other properties are available vocabulary — stated when they add value, omitted when they do not.
+1. **Facilitate, not enforce** — the methodology helps, it doesn't dictate
+2. **Content-triggered** — documents activate functionality by their content; functionality applies because it's present, not because it's mandated
+3. **Graceful degradation** — functionality can be applied in part or in full; enhance as best able, degrade gracefully
+4. **Schema serves authoring and consumption** — helps authors shape and define content, helps consumers find and use it
+5. **Consistency where wanted** — apply consistency where it's needed, not everywhere by default
+6. **Default and override** — DocMeth defines default behaviour; defaults can be overridden by logic inherited by, applied to, or defined within the document
 
-Information. The contract is the definition language, not a form to fill in. A minimal definition is a name and a purpose.
+## Key functions
 
-### Conditional completeness
+Documentation Methodology provides four functions:
 
-Required. A property becomes required when omitting it would leave the definition ambiguous: a block whose position does not identify it must state its recognition; a block with structured fields must declare them. A definition that would be broken without a property must include that property.
+- **Identity and Versioning** — unique identification, version tracking and management
+- **Schema** — defined content structure, metadata, instructions and functionality applied through doctypes and blocktypes
+- **Instructions** — rules, conventions and instructions applied to documents
+- **Change Management** — dependency tracking and change identification
 
-### Definition representation
+## Rule strength
 
-Required. A definition is written as a heading naming the type, followed by labelled properties as list items. Name is the heading. Purpose is the first property. Remaining properties follow in any order. In structured formats, a definition is a keyed object with the same property names.
-
-### Implicit dependency rule
-
-Information. A type defined in a versioned standard implicitly carries that defining standard as its dependency implication. A definition only states dependency implications explicitly when they differ from the defining standard.
-
-Required. Dependency implications from the document's doctype and included block types populate the Declaration's `uses` field automatically. The `uses` field is syntactically optional in the Declaration but is present whenever resolved dependencies exist.
-
-Required. `uses` lists the standards whose change would specifically require review of this document. Universal dependencies — standards whose change triggers review of the entire governed corpus — are exempt because they carry no discrimination power. Three qualify as universal: the Authoring Standard (governs all governed documents), the common and scaffold block definitions in the Definitions Standard (present or available in all governed documents), and the standard doctype definition in the Standards Authoring Standard (every standard is one). A standard that defines its own doctype does not list itself.
-
-Required. Nested included blocks participate in dependency propagation — a block that includes another block acquires that block's defining standard as a dependency implication, which propagates to the hosting document's `uses` field under the same rules as direct inclusions.
-
-## Doctype definition
-
-Required. A doctype definition states a name and a purpose.
-
-Recommended. Available vocabulary for a doctype definition, each stated when needed:
-
-- **Included blocktypes** — which blocks the doctype uses beyond the governed-document scaffold. For each: the optionality for this doctype (required, recommended, optional, or conditional) and any density override. A conditional entry states its condition — for example: "required when the design feeds a build, omitted otherwise."
-- **Block positioning** — where a block goes if different from the block's own placement default, or to resolve ordering between blocks.
-- **Dependency implications** — stated only when different from the implicit rule (defining standard).
-- **Format constraint** — narrows the permitted formats when the type requires it.
-- **Format conventions** — format-specific structural behaviour owned by the doctype. Stated when the type has rendering conventions beyond what block definitions and the default markdown rendering cover.
-- **Owner and residence** — which component owns the definition. Implicit from hosting location for most definitions; stated when not obvious.
-
-Required. A doctype includes a block as defined and does not modify it. No field suppression, no field addition, no shape adjustment on inclusion.
-
-## Block-type definition
-
-Required. A block-type definition states a name and a purpose.
-
-Recommended. Available vocabulary for a block-type definition, each stated when needed:
-
-- **Fields** — the named fields the block contains, with optionality per field (required, recommended, optional, or conditional) and any value constraints. Stated when the block has structured properties; omitted for content-only blocks.
-- **Subheadings** — when the block spans multiple sections, declares them with optionality per subheading (required, recommended, optional, or conditional).
-- **Density** — compact or expanded. Stated when it matters; omitted when the content shape makes it obvious.
-- **Recognition** — how this block is identified. Three strategies: by subheading, by placement, or by marker. Required when position does not unambiguously identify the block.
-- **Placement** — which container this block places into and any ordering hint.
-- **Dependency implications** — stated only when different from the implicit rule (defining standard).
-- **Conditional behaviour** — rules the block owns about its own behaviour in context. The block owns its rules; the doctype cannot impose them on inclusion.
-- **Container** — declares this block as a placement destination for other blocks or content.
-- **Owner and residence** — as for doctypes.
-- **Included blocktypes** — which blocks this block includes. The same semantics as for doctypes: for each included block, the optionality for this parent block (required, recommended, optional, or conditional) and any density override. A block may not include itself; composition must not cycle (see Composition rules).
-
-## Block-type recognition
-
-Required. A block type whose position does not unambiguously identify it must state its recognition strategy. Three strategies, in preference order: by subheading (the default for most blocks), by placement (position identifies it), by marker (fallback only).
-
-### Marker syntax
-
-Information. The canonical marker is an HTML comment placed after the heading:
-
-```
-<!-- aide:block:TypeName -->
-```
-
-For repeated instances of the same block type:
-
-```
-<!-- aide:block:TypeName:instance-id -->
-```
-
-## Composition rules
-
-Required. Blocks may include other blocks; composition recurses; no cycles. Shared content across doctypes is a block that doctypes include — composition, not inheritance. Where two doctypes need different shapes, those are two blocks.
-
-Required. Content is defined in one place. Ambiguity is flagged rather than resolved silently.
-
-Required. The `blocks` Declaration field lists only directly hosted non-scaffold typed blocks, not the recursive closure of blocks included by other blocks. A Brief instance lists `Brief` in `blocks`; it does not also list blocks that Brief itself includes.
-
-## Type-reference resolution
-
-Required. Type names must be unique within each kind in their owning component — a component may not define two doctypes with the same name, or two block types with the same name. The same name may intentionally exist as both a doctype and a block type within one component, distinguished by kind. Independently owned components may use the same name without coordination.
-
-Recommended. Unqualified names are the default when the name is unique within the document's active `uses` scope. The dot-qualified form disambiguates on collision: `pd.brief`, where the prefix is the component's declared alias.
-
-Information. Resolution path: a non-universal type's authoritative definition resolves through its defining standard in the document's `uses` field. Universal types — those whose defining standard is exempt from `uses` under the universal-dependency rule — resolve through the framework's universal standards without appearing in `uses`. The three universal standards are `DocumentationMethodology_Authoring_Standard` (governs all governed documents), `DocumentationMethodology_Definitions_Standard` (common and scaffold blocks), and `Standards_Authoring_Standard` (the standard doctype).
-
-Required. Type references in Declaration fields (`doctype`, `blocks`) are serialized in lowercase. Definition headings are the display form; lowercase is the reference form. Type-name matching is case-insensitive. `uses` entries are document identity references and preserve the authoritative identity form, including version.
-
-## Schema placement guidance
-
-Recommended. When a component defines doctypes or block types, a separate schema standard with its own version track is preferred over embedding definitions in the component's operational standard. The split test is the override — if the definitions are small and change at the same rate, keeping them together is acceptable.
+Rules in DocMeth standards use three levels of strength: Required, Recommended, and Information. Required is the default — a rule stated without a tag is required. Only Recommended and Information are tagged explicitly. The strength model is defined by the Standards component.
 
 ---
 
-Version note: v4 — round 3 corrections. Dependency-to-uses propagation rule added. Format conventions added to doctype vocabulary. Type resolution wording corrected. 2026-09-12. Replaces v3.
-<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Schema_Standard_v4.md -->
+## Application and triggering
+
+DocMeth applies to a document through its content.
+
+The primary mechanism is the **Declaration** — described below. A document with a Declaration is a **governed document** — a document that has opted into the methodology and to which DocMeth's full functionality applies.
+
+But the Declaration is not the only trigger. Individual features can also activate from defined elements or patterns elsewhere in a document — if what a feature needs to function is present, it can apply. Full adoption is not required for partial benefit.
+
+---
+
+## The Declaration
+
+The Declaration is a block at the top of a document containing fields that DocMeth uses to determine what applies and how. Its presence is what makes a document governed.
+
+### Declaration fields
+
+- **identity** (required) — the document's unique identifier: `documentname` or `documentname@v##` when versioned
+- **doctype** (optional) — the document's type. Links the document to a doctype definition
+- **blocks** (optional) — typed blocktypes present in the document, beyond any defined by the doctype. Comma-separated, with optional ownership grouping: `blocks: Brief, WorkRegister` or `blocks: pd:[Brief, WorkRegister]`. The grouping syntax (`prefix:[items]`) organises values by source or owner — groups are for organisation only; when applied, the list is flattened to the type names (e.g. `pd:[Brief]` flattens to `Brief`). The prefix is not part of the type name. Dot-qualified disambiguation (`pd.Brief`) is used only to resolve collisions, and is separate from grouping. This grouping syntax may be used by other fields (e.g. `uses`).
+- **updated** (optional) — the date this version was produced
+- **uses** (optional) — standards this document depends on, as `standard@version` references
+
+### How it looks
+
+In markdown, the Declaration renders as a blockquote with labelled, pipe-delimited fields:
+
+```
+> identity: MyDocument@v3 | doctype: standard | updated: 2026-09-14
+```
+
+Fields are included as needed — only identity is always present.
+
+In structured formats (YAML, JSON), a reserved top-level `aide` key holds the Declaration fields as sub-properties (`aide.identity`, `aide.doctype`, etc.). The presence of the `aide` key is what makes the document governed in these formats.
+
+---
+
+## Default document structure
+
+DocMeth provides a default structure for governed documents. A doctype may extend this with additional blocktypes; the default structure is always present.
+
+- **Declaration** — the first block, fixed topmost. Carries identity, doctype, dependencies and metadata.
+- **Title** — the document's human-readable name. Recognised by placement, immediately after Declaration. In markdown, the `#` heading.
+- **Description** — what the document is, in a line. Recognised by placement, immediately after Title.
+- **Body** — the document's substance. The default host for content.
+- **Footer** — metadata and low-priority content at the bottom of the document. In markdown, a horizontal rule marks the footer boundary.
+
+(Information) Detailed definitions of these elements are in the Schema Definitions standard.
+
+---
+
+## Identity and Versioning
+
+### Identity
+
+A document has an identity — a unique identifier within a given scope (at minimum, within a folder).
+
+Identity is set in one of two ways:
+
+- **Declared** — in the Declaration's `identity` field. Always takes precedence.
+- **Inferred** — from the filename, when no Declaration is present. If a Declaration exists but the identity field is not set, the filename can be used as the source to populate it.
+
+The identity value is a string. The document name uses no spaces; alphanumeric characters, hyphens and underscores are permitted.
+
+Identity is authoritative. The filename mirrors it for readability but is never authoritative. Identity wins on conflict.
+
+### Versioning
+
+Versioning is a feature DocMeth can add to documents. When a document is updated, its version is increased and a new version saved.
+
+Versioning is triggered in two ways:
+
+- **Declared** — the identity field includes a version part after the `@`: `documentname@v##` or `documentname@v##-draft#`
+- **Inferred** — from a filename ending in `_v##` or `_v##-draft#`, when no Declaration is present.
+
+**Default behaviour:**
+
+- Saving a draft with changes increments the draft number (`v4-draft1` → `v4-draft2`). Publishing increments the published version number.
+- Version is written into the filename.
+- A new versioned document starts at `v1-draft1`.
+
+These are DocMeth defaults, subject to the default-and-override principle.
+
+**Version format:**
+
+- `documentname@v##` — published version, immutable
+- `documentname@v##-draft#` — working draft
+
+In filenames, the version mirrors using `_v##` and `_v##-draft#`.
+
+**Draft and publish cycle:**
+
+- Absence of a draft marker means published and immutable.
+- Published version numbers are never reused.
+- Every draft carries its sequence number.
+- **Publish** — drops the draft marker in both identity and filename; creates the immutable version. The next cycle opens immediately at the next integer (`@v4-draft1` after publishing `@v3`).
+- **Reference forms** — `@v3` resolves to the published version; `@v3-draft` resolves to the highest draft present.
+
+### File naming
+
+(Recommended) File naming pattern: `{Prefix}_{Name}_v{N}.md`. The Declaration is authoritative; the filename mirrors for readability. File prefixes identify the subject — the area, part, or component name.
+
+---
+
+## Schema
+
+Schema applies defined content structure, metadata, instructions and functionality to documents through two building blocks: **blocktypes** and **doctypes**.
+
+Blocktypes define reusable chunks of document content. Blocktypes can contain other blocktypes, allowing composition of complex content from simpler defined parts.
+
+Doctypes are the primary method for applying blocktypes to a document. A doctype links a document to a defined composition of blocktypes, metadata, conventions and instructions. By declaring a doctype, a document inherits everything that doctype defines.
+
+A document can also declare individual blocktypes directly, with or without a doctype.
+
+**Key properties:**
+
+- Extensible and scalable — new doctypes and blocktypes can be defined as needed, and existing ones can be adopted incrementally
+- Specifications can be as simple or detailed as the owner wants
+- Define once, apply where needed
+
+### Blocktype specification
+
+- **Name** — what the block is called
+- **Purpose** — what it's for
+- **Content** — what the block contains: headings, sections, general content, named fields with optionality. As specific or generic as the author deems necessary. Used for recognition, authoring and interpretation. Included blocktypes are defined here.
+- **Placement** — (optional) where in the document the block belongs. Defaults to general document flow, or as defined by the including doctype
+- **Recognition** — (optional) how to identify this block when its content definition alone is not sufficient. When neither content nor placement can identify a block, a marker comment is used: `<!-- aide:block:TypeName -->`
+- **Instructions** — block-specific rules applied when authoring, reading or using this block
+
+### Doctype specification
+
+- **Name** — what the document type is called
+- **Purpose** — what this type of document is for, its role and behaviour
+- **Content** — what the doctype defines for its documents: blocktypes with optionality, ordering, metadata, conventions, and any other information that applies
+- **Instructions** — doctype-specific rules applied when authoring, reading or using documents of this type
+
+A doctype includes a blocktype as defined — it does not modify it. The block's own definition is authoritative for its content, fields and structure.
+
+### Type naming
+
+Blocktype and doctype names should be unique within their defining source. When a name collision occurs between types from different sources, disambiguate with a dot-qualified prefix using the component alias: `pd.Brief`.
+
+---
+
+## Default format conventions
+
+These conventions apply when working with governed documents in markdown — for both authoring and editing.
+
+- **Heading level** follows nesting: a top-level block uses `##`, a subheading within a block uses `###`. Deeper nesting adds levels.
+- **Compact fields** render as a single delimited line, pipe-separated, labelled.
+- **Expanded fields** render as labelled list items: `- **FieldName:** value`.
+- **Title** is the markdown document heading (`#`).
+- **Description** is the first paragraph beneath the title.
+
+(Information) Block definitions may override these defaults where needed.
+
+---
+
+## Instructions
+
+Instructions are rules, guidance and conventions applied to documents. They are the general mechanism for governing how documents are authored, read and used.
+
+### DocMeth default instructions
+
+These apply to all governed documents:
+
+1. Plain English wherever it will do
+2. Meaning first, code second — name the thing before citing its identifier
+3. Use the terms already in use on the project
+4. Flag a new term rather than introducing it silently
+5. Do not compose plausible metadata, versions, paths or state — distinguish verified, declared and unknown
+
+This set grows as the system evolves. Additional instructions can be defined by other sources — a doctype, a blocktype, or the document itself — at a more specific scope.
+
+Document-level instructions are stated under a heading recognised as instructions (e.g. "Instructions"), or in a blocktype defined by the doctype for that purpose. Without either, body prose is content, not instructions.
+
+---
+
+## Change Management
+
+The `uses` field in the Declaration lists the standards and versions a document depends on. Its purpose is to maintain a clear record of what a document is built against, so that when any of those defining items change, the documents affected can be identified and updated.
+
+Each standard defines which of its dependencies should propagate to the `uses` field of documents that use it. A standard that inherits other standards for its own internal behaviour, but where those inherited standards have no direct application to the consuming document, does not propagate them. This keeps `uses` meaningful — it lists only the dependencies relevant to the document.
+
+The standard that defines a document's doctype or blocktypes always belongs in `uses` — it is the primary dependency. The propagation model governs which of that standard's *own* dependencies also propagate. Propagation is one level only — the consuming document applies propagation rules for the standards it directly lists, not recursively through their dependencies. If a propagated standard needs its own dependencies carried further, it states that in its own propagation rule.
+
+The main Documentation Methodology standard is universal — it applies to all governed documents and is not listed in `uses`. Its changes are managed through migration, not per-document dependency tracking.
+
+---
+
+## Operational instructions
+
+How to apply DocMeth when working with a document.
+
+### When opening a document
+
+1. Read the Declaration. Identify the doctype, any declared blocks, and the `uses` references.
+2. Load the standards referenced by `uses` — these contain the type definitions the document depends on.
+3. Load the doctype definition and all blocktype definitions that apply. Type definitions are found in the standards loaded for the session — resolve type names against the definitions in those standards. If a type name is unqualified, it must resolve to exactly one definition; if ambiguous, use the dot-qualified form (`component.TypeName`).
+4. Combine instructions from all sources: DocMeth defaults, then doctype instructions, then block instructions, then document-level instructions. More specific scope takes precedence where they conflict.
+5. Check `uses` references against current versions. If any dependency is not current, check for migration actions defined by the changed item and apply them before proceeding. Update `uses` to reflect current versions once applied.
+
+### When authoring or updating a document
+
+1. Apply the combined instructions when writing or editing content.
+2. Use blocktype content definitions to guide structure, fields and content within each block.
+3. Apply the default format conventions, unless overridden by a block or doctype definition.
+4. Populate `uses` with the standards that define the document's doctype and blocktypes, at their current versions, plus any dependencies those standards define for propagation. Do not include universal standards.
+5. Apply versioning: increment the version and update the filename.
+
+### When a defining item changes
+
+The migration methodology governs how change actions are defined and applied. DocMeth's responsibility is that the dependency information in `uses` is accurate and maintained.
+
+---
+
+Version note: v1 — clean-sheet rebuild. Replaces DocumentationMethodology_Authoring_Standard_v4, DocumentationMethodology_Schema_Standard_v4, and DocumentationMethodology_Definitions_Standard_v4 (in combination with the Schema Definitions and Schema Authoring standards). Two cross-review rounds completed. 2026-09-14.
+<!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Standard_v1.md -->
 
 ---
 
