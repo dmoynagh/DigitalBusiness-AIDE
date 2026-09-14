@@ -1,4 +1,6 @@
-Standards — Standard | standard | Standards_Consumption_Standard@v2 | 2026-09-11
+> identity: Standards_Consumption_Standard@v2 | doctype: standard | updated: 2026-09-12 | uses: Standards_Authoring_Standard@v5
+
+# Standards — Consumption Standard
 
 How to evaluate, combine, and operate under applicable AIDE standards at runtime in an AI session.
 

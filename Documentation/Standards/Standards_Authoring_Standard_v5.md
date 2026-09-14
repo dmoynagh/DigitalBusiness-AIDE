@@ -1,4 +1,6 @@
-Standards — Standard | standard | Standards_Authoring_Standard@v5 | 2026-09-11
+> identity: Standards_Authoring_Standard@v5 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
+
+# Standards — Authoring Standard
 
 How to design, author, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
 
@@ -70,6 +72,25 @@ Information. Triggering — how a standard gets loaded where it might be needed 
 ## Ownership
 
 **Each standard lives with its owning component.** Required. Standards is a methodological component — it defines how to build a standard, not where standards live. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+
+## Schema definitions
+
+Information. Standards owns two types. The split test says to keep them here — two definitions, same change cadence as the authoring rules.
+
+### Standard
+
+- **Purpose:** Shape decisions and behaviour at the moment of application. Lean, memory-resident, applied alongside many others.
+- **Included blocktypes:** Clarification (optional), Contents (recommended), Summary (optional), Version note (optional).
+- **Format constraint:** markdown.
+
+Information. The authoring rules, strength vocabulary, trigger description, applicability scope, and deployment guidance are defined elsewhere in this standard. The consumption contract is defined in the Standards Consumption Standard.
+
+### Clarification
+
+- **Purpose:** Reasoning and justification supporting the standard's stated rules. The design-side "why" surfaced into the standard where it helps the consumer apply the rules.
+- **Recognition:** by subheading — `Clarification`.
+
+Information. Governed by the split test: stays in the standard when small, removed when it would bloat the loaded standard. When removed, the reasoning lives in the design document.
 
 ---
 

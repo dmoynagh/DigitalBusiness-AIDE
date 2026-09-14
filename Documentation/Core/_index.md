@@ -10,6 +10,12 @@ Core is the root entry to AIDE — the framework's self-description, component m
 
 **Capabilities.** A term covering output definitions — Standards, Tools, Utilities. Components that define things delivering and adding functionality.
 
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| Core_ | Schema Standard v1 | standard |
+
 ## Parts
 
 **Structure** (prefix `Core_Structure_`)

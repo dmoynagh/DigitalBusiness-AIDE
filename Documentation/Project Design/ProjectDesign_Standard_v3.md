@@ -1,4 +1,6 @@
-Project Design — Standard | standard | ProjectDesign_Standard@v3 | 2026-09-11
+> identity: ProjectDesign_Standard@v3 | doctype: standard | updated: 2026-09-12 | uses: ProjectDesign_Schema_Standard@v1
+
+# Project Design — Standard
 
 Rules for briefs, design documents, work registers, capture-and-place, and the design-build handoff-return loop.
 
@@ -142,7 +144,7 @@ Required. The register is default-on. Non-use must be stated explicitly.
 
 ### Entries
 
-Required. Each entry carries five fields: source (the design element or decision that committed it), the commitment, what must change, target (where the change lands), and state.
+Required. Each entry carries six fields: source (the design element or decision that committed it), the commitment, what must change, target (where the change lands), state, and origin tag.
 
 Recommended. Advice fields: handoff reference, return reference, area.
 

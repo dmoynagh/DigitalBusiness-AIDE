@@ -1,7 +1,6 @@
-# Documentation Methodology — Definitions Standard
+> identity: DocumentationMethodology_Definitions_Standard@v4 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
 
-> identity: DocumentationMethodology_Definitions_Standard@v4 | doctype: standard | date: 2026-09-12
-> uses: DocumentationMethodology_Schema_Standard@v4
+# Documentation Methodology — Definitions Standard
 
 The doctypes and block types defined by Documentation Methodology, using its own definition contract.
 
@@ -17,10 +16,10 @@ Information. This standard contains DocMeth's own type definitions — the commo
 - **Fields:**
   - identity (required) — name + @version, the authoritative reference
   - doctype (required) — the document's type
-  - date (required) — date this version was produced, YYYY-MM-DD
+  - updated (required) — date this version was produced, YYYY-MM-DD
   - uses (optional) — standards this document depends on, flat list with grouping syntax
   - blocks (optional) — non-scaffold typed blocks present in this document, flat list with grouping syntax
-- **Density:** compact. Overrides the single-line compact default — renders across multiple lines (one per field group) because some fields are optional and variable-length.
+- **Density:** compact. One blockquote line, all present fields labelled, pipe-delimited.
 - **Recognition:** by placement — first block, fixed topmost.
 - **Placement:** header, topmost.
 - **Container:** yes — a container for its labelled fields.

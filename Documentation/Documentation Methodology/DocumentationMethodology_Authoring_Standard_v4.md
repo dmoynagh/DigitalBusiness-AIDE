@@ -1,7 +1,6 @@
-# Documentation Methodology — Authoring Standard
+> identity: DocumentationMethodology_Authoring_Standard@v4 | doctype: standard | updated: 2026-09-12
 
-> identity: DocumentationMethodology_Authoring_Standard@v4 | doctype: standard | date: 2026-09-12
-> uses: DocumentationMethodology_Definitions_Standard@v4
+# Documentation Methodology — Authoring Standard
 
 Use when authoring, structuring, or versioning a governed document.
 
@@ -28,16 +27,14 @@ Required. The Declaration carries labelled fields:
 
 - identity (required) — name + @version, the authoritative reference
 - doctype (required) — the document's type
-- date (required) — the date this version was produced, YYYY-MM-DD
+- updated (required) — the date this version was produced, YYYY-MM-DD
 - uses (optional) — standards this document depends on, as `standard@version` pairs. Populated automatically from the dependency implications of the document's doctype and included block types. Conformance stamp, not constraint. The grouping syntax `name:[item1, item2]` tracks ownership.
 - blocks (optional) — non-scaffold typed blocks present in this document. The scaffold (Declaration, Title, Description, Header, Body, Footer) is not re-stated. The grouping syntax tracks ownership.
 
-Information. In markdown, the Declaration renders as a blockquote with labelled fields:
+Information. In markdown, the Declaration renders as a single blockquote line with labelled, pipe-delimited fields:
 
 ```
-> identity: Name@vN | doctype: type | date: YYYY-MM-DD
-> uses: StandardA@v1, ComponentName:[StandardB@v2, StandardC@v1]
-> blocks: Summary, ComponentName:[Brief, WorkRegister]
+> identity: Name@vN | doctype: standard | updated: YYYY-MM-DD | uses: Dep1@vN, Dep2@vN
 ```
 
 Information. In structured formats (YAML, JSON), a reserved top-level `aide` key holds the Declaration fields as sub-properties (nested one level: `aide.identity`, not `aide_identity`). Presence of `aide` = governed.
@@ -109,7 +106,7 @@ Required. A block is a named set of fields. Structured formats express fields as
 Information. Deterministic defaults for markdown. Block definitions override when needed.
 
 - **Heading level** follows nesting: a top-level block uses `##`, a subheading within a block uses `###`. Deeper nesting adds levels.
-- **Compact fields** render as a single delimited line, pipe-separated, labelled. A block definition may override this — the Declaration renders compact fields across multiple lines (one per field group).
+- **Compact fields** render as a single delimited line, pipe-separated, labelled.
 - **Expanded fields** render as labelled list items: `- **FieldName:** value`.
 - **Containers** have no literal rendering — structural only. Children render in sequence.
 - **Title** is the markdown document heading (`#`).

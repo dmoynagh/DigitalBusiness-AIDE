@@ -1,4 +1,8 @@
-Tools — Standard | standard | Tools_Authoring_Standard@v4 | 2026-09-11
+> identity: Tools_Authoring_Standard@v4 | doctype: standard | updated: 2026-09-12 | uses: Standards_Authoring_Standard@v5
+
+# Tools — Authoring Standard
+
+How tools are authored, published, and versioned within the AIDE framework.
 
 ## What a tool is
 

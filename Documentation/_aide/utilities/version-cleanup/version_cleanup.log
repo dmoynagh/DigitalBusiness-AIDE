@@ -71,3 +71,14 @@ folders processed: 13
 Result: 4 deleted
 ========================================================================
 
+========================================================================
+version cleanup   2026-09-13 21:16:10   DRY RUN (nothing changed)
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 13
+------------------------------------------------------------------------
+Nothing to do - every document in the tree is already at its current version.
+
+------------------------------------------------------------------------
+Result: no changes
+========================================================================
+
