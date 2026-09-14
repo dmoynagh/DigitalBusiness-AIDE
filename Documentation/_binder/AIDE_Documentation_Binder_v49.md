@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 48** (2026-09-14).
+> **Binder Version 49** (2026-09-14).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -67,7 +67,7 @@ individual files.
 - `Standards/Standards_Authoring_Standard_v6.md` - sha256 `68bb3fcf5bd5`
 - `Standards/Standards_Consumption_Standard_v2.md` - sha256 `b340d11315e3`
 - `Standards/Standards_Decisions_v3.md` - sha256 `370e69972777`
-- `Standards/Standards_Design_v3.md` - sha256 `53a6adec81d3`
+- `Standards/Standards_Design_v3.md` - sha256 `4a6a79a3a0f1`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
 - `Tools/_index.md` - sha256 `7bb05b130edc`
 - `Tools/Tools_Authoring_Standard_v4.md` - sha256 `497b9d3b918c`
@@ -10562,6 +10562,8 @@ The front half is identical to all AIDE design. The solving model is a model-bef
 For carried standards, the solving model is where the critical design effort goes. Leanness is not achieved by compressing a heavy standard. It is achieved by designing a solving model that is smart enough that explaining it is cheap but applying it produces most of the required outcomes. The effort goes into the intelligence of the model. The model does the work that documentation would otherwise have to do.
 
 The leanness of the resolved standard is a readout on how well the solving model fits the intent model. If the output is not lean, the solving model is not yet a good enough solution — the fix is back at model design, not at the documentation level.
+
+**Earn your place.** Every element in the design must justify its presence against the objectives in the intent model. A concept, classification, stage, or mechanism that does not contribute to those objectives is removed regardless of how well-conceived it is in isolation.
 
 ### Trigger and scope
 
