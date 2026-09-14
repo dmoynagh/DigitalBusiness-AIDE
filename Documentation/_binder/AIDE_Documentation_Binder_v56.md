@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 55** (2026-09-14).
+> **Binder Version 56** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -70,9 +70,9 @@ individual files.
 - `Standards/Standards_Design_v3.md` - sha256 `4a6a79a3a0f1`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
 - `Tools/_index.md` - sha256 `7bb05b130edc`
-- `Tools/Tools_Authoring_Standard_v5.md` - sha256 `fc35d204bf4b`
-- `Tools/Tools_Decisions_v5.md` - sha256 `ed0bf9d44d7f`
-- `Tools/Tools_Design_v4.md` - sha256 `9fc48f58e5b1`
+- `Tools/Tools_Authoring_Standard_v6.md` - sha256 `ef3dc9399682`
+- `Tools/Tools_Decisions_v6.md` - sha256 `5aa77c3d102b`
+- `Tools/Tools_Design_v5.md` - sha256 `dcb3e2bd56fa`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
@@ -10787,12 +10787,12 @@ Tools is a methodological component. It defines how to create its type; individu
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v5.md -->
-> identity: Tools_Authoring_Standard@v5 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
+<!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v6.md -->
+> identity: Tools_Authoring_Standard@v6 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
 
 # Tools — Authoring Standard
 
-How tools are authored, published, and versioned within the AIDE framework.
+How to design and author an AIDE tool, and hand it off for deployment.
 
 ## What a tool is
 
@@ -10802,6 +10802,10 @@ Information. Capabilities are defined platform-neutral and transformed into plat
 
 Information. A tool earns its context cost. Everything in it displaces something else the session could hold.
 
+## Applicability
+
+Information. This standard applies when designing or authoring an AIDE tool and when determining the authoring-side handoff for deployment. It does not govern utilities or the infrastructure mechanisms that package and deploy capabilities.
+
 ## The invocability test
 
 The boundary between a tool and a standard is invocability. If you would say "run X," X is a tool. If you would say "follow the approach in Y," Y is a standard.
@@ -10810,9 +10814,11 @@ A standard may describe a procedure, but it may not define an invokable action. 
 
 Information. The standards authoring standard owns the complementary view of this boundary — what a standard is and does. This test owns the tool side.
 
-## Authoring rules
+## Authoring rules and acceptance test
 
-The authoring rules in the standards authoring standard apply to all capabilities, including tools. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. A tool with rules that have no operational consumer is governance without effect. The rules are not restated here; they are consumed as capability-wide methodology.
+The capability-wide authoring rules and the acceptance test defined in the Standards Authoring Standard apply to tools through this standard. Where those rules use standard-specific nouns, apply the equivalent tool concept — a rule or item includes an operational step or obligation carried by the tool.
+
+The acceptance test for a tool: given only the tool and its declared dependencies, can a fresh AI perform the representative operations the tool covers? If it cannot, the tool fails the self-containment rule and must not be published.
 
 ## Authoring concerns
 
@@ -10856,13 +10862,13 @@ Information. This is the only case where a standard may describe an invokable pr
 
 ## The sibling-outputs model
 
-Information. A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the design, not from each other, so they cannot disagree. Neither authors the other's content.
+Information. A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the design, not from each other, and must not disagree. If they do, the design is the authority and the inconsistent output is defective.
 
 Information. This is common. A component or feature specified in a design often needs guidance on how the work is approached and a specific invokable action within that work. The design is the single source; the outputs are its delivery — one or more standards, one or more tools, or a mix.
 
 ## Trigger description
 
-Every tool carries a trigger description. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
+Every tool carries a trigger description. The capability-wide trigger-description and segmentation rules in the Standards Authoring Standard apply identically to tools, including the 130-character budget, front-loading of trigger words, and segmentation along dependency lines.
 
 ## Applicability scope
 
@@ -10876,13 +10882,15 @@ Information. A tool may declare a document-level default strength so the author 
 
 **Design is the default.** Recommended. A design almost always exists behind a tool. Authoring straight to a tool is the exception — reserved for cases where the action is simple enough that a design would restate rather than elaborate.
 
+Information. Tool design follows the normal AIDE design approach. This section provides the tool-specific guidance on top of it — the authoring concerns, the invocability test, and the deployment handoff are the tool-specific overlay.
+
 **Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle — each output is derived from the design that governs it, not from its own prior version.
 
 **No prescribed template.** Information. A tool has no fixed structure. The author decides what it contains and how it is organised, provided the authoring concerns above are addressed and the capability-wide authoring rules are met.
 
-## Deployment
+## Deployment handoff
 
-Information. Once a tool is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted tool. Packaging into a skill or binder entry, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
+Information. Once a tool is authored and accepted, it is handed off for deployment — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted tool. Packaging into a skill or binder entry, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
 
 ## Ownership
 
@@ -10890,13 +10898,13 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ---
 
-Version note: v5 — authoring rules reference updated from a named list of five to the full capability-wide set in the standards authoring standard; `uses` updated to Standards_Authoring_Standard@v7. 2026-09-14. Replaces v4.
-<!-- END SOURCE: Tools/Tools_Authoring_Standard_v5.md -->
+Version note: v6 — cross-review remediation: explicit incorporation contract for authoring rules and acceptance test with noun-substitution rule (F1, F2, F6); applicability section added (F3); design section clarified as overlay on normal AIDE design approach (F4); opening description and deployment section narrowed to actual scope (F5); trigger/segmentation made generic incorporation (F7); sibling-outputs "cannot disagree" corrected to "must not disagree" (F8). 2026-09-14. Replaces v5.
+<!-- END SOURCE: Tools/Tools_Authoring_Standard_v6.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Decisions_v5.md -->
-Tools — Decisions | decisions | Tools_Decisions@v5 | 2026-09-14
+<!-- BEGIN SOURCE: Tools/Tools_Decisions_v6.md -->
+Tools — Decisions | decisions | Tools_Decisions@v6 | 2026-09-14
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -10937,7 +10945,7 @@ The clause also protects the invocability test from being treated as rigid: a st
 
 ## D6 — The sibling-outputs model governs tool-standard coexistence
 
-A single design can produce both standards and tools. The design describes the behaviour; each output delivers the part of that behaviour appropriate to its type — guidance into a standard, invokable actions into tools. Both derive from the design, not from each other, so they cannot disagree.
+A single design can produce both standards and tools. The design describes the behaviour; each output delivers the part of that behaviour appropriate to its type — guidance into a standard, invokable actions into tools. Both derive from the design, not from each other, and must not disagree. If they do, the design is the authority and the inconsistent output is defective.
 
 This is expected to be common. A component or feature specified in a design may need guidance on how the work is approached (a standard) and a specific invokable action within that work (a tool). The design is the single source; the outputs are its delivery.
 
@@ -10947,7 +10955,7 @@ The model also prevents the synchronisation problem the invocability test was de
 
 The authoring rules in the standards authoring standard are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. A tool with rules that have no operational consumer is governance without effect. The rules apply.
 
-Tools does not restate them. The tool authoring standard consumes them by reference to the standards authoring methodology.
+Tools does not restate them. The tool authoring standard consumes them by reference to the standards authoring methodology, with a reading rule for standard-specific nouns.
 
 ## D8 — Trigger description and segmentation rules are capability-wide
 
@@ -10957,7 +10965,7 @@ Tools applies these rules identically. They are not restated — the tool author
 
 ## D9 — One primary output: the tool authoring standard
 
-The tool authoring standard covers design, authoring, and deployment of tools. It parallels the standards authoring standard in scope and shape.
+The tool authoring standard covers design, authoring, and the deployment handoff for tools. It parallels the standards authoring standard in scope and shape.
 
 A separate consumption standard — how to invoke and work with tools once deployed — is not assumed. A well-authored tool is self-evident to invoke: the trigger description tells the consumer when to use it, the inputs tell them what to provide, and the procedure tells them what will happen. Good authoring makes consumption fall out naturally.
 
@@ -11003,15 +11011,28 @@ D7's rationale — that these are properties of any capability, not Standards-sp
 
 The fix: the standard references the authoring rules generically rather than naming a closed list, with examples for discriminating guidance rather than an exhaustive enumeration.
 
+## D16 — Fourth cross-review findings (F1–F8, v5 review)
+
+Eight findings from the v5 cross-review. All accepted and remediated in v6.
+
+- **F1 (incorporation conflict):** Tools asserted the rules were capability-wide; Standards declared itself applicable to standard authoring. Fixed by making the incorporation explicit — the rules apply to tools through this standard, not by asserting Standards' applicability is wider than it declares.
+- **F2 (acceptance test not incorporated):** The v5 text said "the authoring rules apply" but the acceptance test sits alongside the rules, not within them. Fixed by explicitly naming both the authoring rules and the acceptance test.
+- **F3 (no applicability declaration):** Tools v5 imported the applicability-scope rule and then failed it itself. Fixed by adding an applicability section.
+- **F4 (design method insufficient):** The design section said design is required but didn't define a method. Fixed by clarifying tool design follows the normal AIDE design approach; this section provides the tool-specific overlay.
+- **F5 (scope overclaim on publishing and versioning):** The opening description claimed "published and versioned" but neither is defined. Fixed by narrowing the description and renaming "Deployment" to "Deployment handoff" to match the actual scope.
+- **F6 (noun substitution):** The source rules use standard-specific nouns. Fixed by adding a reading rule: where those rules use standard-specific nouns, apply the equivalent tool concept.
+- **F7 (trigger partial list):** The trigger section named four specific sub-rules, reproducing the same maintenance risk the authoring-rules fix addressed. Fixed by making it a generic incorporation with "including" for examples.
+- **F8 (sibling-outputs guarantee):** "Cannot disagree" overstated the model's guarantee. Fixed to "must not disagree" with the design as authority if they do.
+
 ---
 
-Version note: v5 — D7 updated from five named rules to the full capability-wide set; D15 added for the update rationale. 2026-09-14. Replaces v4.
-<!-- END SOURCE: Tools/Tools_Decisions_v5.md -->
+Version note: v6 — D16 added for v5 cross-review remediation (eight findings, all accepted). D6 updated for F8 wording. D9 scope narrowed to match F5. 2026-09-14. Replaces v5.
+<!-- END SOURCE: Tools/Tools_Decisions_v6.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Design_v4.md -->
-Tools — Design | design | Tools_Design@v4 | 2026-09-14
+<!-- BEGIN SOURCE: Tools/Tools_Design_v5.md -->
+Tools — Design | design | Tools_Design@v5 | 2026-09-14
 
 ## Brief
 
@@ -11047,7 +11068,7 @@ This is the only case where a standard may describe an invokable procedure witho
 
 ## The sibling-outputs model
 
-A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the same design and therefore cannot disagree. Neither authors the other's content.
+A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
 
 This is common. A component or feature may need a standard to shape how the work is approached and a tool to perform a specific action within it. The design specifies the full behaviour; the outputs are whatever delivers it — one or more standards, one or more tools, or a mix. Each output is authored from the design, not from its sibling.
 
@@ -11114,8 +11135,8 @@ Tools does **not** own:
 
 ---
 
-Version note: v4 — authoring rules references updated from a named list of five to the full capability-wide set in the standards authoring standard, consistent with D7's rationale. 2026-09-14. Replaces v3.
-<!-- END SOURCE: Tools/Tools_Design_v4.md -->
+Version note: v5 — cross-review remediation: sibling-outputs "cannot disagree" corrected to "must not disagree" (F8). 2026-09-14. Replaces v4.
+<!-- END SOURCE: Tools/Tools_Design_v5.md -->
 
 ---
 
