@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 60** (2026-09-15).
+> **Binder Version 61** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -65,10 +65,10 @@ individual files.
 - `Project Design/ProjectDesign_Standard_v4.md` - sha256 `df3c448516ae`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
 - `Standards/Standards_Authoring_Standard_v7.md` - sha256 `e289d09dd907`
-- `Standards/Standards_Authoring_Standard_v8.md` - sha256 `e28d0cdea227`
+- `Standards/Standards_Authoring_Standard_v8.md` - sha256 `e52f99825c80`
 - `Standards/Standards_Consumption_Standard_v3.md` - sha256 `b801499930ac`
 - `Standards/Standards_Decisions_v3.md` - sha256 `370e69972777`
-- `Standards/Standards_Decisions_v4.md` - sha256 `a1507fed0789`
+- `Standards/Standards_Decisions_v4.md` - sha256 `fcda250bc8aa`
 - `Standards/Standards_Design_v3.md` - sha256 `4a6a79a3a0f1`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
 - `Tools/_index.md` - sha256 `7bb05b130edc`
@@ -10449,7 +10449,9 @@ The class distinction affects design effort, not authoring rules. Both classes f
 
 **Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but must not depend on it being loaded.
 
-**Acceptance test.** Before accepting a standard, test: given only this standard, its declared dependencies, and the ambient framework context available within its applicability scope, can a fresh AI perform the representative operations covered by the applicability statement? If it cannot, the standard fails the self-containment rule and must not be published.
+**Acceptance test.** Before accepting a standard, test: given only this standard, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations covered by the applicability statement? If it cannot, the standard fails the self-containment rule and must not be published.
+
+Information. Ambient framework context means framework capabilities the architecture guarantees will be present without a `uses` declaration — universal standards and independently triggered skills.
 
 **Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Frame scope through behaviour and relevance, not through a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
 
@@ -10518,7 +10520,7 @@ Information. Standards owns two types. The split test says to keep them here —
 ### Standard
 
 - **Purpose:** Shape decisions and behaviour at the moment of application. Lean, memory-resident, applied alongside many others.
-- **Included blocktypes:** Clarification (optional), Contents (recommended), Summary (optional), Version note (optional).
+- **Included blocktypes:** Clarification (optional), Contents (optional), Summary (optional), Version note (optional).
 - **Format constraint:** markdown.
 
 Information. The authoring rules, strength vocabulary, trigger description, applicability scope, and deployment guidance are defined elsewhere in this standard. The consumption contract is defined in the Standards Consumption Standard.
@@ -10532,7 +10534,7 @@ Information. Governed by the split test: stays in the standard when small, remov
 
 ---
 
-Version note: v8 — Acceptance test amended for ambient framework context (D21). The test now includes ambient framework context available within the standard's applicability scope, alongside declared dependencies. Carried from Tools cross-review round 3. 2026-09-15.
+Version note: v8 — Acceptance test amended for ambient framework context (D21). The test now includes ambient framework context guaranteed to be present for the representative operation, alongside declared dependencies. Information-strength definition added. Tools acceptance-test restatement synced. Carried from Tools cross-review round 3. 2026-09-15.
 <!-- END SOURCE: Standards/Standards_Authoring_Standard_v8.md -->
 
 ---
@@ -10886,13 +10888,15 @@ The acceptance test previously said "given only this standard and its declared d
 
 The exclusion was unintentional. The self-containment rule ensures a standard works without its design document present — it was never meant to exclude framework infrastructure the standard legitimately operates within. The Tools cross-review (round 3) exposed the gap: a tool that relies on the design-approach skill would fail the literal test despite working correctly in AIDE's actual architecture.
 
-The fix adds "and the ambient framework context available within its applicability scope" after "its declared dependencies." This covers universal standards, triggered skills, and any future delivery mechanism that provides framework-level context without per-document dependency declarations.
+The fix adds "and the ambient framework context guaranteed to be present for the representative operation" after "its declared dependencies." This covers universal standards, triggered skills, and any future delivery mechanism that provides framework-level context without per-document dependency declarations. "Guaranteed" is the operative word — the criterion is architectural guarantee, not scope overlap, preserving the distinction between applicability and triggering established in D11.
 
-The Tools Authoring Standard has an explicit restatement of the acceptance test that will need to match. That update is downstream — handled by normal dependency propagation when Tools is next worked.
+An Information-strength definition of "ambient framework context" was added to the standard adjacent to the acceptance test, per cross-review finding F1: the standard must define the category it introduces.
+
+The Tools Authoring Standard restatement was synced in the same change to avoid a live inconsistency (cross-review finding F3).
 
 ---
 
-Version note: v4 — adds D21 (acceptance test amended for ambient framework context). Carried from Tools cross-review round 3. 2026-09-15.
+Version note: v4 — adds D21 (acceptance test amended for ambient framework context). Cross-review: two defects remediated (F1 definition added, F2 "guaranteed" replaces "available within scope"), one concern accepted (F3 Tools sync included). Carried from Tools cross-review round 3. 2026-09-15.
 <!-- END SOURCE: Standards/Standards_Decisions_v4.md -->
 
 ---
