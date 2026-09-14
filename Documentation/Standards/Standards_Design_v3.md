@@ -92,6 +92,8 @@ For carried standards, the solving model is where the critical design effort goe
 
 The leanness of the resolved standard is a readout on how well the solving model fits the intent model. If the output is not lean, the solving model is not yet a good enough solution — the fix is back at model design, not at the documentation level.
 
+**Earn your place.** Every element in the design must justify its presence against the objectives in the intent model. A concept, classification, stage, or mechanism that does not contribute to those objectives is removed regardless of how well-conceived it is in isolation.
+
 ### Trigger and scope
 
 Triggering and applicability scope are distinct responsibilities. Triggering is a delivery concern — getting the standard loaded where it might be needed. Scope is the standard's own concern — declaring the conditions under which it is applicable once loaded. Every standard carries its own scope because what is loaded on any given platform cannot be guaranteed.
