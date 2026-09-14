@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 44** (2026-09-14).
+> **Binder Version 45** (2026-09-14).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -42,6 +42,9 @@ individual files.
 - `Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md` - sha256 `37a837a65cb3`
 - `Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md` - sha256 `8098d9714c57`
 - `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `8301aa2a0395`
+- `Documentation/Standards/Standards_Authoring_Standard_v6.md` - sha256 `68bb3fcf5bd5`
+- `Documentation/Standards/Standards_Decisions_v3.md` - sha256 `211fbd2ce603`
+- `Documentation/Standards/Standards_Design_v3.md` - sha256 `78eccfb524ff`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `e6573d80384e`
@@ -6006,6 +6009,418 @@ The migration methodology governs how change actions are defined and applied. Do
 
 Version note: v1 — clean-sheet rebuild. Replaces DocumentationMethodology_Authoring_Standard_v4, DocumentationMethodology_Schema_Standard_v4, and DocumentationMethodology_Definitions_Standard_v4 (in combination with the Schema Definitions and Schema Authoring standards). Two cross-review rounds completed. 2026-09-14.
 <!-- END SOURCE: Documentation Methodology/DocumentationMethodology_Standard_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Documentation/Standards/Standards_Authoring_Standard_v6.md -->
+> identity: Standards_Authoring_Standard@v6 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
+
+# Standards — Authoring Standard
+
+How to design, author, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
+
+## What a standard is
+
+Information. A standard defines rules, expectations, guidance and context that shape decisions and behaviour while work is being done. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. Everything behind it (the design, the decisions, the reference knowledge) stays outside the session.
+
+Information. A standard earns its context cost. Everything in it displaces something else the session could hold.
+
+Information. The invocability test in the tool authoring standard draws the boundary between a standard and a tool. A standard shapes decisions and behaviour — you follow it. A named invokable action — something you would run — is a tool and belongs there.
+
+## Applicability
+
+Information. This standard applies when designing, authoring, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
+
+## Two classes of standard
+
+A standard's design approach is determined by its load pattern, not its subject.
+
+**Task standards** load for a specific task — authoring a doctype, running a cross-review, defining a schema. The standard is contextually relevant to the work being done, and weight is acceptable because the cost is paid only in that context.
+
+**Carried standards** govern broad behaviour that applies across most sessions — document identity, versioning, how documents work. They sit in memory and tax nearly every session. Leanness is non-negotiable for this class.
+
+The class distinction affects design effort, not authoring rules. Both classes follow the same authoring rules below. But the design approach for a carried standard demands more — see "Designing a standard."
+
+## Authoring rules
+
+**The carry test.** Every item in a standard must pass: "is this needed at the moment of application?" Content that informed the design but is not needed when applying the standard stays in the design document. This is the single most important authoring rule.
+
+**No consumer, no rule.** Every rule must have an operational consumer — something that acts on it at the moment of application. A rule with no consumer is governance without effect. If nothing would behave differently with the rule removed, the rule does not belong.
+
+**Leanness.** Write the minimum language that achieves the guidance — not terse, not abbreviated, but with nothing that does not work. A well-authored standard leaves the consumer confident about what to do without carrying anything they do not need.
+
+**Discriminating guidance.** A rule that says "do X" without helping the consumer recognise when and how to apply it is governance without value. Frame requirements through the consequence or value of meeting them, not through bare authority — a rule the consumer cannot see the reason for reads as enforcement rather than guidance. If the consumer would need to go back to the design to know how to apply a rule, the standard is incomplete.
+
+**Strength assignment.** Every item carries a strength, selected by the author from the vocabulary below. The default strength is Required. Items that depart from the default carry their own strength explicitly — nearest declaration wins. This means: tag only the exceptions. Most items in a well-designed standard are Required and carry no explicit tag. Over-use of Recommended or Optional weakens the standard; over-use of Information turns it into a reference document.
+
+**Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but must not depend on it being loaded.
+
+**Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Frame scope through behaviour and relevance, not through a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
+
+**Name your principles.** When a recurring concept drives multiple rules, pull it up to a named principle. Named principles are cheaper to carry than the repeated reasoning behind them, and they give consumers an anchor for understanding why related rules exist.
+
+## Trigger description and segmentation
+
+**Trigger description.** Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the basis for loading the standard where it is needed.
+
+**Description budget.** The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget. Front-load trigger words so the most important terms survive truncation.
+
+**Segmentation.** The description budget is the size test for whether a standard should be split. If the trigger elements that define when the standard is needed will not fit within the budget, split into sub-standards rather than compressing the description into uselessness.
+
+**Where to cut.** Split along dependency lines so co-dependent guidance loads together. Each sub-standard must be self-contained — the self-containment authoring rule applies to each part independently.
+
+## Strength vocabulary
+
+Information. Four levels. These words and definitions are the standard vocabulary — use them consistently across all standards.
+
+- **Required** — must comply. Departure is a defect. This is the default strength; items at Required carry no explicit tag.
+- **Recommended** — should comply. Departure needs a reason, but the reason is the author's judgement, not an approval process.
+- **Optional** — available for use. No compliance expectation.
+- **Information** — awareness content. Exists so the consumer knows it, not so they act on it.
+
+## Designing a standard
+
+**Design is the default.** Recommended. A design almost always exists behind a standard. Authoring straight to standard is the exception — reserved for cases where the content is simple enough that a design would restate rather than elaborate.
+
+**Author fresh.** A standard is authored from its design, not by modifying a previous version of the standard. The design holds the reasoning and constraints; the standard holds the conclusion as guidance.
+
+**No prescribed template.** Information. A standard has no fixed structure. The author decides what it contains and how it is organised, provided the authoring rules above are met.
+
+**Two-model design sequence.** The design of a standard follows a two-model sequence:
+
+1. **Intent model.** Define the objectives, requirements, and what the standard must achieve. This is the same intent-then-model front half as any other AIDE design work.
+2. **Solving model.** Design a construct — a model, a grammar, a classification — that delivers those objectives. The solving model translates into the standard, which is the buildable output.
+
+Information. This two-model sequence is an extension of the normal design flow, not a departure from it. The front half is identical to all AIDE design. The solving model is a model-before-build step: design a model smart enough to carry the objectives, then build the standard from it.
+
+**Leanness through model quality.** For carried standards, leanness is not achieved by compressing a heavy standard. It is achieved by designing a solving model that is smart enough that explaining it is cheap but applying it produces most of the required outcomes. The effort goes into the intelligence of the model. The model does the work that documentation would otherwise have to do.
+
+Information. The leanness of the resolved standard is a readout on how well the solving model fits the intent model. If the output is not lean, the solving model is not yet a good enough solution — the fix is back at model design, not at the documentation level.
+
+**Earn your place.** Every element in the design must justify its presence. If a concept, a classification, a stage, or a mechanism does not contribute to the objectives in the intent model, it is removed regardless of how well-conceived it is in isolation.
+
+## The reference-to-standard pipeline
+
+Information. Reference documents are design-time knowledge. When reference knowledge needs to be present in the AI session, it is authored into a standard at information strength. The decision criterion is the carry test: does the consumer need to be aware of this knowledge at the moment of application? If yes, it earns a place. If it only informed the design, it stays in the design.
+
+Information. Reference is a document type, not an output type. A reference informs the design process; a standard is the delivery mechanism. The distinction matters because it prevents reference from becoming a parallel output channel.
+
+## Deployment
+
+Information. Once a standard is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted standard. Packaging into a skill or plugin, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
+
+Information. Triggering — how a standard gets loaded where it might be needed — is a delivery concern owned by Infrastructure, distinct from applicability scope which is owned by the standard itself.
+
+## Ownership
+
+**Each standard lives with its owning component.** Standards is a methodological component — it defines how to build a standard, not where standards live. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+
+## Schema definitions
+
+Information. Standards owns two types. The split test says to keep them here — two definitions, same change cadence as the authoring rules.
+
+### Standard
+
+- **Purpose:** Shape decisions and behaviour at the moment of application. Lean, memory-resident, applied alongside many others.
+- **Included blocktypes:** Clarification (optional), Contents (recommended), Summary (optional), Version note (optional).
+- **Format constraint:** markdown.
+
+Information. The authoring rules, strength vocabulary, trigger description, applicability scope, and deployment guidance are defined elsewhere in this standard. The consumption contract is defined in the Standards Consumption Standard.
+
+### Clarification
+
+- **Purpose:** Reasoning and justification supporting the standard's stated rules. The design-side "why" surfaced into the standard where it helps the consumer apply the rules.
+- **Recognition:** by subheading — `Clarification`.
+
+Information. Governed by the split test: stays in the standard when small, removed when it would bloat the loaded standard. When removed, the reasoning lives in the design document.
+
+---
+
+Version note: v6 — Two-class distinction (task vs carried) added. Solving-model design sequence added to "Designing a standard." Default-Required strength assignment approach. "No consumer, no rule" and "Name your principles" added as authoring rules. "Earn your place" added as design rule. `uses` updated to SchemaAuthoring v1. 2026-09-14.
+<!-- END SOURCE: Documentation/Standards/Standards_Authoring_Standard_v6.md -->
+
+---
+
+<!-- BEGIN SOURCE: Documentation/Standards/Standards_Decisions_v3.md -->
+Standards — Decisions | decisions | Standards_Decisions@v3 | 2026-09-14
+
+## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
+
+Standards defines how to create its type. Individual instances live with their consuming component. This was settled in the overview as the common pattern for all three capability-type components and confirmed in the structure session. The alternative — Standards holding all standards — was rejected because it violates the what-knows-most-about-it ownership principle.
+
+## D2 — Nine authoring rules, not a template
+
+The authoring methodology is expressed as nine rules (carry test, no consumer no rule, leanness, discriminating guidance, strength assignment, self-containment, applicability scope, name your principles, earn your place) rather than a prescribed template or structural specification. The author decides what a standard contains and how it is organised, provided it meets the terms.
+
+A template risks becoming apparatus — a structure to fill in rather than a set of outcomes to achieve. The rules tell an author what a good standard must do. Document structure belongs to Documentation Methodology; Standards defines what the content must achieve, not what it must look like.
+
+## D3 — Four strength levels, default-Required, strength per item not per section
+
+The strength model uses four levels: Required, Recommended, Optional, Information. The fourth level (Information) was added specifically for reference-origin content that needs to reach the platform for awareness without carrying a compliance expectation.
+
+The default strength is Required. Items at Required carry no explicit tag — only items that depart from the default are tagged. This keeps the standard lean by eliminating repetitive strength markers from the majority of items. The principle is: tag only the exceptions.
+
+Strength is a property of each item rather than a section organiser because a single standard will naturally mix levels — a section on authoring might contain two required rules, one recommended practice, and one piece of information context. Grouping by strength would break the logical flow of the guidance.
+
+The vocabulary — the four words and their definitions — is standardised. This is the "rule weight markers" technique lifted from the Project Design binder sweep and given its home here, as flagged during that work.
+
+## D4 — The carry test is the single authoring filter
+
+"Is this needed at the moment of application" is the governing test for what goes into a standard. It was stated by Dave as a Standards-wide principle during the Project Design work and is the most important single rule in the authoring methodology.
+
+The test sharpens the three-layer authoring model rather than contradicting it: discriminating guidance belongs in the standard even though it reads like elaboration, because placement and application judgements happen from whatever is memory-resident.
+
+## D5 — Self-containment over cross-referencing
+
+A standard must be understandable without its design document in the session. The alternative — a standard that assumes access to its design — would mean loading both documents to apply the guidance, doubling the context cost and defeating the purpose of the lean standard.
+
+This does not prevent a standard from referencing its design for deeper reasoning. It prevents depending on the design being present.
+
+## D6 — Two outputs: authoring and consumption
+
+The authoring standard covers design, authoring, and deployment. The consumption standard covers conflict resolution, human override, and runtime operation under applicable standards.
+
+The original design assumed a single output with the consumption standard deferred. The legacy binder review identified conflict resolution and human override as real operational concerns that earn their place now. Both are consumption concerns — they tell consumers how to operate under standards, not authors how to build them. This makes the consumption standard a confirmed output rather than a contingency.
+
+The boundary between them is deliberate: the authoring standard's scope stops at deployment; the consumption standard's scope starts at application.
+
+## D7 — Settled decisions binding on Standards but owned elsewhere
+
+Three decisions constrain Standards without being redefined by it:
+
+- **The carry test** was stated as a rebuild-wide governing principle, not by this component. Standards must embody it but does not own the principle.
+- **The cross-review requirement** comes from the three-layer authoring model: every authored standard is reviewed by a separate AI before acceptance. The obligation exists because of Standards; the process is a Working Practices collaboration convention.
+- **The weight gate at deployment** checks the combined load when capabilities are packaged into a plugin. Standards owns leanness at authoring time; Deployment owns the gate at packaging time.
+
+## D8 — The Contents/Summary edge is Documentation Methodology's concern
+
+The edge between Contents and Summary was flagged during the Project Design work as "a common issue" for standards authors. It is carried to Documentation Methodology because the edge definition is about document-structure blocks — what Contents maps versus what Summary establishes — which is grammar, not authoring methodology. Standards authors will encounter the problem, but the solution belongs to whoever owns the grammar of those blocks.
+
+## D9 — Conflict resolution between standards
+
+When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between. When two applicable items genuinely oppose each other on the same point, higher strength governs. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. Conflict is not manufactured from different concerns that can both be satisfied.
+
+This approach was carried from the legacy system's usage standard, where it was proven in practice. It is delivered through the consumption standard, not the authoring standard, because it governs runtime behaviour rather than authoring.
+
+## D10 — Human override of standards
+
+Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
+
+This is a three-step behavioural contract, not a mechanism. It aligns with the overview principle that the human is always in control. It is delivered through the consumption standard.
+
+## D11 — Trigger and scope are distinct
+
+Triggering is a delivery concern — getting the standard loaded where it might be needed. Scope is the standard's own concern — declaring the conditions under which it is applicable once loaded. Every standard carries its own scope because what is loaded on any given platform cannot be guaranteed.
+
+Scope targets behaviour and relevance — what needs to be true for the standard to be of value — not a specific deployment target or package. This future-proofs for a scenario where AIDE capabilities are distributed as separate packages: framework development standards and usage standards might be packaged separately, but each standard still declares its own applicability regardless of which package delivered it.
+
+Triggering belongs to Infrastructure; scope belongs to the standard and is defined by its author. Scope is a required authoring rule.
+
+## D12 — Facilitative framing over bare authority
+
+Requirements are framed through the consequence or value of meeting them, not through bare authority. This was a deliberate philosophical position in the legacy system and is absent from bare "do X" rules. It differs from discriminating guidance (which is about helping the consumer apply a rule) — facilitative framing is about helping the consumer understand why the rule matters. Both are necessary: discriminating guidance without facilitative framing produces usable but authoritarian standards; facilitative framing without discriminating guidance produces well-reasoned but unapplicable ones.
+
+Implemented as an extension to the discriminating-guidance authoring rule rather than a separate rule, because the two concerns are closely related and splitting them would create two rules that are always applied together.
+
+## D13 — Trigger description and segmentation
+
+Every standard carries a trigger description as its first content after the header. This is authored once and serves both skill and bundle deployment — it is the single artefact that controls how the standard is discovered and loaded across platforms.
+
+The 130-character budget is the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard (agentskills.io), currently adopted by Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and 30+ others. The figure is a union minimum — the smallest confirmed budget across all adopting platforms. It should be revised when platform budgets change.
+
+The budget also serves as the segmentation test. If the trigger elements won't fit in 130 characters, the standard is too broad for a single skill and should be split. Cutting along dependency lines ensures co-dependent guidance loads together. Each sub-standard must be self-contained — the self-containment authoring rule applies to each part independently.
+
+## D14 — Carry to Deployment: aggregate description budget
+
+Deployment's weight gate gains a second measure beyond total context weight: the aggregate sum of all skill trigger descriptions must fit within the platform's shared description budget. This is a packaging constraint — the total description space available to a plugin is shared across all skills it contains, so each trigger description's cost is not just its own 130-character fit but its contribution to the aggregate.
+
+This decision is carried to Deployment, not implemented by Standards.
+
+## D15 — Two classes of standard by load pattern
+
+Standards fall into two classes: task standards and carried standards. The distinction is load pattern, not subject matter.
+
+Task standards load for a specific task and can afford weight because the cost is contextually proportionate. Carried standards govern broad behaviour, sit in memory across most sessions, and must be lean because the overhead is paid everywhere.
+
+Both classes follow the same authoring rules. The class distinction affects design approach — specifically, how much effort must go into designing a solving model that delivers leanness. For task standards, leanness is still desirable but weight is tolerable. For carried standards, leanness is non-negotiable and is the primary design constraint.
+
+The DocMeth clean-sheet rebuild (2026-09-14) is the worked example: the main DocumentationMethodology_Standard is a carried standard; the SchemaAuthoring_Standard is a task standard. The two demanded materially different design effort to achieve appropriate weight.
+
+## D16 — Two-model design sequence
+
+The design of a standard follows a two-model sequence: an intent model (objectives and requirements) and a solving model (a construct designed to deliver those objectives). The solving model translates into the standard.
+
+This is an extension of the normal AIDE design flow, not a departure. The front half — intent then model — is the same as all AIDE design. The solving model is a model-before-build step. This preserves consistency with the broader framework while adding the extra beat that standard design requires.
+
+For carried standards, the solving model is where the critical effort goes. Leanness is not achieved by compressing a heavy standard — it is achieved by designing a solving model smart enough that explaining it is cheap but applying it covers most of the requirements. The model does the work that documentation would otherwise have to do. If the resolved standard is not lean, the solving model is not yet a good enough solution to the intent, and the fix is back at model design.
+
+## D17 — Default-Required strength assignment
+
+The default strength is Required. Items at the default carry no explicit tag — only departures (Recommended, Optional, Information) are tagged. This was adopted during the DocMeth clean-sheet rebuild and replaced the previous approach where every item carried an explicit strength.
+
+The rationale is leanness: most items in a well-designed standard are Required, so tagging each one adds repetitive weight without adding information. Tagging only exceptions makes the non-Required items visually distinct, which is more useful than uniform tagging.
+
+## D18 — No consumer, no rule
+
+Every rule must have an operational consumer — something that acts on it at the moment of application. A rule with no consumer is governance without effect. This was the test that removed lifecycle states (Current, Superseded, Archived) from the DocMeth rebuild: no operational consumer existed for those states, so they were cut despite being conceptually reasonable.
+
+The test is distinct from the carry test. The carry test asks whether the item is needed at the moment of application; no-consumer asks whether anything would actually behave differently. An item can pass the carry test (it is about application-time concerns) but fail the consumer test (nothing acts on it).
+
+## D19 — Name your principles
+
+When a recurring concept drives multiple rules, pull it up to a named principle. Named principles are cheaper to carry than repeating the underlying reasoning at each point of use. They also give consumers an anchor — a concept they can recognise and apply across contexts rather than following individual rules mechanically.
+
+This was observed during the DocMeth rebuild: the default-and-override pattern recurred across versioning, strength, and optionality, and was pulled up to a named principle rather than being restated each time.
+
+---
+
+Version note: v3 — adds D15 (two classes by load pattern), D16 (two-model design sequence), D17 (default-Required), D18 (no consumer no rule), D19 (name your principles). Updates D2 (six rules to nine) and D3 (adds default-Required approach). 2026-09-14.
+<!-- END SOURCE: Documentation/Standards/Standards_Decisions_v3.md -->
+
+---
+
+<!-- BEGIN SOURCE: Documentation/Standards/Standards_Design_v3.md -->
+Standards — Design | design | Standards_Design@v3 | 2026-09-14
+
+## Brief
+
+**Purpose.** Define how a standard is designed, authored, and deployed within AIDE. Standards is a methodological component — it owns the methodology for building standards, not the standards themselves. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+
+**Scope.** The authoring methodology, the strength model, the reference-to-standard pipeline, the relationship between a standard and its design, applicability scope, and the runtime contract for operating under standards. Individual standards, document structure, packaging, and the cross-review process are out of scope.
+
+**Target outcome.** Two deployed standards: one for authoring (how to design, author, and deploy a standard) and one for consumption (how to operate under applicable standards at runtime).
+
+## What a standard achieves
+
+A standard shapes decisions and behaviour at the moment of application. It reaches the AI platform as a capability — either as a skill loaded on trigger, or as binder content loaded into project context. In both cases, the standard is what the session consumes. Everything behind it — the design, the decisions, the reference knowledge — stays outside the session.
+
+That single fact drives the authoring model: a standard carries only what is needed at the moment of application, because everything in it costs context space and attention.
+
+## Two classes of standard
+
+A standard's design approach is determined by its load pattern, not its subject. The distinction affects how much design effort goes into the standard — specifically, how hard the author must work to achieve leanness.
+
+**Task standards** load only when performing a specific task — authoring a doctype, running a cross-review, defining a schema. The standard is contextually relevant to the work being done, and weight is acceptable because the cost is paid only in that context. A task standard can be reasonably heavier because the overhead is proportionate to the work it supports.
+
+**Carried standards** govern broad behaviour that applies across most sessions — document identity, versioning, how documents work. They sit in memory and tax nearly every session. Leanness is non-negotiable for this class.
+
+Both classes follow the same authoring rules. The class distinction affects the design approach: a carried standard demands the solving-model design sequence described below, where leanness is achieved through model quality rather than compression.
+
+## What Standards owns
+
+### The authoring methodology
+
+How to decide what goes into a standard, how to write it, and how lean is lean enough. Nine rules govern authoring, plus the trigger description and segmentation requirements below:
+
+**The carry test.** Every item must pass: "is this needed at the moment of application?" Content that informed the design but is not needed when applying the standard stays in the design document.
+
+**No consumer, no rule.** Every rule must have an operational consumer — something that acts on it at the moment of application. A rule with no consumer is governance without effect. If nothing would behave differently with the rule removed, the rule does not belong.
+
+**Leanness.** A standard earns its context cost. Every sentence displaces something else the session could hold. The target is the minimum language that achieves the guidance — not terse, not abbreviated, but with nothing that does not work. A well-authored standard reads as a short document that leaves the consumer confident about what to do.
+
+**Discriminating guidance.** A standard that says "do X" without helping the consumer recognise when and how is governance without value. Frame requirements through the consequence or value of meeting them, not through bare authority — a rule the consumer cannot see the reason for reads as enforcement rather than guidance. If the consumer would need to go back to the design to know how to apply a rule, the standard is incomplete.
+
+**Strength assignment.** Every item carries one of the four strength levels. The default strength is Required. Items that depart from the default carry their own strength explicitly; nearest declaration wins. This means: tag only the exceptions. Most items in a well-designed standard are Required and carry no explicit tag. Over-use of Recommended or Optional weakens the standard; over-use of Information turns it into a reference document.
+
+**Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but it must not depend on it. The consumer has the standard; the design is available but not loaded.
+
+**Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Scope targets behaviour and relevance, not a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
+
+**Name your principles.** When a recurring concept drives multiple rules, pull it up to a named principle. Named principles are cheaper to carry than the repeated reasoning behind them, and they give consumers an anchor for understanding why related rules exist.
+
+**Earn your place.** Every element in the standard must justify its presence against the objectives it serves. A concept, classification, or mechanism that does not contribute to the objectives is removed regardless of how well-conceived it is in isolation.
+
+### Trigger description and segmentation
+
+Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the single artefact that determines how the standard is loaded across platforms.
+
+The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard (agentskills.io). This figure is the union minimum across Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and other adopters. Front-load trigger words so the most important terms survive truncation.
+
+The description budget doubles as the segmentation test. If the trigger elements that define when a standard is needed will not fit within 130 characters, the standard should be split into sub-standards along dependency lines so co-dependent guidance loads together. Each sub-standard must be self-contained.
+
+A carry to Deployment: the aggregate sum of skill trigger descriptions across all deployed standards must be checked against the platform's shared description budget. This is a second measure for Deployment's weight gate.
+
+### The strength model
+
+Four levels defining how strongly an item in a standard applies:
+
+- **Required** — must comply. Departure is a defect. This is the default; items at Required carry no explicit tag.
+- **Recommended** — should comply. Departure needs a reason, but the reason is the author's judgement, not an approval process.
+- **Optional** — available for use. No compliance expectation.
+- **Information** — awareness content. Exists so the consumer knows it, not so they act on it.
+
+Strength is a property of each item, not a section heading, because a single standard will mix levels. The vocabulary — the four words and their definitions above — is standardised so consumers read strengths consistently across all standards.
+
+### The reference-to-standard pipeline
+
+A reference is a design-time document type recording knowledge and concepts. When reference knowledge needs to reach the AI platform, it is authored into a standard at information strength. The decision criterion is the same carry test: does this knowledge need to be present at the moment of application? If the consumer needs to be aware of it to make good decisions, it earns a place. If it only informed the design, it stays in the design.
+
+Reference is a document type only, not an output type. The distinction matters: a reference informs the design process; a standard is the delivery mechanism.
+
+### The relationship between a standard and its design
+
+A design almost always exists behind a standard — authoring straight to standard is the exception. The standard is authored fresh from the design, never by modifying a previous standard version. The design holds the reasoning, the alternatives, the constraints. The standard holds only the conclusion, stated as guidance.
+
+The standard does not carry reasoning into the session. If a consumer needs to understand why a rule exists, the design is available outside the session — but the standard does not depend on it being present.
+
+### Designing a standard — the two-model sequence
+
+The design of a standard follows a two-model sequence that extends the normal AIDE design flow:
+
+1. **Intent model.** The objectives, requirements, and what the standard must achieve. This is the same intent-then-model front half as any other AIDE design work.
+2. **Solving model.** A construct — a model, a grammar, a classification — designed to deliver those objectives. The solving model translates into the standard, which is the buildable output.
+
+The front half is identical to all AIDE design. The solving model is a model-before-build step: design a model smart enough to carry the objectives, then build the standard from it.
+
+For carried standards, the solving model is where the critical design effort goes. Leanness is not achieved by compressing a heavy standard. It is achieved by designing a solving model that is smart enough that explaining it is cheap but applying it produces most of the required outcomes. The effort goes into the intelligence of the model. The model does the work that documentation would otherwise have to do.
+
+The leanness of the resolved standard is a readout on how well the solving model fits the intent model. If the output is not lean, the solving model is not yet a good enough solution — the fix is back at model design, not at the documentation level.
+
+### Trigger and scope
+
+Triggering and applicability scope are distinct responsibilities. Triggering is a delivery concern — getting the standard loaded where it might be needed. Scope is the standard's own concern — declaring the conditions under which it is applicable once loaded. Every standard carries its own scope because what is loaded on any given platform cannot be guaranteed.
+
+Scope targets behaviour and relevance — what needs to be true for the standard to be of value — not a specific platform, package, or deployment target. Triggering belongs to Infrastructure; scope belongs to the standard and is defined by its author.
+
+### Conflict resolution
+
+When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between. When two applicable items genuinely oppose each other on the same point, higher strength governs. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. Conflict is not manufactured from different concerns that can both be satisfied.
+
+### Human override
+
+Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
+
+## What Standards produces
+
+Two standards:
+
+**The standards authoring standard** — aimed at anyone building a component, telling them how to design, author, and deploy a standard for that component. It consumes its own rules — the first standard is self-describing. Covers the authoring methodology, strength model, scope, and deployment boundary.
+
+**The standards consumption standard** — aimed at AI sessions operating under applicable standards. Covers conflict resolution, human override, applicability evaluation, and runtime operation under standards.
+
+## What the author decides
+
+A standard has no prescribed template. The author decides what the standard contains and how it is structured, provided it meets the terms defined in the standards authoring standard. The authoring rules tell the author what a good standard achieves; the author meets them however the content demands.
+
+## Boundaries
+
+Standards does **not** own:
+
+- **The three-layer authoring model** — a project-level convention consumed by all components, not a Standards mechanism.
+- **The cross-review process** — the obligation that every standard is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Standards' output goes through it.
+- **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
+- **Triggering and delivery** — how a standard is loaded (skill headers, binder inclusion, package distribution) is owned by Infrastructure.
+- **Packaging and deployment** — how a standard becomes a skill or binder entry is owned by Infrastructure (packaging) and Deployment (the weight gate and the pipeline to the marketplace).
+- **Any individual standard** — each lives with its owning component.
+
+## Carries to other components
+
+**To Documentation Methodology:** the Contents/Summary edge — Contents maps what is where to judge relevance, Summary gives what the document establishes. Their edges need to stay distinct. Flagged as a common issue for standards authors; the edge definition is document-structure grammar.
+
+---
+
+Version note: v3 — adds two-class distinction (task vs carried by load pattern), solving-model design sequence, default-Required strength assignment, three new authoring rules (no consumer no rule, name your principles, earn your place). Updates authoring rule count from six to nine. 2026-09-14.
+<!-- END SOURCE: Documentation/Standards/Standards_Design_v3.md -->
 
 ---
 
