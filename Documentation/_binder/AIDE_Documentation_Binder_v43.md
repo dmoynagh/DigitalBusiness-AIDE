@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 42** (2026-09-13).
+> **Binder Version 43** (2026-09-14).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -17,12 +17,14 @@ individual files.
 - `_rebuild/ProjectDesign_Design_Pending_v1.md` - sha256 `587bc4c6165f`
 - `_rebuild/ProjectDesign_StandardInputs_Pending_v1.md` - sha256 `710b74bb0958`
 - `_rebuild/ProjectDesign_WorkRegister_Pending_v1.md` - sha256 `638ebbfb6eef`
+- `AIDE_Solution_Map.md` - sha256 `3c2294f7ae2b`
 - `Core/_index.md` - sha256 `d177f77812eb`
 - `Core/Core_AIDEMap.md` - sha256 `e3b0c44298fc`
 - `Core/Core_AIDEMap.yaml` - sha256 `a3f651bdb590`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
 - `Core/Core_AIDEPrinciples_Design_v1.md` - sha256 `60e20e8d0b9d`
 - `Core/Core_Brief_v1.md` - sha256 `6c2e6280ea89`
+- `Core/Core_Charter_v1.md` - sha256 `3e5f5332b783`
 - `Core/Core_Design_Documentation_Working_v1.md` - sha256 `b2999c523397`
 - `Core/Core_Schema_Standard_v1.md` - sha256 `dc4ee250329f`
 - `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
@@ -33,6 +35,9 @@ individual files.
 - `Documentation Methodology/DocMeth_Brief_v1.md` - sha256 `60c5cf3f5d79`
 - `Documentation Methodology/DocMeth_Decisions_v6.md` - sha256 `fc41e619a847`
 - `Documentation Methodology/DocMeth_Design_v6.md` - sha256 `8b5d6a24a5d7`
+- `Documentation Methodology/DocMeth_SchemaAuthoring_Standard_Draft.md` - sha256 `24a2532f370c`
+- `Documentation Methodology/DocMeth_SchemaDefinitions_Standard_Draft.md` - sha256 `d8757a5dbcdf`
+- `Documentation Methodology/DocMeth_Standard_Draft.md` - sha256 `5847d0b42534`
 - `Documentation Methodology/DocMeth_Working_v8.md` - sha256 `b94c28da8ad2`
 - `Documentation Methodology/DocumentationMethodology_Authoring_Standard_v4.md` - sha256 `01a5782287dc`
 - `Documentation Methodology/DocumentationMethodology_Definitions_Standard_v4.md` - sha256 `0afdaff9b7cb`
@@ -52,6 +57,7 @@ individual files.
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `e6d1eb38aba5`
 - `Principles/Principles_Decisions_v4.md` - sha256 `2c31c26b5c66`
 - `Principles/Principles_Design_v4.md` - sha256 `4bd5797d3d2e`
+- `Principles/Principles_Standard_v1.md` - sha256 `3ffe60875e5c`
 - `Project Design/_index.md` - sha256 `589d24282970`
 - `Project Design/ProjectDesign_Decisions_v2.md` - sha256 `0a07a453c42c`
 - `Project Design/ProjectDesign_Design_v2.md` - sha256 `80a739c74e04`
@@ -3553,6 +3559,281 @@ and knowledge (this WIP write, plus authoring).
 
 ---
 
+<!-- BEGIN SOURCE: AIDE_Solution_Map.md -->
+# AIDE Solution Map
+
+Snapshot of the AIDE framework: components in dependency order, documents under each.
+Generated 2026-09-14 from Binder v42 and Documentation WIP v2.
+
+Status key: ✅ complete · 🔧 rework needed · 📋 designed, not yet built · ⏳ not started
+
+---
+
+## 1. Principles ✅ (standard pending)
+
+Durable, portable reasoning premises — independent of platform or methodology. Any AI can adopt these without adopting AIDE.
+
+**Design and decisions**
+- Principles_Design_v4.md
+- Principles_Decisions_v4.md
+
+**Pending:** standard not yet authored (was blocked on the Standards component, now unblocked). Three candidate premise strengthenings queued (difficulty-as-evidence, do-not-build-apparatus, simple-and-well-conceived). Cross-review required.
+
+---
+
+## 2. Core 📋
+
+Shared framework-wide requirements, self-description, component model, and entry point. Deferred by design — resolved last.
+
+**Standards**
+- Core_Schema_Standard_v1.md (provisional)
+
+**Design and decisions — AIDE Principles (Core-specific)**
+- Core_AIDEPrinciples_Design_v1.md
+- Core_AIDEPrinciples_Decisions_v1.md
+- Core_Brief_v1.md
+
+**Design and decisions — Structure**
+- Core_Structure_Design_v1.md
+- Core_Structure_Decisions_v1.md
+
+**Working documents**
+- Core_Working_v1.md
+- Core_Design_Documentation_Working_v1.md
+- Core_Tags_Working_v1.md
+
+**Reference**
+- Core_AIDEMap.md / Core_AIDEMap.yaml
+- _index.md
+
+---
+
+## 3. Documentation Methodology 🔧
+
+How documents are structured and created — the grammar. Owns doctypes, block types, declarations, lifecycle, format rules.
+
+**Standards**
+- DocumentationMethodology_Authoring_Standard_v4.md
+- DocumentationMethodology_Definitions_Standard_v4.md
+- DocumentationMethodology_Schema_Standard_v4.md
+
+**Design, decisions, and brief**
+- DocMeth_Brief_v1.md
+- DocMeth_Design_v6.md
+- DocMeth_Decisions_v6.md
+
+**Working documents**
+- DocMeth_Working_v8.md
+
+**Reference**
+- _index.md
+
+**Rework needed:** cross-review found a definition-contract gap — design describes the model but doesn't specify the grammar for defining instances. Standard fails self-containment. Reopen design with inline brief, reauthor standard, cross-review again.
+
+---
+
+## 4. Standards ✅
+
+How standards are authored, applied, honoured, and kept current. Owns the definition of a standard, authoring rules, strength model.
+
+**Standards**
+- Standards_Authoring_Standard_v5.md
+- Standards_Consumption_Standard_v2.md
+
+**Design and decisions**
+- Standards_Design_v2.md
+- Standards_Decisions_v2.md
+
+**Working documents**
+- Standards_Working_v1.md
+
+**Reference**
+- _index.md
+
+---
+
+## 5. Tools ✅
+
+Encapsulate repeatable, named, invokable actions. Owns the definition of a tool; individual tools live with their consuming component.
+
+**Standards**
+- Tools_Authoring_Standard_v4.md
+
+**Design and decisions**
+- Tools_Design_v3.md
+- Tools_Decisions_v4.md
+
+**Reference**
+- _index.md
+
+---
+
+## 6. Infrastructure ✅
+
+Methodological infrastructure — CLI, deployment utilities, settings merge.
+
+**Design and decisions — CLI**
+- Infrastructure_CLI_Design_v1.md
+- Infrastructure_CLI_Decisions_v1.md
+
+**Working documents**
+- Infrastructure_Working_v1.md
+
+**Utilities**
+
+*Binder Builder*
+- BinderBuilder_Design_v10.md
+- binder_builder_Documentation_settings.json
+- README.md
+
+*File Update Package (FUP)*
+- FileUpdatePackage_Design_v1.md
+- file_update_package_settings.json
+- README.md
+
+*Version Cleanup*
+- VersionCleanup_Design_v3.md
+- version_cleanup_settings.json
+- README.md
+
+**Reference**
+- _index.md
+
+---
+
+## 7. Working Practices ⏳ (working docs only)
+
+Conventions and behaviours for how an AI and user actually work together. Five parts: FileOps, WorkManagement, Capture, ContentDelivery, HumanAI.
+
+**Working documents**
+- WP_FileOps_Working_v1.md (FileOps/)
+- WP_WorkManagement_Working_v1.md
+- WP_Capture_Working_v1.md
+- WP_ContentDelivery_Working_v1.md
+
+**Reference**
+- _index.md
+
+**Not yet designed.** Accumulated items queued: pending-content rule, session-transition commands, no-knowledge-lost rule, capture-and-place rules, definition-of-done (generic block, WP-owned), work item, human working model standard, overview-first working behaviour, `/more` command.
+
+---
+
+## 8. Project Design ✅
+
+Produce design specifications. Owns both ends of the design-build loop: handoff, return, reconciliation, and the work register.
+
+**Standards**
+- ProjectDesign_Schema_Standard_v1.md
+- ProjectDesign_Standard_v3.md
+
+**Design and decisions**
+- ProjectDesign_Design_v2.md
+- ProjectDesign_Decisions_v2.md
+
+**Reference**
+- _index.md
+
+**Pending:** standard update to fold in design-approach content (brief gate, operations test, black-box acceptance test, layering model, difficulty-as-evidence, Check 1/2). Cross-review required. aide-design-check skill regenerated from the updated standard.
+
+---
+
+## Components without documents yet
+
+| Component | Role | Status |
+|---|---|---|
+| Build (5) | Take the design specification and execute it — produce the outcome, report what was done | ⏳ Not started |
+| Migration (8) | Keep things current when dependencies change — collate, distribute, and execute change actions | ⏳ Not started |
+| Messaging (9) | Carry a message across any boundary reliably, with a known envelope and delivery convention | ⏳ Not started |
+| External AI (10) | Bring another AI into your work — five modes: review, research, parallel solutioning, consultation, delegation | ⏳ Not started |
+| Deployment (11) | Get publishable capabilities live in a session. Simple pipeline: build, push, reload | ⏳ Not started |
+
+---
+
+## Standards Dependency Map
+
+How standards depend on each other via declared `uses` relationships. Three universal standards (marked ★) are implicit dependencies of every standard and exempt from `uses` listings.
+
+```
+Tier 0 — Foundation (no declared uses)
+│
+├── DocMeth Authoring Standard v4 ★         no dependencies
+│
+└── DocMeth Schema Standard v4              no dependencies
+    │
+    ├─────────────────────────────────────────────────────────┐
+    │                                                         │
+Tier 1 — Depends on DocMeth Schema Standard                   │
+    │                                                         │
+    ├── Standards Authoring Standard v5 ★                     │
+    │   │                                                     │
+    │   │   Tier 2 — Depends on Tier 1                        │
+    │   │                                                     │
+    │   ├── Standards Consumption Standard v2                 │
+    │   │                                                     │
+    │   └── Tools Authoring Standard v4                       │
+    │                                                         │
+    ├── DocMeth Definitions Standard v4 ★                     │
+    │                                                         │
+    ├── Core Schema Standard v1 (provisional)                 │
+    │                                                         │
+    └── PD Schema Standard v1                                 │
+        │                                                     │
+        └── PD Standard v3  ──────────────────────────────────┘
+```
+
+**Pending standards** (not yet authored — will enter the graph when built):
+
+| Standard | Component | Expected dependencies |
+|---|---|---|
+| AIDE Principles Standard | Principles | TBD |
+| Principles Standard (generic) | Principles | TBD |
+| WP standards | Working Practices | TBD — design not started |
+
+**Key observations:**
+- The Documentation Methodology Schema Standard is the single most depended-upon standard — four standards declare it directly, and everything downstream inherits it
+- The DocMeth rework (definition-contract gap) sits at the root of the graph — changes here propagate widest
+- The Standards Authoring Standard is the gateway for all component-specific authoring standards
+
+---
+
+## Cross-cutting — _rebuild folder
+
+Working documents that govern the rebuild itself, not owned by a single component.
+
+- AIDE_Component_PurposeLines_v2.md — one-line purpose and boundaries per component
+- AIDE_Rebuild_Guide_v1.md — review of rebuild state with findings F1–F13
+- AIDE_Rebuild_Overview_v1.md — the overview driving the rebuild
+- AIDE_Rebuild_SettledDecisions_v1.md — cross-component decisions locked during the rebuild
+
+**Project Design pending files** (staged for deployment)
+- ProjectDesign_Decisions_Pending_v1.md
+- ProjectDesign_Design_Pending_v1.md
+- ProjectDesign_StandardInputs_Pending_v1.md
+- ProjectDesign_WorkRegister_Pending_v1.md
+
+## Active WIP files (not in binder)
+
+- AIDE_Rebuild_WIP_v22.md — main working document (210KB, being split)
+- AIDE_Documentation_WIP_v2.md — cross-component working state and cross-review register
+- AIDE_DesignApproach_WIP_v1.md — design-approach placement plan across four components
+
+---
+
+## Cross-review register
+
+| Item | Status |
+|---|---|
+| Documentation Methodology design v3 + standard v2 (definition-contract rework) | Pending — rework not started |
+| Project Design standard update (design-approach + gates) | Pending — update not started |
+| Principles premise strengthening | Pending — not started |
+
+---
+
+**Document count:** 59 files in binder · 3 WIP files outside · 5 components without documents
+<!-- END SOURCE: AIDE_Solution_Map.md -->
+
+---
+
 <!-- BEGIN SOURCE: Core/_index.md -->
 # Core
 
@@ -3803,6 +4084,60 @@ A reader arriving at AIDE — whether a new AI session, a reviewing AI, or the h
 4. The distinction from Principles (portability test) is explicit
 5. A reader unfamiliar with AIDE can navigate from Core to any component
 <!-- END SOURCE: Core/Core_Brief_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Core/Core_Charter_v1.md -->
+# Core — Charter
+
+Version 1. 2026-09-14.
+
+---
+
+## What this document is
+
+The founding rationale and objectives for AIDE. It states why the framework exists, what problem it addresses, and the objectives that govern its development. Every AIDE development decision can be tested against this document.
+
+This is a development document — it informs how AIDE is built, not how it is used. It is included in the documentation binder for reference during AIDE development work.
+
+---
+
+## The problem
+
+AI is a powerful tool. It can produce excellent work — design, code, analysis, documentation — at a pace and breadth that a solo developer or small team could not achieve alone.
+
+It is also unpredictable. Its capability varies across tasks, sessions and platforms. How it interprets direction, how it delivers outcomes, and how consistently it applies what it has been told all fluctuate. The same instruction can produce different results on different days, on different surfaces, or from different models.
+
+Working effectively with AI is a learning journey for both sides. The human learns what works — how to direct, what to check, where to trust and where not to. The AI side benefits from structure, clarity and accumulated context that it cannot build for itself across sessions.
+
+Without a framework, the knowledge and practices gained from this learning accumulate ad hoc — a skill here, a document there, a convention remembered in one project and forgotten in the next. Over time this creates duplication, contradiction, conflict, and unforeseen collisions between things that were never designed to work together.
+
+---
+
+## Objectives
+
+**O1. Trust and integrity.** Build trust and integrity into AI-assisted work. AIDE exists so that the human can place increasing, justified confidence in what AI produces — not by assuming AI is reliable, but by applying methodology, standards and behaviour that make the work verifiable and the outcomes consistent.
+
+**O2. A coordinated framework.** Provide a single, well-documented model in which AI working behaviour, standards, conventions and methodology are defined and composed — not accumulated piecemeal. The framework replaces ad-hoc accumulation with coordinated design, reducing duplication, conflict and unintended side effects.
+
+**O3. The delivery path for business practices.** AIDE is how the business delivers its standards, conventions, workflows, processes and methodologies into AI sessions. Development conventions, documentation standards, working instructions, guidance — if it governs how work is done and AI needs to follow it, it is delivered through AIDE. These practices are not static — they evolve and are developed as a result of doing work, just as the AI-side components do. AIDE is the single channel for extending AI platforms to work the way the business works, rather than each standard or practice finding its own ad-hoc route to the AI.
+
+**O4. Extensibility from learning.** Make the framework a living system. As work is done, problems are solved, and practices are identified that increase trust or improve outcomes, AIDE provides a defined path for those learnings to be added to the framework and applied to the work it governs. The framework grows because work is done, not because apparatus is built.
+
+**O5. Facilitate and empower.** Documentation, workflow, process and behaviour are defined and made available in a way that facilitates and empowers those using the system — not in a way that constrains, dictates or adds friction. This is AIDE's character and it governs every framework-level decision.
+
+**O6. Reduce burden on the human.** Give the AI side the clarity, context and information it needs to perform well, without increasing dependency on the user to provide it. Well-structured standards and accumulated context should make the AI more capable session to session — the human's load decreases as the framework matures, not increases.
+
+**O7. Cross-platform applicability.** Serve AI-assisted work across platforms and surfaces — Claude Chat, Claude Code, Cowork, ChatGPT, Codex, and others. AIDE is not a product of any single platform; it is a methodology that deploys to them.
+
+---
+
+## How this document is used
+
+The charter is not a design specification and does not prescribe mechanism. It states what AIDE is for. Components, standards and tools deliver these objectives through their own designs.
+
+When an AIDE development decision is contested or unclear, the charter provides the reference point: does this serve the objectives, or is it apparatus?
+<!-- END SOURCE: Core/Core_Charter_v1.md -->
 
 ---
 
@@ -4780,6 +5115,425 @@ Component names and aliases must be unique within the framework. Core Structure 
 
 Version note: v6 — round 3 corrections. Dependency-to-uses propagation rule made explicit. Format conventions added as doctype vocabulary. 2026-09-12. Replaces v5.
 <!-- END SOURCE: Documentation Methodology/DocMeth_Design_v6.md -->
+
+---
+
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_SchemaAuthoring_Standard_Draft.md -->
+# Documentation Methodology — Schema Authoring Standard
+
+Use when defining new blocktypes or doctypes, or modifying existing ones.
+
+This standard defines the rules for writing schema definitions — the definition contract. For the types DocMeth itself defines, see the Schema Definitions standard. For how schema is used in documents, see the main Documentation Methodology standard.
+
+---
+
+## The definition contract
+
+The definition contract is the grammar for defining new blocktypes and doctypes. It facilitates — it does not mandate structure where structure adds no value. A minimal definition is a name and a purpose. A complex definition uses as many properties as it needs.
+
+---
+
+## Blocktype definition
+
+A blocktype is defined with the following properties. Name and Purpose are always required. Other properties are stated when they add value.
+
+- **Name** — what the block is called. The heading in the definition.
+- **Purpose** — what it's for. Always the first property.
+- **Content** — what the block contains: headings, sections, general content, named fields with optionality (required, recommended, optional). As specific or generic as the author deems necessary. Used for recognition, authoring and interpretation. Included blocktypes are defined here.
+- **Placement** — (optional) where in the document the block belongs. Defaults to general document flow, or as defined by the including doctype.
+- **Recognition** — (optional) how to identify this block when its content definition alone is not sufficient. Three strategies in preference order: by subheading, by placement, by marker.
+- **Instructions** — block-specific rules applied when authoring, reading or using this block.
+
+### Conditional completeness
+
+A property becomes required when omitting it would leave the definition ambiguous. A block whose position does not identify it must state its recognition. A block with structured fields must declare them in its content. The test: would a consumer be unable to recognise, render or use the block without this property? If yes, include it.
+
+### Composition
+
+Blocktypes can include other blocktypes — defined in the content specification. Composition recurses but must not cycle. A blocktype may not include itself, directly or indirectly.
+
+Shared content across doctypes is a block that doctypes include — not inheritance. Content is defined in one place.
+
+### Recognition strategies
+
+When a block cannot be identified by its content alone:
+
+1. **By subheading** — a single heading or a group of adjacent subheadings. The default and preferred strategy for most blocks.
+2. **By placement** — position in the document identifies it. Used for blocks with fixed positions (e.g. Title after Declaration).
+3. **By marker** — an HTML comment placed after the heading. The fallback when subheading and placement cannot discriminate.
+
+Marker syntax:
+```
+<!-- aide:block:TypeName -->
+```
+
+For repeated instances of the same block type:
+```
+<!-- aide:block:TypeName:instance-id -->
+```
+
+The `aide:block:` prefix is reserved. Markers are placed after the heading, not before, so they survive content chunking.
+
+---
+
+## Doctype definition
+
+A doctype is defined with the following properties. Name and Purpose are always required.
+
+- **Name** — what the document type is called. The heading in the definition.
+- **Purpose** — what this type of document is for, its role and behaviour. Always the first property.
+- **Content** — what the doctype defines for its documents: blocktypes with optionality (required, recommended, optional), ordering, metadata, conventions, and any other information that applies.
+- **Instructions** — doctype-specific rules applied when authoring, reading or using documents of this type.
+
+### The no-modification rule
+
+A doctype includes a blocktype as defined — it does not modify it. No field suppression, no field addition, no shape adjustment on inclusion. The block's own definition is authoritative for its content, fields and structure.
+
+Where two doctypes need different shapes for similar content, define two blocktypes. They may share a smaller common blocktype through composition. This is composition, not inheritance — visible duplication is preferred over hidden override chains.
+
+### Doctype-level placement
+
+A doctype may specify where each of its included blocktypes is placed in the document and their ordering relative to each other. This overrides the block's own default placement for documents of this type.
+
+---
+
+## Definition representation
+
+A definition is written as a heading naming the type, followed by labelled properties as list items. Name is the heading. Purpose is the first property. Remaining properties follow in any order.
+
+In structured formats (YAML, JSON), a definition is a keyed object with the same property names.
+
+Example — a blocktype definition:
+
+### Work register
+
+- **Purpose:** The ledger of confirmed work owed and not yet delivered.
+- **Content:** Entries listed under subheadings by status. Fields per entry: description (required), source (required), status (required), notes (optional).
+- **Recognition:** by subheading.
+- **Placement:** body.
+- **Instructions:** Updated at the end of each session. Completed items are removed, not marked done.
+
+---
+
+## Dependency propagation
+
+When a standard defines blocktypes or doctypes, it should specify which of its dependencies should propagate to the `uses` field of documents that consume those types. A standard that inherits other standards for its own internal behaviour, but where those inherited standards have no direct application to consuming documents, does not propagate them.
+
+State the propagation rule in the standard itself, typically as a short section at the top (see the Schema Definitions standard for an example).
+
+---
+
+## Placement guidance
+
+(Recommended) When a component defines blocktypes or doctypes, the default recommendation is a separate schema standard with its own version track, distinct from the component's operational standards. This keeps schema changes and operational changes on independent version paths and improves discoverability.
+
+The override: if the schema definitions are small and change at the same rate as the operational content, keeping them together is acceptable. The component owner decides.
+
+---
+
+## The split test
+
+(Recommended) Externalise a block into its own document when keeping it in would compromise the primary role of its host. Below that line, keep it in — file management is easier. This applies to blocks within documents and to definitions within standards.
+
+---
+
+## Checklist — before publishing a definition
+
+1. Does it have a name and purpose?
+2. Could a consumer recognise the block or apply the doctype from this definition alone?
+3. Are all structured fields declared with optionality?
+4. If the block has no fixed position, is a recognition strategy stated?
+5. Does the definition use the properties from the contract, or invent its own?
+6. Is the dependency propagation rule stated in the hosting standard?
+7. Does the definition follow the no-modification rule — no inherited block is adjusted on inclusion?
+<!-- END SOURCE: Documentation Methodology/DocMeth_SchemaAuthoring_Standard_Draft.md -->
+
+---
+
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_SchemaDefinitions_Standard_Draft.md -->
+# Documentation Methodology — Schema Definitions Standard
+
+The blocktypes and doctypes defined by Documentation Methodology.
+
+Component-specific types are defined by their owning component. This standard defines only the common types that DocMeth provides to all governed documents.
+
+## Dependency propagation
+
+Documents using these types should add `DocumentationMethodology_SchemaDefinitions_Standard` to their `uses` field.
+
+---
+
+## Common blocktypes
+
+### Declaration
+
+- **Purpose:** Identity and activation block. Its presence makes a document governed.
+- **Content:** Labelled fields — identity (required), doctype (optional), blocks (optional), updated (optional), uses (optional). Renders as a blockquote with pipe-delimited fields in markdown.
+- **Placement:** first block, fixed topmost.
+
+### Title
+
+- **Purpose:** The document's human-readable name.
+- **Content:** A single heading. In markdown, the `#` heading.
+- **Placement:** immediately after Declaration.
+- **Recognition:** by placement.
+
+### Description
+
+- **Purpose:** What the document is, in a line.
+- **Content:** A single paragraph.
+- **Placement:** immediately after Title.
+- **Recognition:** by placement.
+
+### Body
+
+- **Purpose:** The document's substance. Default host for content not placed elsewhere.
+- **Placement:** between the header elements and the footer.
+
+### Footer
+
+- **Purpose:** Metadata and low-priority content at the bottom of the document.
+- **Content:** In markdown, a horizontal rule marks the footer boundary. Content below the rule is footer content.
+- **Placement:** bottom of document.
+- **Recognition:** by placement — everything after the boundary signal.
+
+### Contents
+
+- **Purpose:** A curated map letting a reader decide whether to read the document and what it covers. Navigation, not substance.
+- **Content:** Compact, rendered inline — never a vertical list.
+- **Placement:** after Description, before Summary.
+- **Recognition:** by subheading.
+- **Instructions:** (Recommended) Earns its place when the Declaration alone is not enough for a reader to decide whether to keep reading. The doctype owner sets the default. Contents maps what is where; Summary gives what the document establishes — keep these roles distinct.
+
+### Summary
+
+- **Purpose:** States what the document establishes, absorbed quickly. The substance, not a gesture at it.
+- **Content:** Stated, not explained — expansion is the body's role. The body does not restate what Summary states.
+- **Placement:** after Contents (or after Description if no Contents).
+- **Recognition:** by subheading.
+- **Instructions:** (Recommended) Earns its place when the document's substance needs a compressed statement. The doctype owner governs whether Summary is used.
+
+### Version note
+
+- **Purpose:** Current version metadata. One line, current version only.
+- **Content:** A single compact line. Historical version notes do not accumulate.
+- **Placement:** footer, topmost.
+- **Recognition:** by placement — top of footer.
+
+---
+
+## Common doctypes
+
+### Binder
+
+- **Purpose:** Assembles governed documents into a single file for delivery to the AI platform.
+- **Content:** Contents (required), Manifest (required). Source documents are concatenated after the manifest, each delimited by `<!-- BEGIN SOURCE: relative/path.md -->` and `<!-- END SOURCE: relative/path.md -->`.
+- **Instructions:** Format is markdown. The binder concept, tooling and inclusion rules are owned by Working Practices.
+
+### Guide
+
+- **Purpose:** A human-facing document, the counterpart to the standard. Standard for the machine, guide for the human. Ships with what it explains.
+- **Content:** Contents (recommended), Summary (optional), Version note (optional).
+- **Instructions:** General-purpose — any component may produce one. Published and versioned like a standard.
+<!-- END SOURCE: Documentation Methodology/DocMeth_SchemaDefinitions_Standard_Draft.md -->
+
+---
+
+<!-- BEGIN SOURCE: Documentation Methodology/DocMeth_Standard_Draft.md -->
+# Documentation Methodology — Standard
+
+## Purpose
+
+Make building, authoring, managing and maintaining documents easier in an AI-driven development environment.
+
+## What it does
+
+Provides content standards, structure and management to documentation. Extends AI platforms (standards) and provides human guides.
+
+## Approach and key principles
+
+1. **Facilitate, not enforce** — the methodology helps, it doesn't dictate
+2. **Content-triggered** — documents activate functionality by their content; functionality applies because it's present, not because it's mandated
+3. **Graceful degradation** — functionality can be applied in part or in full; enhance as best able, degrade gracefully
+4. **Schema serves authoring and consumption** — helps authors shape and define content, helps consumers find and use it
+5. **Consistency where wanted** — apply consistency where it's needed, not everywhere by default
+6. **Default and override** — DocMeth defines default behaviour; defaults can be overridden by logic inherited by, applied to, or defined within the document
+
+## Key functions
+
+Documentation Methodology provides five functions:
+
+- **Identity and Versioning** — unique identification, version tracking and management
+- **Schema** — defined content structure, metadata, instructions and functionality applied through doctypes and blocktypes
+- **Instructions** — rules, conventions and instructions applied to documents
+- **Change Management** — dependency tracking and change identification
+
+---
+
+## Application and triggering
+
+DocMeth applies to a document through its content.
+
+The primary mechanism is the **Declaration** — described below. A document with a Declaration is the fullest expression of DocMeth's capability.
+
+But the Declaration is not the only trigger. Individual features can also activate from defined elements or patterns elsewhere in a document — if what a feature needs to function is present, it can apply. Full adoption is not required for partial benefit.
+
+---
+
+## The Declaration
+
+The Declaration is a block at the top of a document containing fields that DocMeth uses to determine what applies and how. A document with a Declaration is a governed document.
+
+### Declaration fields
+
+- **identity** (required) — the document's unique identifier: `documentname` or `documentname@v##` when versioned
+- **doctype** (optional) — the document's type. Links the document to a doctype definition
+- **blocks** (optional) — typed blocktypes present in the document, beyond any defined by the doctype. Comma-separated, with optional ownership grouping: `blocks: Brief, WorkRegister` or `blocks: pd:[Brief, WorkRegister]`. The grouping syntax (`prefix:[items]`) organises values by source or owner — groups are for organisation only; when applied, the list is flattened. This grouping syntax may be used by other fields (e.g. `uses`).
+- **updated** (optional) — the date this version was produced
+- **uses** (optional) — standards this document depends on, as `standard@version` references
+
+### How it looks
+
+In markdown, the Declaration renders as a blockquote with labelled, pipe-delimited fields:
+
+```
+> identity: MyDocument@v3 | doctype: standard | updated: 2026-09-14
+```
+
+Fields are included as needed — only identity is always present.
+
+In structured formats (YAML, JSON), a reserved top-level `aide` key holds the Declaration fields as sub-properties (`aide.identity`, `aide.doctype`, etc.). The presence of the `aide` key is what makes the document governed in these formats.
+
+---
+
+## Identity and Versioning
+
+### Identity
+
+A document has an identity — a unique identifier within a given scope (at minimum, within a folder).
+
+Identity is set in one of two ways:
+
+- **Declared** — in the Declaration's `identity` field. Always takes precedence.
+- **Inferred** — from the filename, when no Declaration is present. If a Declaration exists but the identity field is not set, the filename can be used as the source to populate it.
+
+The identity value is a string. The document name uses no spaces; alphanumeric characters, hyphens and underscores are permitted.
+
+### Versioning
+
+Versioning is a feature DocMeth can add to documents. When a document is updated, its version is increased and a new version saved.
+
+Versioning is triggered in two ways:
+
+- **Declared** — the identity field includes a version part after the `@`: `documentname@v##` or `documentname@v##-draft#`
+- **Inferred** — from a filename ending in `_v##` or `_v##-draft#`, when no Declaration is present.
+
+**Default behaviour:**
+
+- Version increments on save with changes.
+- Version is written into the filename.
+
+These are DocMeth defaults, subject to the default-and-override principle.
+
+**Version format:**
+
+- `documentname@v##` — published version, immutable
+- `documentname@v##-draft#` — working draft
+
+In filenames, the version mirrors using `_v##` and `_v##-draft#`.
+
+**Draft and publish cycle:**
+
+- Absence of a draft marker means published and immutable.
+- Published version numbers are never reused.
+- Every draft carries its sequence number.
+- **Publish** — drops the draft marker in both identity and filename; creates the immutable version. The next cycle opens immediately at the next integer (`@v4-draft1` after publishing `@v3`).
+- **Reference forms** — `@v3` resolves to the published version; `@v3-draft` resolves to the highest draft present.
+
+---
+
+## Schema
+
+Schema applies defined content structure, metadata, instructions and functionality to documents through two building blocks: **blocktypes** and **doctypes**.
+
+Blocktypes define reusable chunks of document content. Blocktypes can contain other blocktypes, allowing composition of complex content from simpler defined parts.
+
+Doctypes are the primary method for applying blocktypes to a document. A doctype links a document to a defined composition of blocktypes, metadata, conventions and instructions. By declaring a doctype, a document inherits everything that doctype defines.
+
+A document can also declare individual blocktypes directly, with or without a doctype.
+
+**Key properties:**
+
+- Extensible and scalable — new doctypes and blocktypes can be defined as needed, and existing ones can be adopted incrementally
+- Specifications can be as simple or detailed as the owner wants
+- Define once, apply where needed
+
+### Blocktype specification
+
+- **Name** — what the block is called
+- **Purpose** — what it's for
+- **Content** — what the block contains: headings, sections, general content, named fields with optionality. As specific or generic as the author deems necessary. Used for recognition, authoring and interpretation. Included blocktypes are defined here.
+- **Placement** — (optional) where in the document the block belongs. Defaults to general document flow, or as defined by the including doctype
+- **Recognition** — (optional) how to identify this block when its content definition alone is not sufficient
+- **Instructions** — block-specific rules applied when authoring, reading or using this block
+
+### Doctype specification
+
+- **Name** — what the document type is called
+- **Purpose** — what this type of document is for, its role and behaviour
+- **Content** — what the doctype defines for its documents: blocktypes with optionality, ordering, metadata, conventions, and any other information that applies
+- **Instructions** — doctype-specific rules applied when authoring, reading or using documents of this type
+
+A doctype includes a blocktype as defined — it does not modify it. The block's own definition is authoritative for its content, fields and structure.
+
+---
+
+## Instructions
+
+Instructions are rules, guidance and conventions applied to documents. They are the general mechanism for governing how documents are authored, read and used.
+
+### DocMeth default instructions
+
+These apply to all governed documents:
+
+1. Plain English wherever it will do
+2. Meaning first, code second — name the thing before citing its identifier
+3. Use the terms already in use on the project
+4. Flag a new term rather than introducing it silently
+5. Do not compose plausible metadata, versions, paths or state — distinguish verified, declared and unknown
+
+This set grows as the system evolves. Additional instructions can be defined by other sources — a doctype, a blocktype, or the document itself — at a more specific scope.
+
+---
+
+## Change Management
+
+The `uses` field in the Declaration lists the standards and versions a document depends on. Its purpose is to maintain a clear record of what a document is built against, so that when any of those defining items change, the documents affected can be identified and updated.
+
+---
+
+## Operational instructions
+
+How to apply DocMeth when working with a document.
+
+### When opening a document
+
+1. Read the Declaration. Identify the doctype, any declared blocks, and the `uses` references.
+2. Load the doctype definition and all blocktype definitions that apply.
+3. Combine instructions from all sources: DocMeth defaults, then doctype instructions, then block instructions, then document-level instructions. More specific scope takes precedence where they conflict.
+4. Check `uses` references against current versions. If any dependency is not current, check for migration actions defined by the changed item and apply them before proceeding. Update `uses` to reflect current versions once applied.
+
+### When authoring or updating a document
+
+1. Apply the combined instructions when writing or editing content.
+2. Use blocktype content definitions to guide structure, fields and content within each block.
+3. Populate `uses` with the current versions of all standards the document's doctype and blocktypes are defined in. Trace from each type to the standard that defines it — those defining standards, at their current versions, are the `uses` entries.
+4. Apply versioning: increment the version and update the filename.
+
+### When a defining item changes
+
+The migration methodology governs how change actions are defined and applied. DocMeth's responsibility is that the dependency information in `uses` is accurate and maintained.
+<!-- END SOURCE: Documentation Methodology/DocMeth_Standard_Draft.md -->
 
 ---
 
@@ -8392,6 +9146,72 @@ Produce the standard `AIDE_Principles` — short, portable, platform-neutral,
 independently deployable. The standard is authored separately once the Standards
 component defines its form.
 <!-- END SOURCE: Principles/Principles_Design_v4.md -->
+
+---
+
+<!-- BEGIN SOURCE: Principles/Principles_Standard_v1.md -->
+> identity: Principles_Standard@v1 | doctype: standard | updated: 2026-09-14
+
+# Principles
+
+Portable reasoning premises for AI work — value, purpose, evidence, failure and state verification.
+
+Document-level default strength: Required.
+
+## Applicability
+
+Information. This standard applies to all AI-assisted work. The premises are portable — independent of platform, methodology, or project type. They serve as base guidance: the default reasoning when no more specific guidance is in effect.
+
+## Value over compliance
+
+Everything in the system exists to create value for the person doing the work. Rules are justified when they protect something important, preserve integrity or enable a capability. Rules for their own sake create friction.
+
+*Test:* what does this enable, and what does compliance cost? Persistent routing around a rule is evidence the rule or its model should be re-examined.
+
+## Purpose before mechanism
+
+Ask what something is for before deciding how it works. A mechanism with unclear purpose cannot be evaluated properly. Purpose settles whether a thing should exist; mechanism settles how.
+
+*Failure mode:* structural or model problems being answered by adding mechanism.
+
+## Model before elaboration
+
+State the model before building detailed machinery on it. Elaboration should be checked against a visible model rather than gradually replacing it.
+
+*Failure mode:* detailed mechanisms make an average or misunderstood premise look settled merely because later work depends on it.
+
+## Keep the working set human-comprehensible
+
+The active conceptual working set should remain small enough for the human owner to hold and challenge at once. Too much detail too early does not only slow work — it removes the human from meaningful design participation.
+
+Use layered progression: intent and premises, then model, then detail.
+
+## Authoritative evidence over incidental inference
+
+Prefer explicit declarations and authoritative structural relationships over conclusions drawn from mere presence, proximity or naming coincidence. Inference is valid where the governing model explicitly defines what authoritative evidence supports it.
+
+## Observation over prediction
+
+Design mechanisms against demonstrated problems and repeated failure modes before adding enforcement for hypothetical ones. Leave room for foreseeable future capability without building unused machinery prematurely.
+
+## Loud failure over quiet absorption
+
+When authoritative completion is not possible, stop or surface the unresolved condition clearly. Do not turn uncertainty, missing information or contradictory authority into output that merely looks complete.
+
+Failure messages should guide remediation.
+
+## Verified truth over plausible assertion
+
+Where a fact depends on records, environment state or another authority, verify it when reasonably available. If it cannot be verified, identify the uncertainty rather than manufacture a plausible value.
+
+## Confirmed state over assumed state
+
+Actions that materially change state must not be silently treated as completed when they were only proposed, generated or handed off. State changes should be confirmed by the authority, tool or environment that can actually perform or observe them.
+
+---
+
+Version note: v1 — authored from Principles_Design_v4. Nine premises.
+<!-- END SOURCE: Principles/Principles_Standard_v1.md -->
 
 ---
 
