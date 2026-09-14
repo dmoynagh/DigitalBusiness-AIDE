@@ -100,3 +100,30 @@ folders processed: 13
 Result: 4 deleted
 ========================================================================
 
+========================================================================
+version cleanup   2026-09-14 22:24:37   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 13
+------------------------------------------------------------------------
+
+[Project Design]
+  DELETED       ProjectDesign_Standard_v3.md  (v3 superseded by v4)
+
+------------------------------------------------------------------------
+Result: 1 deleted
+========================================================================
+
+========================================================================
+version cleanup   2026-09-14 22:38:11   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 13
+------------------------------------------------------------------------
+
+[Project Design]
+  DELETED       ProjectDesign_Decisions_v2.md  (v2 superseded by v3)
+  DELETED       ProjectDesign_Design_v2.md  (v2 superseded by v3)
+
+------------------------------------------------------------------------
+Result: 2 deleted
+========================================================================
+

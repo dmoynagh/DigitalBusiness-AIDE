@@ -2260,3 +2260,93 @@ COMPLETION SUMMARY
 COMPLETED SUCCESSFULLY
 ========================================================================
 
+========================================================================
+file update package   2026-09-14 23:14:21   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            PD_DesignApproach_FUP.zip  (2026-09-14 23:14, 33,620 bytes)
+description:        PD design-approach update (cross-review remediated) + Standards Authoring acceptance test
+------------------------------------------------------------------------
+
+[Project Design]
+  SKIPPED           Project Design/ProjectDesign_Standard_v4.md: nothing replaced - "ProjectDesign_Standard_v3.md" is not in the documentation tree
+  CONFLICT          Project Design/ProjectDesign_Standard_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Project Design/ProjectDesign_Design_v3.md: nothing replaced - "ProjectDesign_Design_v2.md" is not in the documentation tree
+  CONFLICT          Project Design/ProjectDesign_Design_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Project Design/ProjectDesign_Decisions_v3.md: nothing replaced - "ProjectDesign_Decisions_v2.md" is not in the documentation tree
+  CONFLICT          Project Design/ProjectDesign_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+
+[Standards]
+  DELETED           Standards_Authoring_Standard_v6.md
+  REPLACED          Standards/Standards_Authoring_Standard_v7.md  (11,698 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 3 conflict, 3 skipped, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              PD_DesignApproach_FUP.zip
+                        PD design-approach update (cross-review remediated) + Standards Authoring acceptance test
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            3
+    - Project Design/ProjectDesign_Standard_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Project Design/ProjectDesign_Design_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Project Design/ProjectDesign_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-14 23:15:57   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            PD_DesignApproach_Remediated_FUP.zip  (2026-09-14 23:15, 28,804 bytes)
+description:        PD design-approach update — cross-review remediated versions replacing pre-remediation files
+------------------------------------------------------------------------
+
+[Project Design]
+  DELETED           ProjectDesign_Standard_v4.md
+  REPLACED          Project Design/ProjectDesign_Standard_v4.md  (20,310 bytes)
+  DELETED           ProjectDesign_Design_v3.md
+  REPLACED          Project Design/ProjectDesign_Design_v3.md  (35,523 bytes)
+  DELETED           ProjectDesign_Decisions_v3.md
+  REPLACED          Project Design/ProjectDesign_Decisions_v3.md  (18,614 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         PD_DesignApproach_Remediated_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 replaced, 3 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              PD_DesignApproach_Remediated_FUP.zip
+                        PD design-approach update — cross-review remediated versions replacing pre-remediation files
+  files replaced:       3
+  files created:        0
+  files moved:          0
+  files deleted:        3
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
