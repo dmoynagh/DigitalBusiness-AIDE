@@ -3,10 +3,9 @@
 Moves superseded document versions out of the live tree, so a folder only ever
 shows the current version of each document.
 
-This folder is the **master copy**. To use the tool, copy `version_cleanup.py`
-and `version_cleanup_settings.json` to wherever it should run from, then edit
-that copy's settings. Each instance keeps its own settings file and its own log
-beside the script, so instances never interfere with each other.
+The script lives in the deploy repo and is distributed via `aide update`. This
+folder contains the design documentation and default settings for the tool.
+Utility changes are made in the deploy repo via Code.
 
 ---
 

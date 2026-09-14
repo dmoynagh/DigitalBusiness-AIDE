@@ -4,11 +4,9 @@ Deploys a **FileUpdatePackage** — a zip of updated documents produced by a Cha
 or Cowork session — into the master document tree, superseding what it replaces
 and rebuilding the binder afterwards.
 
-This folder is the **master copy**. To use the tool, copy
-`file_update_package.py` and `file_update_package_settings.json` to wherever it
-should run from, then edit that copy's settings. Each instance keeps its own
-settings file and its own log beside the script, so instances never interfere
-with each other.
+The script lives in the deploy repo and is distributed via `aide update`. This
+folder contains the design documentation and default settings for the tool.
+Utility changes are made in the deploy repo via Code.
 
 **It never overwrites.** A file already sitting where a package wants to write,
 and not named as the one being replaced, is reported as a `CONFLICT` and left

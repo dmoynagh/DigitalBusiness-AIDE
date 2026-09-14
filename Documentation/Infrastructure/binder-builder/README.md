@@ -4,11 +4,9 @@ Gathers the current documents of a defined scope into a single file, so a whole
 topic can be dropped into an AI session's context as one artefact rather than
 as many.
 
-This folder is the **master copy**. To use the tool, copy `binder_builder.py`
-and the settings file to wherever it should run from, then edit that copy's
-settings — including renaming it for the binder it defines. Each instance keeps
-its own settings and its own log beside the script, so instances never
-interfere with each other.
+The script lives in the deploy repo and is distributed via `aide update`. This
+folder contains the design documentation and default settings for the tool.
+Utility changes are made in the deploy repo via Code.
 
 **A settings file is a binder definition.** It declares the scope. To define a
 second binder, put a second settings file beside the first — one run builds them

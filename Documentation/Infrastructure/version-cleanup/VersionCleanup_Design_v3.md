@@ -12,7 +12,7 @@
 - **The matching rule** — document identity, version comparison, deliberate limits.
 - **Folder scope** — descend versus process, and the three path forms.
 - **Archive behaviour** — where superseded files go and what is never overwritten.
-- **Execution model** — master/instance deployment and script-folder resolution.
+- **Execution model** — instance deployment and script-folder resolution.
 - **The three files** — script, settings contract, log contract.
 - **Run modes and report vocabulary.**
 - **Definition of done, idempotence, boundary, required verification cases.**
@@ -170,12 +170,8 @@ Files are moved, not copied and deleted; source and destination are always on th
 
 ## Execution model
 
-```text
-Documentation/Infrastructure/version-cleanup/        ← master, source of truth
-        │  copy
-        ▼
-Documentation/_tools/                                ← instance: own settings, own log
-```
+The script lives in the deploy repo (`DigitalBusiness-AIDE-Deploy`) and is distributed via
+`aide update`. This folder holds the design documentation and default settings.
 
 Each instance resolves its settings file, its log and its root against **the folder holding the
 script**, never against the current working directory. The working directory varies with how the
@@ -183,8 +179,7 @@ script was launched (double-click, terminal, scheduler) and is unreliable; the s
 not. This is also what gives each instance its own settings and its own log without any instance
 registry.
 
-Changes are made to the master and redeployed by copying. Instances are not edited in place except
-for their settings file.
+Utility changes are made in the deploy repo via Code and distributed via `aide update`.
 
 ## The three files
 
@@ -194,7 +189,7 @@ for their settings file.
 | `version_cleanup_settings.json` | Per-instance configuration, read on launch. |
 | `version_cleanup.log` | Append-only record, one entry per run. Created on first run. |
 
-`README.md` and this design document travel with the master and are not required at runtime.
+`README.md` and this design document live in the documentation repo and are not required at runtime.
 
 ### Settings contract
 

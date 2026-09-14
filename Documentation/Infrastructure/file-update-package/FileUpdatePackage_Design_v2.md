@@ -6,8 +6,8 @@
 > the tool runs as part of the `aide` CLI rather than as a standalone script; and successful deploys
 > are committed to git automatically.
 
-**Master/source:** `aide-cli/src/aide/utilities/fup.py` in the deploy repo
-**Documentation copy:** `Documentation/Infrastructure/file-update-package/file_update_package.py`
+**Script source:** `aide-cli/src/aide/utilities/fup.py` in the deploy repo, distributed via `aide update`
+**Design documentation:** `Documentation/Infrastructure/file-update-package`
 **Run via:** `aide fup` (or `aide fup --dry-run`)
 
 ---
@@ -310,7 +310,7 @@ near-miss of a convention name — `_fileupdatepackages`, `_binder`, `_aide`, `_
 similarity threshold rather than a fixed list of misspellings.
 
 **Only underscore folders are candidates.** Every convention name is one, and the restriction is
-what keeps the check honest: `Infrastructure/file-update-package`, the master folder of this very
+what keeps the check honest: `Infrastructure/file-update-package`, the documentation folder of this very
 tool, scores above the threshold against `_fileupdatepackages` on similarity alone and is plainly
 not a misspelling of it. A summary that cries wolf stops being read.
 

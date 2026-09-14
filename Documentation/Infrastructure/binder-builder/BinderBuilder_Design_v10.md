@@ -22,8 +22,9 @@
 > claim that registers are excluded. v5 (2026-09-07) added several binder definitions per folder —
 > see §4b and BinderBuilder D13.
 
-**Master/source folder:** `Documentation/Infrastructure/binder-builder`
-**Run from:** a copied instance folder with its own settings and log, e.g. `Documentation/_tools`
+**Design documentation:** `Documentation/Infrastructure/binder-builder`
+**Script source:** deploy repo (`DigitalBusiness-AIDE-Deploy`), distributed via `aide update`
+**Run from:** an instance folder with its own settings and log, e.g. `Documentation/_tools`
 
 ---
 
