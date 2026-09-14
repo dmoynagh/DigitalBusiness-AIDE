@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 50** (2026-09-14).
+> **Binder Version 51** (2026-09-14).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -26,7 +26,7 @@ individual files.
 - `Core/Core_Brief_v1.md` - sha256 `6c2e6280ea89`
 - `Core/Core_Charter_v1.md` - sha256 `3e5f5332b783`
 - `Core/Core_Design_Documentation_Working_v1.md` - sha256 `b2999c523397`
-- `Core/Core_Schema_Standard_v1.md` - sha256 `dc4ee250329f`
+- `Core/Core_Schema_Standard_v1.md` - sha256 `0c811d1e1a04`
 - `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
 - `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
 - `Core/Core_Tags_Working_v1.md` - sha256 `ae6557378adf`
@@ -44,33 +44,33 @@ individual files.
 - `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `8301aa2a0395`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
-- `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `e6573d80384e`
-- `Infrastructure/binder-builder/README.md` - sha256 `3ec5dab12e67`
-- `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `fce12837157e`
-- `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `17f91d5e4fa6`
-- `Infrastructure/file-update-package/README.md` - sha256 `203b6f20f7ce`
+- `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `07a3284570d1`
+- `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
+- `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `15617061295c`
+- `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `142b729606f8`
+- `Infrastructure/file-update-package/README.md` - sha256 `83ef50399eb5`
 - `Infrastructure/Infrastructure_CLI_Decisions_v1.md` - sha256 `7a16726b5162`
 - `Infrastructure/Infrastructure_CLI_Design_v1.md` - sha256 `12e05744ff4a`
 - `Infrastructure/Infrastructure_Working_v1.md` - sha256 `1d7a11e25a57`
-- `Infrastructure/version-cleanup/README.md` - sha256 `a978d666e85a`
+- `Infrastructure/version-cleanup/README.md` - sha256 `307a43363adb`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
-- `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `e6d1eb38aba5`
+- `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `329d08514ab2`
 - `Principles/Principles_Decisions_v4.md` - sha256 `2c31c26b5c66`
 - `Principles/Principles_Design_v4.md` - sha256 `4bd5797d3d2e`
 - `Principles/Principles_Standard_v1.md` - sha256 `3ffe60875e5c`
 - `Project Design/_index.md` - sha256 `589d24282970`
 - `Project Design/ProjectDesign_Decisions_v2.md` - sha256 `0a07a453c42c`
 - `Project Design/ProjectDesign_Design_v2.md` - sha256 `80a739c74e04`
-- `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `b3f80cfe062f`
-- `Project Design/ProjectDesign_Standard_v3.md` - sha256 `fd5ac0fd7efc`
+- `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
+- `Project Design/ProjectDesign_Standard_v3.md` - sha256 `523e786fb89e`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
 - `Standards/Standards_Authoring_Standard_v6.md` - sha256 `68bb3fcf5bd5`
-- `Standards/Standards_Consumption_Standard_v2.md` - sha256 `b340d11315e3`
+- `Standards/Standards_Consumption_Standard_v2.md` - sha256 `71e817bb117e`
 - `Standards/Standards_Decisions_v3.md` - sha256 `370e69972777`
 - `Standards/Standards_Design_v3.md` - sha256 `4a6a79a3a0f1`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
 - `Tools/_index.md` - sha256 `7bb05b130edc`
-- `Tools/Tools_Authoring_Standard_v4.md` - sha256 `497b9d3b918c`
+- `Tools/Tools_Authoring_Standard_v4.md` - sha256 `79fc8f202ddf`
 - `Tools/Tools_Decisions_v4.md` - sha256 `8ce74a49af55`
 - `Tools/Tools_Design_v3.md` - sha256 `70dee72bc66c`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
@@ -4289,7 +4289,7 @@ AIDE is a living, evolving system. Learn something while working, stop, design t
 ---
 
 <!-- BEGIN SOURCE: Core/Core_Schema_Standard_v1.md -->
-> identity: Core_Schema_Standard@v1 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
+> identity: Core_Schema_Standard@v1 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Core — Schema Standard
 
@@ -6096,8 +6096,9 @@ Infrastructure utilities are not capability Tools. Capabilities (Standards, Tool
 > claim that registers are excluded. v5 (2026-09-07) added several binder definitions per folder —
 > see §4b and BinderBuilder D13.
 
-**Master/source folder:** `Documentation/Infrastructure/binder-builder`
-**Run from:** a copied instance folder with its own settings and log, e.g. `Documentation/_tools`
+**Design documentation:** `Documentation/Infrastructure/binder-builder`
+**Script source:** deploy repo (`DigitalBusiness-AIDE-Deploy`), distributed via `aide update`
+**Run from:** an instance folder with its own settings and log, e.g. `Documentation/_tools`
 
 ---
 
@@ -6861,11 +6862,9 @@ Gathers the current documents of a defined scope into a single file, so a whole
 topic can be dropped into an AI session's context as one artefact rather than
 as many.
 
-This folder is the **master copy**. To use the tool, copy `binder_builder.py`
-and the settings file to wherever it should run from, then edit that copy's
-settings — including renaming it for the binder it defines. Each instance keeps
-its own settings and its own log beside the script, so instances never
-interfere with each other.
+The script lives in the deploy repo and is distributed via `aide update`. This
+folder contains the design documentation and default settings for the tool.
+Utility changes are made in the deploy repo via Code.
 
 **A settings file is a binder definition.** It declares the scope. To define a
 second binder, put a second settings file beside the first — one run builds them
@@ -7449,7 +7448,7 @@ on the corpus and is never loaded into an AI session itself.
   "_comment_drop_folder": "Where packages are put to be deployed. The newest unprocessed .zip in this folder is the one that gets processed; the rest wait. Processed packages are moved into a _superseded subfolder of it.",
   "drop_folder": "~/_fileupdatepackages",
 
-  "_comment_binder_builder": "The binder builder script to run after a deploy. Point this at the running instance, not at the master copy, so it uses that instance's settings. Set it to \"\" to skip the trigger entirely.",
+  "_comment_binder_builder": "The binder builder script to run after a deploy. Point this at the running instance so it uses that instance's settings. Set it to \"\" to skip the trigger entirely.",
   "binder_builder": "~/_tools/binder_builder.py",
 
   "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \"~/\" for root-anchored, or relative to the script folder.",
@@ -7468,8 +7467,8 @@ on the corpus and is never loaded into an AI session itself.
 > the tool runs as part of the `aide` CLI rather than as a standalone script; and successful deploys
 > are committed to git automatically.
 
-**Master/source:** `aide-cli/src/aide/utilities/fup.py` in the deploy repo
-**Documentation copy:** `Documentation/Infrastructure/file-update-package/file_update_package.py`
+**Script source:** `aide-cli/src/aide/utilities/fup.py` in the deploy repo, distributed via `aide update`
+**Design documentation:** `Documentation/Infrastructure/file-update-package`
 **Run via:** `aide fup` (or `aide fup --dry-run`)
 
 ---
@@ -7772,7 +7771,7 @@ near-miss of a convention name — `_fileupdatepackages`, `_binder`, `_aide`, `_
 similarity threshold rather than a fixed list of misspellings.
 
 **Only underscore folders are candidates.** Every convention name is one, and the restriction is
-what keeps the check honest: `Infrastructure/file-update-package`, the master folder of this very
+what keeps the check honest: `Infrastructure/file-update-package`, the documentation folder of this very
 tool, scores above the threshold against `_fileupdatepackages` on similarity alone and is plainly
 not a misspelling of it. A summary that cries wolf stops being read.
 
@@ -7867,11 +7866,9 @@ Deploys a **FileUpdatePackage** — a zip of updated documents produced by a Cha
 or Cowork session — into the master document tree, superseding what it replaces
 and rebuilding the binder afterwards.
 
-This folder is the **master copy**. To use the tool, copy
-`file_update_package.py` and `file_update_package_settings.json` to wherever it
-should run from, then edit that copy's settings. Each instance keeps its own
-settings file and its own log beside the script, so instances never interfere
-with each other.
+The script lives in the deploy repo and is distributed via `aide update`. This
+folder contains the design documentation and default settings for the tool.
+Utility changes are made in the deploy repo via Code.
 
 **It never overwrites.** A file already sitting where a package wants to write,
 and not named as the one being replaced, is reported as a `CONFLICT` and left
@@ -8434,10 +8431,9 @@ Version note: v1 — initial working document from session 2026-09-10. Confirmed
 Moves superseded document versions out of the live tree, so a folder only ever
 shows the current version of each document.
 
-This folder is the **master copy**. To use the tool, copy `version_cleanup.py`
-and `version_cleanup_settings.json` to wherever it should run from, then edit
-that copy's settings. Each instance keeps its own settings file and its own log
-beside the script, so instances never interfere with each other.
+The script lives in the deploy repo and is distributed via `aide update`. This
+folder contains the design documentation and default settings for the tool.
+Utility changes are made in the deploy repo via Code.
 
 ---
 
@@ -8674,7 +8670,7 @@ Those are separate tools, run in sequence.
 - **The matching rule** — document identity, version comparison, deliberate limits.
 - **Folder scope** — descend versus process, and the three path forms.
 - **Archive behaviour** — where superseded files go and what is never overwritten.
-- **Execution model** — master/instance deployment and script-folder resolution.
+- **Execution model** — instance deployment and script-folder resolution.
 - **The three files** — script, settings contract, log contract.
 - **Run modes and report vocabulary.**
 - **Definition of done, idempotence, boundary, required verification cases.**
@@ -8832,12 +8828,8 @@ Files are moved, not copied and deleted; source and destination are always on th
 
 ## Execution model
 
-```text
-Documentation/Infrastructure/version-cleanup/        ← master, source of truth
-        │  copy
-        ▼
-Documentation/_tools/                                ← instance: own settings, own log
-```
+The script lives in the deploy repo (`DigitalBusiness-AIDE-Deploy`) and is distributed via
+`aide update`. This folder holds the design documentation and default settings.
 
 Each instance resolves its settings file, its log and its root against **the folder holding the
 script**, never against the current working directory. The working directory varies with how the
@@ -8845,8 +8837,7 @@ script was launched (double-click, terminal, scheduler) and is unreliable; the s
 not. This is also what gives each instance its own settings and its own log without any instance
 registry.
 
-Changes are made to the master and redeployed by copying. Instances are not edited in place except
-for their settings file.
+Utility changes are made in the deploy repo via Code and distributed via `aide update`.
 
 ## The three files
 
@@ -8856,7 +8847,7 @@ for their settings file.
 | `version_cleanup_settings.json` | Per-instance configuration, read on launch. |
 | `version_cleanup.log` | Append-only record, one entry per run. Created on first run. |
 
-`README.md` and this design document travel with the master and are not required at runtime.
+`README.md` and this design document live in the documentation repo and are not required at runtime.
 
 ### Settings contract
 
@@ -9782,7 +9773,7 @@ Version note: v2 — cross-review remediation: producer rule specified (PD-D1), 
 ---
 
 <!-- BEGIN SOURCE: Project Design/ProjectDesign_Schema_Standard_v1.md -->
-> identity: ProjectDesign_Schema_Standard@v1 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
+> identity: ProjectDesign_Schema_Standard@v1 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Project Design — Schema Standard
 
@@ -9897,7 +9888,7 @@ Recommended. A design almost always exists behind a standard, and a standard alm
 
 Information. Project Design owns four document types: brief, design, overview, and work register. It also owns two transition mechanisms — the design-build handoff and the build return — and the producer rule. It consumes generics: decisions, knowledge, WIP, open items, work item, and definition of done.
 
-Required. **The producer rule.** Whenever a confirmed design change creates downstream work that is not already represented in the register, that work must be entered as a register item in the same pass. An existing item that already covers the obligation is not duplicated.
+**The producer rule.** Whenever a confirmed design change creates downstream work that is not already represented in the register, that work must be entered as a register item in the same pass. An existing item that already covers the obligation is not duplicated.
 
 Information. A design project is the scope of one design: a brief and the design that delivers it, together with the commitments entered into the work register. A naming convenience for a boundary that already exists, not a new entity. If it starts acquiring properties — a state, an owner, a lifecycle — that is the signal it was a mistake.
 
@@ -9905,25 +9896,25 @@ Information. A design project is the scope of one design: a brief and the design
 
 Information. The brief fixes the problem and the bar for success before designing. The brief is the problem space; the design is the solution space. The brief must be complete enough that the design has everything it needs, without smuggling in solution decisions.
 
-Required. A brief is mandatory — always. Standalone or inline at the head of a design document, but never absent.
+A brief is mandatory — always. Standalone or inline at the head of a design document, but never absent.
 
 ### Brief sections
 
 **Required, always:**
 
-Required. **Purpose** — the problem or need, and why it is worth solving.
+**Purpose** — the problem or need, and why it is worth solving.
 
-Required. **Objectives** — what success looks like.
+**Objectives** — what success looks like.
 
-Required. **Definition of done** — the completion bar. Short, accurate, concise — the primary success test.
+**Definition of done** — the completion bar. Short, accurate, concise — the primary success test.
 
 **Required in substance, may be light:**
 
-Required. **Requirements** — the conditions the solution must satisfy. May be a single line, but never absent: "no stated requirements" is a deliberate statement, not an omission.
+**Requirements** — the conditions the solution must satisfy. May be a single line, but never absent: "no stated requirements" is a deliberate statement, not an omission.
 
-Required. **Scope and boundaries** — what is in, and what is explicitly out. May be light for small projects.
+**Scope and boundaries** — what is in, and what is explicitly out. May be light for small projects.
 
-Required. **Linked build project or build outcome** — which build the design feeds. Absent only where the design produces no build.
+**Linked build project or build outcome** — which build the design feeds. Absent only where the design produces no build.
 
 **Optional, scale-dependent:**
 
@@ -9935,7 +9926,7 @@ Information. The brief scales by which sections are present and how deep each ru
 
 ### Brief boundary tests
 
-Required. These five boundary tests involving brief content settle where content belongs when the destination is not obvious — some resolve placement within the brief, others resolve the boundary between the brief and a neighbouring destination.
+These five boundary tests involving brief content settle where content belongs when the destination is not obvious — some resolve placement within the brief, others resolve the boundary between the brief and a neighbouring destination.
 
 1. **Objectives vs requirements.** An objective is what success looks like; a requirement is a condition the solution must meet to get there. "Fast" is an objective; "responds within two seconds" is a requirement.
 
@@ -9953,11 +9944,11 @@ Required. These five boundary tests involving brief content settle where content
 
 Information. The design is the current confirmed model and approach — the authoritative delivery of the brief. A point-in-time snapshot of what is true now. It must be sufficient on its own to produce outcomes, and it governs on conflict with any other document.
 
-Required. The design carries its own live reasoning inline — the rationale for the current approach. Duplication with decisions is accepted and expected.
+The design carries its own live reasoning inline — the rationale for the current approach. Duplication with decisions is accepted and expected.
 
 ### Design criteria
 
-Required. A design is not done until all nine hold:
+A design is not done until all nine hold:
 
 1. It delivers the brief — every requirement addressed, or explicitly deferred or rejected with a reason.
 2. It is sufficient alone to produce the outcome.
@@ -9981,31 +9972,31 @@ Optional. Include a worked example where the rules are abstract.
 
 ### Reasoning routing
 
-Required. A design change and its reasoning are produced together. Reasoning is never left to live only in conversation.
+A design change and its reasoning are produced together. Reasoning is never left to live only in conversation.
 
-Required. Every design-element change is a retention checkpoint: anything removed from the design must survive in decisions. If not, add it before the removal stands.
+Every design-element change is a retention checkpoint: anything removed from the design must survive in decisions. If not, add it before the removal stands.
 
 Information. Topic-scoped reasoning goes to decisions; reasoning with no owning topic goes to knowledge. Decisions and knowledge inform but never override design.
 
 ### Coverage check
 
-Required. When the design is called done, walk the brief's requirements and confirm each is met, deferred, or rejected.
+When the design is called done, walk the brief's requirements and confirm each is met, deferred, or rejected.
 
 ## Overview
 
 Information. The overview is the project-scale snapshot — a pane-of-glass view of the whole design project. Also a deviation detector: anything that cannot be placed against the overview is either a branch or evidence the overview is missing something.
 
-Required. The overview carries: key objective, the chosen approach or delivery method, the top-level model, and key defining principles.
+The overview carries: key objective, the chosen approach or delivery method, the top-level model, and key defining principles.
 
 Recommended. Include project-level scope and boundaries where a reader would otherwise misjudge the edges.
 
-Required. Overview entries are statements, not explanation — each is a recall handle with detail reachable on demand.
+Overview entries are statements, not explanation — each is a recall handle with detail reachable on demand.
 
 ### Scaling and the summary suppression rule
 
 Recommended. The overview sits inline in the design document or the brief for small projects. It splits to its own document per the split test — externalise when keeping it inline would compromise the primary role of its host.
 
-Required. While an overview lives inline, the host document does not also carry a summary. When the overview splits out, the source document gets its summary back.
+While an overview lives inline, the host document does not also carry a summary. When the overview splits out, the source document gets its summary back.
 
 Information. A single-document project's overview and summary are the same thing.
 
@@ -10013,19 +10004,19 @@ Information. A single-document project's overview and summary are the same thing
 
 Information. The work register is the ledger of confirmed work owed and not yet delivered. Project Design owns it — the register is the one artefact where design is both source and target.
 
-Required. The register is default-on. Non-use must be stated explicitly.
+The register is default-on. Non-use must be stated explicitly.
 
 ### Entries
 
-Required. Each entry carries six fields: source (the design element or decision that committed it), the commitment, what must change, target (where the change lands), state, and origin tag.
+Each entry carries six fields: source (the design element or decision that committed it), the commitment, what must change, target (where the change lands), state, and origin tag.
 
 Recommended. Advice fields: handoff reference, return reference, area.
 
-Required. Each entry tags its origin as design-generated or directly-entered. The register admits confirmed non-design-generated work. The discipline that real design work should not bypass design is a judgement at entry, not a mechanism.
+Each entry tags its origin as design-generated or directly-entered. The register admits confirmed non-design-generated work. The discipline that real design work should not bypass design is a judgement at entry, not a mechanism.
 
 ### Writing rule
 
-Required. Items enter the register as logical blocks of work — coherent wholes individually completable, chunked at the point of writing. The axis is coherence, not build-effort sizing. No child items, no task tree — the register stays flat and every item is atomic.
+Items enter the register as logical blocks of work — coherent wholes individually completable, chunked at the point of writing. The axis is coherence, not build-effort sizing. No child items, no task tree — the register stays flat and every item is atomic.
 
 Optional. An item may carry an area label. An area is a label, not a container — areas do not own items, have no states, and nothing rolls up.
 
@@ -10035,15 +10026,15 @@ Information. Four states: owed → handed off → returned, pending reconciliati
 
 ### Register maintenance
 
-Required. While an item is owed and not yet handed off, it may be amended in place when superseded, or removed when no longer relevant. Removal is a retention trigger — the withdrawal and its reason go to decisions in the same pass.
+While an item is owed and not yet handed off, it may be amended in place when superseded, or removed when no longer relevant. Removal is a retention trigger — the withdrawal and its reason go to decisions in the same pass.
 
 ### Immutability after handoff
 
-Required. Once handed off, an entry's description of the work owed is immutable — it is the record of what crossed the responsibility boundary.
+Once handed off, an entry's description of the work owed is immutable — it is the record of what crossed the responsibility boundary.
 
-Required. Build never closes a register item. Design owns closure because design owns the commitment.
+Build never closes a register item. Design owns closure because design owns the commitment.
 
-Required. When a handed-off commitment is superseded, design determines the impact and remedy, makes the call explicitly, and records it.
+When a handed-off commitment is superseded, design determines the impact and remedy, makes the call explicitly, and records it.
 
 ## Capture and place
 
@@ -10051,17 +10042,17 @@ Information. Project Design conversations wander — tangents, triggers, explora
 
 ### Three obligations on the AI
 
-Required. **Continuous capture, silently.** The moment something settles, shifts, or is raised, it is noted against a destination — then, not at session end. Nothing is held on the strength of "I'll remember."
+**Continuous capture, silently.** The moment something settles, shifts, or is raised, it is noted against a destination — then, not at session end. Nothing is held on the strength of "I'll remember."
 
-Required. **Placement by destination definitions.** Settled content goes to a permanent home — brief if problem-space, design if solution-space, decisions if topic-scoped reasoning, knowledge if reasoning with no owning topic. Unsettled content goes to a holding place — WIP for live thinking, open items for a parked question. Confirmed but undelivered work goes to the work register.
+**Placement by destination definitions.** Settled content goes to a permanent home — brief if problem-space, design if solution-space, decisions if topic-scoped reasoning, knowledge if reasoning with no owning topic. Unsettled content goes to a holding place — WIP for live thinking, open items for a parked question. Confirmed but undelivered work goes to the work register.
 
-Required. **Batched surfacing at natural breaks.** What was captured and where it is going is put in front of the user in plain language, providing an opportunity to correct placement. If no correction is given, the placement stands — silence does not block persistence. When a topic closes mid-session, the AI offers the batch unprompted.
+**Batched surfacing at natural breaks.** What was captured and where it is going is put in front of the user in plain language, providing an opportunity to correct placement. If no correction is given, the placement stands — silence does not block persistence. When a topic closes mid-session, the AI offers the batch unprompted.
 
 ### Placement rules
 
-Required. Placement defers to each destination's own standard for content. Capture and place holds no guidance of its own about what a decisions entry or a brief section should contain.
+Placement defers to each destination's own standard for content. Capture and place holds no guidance of its own about what a decisions entry or a brief section should contain.
 
-Required. Homeless pieces are named, not dropped. Where there is genuinely nowhere proper, place it sensibly and raise a review task.
+Homeless pieces are named, not dropped. Where there is genuinely nowhere proper, place it sensibly and raise a review task.
 
 Recommended. Err toward over-capture. Cheap to delete in review, expensive to lose.
 
@@ -10071,43 +10062,43 @@ Information. The circuit: a design change produces a commitment (register entry,
 
 ### The escalation boundary
 
-Required. Design owns the what and why; build owns the how. The test: does what build encountered change what is being delivered or why, or only how it gets delivered? How is build's call. What or why comes back.
+Design owns the what and why; build owns the how. The test: does what build encountered change what is being delivered or why, or only how it gets delivered? How is build's call. What or why comes back.
 
-Required. If build cannot tell which side of the boundary it is on, it returns. An unnecessary return costs a message; silently absorbing a design change costs the design's authority.
+If build cannot tell which side of the boundary it is on, it returns. An unnecessary return costs a message; silently absorbing a design change costs the design's authority.
 
 ### The cost-and-complexity flag
 
-Required. When real cost or complexity materially exceeds what the design appeared to assume, build surfaces it before proceeding.
+When real cost or complexity materially exceeds what the design appeared to assume, build surfaces it before proceeding.
 
 Information. A flag with a default of proceed, not a return. If design does not intervene, build proceeds.
 
 ### Design-build handoff
 
-Required. The handoff carries everything the build side needs to act without returning to the design conversation. Format free, sufficiency required.
+The handoff carries everything the build side needs to act without returning to the design conversation. Format free, sufficiency required.
 
 Recommended. The handoff has a ceiling as well as a floor — do not re-supply generic execution-platform knowledge the build environment already provides. Carry what is specific to this work.
 
-Required. Design must not overreach into build, even in the same session.
+Design must not overreach into build, even in the same session.
 
 ### Build return
 
-Required. Every build handoff expects a build return. Fire-and-forget must be explicitly declared at the handoff.
+Every build handoff expects a build return. Fire-and-forget must be explicitly declared at the handoff.
 
-Required. Never bare. Every return carries what was actually done or what prevented it — accessible and comparable against the commitment.
+Never bare. Every return carries what was actually done or what prevented it — accessible and comparable against the commitment.
 
-Required. A failure names its origin — design-side (unbuildable, unclear, conflicting) or build-side (environment, tooling). The response differs: a design fault re-enters design; a build fault means retry or fix, nothing for design to rework.
+A failure names its origin — design-side (unbuildable, unclear, conflicting) or build-side (environment, tooling). The response differs: a design fault re-enters design; a build fault means retry or fix, nothing for design to rework.
 
-Required. The return carries everything design needs to reconcile without going back to build. Sufficiency is symmetrical with handoff sufficiency.
+The return carries everything design needs to reconcile without going back to build. Sufficiency is symmetrical with handoff sufficiency.
 
 Recommended. Return detail is proportional to the task — a trivial task earns a brief return, a high-impact task earns fuller reporting.
 
-Required. Where the work was reviewed, the return identifies that a review was performed and carries the result.
+Where the work was reviewed, the return identifies that a review was performed and carries the result.
 
 Information. Five return states: confirmed, needs information, raises an issue, failed, done with deviation.
 
 ### Reconciliation
 
-Required. Reconciliation is design's act of checking a return against its commitment and deciding the outcome — close it, accept a deviation, or send it back to owed.
+Reconciliation is design's act of checking a return against its commitment and deciding the outcome — close it, accept a deviation, or send it back to owed.
 
 Information. Reconciliation fires on two return states only. Confirmed — check and close. Done with deviation — design decides whether to accept; accepting is a design change that may spawn a fresh commitment. The other three states (needs information, raises an issue, failed) deliver nothing to reconcile — the item stays owed.
 
@@ -10270,21 +10261,21 @@ Information. This standard applies when an AI session is operating under one or 
 
 ## Evaluate applicability before applying
 
-Required. A loaded standard is not automatically applicable. Before applying a standard, evaluate its declared applicability scope against the current situation. A standard whose scope does not match the current work is not applied, regardless of how it was loaded.
+A loaded standard is not automatically applicable. Before applying a standard, evaluate its declared applicability scope against the current situation. A standard whose scope does not match the current work is not applied, regardless of how it was loaded.
 
 ## Combine applicable standards
 
-Required. Compatible applicable standards stack — combine them, do not choose between them. When multiple standards apply to the same work and their guidance does not conflict, apply each item according to its declared strength.
+Compatible applicable standards stack — combine them, do not choose between them. When multiple standards apply to the same work and their guidance does not conflict, apply each item according to its declared strength.
 
 ## Resolve conflict
 
-Required. When two applicable items genuinely oppose each other on the same point, higher strength governs. Strength precedence: Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. When surfacing the conflict, identify the competing standards, the opposing items, and the work affected.
+When two applicable items genuinely oppose each other on the same point, higher strength governs. Strength precedence: Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. When surfacing the conflict, identify the competing standards, the opposing items, and the work affected.
 
-Required. Do not manufacture conflict from different concerns that can both be satisfied. Two standards addressing different aspects of the same work are not in conflict merely because both apply.
+Do not manufacture conflict from different concerns that can both be satisfied. Two standards addressing different aspects of the same work are not in conflict merely because both apply.
 
 ## Human override
 
-Required. Direct human instruction may override a standard within that person's authority. When the override displaces a required or recommended item:
+Direct human instruction may override a standard within that person's authority. When the override displaces a required or recommended item:
 
 - state the standard's position and the material consequence of departure;
 - make the departure visible; and
@@ -10658,19 +10649,19 @@ Information. A tool earns its context cost. Everything in it displaces something
 
 ## The invocability test
 
-Required. The boundary between a tool and a standard is invocability. If you would say "run X," X is a tool. If you would say "follow the approach in Y," Y is a standard.
+The boundary between a tool and a standard is invocability. If you would say "run X," X is a tool. If you would say "follow the approach in Y," Y is a standard.
 
-Required. A standard may describe a procedure, but it may not define an invokable action. A named invokable thing must be a tool — only a tool carries the authoring discipline that keeps a named action honest. A standard that restates an invokable action creates two authorities on the same thing with no way to keep them in sync.
+A standard may describe a procedure, but it may not define an invokable action. A named invokable thing must be a tool — only a tool carries the authoring discipline that keeps a named action honest. A standard that restates an invokable action creates two authorities on the same thing with no way to keep them in sync.
 
 Information. The standards authoring standard owns the complementary view of this boundary — what a standard is and does. This test owns the tool side.
 
 ## Authoring rules
 
-Required. The five authoring rules in the standards authoring standard — the carry test, leanness, discriminating guidance, strength assignment, and self-containment — apply to all capabilities. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. The rules are not restated here; they are consumed as capability-wide methodology.
+The five authoring rules in the standards authoring standard — the carry test, leanness, discriminating guidance, strength assignment, and self-containment — apply to all capabilities. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. The rules are not restated here; they are consumed as capability-wide methodology.
 
 ## Authoring concerns
 
-Required. Seven concerns a tool author must address. These are not a template — the author decides how to meet them, in whatever structure the content demands.
+Seven concerns a tool author must address. These are not a template — the author decides how to meet them, in whatever structure the content demands.
 
 **Inputs.** What the tool needs in order to run.
 
@@ -10696,11 +10687,11 @@ Recommended. The behavioural discipline for handling inputs, decision points, an
 - Ask once, preferably batched, for genuinely missing required inputs.
 - Escalate genuine conflicts, authority decisions, or material uncertainty the tool does not own.
 
-Required. A tool must not silently fail for want of information that could reasonably have been requested.
+A tool must not silently fail for want of information that could reasonably have been requested.
 
 ## Idempotency
 
-Required. The author declares whether the tool is safe to run again, stated alongside its purpose. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs this before deciding whether to re-run.
+The author declares whether the tool is safe to run again, stated alongside its purpose. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs this before deciding whether to re-run.
 
 ## The staging clause
 
@@ -10716,11 +10707,11 @@ Information. This is common. A component or feature specified in a design often 
 
 ## Trigger description
 
-Required. Every tool carries a trigger description. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
+Every tool carries a trigger description. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
 
 ## Applicability scope
 
-Required. Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns. The trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
+Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns. The trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
 
 ## Document-default strength
 
@@ -10730,7 +10721,7 @@ Information. A tool may declare a document-level default strength so the author 
 
 **Design is the default.** Recommended. A design almost always exists behind a tool. Authoring straight to a tool is the exception — reserved for cases where the action is simple enough that a design would restate rather than elaborate.
 
-**Author fresh.** Required. A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle — each output is derived from the design that governs it, not from its own prior version.
+**Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle — each output is derived from the design that governs it, not from its own prior version.
 
 **No prescribed template.** Information. A tool has no fixed structure. The author decides what it contains and how it is organised, provided the authoring concerns above are addressed and the capability-wide authoring rules are met.
 
@@ -10740,7 +10731,7 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ## Ownership
 
-**Each tool lives with its owning component.** Required. Tools is a methodological component — it defines how to build a tool, not where tools live. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Each tool lives with its owning component.** Tools is a methodological component — it defines how to build a tool, not where tools live. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
 ---
 
