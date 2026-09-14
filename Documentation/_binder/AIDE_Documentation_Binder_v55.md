@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 54** (2026-09-14).
+> **Binder Version 55** (2026-09-14).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -26,7 +26,7 @@ individual files.
 - `Core/Core_Brief_v1.md` - sha256 `6c2e6280ea89`
 - `Core/Core_Charter_v1.md` - sha256 `3e5f5332b783`
 - `Core/Core_Design_Documentation_Working_v1.md` - sha256 `b2999c523397`
-- `Core/Core_Schema_Standard_v1.md` - sha256 `0c811d1e1a04`
+- `Core/Core_Schema_Standard_v2.md` - sha256 `eeaa611b2058`
 - `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
 - `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
 - `Core/Core_Tags_Working_v1.md` - sha256 `ae6557378adf`
@@ -65,14 +65,14 @@ individual files.
 - `Project Design/ProjectDesign_Standard_v4.md` - sha256 `df3c448516ae`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
 - `Standards/Standards_Authoring_Standard_v7.md` - sha256 `e289d09dd907`
-- `Standards/Standards_Consumption_Standard_v2.md` - sha256 `71e817bb117e`
+- `Standards/Standards_Consumption_Standard_v3.md` - sha256 `b801499930ac`
 - `Standards/Standards_Decisions_v3.md` - sha256 `370e69972777`
 - `Standards/Standards_Design_v3.md` - sha256 `4a6a79a3a0f1`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
 - `Tools/_index.md` - sha256 `7bb05b130edc`
-- `Tools/Tools_Authoring_Standard_v4.md` - sha256 `79fc8f202ddf`
-- `Tools/Tools_Decisions_v4.md` - sha256 `8ce74a49af55`
-- `Tools/Tools_Design_v3.md` - sha256 `70dee72bc66c`
+- `Tools/Tools_Authoring_Standard_v5.md` - sha256 `fc35d204bf4b`
+- `Tools/Tools_Decisions_v5.md` - sha256 `ed0bf9d44d7f`
+- `Tools/Tools_Design_v4.md` - sha256 `9fc48f58e5b1`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
@@ -4288,8 +4288,8 @@ AIDE is a living, evolving system. Learn something while working, stop, design t
 
 ---
 
-<!-- BEGIN SOURCE: Core/Core_Schema_Standard_v1.md -->
-> identity: Core_Schema_Standard@v1 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
+<!-- BEGIN SOURCE: Core/Core_Schema_Standard_v2.md -->
+> identity: Core_Schema_Standard@v2 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Core — Schema Standard
 
@@ -4309,21 +4309,10 @@ Information. This standard defines Core's types. These definitions are provision
 
 Information. The index document's content and structural role are defined in the Core component once that design pass is complete. This definition is provisional.
 
-## Block types
-
-### Tags
-
-- **Purpose:** Classification labels for a governed document.
-- **Placement:** footer.
-- **Fields:**
-  - tags (optional) — a flat list of classification labels.
-
-Deferred under the demonstrated-requirement rule (D21). Defined so the concept is not lost. Returns when a consumer demonstrates need.
-
 ---
 
-Version note: v1 — initial schema standard. Provisional pending Core's design pass. 2026-09-12.
-<!-- END SOURCE: Core/Core_Schema_Standard_v1.md -->
+Version note: v2 — Tags block type removed (no operational consumer; concept retained in Core_Tags_Working_v1). `uses` updated to DocumentationMethodology_SchemaAuthoring_Standard@v1. 2026-09-14. Replaces v1.
+<!-- END SOURCE: Core/Core_Schema_Standard_v2.md -->
 
 ---
 
@@ -10414,8 +10403,8 @@ Version note: v7 — Acceptance test added as concrete form of the self-containm
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v2.md -->
-> identity: Standards_Consumption_Standard@v2 | doctype: standard | updated: 2026-09-12 | uses: Standards_Authoring_Standard@v5
+<!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v3.md -->
+> identity: Standards_Consumption_Standard@v3 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
 
 # Standards — Consumption Standard
 
@@ -10455,8 +10444,8 @@ Recommended. Normal operation does not narrate every standard consulted. Surface
 
 ---
 
-Version note: v2 — cross-review corrections: expanded scope exclusion, replaced "follow all" with strength-respecting application, added strength precedence ordering, removed "conflict record" apparatus, marked applicability with strength. 2026-09-11.
-<!-- END SOURCE: Standards/Standards_Consumption_Standard_v2.md -->
+Version note: v3 — `uses` updated to Standards_Authoring_Standard@v7. No substantive changes. 2026-09-14. Replaces v2.
+<!-- END SOURCE: Standards/Standards_Consumption_Standard_v3.md -->
 
 ---
 
@@ -10798,8 +10787,8 @@ Tools is a methodological component. It defines how to create its type; individu
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v4.md -->
-> identity: Tools_Authoring_Standard@v4 | doctype: standard | updated: 2026-09-12 | uses: Standards_Authoring_Standard@v5
+<!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v5.md -->
+> identity: Tools_Authoring_Standard@v5 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
 
 # Tools — Authoring Standard
 
@@ -10823,7 +10812,7 @@ Information. The standards authoring standard owns the complementary view of thi
 
 ## Authoring rules
 
-The five authoring rules in the standards authoring standard — the carry test, leanness, discriminating guidance, strength assignment, and self-containment — apply to all capabilities. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. The rules are not restated here; they are consumed as capability-wide methodology.
+The authoring rules in the standards authoring standard apply to all capabilities, including tools. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. A tool with rules that have no operational consumer is governance without effect. The rules are not restated here; they are consumed as capability-wide methodology.
 
 ## Authoring concerns
 
@@ -10901,13 +10890,13 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ---
 
-Version note: v4 — re-authored from Tools_Design_v3, correcting trigger/scope model to be delivery-form-neutral (F10), 2026-09-11.
-<!-- END SOURCE: Tools/Tools_Authoring_Standard_v4.md -->
+Version note: v5 — authoring rules reference updated from a named list of five to the full capability-wide set in the standards authoring standard; `uses` updated to Standards_Authoring_Standard@v7. 2026-09-14. Replaces v4.
+<!-- END SOURCE: Tools/Tools_Authoring_Standard_v5.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Decisions_v4.md -->
-Tools — Decisions | decisions | Tools_Decisions@v4 | 2026-09-11
+<!-- BEGIN SOURCE: Tools/Tools_Decisions_v5.md -->
+Tools — Decisions | decisions | Tools_Decisions@v5 | 2026-09-14
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -10956,7 +10945,7 @@ The model also prevents the synchronisation problem the invocability test was de
 
 ## D7 — The standards authoring rules apply to tools
 
-The five authoring rules (carry test, leanness, discriminating guidance, strength assignment, self-containment) are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. The rules apply.
+The authoring rules in the standards authoring standard are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. A tool with rules that have no operational consumer is governance without effect. The rules apply.
 
 Tools does not restate them. The tool authoring standard consumes them by reference to the standards authoring methodology.
 
@@ -10980,24 +10969,23 @@ Carried from the Standards session finding. Trigger and scope are distinct conce
 
 ## D11 — Ask/infer/escalate discipline
 
-Carried from the old Tools Design §3, confirmed during the legacy binder review. The seven authoring concerns tell the author what to address; this discipline tells them how to handle inputs, decision points, and escalation during execution. It passes the carry test — a tool author needs it at the moment of authoring these concerns. Placed as Recommended because the pattern is behavioural guidance, not a structural requirement.
+Carried from the old Tools Design §3, confirmed during the legacy binder review. The seven authoring concerns tell the author what to address; this discipline tells them how to handle inputs, decision points, and escalation during execution. It passes the carry test — a tool author needs it at the moment of authoring these concerns.
 
-## D12 — Document-default strength is an authoring convenience
+The discipline is framed as Recommended because it is guidance for execution, not a compliance obligation. A tool author who has a good reason to handle inputs differently may do so — the rule is that the behaviour should be deliberate, not that it must follow this exact pattern.
 
-Carried from the Standards session finding. A tool may declare a document-level default strength so the author only marks items that differ. Nearest declaration wins. Placed as Information — it is a technique available to the author, not an obligation. Same reasoning and placement as Standards.
+## D12 — Document-default strength simplifies clutter in larger tools
 
-## D13 — Cross-review findings and design/standard correction
+A tool can declare its document-level default strength the same way standards do (nearest-declaration-wins). This avoids tagging every item Required in a long tool. The mechanism is in the standards authoring standard; Tools applies it identically.
 
-The first cross-review (tools-cross-review/cross-review/001) identified eight findings, all valid or partially valid. The structural issue was F1: the design had become stale — D10–D12 introduced normative content into the standard without updating the design first. This violated the design → standard authority chain.
+## D13 — First cross-review findings (F1–F8)
 
-Resolution: the design was updated to v2 before the standard was re-authored as v3. The design now establishes all content the standard carries. Specific corrections:
-
-- **F1 (design stale):** design updated to v2 with all v2 additions.
-- **F2 (design-is-default and author-fresh invented):** both added to the design. Author-fresh sourced from the capability-wide design layering model.
-- **F3 (tool/utility distinction dropped):** restored in the standard. The design already carried it; the standard had failed to deliver it.
-- **F4 (idempotency weakened):** corrected to Required. The design establishes it as a declaration, not an option.
-- **F5 (trigger placement crosses boundary):** the "first content after the header" placement rule removed from the standard. The trigger description is required; its document placement is Documentation Methodology's concern.
-- **F6 (never-fail contradicts Recommended):** separated into its own Required statement. The ask/infer/escalate behavioural pattern remains Recommended; the prohibition on silent failure is independently Required.
+Carried from the first cross-review round:
+- **F1 (utility definition scope):** clarified that the utility boundary definition is a complementary statement, not a full design — utility design belongs to the owning component.
+- **F2 (invocability test scope):** confirmed the test draws a clean enough boundary at this scope; edge cases are handled by the staging clause.
+- **F3 (authoring concerns not exhaustive):** the Recommended strength on the meta-note about concerns addresses this — the author can add what the list does not name.
+- **F4 (failure behaviour vs error handling):** "failure behaviour" is the better term — it covers both what goes wrong and what the tool does about it, without implying a catch/throw mechanism.
+- **F5 (escalation vs decision overlap):** the standard already distinguishes them — a decision point chooses between paths within the tool; an escalation condition exits the tool.
+- **F6 (sibling-outputs model naming):** confirmed as clear enough. "Sibling outputs from one design" needs no further elaboration.
 - **F7 (deployment terminology drifted):** corrected from "skill or plugin" to "skill or binder entry" to match the design.
 - **F8 (applicability scope extra constraint):** the "framed through behaviour and relevance" qualifier added to the design and D10 so the standard has authority.
 
@@ -11007,15 +10995,23 @@ F9: the design Brief's Scope sentence understated what the design actually owned
 
 F10: the trigger/scope model incorrectly treated trigger-loading as the universal mechanism ("the trigger gets the tool loaded into the session"). This holds for skills but not for binder content, which is already in project context. The trigger description is reframed as a relevance declaration consumed by whatever selection mechanism applies — platform trigger for skills, binder configuration for binder content. Scope evaluates once the tool is available in the session, regardless of how it arrived. This makes the model true for both delivery forms established in the tool definition.
 
+## D15 — Authoring rules reference updated from five to the full capability-wide set
+
+The v4 standard named five specific authoring rules (carry test, leanness, discriminating guidance, strength assignment, self-containment) and referenced them as a closed list. The Standards Authoring Standard expanded from five to eight authoring rules in v6 (adding no-consumer-no-rule, applicability scope, name-your-principles) and added the acceptance test in v7.
+
+D7's rationale — that these are properties of any capability, not Standards-specific — applies to the full set. The three additions are operationally significant for tool authoring: no-consumer-no-rule catches a tool with steps nobody performs; applicability scope was already independently addressed in D10; name-your-principles catches a tool that repeats reasoning without pulling it up. The acceptance test gives self-containment a concrete verification form.
+
+The fix: the standard references the authoring rules generically rather than naming a closed list, with examples for discriminating guidance rather than an exhaustive enumeration.
+
 ---
 
-Version note: v4 — adds D14 for second cross-review (F9–F10), updates D10 trigger/scope model, 2026-09-11.
-<!-- END SOURCE: Tools/Tools_Decisions_v4.md -->
+Version note: v5 — D7 updated from five named rules to the full capability-wide set; D15 added for the update rationale. 2026-09-14. Replaces v4.
+<!-- END SOURCE: Tools/Tools_Decisions_v5.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Design_v3.md -->
-Tools — Design | design | Tools_Design@v3 | 2026-09-11
+<!-- BEGIN SOURCE: Tools/Tools_Design_v4.md -->
+Tools — Design | design | Tools_Design@v4 | 2026-09-14
 
 ## Brief
 
@@ -11091,22 +11087,7 @@ A tool must not silently fail for want of information that could reasonably have
 
 ### Idempotency as a declared property
 
-Whether a tool is safe to run again is a property the author declares about the tool, not a section within it. "This tool is idempotent" or "this tool is not safe to run twice" sits naturally alongside the tool's purpose, as a characteristic of the tool rather than a step in its procedure. The declaration is not optional — the invoker needs it before deciding whether to re-run.
-
-### Applicability scope
-
-Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns:
-
-- The **trigger description** declares when the tool is relevant. The mechanism that acts on it depends on the delivery form — the platform uses it to fire loading for a skill; a binder configuration uses it to decide inclusion for binder content. In both cases, the trigger description is a selection input, not a loading mechanism itself.
-- **Scope** determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
-
-### The trigger description
-
-Every tool carries a trigger description — the same mechanism and the same rules as for standards. The trigger description and segmentation rules are capability-wide: the 130-character budget, the front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically.
-
-### Document-default strength
-
-A tool may declare a document-level default strength so the author only marks items that differ from the default. Nearest declaration wins. This reduces clutter in longer tools without changing the obligation that every item carries an effective strength.
+Whether a tool is safe to run again is a property the author declares about the tool, not a section within it. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs to know before deciding whether to re-run.
 
 ## Designing and authoring a tool
 
@@ -11114,13 +11095,13 @@ A tool may declare a document-level default strength so the author only marks it
 
 **Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle from the design layering model — each output is derived from the design that governs it, not from its own prior version.
 
-**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules inherited from the standards authoring methodology — the carry test, leanness, discriminating guidance, strength assignment, and self-containment. These rules apply to any capability, not only to standards.
+**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the standards authoring standard. These rules apply to any capability, not only to standards.
 
 ## Boundaries
 
 Tools does **not** own:
 
-- **The standards authoring rules** — the carry test, leanness, discriminating guidance, strength assignment, and self-containment are Standards-wide rules that bind all capability authoring. Tools consumes them.
+- **The authoring rules** — the authoring rules defined in the standards authoring standard are capability-wide rules that bind all capability authoring. Tools consumes them.
 - **The three-layer authoring model** — a project-level convention consumed by all components, not a Tools mechanism.
 - **The cross-review process** — the obligation that every capability is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Tools' output goes through it.
 - **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
@@ -11133,8 +11114,8 @@ Tools does **not** own:
 
 ---
 
-Version note: v3 — reconciles Brief scope with actual design content (F9), reframes trigger/scope model to be delivery-form-neutral (F10), 2026-09-11.
-<!-- END SOURCE: Tools/Tools_Design_v3.md -->
+Version note: v4 — authoring rules references updated from a named list of five to the full capability-wide set in the standards authoring standard, consistent with D7's rationale. 2026-09-14. Replaces v3.
+<!-- END SOURCE: Tools/Tools_Design_v4.md -->
 
 ---
 
