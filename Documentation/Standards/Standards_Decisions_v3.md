@@ -4,9 +4,11 @@ Standards — Decisions | decisions | Standards_Decisions@v3 | 2026-09-14
 
 Standards defines how to create its type. Individual instances live with their consuming component. This was settled in the overview as the common pattern for all three capability-type components and confirmed in the structure session. The alternative — Standards holding all standards — was rejected because it violates the what-knows-most-about-it ownership principle.
 
-## D2 — Nine authoring rules, not a template
+## D2 — Eight authoring rules plus one design rule, not a template
 
-The authoring methodology is expressed as nine rules (carry test, no consumer no rule, leanness, discriminating guidance, strength assignment, self-containment, applicability scope, name your principles, earn your place) rather than a prescribed template or structural specification. The author decides what a standard contains and how it is organised, provided it meets the terms.
+The authoring methodology is expressed as eight rules (carry test, no consumer no rule, leanness, discriminating guidance, strength assignment, self-containment, applicability scope, name your principles) rather than a prescribed template or structural specification. The author decides what a standard contains and how it is organised, provided it meets the terms.
+
+A ninth rule — earn your place — operates on the design and solving model rather than on the authored standard, and is therefore a design rule, not an authoring rule. It is recorded in D20.
 
 A template risks becoming apparatus — a structure to fill in rather than a set of outcomes to achieve. The rules tell an author what a good standard must do. Document structure belongs to Documentation Methodology; Standards defines what the content must achieve, not what it must look like.
 
@@ -98,7 +100,7 @@ Standards fall into two classes: task standards and carried standards. The disti
 
 Task standards load for a specific task and can afford weight because the cost is contextually proportionate. Carried standards govern broad behaviour, sit in memory across most sessions, and must be lean because the overhead is paid everywhere.
 
-Both classes follow the same authoring rules. The class distinction affects design approach — specifically, how much effort must go into designing a solving model that delivers leanness. For task standards, leanness is still desirable but weight is tolerable. For carried standards, leanness is non-negotiable and is the primary design constraint.
+Both classes follow the same authoring rules and both use the two-model design sequence. The class distinction affects how much design effort must go into the solving model. For task standards, leanness is still desirable but weight is tolerable because the cost is bounded to the task. For carried standards, leanness is non-negotiable and is the primary design constraint — the solving model must be smart enough that the resulting standard is lean.
 
 The DocMeth clean-sheet rebuild (2026-09-14) is the worked example: the main DocumentationMethodology_Standard is a carried standard; the SchemaAuthoring_Standard is a task standard. The two demanded materially different design effort to achieve appropriate weight.
 
@@ -128,6 +130,18 @@ When a recurring concept drives multiple rules, pull it up to a named principle.
 
 This was observed during the DocMeth rebuild: the default-and-override pattern recurred across versioning, strength, and optionality, and was pulled up to a named principle rather than being restated each time.
 
+## D20 — Earn your place is a design rule, not an authoring rule
+
+Every element in the design must justify its presence against the objectives in the intent model. A concept, classification, stage, or mechanism that does not contribute to the objectives is removed regardless of how well-conceived it is in isolation.
+
+This is a design rule operating on the solving model, not an authoring rule operating on the resolved standard. The distinction matters because the three filters operate at different points:
+
+- **Earn your place** — does this element in the design/solving model contribute to the objectives in the intent model?
+- **The carry test** — does this resulting item need to be present at the moment of application?
+- **Leanness** — is the necessary carried guidance expressed without avoidable context cost?
+
+Earn-your-place was initially enumerated among the authoring rules. Cross-review (2026-09-14) identified that the Authoring Standard v6 had already placed it correctly in the design section, and Design/Decisions should agree.
+
 ---
 
-Version note: v3 — adds D15 (two classes by load pattern), D16 (two-model design sequence), D17 (default-Required), D18 (no consumer no rule), D19 (name your principles). Updates D2 (six rules to nine) and D3 (adds default-Required approach). 2026-09-14.
+Version note: v3 — adds D15 (two classes by load pattern), D16 (two-model design sequence), D17 (default-Required), D18 (no consumer no rule), D19 (name your principles), D20 (earn your place as design rule). Updates D2 (six authoring rules to eight, plus one design rule) and D3 (adds default-Required approach). 2026-09-14.

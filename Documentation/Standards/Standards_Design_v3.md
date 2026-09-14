@@ -22,13 +22,13 @@ A standard's design approach is determined by its load pattern, not its subject.
 
 **Carried standards** govern broad behaviour that applies across most sessions — document identity, versioning, how documents work. They sit in memory and tax nearly every session. Leanness is non-negotiable for this class.
 
-Both classes follow the same authoring rules. The class distinction affects the design approach: a carried standard demands the solving-model design sequence described below, where leanness is achieved through model quality rather than compression.
+Both classes follow the same authoring rules and both use the two-model design sequence. The class distinction affects the design effort invested in the solving model: a carried standard demands substantially greater model quality because persistent context cost makes leanness a primary constraint. A task standard still uses the sequence, but additional weight is tolerable because the cost is bounded to the task.
 
 ## What Standards owns
 
 ### The authoring methodology
 
-How to decide what goes into a standard, how to write it, and how lean is lean enough. Nine rules govern authoring, plus the trigger description and segmentation requirements below:
+How to decide what goes into a standard, how to write it, and how lean is lean enough. Eight rules govern authoring, plus the trigger description and segmentation requirements below:
 
 **The carry test.** Every item must pass: "is this needed at the moment of application?" Content that informed the design but is not needed when applying the standard stays in the design document.
 
@@ -45,8 +45,6 @@ How to decide what goes into a standard, how to write it, and how lean is lean e
 **Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Scope targets behaviour and relevance, not a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
 
 **Name your principles.** When a recurring concept drives multiple rules, pull it up to a named principle. Named principles are cheaper to carry than the repeated reasoning behind them, and they give consumers an anchor for understanding why related rules exist.
-
-**Earn your place.** Every element in the standard must justify its presence against the objectives it serves. A concept, classification, or mechanism that does not contribute to the objectives is removed regardless of how well-conceived it is in isolation.
 
 ### Trigger description and segmentation
 
@@ -79,7 +77,7 @@ Reference is a document type only, not an output type. The distinction matters: 
 
 A design almost always exists behind a standard — authoring straight to standard is the exception. The standard is authored fresh from the design, never by modifying a previous standard version. The design holds the reasoning, the alternatives, the constraints. The standard holds only the conclusion, stated as guidance.
 
-The standard does not carry reasoning into the session. If a consumer needs to understand why a rule exists, the design is available outside the session — but the standard does not depend on it being present.
+The standard does not carry design derivation into the session — the alternatives considered, the reasoning used to choose the solution, the historical discussion. Application-facing rationale — a named principle, a consequence, a clarification needed to apply the rule intelligently — may be carried when it passes the carry test. If a consumer needs deeper reasoning than the standard provides, the design is available outside the session — but the standard does not depend on it being present.
 
 ### Designing a standard — the two-model sequence
 
@@ -137,4 +135,4 @@ Standards does **not** own:
 
 ---
 
-Version note: v3 — adds two-class distinction (task vs carried by load pattern), solving-model design sequence, default-Required strength assignment, three new authoring rules (no consumer no rule, name your principles, earn your place). Updates authoring rule count from six to nine. 2026-09-14.
+Version note: v3 — adds two-class distinction (task vs carried by load pattern), solving-model design sequence (universal, with greater effort for carried class), default-Required strength assignment, three new rules (no consumer no rule, name your principles as authoring rules; earn your place as a design rule). Updates authoring rule count from six to eight. Reasoning boundary narrowed to design derivation. 2026-09-14.
