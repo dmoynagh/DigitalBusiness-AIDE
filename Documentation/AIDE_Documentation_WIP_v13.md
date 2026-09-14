@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v9 | 2026-09-14
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v13 | 2026-09-15
 
 ## Active threads
 
@@ -7,10 +7,6 @@ AIDE Documentation | WIP | AIDE_Documentation_WIP@v9 | 2026-09-14
 All components owning doctypes or block types must define them using the accepted definition contract. The definition contract has been simplified in the rebuild (6 blocktype properties, 4 doctype properties). Assessment produced (DocMeth_Schema_Review_v1) — rework is a separate task per component.
 
 Note: PD_Schema_Standard_v1 was authored against the old Schema Standard v4 property vocabulary. It should be reviewed against the simplified contract in DocumentationMethodology_SchemaAuthoring_Standard_v1 when next worked. Core_Schema_Standard_v2 is provisional and will be reviewed when Core's design pass is done.
-
-### DocMeth — binder rebuild
-
-The DocMeth binder needs rebuilding with the new v1 standards replacing the old v4 standards, plus updated decisions (v7) and working (v9) documents.
 
 ---
 
@@ -28,35 +24,31 @@ Included in PD Standard v4 above.
 
 ---
 
-## Pending — Principles
+## Completed — Principles
 
-### Three candidate premise strengthenings
+### Principles premise strengthenings — DONE
 
-From the design-approach work. These are not new premises — they would strengthen existing ones. To be considered when Principles is next worked:
+Completed 2026-09-15. Three candidate premise strengthenings from the design-approach work, all resolved as strengthenings of existing premises per F12 pattern. Premise count stays at nine.
 
-1. **Difficulty-as-evidence.** If something is becoming hard or elaborate, the model above it may need review. May strengthen P3.
-2. **Do not build apparatus.** A clear principle is applied, not implemented through stages, phases, or machinery. May strengthen P3 or stand alongside it.
-3. **Simple and well-conceived is the goal.** Output markedly more elaborate than the intent above it is a warning. May strengthen P4.
+P3 (model before elaboration) strengthened: difficulty-as-evidence feedback signal and apparatus-avoidance failure mode (D10). P4 (keep the working set human-comprehensible) strengthened: proportionality signal (D11).
 
-**Cross-review required:** yes, if any premises are strengthened.
+Cross-review: F1 remediated (false-exclusive removed from difficulty signal), F2 remediated (positive injunction → naming the form), F3 remediated (universal causation → warning signal). Deployed: Principles_Design v5, Principles_Decisions v5, Principles_Standard v2.
 
 ---
 
-## Pending — Standards
+## Completed — Standards
 
-### Acceptance-test wording — ambient framework context
+### Clarification block — DONE
 
-Carried from the Tools cross-review (round 3). The acceptance test in the Standards Authoring Standard says "given only this standard and its declared dependencies." AIDE's actual architecture has ambient framework context — capabilities like the design approach are delivered through skills that fire on any relevant work, not through declared document-to-document dependencies.
+Carry from DocMeth resolved by existing definition. The Standards Authoring Standard (v8 schema definitions section) already defines the Clarification blocktype — purpose, recognition, and split test governance — and includes it as optional in the Standard doctype. Definition-contract compliant. No design work needed. 2026-09-15.
 
-The test wording needs to account for this. Proposed direction: "given only the capability, its declared dependencies, and framework-level ambient context available within its applicability scope." The precise wording should reflect AIDE's dependency and context model.
+---
 
-This affects every capability that relies on ambient context, not just Tools. One fix in the Standards Authoring Standard resolves it framework-wide.
+## Completed — Documentation Methodology
 
-**Cross-review required:** yes — changes the acceptance test that all capabilities are built against.
+### DocMeth — binder rebuild — DONE
 
-### Clarification block
-
-The standard doctype has two parts: the standard itself (lean, stated rules) and clarification (reasoning, justification). Two blocks, joined when small, split by the split test when clarification would bloat the loaded standard. Carry from DocMeth.
+Three superseded draft standards removed from the binder. The naming convention changed between drafts (`DocMeth_` prefix) and published v1 standards (`DocumentationMethodology_` prefix), so version cleanup didn't catch them. Files moved to `_superseded/`, binder rebuilt v64 → v65. Commit `f040d4b`. 2026-09-15.
 
 ---
 
@@ -118,12 +110,14 @@ AIDE needs a mechanism for submitting learnings, additions, changes and new func
 
 ## Standards Dependency Map
 
-How standards depend on each other via declared `uses` relationships. Current as of binder v56.
+How standards depend on each other via declared `uses` relationships. Current as of binder v65.
 
 ```
 Tier 0 — Foundation (no declared uses)
 │
 ├── DocumentationMethodology_Standard_v1 ★    universal, exempt from uses
+│
+├── Principles_Standard_v2    no declared uses
 │
 ├── DocumentationMethodology_SchemaAuthoring_Standard_v1    no declared uses
 │   │
@@ -135,13 +129,13 @@ Tier 0 — Foundation (no declared uses)
 │       │
 │       └── PD_Standard_v4
 │
-└── Standards_Authoring_Standard_v7 ★
+└── Standards_Authoring_Standard_v8 ★
     │
     │   Tier 1
     │
     ├── Standards_Consumption_Standard_v3
     │
-    └── Tools_Authoring_Standard_v7
+    └── Tools_Authoring_Standard_v8
 ```
 
 ★ = universal or always-on dependency
@@ -167,6 +161,10 @@ Six standards reviewed against the full methodology (no-consumer-no-rule, earn-y
 - **Standards Consumption Standard v2 → v3** (minor): `uses` updated to Standards_Authoring_Standard@v7.
 - **Principles Standard v1, PD Schema Standard v1, PD Standard v4**: clean — no changes needed.
 
+### Standards acceptance-test ambient-context fix — DONE
+
+Completed 2026-09-15. Acceptance test amended for ambient framework context (D21). Cross-review: two defects remediated (F1 definition added, F2 "guaranteed" replaces "available within scope"), one concern accepted (F3 Tools sync included). Deployed: Standards_Authoring_Standard v8, Standards_Decisions v4, Tools_Authoring_Standard v8.
+
 ---
 
 ## Cross-review register
@@ -177,9 +175,9 @@ Six standards reviewed against the full methodology (no-consumer-no-rule, earn-y
 | Standards design approach update (Design v3, Decisions v3, Authoring Standard v7) | New design approach, three new authoring rules, strength model change, acceptance test | **Accepted** — two rounds, all findings resolved. Published 2026-09-14 |
 | PD Standard update (Design v3, Decisions v3, Standard v4) | Design-approach content, new gates, brief rule | **Accepted** — ten findings, all resolved. Published 2026-09-14 |
 | Tools Authoring Standard v7 (Design v6, Decisions v7) | Authoring rules reference, incorporation contract, scope | **Accepted** — three rounds (10 findings resolved, 1 carried to Standards). Published 2026-09-14 |
-| Principles premise strengthening | Foundational — changes propagate to all components | Pending — not started |
-| Standards acceptance-test wording (ambient context) | Framework-contract issue exposed by Tools cross-review | Pending — carried from Tools round 3 |
+| Principles premise strengthenings (P3, P4) | Three candidate strengthenings from design-approach work (F12 pattern) | **Accepted** — F1 remediated (false-exclusive), F2 remediated (D10 wording), F3 remediated (D11 wording). Published 2026-09-15 |
+| Standards acceptance-test wording (ambient context) | Framework-contract issue exposed by Tools cross-review | **Accepted** — F1 defect (definition), F2 defect (guaranteed wording), F3 concern (Tools sync) — all remediated. Published 2026-09-15 |
 
 ---
 
-Version note: v9 — Tools cross-review accepted (three rounds, all findings resolved or carried). Acceptance-test ambient-context wording carried to pending Standards. Dependency map updated. Cross-review register updated. 2026-09-14. Replaces v8.
+Version note: v13 — Clarification block carry closed (existing definition resolves it). DocMeth binder rebuilt v64 → v65 (three superseded draft standards removed, commit f040d4b). 2026-09-15. Replaces v12.

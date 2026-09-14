@@ -55,6 +55,12 @@ ProjectDesign_2026-09-07.zip
 | `user_instructions` | Optional. Shown to you, and the tool waits for you to acknowledge them before it touches anything. |
 | `created` | Optional, informational. Packages are ordered by file modification time, not by this. |
 
+**Choosing `create` vs `update`.** `create` means the file does not yet exist in
+the tree. If a file already sits at the destination path — from a prior deploy,
+a partial run, or manual placement — use `update`, not `create`. The tool will
+`CONFLICT` on a `create` that finds an occupied path rather than risk
+overwriting something it was not told about.
+
 **Leaving `replaces` out of an update** means "this replaces the file already at
 this path" — that file is moved into `_superseded` and the new one written in
 its place. Use it for documents whose filenames do not carry a version.
