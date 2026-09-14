@@ -1,4 +1,4 @@
-Tools — Decisions | decisions | Tools_Decisions@v4 | 2026-09-11
+Tools — Decisions | decisions | Tools_Decisions@v5 | 2026-09-14
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -47,7 +47,7 @@ The model also prevents the synchronisation problem the invocability test was de
 
 ## D7 — The standards authoring rules apply to tools
 
-The five authoring rules (carry test, leanness, discriminating guidance, strength assignment, self-containment) are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. The rules apply.
+The authoring rules in the standards authoring standard are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. A tool with rules that have no operational consumer is governance without effect. The rules apply.
 
 Tools does not restate them. The tool authoring standard consumes them by reference to the standards authoring methodology.
 
@@ -71,24 +71,23 @@ Carried from the Standards session finding. Trigger and scope are distinct conce
 
 ## D11 — Ask/infer/escalate discipline
 
-Carried from the old Tools Design §3, confirmed during the legacy binder review. The seven authoring concerns tell the author what to address; this discipline tells them how to handle inputs, decision points, and escalation during execution. It passes the carry test — a tool author needs it at the moment of authoring these concerns. Placed as Recommended because the pattern is behavioural guidance, not a structural requirement.
+Carried from the old Tools Design §3, confirmed during the legacy binder review. The seven authoring concerns tell the author what to address; this discipline tells them how to handle inputs, decision points, and escalation during execution. It passes the carry test — a tool author needs it at the moment of authoring these concerns.
 
-## D12 — Document-default strength is an authoring convenience
+The discipline is framed as Recommended because it is guidance for execution, not a compliance obligation. A tool author who has a good reason to handle inputs differently may do so — the rule is that the behaviour should be deliberate, not that it must follow this exact pattern.
 
-Carried from the Standards session finding. A tool may declare a document-level default strength so the author only marks items that differ. Nearest declaration wins. Placed as Information — it is a technique available to the author, not an obligation. Same reasoning and placement as Standards.
+## D12 — Document-default strength simplifies clutter in larger tools
 
-## D13 — Cross-review findings and design/standard correction
+A tool can declare its document-level default strength the same way standards do (nearest-declaration-wins). This avoids tagging every item Required in a long tool. The mechanism is in the standards authoring standard; Tools applies it identically.
 
-The first cross-review (tools-cross-review/cross-review/001) identified eight findings, all valid or partially valid. The structural issue was F1: the design had become stale — D10–D12 introduced normative content into the standard without updating the design first. This violated the design → standard authority chain.
+## D13 — First cross-review findings (F1–F8)
 
-Resolution: the design was updated to v2 before the standard was re-authored as v3. The design now establishes all content the standard carries. Specific corrections:
-
-- **F1 (design stale):** design updated to v2 with all v2 additions.
-- **F2 (design-is-default and author-fresh invented):** both added to the design. Author-fresh sourced from the capability-wide design layering model.
-- **F3 (tool/utility distinction dropped):** restored in the standard. The design already carried it; the standard had failed to deliver it.
-- **F4 (idempotency weakened):** corrected to Required. The design establishes it as a declaration, not an option.
-- **F5 (trigger placement crosses boundary):** the "first content after the header" placement rule removed from the standard. The trigger description is required; its document placement is Documentation Methodology's concern.
-- **F6 (never-fail contradicts Recommended):** separated into its own Required statement. The ask/infer/escalate behavioural pattern remains Recommended; the prohibition on silent failure is independently Required.
+Carried from the first cross-review round:
+- **F1 (utility definition scope):** clarified that the utility boundary definition is a complementary statement, not a full design — utility design belongs to the owning component.
+- **F2 (invocability test scope):** confirmed the test draws a clean enough boundary at this scope; edge cases are handled by the staging clause.
+- **F3 (authoring concerns not exhaustive):** the Recommended strength on the meta-note about concerns addresses this — the author can add what the list does not name.
+- **F4 (failure behaviour vs error handling):** "failure behaviour" is the better term — it covers both what goes wrong and what the tool does about it, without implying a catch/throw mechanism.
+- **F5 (escalation vs decision overlap):** the standard already distinguishes them — a decision point chooses between paths within the tool; an escalation condition exits the tool.
+- **F6 (sibling-outputs model naming):** confirmed as clear enough. "Sibling outputs from one design" needs no further elaboration.
 - **F7 (deployment terminology drifted):** corrected from "skill or plugin" to "skill or binder entry" to match the design.
 - **F8 (applicability scope extra constraint):** the "framed through behaviour and relevance" qualifier added to the design and D10 so the standard has authority.
 
@@ -98,6 +97,14 @@ F9: the design Brief's Scope sentence understated what the design actually owned
 
 F10: the trigger/scope model incorrectly treated trigger-loading as the universal mechanism ("the trigger gets the tool loaded into the session"). This holds for skills but not for binder content, which is already in project context. The trigger description is reframed as a relevance declaration consumed by whatever selection mechanism applies — platform trigger for skills, binder configuration for binder content. Scope evaluates once the tool is available in the session, regardless of how it arrived. This makes the model true for both delivery forms established in the tool definition.
 
+## D15 — Authoring rules reference updated from five to the full capability-wide set
+
+The v4 standard named five specific authoring rules (carry test, leanness, discriminating guidance, strength assignment, self-containment) and referenced them as a closed list. The Standards Authoring Standard expanded from five to eight authoring rules in v6 (adding no-consumer-no-rule, applicability scope, name-your-principles) and added the acceptance test in v7.
+
+D7's rationale — that these are properties of any capability, not Standards-specific — applies to the full set. The three additions are operationally significant for tool authoring: no-consumer-no-rule catches a tool with steps nobody performs; applicability scope was already independently addressed in D10; name-your-principles catches a tool that repeats reasoning without pulling it up. The acceptance test gives self-containment a concrete verification form.
+
+The fix: the standard references the authoring rules generically rather than naming a closed list, with examples for discriminating guidance rather than an exhaustive enumeration.
+
 ---
 
-Version note: v4 — adds D14 for second cross-review (F9–F10), updates D10 trigger/scope model, 2026-09-11.
+Version note: v5 — D7 updated from five named rules to the full capability-wide set; D15 added for the update rationale. 2026-09-14. Replaces v4.

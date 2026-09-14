@@ -1,4 +1,4 @@
-Tools — Design | design | Tools_Design@v3 | 2026-09-11
+Tools — Design | design | Tools_Design@v4 | 2026-09-14
 
 ## Brief
 
@@ -74,22 +74,7 @@ A tool must not silently fail for want of information that could reasonably have
 
 ### Idempotency as a declared property
 
-Whether a tool is safe to run again is a property the author declares about the tool, not a section within it. "This tool is idempotent" or "this tool is not safe to run twice" sits naturally alongside the tool's purpose, as a characteristic of the tool rather than a step in its procedure. The declaration is not optional — the invoker needs it before deciding whether to re-run.
-
-### Applicability scope
-
-Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns:
-
-- The **trigger description** declares when the tool is relevant. The mechanism that acts on it depends on the delivery form — the platform uses it to fire loading for a skill; a binder configuration uses it to decide inclusion for binder content. In both cases, the trigger description is a selection input, not a loading mechanism itself.
-- **Scope** determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
-
-### The trigger description
-
-Every tool carries a trigger description — the same mechanism and the same rules as for standards. The trigger description and segmentation rules are capability-wide: the 130-character budget, the front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically.
-
-### Document-default strength
-
-A tool may declare a document-level default strength so the author only marks items that differ from the default. Nearest declaration wins. This reduces clutter in longer tools without changing the obligation that every item carries an effective strength.
+Whether a tool is safe to run again is a property the author declares about the tool, not a section within it. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs to know before deciding whether to re-run.
 
 ## Designing and authoring a tool
 
@@ -97,13 +82,13 @@ A tool may declare a document-level default strength so the author only marks it
 
 **Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle from the design layering model — each output is derived from the design that governs it, not from its own prior version.
 
-**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules inherited from the standards authoring methodology — the carry test, leanness, discriminating guidance, strength assignment, and self-containment. These rules apply to any capability, not only to standards.
+**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the standards authoring standard. These rules apply to any capability, not only to standards.
 
 ## Boundaries
 
 Tools does **not** own:
 
-- **The standards authoring rules** — the carry test, leanness, discriminating guidance, strength assignment, and self-containment are Standards-wide rules that bind all capability authoring. Tools consumes them.
+- **The authoring rules** — the authoring rules defined in the standards authoring standard are capability-wide rules that bind all capability authoring. Tools consumes them.
 - **The three-layer authoring model** — a project-level convention consumed by all components, not a Tools mechanism.
 - **The cross-review process** — the obligation that every capability is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Tools' output goes through it.
 - **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
@@ -116,4 +101,4 @@ Tools does **not** own:
 
 ---
 
-Version note: v3 — reconciles Brief scope with actual design content (F9), reframes trigger/scope model to be delivery-form-neutral (F10), 2026-09-11.
+Version note: v4 — authoring rules references updated from a named list of five to the full capability-wide set in the standards authoring standard, consistent with D7's rationale. 2026-09-14. Replaces v3.

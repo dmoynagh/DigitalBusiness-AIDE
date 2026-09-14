@@ -1,4 +1,4 @@
-> identity: Tools_Authoring_Standard@v4 | doctype: standard | updated: 2026-09-12 | uses: Standards_Authoring_Standard@v5
+> identity: Tools_Authoring_Standard@v5 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
 
 # Tools — Authoring Standard
 
@@ -22,7 +22,7 @@ Information. The standards authoring standard owns the complementary view of thi
 
 ## Authoring rules
 
-The five authoring rules in the standards authoring standard — the carry test, leanness, discriminating guidance, strength assignment, and self-containment — apply to all capabilities. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. The rules are not restated here; they are consumed as capability-wide methodology.
+The authoring rules in the standards authoring standard apply to all capabilities, including tools. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. A tool with rules that have no operational consumer is governance without effect. The rules are not restated here; they are consumed as capability-wide methodology.
 
 ## Authoring concerns
 
@@ -100,4 +100,4 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ---
 
-Version note: v4 — re-authored from Tools_Design_v3, correcting trigger/scope model to be delivery-form-neutral (F10), 2026-09-11.
+Version note: v5 — authoring rules reference updated from a named list of five to the full capability-wide set in the standards authoring standard; `uses` updated to Standards_Authoring_Standard@v7. 2026-09-14. Replaces v4.

@@ -1,4 +1,4 @@
-> identity: Core_Schema_Standard@v1 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
+> identity: Core_Schema_Standard@v2 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Core — Schema Standard
 
@@ -18,17 +18,6 @@ Information. This standard defines Core's types. These definitions are provision
 
 Information. The index document's content and structural role are defined in the Core component once that design pass is complete. This definition is provisional.
 
-## Block types
-
-### Tags
-
-- **Purpose:** Classification labels for a governed document.
-- **Placement:** footer.
-- **Fields:**
-  - tags (optional) — a flat list of classification labels.
-
-Deferred under the demonstrated-requirement rule (D21). Defined so the concept is not lost. Returns when a consumer demonstrates need.
-
 ---
 
-Version note: v1 — initial schema standard. Provisional pending Core's design pass. 2026-09-12.
+Version note: v2 — Tags block type removed (no operational consumer; concept retained in Core_Tags_Working_v1). `uses` updated to DocumentationMethodology_SchemaAuthoring_Standard@v1. 2026-09-14. Replaces v1.

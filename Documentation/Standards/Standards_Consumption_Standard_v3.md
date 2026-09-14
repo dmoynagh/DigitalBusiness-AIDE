@@ -1,4 +1,4 @@
-> identity: Standards_Consumption_Standard@v2 | doctype: standard | updated: 2026-09-12 | uses: Standards_Authoring_Standard@v5
+> identity: Standards_Consumption_Standard@v3 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
 
 # Standards — Consumption Standard
 
@@ -38,4 +38,4 @@ Recommended. Normal operation does not narrate every standard consulted. Surface
 
 ---
 
-Version note: v2 — cross-review corrections: expanded scope exclusion, replaced "follow all" with strength-respecting application, added strength precedence ordering, removed "conflict record" apparatus, marked applicability with strength. 2026-09-11.
+Version note: v3 — `uses` updated to Standards_Authoring_Standard@v7. No substantive changes. 2026-09-14. Replaces v2.
