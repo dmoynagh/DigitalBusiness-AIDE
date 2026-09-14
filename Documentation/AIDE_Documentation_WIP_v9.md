@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v8 | 2026-09-14
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v9 | 2026-09-14
 
 ## Active threads
 
@@ -43,6 +43,16 @@ From the design-approach work. These are not new premises — they would strengt
 ---
 
 ## Pending — Standards
+
+### Acceptance-test wording — ambient framework context
+
+Carried from the Tools cross-review (round 3). The acceptance test in the Standards Authoring Standard says "given only this standard and its declared dependencies." AIDE's actual architecture has ambient framework context — capabilities like the design approach are delivered through skills that fire on any relevant work, not through declared document-to-document dependencies.
+
+The test wording needs to account for this. Proposed direction: "given only the capability, its declared dependencies, and framework-level ambient context available within its applicability scope." The precise wording should reflect AIDE's dependency and context model.
+
+This affects every capability that relies on ambient context, not just Tools. One fix in the Standards Authoring Standard resolves it framework-wide.
+
+**Cross-review required:** yes — changes the acceptance test that all capabilities are built against.
 
 ### Clarification block
 
@@ -108,7 +118,7 @@ AIDE needs a mechanism for submitting learnings, additions, changes and new func
 
 ## Standards Dependency Map
 
-How standards depend on each other via declared `uses` relationships. Current as of binder v55.
+How standards depend on each other via declared `uses` relationships. Current as of binder v56.
 
 ```
 Tier 0 — Foundation (no declared uses)
@@ -131,7 +141,7 @@ Tier 0 — Foundation (no declared uses)
     │
     ├── Standards_Consumption_Standard_v3
     │
-    └── Tools_Authoring_Standard_v5
+    └── Tools_Authoring_Standard_v7
 ```
 
 ★ = universal or always-on dependency
@@ -152,7 +162,7 @@ Captured in Standards_Design_v3, Standards_Decisions_v3 (D15–D19), and Standar
 
 Six standards reviewed against the full methodology (no-consumer-no-rule, earn-your-place, name-your-principles, operations test, acceptance test, task-vs-carried classification). Findings:
 
-- **Tools Authoring Standard v4 → v5** (substantive): authoring rules reference updated from a named list of five to the full capability-wide set. Tools Decisions v4 → v5, Tools Design v3 → v4 updated alongside. Cross-review required.
+- **Tools Authoring Standard v4 → v7** (substantive): authoring rules reference updated from a named list of five to the full capability-wide set. Explicit incorporation contract, applicability section, acceptance test, noun-substitution rule, scope narrowed to deployment handoff, trigger made generic, sibling-outputs corrected. Three cross-review rounds, ten findings across rounds 1–2 all resolved, round 3 finding (acceptance-test ambient-context wording) accepted as a Standards carry. Tools Decisions v4 → v7, Tools Design v3 → v6 updated alongside.
 - **Core Schema Standard v1 → v2** (minor): Tags block type removed per no-consumer-no-rule; `uses` updated.
 - **Standards Consumption Standard v2 → v3** (minor): `uses` updated to Standards_Authoring_Standard@v7.
 - **Principles Standard v1, PD Schema Standard v1, PD Standard v4**: clean — no changes needed.
@@ -166,9 +176,10 @@ Six standards reviewed against the full methodology (no-consumer-no-rule, earn-y
 | DocMeth clean-sheet rebuild (three v1 standards) | Full rework of DocMeth standards | **Accepted** — two rounds, all findings resolved. Published 2026-09-14 |
 | Standards design approach update (Design v3, Decisions v3, Authoring Standard v7) | New design approach, three new authoring rules, strength model change, acceptance test | **Accepted** — two rounds, all findings resolved. Published 2026-09-14 |
 | PD Standard update (Design v3, Decisions v3, Standard v4) | Design-approach content, new gates, brief rule | **Accepted** — ten findings, all resolved. Published 2026-09-14 |
-| Tools Authoring Standard v5 | Authoring rules reference updated from five to capability-wide set | Pending — deployed, awaiting cross-review |
+| Tools Authoring Standard v7 (Design v6, Decisions v7) | Authoring rules reference, incorporation contract, scope | **Accepted** — three rounds (10 findings resolved, 1 carried to Standards). Published 2026-09-14 |
 | Principles premise strengthening | Foundational — changes propagate to all components | Pending — not started |
+| Standards acceptance-test wording (ambient context) | Framework-contract issue exposed by Tools cross-review | Pending — carried from Tools round 3 |
 
 ---
 
-Version note: v8 — Standards review batch deployed (Tools v5, Core Schema v2, Consumption v3). PD standard update marked complete (was stale in v7). DocMeth uses migration marked complete. Dependency map updated to binder v55 versions. Cross-review register updated. 2026-09-14. Replaces v7.
+Version note: v9 — Tools cross-review accepted (three rounds, all findings resolved or carried). Acceptance-test ambient-context wording carried to pending Standards. Dependency map updated. Cross-review register updated. 2026-09-14. Replaces v8.
