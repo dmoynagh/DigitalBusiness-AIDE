@@ -1,4 +1,4 @@
-> identity: ProjectDesign_Schema_Standard@v1 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
+> identity: ProjectDesign_Schema_Standard@v1 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Project Design — Schema Standard
 
