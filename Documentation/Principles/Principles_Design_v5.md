@@ -1,10 +1,10 @@
 # Principles — Design
 
-> **Version 4** (2026-09-08). Authored fresh in the AIDE rebuild from the
+> **Version 5** (2026-09-15). Authored fresh in the AIDE rebuild from the
 > confirmed design pass. Not a modification of v3 — the previous version is a
 > source of knowledge only.
 >
-> Created: 2026-08-27 | Last modified: 2026-09-08
+> Created: 2026-08-27 | Last modified: 2026-09-15
 
 ## Brief
 
@@ -62,16 +62,22 @@ exist; mechanism settles how.
 ### P3 — Model before elaboration
 
 State the model before building detailed machinery on it. Elaboration should be
-checked against a visible model rather than gradually replacing it.
+checked against a visible model rather than gradually replacing it. When
+elaboration becomes difficult — especially when the same accommodation recurs
+across elements — treat that as evidence the model needs review rather than assuming the
+elaboration simply needs more effort.
 
-*Failure mode:* detailed mechanisms make an average or misunderstood premise look
-settled merely because later work depends on it.
+*Failure mode:* building apparatus — stages, phases, procedural machinery —
+around a principle that is not yet well enough conceived. The apparatus makes an
+average model look settled because later work depends on it.
 
 ### P4 — Keep the working set human-comprehensible
 
 The active conceptual working set should remain small enough for the human owner
 to hold and challenge at once. Too much detail too early does not only slow
-work — it removes the human from meaningful design participation.
+work — it removes the human from meaningful design participation. Output
+markedly more elaborate than the intent above it is a warning that the solution
+is not yet well enough conceived.
 
 Use layered progression: intent and premises, then model, then detail.
 

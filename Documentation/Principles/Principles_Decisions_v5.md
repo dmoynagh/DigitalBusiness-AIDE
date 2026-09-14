@@ -1,9 +1,9 @@
 # Principles — Decisions
 
-> **Version 4** (2026-09-08). Authored fresh in the AIDE rebuild. Compacted
+> **Version 5** (2026-09-15). Authored fresh in the AIDE rebuild. Compacted
 > from v3 where decisions still stand; new decisions added from the design pass.
 >
-> Created: 2026-08-27 | Last modified: 2026-09-08
+> Created: 2026-08-27 | Last modified: 2026-09-15
 
 ## D1 — Principles is a top-level topic, independently deployable
 
@@ -79,3 +79,25 @@ Definition of done has been promoted to a generic block type owned by Working
 Practices, carrying a testable-or-assessable invariant. Whether it also earns a
 place as a Principles premise is an open question — it reopens the Principles
 element list once Working Practices completes its definition.
+
+## D10 — P3 strengthened: difficulty-as-evidence and apparatus-avoidance
+
+Two strengthenings to the model-before-elaboration premise, both carried from the design-approach work (F12 pattern — sharpen existing premises, not new ones).
+
+Difficulty-as-evidence adds the feedback signal P3 lacked. P3 previously said "state the model first" — sequential, one direction. The strengthening makes it bidirectional: when elaboration becomes difficult, that is evidence the model above needs review. The recurrence pattern (same accommodation appearing across several elements) is especially strong evidence. This is the portable root of the operational rule already placed in Project Design's commitment-and-return section (PD D25).
+
+Apparatus-avoidance makes P3's failure mode explicit by naming the specific form. The previous failure mode described the symptom ("detailed mechanisms make an average premise look settled") without naming the specific form. The strengthening names it: stages, phases, procedural machinery built around a principle that is not yet well enough conceived.
+
+Both pass the portability test — they hold outside AIDE. Difficulty-as-evidence is universal (hard implementation suggests wrong abstraction). Apparatus-avoidance is universal (procedure around a principle means the principle isn't clear enough).
+
+## D11 — P4 strengthened: proportionality signal
+
+P4 previously said "keep the working set small enough to hold" and "use layered progression" but carried no test for whether the layers were proportionate. The strengthening adds the signal: output markedly more elaborate than the intent above it is a warning that the solution is not yet well enough conceived.
+
+Passes the portability test — across domains, output markedly more elaborate than the intent it serves is a useful signal to re-examine whether the problem and solution are sufficiently well conceived. It is a warning, not proof of a defective model.
+
+Same F12 pattern as D10 — strengthen the existing premise, not a new one. The premise count stays at nine.
+
+---
+
+Version note: v5 — adds D10 (P3 strengthened: difficulty-as-evidence and apparatus-avoidance) and D11 (P4 strengthened: proportionality signal). Three candidate premise strengthenings from the design-approach work, all resolved as strengthenings per F12 pattern. Cross-review: F1 remediated (false-exclusive removed), F2 remediated (positive injunction → naming the form), F3 remediated (universal causation → warning signal). 2026-09-15.
