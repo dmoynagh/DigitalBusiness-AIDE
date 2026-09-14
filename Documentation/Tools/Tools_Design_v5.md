@@ -1,4 +1,4 @@
-Tools — Design | design | Tools_Design@v4 | 2026-09-14
+Tools — Design | design | Tools_Design@v5 | 2026-09-14
 
 ## Brief
 
@@ -34,7 +34,7 @@ This is the only case where a standard may describe an invokable procedure witho
 
 ## The sibling-outputs model
 
-A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the same design and therefore cannot disagree. Neither authors the other's content.
+A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
 
 This is common. A component or feature may need a standard to shape how the work is approached and a tool to perform a specific action within it. The design specifies the full behaviour; the outputs are whatever delivers it — one or more standards, one or more tools, or a mix. Each output is authored from the design, not from its sibling.
 
@@ -101,4 +101,4 @@ Tools does **not** own:
 
 ---
 
-Version note: v4 — authoring rules references updated from a named list of five to the full capability-wide set in the standards authoring standard, consistent with D7's rationale. 2026-09-14. Replaces v3.
+Version note: v5 — cross-review remediation: sibling-outputs "cannot disagree" corrected to "must not disagree" (F8). 2026-09-14. Replaces v4.

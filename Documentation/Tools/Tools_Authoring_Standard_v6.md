@@ -1,8 +1,8 @@
-> identity: Tools_Authoring_Standard@v5 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
+> identity: Tools_Authoring_Standard@v6 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
 
 # Tools — Authoring Standard
 
-How tools are authored, published, and versioned within the AIDE framework.
+How to design and author an AIDE tool, and hand it off for deployment.
 
 ## What a tool is
 
@@ -12,6 +12,10 @@ Information. Capabilities are defined platform-neutral and transformed into plat
 
 Information. A tool earns its context cost. Everything in it displaces something else the session could hold.
 
+## Applicability
+
+Information. This standard applies when designing or authoring an AIDE tool and when determining the authoring-side handoff for deployment. It does not govern utilities or the infrastructure mechanisms that package and deploy capabilities.
+
 ## The invocability test
 
 The boundary between a tool and a standard is invocability. If you would say "run X," X is a tool. If you would say "follow the approach in Y," Y is a standard.
@@ -20,9 +24,11 @@ A standard may describe a procedure, but it may not define an invokable action. 
 
 Information. The standards authoring standard owns the complementary view of this boundary — what a standard is and does. This test owns the tool side.
 
-## Authoring rules
+## Authoring rules and acceptance test
 
-The authoring rules in the standards authoring standard apply to all capabilities, including tools. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. A tool with rules that have no operational consumer is governance without effect. The rules are not restated here; they are consumed as capability-wide methodology.
+The capability-wide authoring rules and the acceptance test defined in the Standards Authoring Standard apply to tools through this standard. Where those rules use standard-specific nouns, apply the equivalent tool concept — a rule or item includes an operational step or obligation carried by the tool.
+
+The acceptance test for a tool: given only the tool and its declared dependencies, can a fresh AI perform the representative operations the tool covers? If it cannot, the tool fails the self-containment rule and must not be published.
 
 ## Authoring concerns
 
@@ -66,13 +72,13 @@ Information. This is the only case where a standard may describe an invokable pr
 
 ## The sibling-outputs model
 
-Information. A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the design, not from each other, so they cannot disagree. Neither authors the other's content.
+Information. A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the design, not from each other, and must not disagree. If they do, the design is the authority and the inconsistent output is defective.
 
 Information. This is common. A component or feature specified in a design often needs guidance on how the work is approached and a specific invokable action within that work. The design is the single source; the outputs are its delivery — one or more standards, one or more tools, or a mix.
 
 ## Trigger description
 
-Every tool carries a trigger description. The trigger description and segmentation rules are capability-wide: the 130-character budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit all apply to tools identically. These rules are defined in the standards authoring standard.
+Every tool carries a trigger description. The capability-wide trigger-description and segmentation rules in the Standards Authoring Standard apply identically to tools, including the 130-character budget, front-loading of trigger words, and segmentation along dependency lines.
 
 ## Applicability scope
 
@@ -86,13 +92,15 @@ Information. A tool may declare a document-level default strength so the author 
 
 **Design is the default.** Recommended. A design almost always exists behind a tool. Authoring straight to a tool is the exception — reserved for cases where the action is simple enough that a design would restate rather than elaborate.
 
+Information. Tool design follows the normal AIDE design approach. This section provides the tool-specific guidance on top of it — the authoring concerns, the invocability test, and the deployment handoff are the tool-specific overlay.
+
 **Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle — each output is derived from the design that governs it, not from its own prior version.
 
 **No prescribed template.** Information. A tool has no fixed structure. The author decides what it contains and how it is organised, provided the authoring concerns above are addressed and the capability-wide authoring rules are met.
 
-## Deployment
+## Deployment handoff
 
-Information. Once a tool is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted tool. Packaging into a skill or binder entry, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
+Information. Once a tool is authored and accepted, it is handed off for deployment — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted tool. Packaging into a skill or binder entry, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
 
 ## Ownership
 
@@ -100,4 +108,4 @@ Information. Once a tool is authored and accepted, it is deployed as a capabilit
 
 ---
 
-Version note: v5 — authoring rules reference updated from a named list of five to the full capability-wide set in the standards authoring standard; `uses` updated to Standards_Authoring_Standard@v7. 2026-09-14. Replaces v4.
+Version note: v6 — cross-review remediation: explicit incorporation contract for authoring rules and acceptance test with noun-substitution rule (F1, F2, F6); applicability section added (F3); design section clarified as overlay on normal AIDE design approach (F4); opening description and deployment section narrowed to actual scope (F5); trigger/segmentation made generic incorporation (F7); sibling-outputs "cannot disagree" corrected to "must not disagree" (F8). 2026-09-14. Replaces v5.
