@@ -1755,3 +1755,508 @@ COMPLETION SUMMARY
 FAILED - nothing was deployed
 ========================================================================
 
+========================================================================
+file update package   2026-09-14 17:53:04   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_Rebuild_FUP.zip  (2026-09-14 17:52, 16,817 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           DocMeth_Rebuild_FUP.zip: files entry 1 (Documentation Methodology/DocumentationMethodology_Standard_v1.md): action is "add", but it must be "create", "replace" or "move"
+  INVALID           DocMeth_Rebuild_FUP.zip: files entry 2 (Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md): action is "add", but it must be "create", "replace" or "move"
+  INVALID           DocMeth_Rebuild_FUP.zip: files entry 3 (Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md): action is "add", but it must be "create", "replace" or "move"
+  INVALID           DocMeth_Rebuild_FUP.zip: files entry 4 (Documentation Methodology/DocMeth_Decisions_v7.md): action is "add", but it must be "create", "replace" or "move"
+  INVALID           DocMeth_Rebuild_FUP.zip: files entry 5 (Documentation Methodology/DocMeth_Working_v9.md): action is "add", but it must be "create", "replace" or "move"
+
+------------------------------------------------------------------------
+Result: 5 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_Rebuild_FUP.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - DocMeth_Rebuild_FUP.zip: files entry 1 (Documentation Methodology/DocumentationMethodology_Standard_v1.md): action is "add", but it must be "create", "replace" or "move"
+    - DocMeth_Rebuild_FUP.zip: files entry 2 (Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md): action is "add", but it must be "create", "replace" or "move"
+    - DocMeth_Rebuild_FUP.zip: files entry 3 (Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md): action is "add", but it must be "create", "replace" or "move"
+    - DocMeth_Rebuild_FUP.zip: files entry 4 (Documentation Methodology/DocMeth_Decisions_v7.md): action is "add", but it must be "create", "replace" or "move"
+    - DocMeth_Rebuild_FUP.zip: files entry 5 (Documentation Methodology/DocMeth_Working_v9.md): action is "add", but it must be "create", "replace" or "move"
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-14 17:54:13   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_Rebuild_FUP.zip  (2026-09-14 17:54, 16,810 bytes)
+description:        DocMeth clean-sheet rebuild — three new v1 standards replacing the existing v4 set, plus updated decisions and working documents
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  DELETED           DocumentationMethodology_Authoring_Standard_v4.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Standard_v1.md  (15,216 bytes)
+  DELETED           DocumentationMethodology_Definitions_Standard_v4.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md  (4,490 bytes)
+  DELETED           DocumentationMethodology_Schema_Standard_v4.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md  (7,671 bytes)
+  DELETED           DocMeth_Decisions_v6.md
+  REPLACED          Documentation Methodology/DocMeth_Decisions_v7.md  (8,316 bytes)
+  DELETED           DocMeth_Working_v8.md
+  REPLACED          Documentation Methodology/DocMeth_Working_v9.md  (3,167 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         DocMeth_Rebuild_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 5 replaced, 5 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_Rebuild_FUP.zip
+                        DocMeth clean-sheet rebuild — three new v1 standards replacing the existing v4 set, plus updated decisions and working documents
+  files replaced:       5
+  files created:        0
+  files moved:          0
+  files deleted:        5
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-14 17:58:19   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_Rebuild_FUP.zip  (2026-09-14 17:58, 20,812 bytes)
+description:        DocMeth clean-sheet rebuild — three new v1 standards replacing the existing v4 set, plus updated decisions, working document, and documentation WIP
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  SKIPPED           Documentation Methodology/DocumentationMethodology_Standard_v1.md: nothing replaced - "DocumentationMethodology_Authoring_Standard_v4.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md: nothing replaced - "DocumentationMethodology_Definitions_Standard_v4.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md: nothing replaced - "DocumentationMethodology_Schema_Standard_v4.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Decisions_v7.md: nothing replaced - "DocMeth_Decisions_v6.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Decisions_v7.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Documentation Methodology/DocMeth_Working_v9.md: nothing replaced - "DocMeth_Working_v8.md" is not in the documentation tree
+  CONFLICT          Documentation Methodology/DocMeth_Working_v9.md: not deployed - a file already exists there and the package did not name it as replaced
+
+[.]
+  DELETED           AIDE_Documentation_WIP_v4.md
+  REPLACED          AIDE_Documentation_WIP_v5.md  (9,621 bytes)
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 5 conflict, 5 skipped, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_Rebuild_FUP.zip
+                        DocMeth clean-sheet rebuild — three new v1 standards replacing the existing v4 set, plus updated decisions, working document, and documentation WIP
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            5
+    - Documentation Methodology/DocumentationMethodology_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Decisions_v7.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation Methodology/DocMeth_Working_v9.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-14 17:59:49   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            DocMeth_Rebuild_FUP.zip  (2026-09-14 17:59, 16,745 bytes)
+description:        DocMeth clean-sheet rebuild — final v1 standards replacing draft versions, plus updated decisions and working documents
+------------------------------------------------------------------------
+
+[Documentation Methodology]
+  DELETED           DocumentationMethodology_Standard_v1.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_Standard_v1.md  (15,216 bytes)
+  DELETED           DocumentationMethodology_SchemaDefinitions_Standard_v1.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md  (4,490 bytes)
+  DELETED           DocumentationMethodology_SchemaAuthoring_Standard_v1.md
+  REPLACED          Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md  (7,671 bytes)
+  DELETED           DocMeth_Decisions_v7.md
+  REPLACED          Documentation Methodology/DocMeth_Decisions_v7.md  (8,316 bytes)
+  DELETED           DocMeth_Working_v9.md
+  REPLACED          Documentation Methodology/DocMeth_Working_v9.md  (3,167 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         DocMeth_Rebuild_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 5 replaced, 5 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              DocMeth_Rebuild_FUP.zip
+                        DocMeth clean-sheet rebuild — final v1 standards replacing draft versions, plus updated decisions and working documents
+  files replaced:       5
+  files created:        0
+  files moved:          0
+  files deleted:        5
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-14 20:38:49   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_DesignApproach_FUP.zip  (2026-09-14 20:38, 19,984 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           Standards_DesignApproach_FUP.zip: files entry 1 (Documentation/Standards/Standards_Authoring_Standard_v6.md): action is "create_or_replace", but it must be "create", "replace" or "move"
+  INVALID           Standards_DesignApproach_FUP.zip: files entry 2 (Documentation/Standards/Standards_Design_v3.md): action is "create_or_replace", but it must be "create", "replace" or "move"
+  INVALID           Standards_DesignApproach_FUP.zip: files entry 3 (Documentation/Standards/Standards_Decisions_v3.md): action is "create_or_replace", but it must be "create", "replace" or "move"
+  INVALID           Standards_DesignApproach_FUP.zip: files entry 4 (Documentation/AIDE_Documentation_WIP_v6.md): action is "create_or_replace", but it must be "create", "replace" or "move"
+
+------------------------------------------------------------------------
+Result: 4 invalid
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_DesignApproach_FUP.zip
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - Standards_DesignApproach_FUP.zip: files entry 1 (Documentation/Standards/Standards_Authoring_Standard_v6.md): action is "create_or_replace", but it must be "create", "replace" or "move"
+    - Standards_DesignApproach_FUP.zip: files entry 2 (Documentation/Standards/Standards_Design_v3.md): action is "create_or_replace", but it must be "create", "replace" or "move"
+    - Standards_DesignApproach_FUP.zip: files entry 3 (Documentation/Standards/Standards_Decisions_v3.md): action is "create_or_replace", but it must be "create", "replace" or "move"
+    - Standards_DesignApproach_FUP.zip: files entry 4 (Documentation/AIDE_Documentation_WIP_v6.md): action is "create_or_replace", but it must be "create", "replace" or "move"
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-14 20:39:40   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_DesignApproach_FUP.zip  (2026-09-14 20:39, 19,973 bytes)
+description:        Standards design approach update: two-class distinction (task vs carried), solving-model design sequence, default-Required strength model, three new authoring rules. Updates Design v2->v3, Decisions v2->v3, Authoring Standard v5->v6, Documentation WIP v5->v6.
+------------------------------------------------------------------------
+
+[Documentation\Standards]
+  CREATED           Documentation/Standards/Standards_Authoring_Standard_v6.md  (11,633 bytes)
+  CREATED           Documentation/Standards/Standards_Design_v3.md  (14,071 bytes)
+  CREATED           Documentation/Standards/Standards_Decisions_v3.md  (14,344 bytes)
+
+[Documentation]
+  CREATED           Documentation/AIDE_Documentation_WIP_v6.md  (10,257 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Standards_DesignApproach_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 4 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_DesignApproach_FUP.zip
+                        Standards design approach update: two-class distinction (task vs carried), solving-model design sequence, default-Required strength model, three new authoring rules. Updates Design v2->v3, Decisions v2->v3, Authoring Standard v5->v6, Documentation WIP v5->v6.
+  files replaced:       0
+  files created:        4
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-14 20:50:09   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_DesignApproach_FUP.zip  (2026-09-14 20:49, 19,973 bytes)
+description:        Standards design approach update: two-class distinction (task vs carried), solving-model design sequence, default-Required strength model, three new authoring rules. Updates Design v2->v3, Decisions v2->v3, Authoring Standard v5->v6, Documentation WIP v5->v6.
+------------------------------------------------------------------------
+
+[Documentation\Standards]
+  CONFLICT          Documentation/Standards/Standards_Authoring_Standard_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Documentation/Standards/Standards_Design_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Documentation/Standards/Standards_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+
+[Documentation]
+  CONFLICT          Documentation/AIDE_Documentation_WIP_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+
+------------------------------------------------------------------------
+Result: 4 conflict
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_DesignApproach_FUP.zip
+                        Standards design approach update: two-class distinction (task vs carried), solving-model design sequence, default-Required strength model, three new authoring rules. Updates Design v2->v3, Decisions v2->v3, Authoring Standard v5->v6, Documentation WIP v5->v6.
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            4
+    - Documentation/Standards/Standards_Authoring_Standard_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation/Standards/Standards_Design_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation/Standards/Standards_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Documentation/AIDE_Documentation_WIP_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       not triggered - no files were deployed
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-14 20:51:55   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_DesignApproach_FUP.zip  (2026-09-14 20:51, 19,841 bytes)
+description:        Standards design approach update: two-class distinction (task vs carried), solving-model design sequence, default-Required strength model, three new authoring rules. Updates Design v2->v3, Decisions v2->v3, Authoring Standard v5->v6, Documentation WIP v5->v6.
+------------------------------------------------------------------------
+
+[Standards]
+  CREATED           Standards/Standards_Authoring_Standard_v6.md  (11,633 bytes)
+  CREATED           Standards/Standards_Design_v3.md  (14,071 bytes)
+  CREATED           Standards/Standards_Decisions_v3.md  (14,344 bytes)
+
+[.]
+  CONFLICT          AIDE_Documentation_WIP_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 created, 1 conflict, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_DesignApproach_FUP.zip
+                        Standards design approach update: two-class distinction (task vs carried), solving-model design sequence, default-Required strength model, three new authoring rules. Updates Design v2->v3, Decisions v2->v3, Authoring Standard v5->v6, Documentation WIP v5->v6.
+  files replaced:       0
+  files created:        3
+  files moved:          0
+  files deleted:        0
+  conflicts:            1
+    - AIDE_Documentation_WIP_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-14 20:53:43   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            FileUpdatePackage_Design_FUP.zip  (2026-09-14 20:52, 8,904 bytes)
+description:        FileUpdatePackage_Design — updated to v2 to match deployed script
+------------------------------------------------------------------------
+
+[Infrastructure\file-update-package]
+  CREATED           Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md  (21,838 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         FileUpdatePackage_Design_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              FileUpdatePackage_Design_FUP.zip
+                        FileUpdatePackage_Design — updated to v2 to match deployed script
+  files replaced:       0
+  files created:        1
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-14 21:11:21   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_CrossReviewFixes_FUP.zip  (2026-09-14 21:10, 11,774 bytes)
+description:        Cross-review fixes: F1 earn-your-place reclassified as design rule (eight authoring rules not nine), F2 D20 added, F3 reasoning boundary narrowed to design derivation, F4 solving-model sequence made universal.
+------------------------------------------------------------------------
+
+[Standards]
+  DELETED           Standards_Design_v3.md
+  REPLACED          Standards/Standards_Design_v3.md  (14,403 bytes)
+  DELETED           Standards_Decisions_v3.md
+  REPLACED          Standards/Standards_Decisions_v3.md  (15,777 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Standards_CrossReviewFixes_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 replaced, 2 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_CrossReviewFixes_FUP.zip
+                        Cross-review fixes: F1 earn-your-place reclassified as design rule (eight authoring rules not nine), F2 D20 added, F3 reasoning boundary narrowed to design derivation, F4 solving-model sequence made universal.
+  files replaced:       2
+  files created:        0
+  files moved:          0
+  files deleted:        2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-14 21:14:09   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Standards_EarnYourPlace_FUP.zip  (2026-09-14 21:14, 5,873 bytes)
+description:        Cross-review round 2: restore earn-your-place design rule to Design v3 body (mechanical omission from round 1 fix).
+------------------------------------------------------------------------
+
+[Standards]
+  DELETED           Standards_Design_v3.md
+  REPLACED          Standards/Standards_Design_v3.md  (14,679 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Standards_EarnYourPlace_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Standards_EarnYourPlace_FUP.zip
+                        Cross-review round 2: restore earn-your-place design rule to Design v3 body (mechanical omission from round 1 fix).
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-14 21:41:54   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            FUP_Design_Sync_FUP.zip  (2026-09-14 21:37, 15,577 bytes)
+description:        Synced FUP script from deploy repo and updated design to v2
+------------------------------------------------------------------------
+
+[Infrastructure\file-update-package]
+  DELETED           file_update_package.py
+  REPLACED          Infrastructure/file-update-package/file_update_package.py  (33,387 bytes)
+  DELETED           FileUpdatePackage_Design_v2.md
+  REPLACED          Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md  (18,965 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         FUP_Design_Sync_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 replaced, 2 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              FUP_Design_Sync_FUP.zip
+                        Synced FUP script from deploy repo and updated design to v2
+  files replaced:       2
+  files created:        0
+  files moved:          0
+  files deleted:        2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+

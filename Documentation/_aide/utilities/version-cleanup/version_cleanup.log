@@ -82,3 +82,21 @@ Nothing to do - every document in the tree is already at its current version.
 Result: no changes
 ========================================================================
 
+========================================================================
+version cleanup   2026-09-14 20:56:01   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 13
+------------------------------------------------------------------------
+
+[Infrastructure\file-update-package]
+  DELETED       FileUpdatePackage_Design_v1.md  (v1 superseded by v2)
+
+[Standards]
+  DELETED       Standards_Authoring_Standard_v5.md  (v5 superseded by v6)
+  DELETED       Standards_Decisions_v2.md  (v2 superseded by v3)
+  DELETED       Standards_Design_v2.md  (v2 superseded by v3)
+
+------------------------------------------------------------------------
+Result: 4 deleted
+========================================================================
+

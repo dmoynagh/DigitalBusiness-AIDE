@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v6 | 2026-09-14
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v7 | 2026-09-14
 
 ## Active threads
 
@@ -162,7 +162,7 @@ Tier 0 — Foundation (no declared uses)
 │   │
 │   └── DocumentationMethodology_SchemaDefinitions_Standard_v1 ★
 │
-└── Standards_Authoring_Standard_v5 ★         pending uses update
+└── Standards_Authoring_Standard_v6 ★         uses updated
     │
     │   Tier 1
     │
@@ -188,10 +188,10 @@ Tier 0 — Foundation (no declared uses)
 | Item | Reason | Status |
 |---|---|---|
 | DocMeth clean-sheet rebuild (three v1 standards) | Full rework of DocMeth standards | **Accepted** — two rounds, all findings resolved. Published 2026-09-14 |
-| Standards design approach update (Design v3, Decisions v3, Authoring Standard v6) | New design approach, three new authoring rules, strength model change | Pending — documents drafted, cross-review not started |
+| Standards design approach update (Design v3, Decisions v3, Authoring Standard v6) | New design approach, three new authoring rules, strength model change | **Accepted** — two rounds, all findings resolved. Published 2026-09-14 |
 | PD Standard update (design-approach + brief gate + operations/acceptance tests) | New gates that downstream work is built against | Pending — update not started |
 | Principles premise strengthening | Foundational — changes propagate to all components | Pending — not started |
 
 ---
 
-Version note: v6 — Standards design approach implemented: Design v3, Decisions v3 (D15–D19), Authoring Standard v6. Pending item marked done, cross-review registered. 2026-09-14. Replaces v5.
+Version note: v7 — Standards design approach cross-review accepted (two rounds, all findings resolved). Cross-review register updated. 2026-09-14. Replaces v6.
