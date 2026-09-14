@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 47** (2026-09-14).
+> **Binder Version 48** (2026-09-14).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -47,7 +47,6 @@ individual files.
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `e6573d80384e`
 - `Infrastructure/binder-builder/README.md` - sha256 `3ec5dab12e67`
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `fce12837157e`
-- `Infrastructure/file-update-package/FileUpdatePackage_Design_v1.md` - sha256 `11ad3a9f4c94`
 - `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `52e8f54b85be`
 - `Infrastructure/file-update-package/README.md` - sha256 `203b6f20f7ce`
 - `Infrastructure/Infrastructure_CLI_Decisions_v1.md` - sha256 `7a16726b5162`
@@ -65,13 +64,10 @@ individual files.
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `b3f80cfe062f`
 - `Project Design/ProjectDesign_Standard_v3.md` - sha256 `fd5ac0fd7efc`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
-- `Standards/Standards_Authoring_Standard_v5.md` - sha256 `cb72bc7e0e85`
 - `Standards/Standards_Authoring_Standard_v6.md` - sha256 `68bb3fcf5bd5`
 - `Standards/Standards_Consumption_Standard_v2.md` - sha256 `b340d11315e3`
-- `Standards/Standards_Decisions_v2.md` - sha256 `c0286118492c`
-- `Standards/Standards_Decisions_v3.md` - sha256 `211fbd2ce603`
-- `Standards/Standards_Design_v2.md` - sha256 `cfedb41ac36c`
-- `Standards/Standards_Design_v3.md` - sha256 `78eccfb524ff`
+- `Standards/Standards_Decisions_v3.md` - sha256 `370e69972777`
+- `Standards/Standards_Design_v3.md` - sha256 `53a6adec81d3`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
 - `Tools/_index.md` - sha256 `7bb05b130edc`
 - `Tools/Tools_Authoring_Standard_v4.md` - sha256 `497b9d3b918c`
@@ -7463,413 +7459,6 @@ on the corpus and is never loaded into an AI session itself.
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/file-update-package/FileUpdatePackage_Design_v1.md -->
-# FileUpdatePackage Deployer — Design
-
-> **Version 1** (2026-09-07). First issue. Third tool in the Infrastructure family, after version
-> cleanup and the binder builder, and the one that closes the loop: it takes the output of a Chat or
-> Cowork session and puts it into the master tree.
-
-**Master/source folder:** `Documentation/Infrastructure/file-update-package`
-**Run from:** a copied instance folder with its own settings and log, e.g. `Documentation/_tools`
-
----
-
-## Contents
-
-- **Objective and boundary** — what it does and what it deliberately doesn't.
-- **Inputs** — the settings file, and the package format.
-- **Path logic** — absolute, root-anchored and script-relative forms.
-- **Processing model** — find, validate, gate, deploy, trigger, file away.
-- **Execution behaviour** — live by default, dry run, double-click, the completion summary.
-- **Folder naming check** — advisory, and why it is here.
-- **Definition of done.**
-- **Decisions** — with reasons.
-
----
-
-## 1. Objective and boundary
-
-**Objective.** Deploy a FileUpdatePackage — a zip of updated documents produced by a Chat or Cowork
-session — into the master document tree, superseding what it replaces, and leave the user in no
-doubt about what happened.
-
-**Boundary — hard.** It places whole files. It does **not** merge, patch or edit content, it does
-not decide what belongs in a package, and it does not do general version resolution — it moves the
-single document each manifest entry names, and nothing else. It is Infrastructure: it acts on the
-corpus and is never loaded into an AI session itself.
-
-**It never overwrites.** A file already sitting where a package wants to write, and not named as
-the one being replaced, is a `CONFLICT`: reported, skipped, left exactly as it was.
-
-**Shape.** A single-action tool, sibling to version cleanup and the binder builder. No actions
-framework, no shared base class, no plugin system.
-
-**Pipeline position.**
-
-```text
-(a session produces a package)
-        ↓
-file update package  →  binder builder
-```
-
-The deployer triggers the binder builder itself, so a deploy leaves the binder current. Version
-cleanup remains a separate, human-run pass over the tree: the deployer supersedes only what a
-manifest names.
-
----
-
-## 2. Inputs
-
-### 2.1 The settings file
-
-JSON, read on launch, from the script's own folder.
-
-| Setting | Purpose |
-|---|---|
-| `documentation_root` | The root of the tree packages deploy into. Manifest paths are measured from here, and it is the anchor for `~/` in the other settings. |
-| `drop_folder` | Where packages are put to be deployed. Default `~/_fileupdatepackages`. |
-| `binder_builder` | The binder builder script to run after a deploy. Point it at the **running instance**, not the master, so it uses that instance's settings. Empty string skips the trigger. |
-| `log_file` | Log file location. Named to match both siblings. |
-
-The script writes a commented default settings file if none is present, rather than failing.
-
-### 2.2 The package
-
-A zip file carrying documents at their paths relative to the documentation root, plus a manifest at
-the zip root:
-
-```json
-{
-  "created": "2026-09-07T10:00:00Z",
-  "description": "Project Design master files — binder sweep complete",
-  "files": [
-    {
-      "path": "Project Design/ProjectDesign_Design_v8.md",
-      "action": "update",
-      "replaces": "ProjectDesign_Design_v7.md"
-    },
-    { "path": "Project Design/ProjectDesign_Index_v8.md", "action": "create" }
-  ],
-  "user_instructions": "Review the new Overview document before publishing."
-}
-```
-
-| Field | Meaning |
-|---|---|
-| `path` | Where the file goes, relative to the documentation root, forward slashes. |
-| `action` | `create` — the file is new. `update` — it replaces an existing document. |
-| `replaces` | *Update only, optional.* The **filename** of the document being superseded. The tool finds it and moves it to `_superseded`. Omitted, an update supersedes the file at its own `path` — see D4. |
-| `description` | Optional. Shown in the report header and the completion summary. |
-| `user_instructions` | Optional. Shown to the user, who must acknowledge before the deploy proceeds. |
-| `created` | Optional, informational. The tool orders packages by filesystem modification time, not by this field. |
-
-**`Documentation/_config/repo_config.json`** maps topic names to folder paths for whoever is
-*building* a package. The tools do not read it; they have their own settings.
-
----
-
-## 3. Path logic
-
-The same three forms as the sibling tools, ratified as the Infrastructure-wide convention
-(version-cleanup/claude-code/001, 2026-09-04):
-
-| Form | Example | Meaning |
-|---|---|---|
-| **Absolute** | `C:/…/Documentation/_fileupdatepackages` | Exact folder. |
-| **Root-anchored** | `~/_fileupdatepackages` | Measured from `documentation_root`. |
-| **Script-relative** | `..` | Measured from the folder holding the script. |
-
-`documentation_root` itself cannot use `~/`, because it is what `~/` means — the same rule and the
-same error message as `root` in both siblings. See D2.
-
-**The folder-relative *pattern* form does not appear here.** In the siblings it exists for `include`
-and `exclude`, which describe *classes* of folder across a tree. This tool has no such setting:
-every path names one place. Nothing is missing — there is nowhere for a pattern to apply.
-
-`~` never means the home folder. Home expansion is not performed anywhere in these settings.
-
-**Manifest paths are not settings paths.** They come from an untrusted zip and are checked
-separately and harder — see §4.2.
-
----
-
-## 4. Processing model
-
-1. Resolve settings; resolve `documentation_root`.
-2. Run the folder naming check over the tree (§6).
-3. Find every `.zip` in the top level of the drop folder. None → `SKIPPED`, exit `0`.
-4. Take the **newest by modification time**. Report the rest as `SKIPPED` — waiting, not processed.
-5. Validate the package as a whole (§4.1). Any problem → `INVALID`, nothing is deployed.
-6. If the manifest carries `user_instructions`: show them and wait for acknowledgement (§4.3).
-7. For each manifest entry in order (§4.4): supersede what it replaces, then write the new file.
-8. Trigger the binder builder (§4.5), unless nothing was written.
-9. Move the package into `_superseded` inside the drop folder — **only if the deploy was complete**.
-10. Report, log, print the completion summary, hold the window open.
-
-### 4.1 Validation is a gate, not a filter
-
-A package deploys as a whole or is rejected as a whole. Rejected for: not a zip; no `_manifest.json`;
-a manifest that is not valid JSON or not an object; no `files` list; an entry with no usable `path`;
-an `action` that is not `create` or `update`; `replaces` on a create; `replaces` containing a folder
-separator; the same destination listed twice; and — the important one — **a manifest naming a file
-the zip does not contain**.
-
-A package that is wrong in one place is not deployed in the places it happens to be right. Deploying
-the good half of a badly-built package leaves the tree in a state nobody designed, and leaves the
-session that built it believing its work landed.
-
-### 4.2 Package paths are untrusted input
-
-Every manifest `path` is checked before it is used: no absolute paths, no drive letters, no `..`
-segment, no trailing separator, not empty. The resolved destination is then checked again to be
-inside the documentation root, which catches the case a purely textual check cannot — a symbolic
-link in the tree carrying a well-formed relative path somewhere else entirely.
-
-Files are written from `zipfile.read()` into a validated destination rather than with
-`ZipFile.extract()`, which derives the destination from the member name.
-
-### 4.3 The user instructions gate
-
-If the manifest carries `user_instructions`, they are printed in a banner and the tool waits for
-Enter **before anything is written**. Stopping there — Ctrl+C — stops a deploy that has not started,
-rather than one that is half done.
-
-The wait is skipped, and the summary says so in those words, when there is no interactive console.
-A run triggered by another tool must not block forever on a keypress nobody is there to press. This
-is the same reasoning as the exit pause in both siblings.
-
-### 4.4 One entry, in order
-
-| Step | Behaviour |
-|---|---|
-| **Find what it replaces** | Beside the new file first — v7 and v8 of one document live in the same folder — then the rest of the tree, skipping `_superseded` folders throughout. |
-| **Found once** | Move it into `_superseded` beside itself. `SUPERSEDED`. |
-| **Not found** | `SKIPPED`, naming it. The new file still deploys. |
-| **Found more than once** | `CONFLICT`, naming every place. **Nothing is moved** — see D5. The new file still deploys. |
-| **Destination taken** | `CONFLICT`. Nothing is written and nothing is overwritten, ever. |
-| **Otherwise** | Write the file. `DEPLOYED` for an update, `CREATED` for a create. |
-
-An update whose predecessor sits at the destination itself clears its own way: the supersession
-moves it, and the never-overwrite check that follows is then a genuine test rather than a formality.
-A dry run reports this correctly rather than reporting a conflict against a file it would itself
-have moved.
-
-### 4.5 The binder builder trigger
-
-Run unconditionally after any deploy that wrote something, with no arguments, in live mode. The
-binder builder's own change detection (BinderBuilder_Design_v4 §4a) decides whether a rebuild is
-actually needed, so this tool does not have to know or care.
-
-`stdin` is closed rather than inherited, which is what stops the binder builder pausing for a
-keypress at the end of its own run. Its `Result:` line is carried up into this report; its full
-report is in its own log.
-
-**Best-effort.** The deploy has already happened by the time this runs. A binder builder that is
-missing, that will not start, that exits non-zero or that runs past its timeout is reported as an
-`ERROR` on that step and the deploy stands — including the package being filed away, because the
-files did land.
-
-### 4.6 Partial deploys keep their package
-
-A run with any `CONFLICT` or file-level `ERROR` leaves the package in the drop folder. Whoever sorts
-the conflict out needs the package still to hand, and a package sitting under `_superseded` reads as
-one that was fully applied. The report says which files landed and which did not.
-
----
-
-## 5. Execution behaviour
-
-Matches both siblings, so the three tools behave alike:
-
-- Python, standard library only, single readable script.
-- Runs **live by default**; `--dry-run` reports what would be deployed and changes nothing.
-- Reads settings on launch — no arguments required, so **double-click works on Windows**.
-- Appends one entry per run to the log, dry runs included and marked.
-- Cross-platform; Windows primary.
-
-### Report vocabulary
-
-`DEPLOYED` / `WOULD DEPLOY` · `CREATED` / `WOULD CREATE` · `SUPERSEDED` / `WOULD SUPERSEDE` ·
-`CONFLICT` · `SKIPPED` · `INVALID` · `BINDER` · `PROCESSED` / `WOULD PROCESS` · `ERROR`
-
-`CONFLICT` and `ERROR` carry version cleanup's meanings exactly. `SKIPPED` covers both nothing-to-do
-cases: no packages at all, a package waiting its turn, and a `replaces` that names nothing in the
-tree. `INVALID` is §4.1 — the package was rejected and nothing in it was deployed.
-
-**Events are reported in the order they happened**, not sorted, unlike both siblings. A deploy is a
-sequence: a supersession and the write that depended on it read as one story. The folder heading
-still changes as the run moves through the tree.
-
-### The completion summary
-
-The primary output, not an afterthought. Every run ends with it, whatever happened, and the window
-stays open until it has been read:
-
-```text
-========================================================================
-COMPLETION SUMMARY
-------------------------------------------------------------------------
-  package:              good.zip
-                        Project Design master files - binder sweep complete
-  files updated:        1
-  files created:        1
-  files superseded:     1
-  conflicts:            0
-  errors:               0
-  user instructions:    present, shown and acknowledged
-  binder builder:       triggered - 24 included, 1 written, 1 superseded
-  the package is now:   moved to _superseded/
-  folder naming:        1 folder(s) close to a convention name but not matching it
-    - _superceded  (expected "_superseded")
-------------------------------------------------------------------------
-COMPLETED SUCCESSFULLY
-========================================================================
-```
-
-Every conflict and every error is listed individually with its filename and reason. The final line
-is one of:
-
-| Status | When |
-|---|---|
-| `COMPLETED SUCCESSFULLY` | No conflicts, no errors. Also the "nothing to do" case, and a clean dry run. |
-| `COMPLETED WITH ERRORS - every file was deployed, but a later step failed` | The files landed; something after them did not — in practice, the binder builder. |
-| `COMPLETED WITH ERRORS - the deploy is incomplete` | Some files landed and some did not. |
-| `FAILED - nothing was deployed` | An `INVALID` package, or every entry conflicted. |
-
-**Exit code `0` unless an `ERROR` occurred**, matching both siblings. Note the consequence, stated
-so it is not later read as a defect: a `CONFLICT` and an `INVALID` package both exit `0`, because
-nothing failed — the tool did exactly what it should with what it was given. See §8.
-
----
-
-## 6. Folder naming check
-
-Every run, before anything else, walks the documentation root and reports any folder whose name is a
-near-miss of a convention name — `_superseded`, `_fileupdatepackages`, `_binder`, `_tools`,
-`_config`, `_rebuild` — using a similarity threshold rather than a fixed list of misspellings.
-
-**Only underscore folders are candidates.** Every convention name is one, and the restriction is
-what keeps the check honest: `Infrastructure/file-update-package`, the master folder of this very
-tool, scores above the threshold against `_fileupdatepackages` on similarity alone and is plainly
-not a misspelling of it. A summary that cries wolf stops being read.
-
-**It is advisory.** It never renames anything, never blocks a deploy, and never changes the exit
-code. It speaks in the completion summary and nowhere else.
-
-It is here because a misspelled underscore folder is invisible to every tool in this family: they
-all skip underscore folders, so `_superceded` does no damage and produces no complaint — it just
-quietly splits a convention in two, and stays split until something says so. The known instance is
-`Documentation/_superceded`, recorded in BinderBuilder_Design_v3 §10 and deliberately left alone;
-reconciling it is a human act. Naming it on every run is how it stops being forgotten. See D7.
-
----
-
-## 7. Definition of done
-
-Drop a well-formed package into the drop folder and run the tool. Each `update` supersedes the
-document it names and lands in its place; each `create` lands where it should; nothing anywhere is
-overwritten. Instructions in the package are shown and acknowledged before any file is touched. The
-binder builder runs afterwards and its outcome is reported. The package is moved to `_superseded`.
-The completion summary states, without the user having to interpret anything, how many files were
-updated, created and superseded, every conflict and error with its filename and reason, whether the
-binder was rebuilt, and a final status line — and the window stays open until it is read.
-
-A dry run reports all of that and changes nothing.
-
-An empty drop folder reports `SKIPPED` and exits `0`. A package that is not a zip, has no manifest,
-has an unparseable manifest, or names a file it does not contain, is rejected whole — `INVALID`,
-nothing deployed, the package left where it is. A path containing `..` never writes outside the
-documentation root. A partial deploy names what landed and what did not, and keeps its package. A
-misspelled convention folder anywhere in the tree is named in the summary.
-
----
-
-## 8. Decisions
-
-**D1 — A third tool, not a mode of an existing one.** Deploying is a different job from tidying
-versions and from assembling a binder, and it is the only one of the three that takes an external
-input. The three run in sequence and share nothing but conventions.
-
-*Consequence, accepted:* the path logic now exists in three implementations. The trigger for
-extracting shared code was stated in BinderBuilder_Design_v3 §10 as "a third tool needing it" — and
-this is that third tool. It is still not extracted: this tool needs only the one-place resolver,
-about forty lines of pure functions over paths with no state, and not the pattern matching that
-makes up the bulk of the siblings' path code. A shared module carrying two thirds dead weight for
-each importer is worse than the copy. **Re-examine when a fourth tool arrives, or when any tool needs
-the pattern form changed.**
-
-**D2 — `documentation_root` cannot use `~/`.** The tool-pipeline brief proposed
-`"documentation_root": "~/"`. Rejected as circular: `~/` means "measured from the documentation
-root", so it cannot appear in the setting that defines that root. Both siblings reject `~/` in
-`root` for exactly this reason and say so in an error message. The shipped default is `".."`, which
-is what an instance sitting in `_tools` wants, and the setting comment says why.
-
-**D3 — Newest package only; the rest wait.** Batching would mean deciding what to do when the third
-of five packages conflicts, and the honest answer is "a person looks at the report". One package per
-run keeps the completion summary about one deploy. Waiting packages are reported by name, so nothing
-is silently held back.
-
-Ordering is by filesystem modification time rather than by the manifest's `created` field: the field
-is written by whatever produced the package and cannot be relied on, and the file's own timestamp is
-the fact the drop folder actually carries.
-
-**D4 — `replaces` is optional on an update.** Where it is absent, the entry supersedes the file at
-its own `path`. This is the natural reading of "update" for a document whose filename does not carry
-a version, and it never overwrites: the existing file is moved to `_superseded` exactly as a named
-one would be.
-
-*Considered and rejected:* treating a missing `replaces` as `INVALID`. Rejected because the
-resulting behaviour would be worse — a package that plainly means "here is the new version of this
-file" would be refused for a field that adds nothing in that case.
-
-**D5 — An ambiguous `replaces` moves nothing.** A filename found in three folders is a question this
-tool must not answer by guessing. All three are named in a `CONFLICT`, none is moved, and the new
-file still deploys — so the outcome is visible in the tree as well as in the report, and version
-cleanup will surface it again on its next pass.
-
-This is version cleanup's `AMBIGUOUS` shape, reported here as `CONFLICT` because the vocabulary for
-this tool was fixed at seven words and a near-duplicate would have to earn its place.
-
-**D6 — The binder builder trigger is best-effort, and it is unconditional.** Unconditional because
-the binder builder now decides for itself whether a rebuild is needed (v4 §4a); a deployer that
-tried to predict that would duplicate the judgement and eventually disagree with it. Best-effort
-because the deploy has already happened: a binder that could not be rebuilt is a stale binder, not a
-lost document. It is reported as an `ERROR` and the run exits `1`, but the deploy stands and the
-package is still filed away.
-
-**D7 — The folder naming check is advisory and lives here.** It could sit in any of the three tools.
-It is here because this is the tool that writes *into* the tree at paths a session composed, which
-is exactly where a split convention would first do harm — a package built against `_superceded`
-would file documents somewhere no tool looks.
-
-It never renames. Renaming a folder is a decision with consequences the tool cannot see, and the
-misspelling it will find most often is a known one that has already been left deliberately.
-
-**D8 — `CONFLICT` and `INVALID` exit `0`.** Consistent with both siblings, where the exit code
-reports whether the tool failed rather than whether the outcome was the desired one. The completion
-summary is the human channel and it says `FAILED` in plain words. Recorded here because the two
-channels disagreeing looks like a defect if it is not written down as a choice. See §9.
-
----
-
-## 9. Open
-
-- **Exit codes for expected-but-unwanted outcomes.** `EMPTY` in the binder builder, and `CONFLICT`
-  and `INVALID` here, all exit `0`. A future orchestrator chaining these tools would want to
-  distinguish "did nothing" from "did what was asked". Prefer distinct codes over overloading the
-  failure code. **Not now** — the only chaining that exists is this tool calling the binder builder,
-  and it reads the report rather than the exit code.
-- **Package provenance.** The manifest's `created` field is carried but not used, and there is no
-  record in the deployed tree of which package a document arrived in. The log has it. Whether that
-  is enough is a question for the first time someone asks "where did this file come from".
-- **Path-logic duplication.** Three implementations now. See D1 for the trigger to revisit.
-- **The `_superceded` misspelling** at the Documentation root remains, and is now reported on every
-  deploy rather than only in a design document. Still a human act to reconcile.
-<!-- END SOURCE: Infrastructure/file-update-package/FileUpdatePackage_Design_v1.md -->
-
----
-
 <!-- BEGIN SOURCE: Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md -->
 # FileUpdatePackage Deployer — Design
 
@@ -10552,108 +10141,6 @@ As a capability, Standards owns the definition of what a standard is, the author
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v5.md -->
-> identity: Standards_Authoring_Standard@v5 | doctype: standard | updated: 2026-09-12 | uses: DocumentationMethodology_Schema_Standard@v4
-
-# Standards — Authoring Standard
-
-How to design, author, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
-
-## What a standard is
-
-Information. A standard defines rules, expectations, guidance and context that shape decisions and behaviour while work is being done. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. Everything behind it (the design, the decisions, the reference knowledge) stays outside the session.
-
-Information. A standard earns its context cost. Everything in it displaces something else the session could hold.
-
-Information. The invocability test in the tool authoring standard draws the boundary between a standard and a tool. A standard shapes decisions and behaviour — you follow it. A named invokable action — something you would run — is a tool and belongs there.
-
-## Applicability
-
-Information. This standard applies when designing, authoring, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
-
-## Authoring rules
-
-**The carry test.** Required. Every item in a standard must pass: "is this needed at the moment of application?" Content that informed the design but is not needed when applying the standard stays in the design document. This is the single most important authoring rule.
-
-**Leanness.** Required. Write the minimum language that achieves the guidance — not terse, not abbreviated, but with nothing that does not work. A well-authored standard leaves the consumer confident about what to do without carrying anything they do not need.
-
-**Discriminating guidance.** Required. A rule that says "do X" without helping the consumer recognise when and how to apply it is governance without value. Frame requirements through the consequence or value of meeting them, not through bare authority — a rule the consumer cannot see the reason for reads as enforcement rather than guidance. If the consumer would need to go back to the design to know how to apply a rule, the standard is incomplete.
-
-**Strength assignment.** Required. Every item carries a strength, selected by the author from the vocabulary below. A standard may declare a document-level default strength; items that differ from the default carry their own strength explicitly; nearest declaration wins. Over-use of required produces rigidity; over-use of optional achieves nothing.
-
-**Self-containment.** Required. A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but must not depend on it being loaded.
-
-**Applicability scope.** Required. Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Frame scope through behaviour and relevance, not through a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
-
-## Trigger description and segmentation
-
-**Trigger description.** Required. Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the basis for loading the standard where it is needed.
-
-**Description budget.** Required. The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget. Front-load trigger words so the most important terms survive truncation.
-
-**Segmentation.** Required. The description budget is the size test for whether a standard should be split. If the trigger elements that define when the standard is needed will not fit within the budget, split into sub-standards rather than compressing the description into uselessness.
-
-**Where to cut.** Required. Split along dependency lines so co-dependent guidance loads together. Each sub-standard must be self-contained — the self-containment authoring rule applies to each part independently.
-
-## Strength vocabulary
-
-Information. Four levels. These words and definitions are the standard vocabulary — use them consistently across all standards.
-
-- **Required** — must comply. Departure is a defect.
-- **Recommended** — should comply. Departure needs a reason, but the reason is the author's judgement, not an approval process.
-- **Optional** — available for use. No compliance expectation.
-- **Information** — awareness content. Exists so the consumer knows it, not so they act on it.
-
-## Designing a standard
-
-**Design is the default.** Recommended. A design almost always exists behind a standard. Authoring straight to standard is the exception — reserved for cases where the content is simple enough that a design would restate rather than elaborate.
-
-**Author fresh.** Required. A standard is authored from its design, not by modifying a previous version of the standard. The design holds the reasoning and constraints; the standard holds the conclusion as guidance.
-
-**No prescribed template.** Information. A standard has no fixed structure. The author decides what it contains and how it is organised, provided the authoring rules above are met.
-
-## The reference-to-standard pipeline
-
-Information. Reference documents are design-time knowledge. When reference knowledge needs to be present in the AI session, it is authored into a standard at information strength. The decision criterion is the carry test: does the consumer need to be aware of this knowledge at the moment of application? If yes, it earns a place. If it only informed the design, it stays in the design.
-
-Information. Reference is a document type, not an output type. A reference informs the design process; a standard is the delivery mechanism. The distinction matters because it prevents reference from becoming a parallel output channel.
-
-## Deployment
-
-Information. Once a standard is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted standard. Packaging into a skill or plugin, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
-
-Information. Triggering — how a standard gets loaded where it might be needed — is a delivery concern owned by Infrastructure, distinct from applicability scope which is owned by the standard itself.
-
-## Ownership
-
-**Each standard lives with its owning component.** Required. Standards is a methodological component — it defines how to build a standard, not where standards live. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
-
-## Schema definitions
-
-Information. Standards owns two types. The split test says to keep them here — two definitions, same change cadence as the authoring rules.
-
-### Standard
-
-- **Purpose:** Shape decisions and behaviour at the moment of application. Lean, memory-resident, applied alongside many others.
-- **Included blocktypes:** Clarification (optional), Contents (recommended), Summary (optional), Version note (optional).
-- **Format constraint:** markdown.
-
-Information. The authoring rules, strength vocabulary, trigger description, applicability scope, and deployment guidance are defined elsewhere in this standard. The consumption contract is defined in the Standards Consumption Standard.
-
-### Clarification
-
-- **Purpose:** Reasoning and justification supporting the standard's stated rules. The design-side "why" surfaced into the standard where it helps the consumer apply the rules.
-- **Recognition:** by subheading — `Clarification`.
-
-Information. Governed by the split test: stays in the standard when small, removed when it would bloat the loaded standard. When removed, the reasoning lives in the design document.
-
----
-
-Version note: v5 — adds invocability test pointer to Tools (carry from Tools design), 2026-09-11.
-<!-- END SOURCE: Standards/Standards_Authoring_Standard_v5.md -->
-
----
-
 <!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v6.md -->
 > identity: Standards_Authoring_Standard@v6 | doctype: standard | updated: 2026-09-14 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
 
@@ -10829,108 +10316,6 @@ Version note: v2 — cross-review corrections: expanded scope exclusion, replace
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Decisions_v2.md -->
-Standards — Decisions | decisions | Standards_Decisions@v2 | 2026-09-11
-
-## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
-
-Standards defines how to create its type. Individual instances live with their consuming component. This was settled in the overview as the common pattern for all three capability-type components and confirmed in the structure session. The alternative — Standards holding all standards — was rejected because it violates the what-knows-most-about-it ownership principle.
-
-## D2 — Six authoring rules, not a template
-
-The authoring methodology is expressed as six rules (carry test, leanness, discriminating guidance, strength assignment, self-containment, applicability scope) rather than a prescribed template or structural specification. The author decides what a standard contains and how it is organised, provided it meets the terms.
-
-A template risks becoming apparatus — a structure to fill in rather than a set of outcomes to achieve. The six rules already tell an author what a good standard must do. Document structure belongs to Documentation Methodology; Standards defines what the content must achieve, not what it must look like.
-
-## D3 — Four strength levels, strength per item not per section
-
-The strength model uses four levels: required, recommended, optional, information. The fourth level (information) was added specifically for reference-origin content that needs to reach the platform for awareness without carrying a compliance expectation.
-
-Strength is a property of each item rather than a section organiser because a single standard will naturally mix levels — a section on authoring might contain two required rules, one recommended practice, and one piece of information context. Grouping by strength would break the logical flow of the guidance.
-
-A document-level default strength is permitted as a shorthand — the author declares it once and only marks items that differ. Nearest declaration wins. This reduces clutter without changing the per-item principle.
-
-The vocabulary — the four words and their definitions — is standardised. This is the "rule weight markers" technique lifted from the Project Design binder sweep and given its home here, as flagged during that work.
-
-## D4 — The carry test is the single authoring filter
-
-"Is this needed at the moment of application" is the governing test for what goes into a standard. It was stated by Dave as a Standards-wide principle during the Project Design work and is the most important single rule in the authoring methodology.
-
-The test sharpens the three-layer authoring model rather than contradicting it: discriminating guidance belongs in the standard even though it reads like elaboration, because placement and application judgements happen from whatever is memory-resident.
-
-## D5 — Self-containment over cross-referencing
-
-A standard must be understandable without its design document in the session. The alternative — a standard that assumes access to its design — would mean loading both documents to apply the guidance, doubling the context cost and defeating the purpose of the lean standard.
-
-This does not prevent a standard from referencing its design for deeper reasoning. It prevents depending on the design being present.
-
-## D6 — Two outputs: authoring and consumption
-
-The authoring standard covers design, authoring, and deployment. The consumption standard covers conflict resolution, human override, and runtime operation under applicable standards.
-
-The original design assumed a single output with the consumption standard deferred. The legacy binder review identified conflict resolution and human override as real operational concerns that earn their place now. Both are consumption concerns — they tell consumers how to operate under standards, not authors how to build them. This makes the consumption standard a confirmed output rather than a contingency.
-
-The boundary between them is deliberate: the authoring standard's scope stops at deployment; the consumption standard's scope starts at application.
-
-## D7 — Settled decisions binding on Standards but owned elsewhere
-
-Three decisions constrain Standards without being redefined by it:
-
-- **The carry test** was stated as a rebuild-wide governing principle, not by this component. Standards must embody it but does not own the principle.
-- **The cross-review requirement** comes from the three-layer authoring model: every authored standard is reviewed by a separate AI before acceptance. The obligation exists because of Standards; the process is a Working Practices collaboration convention.
-- **The weight gate at deployment** checks the combined load when capabilities are packaged into a plugin. Standards owns leanness at authoring time; Deployment owns the gate at packaging time.
-
-## D8 — The Contents/Summary edge is Documentation Methodology's concern
-
-The edge between Contents and Summary was flagged during the Project Design work as "a common issue" for standards authors. It is carried to Documentation Methodology because the edge definition is about document-structure blocks — what Contents maps versus what Summary establishes — which is grammar, not authoring methodology. Standards authors will encounter the problem, but the solution belongs to whoever owns the grammar of those blocks.
-
-## D9 — Conflict resolution between standards
-
-When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between. When two applicable items genuinely oppose each other on the same point, higher strength governs. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. Conflict is not manufactured from different concerns that can both be satisfied.
-
-This approach was carried from the legacy system's usage standard, where it was proven in practice. It is delivered through the consumption standard, not the authoring standard, because it governs runtime behaviour rather than authoring.
-
-## D10 — Human override of standards
-
-Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
-
-This is a three-step behavioural contract, not a mechanism. It aligns with the overview principle that the human is always in control. It is delivered through the consumption standard.
-
-## D11 — Trigger and scope are distinct
-
-Triggering is a delivery concern — getting the standard loaded where it might be needed. Scope is the standard's own concern — declaring the conditions under which it is applicable once loaded. Every standard carries its own scope because what is loaded on any given platform cannot be guaranteed.
-
-Scope targets behaviour and relevance — what needs to be true for the standard to be of value — not a specific deployment target or package. This future-proofs for a scenario where AIDE capabilities are distributed as separate packages: framework development standards and usage standards might be packaged separately, but each standard still declares its own applicability regardless of which package delivered it.
-
-Triggering belongs to Infrastructure; scope belongs to the standard and is defined by its author. Scope is a required authoring rule.
-
-## D12 — Facilitative framing over bare authority
-
-Requirements are framed through the consequence or value of meeting them, not through bare authority. This was a deliberate philosophical position in the legacy system and is absent from bare "do X" rules. It differs from discriminating guidance (which is about helping the consumer apply a rule) — facilitative framing is about helping the consumer understand why the rule matters. Both are necessary: discriminating guidance without facilitative framing produces usable but authoritarian standards; facilitative framing without discriminating guidance produces well-reasoned but unapplicable ones.
-
-Implemented as an extension to the discriminating-guidance authoring rule rather than a separate rule, because the two concerns are closely related and splitting them would create two rules that are always applied together.
-
-## D13 — Trigger description and segmentation
-
-Every standard carries a trigger description as its first content after the header. This is authored once and serves both skill and bundle deployment — it is the single artefact that controls how the standard is discovered and loaded across platforms.
-
-The 130-character budget is the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard (agentskills.io), currently adopted by Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and 30+ others. The figure is a union minimum — the smallest confirmed budget across all adopting platforms. It should be revised when platform budgets change.
-
-The budget also serves as the segmentation test. If the trigger elements won't fit in 130 characters, the standard is too broad for a single skill and should be split. Cutting along dependency lines ensures co-dependent guidance loads together. Each sub-standard must be self-contained — the self-containment authoring rule applies to each part independently.
-
-## D14 — Carry to Deployment: aggregate description budget
-
-Deployment's weight gate gains a second measure beyond total context weight: the aggregate sum of all skill trigger descriptions must fit within the platform's shared description budget. This is a packaging constraint — the total description space available to a plugin is shared across all skills it contains, so each trigger description's cost is not just its own 130-character fit but its contribution to the aggregate.
-
-This decision is carried to Deployment, not implemented by Standards.
-
----
-
-Version note: v2 — adds D9 through D14. D9-D12 from legacy binder review, D13-D14 from voice session. Updates D2 (five rules to six) and D6 (one output to two). 2026-09-11.
-<!-- END SOURCE: Standards/Standards_Decisions_v2.md -->
-
----
-
 <!-- BEGIN SOURCE: Standards/Standards_Decisions_v3.md -->
 Standards — Decisions | decisions | Standards_Decisions@v3 | 2026-09-14
 
@@ -10938,9 +10323,11 @@ Standards — Decisions | decisions | Standards_Decisions@v3 | 2026-09-14
 
 Standards defines how to create its type. Individual instances live with their consuming component. This was settled in the overview as the common pattern for all three capability-type components and confirmed in the structure session. The alternative — Standards holding all standards — was rejected because it violates the what-knows-most-about-it ownership principle.
 
-## D2 — Nine authoring rules, not a template
+## D2 — Eight authoring rules plus one design rule, not a template
 
-The authoring methodology is expressed as nine rules (carry test, no consumer no rule, leanness, discriminating guidance, strength assignment, self-containment, applicability scope, name your principles, earn your place) rather than a prescribed template or structural specification. The author decides what a standard contains and how it is organised, provided it meets the terms.
+The authoring methodology is expressed as eight rules (carry test, no consumer no rule, leanness, discriminating guidance, strength assignment, self-containment, applicability scope, name your principles) rather than a prescribed template or structural specification. The author decides what a standard contains and how it is organised, provided it meets the terms.
+
+A ninth rule — earn your place — operates on the design and solving model rather than on the authored standard, and is therefore a design rule, not an authoring rule. It is recorded in D20.
 
 A template risks becoming apparatus — a structure to fill in rather than a set of outcomes to achieve. The rules tell an author what a good standard must do. Document structure belongs to Documentation Methodology; Standards defines what the content must achieve, not what it must look like.
 
@@ -11032,7 +10419,7 @@ Standards fall into two classes: task standards and carried standards. The disti
 
 Task standards load for a specific task and can afford weight because the cost is contextually proportionate. Carried standards govern broad behaviour, sit in memory across most sessions, and must be lean because the overhead is paid everywhere.
 
-Both classes follow the same authoring rules. The class distinction affects design approach — specifically, how much effort must go into designing a solving model that delivers leanness. For task standards, leanness is still desirable but weight is tolerable. For carried standards, leanness is non-negotiable and is the primary design constraint.
+Both classes follow the same authoring rules and both use the two-model design sequence. The class distinction affects how much design effort must go into the solving model. For task standards, leanness is still desirable but weight is tolerable because the cost is bounded to the task. For carried standards, leanness is non-negotiable and is the primary design constraint — the solving model must be smart enough that the resulting standard is lean.
 
 The DocMeth clean-sheet rebuild (2026-09-14) is the worked example: the main DocumentationMethodology_Standard is a carried standard; the SchemaAuthoring_Standard is a task standard. The two demanded materially different design effort to achieve appropriate weight.
 
@@ -11062,126 +10449,22 @@ When a recurring concept drives multiple rules, pull it up to a named principle.
 
 This was observed during the DocMeth rebuild: the default-and-override pattern recurred across versioning, strength, and optionality, and was pulled up to a named principle rather than being restated each time.
 
+## D20 — Earn your place is a design rule, not an authoring rule
+
+Every element in the design must justify its presence against the objectives in the intent model. A concept, classification, stage, or mechanism that does not contribute to the objectives is removed regardless of how well-conceived it is in isolation.
+
+This is a design rule operating on the solving model, not an authoring rule operating on the resolved standard. The distinction matters because the three filters operate at different points:
+
+- **Earn your place** — does this element in the design/solving model contribute to the objectives in the intent model?
+- **The carry test** — does this resulting item need to be present at the moment of application?
+- **Leanness** — is the necessary carried guidance expressed without avoidable context cost?
+
+Earn-your-place was initially enumerated among the authoring rules. Cross-review (2026-09-14) identified that the Authoring Standard v6 had already placed it correctly in the design section, and Design/Decisions should agree.
+
 ---
 
-Version note: v3 — adds D15 (two classes by load pattern), D16 (two-model design sequence), D17 (default-Required), D18 (no consumer no rule), D19 (name your principles). Updates D2 (six rules to nine) and D3 (adds default-Required approach). 2026-09-14.
+Version note: v3 — adds D15 (two classes by load pattern), D16 (two-model design sequence), D17 (default-Required), D18 (no consumer no rule), D19 (name your principles), D20 (earn your place as design rule). Updates D2 (six authoring rules to eight, plus one design rule) and D3 (adds default-Required approach). 2026-09-14.
 <!-- END SOURCE: Standards/Standards_Decisions_v3.md -->
-
----
-
-<!-- BEGIN SOURCE: Standards/Standards_Design_v2.md -->
-Standards — Design | design | Standards_Design@v2 | 2026-09-11
-
-## Brief
-
-**Purpose.** Define how a standard is designed, authored, and deployed within AIDE. Standards is a methodological component — it owns the methodology for building standards, not the standards themselves. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
-
-**Scope.** The authoring methodology, the strength model, the reference-to-standard pipeline, the relationship between a standard and its design, applicability scope, and the runtime contract for operating under standards. Individual standards, document structure, packaging, and the cross-review process are out of scope.
-
-**Target outcome.** Two deployed standards: one for authoring (how to design, author, and deploy a standard) and one for consumption (how to operate under applicable standards at runtime).
-
-## What a standard achieves
-
-A standard shapes decisions and behaviour at the moment of application. It reaches the AI platform as a capability — either as a skill loaded on trigger, or as binder content loaded into project context. In both cases, the standard is what the session consumes. Everything behind it — the design, the decisions, the reference knowledge — stays outside the session.
-
-That single fact drives the authoring model: a standard carries only what is needed at the moment of application, because everything in it costs context space and attention.
-
-## What Standards owns
-
-### The authoring methodology
-
-How to decide what goes into a standard, how to write it, and how lean is lean enough. Six rules govern authoring, plus the trigger description and segmentation requirements below:
-
-**The carry test.** Every item must pass: "is this needed at the moment of application?" Content that informed the design but is not needed when applying the standard stays in the design document.
-
-**Leanness.** A standard earns its context cost. Every sentence displaces something else the session could hold. The target is the minimum language that achieves the guidance — not terse, not abbreviated, but with nothing that does not work. A well-authored standard reads as a short document that leaves the consumer confident about what to do.
-
-**Discriminating guidance.** A standard that says "do X" without helping the consumer recognise when and how is governance without value. Frame requirements through the consequence or value of meeting them, not through bare authority — a rule the consumer cannot see the reason for reads as enforcement rather than guidance. If the consumer would need to go back to the design to know how to apply a rule, the standard is incomplete.
-
-**Strength assignment.** Every item carries one of the four strength levels. The author decides what strength each item warrants. A standard may declare a document-level default strength; items that differ from the default carry their own strength explicitly; nearest declaration wins. Over-use of required produces a standard that reads as rigid; over-use of optional produces one that achieves nothing.
-
-**Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but it must not depend on it. The consumer has the standard; the design is available but not loaded.
-
-**Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Scope targets behaviour and relevance, not a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
-
-### Trigger description and segmentation
-
-Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the single artefact that determines how the standard is loaded across platforms.
-
-The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard (agentskills.io). This figure is the union minimum across Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and other adopters. Front-load trigger words so the most important terms survive truncation.
-
-The description budget doubles as the segmentation test. If the trigger elements that define when a standard is needed will not fit within 130 characters, the standard should be split into sub-standards along dependency lines so co-dependent guidance loads together. Each sub-standard must be self-contained.
-
-A carry to Deployment: the aggregate sum of skill trigger descriptions across all deployed standards must be checked against the platform's shared description budget. This is a second measure for Deployment's weight gate.
-
-### The strength model
-
-Four levels defining how strongly an item in a standard applies:
-
-- **Required** — must comply. Departure is a defect.
-- **Recommended** — should comply. Departure needs a reason, but the reason is the author's judgement, not an approval process.
-- **Optional** — available for use. No compliance expectation.
-- **Information** — awareness content. Exists so the consumer knows it, not so they act on it.
-
-Strength is a property of each item, not a section heading, because a single standard will mix levels. The vocabulary — the four words and their definitions above — is standardised so consumers read strengths consistently across all standards.
-
-### The reference-to-standard pipeline
-
-A reference is a design-time document type recording knowledge and concepts. When reference knowledge needs to reach the AI platform, it is authored into a standard at information strength. The decision criterion is the same carry test: does this knowledge need to be present at the moment of application? If the consumer needs to be aware of it to make good decisions, it earns a place. If it only informed the design, it stays in the design.
-
-Reference is a document type only, not an output type. The distinction matters: a reference informs the design process; a standard is the delivery mechanism.
-
-### The relationship between a standard and its design
-
-A design almost always exists behind a standard — authoring straight to standard is the exception. The standard is authored fresh from the design, never by modifying a previous standard version. The design holds the reasoning, the alternatives, the constraints. The standard holds only the conclusion, stated as guidance.
-
-The standard does not carry reasoning into the session. If a consumer needs to understand why a rule exists, the design is available outside the session — but the standard does not depend on it being present.
-
-### Trigger and scope
-
-Triggering and applicability scope are distinct responsibilities. Triggering is a delivery concern — getting the standard loaded where it might be needed. Scope is the standard's own concern — declaring the conditions under which it is applicable once loaded. Every standard carries its own scope because what is loaded on any given platform cannot be guaranteed.
-
-Scope targets behaviour and relevance — what needs to be true for the standard to be of value — not a specific platform, package, or deployment target. Triggering belongs to Infrastructure; scope belongs to the standard and is defined by its author.
-
-### Conflict resolution
-
-When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between. When two applicable items genuinely oppose each other on the same point, higher strength governs. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. Conflict is not manufactured from different concerns that can both be satisfied.
-
-### Human override
-
-Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
-
-## What Standards produces
-
-Two standards:
-
-**The standards authoring standard** — aimed at anyone building a component, telling them how to design, author, and deploy a standard for that component. It consumes its own rules — the first standard is self-describing. Covers the authoring methodology, strength model, scope, and deployment boundary.
-
-**The standards consumption standard** — aimed at AI sessions operating under applicable standards. Covers conflict resolution, human override, applicability evaluation, and runtime operation under standards.
-
-## What the author decides
-
-A standard has no prescribed template. The author decides what the standard contains and how it is structured, provided it meets the terms defined in the standards authoring standard. The authoring rules tell the author what a good standard achieves; the author meets them however the content demands.
-
-## Boundaries
-
-Standards does **not** own:
-
-- **The three-layer authoring model** — a project-level convention consumed by all components, not a Standards mechanism.
-- **The cross-review process** — the obligation that every standard is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Standards' output goes through it.
-- **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
-- **Triggering and delivery** — how a standard is loaded (skill headers, binder inclusion, package distribution) is owned by Infrastructure.
-- **Packaging and deployment** — how a standard becomes a skill or binder entry is owned by Infrastructure (packaging) and Deployment (the weight gate and the pipeline to the marketplace).
-- **Any individual standard** — each lives with its owning component.
-
-## Carries to other components
-
-**To Documentation Methodology:** the Contents/Summary edge — Contents maps what is where to judge relevance, Summary gives what the document establishes. Their edges need to stay distinct. Flagged as a common issue for standards authors; the edge definition is document-structure grammar.
-
----
-
-Version note: v2 — adds conflict resolution, human override, applicability scope, trigger description and segmentation, document-default weight, facilitative framing. Confirms two outputs. Merges legacy binder review and voice session additions, 2026-09-11.
-<!-- END SOURCE: Standards/Standards_Design_v2.md -->
 
 ---
 
@@ -11210,13 +10493,13 @@ A standard's design approach is determined by its load pattern, not its subject.
 
 **Carried standards** govern broad behaviour that applies across most sessions — document identity, versioning, how documents work. They sit in memory and tax nearly every session. Leanness is non-negotiable for this class.
 
-Both classes follow the same authoring rules. The class distinction affects the design approach: a carried standard demands the solving-model design sequence described below, where leanness is achieved through model quality rather than compression.
+Both classes follow the same authoring rules and both use the two-model design sequence. The class distinction affects the design effort invested in the solving model: a carried standard demands substantially greater model quality because persistent context cost makes leanness a primary constraint. A task standard still uses the sequence, but additional weight is tolerable because the cost is bounded to the task.
 
 ## What Standards owns
 
 ### The authoring methodology
 
-How to decide what goes into a standard, how to write it, and how lean is lean enough. Nine rules govern authoring, plus the trigger description and segmentation requirements below:
+How to decide what goes into a standard, how to write it, and how lean is lean enough. Eight rules govern authoring, plus the trigger description and segmentation requirements below:
 
 **The carry test.** Every item must pass: "is this needed at the moment of application?" Content that informed the design but is not needed when applying the standard stays in the design document.
 
@@ -11233,8 +10516,6 @@ How to decide what goes into a standard, how to write it, and how lean is lean e
 **Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Scope targets behaviour and relevance, not a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
 
 **Name your principles.** When a recurring concept drives multiple rules, pull it up to a named principle. Named principles are cheaper to carry than the repeated reasoning behind them, and they give consumers an anchor for understanding why related rules exist.
-
-**Earn your place.** Every element in the standard must justify its presence against the objectives it serves. A concept, classification, or mechanism that does not contribute to the objectives is removed regardless of how well-conceived it is in isolation.
 
 ### Trigger description and segmentation
 
@@ -11267,7 +10548,7 @@ Reference is a document type only, not an output type. The distinction matters: 
 
 A design almost always exists behind a standard — authoring straight to standard is the exception. The standard is authored fresh from the design, never by modifying a previous standard version. The design holds the reasoning, the alternatives, the constraints. The standard holds only the conclusion, stated as guidance.
 
-The standard does not carry reasoning into the session. If a consumer needs to understand why a rule exists, the design is available outside the session — but the standard does not depend on it being present.
+The standard does not carry design derivation into the session — the alternatives considered, the reasoning used to choose the solution, the historical discussion. Application-facing rationale — a named principle, a consequence, a clarification needed to apply the rule intelligently — may be carried when it passes the carry test. If a consumer needs deeper reasoning than the standard provides, the design is available outside the session — but the standard does not depend on it being present.
 
 ### Designing a standard — the two-model sequence
 
@@ -11325,7 +10606,7 @@ Standards does **not** own:
 
 ---
 
-Version note: v3 — adds two-class distinction (task vs carried by load pattern), solving-model design sequence, default-Required strength assignment, three new authoring rules (no consumer no rule, name your principles, earn your place). Updates authoring rule count from six to nine. 2026-09-14.
+Version note: v3 — adds two-class distinction (task vs carried by load pattern), solving-model design sequence (universal, with greater effort for carried class), default-Required strength assignment, three new rules (no consumer no rule, name your principles as authoring rules; earn your place as a design rule). Updates authoring rule count from six to eight. Reasoning boundary narrowed to design derivation. 2026-09-14.
 <!-- END SOURCE: Standards/Standards_Design_v3.md -->
 
 ---
