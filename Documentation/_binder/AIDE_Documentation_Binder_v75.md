@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 74** (2026-09-15).
+> **Binder Version 75** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -26,14 +26,15 @@ individual files.
 - `Assurance/_index.md` - sha256 `fde4b0521828`
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
-- `Core/_index.md` - sha256 `31c7a15e03eb`
-- `Core/Core_AIDEMap.md` - sha256 `fd95d6407fb1`
+- `Core/_index.md` - sha256 `8746bf38a3fa`
+- `Core/Core_AIDEMap.md` - sha256 `9cb56b3c7791`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
 - `Core/Core_AIDEPrinciples_Design_v1.md` - sha256 `60e20e8d0b9d`
 - `Core/Core_Brief_v2.md` - sha256 `23d1f1d1f622`
 - `Core/Core_Charter_v1.md` - sha256 `3e5f5332b783`
 - `Core/Core_Decisions_v1.md` - sha256 `2545fa050c39`
 - `Core/Core_Design_v1.md` - sha256 `e36645adafbd`
+- `Core/Core_Design_v2.md` - sha256 `46954173d8a1`
 - `Core/Core_Schema_Standard_v3.md` - sha256 `49c6de8da5bb`
 - `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
 - `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
@@ -5372,10 +5373,10 @@ Core is the root entry to AIDE — the framework's self-description, component m
 |---|---|---|
 | Core_ | Charter v1 | charter |
 | Core_ | Brief v2 | brief |
-| Core_ | Design v1 | design |
+| Core_ | Design v2 | design |
 | Core_ | Decisions v1 | decisions |
 | Core_ | Schema Standard v3 | standard |
-| Core_ | AIDEMap v1 | reference |
+| Core_ | AIDEMap v2 | reference |
 | Core_ | Tags Working v1 | working |
 
 ## Parts
@@ -5390,7 +5391,7 @@ The operating principles specific to AIDE as a framework — facilitate not cons
 ---
 
 <!-- BEGIN SOURCE: Core/Core_AIDEMap.md -->
-> identity: Core_AIDEMap@v1 | updated: 2026-09-15
+> identity: Core_AIDEMap@v2 | updated: 2026-09-15
 
 # AIDE Map
 
@@ -5408,15 +5409,14 @@ AIDE
 ├── Guidance
 │   ├── Principles — nine portable premises, any AI can adopt without adopting AIDE
 │   ├── Standards — definition of a standard, authoring rules, leanness, strength model
-│   └── Tools — definition of a tool, authoring concerns, invocability test
+│   ├── Tools — definition of a tool, authoring concerns, invocability test
+│   ├── Assurance — trust conventions, human working model, verification, drift detection, learning capture
+│   └── Improvement — pattern analysis of learnings queue, escalation decisions (identified, not yet scoped)
 │
 ├── Work
 │   ├── Working Practices (WP)
-│   │   ├── FileOps — file delivery, versioning lifecycle, git integration
-│   │   ├── WorkManagement — work items, definition of done, development lifecycle
-│   │   ├── Capture — capture-and-place, session-end allocation
-│   │   ├── ContentDelivery — binder concept, inclusion rules, context loading
-│   │   └── HumanAI — human working model, collaboration conventions
+│   │   ├── Working State — WIP model, work items, work plan, pending content, development lifecycle
+│   │   └── Content Delivery — binder concept, inclusion rules, context loading
 │   ├── Project Design (PD) — design specification, design-build loop, work register
 │   └── Build — execute the spec, report what was done, own code structure
 │
@@ -5435,7 +5435,7 @@ AIDE
 
 ---
 
-Version note: v1 — authored from the Core design pass. Replaces empty stub files (Core_AIDEMap.md, Core_AIDEMap.yaml). 2026-09-15.
+Version note: v2 — Assurance and Improvement added under Guidance; WP subtree updated to reflect WP_Design_v2 areas (Working State and Content Delivery replace the five pre-design-pass areas). 2026-09-15. Replaces v1.
 <!-- END SOURCE: Core/Core_AIDEMap.md -->
 
 ---
@@ -5909,6 +5909,180 @@ Thirteen active components, organised by primary role. Each component's entry po
 
 Version note: v1 — initial design from the Core design pass. 2026-09-15.
 <!-- END SOURCE: Core/Core_Design_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Core/Core_Design_v2.md -->
+> identity: Core_Design@v2 | doctype: design | updated: 2026-09-15
+
+# Core — Design
+
+## Summary
+
+Core is the root entry to AIDE. It describes what AIDE is, defines the component model, states the requirements that govern every component, and maps the framework so that any reader — human or AI — can navigate from here to any part of it. Two design areas sit under Core: **Structure** (how documentation is organised) and **AIDEPrinciples** (AIDE-specific operating principles, strength model, aliases). Each has its own design and decisions documents.
+
+---
+
+## What AIDE is
+
+AIDE makes the standards and behaviours that shape how AI works with you live in your sessions, on whatever surface is in use. Everything else in AIDE exists to produce, deliver and keep that content current.
+
+It is a methodology-driven framework for a solo developer working with AI. It gives AI sessions consistent behaviour, accumulated knowledge, and standards defined by the owner — not by platform defaults.
+
+The framework's founding rationale, objectives, and development principles are stated in the Core Charter — a development document that informs how AIDE is built, not how it is used. When an AIDE development decision is contested or unclear, the charter provides the reference point.
+
+### Four roles
+
+AIDE's components provide four kinds of value:
+
+- **Foundation** — defines AIDE's own shape and the grammar everything is written in.
+- **Guidance** — the premises, rules, standards and tools that shape how work is done.
+- **Work** — how work progresses from intent through design and build to outcome.
+- **Delivery** — how things move between boundaries, stay current, and reach sessions.
+
+These are conceptual roles, not a hierarchy. A component contributes to a role based on the value it provides to the system. Some components contribute to more than one. The component map organises each component under its primary role. Where a component contributes to a second role, that is noted in its own design, not duplicated here.
+
+---
+
+## The component model
+
+**Component.** A defined area of functionality with a declared purpose, scope, and ownership. It owns its own documents and decisions. It may produce capabilities but need not. It is the functional unit of AIDE, independent of where it physically lives.
+
+**Capability.** An output that extends the development environment — a standard or a tool. The two capability kinds are defined by their respective components.
+
+**Capabilities** is the organisational grouping that contains standards and tools. It is not a component. It earns no purpose line because every job it could claim is already owned by a component within it. If it later demonstrates a purpose of its own, it graduates under the demonstrated-need rule.
+
+**Utility.** A third kind of output alongside standards and tools. A utility is infrastructure — a repeatable operational task (building a binder, deploying a file update package, cleaning up superseded versions). Utilities are not capabilities; they serve the framework's own operation rather than extending the development environment.
+
+### Ownership rules
+
+Six rules govern what lives where:
+
+1. **Owner is whoever knows the most about it.** Ownership goes to the component with the deepest knowledge of the thing — block types, doctypes, workflow artefacts, boundary disputes.
+2. **Documentation Methodology owns structure and mechanics, not content definitions.** It does not hold a registry of types belonging to other components. Only genuinely global types — used across many components where no single component knows the most — live there.
+3. **Each component defines its own block types and doctypes.** Being written down as a document does not make something Documentation Methodology's business.
+4. **A purpose line is a filter criterion, not a description.** Its job is to reject content. A good purpose line carries an outcome, a consumer, and a visible edge.
+5. **Purpose and role first; everything must align to it.** If a piece of content cannot trace back to the component's purpose, it is scope creep.
+6. **Information holder decides the boundary.** When a boundary question arises, the component that holds the information decides. This is a framework governance rule, not a working practice — it governs how components relate to each other.
+
+### Component naming
+
+Component names and aliases must be unique within the framework. Aliases are used as type-reference prefixes in the dot-qualified naming grammar. An alias resolves to exactly one component; where ambiguity exists, the full name is used. Aliases are declared in the component's index document.
+
+---
+
+## Framework-wide requirements
+
+These bind all components. Each requirement is stated once here; the owning component holds the mechanism. No duplication of mechanism.
+
+**Facilitate and extend.** AIDE exists to facilitate and extend, not to create friction or restrict. Methodology frameworks historically impose compliance overhead that discourages adoption; AIDE takes the opposite position — its value comes from making good practice easier, not from enforcing it. This is AIDE's own character, originating from the shorthand "facilitate, not constrain." The AIDEPrinciples design area states the principle and its design pattern — functionality activates from data, not from compliance. Owned by Core, delivered through the AIDE Principles standard.
+
+**Component model.** Every component has a declared purpose, scope and ownership. The component, capability and utility definitions live here. Owned by Core.
+
+**Platform neutrality.** Capabilities are defined platform-neutral — the what. Transformation into platform-specific delivery is Deployment's concern.
+
+**Leanness.** What loads into a session must justify its weight. The Standards component owns the authoring guidance that enforces it.
+
+**Design is the default.** A design almost always exists behind a standard. Authoring straight to standard is the exception, not the rule. Project Design owns the design method.
+
+**No knowledge lost.** The framework captures and places everything of value. Working Practices owns capture-and-place; this is the fundamental rule.
+
+**Entry-point completeness.** Core's design document contains a summary of every active component — its purpose and key boundaries — sufficient for navigation. Each component's design specification lives in its own folder.
+
+**Definition of done.** Every component and every piece of work defines when it is done. The invariant: the completion bar must be testable or assessable. Working Practices owns the block type definition — the mechanism consumers use. Consumers fill it with their own content.
+
+**Assurance.** Every component contributes to assurance — justified confidence that the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur. The Assurance component owns the specific conventions and detection mechanisms; this requirement is the lens every component is designed through.
+
+---
+
+## The component map
+
+Fifteen active components, organised by primary role. Each component's entry point is its index document (`_index.md`) in its own folder. The folder path follows the component name.
+
+### Foundation
+
+| Component | Purpose | Key boundaries |
+|---|---|---|
+| Core | AIDE's self-description, component model, framework-wide requirements, and entry-point map. | Not a catchall — deliberate and first-class. Owns Structure and AIDEPrinciples as design areas. |
+| Documentation Methodology | Define how documents are structured and created — the generic mechanics. | Owns the grammar. Not a registry of types belonging to other components. |
+| Messaging | Define the format, structure, and conventions for reliable communication across any boundary. | Owns the envelope and delivery conventions. Does not own the transport — messages travel by Orchestration or by manual copy-paste. |
+
+### Guidance
+
+| Component | Purpose | Key boundaries |
+|---|---|---|
+| Principles | Give any AI the durable, portable reasoning and premises to think and act well — independent of platform or methodology. | Portability is the defining test. Includes verification as a premise and the base human-side behavioural premises. |
+| Standards | Make sure standards are applied, honoured and kept current across the environment. | Owns the definition of a standard and the authoring guidance including leanness. Does not define individual standards — those are owned by their consuming component. |
+| Tools | Encapsulate a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. | Owns the definition of a tool. Does not own individual tools — those are owned by their consuming component. |
+| Assurance | Build justified trust in AI-assisted work by defining and evolving the conventions, behaviours, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur. | Cross-cutting — every component contributes. Owns the human working model, verification behaviours, drift detection, anomalies channel, learning loop capture conventions. Does not own the substrate (WP), the premises (Principles), or the pattern analysis (Improvement). |
+| Improvement | Iterative improvement of the framework and working practices from accumulated learning, regardless of source (human or AI). Identified but not yet scoped. | Owns the periodic pattern analysis of the learnings queue, escalation decisions, and the reviewer. Does not own the capture conventions (Assurance) or the scheduling mechanism (Orchestration). |
+
+### Work
+
+| Component | Purpose | Key boundaries |
+|---|---|---|
+| Working Practices | Own the conventions and behaviours for how an AI and user actually work together across surfaces. | Includes the human working model. May grow into a container with sub-components. |
+| Project Design | Produce the design specification. | One scalable architecture. Owns both ends of the design-build loop. |
+| Build | Take the design specification and execute it — produce the outcome, report what was done. | Does not design — receives the specification from Project Design. Creates from the spec, thinking not transcribing. Likely an umbrella with different build paths. |
+
+### Delivery
+
+| Component | Purpose | Key boundaries |
+|---|---|---|
+| Orchestration | Coordinate work across AI surfaces and platforms — the channels, communication mechanics, and coordination logic that allow multiple AI components to work together. | Owns transport, routing, work package structure, verification, and capability profiles. Does not own the work modes that consume it. Likely an umbrella with areas or parts. |
+| Migration | Keep things current when something they depend on changes — collate, distribute and execute change actions. | Does not detect changes — detection varies by consumer. The mechanism is generic. |
+| Deployment | Get the publishable capabilities live in a session, on whatever surface is in use. | Does not define capabilities — receives them from their owning components. Simple pipeline: build, push, reload. |
+| Infrastructure | Methodological infrastructure — CLI, deployment utilities, settings merge. | Serves the framework's own operation. Does not own design documents or standards. |
+
+### Held — resolved by demonstrated need
+
+| Candidate | Resolution trigger |
+|---|---|
+| Tags | Reappears if the design shows labelling duplication across components. |
+| Scope | Reappears if runtime applicability needs a shared definition. |
+
+### Deferred
+
+| Concern | Trigger |
+|---|---|
+| Environment and platform | Multi-platform deployment or a need to track deployment state. |
+
+---
+
+## Design areas
+
+**Structure** (prefix `Core_Structure_`). How AIDE documentation is physically and logically organised. Physical folders are the structure; no logical overlay. Path authority lives in the document header. The index document (`_index.md`) is the identity and entry point for each scope. Container labels provide shared vocabulary. The three-tier file model governs what the binder includes. One `_archived` folder at the documentation root holds files that are no longer active but worth keeping — retired references, completed reviews, outdated knowledge. The underscore prefix removes it from binder scope while keeping files in the repo and searchable. Git is the version history. The `_superseded` folder pattern is dropped — when a new version lands, the old version is deleted from the working tree. Rollback means checking out the previous version from git. Design and decisions documents exist.
+
+**AIDEPrinciples** (prefix `Core_AIDEPrinciples_`). The operating principles specific to AIDE as a framework — facilitate and extend, opt-in for benefit, the strength model, and aliases. Distinct from the Principles component, which owns universal portable premises governed by the portability test. Design and decisions documents exist. Produces a standard for deployment.
+
+---
+
+## Boundaries
+
+**Core does not own:**
+
+- Individual component designs — each component owns its own folder
+- Universal premises — the Principles component, governed by the portability test
+- The grammar of how documents are written — Documentation Methodology
+- The design method — Project Design
+- How standards are authored or enforced — Standards
+- The rebuild process — a project, not a permanent part of the framework
+
+**Core owns:**
+
+- The charter
+- The component model and its definitions
+- The framework-wide requirements
+- The component map
+- The index doctype
+- The four roles
+- Structure and AIDEPrinciples as design areas
+- Component alias uniqueness
+
+---
+
+Version note: v2 — carries from the WP design pass applied: definition of done and assurance added as framework-wide requirements; P6 added as sixth ownership rule; Assurance and Improvement added to the component map (13 → 15); archived folder convention and git-as-history added to Structure. 2026-09-15. Replaces v1.
+<!-- END SOURCE: Core/Core_Design_v2.md -->
 
 ---
 
