@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v13 | 2026-09-15
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v14 | 2026-09-15
 
 ## Active threads
 
@@ -7,6 +7,14 @@ AIDE Documentation | WIP | AIDE_Documentation_WIP@v13 | 2026-09-15
 All components owning doctypes or block types must define them using the accepted definition contract. The definition contract has been simplified in the rebuild (6 blocktype properties, 4 doctype properties). Assessment produced (DocMeth_Schema_Review_v1) — rework is a separate task per component.
 
 Note: PD_Schema_Standard_v1 was authored against the old Schema Standard v4 property vocabulary. It should be reviewed against the simplified contract in DocumentationMethodology_SchemaAuthoring_Standard_v1 when next worked. Core_Schema_Standard_v2 is provisional and will be reviewed when Core's design pass is done.
+
+### WP — remaining items
+
+FileOps area parked for review — coherence as an area questioned, some content duplicates Core Structure decisions, some is Infrastructure concerns. Needs focused review to determine if it earns its place, dissolves, or is redefined.
+
+Old-material pass (WP1–WP13 from old corpus) not yet run — required before WP can be called complete per the rebuild method and F10.
+
+WP schema definitions not yet written — doctypes (WIP, working document, report, resource) and block types (work item, work plan) need formal definitions per the documentation methodology schema contract.
 
 ---
 
@@ -52,33 +60,58 @@ Three superseded draft standards removed from the binder. The naming convention 
 
 ---
 
+## Completed — Working Practices
+
+### WP design pass — brief, design, decisions — DONE
+
+Completed 2026-09-15. WP_Brief_v1, WP_Design_v1, WP_Decisions_v1 authored. Check 1 passed with noted gaps (FileOps parked, lifecycle modes thin, old-material pass pending).
+
+Key outcomes:
+- Assurance extracted as a new top-level component (Guidance role) and framework-wide requirement in Core (D1, D16)
+- Capture-and-place elevated to WP component level with proactive knowledge preservation (D12)
+- Workflow commands replace session-transition commands as broader concept (D11)
+- Working State absorbs Work Lifecycle (D3) — WIP three-role model, work items, work plan with named workstreams, pending content
+- Capture and Organisation dissolved — content moved to WP component level and Working State (D2)
+- Human-AI Collaboration dissolved — content moved to Assurance component (D1)
+- Definition of done elevated to Core framework-wide requirement (D4)
+- P6 moved to Core as sixth ownership rule (D5)
+- Guidance Profiles deferred — no demonstrated consumer for solo developer (D6)
+- Overview-first working behaviour owned by WP generic, PD consumes (D7)
+- Verification behaviours placed in Assurance (D8)
+- FileOps parked for coherence review (D14)
+
+Sixteen decisions recorded (D1–D16). Pending: FileOps review, old-material pass, schema definitions, standard authoring.
+
+---
+
 ## Pending — Core
 
 ### Component alias uniqueness
 
 Component names and aliases must be unique within the framework. Aliases are used as type-reference prefixes in the dot-qualified naming grammar (`pd.brief`). Core Structure owns this rule.
 
+### Carries from WP design pass
+
+Three items to add to Core_Design (detailed in `_rebuild/WP_CoreCarries_v1.md`):
+
+1. **Definition of done** — framework-wide requirement. Invariant: testable or assessable. WP owns the block type; consumers fill content.
+2. **Assurance** — framework-wide requirement. Every component contributes to assurance.
+3. **P6** — sixth ownership rule. Information holder decides the boundary.
+4. **Assurance** — new component in the Guidance role added to the component map. Component count 13 → 14.
+
 ---
 
-## Pending — Working Practices
+## Pending — Assurance (NEW COMPONENT)
 
-### Overview-first working behaviour
+New top-level component identified during the WP design pass. Guidance role. Brief sketch in `_rebuild/Assurance_Brief_Sketch_v1.md`.
 
-The discipline of staying at the overview level until it could drive excellent execution, probing rather than diving, is broader than design. PD owns the design-specific application; WP owns the generic working behaviour when WP is built.
+**Purpose:** Build justified trust in AI-assisted work by defining and evolving the conventions, structures, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur.
 
-### `/more` command
+**Content (moved from WP):** Human working model (tiering, confidence, assumptions/gap-fill report), verification behaviours, drift detection, anomalies channel. Proactive and detective conventions. Cross-cutting — every component contributes.
 
-AI-presented prompts should be concise by default. The `/more` command expands the current prompt with additional detail. Belongs alongside the session-transition commands when those are designed.
+**Confirmed design decisions (to review at full design pass):** Named tiers for autonomy, anomalies channel as behaviour with capture-and-place destination, confidence uses existing framework strength vocabulary.
 
-### Items accumulated for WP from other passes
-
-- Pending content rule ownership
-- Session-transition commands (full stop, checkpoint-and-continue, flush without closing)
-- No-knowledge-lost rule and the three behaviours
-- Capture-and-place rules (the four methodology rules from the Core shaping session)
-- Definition of done as a generic block (owned by WP, invariant: testable or assessable)
-- Work item as the base workflow entity
-- Human working model standard (tiering, confidence, assumptions report, drift detection)
+Design pass to follow WP completion.
 
 ---
 
@@ -142,7 +175,7 @@ Tier 0 — Foundation (no declared uses)
 
 ---
 
-## Completed items (this session)
+## Completed items (prior sessions)
 
 ### DocMeth — uses migration — DONE
 
@@ -177,7 +210,8 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 | Tools Authoring Standard v7 (Design v6, Decisions v7) | Authoring rules reference, incorporation contract, scope | **Accepted** — three rounds (10 findings resolved, 1 carried to Standards). Published 2026-09-14 |
 | Principles premise strengthenings (P3, P4) | Three candidate strengthenings from design-approach work (F12 pattern) | **Accepted** — F1 remediated (false-exclusive), F2 remediated (D10 wording), F3 remediated (D11 wording). Published 2026-09-15 |
 | Standards acceptance-test wording (ambient context) | Framework-contract issue exposed by Tools cross-review | **Accepted** — F1 defect (definition), F2 defect (guaranteed wording), F3 concern (Tools sync) — all remediated. Published 2026-09-15 |
+| WP Design v1 (Brief v1, Decisions v1) | WP design pass — new component model, Assurance extraction, 16 decisions | **Pending cross-review** |
 
 ---
 
-Version note: v13 — Clarification block carry closed (existing definition resolves it). DocMeth binder rebuilt v64 → v65 (three superseded draft standards removed, commit f040d4b). 2026-09-15. Replaces v12.
+Version note: v14 — WP design pass complete: brief, design, decisions authored. Assurance identified as new component. Sixteen decisions (D1–D16). Pending WP items resolved or placed. Core carries noted. 2026-09-15. Replaces v13.
