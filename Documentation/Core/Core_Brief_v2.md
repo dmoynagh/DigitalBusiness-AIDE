@@ -1,8 +1,6 @@
+> identity: Core_Brief@v2 | doctype: brief | updated: 2026-09-15
+
 # Core — Brief
-
-Version 1. 2026-09-08.
-
----
 
 ## Purpose
 
@@ -58,7 +56,7 @@ C3. The relationship between Core and Principles needs to stay clean. Principles
 
 C4. Some requirements above (leanness, design-is-the-default, no-knowledge-lost) are also expressed or implied elsewhere. Core holds the framework-wide statement; the owning component holds the mechanism. No duplication of mechanism.
 
-C5. The three held candidates (Tags, Scope, Dependencies) and the deferred concerns (environment, platform, domains) remain open and are not resolved by this brief.
+C5. Two held candidates (Tags, Scope) remain open, resolved by demonstrated need. Dependencies is resolved — it became the `uses` field owned by Documentation Methodology. Domains is closed — AIDE does not adopt the concept. Environment and platform concerns remain deferred.
 
 ---
 
@@ -70,6 +68,7 @@ C5. The three held candidates (Tags, Scope, Dependencies) and the deferred conce
 - The component, capability and utility definitions
 - The component map — purpose lines and navigation to each component's own material
 - AIDE's character statement (facilitate not constrain)
+- The Core Charter — AIDE's founding rationale and objectives, as a development reference document
 
 **Out of scope:**
 - Individual component designs — each component owns its own folder
@@ -92,3 +91,7 @@ A reader arriving at AIDE — whether a new AI session, a reviewing AI, or the h
 3. "Facilitate not constrain" is placed and stated with its rationale
 4. The distinction from Principles (portability test) is explicit
 5. A reader unfamiliar with AIDE can navigate from Core to any component
+
+---
+
+Version note: v2 — C5 updated (Dependencies resolved, Domains closed). Charter added to scope. No changes to purpose, objectives, requirements or definition of done. 2026-09-15. Replaces v1.
