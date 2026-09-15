@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 66** (2026-09-15).
+> **Binder Version 67** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -25,7 +25,7 @@ individual files.
 - `Core/Core_Brief_v2.md` - sha256 `23d1f1d1f622`
 - `Core/Core_Charter_v1.md` - sha256 `3e5f5332b783`
 - `Core/Core_Decisions_v1.md` - sha256 `2545fa050c39`
-- `Core/Core_Design_v1.md` - sha256 `18fbae301399`
+- `Core/Core_Design_v1.md` - sha256 `e36645adafbd`
 - `Core/Core_Schema_Standard_v3.md` - sha256 `49c6de8da5bb`
 - `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
 - `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
@@ -4253,7 +4253,7 @@ AIDE's components provide four kinds of value:
 - **Work** — how work progresses from intent through design and build to outcome.
 - **Delivery** — how things move between boundaries, stay current, and reach sessions.
 
-These are conceptual roles, not a hierarchy. A component contributes to a role based on the value it provides to the system. Some components contribute to more than one.
+These are conceptual roles, not a hierarchy. A component contributes to a role based on the value it provides to the system. Some components contribute to more than one. The component map organises each component under its primary role. Where a component contributes to a second role, that is noted in its own design, not duplicated here.
 
 ---
 
@@ -4261,7 +4261,9 @@ These are conceptual roles, not a hierarchy. A component contributes to a role b
 
 **Component.** A defined area of functionality with a declared purpose, scope, and ownership. It owns its own documents and decisions. It may produce capabilities but need not. It is the functional unit of AIDE, independent of where it physically lives.
 
-**Capabilities** covers standards and tools — the output definitions that extend the development environment. Capabilities is an organisational grouping, not a component. It earns no purpose line because every job it could claim is already owned by a component within it. If it later demonstrates a purpose of its own, it graduates under the demonstrated-need rule.
+**Capability.** An output that extends the development environment — a standard or a tool. The two capability kinds are defined by their respective components.
+
+**Capabilities** is the organisational grouping that contains standards and tools. It is not a component. It earns no purpose line because every job it could claim is already owned by a component within it. If it later demonstrates a purpose of its own, it graduates under the demonstrated-need rule.
 
 **Utility.** A third kind of output alongside standards and tools. A utility is infrastructure — a repeatable operational task (building a binder, deploying a file update package, cleaning up superseded versions). Utilities are not capabilities; they serve the framework's own operation rather than extending the development environment.
 
@@ -4285,7 +4287,7 @@ Component names and aliases must be unique within the framework. Aliases are use
 
 These bind all components. Each requirement is stated once here; the owning component holds the mechanism. No duplication of mechanism.
 
-**Facilitate, not constrain.** AIDE exists to facilitate and empower, not to constrain or be a source of friction. This is AIDE's own character. The AIDEPrinciples design area states the principle and its design pattern — functionality activates from data, not from compliance. Owned by Core, delivered through the AIDE Principles standard.
+**Facilitate and extend.** AIDE exists to facilitate and extend, not to create friction or restrict. Methodology frameworks historically impose compliance overhead that discourages adoption; AIDE takes the opposite position — its value comes from making good practice easier, not from enforcing it. This is AIDE's own character, originating from the shorthand "facilitate, not constrain." The AIDEPrinciples design area states the principle and its design pattern — functionality activates from data, not from compliance. Owned by Core, delivered through the AIDE Principles standard.
 
 **Component model.** Every component has a declared purpose, scope and ownership. The component, capability and utility definitions live here. Owned by Core.
 
@@ -4303,7 +4305,7 @@ These bind all components. Each requirement is stated once here; the owning comp
 
 ## The component map
 
-Twelve active components, organised by role.
+Thirteen active components, organised by primary role. Each component's entry point is its index document (`_index.md`) in its own folder. The folder path follows the component name.
 
 ### Foundation
 
@@ -4318,8 +4320,8 @@ Twelve active components, organised by role.
 | Component | Purpose | Key boundaries |
 |---|---|---|
 | Principles | Give any AI the durable, portable reasoning and premises to think and act well — independent of platform or methodology. | Portability is the defining test. Includes verification as a premise and the base human-side behavioural premises. |
-| Standards | Make sure standards are applied, honoured and kept current across the environment. | Owns the definition of a standard and the authoring guidance including leanness. |
-| Tools | Encapsulate a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. | Owns the definition of a tool. Individual tools are owned by their consuming component. |
+| Standards | Make sure standards are applied, honoured and kept current across the environment. | Owns the definition of a standard and the authoring guidance including leanness. Does not define individual standards — those are owned by their consuming component. |
+| Tools | Encapsulate a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. | Owns the definition of a tool. Does not own individual tools — those are owned by their consuming component. |
 
 ### Work
 
@@ -4327,16 +4329,16 @@ Twelve active components, organised by role.
 |---|---|---|
 | Working Practices | Own the conventions and behaviours for how an AI and user actually work together across surfaces. | Includes the human working model. May grow into a container with sub-components. |
 | Project Design | Produce the design specification. | One scalable architecture. Owns both ends of the design-build loop. |
-| Build | Take the design specification and execute it — produce the outcome, report what was done. | Creates from the spec, thinking not transcribing. Owns how code is structured. Likely an umbrella with different build paths. |
+| Build | Take the design specification and execute it — produce the outcome, report what was done. | Does not design — receives the specification from Project Design. Creates from the spec, thinking not transcribing. Likely an umbrella with different build paths. |
 
 ### Delivery
 
 | Component | Purpose | Key boundaries |
 |---|---|---|
 | Orchestration | Coordinate work across AI surfaces and platforms — the channels, communication mechanics, and coordination logic that allow multiple AI components to work together. | Owns transport, routing, work package structure, verification, and capability profiles. Does not own the work modes that consume it. Likely an umbrella with areas or parts. |
-| Migration | Keep things current when something they depend on changes — collate, distribute and execute change actions. | Detection varies by consumer; the mechanism is generic. |
-| Deployment | Get the publishable capabilities live in a session, on whatever surface is in use. | Simple pipeline: build, push, reload. Includes the deployable-length weight gate. |
-| Infrastructure | Methodological infrastructure — CLI, deployment utilities, settings merge. | Serves the framework's own operation. Design documents and utility outputs are separate. |
+| Migration | Keep things current when something they depend on changes — collate, distribute and execute change actions. | Does not detect changes — detection varies by consumer. The mechanism is generic. |
+| Deployment | Get the publishable capabilities live in a session, on whatever surface is in use. | Does not define capabilities — receives them from their owning components. Simple pipeline: build, push, reload. |
+| Infrastructure | Methodological infrastructure — CLI, deployment utilities, settings merge. | Serves the framework's own operation. Does not own design documents or standards. |
 
 ### Held — resolved by demonstrated need
 
