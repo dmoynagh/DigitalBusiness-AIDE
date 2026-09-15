@@ -1,10 +1,10 @@
-> identity: Messaging_Decisions@v2 | doctype: decisions | updated: 2026-09-15
+> identity: Messaging_Decisions@v3 | doctype: decisions | updated: 2026-09-15
 
 # Messaging — Decisions
 
 ## Summary
 
-Reasoning and resolutions from the Messaging design pass. Twenty-one decisions: D1 is new to the rebuild (positioning change); D2–D15 carry substance from the legacy Messaging design; D16–D17 are structural decisions from the rebuild; D18–D21 remediate cross-review findings F1–F7.
+Reasoning and resolutions from the Messaging design pass. Twenty-five decisions: D1 is new to the rebuild (positioning change); D2–D15 carry substance from the legacy Messaging design; D16–D17 are structural decisions from the rebuild; D18–D21 remediate first cross-review findings F1–F7; D22–D25 remediate second cross-review findings R1–R4.
 
 ---
 
@@ -156,15 +156,15 @@ Reasoning and resolutions from the Messaging design pass. Twenty-one decisions: 
 
 ---
 
-## D19. Reconcile split into three explicit moments; QueryReceipt given a full envelope contract (remediates F3)
+## D19. Reconcile split into three explicit moments (remediates part of F3)
 
-**Decision.** Reconcile is defined as three distinct steps, each with its own Type/In-Reply-To/Expects: initiate (New, Expects: Answer), respond (Reply, In-Reply-To set, Expects: None), and process-the-response (no new envelope). QueryReceipt is defined as a New message — not a Reply — that names the questioned message in Content without setting In-Reply-To, with Expects chosen between Ack alone or Answer, Ack depending on whether the sender needs confirmation of receipt or also an account of what was understood.
+**Decision.** Reconcile is defined as three distinct steps, each with its own Type/In-Reply-To/Expects: initiate (New, Expects: Answer), respond (Reply, In-Reply-To set, Expects: None), and process-the-response (no new envelope).
 
-**Reason.** Cross-review found that a capable AI could improvise a plausible envelope for these two actions, but the tool acceptance test asks whether the tool itself — not the executor's general competence — settles the construction. Reconcile in particular conflates three operationally different envelopes under one heading; separating them removes the ambiguity about whether "Reconcile" means initiating, answering, or reading a response.
+**Reason.** Cross-review found that Reconcile conflated three operationally different envelopes under one heading; separating them removes the ambiguity about whether "Reconcile" means initiating, answering, or reading a response. (QueryReceipt's contract, the other half of F3, is addressed by D18's successor work — see D23, which supersedes the D19-era QueryReceipt treatment after the second cross-review found its response side still ambiguous.)
 
 ---
 
-## D20. Promote's Documentation Methodology dependency stated as an ambient guarantee, not a duplicated mechanism or a silent gap (remediates F4)
+## D20. Promote's Documentation Methodology dependency stated as an ambient guarantee (remediates F4)
 
 **Decision.** Promote hands the governed-document operation — filename, version, metadata, lifecycle, index — to Documentation Methodology. This is explicitly stated to be safe because the main DocumentationMethodology standard is universal and exempt from `uses` declarations under the rebuild's source-defined propagation model: every session is guaranteed to have it present. No `uses: DocumentationMethodology_Standard` entry is added to the tool, because universal dependencies are by definition exempt from that declaration.
 
@@ -176,13 +176,47 @@ Reasoning and resolutions from the Messaging design pass. Twenty-one decisions: 
 
 **Decision.** Four standing authoring corrections, applied directly in the standard and tool rather than recorded as design content:
 
-- **Idempotency (F2).** Declared per action in a table near the tool's opening, not only for three of eight actions at the bottom. Compose, Reply, Forward, Acknowledge, QueryReceipt, and the initiate/respond steps of Reconcile are not idempotent — each assigns a new Message-ID or emits a new envelope. Receive and the process-response step of Reconcile are idempotent. Promote is not idempotent as an operation and must check for an already-persisted duplicate before writing.
+- **Idempotency (F2).** Declared per action in a table near the tool's opening, not only for three of eight actions at the bottom.
 - **Strength (F5).** The Receipt escalation selection rules ("use Acknowledge when…", "use QueryReceipt when…", "use Reconcile when…") are Required, not Information — they are discriminating operational guidance, not awareness content. Only the separate statement that these mechanisms cannot guarantee delivery remains Information.
-- **Trigger duplication (F6).** The tool carries exactly one trigger description. The prior expanded `## Trigger` section duplicated the opening description at roughly 358 characters, well outside the 130-character budget, and introduced "send"/"relay" language that blurred the Messaging/Orchestration transport boundary. It is removed; nothing in it was needed beyond what Applicability already states.
-- **Carry test (F7).** Build/bootstrap material — that skills, commands, and triggers are Build concerns, and that no bootstrap contribution is required by default — is design-time knowledge for Build, not something a runtime Messaging consumer acts on. It stays in the design's Platform and bootstrap section and is not carried into the standard.
+- **Trigger duplication (F6).** The tool carries exactly one trigger description. An earlier expanded `## Trigger` section duplicated the opening description at roughly 358 characters, well outside the 130-character budget. It was removed.
+- **Carry test (F7).** Build/bootstrap material — that skills, commands, and triggers are Build concerns, and that no bootstrap contribution is required by default — is design-time knowledge for Build, not something a runtime Messaging consumer acts on. It stays in this design and is not carried into the standard.
 
 **Reason.** All four are authoring-standard compliance issues rather than model defects, as cross-review itself concluded ("mainly missing operational specification and authoring-discipline issues rather than a need to redesign the Messaging model"). Fixing them in the standard and tool, with this decision recording why, keeps the design document from re-litigating settled authoring rules it does not own.
 
 ---
 
-Version note: v2 — remediates cross-review findings F1–F7 (D18–D21 added). D2–D15 unchanged, carrying substance from legacy Capabilities Messaging Decisions v2. 2026-09-15. Replaces v1.
+## D22. Promote's duplicate check moved to a strict precondition; idempotency reclassified (remediates R1)
+
+**Decision.** The check for whether an exact envelope/version is already persisted is a precondition, evaluated before any write or registration — not a step that runs after creation to notice a duplicate. The design's Promote procedure and the tool's Promote procedure both order it as step 3, ahead of document creation.
+
+Promote's idempotency classification changes from "No" to "Yes, for the same exact envelope/version" — not idempotent across different envelope/versions, since each is a distinct persist decision.
+
+**Reason.** The second cross-review found the v2 design listed the duplicate check as a late step, after creation and registration had already occurred — at which point it could not prevent the duplication it was meant to prevent. This directly contradicted the tool, which had the check correctly ordered as a precondition, and contradicted D21's own stated intent. Once the check genuinely gates creation, Tools Authoring Standard v8's operational idempotency test — is it safe to rerun — is satisfied for the same envelope/version: a rerun finds the existing copy and stops before writing again. The v2 table's "No" reasoning ("rerunning...must not create a duplicate") was describing the guard that makes the operation idempotent, not a reason it isn't.
+
+---
+
+## D23. QueryReceipt's response is one Reply to the query, carrying receipt evidence for the questioned message in Content (remediates R2)
+
+**Decision.** When responding to a QueryReceipt, the recipient composes exactly one Reply whose In-Reply-To cites the query's own Message-ID @ Version — never the originally questioned message's. That Reply's Content explicitly names the questioned Message-ID @ Version and states whether it is held; this statement is the receipt evidence the query was asking for. If the query's Expects included Answer, the same Reply's Content also states what was understood about the questioned message. No second envelope — a separate Acknowledge targeting the questioned message — is issued in response to a QueryReceipt.
+
+**Reason.** The second cross-review found that "Expects: Ack" on a QueryReceipt was ambiguous between two readings: acknowledging the query itself (since Ack is the query's own response contract) or acknowledging the originally questioned message (since that is what the query is actually trying to establish) — and that "Answer, Ack" additionally left open whether one or two envelopes should result. Settling the correlation explicitly — always reply to the query, always carry the questioned message's receipt status in that reply's Content — removes both ambiguities with no second envelope and no change to the one-envelope-per-output rule (D13).
+
+---
+
+## D24. Platform compatibility vocabulary stays in the design only, not the tool (remediates R3)
+
+**Decision.** The compatibility slash-command vocabulary (`/msg`, `/msg-reply`, etc.) and the statement that Build may expose it are removed from the tool's Platform commands section and retained only in the design's Platform and bootstrap section.
+
+**Reason.** The first remediation (D21, F7) applied the carry test to the standard but left a parallel section in the tool. The second cross-review correctly identified that a runtime executor of Compose, Receive, Reply, and the other actions has no operational use for the slash-command mapping — it is information for whoever builds the platform representation, not for whoever performs the action. The design already owns this boundary; duplicating a shorter version of it into the tool served no consumer.
+
+---
+
+## D25. "Relay" replaced with delivery-neutral wording (remediates R4)
+
+**Decision.** The tool's trigger description and the design's system-model diagram no longer use "relay" to describe what Messaging or its tool does. The trigger reads "Compose, forward, or process a structured AI-MESSAGE for another AI, session, project, or platform" — describing the actions Messaging actually owns without implying it performs delivery.
+
+**Reason.** The second cross-review found that "relay...to another AI" reads as though the Messaging tool transports the message, contradicting D1's central positioning that Messaging defines what is carried and Orchestration moves it. The Compose procedure only ever emits an envelope; nothing in the tool contract performs delivery. The wording is corrected wherever it appeared, including the Boundaries section, which now states explicitly that Messaging's own vocabulary avoids implying it performs delivery.
+
+---
+
+Version note: v3 — remediates second cross-review findings R1–R4 and one cross-reference correction (D22–D25 added). D1–D21 unchanged in substance; D19's cross-reference to QueryReceipt superseded by D23 is noted inline. 2026-09-15. Replaces v2.

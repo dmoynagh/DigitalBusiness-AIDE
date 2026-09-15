@@ -1,8 +1,8 @@
-> identity: Messaging_Tool@v2 | doctype: tool | updated: 2026-09-15 | uses: Messaging_Standard@v2
+> identity: Messaging_Tool@v3 | doctype: tool | updated: 2026-09-15 | uses: Messaging_Standard@v3
 
 # Messaging
 
-Compose or relay a structured AI-MESSAGE to another AI, session, project, or platform; or process a received envelope.
+Compose, forward, or process a structured AI-MESSAGE for another AI, session, project, or platform.
 
 ## Applicability
 
@@ -12,7 +12,7 @@ Information. This tool applies when structured cross-context messaging is reques
 
 ```yaml
 Tool:
-  Identity: Messaging_Tool@v2
+  Identity: Messaging_Tool@v3
   CommonName: Messaging
   PrimaryInvocation: msg
   LogicalActions: [Compose, Receive, Reply, Forward, Promote, Acknowledge, QueryReceipt, Reconcile]
@@ -20,7 +20,7 @@ Tool:
 
 ## Idempotency, by action
 
-Idempotency is declared per action because the actions differ materially: some create a new identity or persist state on every run, others only process what already exists.
+Idempotency follows the operational rerun-safety test: is it safe to run this action again? Declared per action because the actions differ materially: some create a new identity or persist state unconditionally on every run, others only process what already exists, and Promote is conditional.
 
 | Action | Idempotent | Why |
 |---|---|---|
@@ -29,10 +29,11 @@ Idempotency is declared per action because the actions differ materially: some c
 | Reply | No | Assigns a new sender-owned Message-ID |
 | Forward | No | Assigns a new sender-owned Message-ID |
 | Acknowledge | No | A minimal Reply — assigns a new Message-ID |
-| QueryReceipt | No | A New message — assigns a new Message-ID |
+| QueryReceipt — outbound query | No | A New message — assigns a new Message-ID |
+| QueryReceipt — inbound response | No | A Reply — assigns a new Message-ID |
 | Reconcile — initiate/respond | No | Each creates a new envelope |
 | Reconcile — process response | Yes | Comparing unchanged evidence against an unchanged response produces the same result |
-| Promote | No | Persists a document; rerunning against an already-persisted message must not create a duplicate |
+| Promote | Yes, for the same exact envelope/version | A precondition check detects an existing persisted copy before any write, so rerunning does not create a duplicate. Not idempotent across different envelope/versions — each is a distinct persist decision |
 
 ## Trigger
 
@@ -75,13 +76,22 @@ Create a minimal Reply that reuses the source Thread and sets In-Reply-To to the
 
 ## QueryReceipt
 
-A **New** message, not a Reply — it questions a message, it does not answer one.
+Two sides. They must correlate unambiguously.
+
+**Sending the query.**
 
 1. Reuse the queried message's Thread.
 2. Set Type: New. Do not set In-Reply-To.
 3. Name the questioned Message-ID @ Version exactly in Content.
 4. Set Expects: Ack (confirm receipt only) or Answer, Ack (confirm receipt and what was understood) — choose based on which the sender actually needs.
 5. Do not expand to full reconciliation unnecessarily.
+
+**Responding to a received query.**
+
+1. Compose exactly one Reply: Type: Reply, In-Reply-To cites the *query's* Message-ID @ Version — never the questioned message's.
+2. In Content, explicitly name the questioned Message-ID @ Version and state whether it is held. This statement is the receipt evidence; it is what the query was actually asking.
+3. If the query's Expects included Answer, the same Reply's Content also states what was understood about the questioned message.
+4. Emit this single Reply. Do not additionally emit a separate Acknowledge envelope for the questioned message.
 
 ## Reconcile
 
@@ -99,7 +109,7 @@ Persist the selected complete envelope as a governed message only when its body 
 
 1. Resolve the exact envelope/version to persist.
 2. Confirm the persistence criterion is body retrieval or evidence rather than merely an outstanding one-line obligation.
-3. Check whether this exact envelope/version is already persisted before writing, so a rerun does not create a duplicate.
+3. **Precondition — check before any write.** Check whether this exact envelope/version is already persisted. If it is, stop here: report the existing location and do not proceed to step 4. This check must run before creation, not after.
 4. Create the governed message document using Documentation Methodology naming, versioning, metadata, lifecycle, and Index registration behaviour.
 5. Preserve the complete envelope as substantive message content.
 6. Register in the applicable authoritative index as required.
@@ -118,16 +128,6 @@ If the write or Index context cannot be resolved safely, return the required act
 - Repeated parsing or reconciliation of unchanged evidence does not manufacture new state.
 - Do not resend an uncertain external message merely because generation can be repeated.
 
-## Platform commands
-
-Information. Build may expose the compatibility command vocabulary:
-
-```
-/msg  /msg-reply  /msg-fwd  /msg-promote  /msg-ack  /msg-query  /msg-reconcile
-```
-
-and may invoke Receive automatically for pasted AI-MESSAGE content. Exact platform triggers and command mechanics are not part of this tool contract.
-
 ---
 
-Version note: v2 — cross-review remediation. F2: idempotency declared per action in a table near the top, replacing the incomplete three-action note at the end. F3: QueryReceipt redefined as a New message with an explicit Expects choice; Reconcile split into initiate/respond/process-response with distinct Type and Expects per step. F4: Promote's Documentation Methodology dependency stated explicitly as a universal-exemption guarantee, plus a duplicate-check step before writing. F6: the duplicate expanded Trigger section removed — one canonical trigger description retained. 2026-09-15. Replaces v1.
+Version note: v3 — second cross-review remediation. R1: Promote's duplicate check reordered as step 3, a strict precondition before creation (step 4); idempotency table updated to "Yes, for the same exact envelope/version." R2: QueryReceipt's response contract fully specified as a single Reply to the query, with receipt evidence for the questioned message carried in Content. R3: Platform commands section removed — the compatibility slash-command vocabulary is design-time information for Build, not needed by a runtime executor; it remains in the design only. R4: trigger description and procedure wording no longer use "relay." 2026-09-15. Replaces v2.

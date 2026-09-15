@@ -1,4 +1,4 @@
-> identity: Messaging_Standard@v2 | doctype: standard | updated: 2026-09-15
+> identity: Messaging_Standard@v3 | doctype: standard | updated: 2026-09-15
 
 # Messaging
 
@@ -113,6 +113,12 @@ Use Acknowledge for explicit positive receipt proof — especially where the con
 
 Information. These mechanisms improve detection probability; they do not guarantee delivery.
 
+### QueryReceipt's response correlates to the query, not the questioned message
+
+QueryReceipt has two sides that must correlate unambiguously. The outbound query is a New message naming the questioned Message-ID @ Version in Content, with Expects: Ack or Answer, Ack.
+
+The response is exactly one Reply, and it replies to the *query* — In-Reply-To cites the query's own Message-ID @ Version, never the questioned message's. The receipt evidence for the questioned message is not carried by a second envelope or a different In-Reply-To target; it is stated explicitly in that Reply's Content, naming the questioned Message-ID @ Version and its held status. When the query's Expects included Answer, the same Reply's Content also states what was understood. One Reply satisfies the whole query.
+
 ## Working state and persistence
 
 Do not require a dedicated messaging obligations or sent-items register.
@@ -131,6 +137,8 @@ WIP and open items may carry relevant Message-ID, counterparty, and open-expecta
 Persist the message body only when the body itself must remain retrievable, evidential, or citable, or cannot safely be reconstructed from concise durable state. Length, effort, statelessness, or a session boundary alone do not require persistence.
 
 A persisted message preserves one complete envelope as its substantive record. Documentation Methodology — guaranteed present in every session as a universal dependency — supplies generic filename, document version, metadata, lifecycle, and Index behaviour. Envelope Version and governed file version remain distinct. Do not silently rewrite another party's message body.
+
+Before persisting, check whether this exact envelope/version is already persisted; if so, stop and report the existing location rather than creating a duplicate. This check is a precondition, evaluated before any write.
 
 ## Source marking and authority
 
@@ -165,4 +173,4 @@ The former dedicated obligations register is not required. Route live state to c
 
 ---
 
-Version note: v2 — cross-review remediation. F5: Receipt escalation selection rules changed from Information to Required (only the delivery-guarantee caveat remains Information). F7: Build/bootstrap material removed — it is design-time knowledge, not needed at moment of application. Identity and correlation section updated for the slug rule (Design D18) and Version owner-matching. Persistence section states the Documentation Methodology dependency as a universal-exemption guarantee (Design D20). 2026-09-15. Replaces v1.
+Version note: v3 — second cross-review remediation. R2: added the QueryReceipt response-correlation section — the response is one Reply to the query, carrying the questioned message's receipt evidence in Content. R4: "relay" language removed; the standard already avoided it, this version confirms no residual instance remains. Persistence section now states the duplicate check as an explicit precondition (supports R1, primarily a tool/design change). 2026-09-15. Replaces v2.
