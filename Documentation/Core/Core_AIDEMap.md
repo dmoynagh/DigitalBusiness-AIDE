@@ -1,4 +1,4 @@
-> identity: Core_AIDEMap@v1 | updated: 2026-09-15
+> identity: Core_AIDEMap@v2 | updated: 2026-09-15
 
 # AIDE Map
 
@@ -16,15 +16,14 @@ AIDE
 ├── Guidance
 │   ├── Principles — nine portable premises, any AI can adopt without adopting AIDE
 │   ├── Standards — definition of a standard, authoring rules, leanness, strength model
-│   └── Tools — definition of a tool, authoring concerns, invocability test
+│   ├── Tools — definition of a tool, authoring concerns, invocability test
+│   ├── Assurance — trust conventions, human working model, verification, drift detection, learning capture
+│   └── Improvement — pattern analysis of learnings queue, escalation decisions (identified, not yet scoped)
 │
 ├── Work
 │   ├── Working Practices (WP)
-│   │   ├── FileOps — file delivery, versioning lifecycle, git integration
-│   │   ├── WorkManagement — work items, definition of done, development lifecycle
-│   │   ├── Capture — capture-and-place, session-end allocation
-│   │   ├── ContentDelivery — binder concept, inclusion rules, context loading
-│   │   └── HumanAI — human working model, collaboration conventions
+│   │   ├── Working State — WIP model, work items, work plan, pending content, development lifecycle
+│   │   └── Content Delivery — binder concept, inclusion rules, context loading
 │   ├── Project Design (PD) — design specification, design-build loop, work register
 │   └── Build — execute the spec, report what was done, own code structure
 │
@@ -43,4 +42,4 @@ AIDE
 
 ---
 
-Version note: v1 — authored from the Core design pass. Replaces empty stub files (Core_AIDEMap.md, Core_AIDEMap.yaml). 2026-09-15.
+Version note: v2 — Assurance and Improvement added under Guidance; WP subtree updated to reflect WP_Design_v2 areas (Working State and Content Delivery replace the five pre-design-pass areas). 2026-09-15. Replaces v1.
