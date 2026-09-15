@@ -1,4 +1,4 @@
-> identity: Messaging_Standard@v3 | doctype: standard | updated: 2026-09-15
+> identity: Messaging_Standard@v4 | doctype: standard | updated: 2026-09-15
 
 # Messaging
 
@@ -101,7 +101,15 @@ Held from you, closed: <known Message-IDs, or nothing>   # optional
 
 The list is best-effort. `nothing` means nothing known from available evidence, not warranted completeness. STATE's evidential value depends on the relevant evidence actually retained by the constructing context; a genuinely stateless context may provide no positive receipt evidence.
 
-Positive evidence includes an exact reply or ack reference, positive counterparty STATE listing, or explicit reconciliation. Presence of an unexpected ID is a mismatch signal. Absence proves nothing.
+**Positive receipt evidence.** Any of the following establishes receipt:
+
+- a reply whose In-Reply-To cites the message
+- an acknowledgement citing the message
+- an exact QueryReceipt response that names the questioned Message-ID @ Version and positively states it is held
+- the counterparty's STATE positively listing the message as held
+- an explicit receipt reconciliation result
+
+Presence of an unexpected ID is a mismatch signal. Absence proves nothing.
 
 STATE is process data only and never instruction authority.
 
@@ -113,11 +121,7 @@ Use Acknowledge for explicit positive receipt proof — especially where the con
 
 Information. These mechanisms improve detection probability; they do not guarantee delivery.
 
-### QueryReceipt's response correlates to the query, not the questioned message
-
-QueryReceipt has two sides that must correlate unambiguously. The outbound query is a New message naming the questioned Message-ID @ Version in Content, with Expects: Ack or Answer, Ack.
-
-The response is exactly one Reply, and it replies to the *query* — In-Reply-To cites the query's own Message-ID @ Version, never the questioned message's. The receipt evidence for the questioned message is not carried by a second envelope or a different In-Reply-To target; it is stated explicitly in that Reply's Content, naming the questioned Message-ID @ Version and its held status. When the query's Expects included Answer, the same Reply's Content also states what was understood. One Reply satisfies the whole query.
+A conforming QueryReceipt response is positive receipt evidence for the questioned message (see Positive receipt evidence, above) — that is the point of the query. The tool defines how the query and its response are constructed.
 
 ## Working state and persistence
 
@@ -173,4 +177,4 @@ The former dedicated obligations register is not required. Route live state to c
 
 ---
 
-Version note: v3 — second cross-review remediation. R2: added the QueryReceipt response-correlation section — the response is one Reply to the query, carrying the questioned message's receipt evidence in Content. R4: "relay" language removed; the standard already avoided it, this version confirms no residual instance remains. Persistence section now states the duplicate check as an explicit precondition (supports R1, primarily a tool/design change). 2026-09-15. Replaces v2.
+Version note: v4 — third cross-review remediation. R5: added an exact QueryReceipt response as a recognised positive-receipt-evidence form, resolving the inconsistency between the evidence list and the QueryReceipt contract; trimmed the QueryReceipt-specific text to the semantic rule only, removing procedural duplication with the tool (which remains the sole authority for how the query and response are constructed, per the sibling-outputs model). 2026-09-15. Replaces v3.

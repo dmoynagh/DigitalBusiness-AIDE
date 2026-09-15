@@ -1,10 +1,10 @@
-> identity: Messaging_Decisions@v3 | doctype: decisions | updated: 2026-09-15
+> identity: Messaging_Decisions@v4 | doctype: decisions | updated: 2026-09-15
 
 # Messaging — Decisions
 
 ## Summary
 
-Reasoning and resolutions from the Messaging design pass. Twenty-five decisions: D1 is new to the rebuild (positioning change); D2–D15 carry substance from the legacy Messaging design; D16–D17 are structural decisions from the rebuild; D18–D21 remediate first cross-review findings F1–F7; D22–D25 remediate second cross-review findings R1–R4.
+Reasoning and resolutions from the Messaging design pass. Twenty-eight decisions: D1 is new to the rebuild (positioning change); D2–D15 carry substance from the legacy Messaging design; D16–D17 are structural decisions from the rebuild; D18–D21 remediate first cross-review findings F1–F7; D22–D25 remediate second cross-review findings R1–R4; D26–D28 remediate third cross-review findings R5–R7.
 
 ---
 
@@ -160,7 +160,7 @@ Reasoning and resolutions from the Messaging design pass. Twenty-five decisions:
 
 **Decision.** Reconcile is defined as three distinct steps, each with its own Type/In-Reply-To/Expects: initiate (New, Expects: Answer), respond (Reply, In-Reply-To set, Expects: None), and process-the-response (no new envelope).
 
-**Reason.** Cross-review found that Reconcile conflated three operationally different envelopes under one heading; separating them removes the ambiguity about whether "Reconcile" means initiating, answering, or reading a response. (QueryReceipt's contract, the other half of F3, is addressed by D18's successor work — see D23, which supersedes the D19-era QueryReceipt treatment after the second cross-review found its response side still ambiguous.)
+**Reason.** Cross-review found that Reconcile conflated three operationally different envelopes under one heading; separating them removes the ambiguity about whether "Reconcile" means initiating, answering, or reading a response. (QueryReceipt's contract, the other half of F3, went through further remediation in D23 and D26.)
 
 ---
 
@@ -181,7 +181,7 @@ Reasoning and resolutions from the Messaging design pass. Twenty-five decisions:
 - **Trigger duplication (F6).** The tool carries exactly one trigger description. An earlier expanded `## Trigger` section duplicated the opening description at roughly 358 characters, well outside the 130-character budget. It was removed.
 - **Carry test (F7).** Build/bootstrap material — that skills, commands, and triggers are Build concerns, and that no bootstrap contribution is required by default — is design-time knowledge for Build, not something a runtime Messaging consumer acts on. It stays in this design and is not carried into the standard.
 
-**Reason.** All four are authoring-standard compliance issues rather than model defects, as cross-review itself concluded ("mainly missing operational specification and authoring-discipline issues rather than a need to redesign the Messaging model"). Fixing them in the standard and tool, with this decision recording why, keeps the design document from re-litigating settled authoring rules it does not own.
+**Reason.** All four are authoring-standard compliance issues rather than model defects. Fixing them in the standard and tool, with this decision recording why, keeps the design document from re-litigating settled authoring rules it does not own.
 
 ---
 
@@ -191,15 +191,15 @@ Reasoning and resolutions from the Messaging design pass. Twenty-five decisions:
 
 Promote's idempotency classification changes from "No" to "Yes, for the same exact envelope/version" — not idempotent across different envelope/versions, since each is a distinct persist decision.
 
-**Reason.** The second cross-review found the v2 design listed the duplicate check as a late step, after creation and registration had already occurred — at which point it could not prevent the duplication it was meant to prevent. This directly contradicted the tool, which had the check correctly ordered as a precondition, and contradicted D21's own stated intent. Once the check genuinely gates creation, Tools Authoring Standard v8's operational idempotency test — is it safe to rerun — is satisfied for the same envelope/version: a rerun finds the existing copy and stops before writing again. The v2 table's "No" reasoning ("rerunning...must not create a duplicate") was describing the guard that makes the operation idempotent, not a reason it isn't.
+**Reason.** The second cross-review found the v2 design listed the duplicate check as a late step, after creation and registration had already occurred — at which point it could not prevent the duplication it was meant to prevent. This directly contradicted the tool, which had the check correctly ordered as a precondition. Once the check genuinely gates creation, Tools Authoring Standard v8's operational idempotency test — is it safe to rerun — is satisfied for the same envelope/version.
 
 ---
 
 ## D23. QueryReceipt's response is one Reply to the query, carrying receipt evidence for the questioned message in Content (remediates R2)
 
-**Decision.** When responding to a QueryReceipt, the recipient composes exactly one Reply whose In-Reply-To cites the query's own Message-ID @ Version — never the originally questioned message's. That Reply's Content explicitly names the questioned Message-ID @ Version and states whether it is held; this statement is the receipt evidence the query was asking for. If the query's Expects included Answer, the same Reply's Content also states what was understood about the questioned message. No second envelope — a separate Acknowledge targeting the questioned message — is issued in response to a QueryReceipt.
+**Decision.** When responding to a QueryReceipt, the recipient composes exactly one Reply whose In-Reply-To cites the query's own Message-ID @ Version — never the originally questioned message's. That Reply's Content explicitly names the questioned Message-ID @ Version and states whether it is held. If the query's Expects included Answer, the same Reply's Content also states what was understood. No second envelope is issued.
 
-**Reason.** The second cross-review found that "Expects: Ack" on a QueryReceipt was ambiguous between two readings: acknowledging the query itself (since Ack is the query's own response contract) or acknowledging the originally questioned message (since that is what the query is actually trying to establish) — and that "Answer, Ack" additionally left open whether one or two envelopes should result. Settling the correlation explicitly — always reply to the query, always carry the questioned message's receipt status in that reply's Content — removes both ambiguities with no second envelope and no change to the one-envelope-per-output rule (D13).
+**Reason.** The second cross-review found "Expects: Ack" on a QueryReceipt ambiguous between acknowledging the query itself or the originally questioned message, and found "Answer, Ack" additionally unclear on envelope count. Settling the correlation explicitly removes both ambiguities with no change to the one-envelope-per-output rule (D13).
 
 ---
 
@@ -207,7 +207,7 @@ Promote's idempotency classification changes from "No" to "Yes, for the same exa
 
 **Decision.** The compatibility slash-command vocabulary (`/msg`, `/msg-reply`, etc.) and the statement that Build may expose it are removed from the tool's Platform commands section and retained only in the design's Platform and bootstrap section.
 
-**Reason.** The first remediation (D21, F7) applied the carry test to the standard but left a parallel section in the tool. The second cross-review correctly identified that a runtime executor of Compose, Receive, Reply, and the other actions has no operational use for the slash-command mapping — it is information for whoever builds the platform representation, not for whoever performs the action. The design already owns this boundary; duplicating a shorter version of it into the tool served no consumer.
+**Reason.** A runtime executor of Compose, Receive, Reply, and the other actions has no operational use for the slash-command mapping — it is information for whoever builds the platform representation, not for whoever performs the action. The design already owns this boundary; duplicating a shorter version of it into the tool served no consumer.
 
 ---
 
@@ -215,8 +215,34 @@ Promote's idempotency classification changes from "No" to "Yes, for the same exa
 
 **Decision.** The tool's trigger description and the design's system-model diagram no longer use "relay" to describe what Messaging or its tool does. The trigger reads "Compose, forward, or process a structured AI-MESSAGE for another AI, session, project, or platform" — describing the actions Messaging actually owns without implying it performs delivery.
 
-**Reason.** The second cross-review found that "relay...to another AI" reads as though the Messaging tool transports the message, contradicting D1's central positioning that Messaging defines what is carried and Orchestration moves it. The Compose procedure only ever emits an envelope; nothing in the tool contract performs delivery. The wording is corrected wherever it appeared, including the Boundaries section, which now states explicitly that Messaging's own vocabulary avoids implying it performs delivery.
+**Reason.** The second cross-review found that "relay...to another AI" reads as though the Messaging tool transports the message, contradicting D1's central positioning that Messaging defines what is carried and Orchestration moves it.
 
 ---
 
-Version note: v3 — remediates second cross-review findings R1–R4 and one cross-reference correction (D22–D25 added). D1–D21 unchanged in substance; D19's cross-reference to QueryReceipt superseded by D23 is noted inline. 2026-09-15. Replaces v2.
+## D26. QueryReceipt response added as a recognised positive-evidence form; construction procedure consolidated to the tool (remediates R5)
+
+**Decision.** The canonical positive-receipt-evidence list gains a fifth form: an exact QueryReceipt response that names the questioned Message-ID @ Version and positively states it is held. This is added in both the design (Receipt integrity and STATE, Positive receipt evidence) and the standard.
+
+The design's QueryReceipt subsection is trimmed to state only the semantic rule — that a conforming response is positive evidence — and points to the tool for how the query and response are actually constructed. The standard's QueryReceipt-specific material is likewise trimmed to the semantic rule; the full two-sided construction procedure (Type, In-Reply-To, Expects choices for both the outbound query and the inbound response) lives only in the tool.
+
+**Reason.** The third cross-review found a genuine internal inconsistency: D23 had defined a new evidence form (a QueryReceipt response's Content statement) without adding it to the canonical list of what counts as positive receipt evidence, so the general evidence rules and the specific QueryReceipt contract disagreed with each other. Cross-review also correctly identified that the standard, in stating D23's full procedure, had begun duplicating the tool's authority over its own invokable action — a violation of the sibling-outputs model (Tools Authoring Standard v8), where the tool is the single authority for how an action is performed and the standard carries only the application-time semantic rule.
+
+---
+
+## D27. Receive's idempotency split into parsing (idempotent) and dispatch (not idempotent, inherits the invoked action's contract) (remediates R6)
+
+**Decision.** Receive itself — parsing, validating, checking STATE, surfacing Topic/Expects, interpreting working state — is idempotent and does not itself emit an envelope. When Receive recommends or hands off to Reply, Acknowledge, or Reconcile, that is a separate invocation of the named action, governed by that action's own procedure and its own idempotency entry in the table. Receive's own table row is reworded to make this explicit, and its "recommend/execute" language is changed to "recommend" — execution is the named action's step, not Receive's.
+
+**Reason.** The third cross-review found the idempotency table declaring Receive unconditionally idempotent while Receive's own procedure said it may execute Reply, Acknowledge, or Reconcile — all separately declared non-idempotent. Rerunning Receive under the old wording could re-trigger a non-idempotent action as a side effect, which the table's "Yes" did not warn about. Splitting Receive into a pure-processing effect and a separate dispatch removes the contradiction without inventing a new duplicate-guard mechanism: the invoked action already carries the guard it needs (e.g. Promote's precondition check, D22), and Receive no longer claims an idempotency guarantee that covers effects it doesn't itself control.
+
+---
+
+## D28. Remaining "relay" instance removed from the Review boundary statement (remediates R7)
+
+**Decision.** The Boundaries section's Review entry — "Messaging owns the envelope, relay, and receipt behaviour Review consumes" — is corrected to "Messaging owns the envelope, correlation, and receipt behaviour Review consumes."
+
+**Reason.** D25 removed "relay" from the trigger and system-model diagram but missed this instance. "Owns...relay...behaviour" read as transport ownership, directly adjacent to and in tension with the Orchestration entry two lines below, which states Orchestration owns transport channels and routing. "Correlation" names what Messaging actually owns in this context — Message-ID, Thread, and In-Reply-To matching — without repeating the delivery implication.
+
+---
+
+Version note: v4 — remediates third cross-review findings R5–R7 (D26–D28 added). D1–D25 unchanged in substance. 2026-09-15. Replaces v3.
