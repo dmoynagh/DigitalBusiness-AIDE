@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 68** (2026-09-15).
+> **Binder Version 69** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -13,13 +13,14 @@ individual files.
 - `_rebuild/AIDE_Rebuild_Guide_v1.md` - sha256 `01ceb45e507b`
 - `_rebuild/AIDE_Rebuild_Overview_v1.md` - sha256 `5a65c44f5991`
 - `_rebuild/AIDE_Rebuild_SettledDecisions_v1.md` - sha256 `33593102e982`
-- `_rebuild/Assurance_Brief_Sketch_v1.md` - sha256 `4fe1f626645a`
+- `_rebuild/Assurance_Brief_Sketch_v2.md` - sha256 `1c61ea8c6846`
+- `_rebuild/Build_Input_Working_v1.md` - sha256 `1bb3513464e6`
 - `_rebuild/ProjectDesign_Decisions_Pending_v1.md` - sha256 `647aacf4c1ad`
 - `_rebuild/ProjectDesign_Design_Pending_v1.md` - sha256 `587bc4c6165f`
 - `_rebuild/ProjectDesign_StandardInputs_Pending_v1.md` - sha256 `710b74bb0958`
 - `_rebuild/ProjectDesign_WorkRegister_Pending_v1.md` - sha256 `638ebbfb6eef`
 - `_rebuild/WP_Check1_Assessment_v1.md` - sha256 `dba57b98ffda`
-- `_rebuild/WP_CoreCarries_v1.md` - sha256 `bdd10968efe3`
+- `_rebuild/WP_CoreCarries_v2.md` - sha256 `2f3ab75ce434`
 - `AIDE_Solution_Map.md` - sha256 `3c2294f7ae2b`
 - `Core/_index.md` - sha256 `31c7a15e03eb`
 - `Core/Core_AIDEMap.md` - sha256 `fd95d6407fb1`
@@ -77,8 +78,8 @@ individual files.
 - `Working Practices/WP_Brief_v1.md` - sha256 `4a970773c638`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
 - `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `6b858ff04f50`
-- `Working Practices/WP_Decisions_v1.md` - sha256 `129dd0efccb0`
-- `Working Practices/WP_Design_v1.md` - sha256 `f7eba7256597`
+- `Working Practices/WP_Decisions_v2.md` - sha256 `4f8e32b0cc88`
+- `Working Practices/WP_Design_v2.md` - sha256 `1daab8c38faa`
 - `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `59a0bba2401c`
 
 ---
@@ -1789,10 +1790,10 @@ itself → Documentation Methodology.*
 
 ---
 
-<!-- BEGIN SOURCE: _rebuild/Assurance_Brief_Sketch_v1.md -->
+<!-- BEGIN SOURCE: _rebuild/Assurance_Brief_Sketch_v2.md -->
 # Assurance — Brief (sketch)
 
-This is a sketch produced during the Working Practices design pass to hold the confirmed identity and scope of the Assurance component until its own design pass. It is not a full brief — purpose and content are confirmed; objectives and definition of done await the design pass.
+This is a sketch produced during the Working Practices design pass and expanded during the Assurance scoping session. It is not a full brief — purpose, content, and scope direction are confirmed; formal objectives and definition of done await the design pass.
 
 ---
 
@@ -1804,28 +1805,57 @@ Build justified trust in AI-assisted work by defining and evolving the conventio
 
 Guidance. Sits alongside Principles, Standards, and Tools. Provides the trust and outcome conventions.
 
+## Scope — full lifecycle, not build-focused
+
+Assurance runs the full length of work, from the first conversational concept through to delivery. The quality of the top two levels of design — the overview and the approach — carries a near one-to-one relationship with everything downstream: what's built, delivered, deployed, and managed. Assurance therefore protects the highest-leverage work first. It is not primarily a build-side or output-verification concern.
+
+This means assurance conventions apply during the qualifying and shaping of intent, during the human-and-AI design of the model, through AI-driven detailed specification, into build, and through orchestration and review. The earliest stages are where assurance matters most, because a flaw at the top multiplies through every layer below.
+
 ## Cross-cutting nature
 
 Assurance is both a component and a framework-wide requirement. Every element in the framework contributes to assurance — the brief-required gate, cross-review, operations test, acceptance test, strength model, capture-and-place, the design-check skill, definition of done, Principles P7/P8/P10 all contribute. The component owns its specific mechanisms; the framework-wide requirement is the lens every component is designed through.
 
-## Content (moved from WP's Human-AI Collaboration area)
+## Content
 
-**Proactive conventions** — help the AI deliver correctly in the first place:
-- Human working model (tiering, confidence signalling, assumptions/gap-fill report)
-- Overview-first discipline (consumed from WP's generic statement)
+Three connected areas of concern, following the lifecycle of the work.
 
-**Detective conventions** — help the human see when something has gone wrong:
-- Verification behaviours (verify inspectable facts, distinguish generated intent from applied state — consuming Principles P7 and P10)
-- Drift detection (recognising when work moves away from the agreed model — consuming P8)
-- Anomalies channel (surfacing things that don't fit — behaviour with capture-and-place as destination)
+### Proactive conventions — getting to the right outcome
 
-**Evolution path** — new failure modes discovered in practice become new conventions or detection behaviours. The area is a living system, not a fixed specification.
+Help the AI deliver correctly in the first place:
+
+- **Human working model** — the AI's operational contract with the human: tiering (named autonomy levels, small number, chosen by either side, AI judges default, human overrides), confidence signalling (using the existing framework strength model), assumptions and gap-fill report (the AI discloses what it filled in versus what the human stated)
+- **Overview-first discipline** (consumed from WP's generic statement) — the single most important assurance behaviour, because quality at the overview level is the primary determinant of downstream outcome
+
+### Detective conventions — making deviation visible
+
+Help the human see when something has gone wrong:
+
+- **Verification behaviours** — verify inspectable facts, distinguish generated intent from applied state (consuming Principles P7: verified truth over plausible assertion, and P9: confirmed state over assumed state)
+- **Drift detection** — recognising when work moves away from the agreed model, objective, or scope (consuming P7: loud failure over quiet absorption)
+- **Anomalies channel** — surfacing things that don't fit. A behaviour with capture-and-place as the destination, not a separate mechanism
+
+### Learning and feedback loop — improving from experience
+
+Identify opportunities where work outcomes can teach the system to be better:
+
+- **Measurable moments** — recognising situations where a clean A-B comparison exists: a known starting point, work done, an accepted end point. These are the recognition capability — Assurance has to know what a measurable moment looks like so it can catch one when it occurs.
+- **Quick comparison and capture** — at a measurable moment, the AI does a comparison and makes a judgement call on whether a learning is significant or noise. If significant, it writes a short synopsis to the learnings queue. This is AI-initiated and runs in the background, not prompted by the human.
+- **Learnings queue** — a distinct queue from the task/item queue. Holds raw observations written whenever a comparison throws one up. The threshold and frequency of comparisons need to be tunable, since each comparison costs thinking and consumption. Most entries sit and wait — their value is only visible in aggregate.
+- **Two escalation triggers** — a single high-impact instance caught in the moment (significant enough to act on alone), or a pattern that emerges across many low-weight entries during periodic review. Minor-but-frequent is a category that only exists in aggregate, so the queue must preserve entries that looked small individually.
+- **Interface to Improvement** — Assurance identifies and captures. The Improvement component (see boundary below) analyses, finds patterns, and decides what to act on. The learnings queue is the interface between them.
+
+### Evolution path
+
+New failure modes discovered in practice become new conventions or detection behaviours. The area is a living system, not a fixed specification. This is the charter's extensibility-from-learning objective (O4) showing up as a structural commitment.
 
 ## Key boundaries
 
-- Assurance defines what to watch for and how to signal it
-- WP defines how work is conducted (the substrate Assurance runs on)
+- Assurance defines what to watch for and how to signal it — conventions and policy
+- WP defines how work is conducted — the substrate Assurance runs on
 - Principles provides the reasoning premises both consume
+- Infrastructure owns the plumbing — the MCP that writes to the queue, the queue file format and location
+- Orchestration provides the mechanism to run things on a schedule — transport, not business logic
+- **Improvement** (new, identified but not yet scoped) — owns the pattern analysis, the periodic review of the learnings queue, and the decision about what to act on. Assurance identifies and captures; Improvement analyses and acts. The reviewer that periodically reads the learnings queue, spots candidate patterns, and escalates sits in Improvement, not Orchestration or Assurance.
 - Cross-review is likely an Orchestration concern that Assurance defines the criteria for
 
 ## Confirmed design decisions
@@ -1833,17 +1863,56 @@ Assurance is both a component and a framework-wide requirement. Every element in
 - Named tiers for autonomy levels, small number, chosen by either side. AI judges default; human overrides
 - Anomalies channel is a behaviour with capture-and-place as destination, not a separate mechanism
 - Confidence vocabulary uses the framework's existing strength model (strong/moderate/etc.), not a new system
-- These three decisions require review when the full design brief is produced
+- Learnings queue is distinct from the task/item queue — different lifecycle, different purpose
+- Two escalation triggers: single high-impact instance, or accumulated pattern
+- These decisions require review when the full design brief is produced
 
 ## Charter alignment
 
 Directly delivers O1 (trust and integrity) — the framework's primary reason for existing.
-Contributes to O4 (extensibility from learning) — conventions evolve as collaboration learns.
+Contributes to O4 (extensibility from learning) — conventions evolve as collaboration learns; the learning loop makes this concrete.
 
 ---
 
-Version note: v1 — sketch from the WP design pass. To be replaced by a full brief when the Assurance design pass begins. 2026-09-15.
-<!-- END SOURCE: _rebuild/Assurance_Brief_Sketch_v1.md -->
+Version note: v2 — expanded from the WP-pass sketch. Added: full-lifecycle scope (not build-focused), learning and feedback loop (measurable moments, learnings queue, two escalation triggers), Improvement component boundary, Infrastructure and Orchestration boundary clarifications. 2026-09-15.
+<!-- END SOURCE: _rebuild/Assurance_Brief_Sketch_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/Build_Input_Working_v1.md -->
+Build | working | Build_Input_Working@v1 | 2026-09-15
+
+# Build — Input (seed material for the design pass)
+
+Items confirmed during the FileOps review that belong to Build but cannot be settled until Build has its own design pass.
+
+---
+
+## Design-build separation principle
+
+Design and build are segmented areas with a handoff point between them — a work package, document, instruction, or other transitional artefact. File management likely mirrors that split: build outputs reside outside the design area, because the two areas are separate.
+
+**Stated as a leaning, not a hard rule.** There may be cases where an output relates to design activity. The concrete conventions are worked out when Build is designed.
+
+Source: FileOps review, redistributed from `WP_FileOps_Working_v1.md` (design-and-output separation item). Original content was a placeholder sketch, not a settled decision.
+
+## AIDE's own framework outputs — the near-term question
+
+AIDE itself has several kinds of build output, and each needs a home decision:
+
+- Standards deployed as skills
+- Skills output from tools
+- Packages and deployments
+- Other framework artefacts
+
+Different kinds of build outcome need different handling. .NET solutions are already a well-defined structure (solutions, projects), so that's fairly cut and dried. Framework outputs are not — they don't have an established convention.
+
+This is likely the first concrete problem Build tackles: deciding where AIDE's own outputs go, since those outputs are needed before any general convention is established.
+
+---
+
+Version note: v1 — seed material from the FileOps review session. Not a brief or design — raw input for the Build design pass. 2026-09-15.
+<!-- END SOURCE: _rebuild/Build_Input_Working_v1.md -->
 
 ---
 
@@ -3666,10 +3735,10 @@ Version note: v1 — Check 1 assessment of WP_Design_v1. 2026-09-15.
 
 ---
 
-<!-- BEGIN SOURCE: _rebuild/WP_CoreCarries_v1.md -->
+<!-- BEGIN SOURCE: _rebuild/WP_CoreCarries_v2.md -->
 # Carries to Core from the Working Practices design pass
 
-Working document. Items confirmed during the WP design pass that require updates to Core documents. To be applied at next Core update or via FUP.
+Working document. Items confirmed during the WP design pass and subsequent FileOps review that require updates to Core documents. To be applied at next Core update or via FUP.
 
 ---
 
@@ -3695,22 +3764,42 @@ When a boundary question arises, the component that holds the information decide
 
 Source: moved from Principles to WP during the Principles design pass; moved from WP to Core during the WP design pass, D5.
 
+## Core Structure (additions from FileOps dissolution, D17)
+
+### Archived folder convention
+
+One `_archived` folder at the documentation root. Files that are no longer active but worth keeping — retired references, completed reviews, outdated knowledge. Moving a file there removes it from binder scope (underscore-prefixed folders are outside AIDE processing) while keeping it in the repo and searchable.
+
+Source: FileOps dissolution, D17. Originally in `WP_FileOps_Working_v1.md`.
+
+### Git-as-history
+
+Git is the version history. The `_superseded` folder pattern is dropped. When a new version lands, version-cleanup deletes the old version from the working tree and commits the deletion. Rollback means `git checkout` of the previous version.
+
+Source: FileOps dissolution, D17. Originally in `WP_FileOps_Working_v1.md`. The mechanism side (version-cleanup performing the deletion and commit) is an Infrastructure concern, carried separately.
+
 ## Component map updates
 
 ### New component: Assurance
 
 | Component | Purpose | Key boundaries |
 |---|---|---|
-| Assurance | Build justified trust in AI-assisted work by defining and evolving the conventions, structures, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur. | Guidance role. Cross-cutting — every component contributes. Owns the human working model, verification behaviours, drift detection, anomalies channel. Does not own the substrate (WP) or the premises (Principles). |
+| Assurance | Build justified trust in AI-assisted work by defining and evolving the conventions, structures, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur. | Guidance role. Cross-cutting — every component contributes. Owns the human working model, verification behaviours, drift detection, anomalies channel, learning loop capture conventions. Does not own the substrate (WP), the premises (Principles), or the pattern analysis (Improvement). |
 
 Placed in the Guidance role alongside Principles, Standards, and Tools.
 
-Component count: 13 → 14.
+### New component: Improvement
+
+| Component | Purpose | Key boundaries |
+|---|---|---|
+| Improvement | Iterative improvement of the framework and working practices from accumulated learning, regardless of source (human or AI). | Owns the periodic pattern analysis of the learnings queue, escalation decisions, and the reviewer. Does not own the capture conventions (Assurance) or the scheduling mechanism (Orchestration). |
+
+Component count: 13 → 15.
 
 ---
 
-Version note: v1 — carries from the WP design pass. 2026-09-15.
-<!-- END SOURCE: _rebuild/WP_CoreCarries_v1.md -->
+Version note: v2 — adds Core Structure carries from FileOps dissolution (archived folder convention, git-as-history). Adds Improvement to the component map. Updates Assurance boundaries to reflect learning loop. Component count updated to 15. 2026-09-15.
+<!-- END SOURCE: _rebuild/WP_CoreCarries_v2.md -->
 
 ---
 
@@ -11215,14 +11304,14 @@ Version note: v1 — initial working document from session 2026-09-10.
 
 ---
 
-<!-- BEGIN SOURCE: Working Practices/WP_Decisions_v1.md -->
-> identity: WP_Decisions@v1 | doctype: decisions | updated: 2026-09-15
+<!-- BEGIN SOURCE: Working Practices/WP_Decisions_v2.md -->
+> identity: WP_Decisions@v2 | doctype: decisions | updated: 2026-09-15
 
 # Working Practices — Decisions
 
 ## Summary
 
-Reasoning and resolutions from the Working Practices design pass. Sixteen decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, and dispositions of accumulated items from other component passes.
+Reasoning and resolutions from the Working Practices design pass. Seventeen decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, dispositions of accumulated items from other component passes, and the FileOps dissolution.
 
 ---
 
@@ -11298,6 +11387,8 @@ The three process document types (working document, report, resource) are contai
 
 FileOps has confirmed content from the 2026-09-10 session but its coherence as an area is under review. Analysis showed it is part genuine working practice (file delivery rules), part duplication of Core Structure decisions (design/output separation), and part Infrastructure utility concerns that moved here by subject affinity (git commit behaviour, FUP move action, utility designs). Whether FileOps earns its place, dissolves, or is redefined is deferred for a focused review.
 
+**Superseded by D17** — FileOps dissolved after review.
+
 ## D15. WIP tracking via the project index
 
 A register of active WIP documents prevents orphaned or neglected content. The natural home is the project's index document — it already indexes what a scope contains. Not a new mechanism; an expansion of the index's existing role.
@@ -11306,15 +11397,28 @@ A register of active WIP documents prevents orphaned or neglected content. The n
 
 Every component contributes to assurance — it is a cross-cutting concern, not contained within one component. Resolved the same way as no-knowledge-lost: a framework-wide requirement stated in Core that every component's design is tested against. The Assurance component owns its specific mechanisms; the framework-wide requirement is the lens every component is designed through.
 
+## D17. FileOps dissolved — content redistributed by owner
+
+The File Operations area was reviewed and dissolved. Its six confirmed items from the 2026-09-10 session were grouped by subject ("files") rather than by a shared purpose. Once each item was tested against its natural owner, no coherent area remained — keeping a container for three different owners' content would be the apparatus failure that the design-check skill warns against.
+
+Content redistributed:
+
+- **WP component level:** file delivery rules (chat delivery and Code/Cowork path checking) — genuine working practice, already placed.
+- **Core Structure:** archived folder convention (one `_archived` folder at documentation root, underscore prefix removes from binder scope); git-as-history decision (superseded-folder pattern dropped, git is the version history).
+- **Infrastructure:** utility git commit behaviour (utilities stage and commit their own changes with descriptive messages); FUP move action (move/rename action extending create/replace vocabulary); version-cleanup deletion mechanism (deletes old file and commits).
+- **Build (as input):** design-and-output separation principle — not yet a settled decision, stated as a leaning that build outputs likely reside outside design. Concrete conventions deferred to the Build design pass. Captured in `_rebuild/Build_Input_Working_v1.md`.
+
+The working document `Working Practices/FileOps/WP_FileOps_Working_v1.md` is superseded by this redistribution.
+
 ---
 
-Version note: v1 — initial decisions from the WP design pass. 2026-09-15.
-<!-- END SOURCE: Working Practices/WP_Decisions_v1.md -->
+Version note: v2 — D17 added (FileOps dissolved, content redistributed). D14 marked as superseded by D17. Summary updated. 2026-09-15.
+<!-- END SOURCE: Working Practices/WP_Decisions_v2.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Working Practices/WP_Design_v1.md -->
-> identity: WP_Design@v1 | doctype: design | updated: 2026-09-15
+<!-- BEGIN SOURCE: Working Practices/WP_Design_v2.md -->
+> identity: WP_Design@v2 | doctype: design | updated: 2026-09-15
 
 # Working Practices — Design
 
@@ -11322,7 +11426,7 @@ Version note: v1 — initial decisions from the WP design pass. 2026-09-15.
 
 Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
 
-WP operates at two levels. At component level, capture-and-place and workflow commands are standing obligations that run continuously. Below that, two areas provide the models and conventions work uses: Working State (where content lives while in motion, how work is tracked and completed) and Content Delivery (how content reaches the AI session). A third area, File Operations, is parked for review — its purpose and boundaries need clarification before design can proceed.
+WP operates at two levels. At component level, capture-and-place, workflow commands, file delivery rules, and the overview-first discipline are standing obligations that run continuously. Below that, two areas provide the models and conventions work uses: Working State (where content lives while in motion, how work is tracked and completed) and Content Delivery (how content reaches the AI session).
 
 The Assurance component, identified during this design pass, takes ownership of the human working model, trust-building conventions, verification behaviours, drift detection, and anomalies — the content originally placed in a Human-AI Collaboration area. Assurance is both a component (Guidance role) and a framework-wide requirement (Core).
 
@@ -11379,8 +11483,6 @@ Two rules for when files are updated outside of a FileUpdatePackage:
 1. **Chat delivery** — when outputting an updated file for download, instruct the user where to save it based on the path in the document header.
 2. **Code / Cowork direct file access** — check the file's physical location against the path in the header; move it if they disagree.
 
-These may move into File Operations if that area is retained, or remain at component level if it dissolves. Parked with FileOps.
-
 ### Overview-first working discipline
 
 The generic discipline of staying at the overview level until it could drive excellent execution, probing rather than diving. This is broader than design — it applies to any work where there is a temptation to descend into detail before the shape is clear. Project Design owns the design-specific application in its standard; WP states the generic behaviour.
@@ -11425,13 +11527,9 @@ WP owns three process document types that serve the working process:
 
 These are workflow documents, not design outputs. Documentation Methodology owns the doctype mechanics; Working Practices owns these specific types because they serve the working process.
 
-### Open items
-
-The ongoing list of work to be done, discussed, or worked through — allocated to a component, area, or part. Escalates to a working document per the split test when volume compromises the list's usefulness.
-
 ### Work items
 
-The base workflow entity. An encapsulated unit of something pending in a workflow — something that needs attention, or is being worked through. Raised from any source: the human, a build return, the AI noticing a consequence, another component handing something in. Weight is not decided at the moment it is raised.
+A generic entity flowing through a workflow. A thing noticed that needs to be tracked, discussed, resolved, or acted on.
 
 **Two axes:**
 
@@ -11504,9 +11602,18 @@ The key question for inclusion is not whether a file is a governed document, but
 
 ---
 
-## File Operations — PARKED
+## File Operations — DISSOLVED (D17)
 
-How files are physically managed — delivery, placement, versioning lifecycle, separation of design and output, git integration. This area has confirmed content from the 2026-09-10 session but its coherence as an area is under review. Some of its content duplicates Core Structure decisions; some is Infrastructure utility concerns that moved here by subject affinity rather than purpose alignment. To be resolved: whether FileOps earns its place as an area, dissolves with content redistributed, or is redefined with a clearer purpose.
+The File Operations area was dissolved after review. Its six confirmed items from the 2026-09-10 session were grouped by subject ("files") rather than by purpose, and once redistributed to their natural owners no coherent area remained.
+
+Content redistributed to:
+
+- **WP component level** — file delivery rules (already placed above)
+- **Core Structure** — archived folder convention; git-as-history decision (superseded-folder pattern dropped). Carried in `_rebuild/WP_CoreCarries_v2.md`.
+- **Infrastructure** — utility git commit behaviour; FUP move action; version-cleanup deletion mechanism. Carried in WIP.
+- **Build** — design-and-output separation principle and AIDE output conventions. Captured in `_rebuild/Build_Input_Working_v1.md`.
+
+The working document `Working Practices/FileOps/WP_FileOps_Working_v1.md` is superseded by this redistribution.
 
 ---
 
@@ -11535,13 +11642,12 @@ WP owns generic operating behaviour and live state — the middle placement band
 - Process document types (working document, report, resource)
 - The binder concept (why and how, not the doctype)
 - The overview-first working discipline (generic)
-- File delivery rules (pending FileOps resolution)
-- File operation conventions (pending FileOps resolution)
+- File delivery rules
 
 ---
 
-Version note: v1 — initial design from the WP design pass. 2026-09-15.
-<!-- END SOURCE: Working Practices/WP_Design_v1.md -->
+Version note: v2 — FileOps dissolved (D17): content redistributed to WP component level, Core Structure, Infrastructure, and Build. Two pending-FileOps-resolution lines in WP-owns list resolved. 2026-09-15.
+<!-- END SOURCE: Working Practices/WP_Design_v2.md -->
 
 ---
 
