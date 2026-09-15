@@ -1,4 +1,4 @@
-> identity: Messaging_Standard@v1 | doctype: standard | updated: 2026-09-15
+> identity: Messaging_Standard@v2 | doctype: standard | updated: 2026-09-15
 
 # Messaging
 
@@ -45,14 +45,18 @@ Omit optional fields and sections when they add no information. Lifecycle is not
 
 ## Identity and correlation
 
-- Thread is the stable conversation grouping; Topic changes do not change it.
-- Message-ID identifies one message independently of time or topic.
+**The slug rule.** One transformation produces every derived identity component: lowercase, replace anything that is not a letter, digit, or hyphen with a hyphen, then collapse repeated hyphens and trim leading/trailing hyphens.
+
+- Thread is the stable conversation grouping, formed by the slug rule; Topic changes do not change it.
+- Message-ID identifies one message independently of time or topic. Its From-slug component is the From value passed through the slug rule.
+- Version is `{Owner}_v{N}`, where Owner is the From value in its normal display capitalisation and N starts at 1. Owner is matched case-insensitively via the slug rule, so display form is cosmetic and identity is stable.
 - Each sender owns only its own `{Thread}/{From-slug}/{NNN}` sequence. Gaps are valid.
 - Never reconstruct an identifier from recollection. Use visible or persisted evidence, or reconcile.
-- Version identifies revisions of the same Message-ID and is issued only by the From owner.
+- Version is issued only by the From owner.
 - A revision before known relay remains at the first version; do not infer relay merely because a draft was emitted.
 - Reply correlation uses exact Message-ID @ Version, never Timestamp.
 - Timestamp is readability and coarse ordering only. Obtain current time from an available clock; if unavailable, use date-only precision rather than fabricated time.
+- From and To identify communicating contexts at a useful human/project/platform level. Recommended. Choose a party identity once per context and reuse it, rather than inventing one per message — this keeps the slug stable across a thread's life.
 
 ## Types and provenance
 
@@ -105,7 +109,7 @@ When constructing a Reply, recompute open/closed state after applying what the r
 
 ## Receipt escalation
 
-Information. Use the Messaging tool's Acknowledge when explicit positive receipt proof is wanted — especially where the context cannot rely on retained STATE evidence. Use QueryReceipt when one specific message may be missing. Use Reconcile when the broader thread state is not trusted.
+Use Acknowledge for explicit positive receipt proof — especially where the context cannot rely on retained STATE evidence. Use QueryReceipt when one specific message may be missing. Use Reconcile when the broader thread state is not trusted.
 
 Information. These mechanisms improve detection probability; they do not guarantee delivery.
 
@@ -126,7 +130,7 @@ WIP and open items may carry relevant Message-ID, counterparty, and open-expecta
 
 Persist the message body only when the body itself must remain retrievable, evidential, or citable, or cannot safely be reconstructed from concise durable state. Length, effort, statelessness, or a session boundary alone do not require persistence.
 
-A persisted message preserves one complete envelope as its substantive record. Documentation Methodology supplies generic filename, document version, metadata, lifecycle, and Index behaviour. Envelope Version and governed file version remain distinct. Do not silently rewrite another party's message body.
+A persisted message preserves one complete envelope as its substantive record. Documentation Methodology — guaranteed present in every session as a universal dependency — supplies generic filename, document version, metadata, lifecycle, and Index behaviour. Envelope Version and governed file version remain distinct. Do not silently rewrite another party's message body.
 
 ## Source marking and authority
 
@@ -159,12 +163,6 @@ Do not retrofit identifiers or rewrite already-relayed legacy exchanges. A recog
 
 The former dedicated obligations register is not required. Route live state to conversation, WIP, open items, or persisted message according to actual persistence need.
 
-## Platform boundary
-
-Information. Skills, plugins, slash commands, pasted-envelope triggers, direct route integrations, clock and file APIs, and UI rendering are Build concerns. Preserve this standard's semantics across representations.
-
-Information. No messaging bootstrap contribution is required by default. Add one only if target evidence shows normal capability discovery cannot reliably recognise messaging when needed.
-
 ---
 
-Version note: v1 — initial standard from the Messaging design pass. Sibling output with Messaging_Tool@v1 from Messaging_Design@v1. 2026-09-15.
+Version note: v2 — cross-review remediation. F5: Receipt escalation selection rules changed from Information to Required (only the delivery-guarantee caveat remains Information). F7: Build/bootstrap material removed — it is design-time knowledge, not needed at moment of application. Identity and correlation section updated for the slug rule (Design D18) and Version owner-matching. Persistence section states the Documentation Methodology dependency as a universal-exemption guarantee (Design D20). 2026-09-15. Replaces v1.

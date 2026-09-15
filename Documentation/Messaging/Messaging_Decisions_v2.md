@@ -1,10 +1,10 @@
-> identity: Messaging_Decisions@v1 | doctype: decisions | updated: 2026-09-15
+> identity: Messaging_Decisions@v2 | doctype: decisions | updated: 2026-09-15
 
 # Messaging — Decisions
 
 ## Summary
 
-Reasoning and resolutions from the Messaging design pass. Seventeen decisions: D1 is new to the rebuild (positioning change); D2–D15 carry substance from the legacy Messaging design (Capabilities Messaging Decisions v2, twenty-three decisions consolidated); D16–D17 are new structural decisions from the rebuild.
+Reasoning and resolutions from the Messaging design pass. Twenty-one decisions: D1 is new to the rebuild (positioning change); D2–D15 carry substance from the legacy Messaging design; D16–D17 are structural decisions from the rebuild; D18–D21 remediate cross-review findings F1–F7.
 
 ---
 
@@ -148,4 +148,41 @@ Reasoning and resolutions from the Messaging design pass. Seventeen decisions: D
 
 ---
 
-Version note: v1 — initial decisions from the Messaging design pass. D2–D15 carry substance from legacy Capabilities Messaging Decisions v2 (twenty-three decisions consolidated). 2026-09-15.
+## D18. One slug rule for Thread, From-slug, and Version prefix (remediates F1)
+
+**Decision.** A single transformation — lowercase, non-alphanumeric to hyphen, collapse and trim — produces Thread, the From-slug component of Message-ID, and the identity used to match a Version owner prefix. The Version prefix displays in the owner's normal capitalisation for readability but is compared case-insensitively via the same slug.
+
+**Reason.** Cross-review found that Message-ID's `{Thread}/{From-slug}/{NNN}` and Version's `<owner-prefixed vN>` each named a transformation without defining it, leaving a fresh AI unable to construct or validate identity fields deterministically. Defining two separate transformations would have been two things to keep in sync for no benefit — one rule serving three uses closes the gap without adding a second concept. From/To stability guidance was added alongside it, since a party identity that is chosen once per context and reused is what makes the slug stable across a thread's life.
+
+---
+
+## D19. Reconcile split into three explicit moments; QueryReceipt given a full envelope contract (remediates F3)
+
+**Decision.** Reconcile is defined as three distinct steps, each with its own Type/In-Reply-To/Expects: initiate (New, Expects: Answer), respond (Reply, In-Reply-To set, Expects: None), and process-the-response (no new envelope). QueryReceipt is defined as a New message — not a Reply — that names the questioned message in Content without setting In-Reply-To, with Expects chosen between Ack alone or Answer, Ack depending on whether the sender needs confirmation of receipt or also an account of what was understood.
+
+**Reason.** Cross-review found that a capable AI could improvise a plausible envelope for these two actions, but the tool acceptance test asks whether the tool itself — not the executor's general competence — settles the construction. Reconcile in particular conflates three operationally different envelopes under one heading; separating them removes the ambiguity about whether "Reconcile" means initiating, answering, or reading a response.
+
+---
+
+## D20. Promote's Documentation Methodology dependency stated as an ambient guarantee, not a duplicated mechanism or a silent gap (remediates F4)
+
+**Decision.** Promote hands the governed-document operation — filename, version, metadata, lifecycle, index — to Documentation Methodology. This is explicitly stated to be safe because the main DocumentationMethodology standard is universal and exempt from `uses` declarations under the rebuild's source-defined propagation model: every session is guaranteed to have it present. No `uses: DocumentationMethodology_Standard` entry is added to the tool, because universal dependencies are by definition exempt from that declaration.
+
+**Reason.** Cross-review found the dependency real but unstated, making the acceptance test conditional on unproven context. The fix is not to declare a `uses` entry — that would misapply the exemption rule that already covers this case — but to say plainly, at the point Promote relies on it, that the guarantee exists and where it comes from. This keeps Messaging from duplicating Documentation Methodology's rules while removing the silence cross-review flagged.
+
+---
+
+## D21. Authoring-discipline cleanup: idempotency, strength, trigger duplication, carry test (remediates F2, F5, F6, F7)
+
+**Decision.** Four standing authoring corrections, applied directly in the standard and tool rather than recorded as design content:
+
+- **Idempotency (F2).** Declared per action in a table near the tool's opening, not only for three of eight actions at the bottom. Compose, Reply, Forward, Acknowledge, QueryReceipt, and the initiate/respond steps of Reconcile are not idempotent — each assigns a new Message-ID or emits a new envelope. Receive and the process-response step of Reconcile are idempotent. Promote is not idempotent as an operation and must check for an already-persisted duplicate before writing.
+- **Strength (F5).** The Receipt escalation selection rules ("use Acknowledge when…", "use QueryReceipt when…", "use Reconcile when…") are Required, not Information — they are discriminating operational guidance, not awareness content. Only the separate statement that these mechanisms cannot guarantee delivery remains Information.
+- **Trigger duplication (F6).** The tool carries exactly one trigger description. The prior expanded `## Trigger` section duplicated the opening description at roughly 358 characters, well outside the 130-character budget, and introduced "send"/"relay" language that blurred the Messaging/Orchestration transport boundary. It is removed; nothing in it was needed beyond what Applicability already states.
+- **Carry test (F7).** Build/bootstrap material — that skills, commands, and triggers are Build concerns, and that no bootstrap contribution is required by default — is design-time knowledge for Build, not something a runtime Messaging consumer acts on. It stays in the design's Platform and bootstrap section and is not carried into the standard.
+
+**Reason.** All four are authoring-standard compliance issues rather than model defects, as cross-review itself concluded ("mainly missing operational specification and authoring-discipline issues rather than a need to redesign the Messaging model"). Fixing them in the standard and tool, with this decision recording why, keeps the design document from re-litigating settled authoring rules it does not own.
+
+---
+
+Version note: v2 — remediates cross-review findings F1–F7 (D18–D21 added). D2–D15 unchanged, carrying substance from legacy Capabilities Messaging Decisions v2. 2026-09-15. Replaces v1.
