@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 77** (2026-09-15).
+> **Binder Version 78** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -61,10 +61,10 @@ individual files.
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `329d08514ab2`
 - `Messaging/_index.md` - sha256 `f58053f2afc6`
 - `Messaging/Messaging_Brief_v1.md` - sha256 `c1687d821833`
-- `Messaging/Messaging_Decisions_v1.md` - sha256 `3766236c5cd7`
-- `Messaging/Messaging_Design_v1.md` - sha256 `f19a2d41c606`
-- `Messaging/Messaging_Standard_v1.md` - sha256 `4b831b1f802f`
-- `Messaging/Messaging_Tool_v1.md` - sha256 `cf2b35fe6eec`
+- `Messaging/Messaging_Decisions_v2.md` - sha256 `3da2ea3af79a`
+- `Messaging/Messaging_Design_v2.md` - sha256 `f54c550674e9`
+- `Messaging/Messaging_Standard_v2.md` - sha256 `4815dbe0e0f5`
+- `Messaging/Messaging_Tool_v2.md` - sha256 `db4042c0dd60`
 - `Principles/Principles_Decisions_v5.md` - sha256 `33df0c86fba0`
 - `Principles/Principles_Design_v5.md` - sha256 `ba6e146bf1b7`
 - `Principles/Principles_Standard_v2.md` - sha256 `a2c5cf6f320d`
@@ -10212,14 +10212,14 @@ Version note: v1 — initial brief from the Messaging design pass. 2026-09-15.
 
 ---
 
-<!-- BEGIN SOURCE: Messaging/Messaging_Decisions_v1.md -->
-> identity: Messaging_Decisions@v1 | doctype: decisions | updated: 2026-09-15
+<!-- BEGIN SOURCE: Messaging/Messaging_Decisions_v2.md -->
+> identity: Messaging_Decisions@v2 | doctype: decisions | updated: 2026-09-15
 
 # Messaging — Decisions
 
 ## Summary
 
-Reasoning and resolutions from the Messaging design pass. Seventeen decisions: D1 is new to the rebuild (positioning change); D2–D15 carry substance from the legacy Messaging design (Capabilities Messaging Decisions v2, twenty-three decisions consolidated); D16–D17 are new structural decisions from the rebuild.
+Reasoning and resolutions from the Messaging design pass. Twenty-one decisions: D1 is new to the rebuild (positioning change); D2–D15 carry substance from the legacy Messaging design; D16–D17 are structural decisions from the rebuild; D18–D21 remediate cross-review findings F1–F7.
 
 ---
 
@@ -10363,13 +10363,50 @@ Reasoning and resolutions from the Messaging design pass. Seventeen decisions: D
 
 ---
 
-Version note: v1 — initial decisions from the Messaging design pass. D2–D15 carry substance from legacy Capabilities Messaging Decisions v2 (twenty-three decisions consolidated). 2026-09-15.
-<!-- END SOURCE: Messaging/Messaging_Decisions_v1.md -->
+## D18. One slug rule for Thread, From-slug, and Version prefix (remediates F1)
+
+**Decision.** A single transformation — lowercase, non-alphanumeric to hyphen, collapse and trim — produces Thread, the From-slug component of Message-ID, and the identity used to match a Version owner prefix. The Version prefix displays in the owner's normal capitalisation for readability but is compared case-insensitively via the same slug.
+
+**Reason.** Cross-review found that Message-ID's `{Thread}/{From-slug}/{NNN}` and Version's `<owner-prefixed vN>` each named a transformation without defining it, leaving a fresh AI unable to construct or validate identity fields deterministically. Defining two separate transformations would have been two things to keep in sync for no benefit — one rule serving three uses closes the gap without adding a second concept. From/To stability guidance was added alongside it, since a party identity that is chosen once per context and reused is what makes the slug stable across a thread's life.
 
 ---
 
-<!-- BEGIN SOURCE: Messaging/Messaging_Design_v1.md -->
-> identity: Messaging_Design@v1 | doctype: design | updated: 2026-09-15
+## D19. Reconcile split into three explicit moments; QueryReceipt given a full envelope contract (remediates F3)
+
+**Decision.** Reconcile is defined as three distinct steps, each with its own Type/In-Reply-To/Expects: initiate (New, Expects: Answer), respond (Reply, In-Reply-To set, Expects: None), and process-the-response (no new envelope). QueryReceipt is defined as a New message — not a Reply — that names the questioned message in Content without setting In-Reply-To, with Expects chosen between Ack alone or Answer, Ack depending on whether the sender needs confirmation of receipt or also an account of what was understood.
+
+**Reason.** Cross-review found that a capable AI could improvise a plausible envelope for these two actions, but the tool acceptance test asks whether the tool itself — not the executor's general competence — settles the construction. Reconcile in particular conflates three operationally different envelopes under one heading; separating them removes the ambiguity about whether "Reconcile" means initiating, answering, or reading a response.
+
+---
+
+## D20. Promote's Documentation Methodology dependency stated as an ambient guarantee, not a duplicated mechanism or a silent gap (remediates F4)
+
+**Decision.** Promote hands the governed-document operation — filename, version, metadata, lifecycle, index — to Documentation Methodology. This is explicitly stated to be safe because the main DocumentationMethodology standard is universal and exempt from `uses` declarations under the rebuild's source-defined propagation model: every session is guaranteed to have it present. No `uses: DocumentationMethodology_Standard` entry is added to the tool, because universal dependencies are by definition exempt from that declaration.
+
+**Reason.** Cross-review found the dependency real but unstated, making the acceptance test conditional on unproven context. The fix is not to declare a `uses` entry — that would misapply the exemption rule that already covers this case — but to say plainly, at the point Promote relies on it, that the guarantee exists and where it comes from. This keeps Messaging from duplicating Documentation Methodology's rules while removing the silence cross-review flagged.
+
+---
+
+## D21. Authoring-discipline cleanup: idempotency, strength, trigger duplication, carry test (remediates F2, F5, F6, F7)
+
+**Decision.** Four standing authoring corrections, applied directly in the standard and tool rather than recorded as design content:
+
+- **Idempotency (F2).** Declared per action in a table near the tool's opening, not only for three of eight actions at the bottom. Compose, Reply, Forward, Acknowledge, QueryReceipt, and the initiate/respond steps of Reconcile are not idempotent — each assigns a new Message-ID or emits a new envelope. Receive and the process-response step of Reconcile are idempotent. Promote is not idempotent as an operation and must check for an already-persisted duplicate before writing.
+- **Strength (F5).** The Receipt escalation selection rules ("use Acknowledge when…", "use QueryReceipt when…", "use Reconcile when…") are Required, not Information — they are discriminating operational guidance, not awareness content. Only the separate statement that these mechanisms cannot guarantee delivery remains Information.
+- **Trigger duplication (F6).** The tool carries exactly one trigger description. The prior expanded `## Trigger` section duplicated the opening description at roughly 358 characters, well outside the 130-character budget, and introduced "send"/"relay" language that blurred the Messaging/Orchestration transport boundary. It is removed; nothing in it was needed beyond what Applicability already states.
+- **Carry test (F7).** Build/bootstrap material — that skills, commands, and triggers are Build concerns, and that no bootstrap contribution is required by default — is design-time knowledge for Build, not something a runtime Messaging consumer acts on. It stays in the design's Platform and bootstrap section and is not carried into the standard.
+
+**Reason.** All four are authoring-standard compliance issues rather than model defects, as cross-review itself concluded ("mainly missing operational specification and authoring-discipline issues rather than a need to redesign the Messaging model"). Fixing them in the standard and tool, with this decision recording why, keeps the design document from re-litigating settled authoring rules it does not own.
+
+---
+
+Version note: v2 — remediates cross-review findings F1–F7 (D18–D21 added). D2–D15 unchanged, carrying substance from legacy Capabilities Messaging Decisions v2. 2026-09-15. Replaces v1.
+<!-- END SOURCE: Messaging/Messaging_Decisions_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: Messaging/Messaging_Design_v2.md -->
+> identity: Messaging_Design@v2 | doctype: design | updated: 2026-09-15
 
 # Messaging — Design
 
@@ -10461,9 +10498,25 @@ Lifecycle is not an envelope field. When a message is persisted as a governed do
 
 These are intentionally separate. Combining them previously caused ordering and correlation failures.
 
+### The slug rule
+
+One transformation is used everywhere an identity component must be derived from a party or thread name: lowercase, replace anything that is not a letter, digit, or hyphen with a hyphen, then collapse repeated hyphens and trim leading/trailing hyphens.
+
+This single rule produces:
+
+- **Thread** — a stable slug fixed when the thread opens. `Messaging Cross Review` → `messaging-cross-review`.
+- **From-slug** — the sender component of Message-ID, derived from the value in From. `AIDE-Claude` → `aide-claude`.
+- **Version owner prefix** — the From value passed through the slug rule, rendered in the owner's normal capitalisation for readability but compared case-insensitively. `AIDE-Claude` → prefix `AIDE-Claude`, e.g. `AIDE-Claude_v1`. The slug form (`aide-claude`) is the identity used for matching; the display form is cosmetic.
+
+One rule, three uses, no separate transformations to keep in sync.
+
+### From and To
+
+From and To identify the communicating contexts at a useful human/project/platform level — stable enough to slug consistently across a thread's life. A party identity should be chosen once per context (e.g. the platform or project name) and reused, not freshly invented per message. The standard does not hard-code named providers.
+
 ### Thread
 
-Thread groups one continuing conversation. It is fixed when the thread opens and does not change when Topic wording changes. Lowercase, hyphenated, short.
+Thread groups one continuing conversation. It is fixed when the thread opens and does not change when Topic wording changes.
 
 ### Message-ID
 
@@ -10477,7 +10530,7 @@ The sender assigns and increments only its own sequence within the thread. Parti
 
 ### Version
 
-Version identifies revisions of the same message. Only the From owner may issue a later version. A revision retains its Message-ID.
+Version identifies revisions of the same message: `{Owner}_v{N}`, where Owner is the From value in its display form (see slug rule) and N starts at 1. Only the From owner may issue a later version. A revision retains its Message-ID.
 
 A message revised before known relay remains at its first version. Once relay is known to have occurred, a substantive revision uses the next version. The drafting AI does not infer that relay occurred merely because it emitted a draft — the human performing the relay is the authority on whether relay occurred.
 
@@ -10494,8 +10547,6 @@ Timestamp is composition-time readability and coarse ordering. Obtain current ti
 ---
 
 ## Parties and message types
-
-From and To identify the communicating contexts at a useful human/project/platform level. The standard does not hard-code named providers.
 
 Type is one of:
 
@@ -10582,11 +10633,23 @@ When replying, recompute state after applying the reply's actual effect. If the 
 
 ## Receipt escalation
 
-Three behaviours supplement opportunistic STATE:
+Three behaviours supplement opportunistic STATE. Each is a distinct action contract — not a variation on Compose.
 
-- **Acknowledge** — explicit receipt proof for a particular Message-ID @ Version. Normally used when Expects includes Ack or receipt is otherwise important.
-- **QueryReceipt** — asks whether one specific message was received when later behaviour is inconsistent with receipt.
-- **Reconcile** — exchanges the parties' known Awaiting and Held lists when neither side trusts its current picture.
+### Acknowledge
+
+Explicit receipt proof for a particular Message-ID @ Version. A minimal Reply: reuses the source Thread, sets In-Reply-To to the exact source, and normally uses Expects: None. Used when Expects includes Ack or receipt is otherwise important, especially where the context cannot rely on retained STATE evidence.
+
+### QueryReceipt
+
+Asks whether one specific message was received, when later behaviour is inconsistent with receipt. This is a **New** message, not a Reply — it questions a message, it does not answer one, so In-Reply-To is not set even though it names the questioned message in Content. It reuses the queried message's Thread. Expects is Ack (receipt confirmation only) or Answer, Ack (receipt plus an account of what was understood) — chosen by whether the sender needs to know the message was seen or also needs to know what the recipient made of it.
+
+### Reconcile
+
+Exchanges the parties' known Awaiting and Held lists when neither side trusts its current picture. Reconcile has three distinct moments, each a different envelope:
+
+1. **Initiate** — Type: New. States the initiator's own known Awaiting/Held lists in Content. Expects: Answer.
+2. **Respond** — Type: Reply. In-Reply-To cites the initiating message. States the responder's own known Awaiting/Held lists in Content. Expects: None (the exchange of lists is the substance; nothing further is asked).
+3. **Process the response** — not a new envelope. The initiator reads the response, compares positive claims from both sides as evidence, treats absence as non-evidence, and updates WIP/open items only where the resulting state genuinely needs persistence.
 
 These are ordinary AI-MESSAGE exchanges and follow the same identity and rendering rules. The mechanism remains integrity rather than assurance — it cannot prove delivery where no evidence exists, and does not detect failures that occur after a message was received and its downstream work was separately lost.
 
@@ -10634,6 +10697,10 @@ A persisted message:
 A substantive correction to a relayed message is represented through messaging revision semantics, not by pretending the originally sent envelope had different content.
 
 Promotion does not imply a duplicate copy on both sides of an exchange. Register the persisted message in the applicable authoritative index according to normal document rules.
+
+### Promote's dependency on Documentation Methodology
+
+Promote's filename, document version, metadata, lifecycle, and Index behaviour are Documentation Methodology mechanics, not duplicated here. This is safe without a declared dependency because the main DocumentationMethodology standard is universal and exempt from `uses` under the rebuild's source-defined propagation model (every session is guaranteed to have it present). Messaging does not restate or assume anything beyond that guarantee — Promote hands the governed-document operation to Documentation Methodology rather than performing it itself.
 
 ---
 
@@ -10693,18 +10760,34 @@ Tool:
 
 PrimaryInvocation is a compatibility label. Exact slash commands, skill triggers, or UI actions are Build representations.
 
+### Idempotency, by action
+
+Idempotency is declared per action because the actions differ materially: some create a new identity or persist state on every run, others only process what already exists.
+
+| Action | Idempotent | Why |
+|---|---|---|
+| Compose | No | Each invocation may assign a new Message-ID |
+| Receive | Yes | Parsing unchanged input against unchanged evidence produces the same result |
+| Reply | No | Assigns a new sender-owned Message-ID |
+| Forward | No | Assigns a new sender-owned Message-ID |
+| Acknowledge | No | A minimal Reply — assigns a new Message-ID |
+| QueryReceipt | No | A New message — assigns a new Message-ID |
+| Reconcile — initiate/respond | No | Each creates a new envelope |
+| Reconcile — process response | Yes | Comparing unchanged evidence against an unchanged response produces the same result |
+| Promote | No | Persists a document; rerunning against an already-persisted message must not create a duplicate |
+
 ### Trigger
 
-Use when structured cross-context messaging is requested or when a block beginning `=== AI-MESSAGE ===` is supplied for processing.
+Compose or relay a structured AI-MESSAGE to another AI, session, project, or platform; or process a received `=== AI-MESSAGE ===` block.
 
 The tool may proactively recognise a pasted envelope. It does not automatically create outbound messages unrelated to the user's work.
 
 ### Compose
 
 1. Resolve From, To, Topic, Expects and payload.
-2. Reuse an established Thread only when the exchange belongs to it; otherwise create a stable new thread slug.
-3. Establish the next sender-owned Message-ID from reliable visible/persisted evidence. A new thread may begin its local sequence at 001.
-4. Set initial/current Version according to known relay/revision state; do not infer delivery.
+2. Reuse an established Thread only when the exchange belongs to it; otherwise create a stable new thread slug via the slug rule.
+3. Establish the next sender-owned Message-ID from reliable visible/persisted evidence, using From-slug from the slug rule. A new thread may begin its local sequence at 001.
+4. Set initial/current Version (`{Owner}_v{N}`) according to known relay/revision state; do not infer delivery.
 5. Obtain current time and set Timestamp.
 6. Apply source/out-of-band markings only where evidence and the standard permit.
 7. Construct the known counterparty STATE from conversation + WIP/open items evidence where relevant.
@@ -10751,7 +10834,7 @@ Legacy first-generation envelopes may be recognised when unambiguous. Do not inv
 
 Create a minimal Reply that:
 
-- cites the exact acknowledged Message-ID @ Version
+- reuses the source Thread and sets In-Reply-To to the exact acknowledged Message-ID @ Version
 - makes receipt explicit in Content
 - normally uses Expects: None
 - follows normal identity, Timestamp, STATE, and rendering rules
@@ -10760,26 +10843,27 @@ Acknowledgement proves receipt, not fulfilment of any separate substantive expec
 
 ### QueryReceipt
 
-Create a message concerning one specific Message-ID when subsequent behaviour is inconsistent with receipt:
+Create a **New** message concerning one specific Message-ID when subsequent behaviour is inconsistent with receipt:
 
-- identify the questioned Message-ID @ Version exactly
-- use Expects: Ack or Answer, Ack only where both are genuinely required
-- do not turn a query into a global reconciliation unless asked or the state is broadly inconsistent
+1. Reuse the queried message's Thread.
+2. Set Type: New. Do not set In-Reply-To — the query questions a message, it does not answer one.
+3. Name the questioned Message-ID @ Version exactly in Content.
+4. Set Expects: Ack (confirm receipt only) or Answer, Ack (confirm receipt and what was understood) — choose based on which the sender actually needs.
+5. Do not turn a query into a global reconciliation unless asked or the state is broadly inconsistent.
 
 ### Reconcile
 
-1. Build the local known counterparty working set from conversation/WIP/open items evidence.
-2. State the known Awaiting and Held/open lists and optional closed context.
-3. Ask the counterparty to return its corresponding known lists.
-4. On receipt, compare only positive claims as evidence; absence remains non-evidence.
-5. Surface missing/extra identifier mismatches and any unresolved identity or fulfilment ambiguity.
-6. Update WIP/open items only where the resulting state genuinely needs persistence.
+Three distinct moments, each a separate envelope or step:
+
+1. **Initiate.** Type: New. Build the local known counterparty working set from conversation/WIP/open items evidence. State the known Awaiting and Held/open lists and optional closed context in Content. Set Expects: Answer.
+2. **Respond.** Type: Reply. In-Reply-To cites the initiating Message-ID @ Version. State the responder's own known Awaiting/Held lists in Content. Set Expects: None.
+3. **Process the response.** No new envelope. Compare only positive claims from both sides as evidence; absence remains non-evidence. Surface missing/extra identifier mismatches and any unresolved identity or fulfilment ambiguity. Update WIP/open items only where the resulting state genuinely needs persistence.
 
 Reconcile does not create a permanent messaging register.
 
 ### Promote
 
-Persist the selected complete envelope as a governed message only when the body needs durable retrieval.
+Persist the selected complete envelope as a governed message only when the body needs durable retrieval. This operation is handed to Documentation Methodology, which is guaranteed ambient in every session (see Persistence above) — Messaging does not perform document mechanics itself.
 
 1. Resolve the exact envelope/version to persist.
 2. Confirm the persistence criterion is body retrieval or evidence rather than merely an outstanding one-line obligation.
@@ -10787,7 +10871,8 @@ Persist the selected complete envelope as a governed message only when the body 
 4. Preserve the complete envelope as substantive message content.
 5. Register in the applicable authoritative index as required.
 6. Do not add Lifecycle to the envelope or create a duplicate counterpart copy automatically.
-7. Report the resulting file/registration state.
+7. Check whether this exact envelope/version is already persisted before writing, so a rerun does not create a duplicate document.
+8. Report the resulting file/registration state.
 
 If the write/index context cannot be resolved safely, return the required action rather than pretending promotion succeeded.
 
@@ -10811,6 +10896,8 @@ Build decides: skill/plugin/command/UI representation, natural-language and past
 
 The marker `=== AI-MESSAGE ===` is itself a strong applicability cue. Messaging has no bootstrap contribution by default. Add a thin contribution only if platform evidence shows that normal tool discovery cannot reliably recognise a pasted envelope early enough.
 
+This boundary is design-time knowledge for Build; it is not carried into the standard (see Decisions D19 — carry test applied to Build/bootstrap material).
+
 The familiar command vocabulary may be rendered by Build:
 
 ```
@@ -10825,7 +10912,7 @@ These are compatibility and default implementation names, not canonical logical-
 
 **Messaging owns:** envelope format, field meanings, identity/threading/versioning, Expects and fulfilment, STATE receipt integrity, receipt escalation, source marking, drafting protections, persistence model (message-specific semantics), and the logical actions.
 
-**Documentation Methodology owns:** generic governed-document naming, versioning, lifecycle, metadata, and Current/Superseded/Archived handling when a message is persisted.
+**Documentation Methodology owns:** generic governed-document naming, versioning, lifecycle, metadata, and Current/Superseded/Archived handling when a message is persisted. Guaranteed ambient — no declared dependency needed.
 
 **Review owns:** Review lifecycle, request semantics, and reviewer selection. Messaging owns the envelope, relay, and receipt behaviour Review consumes for indirect or manual transport. Where a direct route exists, a platform implementation may transport Review content directly while preserving equivalent Review correlation.
 
@@ -10843,13 +10930,13 @@ The former dedicated obligations register is not required. Route live state to c
 
 ---
 
-Version note: v1 — initial design from the Messaging design pass. Authored from Core D4 positioning, legacy Capabilities Messaging Design v3, Capabilities Messaging Tool Design v2, and settled rebuild decisions. 2026-09-15.
-<!-- END SOURCE: Messaging/Messaging_Design_v1.md -->
+Version note: v2 — cross-review remediation (F1–F7). F1: slug rule defined, applied to Thread/From-slug/Version prefix uniformly, From/To stability guidance added. F3: QueryReceipt and Reconcile given complete per-moment envelope contracts (Type/In-Reply-To/Expects settled). F4: Promote's Documentation Methodology dependency made an explicit ambient guarantee rather than silent. F2/F5/F6/F7 carried into the standard/tool (see Decisions). 2026-09-15. Replaces v1.
+<!-- END SOURCE: Messaging/Messaging_Design_v2.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Messaging/Messaging_Standard_v1.md -->
-> identity: Messaging_Standard@v1 | doctype: standard | updated: 2026-09-15
+<!-- BEGIN SOURCE: Messaging/Messaging_Standard_v2.md -->
+> identity: Messaging_Standard@v2 | doctype: standard | updated: 2026-09-15
 
 # Messaging
 
@@ -10896,14 +10983,18 @@ Omit optional fields and sections when they add no information. Lifecycle is not
 
 ## Identity and correlation
 
-- Thread is the stable conversation grouping; Topic changes do not change it.
-- Message-ID identifies one message independently of time or topic.
+**The slug rule.** One transformation produces every derived identity component: lowercase, replace anything that is not a letter, digit, or hyphen with a hyphen, then collapse repeated hyphens and trim leading/trailing hyphens.
+
+- Thread is the stable conversation grouping, formed by the slug rule; Topic changes do not change it.
+- Message-ID identifies one message independently of time or topic. Its From-slug component is the From value passed through the slug rule.
+- Version is `{Owner}_v{N}`, where Owner is the From value in its normal display capitalisation and N starts at 1. Owner is matched case-insensitively via the slug rule, so display form is cosmetic and identity is stable.
 - Each sender owns only its own `{Thread}/{From-slug}/{NNN}` sequence. Gaps are valid.
 - Never reconstruct an identifier from recollection. Use visible or persisted evidence, or reconcile.
-- Version identifies revisions of the same Message-ID and is issued only by the From owner.
+- Version is issued only by the From owner.
 - A revision before known relay remains at the first version; do not infer relay merely because a draft was emitted.
 - Reply correlation uses exact Message-ID @ Version, never Timestamp.
 - Timestamp is readability and coarse ordering only. Obtain current time from an available clock; if unavailable, use date-only precision rather than fabricated time.
+- From and To identify communicating contexts at a useful human/project/platform level. Recommended. Choose a party identity once per context and reuse it, rather than inventing one per message — this keeps the slug stable across a thread's life.
 
 ## Types and provenance
 
@@ -10956,7 +11047,7 @@ When constructing a Reply, recompute open/closed state after applying what the r
 
 ## Receipt escalation
 
-Information. Use the Messaging tool's Acknowledge when explicit positive receipt proof is wanted — especially where the context cannot rely on retained STATE evidence. Use QueryReceipt when one specific message may be missing. Use Reconcile when the broader thread state is not trusted.
+Use Acknowledge for explicit positive receipt proof — especially where the context cannot rely on retained STATE evidence. Use QueryReceipt when one specific message may be missing. Use Reconcile when the broader thread state is not trusted.
 
 Information. These mechanisms improve detection probability; they do not guarantee delivery.
 
@@ -10977,7 +11068,7 @@ WIP and open items may carry relevant Message-ID, counterparty, and open-expecta
 
 Persist the message body only when the body itself must remain retrievable, evidential, or citable, or cannot safely be reconstructed from concise durable state. Length, effort, statelessness, or a session boundary alone do not require persistence.
 
-A persisted message preserves one complete envelope as its substantive record. Documentation Methodology supplies generic filename, document version, metadata, lifecycle, and Index behaviour. Envelope Version and governed file version remain distinct. Do not silently rewrite another party's message body.
+A persisted message preserves one complete envelope as its substantive record. Documentation Methodology — guaranteed present in every session as a universal dependency — supplies generic filename, document version, metadata, lifecycle, and Index behaviour. Envelope Version and governed file version remain distinct. Do not silently rewrite another party's message body.
 
 ## Source marking and authority
 
@@ -11010,25 +11101,19 @@ Do not retrofit identifiers or rewrite already-relayed legacy exchanges. A recog
 
 The former dedicated obligations register is not required. Route live state to conversation, WIP, open items, or persisted message according to actual persistence need.
 
-## Platform boundary
+---
 
-Information. Skills, plugins, slash commands, pasted-envelope triggers, direct route integrations, clock and file APIs, and UI rendering are Build concerns. Preserve this standard's semantics across representations.
-
-Information. No messaging bootstrap contribution is required by default. Add one only if target evidence shows normal capability discovery cannot reliably recognise messaging when needed.
+Version note: v2 — cross-review remediation. F5: Receipt escalation selection rules changed from Information to Required (only the delivery-guarantee caveat remains Information). F7: Build/bootstrap material removed — it is design-time knowledge, not needed at moment of application. Identity and correlation section updated for the slug rule (Design D18) and Version owner-matching. Persistence section states the Documentation Methodology dependency as a universal-exemption guarantee (Design D20). 2026-09-15. Replaces v1.
+<!-- END SOURCE: Messaging/Messaging_Standard_v2.md -->
 
 ---
 
-Version note: v1 — initial standard from the Messaging design pass. Sibling output with Messaging_Tool@v1 from Messaging_Design@v1. 2026-09-15.
-<!-- END SOURCE: Messaging/Messaging_Standard_v1.md -->
-
----
-
-<!-- BEGIN SOURCE: Messaging/Messaging_Tool_v1.md -->
-> identity: Messaging_Tool@v1 | doctype: tool | updated: 2026-09-15 | uses: Messaging_Standard@v1
+<!-- BEGIN SOURCE: Messaging/Messaging_Tool_v2.md -->
+> identity: Messaging_Tool@v2 | doctype: tool | updated: 2026-09-15 | uses: Messaging_Standard@v2
 
 # Messaging
 
-Compose, receive, reply, forward, acknowledge, query, reconcile, or promote an AI-MESSAGE.
+Compose or relay a structured AI-MESSAGE to another AI, session, project, or platform; or process a received envelope.
 
 ## Applicability
 
@@ -11038,24 +11123,38 @@ Information. This tool applies when structured cross-context messaging is reques
 
 ```yaml
 Tool:
-  Identity: Messaging_Tool@v1
+  Identity: Messaging_Tool@v2
   CommonName: Messaging
   PrimaryInvocation: msg
   LogicalActions: [Compose, Receive, Reply, Forward, Promote, Acknowledge, QueryReceipt, Reconcile]
 ```
 
+## Idempotency, by action
+
+Idempotency is declared per action because the actions differ materially: some create a new identity or persist state on every run, others only process what already exists.
+
+| Action | Idempotent | Why |
+|---|---|---|
+| Compose | No | Each invocation may assign a new Message-ID |
+| Receive | Yes | Parsing unchanged input against unchanged evidence produces the same result |
+| Reply | No | Assigns a new sender-owned Message-ID |
+| Forward | No | Assigns a new sender-owned Message-ID |
+| Acknowledge | No | A minimal Reply — assigns a new Message-ID |
+| QueryReceipt | No | A New message — assigns a new Message-ID |
+| Reconcile — initiate/respond | No | Each creates a new envelope |
+| Reconcile — process response | Yes | Comparing unchanged evidence against an unchanged response produces the same result |
+| Promote | No | Persists a document; rerunning against an already-persisted message must not create a duplicate |
+
 ## Trigger
 
-Use when the user asks to compose, send, message, or relay something to another AI, session, project, or platform; when a received block beginning `=== AI-MESSAGE ===` is supplied; when the user asks to reply, forward, acknowledge, query receipt, reconcile, or persist a message; or when a platform representation of the messaging logical actions is invoked.
-
-The tool may proactively recognise a pasted envelope. It does not automatically create outbound messages unrelated to the user's work.
+The tool may proactively recognise a pasted `=== AI-MESSAGE ===` envelope. It does not automatically create outbound messages unrelated to the user's work.
 
 ## Compose
 
 1. Resolve From, To, Topic, Expects, and Content.
-2. Reuse an established Thread only when the exchange belongs to it; otherwise create a stable new thread slug.
-3. Establish the next sender-owned Message-ID from reliable visible, WIP, or open items evidence. A new thread may begin its local sequence at 001. Never invent an existing sequence from memory.
-4. Resolve Version from known relay and revision state; draft generation alone does not prove relay.
+2. Reuse an established Thread only when the exchange belongs to it; otherwise create a stable new thread slug via the slug rule (Standard: Identity and correlation).
+3. Establish the next sender-owned Message-ID from reliable visible, WIP, or open items evidence, using the slug rule for From-slug. A new thread may begin its local sequence at 001. Never invent an existing sequence from memory.
+4. Resolve Version (`{Owner}_v{N}`) from known relay and revision state; draft generation alone does not prove relay.
 5. Obtain current time; use date-only if no clock exists.
 6. Apply source and out-of-band markings only when warranted.
 7. Build known counterparty STATE from available evidence and run open/closed consistency checks.
@@ -11083,21 +11182,40 @@ Create a new sender-owned message. Set Type: Forward. Cite the exact source in F
 
 ## Acknowledge
 
-Create a minimal Reply citing the exact acknowledged Message-ID @ Version, normally with Expects: None. Ack proves receipt; it does not automatically satisfy another substantive ask.
+Create a minimal Reply that reuses the source Thread and sets In-Reply-To to the exact acknowledged Message-ID @ Version, normally with Expects: None. Ack proves receipt; it does not automatically satisfy another substantive ask.
 
 ## QueryReceipt
 
-Ask about one exact Message-ID when later behaviour suggests it may not have been received. Request Ack or Answer as actually needed; do not expand to full reconciliation unnecessarily.
+A **New** message, not a Reply — it questions a message, it does not answer one.
+
+1. Reuse the queried message's Thread.
+2. Set Type: New. Do not set In-Reply-To.
+3. Name the questioned Message-ID @ Version exactly in Content.
+4. Set Expects: Ack (confirm receipt only) or Answer, Ack (confirm receipt and what was understood) — choose based on which the sender actually needs.
+5. Do not expand to full reconciliation unnecessarily.
 
 ## Reconcile
 
-Exchange the parties' known counterparty-scoped Awaiting and Held state. Compare positive claims; surface mismatches; treat absence as non-evidence. Persist only genuinely durable continuation or obligations through WIP or open items. Do not create a permanent messaging register.
+Three distinct moments, each a separate envelope or step:
+
+1. **Initiate.** Type: New. Build the local known counterparty working set from conversation, WIP, or open items evidence. State the known Awaiting and Held/open lists and optional closed context in Content. Set Expects: Answer.
+2. **Respond.** Type: Reply. In-Reply-To cites the initiating Message-ID @ Version. State the responder's own known Awaiting/Held lists in Content. Set Expects: None.
+3. **Process the response.** Not a new envelope. Compare only positive claims from both sides as evidence; absence remains non-evidence. Surface missing or extra identifier mismatches and any unresolved identity or fulfilment ambiguity. Update WIP or open items only where the resulting state genuinely needs persistence.
+
+Reconcile does not create a permanent messaging register.
 
 ## Promote
 
-Persist the selected complete envelope as a governed message only when its body needs independent durable retrieval.
+Persist the selected complete envelope as a governed message only when its body needs independent durable retrieval. This hands the document operation to Documentation Methodology, guaranteed present in every session as a universal dependency — Messaging does not perform document mechanics itself.
 
-Use Documentation Methodology for filename, document version, metadata, lifecycle, and Index registration. Keep envelope Version separate. Do not add Lifecycle to the envelope. Do not automatically create a counterpart copy.
+1. Resolve the exact envelope/version to persist.
+2. Confirm the persistence criterion is body retrieval or evidence rather than merely an outstanding one-line obligation.
+3. Check whether this exact envelope/version is already persisted before writing, so a rerun does not create a duplicate.
+4. Create the governed message document using Documentation Methodology naming, versioning, metadata, lifecycle, and Index registration behaviour.
+5. Preserve the complete envelope as substantive message content.
+6. Register in the applicable authoritative index as required.
+7. Do not add Lifecycle to the envelope or create a duplicate counterpart copy automatically.
+8. Report the resulting file/registration state.
 
 If the write or Index context cannot be resolved safely, return the required action rather than pretending promotion succeeded.
 
@@ -11111,8 +11229,6 @@ If the write or Index context cannot be resolved safely, return the required act
 - Repeated parsing or reconciliation of unchanged evidence does not manufacture new state.
 - Do not resend an uncertain external message merely because generation can be repeated.
 
-Information. This tool is not idempotent for Compose — each invocation may generate a new Message-ID. Receive and Reconcile are idempotent against unchanged input.
-
 ## Platform commands
 
 Information. Build may expose the compatibility command vocabulary:
@@ -11125,8 +11241,8 @@ and may invoke Receive automatically for pasted AI-MESSAGE content. Exact platfo
 
 ---
 
-Version note: v1 — initial tool from the Messaging design pass. Sibling output with Messaging_Standard@v1 from Messaging_Design@v1. 2026-09-15.
-<!-- END SOURCE: Messaging/Messaging_Tool_v1.md -->
+Version note: v2 — cross-review remediation. F2: idempotency declared per action in a table near the top, replacing the incomplete three-action note at the end. F3: QueryReceipt redefined as a New message with an explicit Expects choice; Reconcile split into initiate/respond/process-response with distinct Type and Expects per step. F4: Promote's Documentation Methodology dependency stated explicitly as a universal-exemption guarantee, plus a duplicate-check step before writing. F6: the duplicate expanded Trigger section removed — one canonical trigger description retained. 2026-09-15. Replaces v1.
+<!-- END SOURCE: Messaging/Messaging_Tool_v2.md -->
 
 ---
 
