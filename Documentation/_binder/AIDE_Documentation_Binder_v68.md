@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 67** (2026-09-15).
+> **Binder Version 68** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -13,10 +13,13 @@ individual files.
 - `_rebuild/AIDE_Rebuild_Guide_v1.md` - sha256 `01ceb45e507b`
 - `_rebuild/AIDE_Rebuild_Overview_v1.md` - sha256 `5a65c44f5991`
 - `_rebuild/AIDE_Rebuild_SettledDecisions_v1.md` - sha256 `33593102e982`
+- `_rebuild/Assurance_Brief_Sketch_v1.md` - sha256 `4fe1f626645a`
 - `_rebuild/ProjectDesign_Decisions_Pending_v1.md` - sha256 `647aacf4c1ad`
 - `_rebuild/ProjectDesign_Design_Pending_v1.md` - sha256 `587bc4c6165f`
 - `_rebuild/ProjectDesign_StandardInputs_Pending_v1.md` - sha256 `710b74bb0958`
 - `_rebuild/ProjectDesign_WorkRegister_Pending_v1.md` - sha256 `638ebbfb6eef`
+- `_rebuild/WP_Check1_Assessment_v1.md` - sha256 `dba57b98ffda`
+- `_rebuild/WP_CoreCarries_v1.md` - sha256 `bdd10968efe3`
 - `AIDE_Solution_Map.md` - sha256 `3c2294f7ae2b`
 - `Core/_index.md` - sha256 `31c7a15e03eb`
 - `Core/Core_AIDEMap.md` - sha256 `fd95d6407fb1`
@@ -71,8 +74,11 @@ individual files.
 - `Tools/Tools_Design_v6.md` - sha256 `62b2eb15c979`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
+- `Working Practices/WP_Brief_v1.md` - sha256 `4a970773c638`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
 - `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `6b858ff04f50`
+- `Working Practices/WP_Decisions_v1.md` - sha256 `129dd0efccb0`
+- `Working Practices/WP_Design_v1.md` - sha256 `f7eba7256597`
 - `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `59a0bba2401c`
 
 ---
@@ -1780,6 +1786,64 @@ stated at the point of definition. **Strong.**
 item → Working Practices; work register → Project Design; the ownership rule
 itself → Documentation Methodology.*
 <!-- END SOURCE: _rebuild/AIDE_Rebuild_SettledDecisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/Assurance_Brief_Sketch_v1.md -->
+# Assurance — Brief (sketch)
+
+This is a sketch produced during the Working Practices design pass to hold the confirmed identity and scope of the Assurance component until its own design pass. It is not a full brief — purpose and content are confirmed; objectives and definition of done await the design pass.
+
+---
+
+## Purpose
+
+Build justified trust in AI-assisted work by defining and evolving the conventions, structures, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur.
+
+## Role
+
+Guidance. Sits alongside Principles, Standards, and Tools. Provides the trust and outcome conventions.
+
+## Cross-cutting nature
+
+Assurance is both a component and a framework-wide requirement. Every element in the framework contributes to assurance — the brief-required gate, cross-review, operations test, acceptance test, strength model, capture-and-place, the design-check skill, definition of done, Principles P7/P8/P10 all contribute. The component owns its specific mechanisms; the framework-wide requirement is the lens every component is designed through.
+
+## Content (moved from WP's Human-AI Collaboration area)
+
+**Proactive conventions** — help the AI deliver correctly in the first place:
+- Human working model (tiering, confidence signalling, assumptions/gap-fill report)
+- Overview-first discipline (consumed from WP's generic statement)
+
+**Detective conventions** — help the human see when something has gone wrong:
+- Verification behaviours (verify inspectable facts, distinguish generated intent from applied state — consuming Principles P7 and P10)
+- Drift detection (recognising when work moves away from the agreed model — consuming P8)
+- Anomalies channel (surfacing things that don't fit — behaviour with capture-and-place as destination)
+
+**Evolution path** — new failure modes discovered in practice become new conventions or detection behaviours. The area is a living system, not a fixed specification.
+
+## Key boundaries
+
+- Assurance defines what to watch for and how to signal it
+- WP defines how work is conducted (the substrate Assurance runs on)
+- Principles provides the reasoning premises both consume
+- Cross-review is likely an Orchestration concern that Assurance defines the criteria for
+
+## Confirmed design decisions
+
+- Named tiers for autonomy levels, small number, chosen by either side. AI judges default; human overrides
+- Anomalies channel is a behaviour with capture-and-place as destination, not a separate mechanism
+- Confidence vocabulary uses the framework's existing strength model (strong/moderate/etc.), not a new system
+- These three decisions require review when the full design brief is produced
+
+## Charter alignment
+
+Directly delivers O1 (trust and integrity) — the framework's primary reason for existing.
+Contributes to O4 (extensibility from learning) — conventions evolve as collaboration learns.
+
+---
+
+Version note: v1 — sketch from the WP design pass. To be replaced by a full brief when the Assurance design pass begins. 2026-09-15.
+<!-- END SOURCE: _rebuild/Assurance_Brief_Sketch_v1.md -->
 
 ---
 
@@ -3552,6 +3616,101 @@ and knowledge (this WIP write, plus authoring).
   part 1 when register ownership came home; the old D12 explicitly held that it
   did. **Open — not to be closed by omission.**
 <!-- END SOURCE: _rebuild/ProjectDesign_WorkRegister_Pending_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/WP_Check1_Assessment_v1.md -->
+# Working Practices — Check 1 Assessment
+
+Check 1 question: could the design below be executed excellently from this overview, by someone who has the brief and was not part of the conversation?
+
+---
+
+## Assessment: PASS with noted gaps
+
+The overview/design is complete enough to drive design work. The model is clear: two levels (component-level standing obligations, areas below), two confirmed areas (Working State, Content Delivery), one parked (FileOps), one extracted to a new component (Assurance). The boundaries are stated and the placement test is concrete.
+
+### What is well settled
+
+- Capture-and-place — fully specified: three obligations, destination map, session-end allocation, proactive preservation, four methodology rules
+- WIP — three-role model, multiple WIPs, tracking, merge-with-master, visibility requirements
+- Work items — definition, two axes, five fates, governing rule, scalable implementation, distinct from work register
+- Work plan — named workstreams, maintained by AI, lives in WIP
+- Pending content rule — staging model, merge requirement
+- Content Delivery — binder concept ownership, three-tier inclusion model
+- Workflow commands — concept defined, four confirmed commands, reference guide as output
+- Boundaries — clear on all fronts
+
+### Gaps and open items
+
+1. **FileOps** — parked. Needs a focused review to determine whether it earns its place, dissolves, or is redefined. The design cannot be called complete until this is resolved, but the rest of the design does not depend on the outcome.
+
+2. **Development lifecycle — thin.** The phase/mode distinction is stated but not developed. What does it mean in practice for a session to be "in design mode" versus "in build mode"? Which standards and tools load? How does the transition happen? This is probably deferred until more components have standards that could load, but it should be noted as an area that needs future work.
+
+3. **Workflow command methodology — concept only.** How new commands are defined, documented, and added to the reference guide is stated as a purpose but not designed. The concept is clear; the methodology is future work.
+
+4. **Old-material pass not yet run.** WP1–WP13 from the old corpus have not been reconciled against this design. Per finding F10 and the rebuild method, this is a required step before WP can be called complete.
+
+5. **No-knowledge-lost three behaviours — partially absorbed.** The three behaviours from the WIP (session-close sweep, session-start check, periodic consolidation prompt) are covered by capture-and-place and proactive knowledge preservation, but they are not explicitly named in the design. The session-close sweep is session-end allocation. The session-start check and consolidation prompt are implied but not stated. Consider making them explicit.
+
+6. **Schema definitions not yet written.** Doctypes (WIP, working document, report, resource) and block types (work item, work plan, definition-of-done as a generic block) need formal definitions per the documentation methodology schema contract. This is a separate task, not a design gap.
+
+### Recommendation
+
+Proceed to authoring. The gaps are either parked with reasoning (FileOps), future work that doesn't block the current design (lifecycle modes, command methodology), or mechanical tasks (old-material pass, schema definitions). The model is clear enough to drive execution.
+
+---
+
+Version note: v1 — Check 1 assessment of WP_Design_v1. 2026-09-15.
+<!-- END SOURCE: _rebuild/WP_Check1_Assessment_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: _rebuild/WP_CoreCarries_v1.md -->
+# Carries to Core from the Working Practices design pass
+
+Working document. Items confirmed during the WP design pass that require updates to Core documents. To be applied at next Core update or via FUP.
+
+---
+
+## Framework-wide requirements (additions to Core_Design)
+
+### Definition of done
+
+Every component, every piece of work, defines when it is done. The invariant: the completion bar must be testable or assessable. Core states the requirement; WP owns the block type definition (the mechanism consumers use); consumers fill it with their own content.
+
+Source: settled WIP v22 (promoted from WP generic block to framework-wide requirement during WP design pass, D4).
+
+### Assurance
+
+Every component contributes to assurance — the justified confidence that the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur. The Assurance component owns the specific conventions and detection mechanisms; this requirement is the lens every component is designed through.
+
+Source: WP design pass, D16.
+
+## Ownership rules (addition to Core_Design)
+
+### P6 — information holder decides the boundary
+
+When a boundary question arises, the component that holds the information decides. This is a framework governance rule governing how components relate to each other — a sixth ownership rule alongside the existing five.
+
+Source: moved from Principles to WP during the Principles design pass; moved from WP to Core during the WP design pass, D5.
+
+## Component map updates
+
+### New component: Assurance
+
+| Component | Purpose | Key boundaries |
+|---|---|---|
+| Assurance | Build justified trust in AI-assisted work by defining and evolving the conventions, structures, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur. | Guidance role. Cross-cutting — every component contributes. Owns the human working model, verification behaviours, drift detection, anomalies channel. Does not own the substrate (WP) or the premises (Principles). |
+
+Placed in the Guidance role alongside Principles, Standards, and Tools.
+
+Component count: 13 → 14.
+
+---
+
+Version note: v1 — carries from the WP design pass. 2026-09-15.
+<!-- END SOURCE: _rebuild/WP_CoreCarries_v1.md -->
 
 ---
 
@@ -10924,6 +11083,76 @@ Version note: v1 — initial working document from session 2026-09-10.
 
 ---
 
+<!-- BEGIN SOURCE: Working Practices/WP_Brief_v1.md -->
+Working Practices | brief | WP_Brief@v1 | 2026-09-15
+
+# Working Practices — Brief
+
+## Purpose
+
+Define the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work.
+
+Working Practices is the umbrella for action and behaviour. Phase-specific methods (the design method, the build method) are owned by their phase component; WP owns what they all consume. WP may grow into a container with child components as the design reveals natural divisions.
+
+## Objectives
+
+**O1. Universal conventions.** Establish the working conventions that apply regardless of phase or surface — session management, file handling, content delivery. The test: if it changes when you switch from design to build, it isn't WP's.
+
+**O2. Capture-and-place.** The AI is responsible for organising and allocating everything of value from a session to its correct home — design documents, decisions, knowledge, open items, working documents, or WIP. Nothing of value gets lost; everything has a home. The AI recommends where it's confident, asks where it's not, and summarises allocations so wrong calls get caught.
+
+**O3. Work lifecycle.** Define how work is tracked, progresses, and completes — work items, their fates, pending content, definition of done. A defined model, scalable in implementation.
+
+**O4. Assurance collaboration.** Working Practices provides the operational substrate that the Assurance component's conventions run on. WP defines how work is conducted; Assurance defines the conventions that build trust and ensure outcomes are visible. Both evolve as the collaboration learns.
+
+**O5. Reduce human burden.** The AI carries the operational load — capture, sweep, consolidation, allocation. The human directs; the framework does the bookkeeping. Directly serves charter objective O6.
+
+## Scope
+
+WP owns generic operating behaviour and live state — the middle placement band. The test: if it doesn't change when you switch from design to build, it's probably WP's.
+
+The current five-part structure (FileOps, WorkManagement, Capture, ContentDelivery, HumanAI) was input; the design pass reshaped it. Human-AI Collaboration became the Assurance component. Capture and Organisation dissolved upward to WP component level. WorkManagement merged into Working State. The design determines what remains.
+
+## Boundaries
+
+**WP does not own:**
+
+- The design method — Project Design
+- How code is structured — Build
+- Document structure, the definition contract, the split test as a rule — Documentation Methodology
+- The component model, ownership rules, framework-wide requirements (no-knowledge-lost, definition-of-done, assurance) — Core
+- Universal reasoning premises — Principles
+- The work register — Project Design (fills a design-specific temporal gap)
+- Trust and outcome conventions, the human working model, verification behaviours, drift detection — Assurance
+- Framework governance rules including P6 — Core
+
+**WP owns:**
+
+- Capture-and-place as the primary operational mechanism
+- Workflow commands (the concept, definition methodology, reference guide)
+- WIP model and conventions
+- Work items, work plan, open items, pending content
+- The development lifecycle concept (phases and modes)
+- Process document types (working document, report, resource)
+- File operation conventions (parked for review)
+- The binder concept (why and how, not the doctype)
+- The overview-first working discipline (generic — consumed by Assurance and PD)
+
+## Definition of done
+
+- The model is stated — what WP contains and how its parts relate.
+- Each settled item from the accumulated pile is placed, deferred, or retired with reasoning.
+- Doctypes and block types defined with owners.
+- Design document and decisions document authored.
+- Standard authored, cross-reviewed, and live in a session.
+- Old-material pass complete (WP1–WP13 reconciled).
+
+---
+
+Version note: v1 — initial brief from the WP design pass. 2026-09-15.
+<!-- END SOURCE: Working Practices/WP_Brief_v1.md -->
+
+---
+
 <!-- BEGIN SOURCE: Working Practices/WP_Capture_Working_v1.md -->
 Working Practices — Capture and Organisation | working | WP_Capture_Working@v1 | 2026-09-10
 
@@ -10983,6 +11212,336 @@ The key question for inclusion is not whether a file is a governed document, but
 
 Version note: v1 — initial working document from session 2026-09-10.
 <!-- END SOURCE: Working Practices/WP_ContentDelivery_Working_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Working Practices/WP_Decisions_v1.md -->
+> identity: WP_Decisions@v1 | doctype: decisions | updated: 2026-09-15
+
+# Working Practices — Decisions
+
+## Summary
+
+Reasoning and resolutions from the Working Practices design pass. Sixteen decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, and dispositions of accumulated items from other component passes.
+
+---
+
+## D1. Assurance extracted as a new top-level component
+
+The Human-AI Collaboration area — human working model, tiering, confidence, verification behaviours, drift detection, anomalies channel, assumptions/gap-fill report — was originally planned as an area within WP. During the design pass it became clear this content directly delivers charter objective O1 (trust and integrity), which is the framework's primary reason for existing. Burying it as an area inside WP would subordinate the most important thing AIDE does.
+
+Assurance is a cross-cutting concern — every element in the framework contributes to it. The brief-required gate, cross-review, operations test, acceptance test, strength model, capture-and-place, the design-check skill, definition of done, Principles P7/P8/P10 all contribute to assurance.
+
+Resolved as both: a component in the Guidance role owning its specific mechanisms (human working model, detection conventions), and a framework-wide requirement in Core ("every component contributes to assurance"). Same pattern as no-knowledge-lost and definition-of-done.
+
+Component count goes from 13 to 14. Justified against F8 (component count for a solo developer) because this component directly delivers the framework's primary objective.
+
+Assurance gets its own design pass after WP's is complete.
+
+## D2. Capture and Organisation dissolved
+
+Capture and Organisation's core content — capture-and-place rules, session-end allocation — moved to WP component level as standing obligations that govern everything WP does. They are not inside any area because they are the operational discipline that all areas consume. The process document types (working document, report, resource) moved to Working State, where they sit alongside WIP and working documents as the containers content moves through.
+
+No remaining purpose justified the area as a separate grouping.
+
+## D3. Work Lifecycle merged into Working State
+
+Work Lifecycle (work items, definition of done, pending content, development lifecycle phases/modes) and Working State (WIP, working documents, open items) were initially proposed as separate areas. The split was artificial — lifecycle and containers are two descriptions of the same flow. A work item's five fates route into Working State containers. The pending content rule is a WIP convention. Open items appear in both. The two areas could not stand alone.
+
+Merged under Working State. The name covers both: the state of the work includes what exists and where it lives.
+
+## D4. Definition of done elevated to Core framework-wide requirement
+
+Definition of done started as a PD brief element, was elevated to "principle level" importance, then became a generic block type owned by WP. During this pass it was recognised as too important to be buried inside an area — it's a cross-cutting principle used across the whole framework. Tested against Principles (portability test: it passes, but it's a process discipline not a reasoning premise, and the F12 pattern resists adding to the nine premises) and Core (framework-wide requirement pattern: same shape as no-knowledge-lost — Core states the requirement and invariant, owning component provides the mechanism).
+
+Resolved: Core states the framework-wide requirement. The invariant is testable-or-assessable. WP owns the block type definition — the mechanism consumers use. PD fills it in the brief, component passes fill it in their definitions of done, Build checks against it.
+
+## D5. P6 moved to Core, not WP
+
+P6 (information holder decides the boundary) was moved from Principles to WP during the Principles design pass as AIDE-context behaviour, not a universal premise. During this pass it was tested against WP's purpose and recognised as a framework governance rule — when a boundary question arises, the component that holds the information decides. That's a component model concern, not a working practice. Core Design already has five ownership rules; P6 is a sixth.
+
+## D6. Guidance Profiles deferred
+
+The Add/Refine/Override delta model is well designed but has no demonstrated consumer for a solo developer. No organisation, group, or team profile layers exist. The design is preserved in Principles' decisions (D4, D5); it returns if multi-user profiles demonstrate need. Follows the no-consumer-no-rule bar.
+
+## D7. Overview-first working behaviour — WP owns generic, PD consumes
+
+PD Standard v4 already has the design-specific application. The broader discipline — staying at the overview level until it could drive excellent execution — applies beyond design to any work where there's a temptation to dive before the shape is clear. WP states the generic behaviour. PD's standard consumes it for design without change.
+
+## D8. Verification behaviours — Assurance, not WP
+
+Verification behaviours (verify inspectable facts, distinguish generated intent from applied state — consuming Principles P7 and P10) were placed in the Human-AI Collaboration area. When that area became the Assurance component, verification moved with it as detective-side conventions. They are about trust and visibility of reality, not about how work is conducted.
+
+## D9. WIP as a defined model with three roles
+
+WIP evolved organically but its three roles are distinct and deliberately designed: homeless shelter (temporary, nothing stays by default), persisted working memory (continuity across sessions), and transactional staging (pending content for masters). These roles were discussed extensively in earlier sessions and confirmed during this pass. The model includes multiple WIPs, WIP tracking via the project index, and visibility requirements.
+
+## D10. Work plan as a block type in WIP
+
+The work plan addresses a practical need: visibility of what's currently decided and in progress, without reading through multiple long documents. Supports named workstreams for parallel work. Maintained by the AI as part of capture-and-place. Lives in WIP as high-churn content.
+
+Not project management — a todo list that scales. Formalised enough to have a known name and shape, light enough to be a WIP section.
+
+## D11. Workflow commands replace session-transition commands
+
+Session-transition commands (full stop, checkpoint-and-continue, flush without closing) were the first examples of a broader concept: named, invokable actions that trigger operational behaviours. The concept generalised to workflow commands — WP owns what a workflow command is and how new ones are defined; individual commands are defined by whatever owns the behaviour they trigger. A reference guide is a deployment output.
+
+## D12. Proactive knowledge preservation as a capture-and-place obligation
+
+The AI's duty to protect against knowledge loss from session mechanics (compaction risk, context weight, platform switching) is not a separate concept — it is the proactive face of capture-and-place. The AI doesn't just capture at session end; it actively guards throughout and pushes back when content at risk.
+
+## D13. Capture and Organisation's process document types to Working State
+
+The three process document types (working document, report, resource) are containers used during the working process. They sit naturally in Working State alongside WIP, working documents, and open items. Their ownership is unchanged: WP owns these types because they serve the working process; Documentation Methodology owns the doctype mechanics.
+
+## D14. FileOps parked for review
+
+FileOps has confirmed content from the 2026-09-10 session but its coherence as an area is under review. Analysis showed it is part genuine working practice (file delivery rules), part duplication of Core Structure decisions (design/output separation), and part Infrastructure utility concerns that moved here by subject affinity (git commit behaviour, FUP move action, utility designs). Whether FileOps earns its place, dissolves, or is redefined is deferred for a focused review.
+
+## D15. WIP tracking via the project index
+
+A register of active WIP documents prevents orphaned or neglected content. The natural home is the project's index document — it already indexes what a scope contains. Not a new mechanism; an expansion of the index's existing role.
+
+## D16. Assurance as a framework-wide requirement in Core
+
+Every component contributes to assurance — it is a cross-cutting concern, not contained within one component. Resolved the same way as no-knowledge-lost: a framework-wide requirement stated in Core that every component's design is tested against. The Assurance component owns its specific mechanisms; the framework-wide requirement is the lens every component is designed through.
+
+---
+
+Version note: v1 — initial decisions from the WP design pass. 2026-09-15.
+<!-- END SOURCE: Working Practices/WP_Decisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Working Practices/WP_Design_v1.md -->
+> identity: WP_Design@v1 | doctype: design | updated: 2026-09-15
+
+# Working Practices — Design
+
+## Summary
+
+Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
+
+WP operates at two levels. At component level, capture-and-place and workflow commands are standing obligations that run continuously. Below that, two areas provide the models and conventions work uses: Working State (where content lives while in motion, how work is tracked and completed) and Content Delivery (how content reaches the AI session). A third area, File Operations, is parked for review — its purpose and boundaries need clarification before design can proceed.
+
+The Assurance component, identified during this design pass, takes ownership of the human working model, trust-building conventions, verification behaviours, drift detection, and anomalies — the content originally placed in a Human-AI Collaboration area. Assurance is both a component (Guidance role) and a framework-wide requirement (Core).
+
+---
+
+## Component-level concerns
+
+These are not inside any area. They are standing obligations and mechanisms that govern everything WP does.
+
+### Capture-and-place
+
+The AI's standing responsibility to organise and allocate everything of value produced in a session to its correct home. This is the operational delivery of the no-knowledge-lost framework-wide requirement stated in Core.
+
+**Three AI obligations:**
+
+1. **Continuous silent capture** — the AI notices and holds content of value as it arises, without interrupting the flow of work.
+2. **Placement by destination definitions** — the AI knows where things belong and routes them correctly.
+3. **Batched surfacing at natural breaks** — rather than interrupting to allocate each piece, the AI batches and surfaces allocations at natural pauses.
+
+Homeless pieces — content with no identified destination — are named, not dropped. The AI errs toward over-capture.
+
+**The destination map** — where capture-and-place routes content:
+
+- Component documents — design, decisions, knowledge, brief (confirmed, permanent home known)
+- Open items — work to be done or discussed, allocated to a component, area, or part
+- Working documents — when volume exceeds what open items can hold, or content needs its own working space (the split test governs the escalation)
+- WIP — transient, staging, or homeless content (the three-role model described in Working State below)
+
+**Session-end allocation** — at the end of a session or unit of work, the AI works through the session's output and confirms what goes where. Parking content in WIP for a quick state save, or in a working document for a longer one, is acceptable — but the discipline is allocating to the real home. Content sitting in WIP or working documents that should be somewhere else needs to be addressed; persistent residence in temporary locations is a signal.
+
+**Proactive knowledge preservation** — the AI does not only capture at the end. It actively watches for situations where content persisted only in the session is at risk: session length approaching compaction, context getting heavy, switching to a new chat or a different platform without saving. The obligation: push back, advise what needs saving, and do not let the human proceed into a situation where valuable content would be silently lost.
+
+**Four methodology rules from the Core shaping session (confirmed):** The AI captures continuously; places by destination definitions; batches surfacing at natural breaks; and names homeless pieces rather than dropping them.
+
+### Workflow commands
+
+Named, invokable actions that trigger operational behaviours. WP owns the concept — what a workflow command is, how new ones are defined and documented, how the reference guide is maintained. Individual commands are defined by whatever area or component owns the behaviour they trigger.
+
+**The concept:** A workflow command is a short, named instruction the human can invoke to trigger a defined operational behaviour. Commands are learned and added as the framework matures — they emerge from repeated manual patterns that earn a named shortcut.
+
+**Confirmed commands (working labels — names are the human's to set):**
+
+- **Full stop** — session over; strongest capture-and-place sweep
+- **Checkpoint and continue** — a natural break; flush content plus a handoff of current position and next steps
+- **Flush without closing** — commit to WIP, or push to masters plus binder, while the chat continues
+- **/more** — expand the current prompt with additional detail (AI-presented prompts are concise by default)
+
+**A deployment output:** a summary reference guide listing all active workflow commands and what they do, maintained as commands are added or modified.
+
+### File delivery rules
+
+Two rules for when files are updated outside of a FileUpdatePackage:
+
+1. **Chat delivery** — when outputting an updated file for download, instruct the user where to save it based on the path in the document header.
+2. **Code / Cowork direct file access** — check the file's physical location against the path in the header; move it if they disagree.
+
+These may move into File Operations if that area is retained, or remain at component level if it dissolves. Parked with FileOps.
+
+### Overview-first working discipline
+
+The generic discipline of staying at the overview level until it could drive excellent execution, probing rather than diving. This is broader than design — it applies to any work where there is a temptation to descend into detail before the shape is clear. Project Design owns the design-specific application in its standard; WP states the generic behaviour.
+
+The discipline is consumed by the Assurance component as one of its proactive conventions — an effective overview reduces misalignment and drift.
+
+---
+
+## Working State
+
+Where content lives while in motion, and how work is tracked, progressed, and completed.
+
+### WIP
+
+The framework's transactional staging mechanism. Three roles:
+
+**1. Homeless shelter** — temporary home for content that doesn't yet have a destination. The discipline: nothing stays by default. If something looks permanently resident in WIP, that is a signal to address it — work out where it belongs and move it there.
+
+**2. Persisted working memory** — current thinking, current working state, things that need to survive across chats and sessions. This is the continuity mechanism — the AI's memory between sessions for content that is actively being worked.
+
+**3. Transactional staging** — confirmed or pending changes to master documents, held here until written. A master is not authoritative alone between updates. Reading a master means checking WIP for pending content and working from a merge of both. This keeps heavy churn in one document rather than thrashing the whole corpus.
+
+**Multiple WIPs.** WIP supports multiple documents in use simultaneously, broken up to manage size and subject. Usually obvious which applies in a given situation; if not, ask which is primary or which to use for a given piece of information.
+
+**Not in binders.** WIP is loaded directly into context, not via the binder mechanism. The binder is persisted memory of the confirmed state; WIP is the working state that may not yet be confirmed.
+
+**Visibility over location.** WIP files commonly live at the documentation root folder, but that is not a rule. The real requirements: easy to find, easy to save to, easy to load into context. Easily visible so they are known and not forgotten.
+
+**WIP tracking.** A register of active WIP documents prevents orphaned or neglected content. The natural home for this register is the project's index document — it already indexes what a scope contains.
+
+**WIP lifecycle.** WIP documents hold short-to-medium-life content in a potentially long-life document. The document itself can persist as long as it is useful; the content within it should flow through to its destination and not accumulate.
+
+### Working documents
+
+Content that needs its own working space. Used when volume exceeds what open items can hold, or when content needs dedicated room for development. The escalation from open items to a working document is governed by the split test: externalise when keeping content in its host would compromise the host's primary role.
+
+WP owns three process document types that serve the working process:
+
+- **Working document** — holds incomplete material, confirmed items awaiting placement, and in-progress thinking
+- **Report** — a process document recording findings, analysis, or review results
+- **Resource** — a reference or knowledge document supporting the work
+
+These are workflow documents, not design outputs. Documentation Methodology owns the doctype mechanics; Working Practices owns these specific types because they serve the working process.
+
+### Open items
+
+The ongoing list of work to be done, discussed, or worked through — allocated to a component, area, or part. Escalates to a working document per the split test when volume compromises the list's usefulness.
+
+### Work items
+
+The base workflow entity. An encapsulated unit of something pending in a workflow — something that needs attention, or is being worked through. Raised from any source: the human, a build return, the AI noticing a consequence, another component handing something in. Weight is not decided at the moment it is raised.
+
+**Two axes:**
+
+- **Type** — what kind of thing it turned out to be, determined on judgement. Types are not enumerated in advance; capture-and-place surfaces the real type list over time, and types are recorded as an output of that work, not an input to it.
+- **State** — open, current, closed. These are views, not different entities: "the open work items" is a filter, not a separate list.
+
+**Five fates** — what can become of a work item, chosen by the session on context:
+
+- Dealt with in conversation, leaving no trace (it warranted none)
+- Resolved and recorded as a decision (reasoning worth keeping)
+- Parked as an open item (live but unresolved)
+- Captured into WIP (active thinking mid-flight)
+- Becomes committed work in a work register
+
+**The governing rule: no knowledge lost.** A work item may be dropped, but only by a decision that it carries nothing worth keeping. Escalation is a judgement; disappearance is not an accident.
+
+**Defined concept, scalable implementation.** A session may realise the work item model not at all, lightly, ad hoc, or in full — chosen by scale, severity, importance, and the nature of the workflow.
+
+**Distinct from work register entries.** A work item is a generic entity flowing through a workflow. A work register entry exists because a design change had a downstream impact not yet delivered. Different origin, different purpose, different owner (work register is Project Design). No subset relationship.
+
+### Work plan
+
+The current decided-and-prioritised subset of work: what we are working on now, in what order, with dependencies noted where they exist.
+
+**Named workstreams** — supports multiple parallel lines of work. Each workstream has a name and its own task list. One is active at a time in a given session, or the AI asks which to work on. The AI tracks state across all of them — what's current, what's parked, what's blocked.
+
+**Maintained by the AI** as part of capture-and-place — when work is agreed, it goes on the plan; when it's done, it comes off. Reviewed at session start to orient.
+
+**Lives in WIP** as high-churn working content.
+
+Not project management — a todo list that scales. If cross-stream dependencies exist, they are noted as plain text ("blocked on X from the Build stream"), not a formal mechanism.
+
+### Pending content rule
+
+Confirmed content awaiting delivery to master documents. Held in WIP under the destination document's heading. The master is not authoritative alone between updates — reading a master to act on it means checking its pending section in WIP first. This is the transactional staging role of WIP formalised as a rule.
+
+### Development lifecycle
+
+Phases and modes. Phases describe what kind of work is being done at a point in time: research, design, build, deploy, review. These are a general concept — any development process has them.
+
+AIDE implements phases as modes. A mode is a state the AI session operates in, shaped by which standards and tools are loaded and active. The distinction matters because phases are general while modes are AIDE's specific mechanism for realising them.
+
+WP owns the lifecycle concept because it describes how work progresses — a workflow concern. Individual modes are shaped by the components that own those phases — Project Design owns what happens during design, Build owns what happens during build.
+
+---
+
+## Content Delivery
+
+How content is assembled and delivered to the AI platform for use in a session.
+
+### Binder concept
+
+WP owns the binder concept — why the binder exists, how it is used, what it includes, how it delivers content. The binder exists to solve a workflow problem: assembling and delivering content to the AI platform for use in a session.
+
+Documentation Methodology owns the binder as a doctype definition — its structure as a document.
+
+### Three-tier inclusion model
+
+What lives in a project folder falls into three tiers based on its relationship to the AI session:
+
+1. **In the binder** — needed for thinking and reasoning. Design documents, and any other file the AI needs to see to do its work. The test: does it need to be there for thinking and reasoning? If so, include it.
+
+2. **Known to the framework** — part of the project but not needed in context. Listed in the folder's index document. The framework knows it exists, can reference it, but does not load it. Scripts, settings files, assets.
+
+3. **Just present** — incidental files. AIDE has no opinion. Logs, temp files, personal notes.
+
+The binder is the context-loading mechanism. The index is the awareness mechanism. Files that need neither are just files.
+
+The key question for inclusion is not whether a file is a governed document, but whether it is needed for the work. A utility script that is the project's deliverable may belong in the binder when working on that utility, even though it has no declaration header.
+
+---
+
+## File Operations — PARKED
+
+How files are physically managed — delivery, placement, versioning lifecycle, separation of design and output, git integration. This area has confirmed content from the 2026-09-10 session but its coherence as an area is under review. Some of its content duplicates Core Structure decisions; some is Infrastructure utility concerns that moved here by subject affinity rather than purpose alignment. To be resolved: whether FileOps earns its place as an area, dissolves with content redistributed, or is redefined with a clearer purpose.
+
+---
+
+## Boundaries
+
+WP owns generic operating behaviour and live state — the middle placement band.
+
+**WP does not own:**
+
+- The design method — Project Design
+- How code is structured — Build
+- Document structure, the definition contract, the split test as a rule — Documentation Methodology
+- The component model, ownership rules, framework-wide requirements — Core
+- Universal reasoning premises — Principles
+- The work register — Project Design
+- Trust conventions, the human working model, verification behaviours, drift detection, anomalies — Assurance
+- Cross-platform transport and coordination — Orchestration
+
+**WP owns:**
+
+- Capture-and-place as the primary operational mechanism
+- Workflow commands (concept, definition methodology, reference guide)
+- WIP model and conventions
+- Work items, work plan, open items, pending content
+- The development lifecycle concept (phases and modes)
+- Process document types (working document, report, resource)
+- The binder concept (why and how, not the doctype)
+- The overview-first working discipline (generic)
+- File delivery rules (pending FileOps resolution)
+- File operation conventions (pending FileOps resolution)
+
+---
+
+Version note: v1 — initial design from the WP design pass. 2026-09-15.
+<!-- END SOURCE: Working Practices/WP_Design_v1.md -->
 
 ---
 
