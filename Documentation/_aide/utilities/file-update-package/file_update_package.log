@@ -2945,3 +2945,221 @@ COMPLETION SUMMARY
 FAILED - nothing was deployed
 ========================================================================
 
+========================================================================
+file update package   2026-09-15 12:08:28   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Core_DesignPass_2026-09-15.zip  (2026-09-15 12:06, 12,932 bytes)
+description:        Core design pass — design, decisions, brief update, schema standard update, AIDEMap, index update
+------------------------------------------------------------------------
+
+[Core]
+  CREATED           Core/Core_Design_v1.md  (10,786 bytes)
+  CREATED           Core/Core_Decisions_v1.md  (4,946 bytes)
+  DELETED           Core_Brief_v1.md
+  REPLACED          Core/Core_Brief_v2.md  (5,650 bytes)
+  DELETED           Core_Schema_Standard_v2.md
+  REPLACED          Core/Core_Schema_Standard_v3.md  (820 bytes)
+  DELETED           Core_AIDEMap.md
+  REPLACED          Core/Core_AIDEMap.md  (2,350 bytes)
+  DELETED           _index.md
+  REPLACED          Core/_index.md  (1,778 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Core_DesignPass_2026-09-15.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 4 replaced, 2 created, 4 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Core_DesignPass_2026-09-15.zip
+                        Core design pass — design, decisions, brief update, schema standard update, AIDEMap, index update
+  files replaced:       4
+  files created:        2
+  files moved:          0
+  files deleted:        4
+  conflicts:            0
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 12:19:59   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Core_DesignPass_Corrected_2026-09-15.zip  (2026-09-15 12:19, 13,167 bytes)
+description:        Core design pass — design, decisions, brief update, schema standard update, AIDEMap, index update
+------------------------------------------------------------------------
+
+[Core]
+  CONFLICT          Core/Core_Design_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Core/Core_Decisions_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Core/Core_Brief_v2.md: nothing replaced - "Core_Brief_v1.md" is not in the documentation tree
+  CONFLICT          Core/Core_Brief_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+  SKIPPED           Core/Core_Schema_Standard_v3.md: nothing replaced - "Core_Schema_Standard_v2.md" is not in the documentation tree
+  CONFLICT          Core/Core_Schema_Standard_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  DELETED           Core_AIDEMap.md
+  REPLACED          Core/Core_AIDEMap.md  (2,350 bytes)
+  DELETED           _index.md
+  REPLACED          Core/_index.md  (1,778 bytes)
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 replaced, 2 deleted, 4 conflict, 2 skipped, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Core_DesignPass_Corrected_2026-09-15.zip
+                        Core design pass — design, decisions, brief update, schema standard update, AIDEMap, index update
+  files replaced:       2
+  files created:        0
+  files moved:          0
+  files deleted:        2
+  conflicts:            4
+    - Core/Core_Design_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Core/Core_Decisions_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Core/Core_Brief_v2.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Core/Core_Schema_Standard_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+
+========================================================================
+file update package   2026-09-15 12:21:50   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Core_DesignCorrections_2026-09-15.zip  (2026-09-15 12:21, 5,073 bytes)
+description:        Core design pass — cross-review corrections applied to Core_Design_v1
+------------------------------------------------------------------------
+
+[Core]
+  DELETED           Core_Design_v1.md
+  REPLACED          Core/Core_Design_v1.md  (11,638 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Core_DesignCorrections_2026-09-15.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Core_DesignCorrections_2026-09-15.zip
+                        Core design pass — cross-review corrections applied to Core_Design_v1
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 14:26:20   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            WP_DesignPass_2026-09-15.zip  (2026-09-15 14:25, 17,865 bytes)
+description:        Working Practices design pass — brief, design, decisions, plus rebuild working documents (Check 1, Assurance sketch, Core carries)
+------------------------------------------------------------------------
+
+[Working Practices]
+  CREATED           Working Practices/WP_Brief_v1.md  (4,022 bytes)
+  CREATED           Working Practices/WP_Design_v1.md  (16,422 bytes)
+  CREATED           Working Practices/WP_Decisions_v1.md  (9,161 bytes)
+
+[_rebuild]
+  CREATED           _rebuild/WP_Check1_Assessment_v1.md  (3,497 bytes)
+  CREATED           _rebuild/Assurance_Brief_Sketch_v1.md  (3,117 bytes)
+  CREATED           _rebuild/WP_CoreCarries_v1.md  (2,291 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         WP_DesignPass_2026-09-15.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 6 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              WP_DesignPass_2026-09-15.zip
+                        Working Practices design pass — brief, design, decisions, plus rebuild working documents (Check 1, Assurance sketch, Core carries)
+  files replaced:       0
+  files created:        6
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 14:29:16   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            WIP_Update_2026-09-15.zip  (2026-09-15 14:29, 5,329 bytes)
+description:        WIP v13 → v14 — WP design pass outcomes, Assurance component, Core carries
+------------------------------------------------------------------------
+
+[.]
+  DELETED           AIDE_Documentation_WIP_v13.md
+  REPLACED          AIDE_Documentation_WIP_v14.md  (12,827 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         WIP_Update_2026-09-15.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              WIP_Update_2026-09-15.zip
+                        WIP v13 → v14 — WP design pass outcomes, Assurance component, Core carries
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
