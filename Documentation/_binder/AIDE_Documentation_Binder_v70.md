@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 69** (2026-09-15).
+> **Binder Version 70** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -21,7 +21,11 @@ individual files.
 - `_rebuild/ProjectDesign_WorkRegister_Pending_v1.md` - sha256 `638ebbfb6eef`
 - `_rebuild/WP_Check1_Assessment_v1.md` - sha256 `dba57b98ffda`
 - `_rebuild/WP_CoreCarries_v2.md` - sha256 `2f3ab75ce434`
+- `AIDE_Orchestration_Investigation_Findings.md` - sha256 `e7c281c19fb4`
 - `AIDE_Solution_Map.md` - sha256 `3c2294f7ae2b`
+- `Assurance/_index.md` - sha256 `fde4b0521828`
+- `Assurance/Assurance_Decisions_v1.md` - sha256 `23b64a56b9c6`
+- `Assurance/Assurance_Design_v1.md` - sha256 `892f555cbc92`
 - `Core/_index.md` - sha256 `31c7a15e03eb`
 - `Core/Core_AIDEMap.md` - sha256 `fd95d6407fb1`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
@@ -3803,6 +3807,845 @@ Version note: v2 — adds Core Structure carries from FileOps dissolution (archi
 
 ---
 
+<!-- BEGIN SOURCE: AIDE_Orchestration_Investigation_Findings.md -->
+# AIDE Orchestration — Investigation Findings
+
+Version 1. 2026-09-15. Investigation against `AIDE_Orchestration_WIP_v1.md`.
+
+---
+
+## Area 1 — Claude Code Programmatic Invocation
+
+### What was tested
+
+The scoping document's "Agent SDK wrapper" maps to a specific, real product: the **Claude Agent SDK** — available as `@anthropic-ai/claude-agent-sdk` (TypeScript) and `claude-agent-sdk` (Python). Installed on this machine as Claude Code 2.1.270.
+
+Investigated: official documentation at `code.claude.com/docs/en/agent-sdk`, the TypeScript API reference, the quickstart, and the headless/subprocess documentation. Also examined the Claude Code CLI's non-interactive mode (`claude -p`).
+
+### What works
+
+**Intent-level delegation is confirmed.** The SDK entry point is:
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+for await (const message of query({
+  prompt: "Apply this specification to the codebase",
+  options: {
+    allowedTools: ["Read", "Edit", "Bash", "Glob", "Grep"],
+    permissionMode: "acceptEdits",
+    cwd: "/path/to/project",
+    maxBudgetUsd: 5.00,
+    maxTurns: 20,
+    outputFormat: {
+      type: "json_schema",
+      schema: { /* verification response schema */ }
+    }
+  }
+})) {
+  // Stream messages: assistant reasoning, tool calls, results
+}
+```
+
+The agent loop owns file discovery, edit planning, and execution. The caller describes WHAT needs to change; the agent decides HOW. This is exactly the separation the scoping document assumed.
+
+**Structured output is supported.** The `outputFormat` option accepts a JSON Schema. The agent's final response conforms to it. This means the verification response can be schema-constrained.
+
+**Full local capability confirmed.** Built-in tools include Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch. The agent has access to the filesystem, git, and shell commands within the working directory (and any `additionalDirectories`).
+
+**Session management exists.** Sessions persist to disk. Functions: `listSessions()`, `getSessionMessages()`, `getSessionInfo()`, `renameSession()`, `tagSession()`. Resume via `options.resume` (session ID) or `options.continue` (most recent).
+
+**Subagent support exists.** Agents can be defined inline and spawned for subtasks:
+
+```typescript
+options: {
+  agents: {
+    reviewer: {
+      instructions: "You are a code reviewer",
+      maxTurns: 5,
+      outputFormat: { type: "json_schema", schema: reviewSchema }
+    }
+  }
+}
+```
+
+**Hooks system exists.** Custom code can run at lifecycle points (SessionStart, Setup, SessionEnd, etc.).
+
+**Cost control exists.** `maxBudgetUsd` stops the agent when cost reaches a USD threshold. `maxTurns` limits complexity.
+
+**MCP server support.** External tools can be connected via the `mcpServers` option — this means the orchestration layer could expose its own tools to the agent.
+
+### CLI alternative — `claude -p`
+
+For simpler invocations, the CLI works as a subprocess:
+
+```bash
+claude -p "Apply the FUP specification" \
+  --output-format json \
+  --json-schema '{"type":"object","properties":{"summary":{"type":"string"},"files_changed":{"type":"array","items":{"type":"string"}},"status":{"type":"string"}},"required":["summary","files_changed","status"]}' \
+  --allowedTools "Read,Edit,Bash,Glob,Grep" \
+  --permission-mode acceptEdits
+```
+
+The docs state: "To drive the same agent loop from another language, run the CLI as a subprocess with the `-p` flag and `--output-format json`."
+
+The CLI supports session resume (`--continue`, `--resume <id>`), structured output, tool approval, and all the agent capabilities. The JSON output includes `session_id`, `result`, `total_cost_usd`, and metadata.
+
+### Actual limits
+
+| Constraint | Value |
+|---|---|
+| Context window | 1M tokens (Opus 5 default) |
+| Max output tokens | 128K per response |
+| Piped stdin | 10 MB cap |
+| Timeout | Configurable; 10-minute default for background waits |
+| Filesystem scope | Working directory + `additionalDirectories` |
+| SDK packaging | Bundles a native Claude Code binary (~50MB) |
+
+### What didn't work / caveats
+
+- The SDK bundles a native binary. The npm/pip package is platform-specific (includes the Claude Code executable). This is not an issue for local use but affects deployment portability.
+- The SDK spawns a child process — it is not an in-process library call. This has latency implications for rapid-fire invocations (though `startup()` provides a warm query path).
+- No built-in "diff of changed regions" in the response format. The agent CAN report what it changed in free text, and the `outputFormat` can require structured fields, but you cannot get git-level diffs automatically. A post-invocation `git diff` is the correct way to capture diffs.
+
+### Recommended design
+
+**Use the TypeScript Agent SDK (`@anthropic-ai/claude-agent-sdk`) for the automated MCP transport.** It provides exactly the intent-level delegation the architecture assumed, with structured output, cost control, session management, and full local tool access.
+
+For the manual transport (copy-paste), `claude -p` with `--output-format json --json-schema` is the CLI equivalent.
+
+The `startup()` warm-query path should be used when the orchestration layer needs to submit multiple tasks in sequence — it keeps the Claude Code binary alive between invocations.
+
+---
+
+## Area 2 — OAuth / Subscription Authentication
+
+### What was tested
+
+Checked Claude Code auth status on this machine. Examined the Agent SDK documentation's authentication section. Reviewed the CLI's bare vs non-bare mode auth behaviour.
+
+### What works
+
+**Subscription auth is confirmed working.** Claude Code on this machine reports:
+
+```json
+{
+  "loggedIn": true,
+  "authMethod": "claude.ai",
+  "apiProvider": "firstParty",
+  "subscriptionType": "max",
+  "email": "david@moynagh.co.nz"
+}
+```
+
+**Non-bare mode uses subscription auth.** When the SDK runs in default (non-bare) mode, the Claude Code binary reads OAuth credentials from the system keychain. This is the logged-in Max subscription — no API key needed.
+
+**Bare mode requires an API key.** The docs state: "In bare mode, Claude Code never reads OAuth credentials or the system keychain." Set `ANTHROPIC_API_KEY` or provide an `apiKeyHelper` in settings.
+
+### The "third party" policy
+
+The SDK docs contain this note:
+
+> "Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK."
+
+**This is a distribution policy, not a technical block.** It restricts developers who build products for OTHER people using subscription auth. Dave is building AIDE for personal use — this is first-party use of his own subscription, not a product distributed to others. The technical mechanism (keychain-based OAuth) works regardless.
+
+### Environment variable precedence (confirmed from docs)
+
+1. Cloud credentials (Bedrock, Vertex, Foundry env vars)
+2. `ANTHROPIC_AUTH_TOKEN`
+3. `ANTHROPIC_API_KEY`
+4. Logged-in OAuth profile (keychain)
+5. Workload Identity Federation env vars
+6. Default profile on disk
+
+**Critical: if `ANTHROPIC_API_KEY` is set, it shadows the subscription login.** Ensure it is unset in the orchestration environment.
+
+### Billing pool
+
+Usage from non-bare SDK invocations draws from the **Max 5x subscription quota** — the same pool as interactive Claude Code sessions. This is usage-counted, not dollar-billed.
+
+The SDK credit pool ($100/month at API rates for Max 5x) applies to **API-key-authenticated** calls only. It is a separate credit for programmatic use via `ANTHROPIC_API_KEY`. Its status on this account was not directly verifiable from this session.
+
+### Recommended configuration
+
+```
+# Ensure no API key shadows subscription auth:
+# ANTHROPIC_API_KEY must be UNSET
+
+# No special environment variables needed.
+# The Agent SDK in non-bare mode (the default) reads
+# the logged-in session from the system keychain.
+```
+
+For the orchestration layer, the only requirement is that Dave is logged in to Claude Code (`claude auth login`). The SDK picks up the subscription automatically.
+
+### What was hard
+
+There is no programmatic way to query "which billing pool am I using" from the SDK. The `system/init` event in stream-json mode reports the model and auth method, but not the billing pool. Cost tracking is available via `total_cost_usd` in the response metadata, but this is a client-side estimate, not a billing-pool report.
+
+---
+
+## Area 3 — Desktop Extension Packaging (MCPB)
+
+### What was tested
+
+Researched the current Desktop Extension format, manifest schema, build workflow, developer experience, permissions, and the relationship between extensions and Claude Code's agent capabilities.
+
+### What works
+
+**The format is MCPB** (MCP Bundles, file extension `.mcpb`). Supersedes the earlier `.dxt` format. Manifest spec v0.3 (as of 2025-12-02).
+
+An `.mcpb` file is a ZIP archive containing:
+- `manifest.json` (required) — describes the extension, its server configuration, and user-configurable fields
+- `server/` directory with implementation code
+- Bundled dependencies
+
+**Manifest schema (key fields):**
+
+```json
+{
+  "manifest_version": "0.3",
+  "name": "aide-orchestrator",
+  "version": "1.0.0",
+  "description": "AIDE orchestration work-package transport",
+  "author": { "name": "David Moynagh" },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"]
+    }
+  },
+  "user_config": {
+    "project_root": {
+      "type": "directory",
+      "title": "Project Root",
+      "required": true
+    }
+  }
+}
+```
+
+**Build workflow:**
+```
+npm install -g @anthropic-ai/mcpb
+mcpb init          # generates manifest interactively
+mcpb validate .    # validates manifest
+mcpb pack .        # bundles into .mcpb
+```
+Install: double-click the `.mcpb` file or drag into Claude Desktop.
+
+**Capabilities:**
+- Full local filesystem/git/shell access (no sandbox)
+- OS keychain for secrets via `sensitive: true` config fields
+- Cross-platform (macOS, Windows) with platform-specific overrides
+- Enterprise allowlisting for organizational control
+- Node.js runtime bundled with Claude Desktop
+
+### What didn't work — the architectural mismatch
+
+**Desktop Extensions are the wrong mechanism for the core orchestration problem.**
+
+A Desktop Extension is an MCP server. It exposes tools, resources, and prompts that Claude Desktop's chat can CALL. It is a passive tool provider. It cannot:
+
+- Invoke Claude Code's agent loop
+- Trigger a background agent session
+- Drive multi-step execution
+- Manage subagents or sessions
+
+The orchestration architecture needs to INVOKE Claude's agent capabilities (via the Agent SDK), not EXPOSE tools for Claude to call. A Desktop Extension sits on the wrong side of the invocation: it gives chat new tools, but the expensive work (reasoning about files, planning edits) still happens in chat — exactly the `mcp serve` pattern the scoping document rejected.
+
+### Recommended design
+
+**Desktop Extensions have a role, but not the one originally scoped.**
+
+They are suitable for:
+1. **Manual transport enrichment** — a "Submit Work Package" tool in Claude Desktop's chat that formats and presents work packages for copy-paste to Code.
+2. **Dashboard / status tools** — exposing orchestration status, session history, or verification results as resources in chat.
+3. **Configuration UI** — using the `user_config` mechanism for orchestration settings (project root, transport preferences, etc.).
+
+They are NOT suitable for:
+1. Automated build delegation (that is the Agent SDK's job).
+2. Cross-platform review submission (that is Codex/Gemini CLI's job).
+3. The core task-transport mechanism.
+
+If a Desktop Extension is built at all, it is a convenience layer on top of the SDK-based orchestration, not the orchestration itself. This is a refinement, not a contradiction of the architecture — the scoping document said "this is the deployment vehicle for the automated MCP transport," and the investigation shows the automated transport goes directly through the SDK, not through an MCP tool server.
+
+---
+
+## Area 4 — Cross-Platform Review Transport
+
+### What was tested
+
+Examined Codex CLI on this machine (installed and authenticated). Researched Gemini CLI capabilities via web search.
+
+### Codex CLI — confirmed working
+
+**Installation:** Installed at `C:\Users\david\AppData\Local\Programs\OpenAI\Codex\bin\codex.exe`.
+
+**Authentication:** `codex login status` reports `Logged in using ChatGPT`. Uses the ChatGPT Plus subscription, not API tokens.
+
+**Non-interactive execution:**
+
+```bash
+codex exec "Review this code for security vulnerabilities" \
+  --json \
+  --output-last-message output.json \
+  --output-schema review-schema.json \
+  --cd /path/to/project \
+  --approve-for-me
+```
+
+Key flags:
+| Flag | Purpose |
+|---|---|
+| `--json` | JSONL event stream to stdout |
+| `--output-last-message <file>` | Write final agent message to file |
+| `--output-schema <file>` | JSON Schema for structured final output |
+| `-m <model>` | Select model (e.g., `o3`, `o4-mini`) |
+| `--cd <dir>` | Working directory |
+| `--approve-for-me` | Automated approval via workspace-write sandbox |
+| `--ephemeral` | No session persistence |
+| `-s read-only` | Sandbox mode for read-only review |
+
+**Dedicated review mode:**
+
+```bash
+codex exec review "Focus on security and performance" \
+  --json \
+  --output-last-message review.json \
+  --output-schema schema.json
+```
+
+Reviews against: `--uncommitted` (staged/unstaged/untracked), `--base <branch>` (vs branch), `--commit <SHA>` (specific commit).
+
+**Session resume:**
+
+```bash
+codex exec resume --last          # resume most recent
+codex exec resume <session-id>    # resume specific session
+codex exec fork <session-id>      # fork into new session
+```
+
+**Structured output:** The `--output-schema` flag accepts a path to a JSON Schema file. The agent's final response conforms to it. This means the orchestration layer can receive review results in a predictable structure.
+
+### Gemini CLI — deprecated, replaced by Antigravity CLI
+
+Gemini CLI is not installed on this machine. Research uncovered a significant development:
+
+**Deprecation (June 2026):** At Google I/O on May 19, 2026, Google announced consolidation under the **Antigravity** brand. Gemini CLI **stopped serving consumer/free-tier requests on June 18, 2026.** Consumer users were redirected to **Antigravity CLI** (`agy` command). Gemini CLI still works with an API key from Google AI Studio or Vertex AI / service account auth, but consumer subscription auth (Google One AI Premium) is defunct.
+
+**Installation:** `npm install -g @google/gemini-cli` (package: `@google/gemini-cli`, Node.js 20+).
+
+**Non-interactive mode:** `gemini -p "prompt"` for headless execution. Output modes: `--output-format text` (default), `json` (single object at end), `stream-json` (JSONL events).
+
+**Structured output:** JSON output includes `response`, `stats` (tokens, tool calls, files), and `error`. However, there is no `--output-schema` equivalent — no schema-constrained structured output like Codex CLI or the Agent SDK provide.
+
+**Session management:** Sessions auto-save with UUIDs. `gemini --resume <UUID>` or `gemini -r latest`. However, headless mode JSON output **does not currently include the session ID** (GitHub issue #14435, open as of Sept 2026). This is a gap: you cannot capture the session ID from a non-interactive run to resume later.
+
+**Authentication for headless use:** Only `GEMINI_API_KEY` (from AI Studio), Vertex AI service accounts, or Application Default Credentials. Browser OAuth is removed.
+
+### Antigravity CLI (Google successor)
+
+The Gemini CLI successor for consumer users:
+
+- **Command:** `agy`
+- **Non-interactive:** `agy -p "prompt"` (same pattern)
+- **Permissions:** Tool calls requiring approval are soft-denied by default in headless mode. `--dangerously-skip-permissions` auto-approves. Known issue: headless mode does not consult `permissions.allow` in settings (GitHub issue #548).
+- **Maturity:** Early. Known permission bugs in headless mode. Not yet a reliable automation target.
+
+### Capability comparison
+
+| Capability | Codex CLI | Gemini CLI | Antigravity CLI |
+|---|---|---|---|
+| Non-interactive exec | `codex exec` (mature) | `gemini -p` (works) | `agy -p` (early) |
+| Structured output | `--output-schema` (JSON Schema) | `--output-format json` (no schema constraint) | Unknown |
+| Dedicated review | `codex exec review` | None | None |
+| Session resume (headless) | `codex exec --last` (clean) | `--resume` exists but no session ID in JSON output | Unknown |
+| Auth (subscription) | ChatGPT Plus (confirmed) | **Deprecated** (June 2026) | Unknown |
+| Auth (API key) | `CODEX_API_KEY` | `GEMINI_API_KEY` | Likely `GEMINI_API_KEY` |
+| JSONL streaming | `--json` flag | `--output-format stream-json` | Unknown |
+| Working dir control | `--cd <dir>` | Equivalent exists | Likely supported |
+| Sandbox modes | read-only / workspace-write / full | `--yolo` / `--approval-mode` | `--dangerously-skip-permissions` |
+| Maturity for automation | High | Medium (deprecation risk) | Low |
+
+### Recommended design
+
+**Implement Codex CLI first.** It is installed, authenticated, has structured output via `--output-schema`, and has the cleanest non-interactive path. The dedicated `codex exec review` subcommand maps directly to the cross-platform review use case.
+
+**Gemini CLI is deprecated for consumer use** as of June 2026. The successor is Antigravity CLI (`agy`), which is early and has known issues in headless mode. Neither Gemini CLI nor Antigravity CLI supports schema-constrained output (`--output-schema` equivalent). For Google model access in automation, an API key from Google AI Studio + Gemini CLI would work technically, but the tooling is less mature than Codex CLI. Defer until the Antigravity CLI stabilises or a genuine need for Google model review arises.
+
+**Structured output parsing:** Codex CLI supports schema-constrained output via `--output-schema`. Gemini/Antigravity CLI provides JSON output but without schema enforcement — the orchestration layer would need to parse and validate the response against the schema itself. For the first implementation, Codex CLI's schema support is sufficient; schema validation for other transports can be added when needed.
+
+---
+
+## Area 5 — Work Package Contract
+
+### Design approach
+
+The schemas below are informed by what Areas 1–4 showed is actually available. The key constraints:
+
+1. **Agent SDK `outputFormat`** accepts a JSON Schema and constrains the agent's final response to it. This means the verification response is schema-enforced, not parsed from free text.
+2. **Codex CLI `--output-schema`** also accepts a JSON Schema. Same mechanism, different transport.
+3. **Copy-paste transport** needs a human-readable representation. Markdown with a YAML/JSON front matter block provides both: the front matter is machine-parseable, the body is human-readable.
+4. **Authorship independence** requires that both chat and Code can populate the same fields. No field should be easy to fill from one surface and awkward from the other.
+
+### Work Package Schema (JSON)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "package_id": {
+      "type": "string",
+      "description": "Unique identifier for this work package (UUID or descriptive slug)"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the package was created"
+    },
+    "task_type": {
+      "type": "string",
+      "enum": ["build", "review", "search", "collaborate"],
+      "description": "What kind of work this package requests"
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["autonomous", "heavyweight"],
+      "description": "autonomous: MCP delivers, Code executes, results return. heavyweight: file-drop, Dave drives interactively"
+    },
+    "specification": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "description": "What needs to change — the specification, not the instructions. Describes the desired outcome, not the steps."
+        },
+        "context": {
+          "type": "string",
+          "description": "Background information the agent needs to understand the intent. References to existing files, standards, or decisions."
+        },
+        "scope": {
+          "type": "object",
+          "properties": {
+            "files": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Files or patterns the work should touch. Empty means agent discovers scope."
+            },
+            "directories": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Directories the agent should have access to beyond cwd."
+            }
+          }
+        }
+      },
+      "required": ["intent"]
+    },
+    "acceptance": {
+      "type": "object",
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "What must be true when the work is done — testable statements."
+        },
+        "objective_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check": { "type": "string", "enum": ["compile", "test", "lint", "deploy", "custom"] },
+              "command": { "type": "string", "description": "Shell command to run (for custom checks)" }
+            },
+            "required": ["check"]
+          },
+          "description": "Automated checks the agent should run after making changes."
+        }
+      }
+    },
+    "routing": {
+      "type": "object",
+      "properties": {
+        "transport": {
+          "type": "string",
+          "enum": ["mcp", "copy-paste", "file-drop"],
+          "description": "How this package travels. MCP = automated via SDK. copy-paste = manual. file-drop = heavyweight tier."
+        },
+        "target": {
+          "type": "string",
+          "enum": ["claude-code", "codex", "gemini", "other"],
+          "description": "Which surface executes this work."
+        },
+        "model": {
+          "type": "string",
+          "description": "Model hint for the executing agent (e.g., 'claude-opus-5', 'o3')."
+        },
+        "budget_usd": {
+          "type": "number",
+          "description": "Maximum cost for this task in USD."
+        }
+      }
+    }
+  },
+  "required": ["task_type", "tier", "specification"]
+}
+```
+
+### Verification Response Schema (JSON)
+
+This is the schema passed to `outputFormat` (Agent SDK) or `--output-schema` (Codex CLI) to constrain the agent's response:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "failed", "blocked"],
+      "description": "Overall outcome of the work."
+    },
+    "summary": {
+      "type": "string",
+      "description": "One-paragraph description of what was done."
+    },
+    "files_changed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "action": { "type": "string", "enum": ["created", "modified", "deleted", "renamed"] },
+          "description": { "type": "string", "description": "What changed in this file and why." }
+        },
+        "required": ["path", "action"]
+      },
+      "description": "List of files touched by the work."
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "check": { "type": "string" },
+          "passed": { "type": "boolean" },
+          "output": { "type": "string", "description": "Relevant output from the check (truncated if long)." }
+        },
+        "required": ["check", "passed"]
+      },
+      "description": "Results of objective checks (compile, test, lint, deploy)."
+    },
+    "criteria_met": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "criterion": { "type": "string" },
+          "met": { "type": "boolean" },
+          "evidence": { "type": "string" }
+        },
+        "required": ["criterion", "met"]
+      },
+      "description": "Assessment of each acceptance criterion."
+    },
+    "questions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Questions or ambiguities encountered during execution that need human input."
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Issues that prevented completion."
+    }
+  },
+  "required": ["status", "summary", "files_changed"]
+}
+```
+
+### Transport independence test
+
+**JSON transport (MCP / SDK):** The work package is a JSON object. The specification's `intent` field is the prompt passed to `query()`. The verification response schema is passed as `outputFormat`. Lossless.
+
+**Markdown transport (copy-paste):** The work package renders as:
+
+```markdown
+---
+task_type: build
+tier: autonomous
+---
+
+## Intent
+
+Deploy the Principles FUP: update Principles_Design to v4 and
+Principles_Decisions to v4, superseding the v3 files.
+
+## Context
+
+The FUP zip is at `_fileupdatepackages/Principles_2026-09-08.zip`.
+The FUP deployer tool is at `_tools/file_update_package.py`.
+
+## Acceptance criteria
+
+- [ ] Principles_Design_v4.md exists at Principles/
+- [ ] Principles_Decisions_v4.md exists at Principles/
+- [ ] v3 files moved to _superseded
+- [ ] Binder builder runs successfully after deploy
+
+## Objective checks
+
+- deploy: `python _tools/file_update_package.py`
+```
+
+This is readable, pasteable, and parseable (YAML front matter + structured body). The same fields are present in both representations.
+
+**Authorship independence test:** Both surfaces can populate all fields naturally. In chat, the user describes the intent in natural language and Claude structures it. In Code, the user or agent populates the JSON directly. The `intent` field is natural language in both cases — it is the specification, not implementation instructions.
+
+### Example: FUP validation scenario
+
+```json
+{
+  "package_id": "fup-principles-2026-09-08",
+  "created": "2026-09-15T14:00:00Z",
+  "task_type": "build",
+  "tier": "autonomous",
+  "specification": {
+    "intent": "Deploy the Principles FileUpdatePackage. The FUP at _fileupdatepackages/Principles_2026-09-08.zip contains updated Principles_Design_v4.md and Principles_Decisions_v4.md. Run the FUP deployer tool to deploy these files into the documentation tree, superseding the v3 versions.",
+    "context": "The FUP deployer is a Python script at _tools/file_update_package.py. It reads _manifest.json from the zip, deploys files to their target paths, moves replaced files to _superseded folders, and triggers the binder builder. The documentation root is the parent of _tools/.",
+    "scope": {
+      "files": [
+        "_fileupdatepackages/Principles_2026-09-08.zip",
+        "_tools/file_update_package.py",
+        "_tools/file_update_package_settings.json"
+      ],
+      "directories": [
+        "Principles/"
+      ]
+    }
+  },
+  "acceptance": {
+    "criteria": [
+      "Principles/Principles_Design_v4.md exists and matches the zip content",
+      "Principles/Principles_Decisions_v4.md exists and matches the zip content",
+      "Previous v3 files are in Principles/_superseded/",
+      "FUP deployer reports DEPLOYED (not CONFLICT or ERROR)",
+      "The processed zip is moved to _fileupdatepackages/_superseded/"
+    ],
+    "objective_checks": [
+      { "check": "custom", "command": "python _tools/file_update_package.py" }
+    ]
+  },
+  "routing": {
+    "transport": "mcp",
+    "target": "claude-code",
+    "budget_usd": 2.00
+  }
+}
+```
+
+### Heavyweight tier — file-drop convention
+
+For Tier 2 (heavyweight), the work package is a file placed in the repo:
+
+- **Location:** `_workpackages/` at the documentation root (or project root)
+- **Filename:** `{package_id}.workpackage.md` (or `.json`)
+- **Discovery:** Code scans `_workpackages/` for files matching the pattern. No automated file-watch — Dave points Code at the file manually (per clarification C2, this is the right first step).
+
+The heavyweight tier uses the same schema as the autonomous tier but with `tier: "heavyweight"` and `transport: "file-drop"`. The file contains the full work package. Dave opens Code in the project directory and instructs it to process the work package.
+
+---
+
+## What Was Hard
+
+### Area 1 — Easier than expected
+The Agent SDK's API is clean and well-documented. The `query()` → async generator pattern maps directly to the orchestration architecture. The structured output via `outputFormat` eliminates the need for response parsing. The scoping document's architecture is confirmed almost exactly as assumed.
+
+### Area 2 — Billing pool opacity
+There is no programmatic "which pool am I using" check. The distinction between subscription quota, SDK credit pool, and API billing is documented but not queryable at runtime. Cost tracking is available via `total_cost_usd` in response metadata, but this is a client-side estimate. The recommendation is to monitor via the Anthropic usage dashboard and set `maxBudgetUsd` as a per-task safety net.
+
+### Area 3 — Architectural mismatch
+This was the biggest surprise. The scoping document assumed Desktop Extensions were "the deployment vehicle for the automated MCP transport." The investigation shows they are MCP tool servers — they give chat new tools, but cannot invoke Code's agent loop. The core delegation mechanism is the Agent SDK (or CLI subprocess), not an extension. This is not a flaw in the architecture — it is a refinement. The extension packaging is still useful for manual-transport enrichment, but the automated transport bypasses it entirely.
+
+### Area 4 — Gemini CLI deprecated
+Codex CLI is mature and well-suited. Gemini CLI has been deprecated for consumer users (June 2026) and its successor Antigravity CLI has known issues in headless mode. Neither supports schema-constrained output. The scoping document's plan to "add Gemini and potentially others" is architecturally sound (transport-independent work packages mean adding transports is additive), but the Google CLI ecosystem is in flux. The transport-independent architecture means this is not blocking — Codex CLI covers the cross-platform review case, and Google model access can be added when the tooling stabilises.
+
+---
+
+## Recommended Architecture (revised from findings)
+
+The findings confirm the scoping document's architecture with one structural correction:
+
+### What the scoping document got right
+
+1. **Task creation separate from transport** — confirmed. The work package schema is transport-independent.
+2. **Intent-level delegation** — confirmed. The Agent SDK's `query()` accepts specification-level prompts.
+3. **Structured verification** — confirmed. `outputFormat` with JSON Schema constrains agent responses.
+4. **Two tiers** — confirmed. Autonomous via SDK, heavyweight via file-drop.
+5. **Cross-platform review via CLI** — confirmed. Codex CLI `exec` with `--output-schema`.
+6. **Stateless first** — confirmed as the right call. No penalty in deferring multi-turn.
+
+### What the scoping document assumed incorrectly
+
+1. **Desktop Extensions as the deployment vehicle** — incorrect for the core transport. Extensions are passive tool servers. The Agent SDK IS the transport mechanism. A Desktop Extension could wrap a "submit work package" tool for manual-transport convenience, but the automated path goes SDK → agent loop directly.
+
+### Revised component architecture
+
+```
+┌──────────────────────────────────────────────────────┐
+│ Chat (Claude Desktop / claude.ai)                     │
+│                                                       │
+│  Work package authored here (or in Code)              │
+│  Routing heuristic decides: stay in chat or delegate  │
+└───────────┬───────────────────────────┬───────────────┘
+            │ Automated (SDK)           │ Manual (copy-paste)
+            ▼                           ▼
+┌───────────────────────┐   ┌───────────────────────────┐
+│ Agent SDK invocation   │   │ claude -p with work       │
+│                        │   │ package as prompt          │
+│ query({                │   │                            │
+│   prompt: intent,      │   │ --output-format json       │
+│   options: {           │   │ --json-schema <response>   │
+│     outputFormat:      │   │ --allowedTools "..."       │
+│       responseSchema,  │   │ --permission-mode ...      │
+│     allowedTools,      │   │                            │
+│     maxBudgetUsd,      │   │                            │
+│     cwd: projectRoot   │   │                            │
+│   }                    │   │                            │
+│ })                     │   │                            │
+└───────────┬────────────┘   └─────────────┬─────────────┘
+            │                               │
+            ▼                               ▼
+┌──────────────────────────────────────────────────────┐
+│ Claude Code agent loop                                │
+│                                                       │
+│ Owns: file discovery, edit planning, execution        │
+│ Tools: Read, Write, Edit, Bash, Glob, Grep            │
+│ Returns: structured verification response             │
+└───────────┬───────────────────────────────────────────┘
+            │
+            ▼
+┌──────────────────────────────────────────────────────┐
+│ Verification response (schema-constrained)            │
+│                                                       │
+│ { status, summary, files_changed, checks,             │
+│   criteria_met, questions, blockers }                  │
+└──────────────────────────────────────────────────────┘
+```
+
+For cross-platform review:
+
+```
+┌──────────────────────────────────────────────────────┐
+│ Orchestration layer                                   │
+│                                                       │
+│ Work package with task_type: "review"                 │
+│ routing.target: "codex" or "gemini"                   │
+└───────────┬───────────────────────────┬───────────────┘
+            │                           │
+            ▼                           ▼
+   codex exec "prompt"          gemini -p "prompt"
+   --output-schema schema       --json
+   --json                       (structured output TBD)
+   --output-last-message out
+            │                           │
+            ▼                           ▼
+┌──────────────────────────────────────────────────────┐
+│ Review response (parsed into verification schema)     │
+└──────────────────────────────────────────────────────┘
+```
+
+---
+
+## Open Questions
+
+These are design decisions the investigation surfaced but could not resolve.
+
+### O1. Orchestration layer location
+
+Where does the orchestration code live — in Code (a skill/plugin), in a standalone Node.js script, or in a Desktop Extension's MCP server? The investigation showed the SDK is the invocation mechanism, but the orchestration logic (reading work packages, invoking the SDK, routing to Codex/Gemini, collecting responses) needs a home. Options:
+
+- **A Claude Code skill** that reads work packages and invokes the SDK (recursive: Code invoking Code)
+- **A standalone script** (Node.js/Python) that orchestrates from outside
+- **A Desktop Extension MCP server** that exposes orchestration tools to chat (chat-driven orchestration)
+
+Each has tradeoffs. The standalone script is simplest. The skill integrates tightest with Code's existing infrastructure. The extension gives chat control but adds the indirection layer the investigation showed is unnecessary for the core transport.
+
+### O2. When to use `outputFormat` vs post-hoc parsing
+
+The Agent SDK's `outputFormat` constrains the agent's FINAL response to a JSON Schema. But the agent may produce multiple assistant messages during execution (reasoning, tool calls, intermediate results). The verification response schema applies only to the final output. If intermediate status reporting is needed (e.g., "working on file 3 of 5"), that comes from the message stream, not from `outputFormat`. Is intermediate status needed for the autonomous tier?
+
+### O3. FUP deployer invocation strategy
+
+For the FUP validation scenario, should the work package tell the agent to run the Python deployer (`python _tools/file_update_package.py`), or should it tell the agent to perform the deployment itself (read the manifest, copy files, move superseded versions)? The deployer tool is the proven mechanism and provides its own verification (completion summary, event log). But it runs as a GUI-oriented script (holds the window open, waits for user input). The agent would need to handle its interactive prompts or the tool would need a `--batch` mode.
+
+---
+
+## Batched Questions for Dave
+
+### Q1. SDK credit pool status (Area 2, blocking: none)
+
+The Max 5x plan includes a $100/month SDK credit pool for API-key-authenticated calls. Is this currently active on your account? Check at `console.anthropic.com` → Billing → Usage. If it is active, API-key-authenticated invocations (bare mode, CI pipelines) draw from this pool before incurring pay-as-you-go charges. If not active, all API-key usage is pay-as-you-go.
+
+**Why it matters:** For personal use (non-bare mode), the subscription quota applies regardless. The SDK credit pool matters only if you also need API-key-authenticated invocations (e.g., CI/CD pipelines, or `--bare` mode for deterministic builds).
+
+### Q2. Desktop Extension role (Area 3, blocking: none)
+
+The investigation found that Desktop Extensions cannot invoke Claude Code's agent loop — they are passive MCP tool servers. The automated transport goes through the Agent SDK directly. Do you still want a Desktop Extension as a convenience layer for the manual transport (a "Submit Work Package" tool in chat), or is the copy-paste path sufficient for now?
+
+**Recommendation:** Defer the extension. The SDK transport is the primary path; the copy-paste path covers the manual case. An extension adds value only when the manual path becomes frequent enough to justify the packaging overhead.
+
+### Q3. Orchestration layer home (Open question O1, blocking: design pass)
+
+Where should the orchestration code live? The three options are: a standalone Node.js script, a Claude Code skill, or a Desktop Extension MCP server. The investigation provides enough information to choose, but the choice shapes the design.
+
+**Recommendation:** Start with a standalone Node.js script. It is the simplest, most testable, and least coupled option. It can be evolved into a skill or extension later if the integration benefits justify it.
+
+### Q4. FUP deployer batch mode (Area 5 / validation scenario, blocking: prototype)
+
+The FUP deployer tool (`file_update_package.py`) is interactive — it holds the window open and may prompt for user instructions. For the autonomous tier, the agent needs to run it non-interactively. Options:
+- Add a `--batch` or `--non-interactive` flag to the deployer
+- Have the agent pipe input to handle any prompts
+- Have the agent perform the deployment itself (bypassing the tool)
+
+**Recommendation:** Add a `--batch` flag to the deployer. It is a small change to an existing tool, preserves the proven deployment logic, and makes the tool usable from both interactive and automated contexts.
+
+### Q5. Work package naming (clarification C4, blocking: none)
+
+The scoping document notes a pending rename from "work package" to "build package" for the build-side artefact. The schemas above use "work package" throughout. The orchestration artefact is a transport envelope — neither "work package" nor "build package" is quite right. "Task package" or "dispatch" might be more accurate. Settle the naming before the schemas harden.
+
+### Q6. "Code's scan command" (clarification C2, confirmation)
+
+The investigation treated the heavyweight file-drop as a manual step (Dave points Code at the file). This is the right first approach. If you had something specific in mind by "Code's scan command" — an existing feature or planned capability — let me know and I'll adjust. The file-drop path works without automation: place the file, tell Code to process it.
+
+### Q7. Subscription auth for distributed use (Area 2, forward-looking)
+
+The Agent SDK's restriction on subscription auth is a policy against third-party distribution, not a technical block. For personal use, subscription auth works. But if AIDE is ever distributed to other users (e.g., as a product or template), each user would need their own API key or subscription. Is distribution a future consideration, or is AIDE always personal?
+
+**Why it matters:** If always personal, subscription auth (non-bare mode) is the right default. If distribution is possible, the orchestration layer should be designed to accept API keys from the start, even if you personally use subscription auth.
+
+---
+
+## Summary
+
+| Area | Scoping assumption | Finding | Status |
+|---|---|---|---|
+| 1. Agent SDK | Intent-level delegation via SDK wrapper | Confirmed — `query()` with `outputFormat` is exactly this | ✓ Confirmed |
+| 2. Auth | OAuth against Max subscription | Works in non-bare mode via keychain. API key for bare mode. | ✓ Confirmed with nuance |
+| 3. Desktop Extensions | Deployment vehicle for automated transport | Wrong mechanism — extensions are passive tool servers, not orchestrators | ✗ Corrected |
+| 4. Cross-platform CLIs | Codex/Gemini for non-interactive review | Codex confirmed. Gemini deprecated for consumer auth (June 2026); successor Antigravity CLI is early. | ✓ Codex confirmed; Gemini deferred |
+| 5. Work package | Transport-independent, authorship-independent contract | Draft schemas designed and tested against FUP scenario | ✓ Designed |
+
+The architecture is sound. The one structural correction — Desktop Extensions serving a different role than originally scoped — is a refinement, not a redesign. The Agent SDK provides exactly the intent-level delegation the architecture assumed, with better structured output support than expected.
+<!-- END SOURCE: AIDE_Orchestration_Investigation_Findings.md -->
+
+---
+
 <!-- BEGIN SOURCE: AIDE_Solution_Map.md -->
 # AIDE Solution Map
 
@@ -4075,6 +4918,376 @@ Working documents that govern the rebuild itself, not owned by a single componen
 
 **Document count:** 59 files in binder · 3 WIP files outside · 5 components without documents
 <!-- END SOURCE: AIDE_Solution_Map.md -->
+
+---
+
+<!-- BEGIN SOURCE: Assurance/_index.md -->
+# Assurance
+
+Role: component design
+Aliases: none
+
+Assurance builds justified trust in AI-assisted work by defining the conventions, behaviours, and detection that ensure the human's intent is reliably delivered and that problems are visible when they occur. Guidance role. Cross-cutting — both a component and a framework-wide requirement.
+
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| Assurance_ | Design v1 | design |
+| Assurance_ | Decisions v1 | decisions |
+
+## Parts
+
+None declared.
+<!-- END SOURCE: Assurance/_index.md -->
+
+---
+
+<!-- BEGIN SOURCE: Assurance/Assurance_Decisions_v1.md -->
+> identity: Assurance_Decisions@v1 | doctype: decisions | updated: 2026-09-15
+
+# Assurance — Decisions
+
+## Summary
+
+Reasoning and resolutions from the Assurance design pass. Eleven decisions covering the confirmed sketch decisions, autonomy tier naming, confidence vocabulary, the low-friction governing constraint, learning loop deferral, and the active identification obligation.
+
+---
+
+## D1. Five sketch decisions upheld
+
+The Assurance sketch carried five design decisions flagged for review at the full design pass. All five were reviewed and upheld without revision.
+
+**Named tiers for autonomy levels.** Small number, chosen by either side, AI judges default, human overrides. The shape is right — named tiers give a shared vocabulary without per-action negotiation. Upheld.
+
+**Anomalies channel is a behaviour with capture-and-place as destination.** The alternative — a separate log or queue — would duplicate what capture-and-place already does. Anomalies are things that don't fit; the AI notices them and places them. Upheld.
+
+**Confidence vocabulary uses the existing strength model.** Inventing a parallel system would create two ways of expressing degree-of-certainty. Using what exists keeps cognitive load down. Upheld.
+
+**Learnings queue is distinct from the task queue.** Different lifecycle, different purpose. Tasks are work to be done; learnings are observations whose value is in aggregate. Mixing pollutes both. Upheld.
+
+**Two escalation triggers.** Single high-impact instance for immediate action, accumulated pattern for periodic review. The pair covers both ends — big lessons and small-but-recurring ones. Upheld.
+
+## D2. Three autonomy tiers named
+
+Three tiers: directed, collaborative, autonomous.
+
+**Directed** — the AI proposes and waits. Every material action requires explicit agreement. For high-stakes, unfamiliar, or close-control situations.
+
+**Collaborative** — the AI acts within the agreed model and surfaces decisions at natural points. The default for most design and structured work.
+
+**Autonomous** — the AI executes against a clear specification and reports on completion. For well-understood work with a precise specification.
+
+Three was chosen over two (too coarse — no middle ground between full control and full delegation) and four-plus (diminishing returns — the distinctions become hard to remember and hard to call). Three is the smallest number that covers the range.
+
+The names were chosen for plain meaning. "Directed" says the human is directing. "Collaborative" says both sides are working. "Autonomous" says the AI is executing. No jargon, no numbered levels.
+
+## D3. Strength model adapted for conversational confidence
+
+The framework's strength vocabulary — strong, moderate, moderate-to-strong — is used for conversational confidence signalling. This is an adaptation, not a new system.
+
+The adaptation is in usage, not in the vocabulary itself. In standards, strength governs compliance weight. In conversation, the same words express the AI's degree of certainty about a judgement or recommendation. The AI says "strong" when it means "I'm confident this is right" and "moderate" when it means "this is my best reading but there's genuine room for doubt."
+
+The alternative — a separate confidence scale (high/medium/low, or numeric percentages) — was rejected because it would introduce a parallel vocabulary for the same underlying concept.
+
+## D4. Low friction is a governing constraint
+
+Assurance conventions must have minimal disruptive intrusion on the flow of work. Most assurance behaviour should be near-invisible in a normal session — the AI following its obligations without announcing that it is doing so.
+
+This governs how the standard is authored. Specifically:
+
+- Autonomy tiering is stated only when not obvious from context. Most of the time the tier is apparent and nothing needs saying.
+- Assumptions and gap-fill disclosure is proportionate to the significance of the gap. Small, obvious inferences are not flagged. Material assumptions always are.
+- Verification is the AI's background responsibility. It checks what it can check and identifies uncertainty — it does not narrate the checking process.
+- Drift detection surfaces departures, but only when there is a genuine departure to surface.
+- The anomalies channel uses capture-and-place, which already runs silently.
+
+The test for the standard: would following this slow down a normal working session? If yes, cut until it doesn't.
+
+This directly serves the facilitate-not-police objective (O5) and the charter's facilitate-and-empower objective (O5 of the charter).
+
+## D5. Learning loop designed, implementation deferred
+
+The learning and feedback loop — measurable moments, quick comparison, learnings queue, two escalation triggers — is designed in the Assurance design document. Implementation depends on Orchestration's MCP for queue-writing and is deferred until Orchestration is built and tested.
+
+The Improvement component, which owns the periodic pattern analysis of the learnings queue, will also depend on Orchestration's scheduling and MCP features. Both Improvement and the learning loop's recording mechanism are deferred together.
+
+The single high-impact escalation trigger can operate without Improvement — it escalates directly to the task queue. The accumulated-pattern trigger sleeps until Improvement arrives.
+
+The design stands independently of implementation timing. The conventions are stated; the mechanism follows when the infrastructure exists.
+
+## D6. Active identification is a cross-cutting obligation
+
+The AI's obligation to identify and recommend opportunities for stronger assurance is cross-cutting — it operates alongside all three areas of concern, not as a fourth area.
+
+The AI might notice opportunities while applying proactive conventions, while running detective checks, or while capturing learnings. The response is a recommendation surfaced through the anomalies channel, using capture-and-place. No separate mechanism is needed.
+
+This serves the charter's extensibility-from-learning objective (O4). Assurance evolves because the AI notices where it could be better, not only because failures are analysed after the fact.
+
+## D7. Assurance does not change its own conventions
+
+Assurance captures learnings and identifies opportunities. It does not act on them — it does not modify its own conventions, create new ones, or retire old ones.
+
+That responsibility belongs to Improvement, which analyses patterns and decides what to act on. The separation is deliberate: the observer should not be modifying itself based on its own observations without an independent analysis step.
+
+Assurance recommendations (from active identification) and learnings (from the capture loop) both flow outward — to the human via the anomalies channel, or to the Improvement component via the learnings queue. The decision about whether to change a convention is never Assurance's.
+
+## D8. Cross-cutting nature confirmed — component plus framework-wide requirement
+
+Assurance is both a component in the Guidance role and a framework-wide requirement stated in Core. This was confirmed in the WP design pass (D1, D16) and is carried forward without revision.
+
+The component owns the specific conventions described in this design. The framework-wide requirement is the lens: every component in the framework contributes to assurance. The brief-required gate, cross-review, operations test, acceptance test, strength model, capture-and-place, the design-check skill, and definition of done all contribute. They are not owned by Assurance — they are contributions to the assurance requirement from their owning components.
+
+## D9. Sketch reference corrected — P7/P8/P9, not P7/P8/P10
+
+The Assurance sketch's cross-cutting nature section referenced loud failure, verified truth, and "P10." There is no tenth premise. The detective conventions reference loud failure (P7), verified truth (P8), and confirmed state (P9). The cross-cutting reference is corrected to loud failure, verified truth, and confirmed state (P7/P8/P9).
+
+## D10. Lifecycle weighting, not lifecycle restriction
+
+Assurance runs across the full lifecycle. What shifts is the weighting, not the scope.
+
+At the overview and approach level, proactive conventions carry the most weight — getting the model right matters more than catching errors in it. At build, detective conventions carry more weight — the specification exists and the question is whether build honours it. Learning opportunities arise wherever a measurable comparison exists, regardless of stage.
+
+This was the scope correction confirmed in the scoping session and carried into the design as a model decision. The alternative — Assurance as primarily a build-side concern — was explicitly rejected because it would leave the highest-leverage work unprotected.
+
+## D11. Overview-first discipline consumed, not redefined
+
+The overview-first discipline is owned by Working Practices as a generic statement. Assurance recognises it as the highest-value proactive convention — the single most important thing Assurance can do is ensure the overview and approach are right — but does not redefine or restate it.
+
+This follows the established pattern: WP owns the behaviour, consumers reference it. No duplication of mechanism.
+
+---
+
+Version note: v1 — initial decisions from the Assurance design pass. 2026-09-15.
+<!-- END SOURCE: Assurance/Assurance_Decisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Assurance/Assurance_Design_v1.md -->
+> identity: Assurance_Design@v1 | doctype: design | updated: 2026-09-15
+
+# Assurance — Design
+
+## Summary
+
+Assurance builds justified trust in AI-assisted work. It defines the conventions, behaviours, and detection that ensure the human's intent is reliably delivered and that problems are visible when they occur. It operates across the full lifecycle from first concept through delivery, weighted toward the highest-leverage work — the overview and approach — where a flaw multiplies through every layer below.
+
+Assurance is both a component (Guidance role) and a framework-wide requirement (Core). The component owns its specific conventions; the framework-wide requirement is the lens every component is designed through.
+
+Three concurrent areas of concern form the model: proactive conventions that help the AI deliver correctly, detective conventions that make deviation visible, and the learning and feedback loop that captures outcomes for the Improvement component. A cross-cutting AI obligation to identify and recommend opportunities for stronger assurance operates alongside all three.
+
+---
+
+## Brief
+
+### Purpose
+
+Build justified trust in AI-assisted work by defining and evolving the conventions, structures, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur.
+
+### Objectives
+
+**O1. Proactive conventions.** Define the conventions that help the AI deliver the human's intent correctly in the first place — the operational contract covering autonomy, confidence signalling, and disclosure of what the AI filled in versus what the human stated.
+
+**O2. Detective conventions.** Define the conventions that make deviation, drift, error, and anomaly visible when they occur — verification behaviours, drift detection, and the anomalies channel.
+
+**O3. Learning capture.** Define the conventions for identifying learnings from work outcomes and routing them to the Improvement component — measurable moments, comparison, and the capture side of the learnings queue.
+
+**O4. Highest-leverage-first.** Assurance conventions protect the highest-leverage work first — the overview and approach — not primarily build output. The earliest stages are where assurance matters most, because a flaw at the top multiplies through every layer below.
+
+**O5. Facilitate, not police.** Assurance earns trust by being useful, not by adding verification overhead. Conventions must facilitate work, not constrain it.
+
+**O6. Active identification.** The AI identifies and recommends opportunities where assurance could be strengthened — gaps in coverage, emerging failure modes, or situations where no convention exists yet.
+
+### Definition of done
+
+1. The proactive conventions are defined — autonomy tiering, confidence signalling, and assumptions/gap-fill disclosure each have a stated convention with clear AI obligations.
+2. The detective conventions are defined — verification behaviours, drift detection, and the anomalies channel each have a stated convention with clear triggers and responses.
+3. The learning capture conventions are defined — what a measurable moment is, what the AI does when it recognises one, and how observations reach the learnings queue.
+4. The boundary with Improvement is defined — Assurance's capture responsibility ends and Improvement's analysis responsibility begins at a stated interface.
+5. Every convention is weighted toward the highest-leverage work — the overview and approach — with stated reasoning for how it applies earlier in the lifecycle, not only at build.
+6. No convention adds verification overhead that is not justified by the trust it produces.
+7. The AI's obligation to identify and recommend assurance strengthening opportunities is stated, with clear guidance on what to watch for and how to surface recommendations.
+
+### Scope and boundaries
+
+Assurance runs the full lifecycle from first conversational concept through delivery. It is not primarily a build-side or output-verification concern.
+
+**In scope:** Proactive conventions (autonomy tiering, confidence signalling, assumptions/gap-fill disclosure), detective conventions (verification behaviours, drift detection, anomalies channel), learning capture conventions (measurable moments, comparison, learnings queue capture side), and the active identification obligation.
+
+**Out of scope:** The substrate work runs on (Working Practices). The reasoning premises (Principles). The pattern analysis and action on learnings (Improvement). The scheduling mechanism for periodic review (Orchestration). The queue plumbing — file format, MCP write mechanism (Infrastructure). Transport and routing of cross-platform review (Orchestration). How work is specified or built (Project Design, Build).
+
+### Charter alignment
+
+Directly delivers the trust and integrity objective (O1) — the framework's primary reason for existing. Contributes to the extensibility-from-learning objective (O4) through the learning loop and active identification.
+
+---
+
+## Model and approach
+
+Assurance is a behavioural component. Its conventions are things the AI watches for and responds to — not machinery it operates or stages it passes through. A convention is applied by being followed, the same way a principle is applied by being reasoned from.
+
+### Three concurrent layers of defence
+
+The proactive conventions establish the contract — what the AI is expected to do to deliver correctly. The detective conventions check whether the contract is being honoured — making problems visible when prevention didn't prevent. The learning loop evaluates whether the conventions themselves are effective — capturing outcomes so the system improves.
+
+Each layer catches what the one above it missed. Proactive conventions reduce errors; detective conventions surface the errors that still occur; the learning loop finds the patterns that reveal why errors recur.
+
+All three layers operate across the full lifecycle. At every stage — from early conversation through design, into build, through delivery — the AI is simultaneously following proactive conventions, running detective checks, and recognising learning opportunities. This is not a pipeline. They are concurrent.
+
+What shifts is the weighting. At the overview and approach level, proactive conventions carry the most weight — getting the model right matters more than catching errors in it. At build, detective conventions carry more weight — the specification exists and the question is whether build honours it. Learning opportunities arise wherever a measurable comparison exists, regardless of stage.
+
+### Feedback path
+
+Proactive and detective conventions are the standing set. The learning loop feeds the Improvement component, which may eventually change those conventions. Assurance does not change its own conventions — it captures; Improvement analyses and acts.
+
+### Active identification
+
+The AI has a standing obligation to identify and recommend opportunities where assurance could be strengthened. This is distinct from the learning loop: learning captures outcomes from work done, while active identification is forward-looking — the AI noticing gaps, emerging failure modes, or situations where no convention exists yet.
+
+Active identification operates across all three areas. The AI might notice opportunities while applying proactive conventions, while running detective checks, or while capturing learnings. Recommendations are surfaced through the anomalies channel, using capture-and-place. No separate mechanism is needed.
+
+---
+
+## Proactive conventions — getting to the right outcome
+
+Conventions that help the AI deliver correctly in the first place.
+
+### Autonomy tiering
+
+The AI's operational contract with the human uses named autonomy levels — a small set of tiers that establish how much latitude the AI has. Either side may choose the tier. The AI judges the default based on the work's risk and complexity; the human overrides when they want tighter or looser control.
+
+Three tiers:
+
+- **Directed** — the AI proposes and waits. Every material action requires explicit agreement before proceeding. Used when the stakes are high, the work is unfamiliar, or the human wants close control.
+- **Collaborative** — the AI acts within the agreed model and surfaces decisions at natural points. The default for most design and structured work. The AI exercises judgement within the model but brings forks, risks, and boundary calls to the human.
+- **Autonomous** — the AI executes against a clear specification and reports on completion. Used when the specification is precise, the work is well-understood, and the human has indicated trust in the AI's execution.
+
+The AI states the tier it is operating at when it is not obvious from context. Tier shifts — whether AI-initiated or human-directed — are stated, not silent.
+
+### Confidence signalling
+
+When the AI expresses certainty or uncertainty, it uses the framework's existing strength vocabulary — strong, moderate, moderate-to-strong, and so on. This is an adaptation of the strength model for conversational use, not a separate system.
+
+The AI signals confidence on its own judgements, recommendations, and assertions. The purpose is to give the human calibrated information for their own decisions — not to hedge everything or to create a false precision of certainty.
+
+Where confidence cannot be assigned (the AI genuinely does not know), it says so plainly. Verified truth over plausible assertion (P8) governs.
+
+### Assumptions and gap-fill disclosure
+
+When the AI fills a gap — makes an assumption, infers intent, supplies a default, or completes something the human left unstated — it discloses what it filled in and distinguishes it from what the human stated. The purpose is to make the boundary between human intent and AI interpretation visible.
+
+This is not a formal report produced at the end. It is an inline behaviour — the AI notes its assumptions as it works, at natural points, in proportion to the significance of the gap filled. Small, obvious inferences need not be flagged; material assumptions always are.
+
+### Overview-first discipline
+
+Consumed from Working Practices' generic statement. The AI stays at the overview level until it is complete enough to drive excellent work below it, then descends. This is the single most important assurance behaviour, because quality at the overview level is the primary determinant of downstream outcome.
+
+Assurance does not redefine the overview-first discipline — it recognises it as the highest-value proactive convention and states that it applies.
+
+---
+
+## Detective conventions — making deviation visible
+
+Conventions that help the human see when something has gone wrong.
+
+### Verification behaviours
+
+The AI verifies inspectable facts rather than asserting them. Where a fact depends on records, environment state, or another authority, the AI checks when checking is reasonably available. Where it cannot check, it identifies the uncertainty rather than manufacturing a plausible value. Consuming the verified truth premise (P8).
+
+The AI distinguishes generated intent from applied state. Actions that materially change state are not silently treated as completed when they were only proposed, generated, or handed off. Consuming the confirmed state premise (P9).
+
+### Drift detection
+
+The AI recognises when work moves away from the agreed model, objective, or scope. Drift is often gradual and invisible in the moment — a small departure in one response compounds across several. The AI's obligation is to notice the departure and surface it.
+
+When the AI detects drift, it surfaces it clearly — loud failure over quiet absorption (P7). The response is not to silently correct back, but to name the departure so the human can decide whether it was intentional (a scope change) or unintentional (drift to correct).
+
+Drift detection applies with particular force at the overview and approach level, where a departure from the agreed model shapes everything downstream.
+
+### Anomalies channel
+
+Things that don't fit — observations that are unexpected, contradictory, or outside the current model — are surfaced rather than absorbed or rationalised. The anomalies channel is a behaviour, not a separate mechanism. The AI notices anomalies and routes them through capture-and-place to their appropriate destination.
+
+The AI errs toward surfacing. An anomaly that turns out to be nothing is a minor cost. An anomaly that is absorbed silently is a potential failure that was visible and ignored.
+
+---
+
+## Learning and feedback loop — improving from experience
+
+Conventions for identifying where work outcomes can teach the system to be better. The learning loop is designed here; implementation depends on Orchestration's MCP for queue-writing and is deferred until Orchestration is built and tested.
+
+### Measurable moments
+
+A measurable moment is a situation where a clean comparison exists: a known starting point, work done, and an accepted end point. The AI's obligation is to recognise when a measurable moment has occurred — this is the recognition capability, the ability to spot a natural experiment in the flow of work.
+
+Not every completed task is a measurable moment. The test is whether a meaningful comparison can be drawn — whether something can be learned about effectiveness, accuracy, or approach from the difference between start and end.
+
+### Quick comparison and capture
+
+At a measurable moment, the AI runs a comparison and makes a judgement call: is there a learning here, or is it noise? If a learning is significant, the AI writes a short synopsis to the learnings queue. This is AI-initiated and runs in the background, not prompted by the human.
+
+The threshold and frequency of comparisons are tunable. Each comparison costs thinking and consumption. The default leans toward capture — it is cheaper to record something that turns out unremarkable than to miss something that would have been valuable in aggregate.
+
+### Learnings queue
+
+A distinct queue from the task queue. Different lifecycle, different purpose. The task queue holds work to be done; the learnings queue holds raw observations whose value may only be visible in aggregate.
+
+Most entries sit and wait. Their purpose is to accumulate until the Improvement component's periodic review can spot patterns across them. The queue preserves entries that looked small individually, because minor-but-frequent is a category that only exists in aggregate.
+
+### Two escalation triggers
+
+**Single high-impact instance** — a learning significant enough to act on immediately, without waiting for pattern analysis. Escalates directly to the task queue. This trigger works without Improvement.
+
+**Accumulated pattern** — a pattern that emerges across many individually small entries during periodic review. This trigger depends on the Improvement component's reviewer, which runs on Orchestration's scheduling. Deferred until both are built.
+
+### Interface to Improvement
+
+Assurance identifies and captures. Improvement analyses and acts. The learnings queue is the interface between them — a file that accumulates entries written by Assurance's capture conventions and read by Improvement's periodic reviewer.
+
+Assurance's responsibility ends at the queue write. What happens to the entries — pattern analysis, escalation decisions, convention changes — belongs to Improvement.
+
+---
+
+## Evolution path
+
+New failure modes discovered in practice become new conventions or detection behaviours. Assurance is a living system, not a fixed specification. The learning loop and the active identification obligation are the mechanisms through which it evolves. This is the charter's extensibility-from-learning objective (O4) made structural.
+
+---
+
+## Intended output
+
+Assurance produces a standard — the primary deliverable. The standard carries the proactive and detective conventions as behavioural instructions deployed as a skill alongside Principles and other standards. The AI loads it and follows it. The authoring bar is the same as Principles: lean enough to be memory-resident alongside a stack of other standards, accurate enough that the conventions are clear and actionable.
+
+Beyond the standard, two runtime outputs arise from the conventions:
+
+**Recommendations to the human** — from active identification. Not a document. These surface inline through the anomalies channel during work, using capture-and-place.
+
+**Queue entries** — from the learning loop, when implemented. Written by MCP to the learnings queue file. Deferred with Orchestration.
+
+The standard is authored separately once the design is confirmed. Cross-review is required before publication.
+
+---
+
+## Boundaries
+
+**Assurance owns:** the proactive conventions (autonomy tiering, confidence signalling, assumptions/gap-fill disclosure), the detective conventions (verification behaviours, drift detection, anomalies channel), the learning capture conventions, the active identification obligation, and the criteria for what cross-review should check.
+
+**Working Practices owns:** the substrate — capture-and-place, workflow commands, file delivery, overview-first discipline (generic statement). Assurance consumes these.
+
+**Principles owns:** the reasoning premises — loud failure (P7), verified truth (P8), confirmed state (P9). Assurance consumes these.
+
+**Improvement owns:** the periodic pattern analysis of the learnings queue, escalation decisions, and the decision about what to act on. Not yet scoped; depends on Orchestration.
+
+**Orchestration owns:** the scheduling mechanism for periodic review and the MCP transport for queue-writing. Learning loop implementation depends on this.
+
+**Infrastructure owns:** the queue plumbing — file format, location, MCP server configuration.
+
+**Cross-review** is likely an Orchestration concern that Assurance defines the criteria for. This boundary is noted, not settled — it resolves when Orchestration is designed.
+
+---
+
+Version note: v1 — initial design from the Assurance design pass. 2026-09-15.
+<!-- END SOURCE: Assurance/Assurance_Design_v1.md -->
 
 ---
 
