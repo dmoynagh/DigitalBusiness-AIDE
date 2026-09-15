@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 72** (2026-09-15).
+> **Binder Version 73** (2026-09-15).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -26,10 +26,10 @@ individual files.
 - `Assurance/_index.md` - sha256 `fde4b0521828`
 - `Assurance/Assurance_Decisions_v1.md` - sha256 `23b64a56b9c6`
 - `Assurance/Assurance_Decisions_v2.md` - sha256 `d2025a524d8d`
-- `Assurance/Assurance_Decisions_v3.md` - sha256 `86b11a8549ee`
+- `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v1.md` - sha256 `892f555cbc92`
 - `Assurance/Assurance_Design_v2.md` - sha256 `9b518c0163e1`
-- `Assurance/Assurance_Design_v3.md` - sha256 `7d50d3996313`
+- `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
 - `Core/_index.md` - sha256 `31c7a15e03eb`
 - `Core/Core_AIDEMap.md` - sha256 `fd95d6407fb1`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
@@ -5289,7 +5289,7 @@ This directly serves the facilitate-not-police objective (O5) and the charter's 
 
 ## D5. Learning loop designed, implementation deferred
 
-The learning and feedback loop — measurable moments, quick comparison, learnings queue, two escalation triggers — is designed in the Assurance design document. Implementation depends on Orchestration for scheduling and invocation of queue writes through Infrastructure's MCP server, and is deferred until Orchestration is built and tested.
+The learning and feedback loop — measurable moments, quick comparison, learnings queue, two escalation triggers — is designed in the Assurance design document. Implementation depends on Orchestration to coordinate and invoke writes through Infrastructure's MCP server, and is deferred until Orchestration is built and tested.
 
 The Improvement component, which owns the accumulated-pattern analysis of the learnings queue, will also depend on Orchestration's scheduling. Both Improvement and the learning loop's recording mechanism are deferred together.
 
@@ -5363,13 +5363,13 @@ This is deliberately small. A three-level vocabulary with permitted intermediate
 
 Cross-review round 2 (F17) identified inconsistent ownership formulations for the queue write path. The scope section assigned the MCP write mechanism to Infrastructure; the learning-loop section and boundaries assigned queue-writing transport to Orchestration.
 
-The resolution: Infrastructure owns the MCP server, queue file format, and queue location — the plumbing. Orchestration owns the scheduling and invocation of writes through that plumbing — when and why a write happens. This follows the established pattern across the framework: Infrastructure provides the mechanism, Orchestration provides the coordination that uses it.
+The resolution: Infrastructure owns the MCP server, queue file format, and queue location — the plumbing. Orchestration coordinates and invokes writes requested by governing behaviours, and schedules periodic processing. The decision that a write should happen — what to capture and why — belongs to the governing behaviour (in this case, Assurance's learning capture conventions). This follows the established pattern across the framework: Infrastructure provides the mechanism, the governing behaviour decides, Orchestration coordinates the execution.
 
-The alternative — single ownership by either component — was rejected because the two concerns are genuinely distinct. Moving all queue-writing to Infrastructure would give it scheduling decisions; moving all to Orchestration would give it server configuration.
+The alternative — single ownership by either component — was rejected because the three concerns are genuinely distinct. Infrastructure provides the plumbing; Orchestration coordinates execution; the governing behaviour owns the decision to write. Cross-review round 3 (F19) identified that the v3 wording "when and why a write happens" incorrectly gave Orchestration the semantic decision that belongs to Assurance. Corrected: Orchestration coordinates and invokes writes requested by governing behaviours, not decides them.
 
 ---
 
-Version note: v3 — round 2 cross-review remediation. Six findings addressed. D2 expanded with tier selection authority and scope/lifecycle semantics (F4, F16). D7 expanded with narrowed Improvement boundary (F3 partial). D13 added — confidence vocabulary defined and owned by Assurance (F15). D14 added — queue-writing ownership clarified (F17). D1 wording corrected — capture-and-place as routing mechanism (F18). 2026-09-15. Replaces v2.
+Version note: v3 — rounds 2 and 3 cross-review remediation. Seven findings addressed. D2 expanded with tier selection authority and scope/lifecycle semantics (F4, F16). D7 expanded with narrowed Improvement boundary (F3 partial). D13 added — confidence vocabulary defined and owned by Assurance (F15). D14 added and corrected — queue-writing ownership clarified, Orchestration coordinates writes requested by governing behaviours (F17, F19). D1 wording corrected — capture-and-place as routing mechanism (F18). 2026-09-15. Replaces v2.
 <!-- END SOURCE: Assurance/Assurance_Decisions_v3.md -->
 
 ---
@@ -5997,7 +5997,7 @@ The AI errs toward surfacing. An anomaly that turns out to be nothing is a minor
 
 ## Learning and feedback loop — improving from experience
 
-Conventions for identifying where work outcomes can teach the system to be better. The learning loop is designed here; implementation depends on Orchestration for scheduling and invocation of queue writes through Infrastructure's MCP server, and is deferred until Orchestration is built and tested.
+Conventions for identifying where work outcomes can teach the system to be better. The learning loop is designed here; implementation depends on Orchestration to coordinate and invoke the writes Assurance requests, through Infrastructure's MCP server, and is deferred until Orchestration is built and tested.
 
 ### Measurable moments
 
@@ -6039,7 +6039,7 @@ Beyond the standard, two runtime outputs arise from the conventions:
 
 **Recommendations to the human** — from active identification. Not a document. These surface inline through capture-and-place during work.
 
-**Queue entries** — from the learning loop, when implemented. Written through Infrastructure's MCP server, invoked by Orchestration. Deferred until both are built.
+**Queue entries** — from the learning loop, when implemented. Assurance decides what to capture; Orchestration coordinates the write through Infrastructure's MCP server. Deferred until both are built.
 
 The standard is authored separately once the design is confirmed. Cross-review is required before publication.
 
@@ -6061,13 +6061,13 @@ New failure modes discovered in practice become new conventions or detection beh
 
 **Improvement owns:** accumulated-pattern analysis of the learnings queue, escalation decisions arising from that analysis, and subsequent action decisions including convention changes. Not yet scoped; depends on Orchestration. For immediate high-impact instances, the human makes the action decision — this does not pass through Improvement.
 
-**Orchestration owns:** scheduling and invocation of queue writes and periodic review. Learning loop implementation depends on this. Cross-review placement is unsettled — likely an Orchestration concern. Assurance may define the criteria for what cross-review checks; this resolves when Orchestration is designed.
+**Orchestration owns:** coordination and invocation of queue writes requested by governing behaviours, and scheduling of periodic review. Learning loop implementation depends on this. Cross-review placement is unsettled — likely an Orchestration concern. Assurance may define the criteria for what cross-review checks; this resolves when Orchestration is designed.
 
 **Infrastructure owns:** the MCP server, queue file format, and queue location.
 
 ---
 
-Version note: v3 — round 2 cross-review remediation. Six findings addressed. Improvement boundary narrowed to accumulated-pattern decisions; human owns immediate high-impact action decisions (F3). Autonomy tier scope, lifecycle, and approval semantics settled at design level (F4). Conversational confidence vocabulary defined and owned by Assurance (F15). Autonomous tier authorisation reconciled with tier selection rules (F16). Queue-writing ownership consistent — Infrastructure owns plumbing, Orchestration owns scheduling and invocation (F17). D1 wording corrected (F18). 2026-09-15. Replaces v2.
+Version note: v3 — rounds 2 and 3 cross-review remediation. Seven findings addressed. Improvement boundary narrowed to accumulated-pattern decisions; human owns immediate high-impact action decisions (F3). Autonomy tier scope, lifecycle, and approval semantics settled at design level (F4). Conversational confidence vocabulary defined and owned by Assurance (F15). Autonomous tier authorisation reconciled with tier selection rules (F16). Queue-writing ownership consistent — Infrastructure owns plumbing, Orchestration coordinates and invokes writes requested by governing behaviours (F17, F19). D1 wording corrected (F18). 2026-09-15. Replaces v2.
 <!-- END SOURCE: Assurance/Assurance_Design_v3.md -->
 
 ---
