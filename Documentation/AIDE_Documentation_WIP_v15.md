@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v14 | 2026-09-15
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v15 | 2026-09-15
 
 ## Active threads
 
@@ -9,8 +9,6 @@ All components owning doctypes or block types must define them using the accepte
 Note: PD_Schema_Standard_v1 was authored against the old Schema Standard v4 property vocabulary. It should be reviewed against the simplified contract in DocumentationMethodology_SchemaAuthoring_Standard_v1 when next worked. Core_Schema_Standard_v2 is provisional and will be reviewed when Core's design pass is done.
 
 ### WP — remaining items
-
-FileOps area parked for review — coherence as an area questioned, some content duplicates Core Structure decisions, some is Infrastructure concerns. Needs focused review to determine if it earns its place, dissolves, or is redefined.
 
 Old-material pass (WP1–WP13 from old corpus) not yet run — required before WP can be called complete per the rebuild method and F10.
 
@@ -78,9 +76,9 @@ Key outcomes:
 - Guidance Profiles deferred — no demonstrated consumer for solo developer (D6)
 - Overview-first working behaviour owned by WP generic, PD consumes (D7)
 - Verification behaviours placed in Assurance (D8)
-- FileOps parked for coherence review (D14)
+- FileOps dissolved — content redistributed to WP component level, Core Structure, Infrastructure, and Build (D17, superseding D14)
 
-Sixteen decisions recorded (D1–D16). Pending: FileOps review, old-material pass, schema definitions, standard authoring.
+Seventeen decisions recorded (D1–D17). FileOps dissolved (D17) — content redistributed to WP component level, Core Structure, Infrastructure, and Build. Pending: old-material pass, schema definitions, standard authoring.
 
 ---
 
@@ -92,30 +90,42 @@ Component names and aliases must be unique within the framework. Aliases are use
 
 ### Carries from WP design pass
 
-Three items to add to Core_Design (detailed in `_rebuild/WP_CoreCarries_v1.md`):
+Items to add to Core_Design (detailed in `_rebuild/WP_CoreCarries_v2.md`):
 
 1. **Definition of done** — framework-wide requirement. Invariant: testable or assessable. WP owns the block type; consumers fill content.
 2. **Assurance** — framework-wide requirement. Every component contributes to assurance.
 3. **P6** — sixth ownership rule. Information holder decides the boundary.
-4. **Assurance** — new component in the Guidance role added to the component map. Component count 13 → 14.
+4. **Assurance** — new component in the Guidance role added to the component map. Component count 13 → 15 (Assurance + Improvement).
+5. **Archived folder convention** — one `_archived` folder at the documentation root; underscore prefix removes from binder scope; files remain in the repo and searchable. (From FileOps dissolution, D17.)
+6. **Git-as-history** — git is the version history; the `_superseded` folder pattern is dropped. Rollback means `git checkout` of the previous version. (From FileOps dissolution, D17.)
 
 ---
 
-## Pending — Assurance (NEW COMPONENT)
+## Pending — Assurance (NEW COMPONENT — next in queue)
 
-New top-level component identified during the WP design pass. Guidance role. Brief sketch in `_rebuild/Assurance_Brief_Sketch_v1.md`.
+Guidance role. Brief sketch expanded to v2 in `_rebuild/Assurance_Brief_Sketch_v2.md`.
 
 **Purpose:** Build justified trust in AI-assisted work by defining and evolving the conventions, structures, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur.
 
-**Content (moved from WP):** Human working model (tiering, confidence, assumptions/gap-fill report), verification behaviours, drift detection, anomalies channel. Proactive and detective conventions. Cross-cutting — every component contributes.
+**Scope correction (2026-09-15):** Assurance runs the full lifecycle from first conversational concept through to delivery, not primarily a build-side concern. The quality of the top two design levels carries a near one-to-one relationship with everything downstream. Assurance protects the highest-leverage work first.
 
-**Confirmed design decisions (to review at full design pass):** Named tiers for autonomy, anomalies channel as behaviour with capture-and-place destination, confidence uses existing framework strength vocabulary.
+**Three areas of concern:** proactive conventions (human working model, overview-first discipline), detective conventions (verification, drift detection, anomalies channel), and the learning and feedback loop (measurable moments, A-B comparisons, learnings queue, two escalation triggers).
 
-Design pass to follow WP completion.
+**Learning loop additions (2026-09-15):** AI-initiated background comparison at measurable moments; learnings queue distinct from the task queue; two escalation triggers (single high-impact instance, or accumulated pattern); threshold and frequency tunable. The Improvement component (see below) owns the periodic pattern analysis; Assurance owns the capture conventions.
+
+**Confirmed design decisions (to review at full design pass):** Named tiers for autonomy, anomalies channel as behaviour with capture-and-place destination, confidence uses existing framework strength vocabulary, learnings queue distinct from task queue, two escalation triggers.
+
+**Design pass is next** — Assurance moved ahead of Messaging in the work queue because it is the framework's primary objective (O1) and the cross-cutting lens later passes should be designed through.
 
 ---
 
 ## Pending — Infrastructure
+
+### Carries from FileOps dissolution (D17)
+
+- **Utility git commit behaviour** — utilities stage and commit their own changes with descriptive messages. When the file-update-package applies an update, or version-cleanup removes an old file, or the binder builder regenerates, the utility stages changes and commits with a clear message. Carry to the relevant utility design documents.
+- **FUP move action** — the file-update-package needs a move/rename action for when a document's path changes. Header updated, manifest records old and new path. Extends the existing action vocabulary (create, replace) with move. Carry to the FUP design document.
+- **Version-cleanup deletion mechanism** — when a new version lands, version-cleanup deletes the old file from the working tree and commits the deletion with a descriptive message. Carry to the version-cleanup design document.
 
 ### FUP manifest — `user_instructions` field clarification
 
@@ -127,17 +137,61 @@ The `user_instructions` message should display after the deploy success statemen
 
 ---
 
-## Pending — Submission queue (component ownership TBD)
+## Pending — Build (NOT YET STARTED)
 
-### Frictionless capture path — work to AIDE development
+### Seed material
 
-AIDE needs a mechanism for submitting learnings, additions, changes and new functionality from work sessions into an AIDE development queue. The charter's frictionless capture principle governs the design.
+`_rebuild/Build_Input_Working_v1.md` — the design-build separation principle (leaning, not a rule) and the concrete near-term question of where AIDE's own framework outputs go. From FileOps dissolution (D17).
+
+---
+
+## Pending — Improvement (NEW COMPONENT — identified, not yet scoped)
+
+Iterative improvement of the framework and working practices, regardless of source (human or AI). Owns the pattern analysis, periodic review of the learnings queue, and the decision about what to act on.
+
+**Boundary with Assurance:** Assurance identifies measurable moments and captures learnings to the queue. Improvement analyses the queue, finds patterns, and decides what to act on. The learnings queue is the interface between them.
+
+**Boundary with Orchestration:** Orchestration provides the mechanism to run the reviewer on a schedule. Improvement owns the business logic — what the reviewer does, what counts as a pattern, when to escalate.
+
+**Working-direction name:** Improvement (plain, direct, source-agnostic).
+
+**Component count:** 14 → 15.
+
+---
+
+## Pending — Submission queues
+
+### Task queue — frictionless capture path to AIDE development
+
+AIDE needs a mechanism for submitting tasks, additions, changes and new functionality from work sessions into an AIDE development queue. The charter's frictionless capture principle governs the design.
 
 **Concept.** Work side: single action on any surface, no triage required. AIDE development side: queue reviewed, triaged, worked through the normal design-build-deploy cycle.
 
 **Preferred mechanism.** An MCP server callable from any AI surface, writing to a queue document in the AIDE git repo.
 
-**Component ownership.** Not yet allocated. To be decided when design starts.
+### Learnings queue — feedback from work outcomes
+
+A distinct queue from the task queue. Holds raw observations from A-B comparisons at measurable moments. AI-initiated, written in the background when significant. Most entries sit and wait for aggregate analysis.
+
+**Two escalation triggers:** a single high-impact instance escalates to the task queue immediately; accumulated patterns surface during periodic review by the Improvement component's reviewer.
+
+**Mechanism:** same MCP as the task queue, writing to a separate queue document. The AI can write to it unprompted.
+
+**Ownership:** the queue mechanism is Infrastructure; the capture conventions are Assurance; the periodic analysis is Improvement.
+
+---
+
+## Design pass work queue
+
+Current agreed order for remaining component design passes:
+
+1. ~~Working Practices~~ — DONE
+2. **Assurance** — next (moved ahead of Messaging; directly delivers O1, sets the cross-cutting lens)
+3. Messaging
+4. Build
+5. Infrastructure
+6. Orchestration (depends on Messaging and Build)
+7. Migration and Deployment (either order)
 
 ---
 
@@ -214,4 +268,4 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 
 ---
 
-Version note: v14 — WP design pass complete: brief, design, decisions authored. Assurance identified as new component. Sixteen decisions (D1–D16). Pending WP items resolved or placed. Core carries noted. 2026-09-15. Replaces v13.
+Version note: v15 — FileOps dissolved (D17), content redistributed. Assurance brief sketch expanded to v2 (learning loop, full-lifecycle scope, Improvement boundary). Work queue updated: Assurance next. Improvement identified as new component (count 14 → 15). Two submission queues distinguished (task queue, learnings queue). Build input document created. Core and Infrastructure carries from FileOps noted. 2026-09-15. Replaces v14.

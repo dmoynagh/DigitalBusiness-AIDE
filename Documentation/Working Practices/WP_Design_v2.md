@@ -1,4 +1,4 @@
-> identity: WP_Design@v1 | doctype: design | updated: 2026-09-15
+> identity: WP_Design@v2 | doctype: design | updated: 2026-09-15
 
 # Working Practices — Design
 
@@ -6,7 +6,7 @@
 
 Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
 
-WP operates at two levels. At component level, capture-and-place and workflow commands are standing obligations that run continuously. Below that, two areas provide the models and conventions work uses: Working State (where content lives while in motion, how work is tracked and completed) and Content Delivery (how content reaches the AI session). A third area, File Operations, is parked for review — its purpose and boundaries need clarification before design can proceed.
+WP operates at two levels. At component level, capture-and-place, workflow commands, file delivery rules, and the overview-first discipline are standing obligations that run continuously. Below that, two areas provide the models and conventions work uses: Working State (where content lives while in motion, how work is tracked and completed) and Content Delivery (how content reaches the AI session).
 
 The Assurance component, identified during this design pass, takes ownership of the human working model, trust-building conventions, verification behaviours, drift detection, and anomalies — the content originally placed in a Human-AI Collaboration area. Assurance is both a component (Guidance role) and a framework-wide requirement (Core).
 
@@ -63,8 +63,6 @@ Two rules for when files are updated outside of a FileUpdatePackage:
 1. **Chat delivery** — when outputting an updated file for download, instruct the user where to save it based on the path in the document header.
 2. **Code / Cowork direct file access** — check the file's physical location against the path in the header; move it if they disagree.
 
-These may move into File Operations if that area is retained, or remain at component level if it dissolves. Parked with FileOps.
-
 ### Overview-first working discipline
 
 The generic discipline of staying at the overview level until it could drive excellent execution, probing rather than diving. This is broader than design — it applies to any work where there is a temptation to descend into detail before the shape is clear. Project Design owns the design-specific application in its standard; WP states the generic behaviour.
@@ -109,13 +107,9 @@ WP owns three process document types that serve the working process:
 
 These are workflow documents, not design outputs. Documentation Methodology owns the doctype mechanics; Working Practices owns these specific types because they serve the working process.
 
-### Open items
-
-The ongoing list of work to be done, discussed, or worked through — allocated to a component, area, or part. Escalates to a working document per the split test when volume compromises the list's usefulness.
-
 ### Work items
 
-The base workflow entity. An encapsulated unit of something pending in a workflow — something that needs attention, or is being worked through. Raised from any source: the human, a build return, the AI noticing a consequence, another component handing something in. Weight is not decided at the moment it is raised.
+A generic entity flowing through a workflow. A thing noticed that needs to be tracked, discussed, resolved, or acted on.
 
 **Two axes:**
 
@@ -188,9 +182,18 @@ The key question for inclusion is not whether a file is a governed document, but
 
 ---
 
-## File Operations — PARKED
+## File Operations — DISSOLVED (D17)
 
-How files are physically managed — delivery, placement, versioning lifecycle, separation of design and output, git integration. This area has confirmed content from the 2026-09-10 session but its coherence as an area is under review. Some of its content duplicates Core Structure decisions; some is Infrastructure utility concerns that moved here by subject affinity rather than purpose alignment. To be resolved: whether FileOps earns its place as an area, dissolves with content redistributed, or is redefined with a clearer purpose.
+The File Operations area was dissolved after review. Its six confirmed items from the 2026-09-10 session were grouped by subject ("files") rather than by purpose, and once redistributed to their natural owners no coherent area remained.
+
+Content redistributed to:
+
+- **WP component level** — file delivery rules (already placed above)
+- **Core Structure** — archived folder convention; git-as-history decision (superseded-folder pattern dropped). Carried in `_rebuild/WP_CoreCarries_v2.md`.
+- **Infrastructure** — utility git commit behaviour; FUP move action; version-cleanup deletion mechanism. Carried in WIP.
+- **Build** — design-and-output separation principle and AIDE output conventions. Captured in `_rebuild/Build_Input_Working_v1.md`.
+
+The working document `Working Practices/FileOps/WP_FileOps_Working_v1.md` is superseded by this redistribution.
 
 ---
 
@@ -219,9 +222,8 @@ WP owns generic operating behaviour and live state — the middle placement band
 - Process document types (working document, report, resource)
 - The binder concept (why and how, not the doctype)
 - The overview-first working discipline (generic)
-- File delivery rules (pending FileOps resolution)
-- File operation conventions (pending FileOps resolution)
+- File delivery rules
 
 ---
 
-Version note: v1 — initial design from the WP design pass. 2026-09-15.
+Version note: v2 — FileOps dissolved (D17): content redistributed to WP component level, Core Structure, Infrastructure, and Build. Two pending-FileOps-resolution lines in WP-owns list resolved. 2026-09-15.

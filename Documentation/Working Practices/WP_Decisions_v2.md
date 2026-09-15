@@ -1,10 +1,10 @@
-> identity: WP_Decisions@v1 | doctype: decisions | updated: 2026-09-15
+> identity: WP_Decisions@v2 | doctype: decisions | updated: 2026-09-15
 
 # Working Practices — Decisions
 
 ## Summary
 
-Reasoning and resolutions from the Working Practices design pass. Sixteen decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, and dispositions of accumulated items from other component passes.
+Reasoning and resolutions from the Working Practices design pass. Seventeen decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, dispositions of accumulated items from other component passes, and the FileOps dissolution.
 
 ---
 
@@ -80,6 +80,8 @@ The three process document types (working document, report, resource) are contai
 
 FileOps has confirmed content from the 2026-09-10 session but its coherence as an area is under review. Analysis showed it is part genuine working practice (file delivery rules), part duplication of Core Structure decisions (design/output separation), and part Infrastructure utility concerns that moved here by subject affinity (git commit behaviour, FUP move action, utility designs). Whether FileOps earns its place, dissolves, or is redefined is deferred for a focused review.
 
+**Superseded by D17** — FileOps dissolved after review.
+
 ## D15. WIP tracking via the project index
 
 A register of active WIP documents prevents orphaned or neglected content. The natural home is the project's index document — it already indexes what a scope contains. Not a new mechanism; an expansion of the index's existing role.
@@ -88,6 +90,19 @@ A register of active WIP documents prevents orphaned or neglected content. The n
 
 Every component contributes to assurance — it is a cross-cutting concern, not contained within one component. Resolved the same way as no-knowledge-lost: a framework-wide requirement stated in Core that every component's design is tested against. The Assurance component owns its specific mechanisms; the framework-wide requirement is the lens every component is designed through.
 
+## D17. FileOps dissolved — content redistributed by owner
+
+The File Operations area was reviewed and dissolved. Its six confirmed items from the 2026-09-10 session were grouped by subject ("files") rather than by a shared purpose. Once each item was tested against its natural owner, no coherent area remained — keeping a container for three different owners' content would be the apparatus failure that the design-check skill warns against.
+
+Content redistributed:
+
+- **WP component level:** file delivery rules (chat delivery and Code/Cowork path checking) — genuine working practice, already placed.
+- **Core Structure:** archived folder convention (one `_archived` folder at documentation root, underscore prefix removes from binder scope); git-as-history decision (superseded-folder pattern dropped, git is the version history).
+- **Infrastructure:** utility git commit behaviour (utilities stage and commit their own changes with descriptive messages); FUP move action (move/rename action extending create/replace vocabulary); version-cleanup deletion mechanism (deletes old file and commits).
+- **Build (as input):** design-and-output separation principle — not yet a settled decision, stated as a leaning that build outputs likely reside outside design. Concrete conventions deferred to the Build design pass. Captured in `_rebuild/Build_Input_Working_v1.md`.
+
+The working document `Working Practices/FileOps/WP_FileOps_Working_v1.md` is superseded by this redistribution.
+
 ---
 
-Version note: v1 — initial decisions from the WP design pass. 2026-09-15.
+Version note: v2 — D17 added (FileOps dissolved, content redistributed). D14 marked as superseded by D17. Summary updated. 2026-09-15.
