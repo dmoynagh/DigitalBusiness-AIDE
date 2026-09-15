@@ -162,7 +162,7 @@ The AI errs toward surfacing. An anomaly that turns out to be nothing is a minor
 
 ## Learning and feedback loop — improving from experience
 
-Conventions for identifying where work outcomes can teach the system to be better. The learning loop is designed here; implementation depends on Orchestration for scheduling and invocation of queue writes through Infrastructure's MCP server, and is deferred until Orchestration is built and tested.
+Conventions for identifying where work outcomes can teach the system to be better. The learning loop is designed here; implementation depends on Orchestration to coordinate and invoke the writes Assurance requests, through Infrastructure's MCP server, and is deferred until Orchestration is built and tested.
 
 ### Measurable moments
 
@@ -204,7 +204,7 @@ Beyond the standard, two runtime outputs arise from the conventions:
 
 **Recommendations to the human** — from active identification. Not a document. These surface inline through capture-and-place during work.
 
-**Queue entries** — from the learning loop, when implemented. Written through Infrastructure's MCP server, invoked by Orchestration. Deferred until both are built.
+**Queue entries** — from the learning loop, when implemented. Assurance decides what to capture; Orchestration coordinates the write through Infrastructure's MCP server. Deferred until both are built.
 
 The standard is authored separately once the design is confirmed. Cross-review is required before publication.
 
@@ -226,10 +226,10 @@ New failure modes discovered in practice become new conventions or detection beh
 
 **Improvement owns:** accumulated-pattern analysis of the learnings queue, escalation decisions arising from that analysis, and subsequent action decisions including convention changes. Not yet scoped; depends on Orchestration. For immediate high-impact instances, the human makes the action decision — this does not pass through Improvement.
 
-**Orchestration owns:** scheduling and invocation of queue writes and periodic review. Learning loop implementation depends on this. Cross-review placement is unsettled — likely an Orchestration concern. Assurance may define the criteria for what cross-review checks; this resolves when Orchestration is designed.
+**Orchestration owns:** coordination and invocation of queue writes requested by governing behaviours, and scheduling of periodic review. Learning loop implementation depends on this. Cross-review placement is unsettled — likely an Orchestration concern. Assurance may define the criteria for what cross-review checks; this resolves when Orchestration is designed.
 
 **Infrastructure owns:** the MCP server, queue file format, and queue location.
 
 ---
 
-Version note: v3 — round 2 cross-review remediation. Six findings addressed. Improvement boundary narrowed to accumulated-pattern decisions; human owns immediate high-impact action decisions (F3). Autonomy tier scope, lifecycle, and approval semantics settled at design level (F4). Conversational confidence vocabulary defined and owned by Assurance (F15). Autonomous tier authorisation reconciled with tier selection rules (F16). Queue-writing ownership consistent — Infrastructure owns plumbing, Orchestration owns scheduling and invocation (F17). D1 wording corrected (F18). 2026-09-15. Replaces v2.
+Version note: v3 — rounds 2 and 3 cross-review remediation. Seven findings addressed. Improvement boundary narrowed to accumulated-pattern decisions; human owns immediate high-impact action decisions (F3). Autonomy tier scope, lifecycle, and approval semantics settled at design level (F4). Conversational confidence vocabulary defined and owned by Assurance (F15). Autonomous tier authorisation reconciled with tier selection rules (F16). Queue-writing ownership consistent — Infrastructure owns plumbing, Orchestration coordinates and invokes writes requested by governing behaviours (F17, F19). D1 wording corrected (F18). 2026-09-15. Replaces v2.

@@ -79,7 +79,7 @@ This directly serves the facilitate-not-police objective (O5) and the charter's 
 
 ## D5. Learning loop designed, implementation deferred
 
-The learning and feedback loop — measurable moments, quick comparison, learnings queue, two escalation triggers — is designed in the Assurance design document. Implementation depends on Orchestration for scheduling and invocation of queue writes through Infrastructure's MCP server, and is deferred until Orchestration is built and tested.
+The learning and feedback loop — measurable moments, quick comparison, learnings queue, two escalation triggers — is designed in the Assurance design document. Implementation depends on Orchestration to coordinate and invoke writes through Infrastructure's MCP server, and is deferred until Orchestration is built and tested.
 
 The Improvement component, which owns the accumulated-pattern analysis of the learnings queue, will also depend on Orchestration's scheduling. Both Improvement and the learning loop's recording mechanism are deferred together.
 
@@ -153,10 +153,10 @@ This is deliberately small. A three-level vocabulary with permitted intermediate
 
 Cross-review round 2 (F17) identified inconsistent ownership formulations for the queue write path. The scope section assigned the MCP write mechanism to Infrastructure; the learning-loop section and boundaries assigned queue-writing transport to Orchestration.
 
-The resolution: Infrastructure owns the MCP server, queue file format, and queue location — the plumbing. Orchestration owns the scheduling and invocation of writes through that plumbing — when and why a write happens. This follows the established pattern across the framework: Infrastructure provides the mechanism, Orchestration provides the coordination that uses it.
+The resolution: Infrastructure owns the MCP server, queue file format, and queue location — the plumbing. Orchestration coordinates and invokes writes requested by governing behaviours, and schedules periodic processing. The decision that a write should happen — what to capture and why — belongs to the governing behaviour (in this case, Assurance's learning capture conventions). This follows the established pattern across the framework: Infrastructure provides the mechanism, the governing behaviour decides, Orchestration coordinates the execution.
 
-The alternative — single ownership by either component — was rejected because the two concerns are genuinely distinct. Moving all queue-writing to Infrastructure would give it scheduling decisions; moving all to Orchestration would give it server configuration.
+The alternative — single ownership by either component — was rejected because the three concerns are genuinely distinct. Infrastructure provides the plumbing; Orchestration coordinates execution; the governing behaviour owns the decision to write. Cross-review round 3 (F19) identified that the v3 wording "when and why a write happens" incorrectly gave Orchestration the semantic decision that belongs to Assurance. Corrected: Orchestration coordinates and invokes writes requested by governing behaviours, not decides them.
 
 ---
 
-Version note: v3 — round 2 cross-review remediation. Six findings addressed. D2 expanded with tier selection authority and scope/lifecycle semantics (F4, F16). D7 expanded with narrowed Improvement boundary (F3 partial). D13 added — confidence vocabulary defined and owned by Assurance (F15). D14 added — queue-writing ownership clarified (F17). D1 wording corrected — capture-and-place as routing mechanism (F18). 2026-09-15. Replaces v2.
+Version note: v3 — rounds 2 and 3 cross-review remediation. Seven findings addressed. D2 expanded with tier selection authority and scope/lifecycle semantics (F4, F16). D7 expanded with narrowed Improvement boundary (F3 partial). D13 added — confidence vocabulary defined and owned by Assurance (F15). D14 added and corrected — queue-writing ownership clarified, Orchestration coordinates writes requested by governing behaviours (F17, F19). D1 wording corrected — capture-and-place as routing mechanism (F18). 2026-09-15. Replaces v2.
