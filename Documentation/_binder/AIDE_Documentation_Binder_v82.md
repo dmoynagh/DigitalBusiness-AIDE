@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 81** (2026-09-16).
+> **Binder Version 82** (2026-09-16).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -47,6 +47,7 @@ individual files.
 - `Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md` - sha256 `8098d9714c57`
 - `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `8301aa2a0395`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
+- `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v1.md` - sha256 `c4d945c33191`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `07a3284570d1`
 - `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
@@ -65,9 +66,9 @@ individual files.
 - `Messaging/Messaging_Design_v4.md` - sha256 `48b767e284b0`
 - `Messaging/Messaging_Standard_v4.md` - sha256 `39a0045e2403`
 - `Messaging/Messaging_Tool_v4.md` - sha256 `c0a40ad3383d`
-- `Orchestration/AIDE_Orchestration_Decisions_v1.md` - sha256 `4e13b3c845d2`
-- `Orchestration/AIDE_Orchestration_Design_v1.md` - sha256 `20d4133b9ae3`
-- `Orchestration/AIDE_Orchestration_UseCases_v1.md` - sha256 `10fc0efe40fa`
+- `Orchestration/AIDE_Orchestration_Decisions_v1.md` - sha256 `b34068fcf859`
+- `Orchestration/AIDE_Orchestration_Design_v1.md` - sha256 `8522dab2dcc5`
+- `Orchestration/AIDE_Orchestration_UseCases_v1.md` - sha256 `1bd571eb3e80`
 - `Principles/Principles_Decisions_v5.md` - sha256 `33df0c86fba0`
 - `Principles/Principles_Design_v5.md` - sha256 `ba6e146bf1b7`
 - `Principles/Principles_Standard_v2.md` - sha256 `a2c5cf6f320d`
@@ -7204,6 +7205,247 @@ Infrastructure utilities are not capability Tools. Capabilities (Standards, Tool
 
 ---
 
+<!-- BEGIN SOURCE: Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v1.md -->
+# AIDE Infrastructure — MCP Server Delivery Model
+
+Status: tested and confirmed, 2026-09-16. Not yet a formal Infrastructure design
+document — Infrastructure's design pass has not been run. This records the empirical
+findings and tested methodology so they are available when that pass happens, and so
+other components (Orchestration first, then binder, FUP, future tooling) can build
+against a grounded model rather than assumptions.
+
+---
+
+## What this is
+
+A tested, proven model for delivering AIDE functionality as local MCP servers via
+Claude Code marketplace plugins, reaching all three Claude Desktop surfaces (Code,
+Cowork, Chat) from a single server codebase with automatic update propagation.
+
+This is Infrastructure-owned delivery plumbing — the same kind of thing as the `aide`
+CLI host, settings loading, and packaging, extended to cover plugin-based delivery.
+Individual components (Orchestration, Build, etc.) are consumers of this model,
+not its owners.
+
+---
+
+## The model
+
+### One server codebase
+
+Raw Node.js, CommonJS, newline-delimited JSON over stdio, zero external dependencies
+(only Node.js builtins: `readline`, `crypto`). No MCP SDK required — the server
+implements raw JSON-RPC directly. 87–88 lines for the tested proof-of-concept.
+
+Newline-delimited JSON framing is required — Claude Desktop's stdio transport expects
+`\n`-delimited JSON, not HTTP-style `Content-Length` headers. Using Content-Length
+causes a silent 120-second timeout on every connection attempt. This is not
+well-documented by Anthropic and was discovered during testing.
+
+### One distribution unit
+
+A marketplace plugin in a git repo. Contains the server code, `.mcp.json` (using
+`${CLAUDE_PLUGIN_ROOT}`), skills, and `plugin.json`. The existing AIDE marketplace
+repo is `dmoynagh/DigitalBusiness-AIDE-Marketplace`.
+
+Plugin structure:
+
+```
+<plugin-name>/
+  .claude-plugin/
+    plugin.json          — name, version, description
+  .mcp.json              — MCP server declaration
+  server/
+    index.js             — the MCP server
+  skills/<skill-name>/
+    SKILL.md             — skill(s) that trigger tools
+```
+
+Key detail: `.mcp.json` must use `${CLAUDE_PLUGIN_ROOT}` for paths, not relative
+paths. Relative paths fail because the plugin host runs commands with the user's
+project directory as CWD, not the plugin's cache directory. This variable is not
+prominently documented but is the pattern used by all working marketplace plugins.
+
+### Two config entries, one server file
+
+| Surface | Mechanism | Config location |
+|---|---|---|
+| Code | Marketplace plugin `.mcp.json` | `enabledPlugins` in `~/.claude/settings.json` |
+| Cowork | Marketplace plugin `.mcp.json` | `enabledPlugins` in `~/.claude/settings.json` |
+| Chat | `claude_desktop_config.json` entry | `mcpServers` in `%APPDATA%/Claude/claude_desktop_config.json` |
+
+All three surfaces read the **same physical server file** in the marketplace clone.
+
+#### settings.json (Code and Cowork)
+
+```json
+"enabledPlugins": {
+  "<plugin-name>@<marketplace-name>": true
+}
+```
+
+#### claude_desktop_config.json (Chat)
+
+```json
+"mcpServers": {
+  "<plugin-name>-desktop": {
+    "command": "node",
+    "args": ["~/.claude/plugins/marketplaces/<marketplace-name>/<plugin-name>/server/index.js"]
+  }
+}
+```
+
+The Chat config entry is a **one-time bootstrap**. It points at the same file the
+plugin uses, so plugin updates are picked up automatically on restart. No need to
+re-run the bootstrap after updates.
+
+### Update path
+
+1. Merge PR to marketplace repo.
+2. Refresh the local marketplace clone (`git fetch origin && git reset --hard
+   origin/main` in `~/.claude/plugins/marketplaces/<marketplace-name>/`).
+3. Restart Claude Desktop.
+
+All three surfaces pick up the new server code. No rebuild, no reinstall, no
+separate artifact. Running sessions do not hot-reload — restart is required.
+
+### Why Chat needs a separate entry
+
+Anthropic's documentation says marketplace-plugin MCP servers should be available in
+Chat natively via the plugin's `.mcp.json`. This does not currently work reliably.
+Multiple independent reproductions exist (GitHub issues #70397, #77388, #85623,
+#86154). In at least one case the MCP server started, completed `initialize` and
+`tools/list` successfully, but the tools never reached the Chat model — the break is
+inside Claude Desktop's tool-exposure bridge, not in the server or protocol.
+
+The `claude_desktop_config.json` entry is a workaround: same server, different
+registration path, works reliably in Chat. When Anthropic fixes the platform bug,
+the config entry becomes redundant and can be removed — a removal, not a rework.
+
+---
+
+## What was tested (the evidence base)
+
+Three probes were run on 2026-09-16 across multiple Code sessions:
+
+### Probe 1 — dispatch-probe (v1.0.4)
+
+Plugin with one MCP server, one tool (`test_dispatch`) that invokes Claude Code CLI
+and Codex CLI. Confirmed Code works; Cowork appeared negative (later attributed to
+UI/local-sync bug, not a real platform limit); Chat not tested in this probe.
+
+### Probe 2 — mcp-ping-test (v1.0.0 → v1.0.2)
+
+Minimal plugin with one `ping` tool returning proof-of-life data (marketplace origin
+string, runtime UTC timestamp, runtime UUID). Confirmed Code and Cowork both work.
+Chat tested via `.mcpb` Desktop Extension — worked, but bundles a separate copy of
+the server that doesn't receive plugin updates.
+
+### Probe 3 — mcp-ping-test (v1.0.3, update propagation)
+
+Added `update-test` field to ping payload, merged via PR, refreshed clone, restarted.
+Confirmed all three surfaces return the updated payload from the same server file —
+Code via plugin, Chat via `claude_desktop_config.json` entry, Cowork via plugin.
+Confirmed the Chat config entry survives plugin updates without re-running bootstrap.
+
+---
+
+## Known platform issues (all workaroundable)
+
+### 1. Marketplace clone does not auto-pull reliably
+
+The local clone at `~/.claude/plugins/marketplaces/<name>/` does not automatically
+fetch merged PRs. Requires manual `git fetch origin && git reset --hard origin/main`.
+The "Update" button was removed from the UI in a recent Claude Desktop version.
+
+### 2. UI plugin install does not persist to local config
+
+Clicking Install in Settings → Plugins → Discover succeeds server-side (account
+plugin count increments) but does not write to `enabledPlugins` in `settings.json`
+or to `installed_plugins.json`. The "Your plugins" page reads local files and shows
+nothing. Workaround: manually add the `enabledPlugins` entry.
+
+### 3. Stale clone causes silent "inline" fallback
+
+When the clone is behind and the plugin directory doesn't exist locally, the installer
+falls back to an "inline" mode, creating a data directory with a different naming
+pattern. This doesn't register properly and blocks subsequent installs.
+
+### 4. Plugin cache path is inconsistent
+
+`installed_plugins.json` records a cache path that may not exist on disk. The server
+actually runs from the marketplace clone. Does not affect the mechanism, but is
+confusing during debugging.
+
+### 5. Chat tool-exposure bug (the reason for the config-entry workaround)
+
+Plugin-delivered `.mcp.json` tools don't reliably reach the Chat model despite the
+server starting and responding to `initialize` and `tools/list`. Multiple
+reproductions across GitHub issues. Workaround: `claude_desktop_config.json` entry.
+
+---
+
+## What was also tested and deprioritised
+
+### .mcpb Desktop Extension
+
+Packaging: `manifest.json` (manifest_version 0.3) + bundled server code, built with
+`mcpb pack` CLI v2.1.2 into a zip archive. Install: drag into Settings → Extensions.
+
+Works in Chat, but bundles its own copy of the server — plugin updates do not
+propagate. Requires rebuilding the `.mcpb` and reinstalling manually to update.
+**Deprioritised** in favour of the `claude_desktop_config.json` approach, which
+shares the same server file as the plugin and gets updates automatically.
+
+Retained as known-working fallback knowledge, not as part of the active methodology.
+
+Key differences from the plugin path:
+
+| Aspect | Plugin `.mcp.json` | `.mcpb` Extension |
+|---|---|---|
+| Path variable | `${CLAUDE_PLUGIN_ROOT}` | `${__dirname}` |
+| Server code | Shared — marketplace clone | Bundled copy, frozen at build |
+| Update path | Merge PR → refresh clone | Rebuild `.mcpb` → reinstall |
+| Surfaces | Code, Cowork | Chat |
+
+### MSIX/Windows Store install of Claude Desktop
+
+Dave's Claude Desktop was originally the MSIX/Windows Store build (confirmed via
+`Get-AppxPackage`, package family `Claude_pzs8sxrjxfjjc`). This has a known bug
+where Python-type Desktop Extensions fail because `${__dirname}` resolves inside the
+MSIX virtual filesystem, which spawned `py.exe` processes can't see. Reinstalled to
+standalone from `claude.ai/download` to sidestep this and other MSIX
+path-virtualisation issues. The Node.js-based approach used here is not affected by
+this specific bug, but the standalone install is recommended regardless.
+
+---
+
+## Broader direction
+
+The tested delivery model applies beyond Orchestration. Any AIDE functionality that
+currently lives in the `aide` CLI (binder builder, FUP deployer, cleanup) or that
+will be built as new tooling can follow the same pattern: one Node.js MCP server
+per tool (or per tool group), delivered as a marketplace plugin, with a Chat bootstrap
+entry pointing at the same server file.
+
+This makes the marketplace repo the single distribution point for AIDE's operational
+tooling, with git-push-to-PR-merge as the update mechanism and restart as the
+propagation step.
+
+The `aide` CLI is not replaced — it remains available for terminal-only use and for
+the git-tag auto-update path. But the plugin-delivered MCP server is the primary
+delivery surface going forward, because it reaches all three Claude Desktop surfaces
+from a single codebase without per-machine CLI installation.
+
+Infrastructure's design pass (not yet run) should formalise this as the standard
+delivery model, including: the bootstrap step (potentially automated as an
+`aide mcp-register` command or equivalent), the marketplace clone refresh issue
+(manual vs automated), and the relationship between CLI-delivered and
+plugin-delivered tooling.
+<!-- END SOURCE: Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v1.md -->
+
+---
+
 <!-- BEGIN SOURCE: Infrastructure/binder-builder/binder_builder_Documentation_settings.json -->
 {
   "_comment": "Settings for the binder builder. This file IS the binder definition - it declares what the binder contains. One binder per copy of the tool: a second binder means a second folder with its own copy of the script and its own settings, not a second entry here. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
@@ -11410,12 +11652,16 @@ execution endpoint is present. The endpoint exposes its own effective target lis
 session queries it rather than inferring the environment (hostname, desktop-vs-web,
 installed executables) directly.
 
-**D10 — Implementation home is `aide dispatch` inside the existing `aide` CLI**, not a
-new standalone runtime, not a Claude Code skill, not a Desktop Extension. Infrastructure
-already owns the CLI host, settings, logging, and packaging; Orchestration adds dispatch
-behaviour, adapters, and resolution on top of it. Supersedes the three options raised by
-the investigation (standalone script / Code skill / Desktop Extension) as the primary
-implementation path.
+**D10 — Implementation home is a local MCP server delivered as a marketplace plugin**,
+not `aide dispatch` in the CLI (originally proposed), not a standalone script, not a
+Code skill, not a Desktop Extension. The dispatch mechanism lives inside the MCP server;
+Infrastructure owns the delivery model (packaging, distribution, update path, surface
+coverage). Empirically tested 2026-09-16: all three surfaces (Code, Cowork, Chat) reach
+the same server file — Code and Cowork via the plugin's `.mcp.json`, Chat via a one-time
+`claude_desktop_config.json` bootstrap pointing at the same file in the marketplace
+clone. Plugin updates propagate to all surfaces on restart. The CLI remains available
+for terminal-only use but is not the primary delivery surface. Supersedes D10 as
+originally drafted.
 
 **D11 — First adapters: `claude-code` and `codex` only.** Gemini/Google support is
 additive when a stable execution path exists (Gemini CLI's consumer auth path was found
@@ -11453,6 +11699,23 @@ The original scoping proposed a crude size/complexity threshold living inside
 Orchestration. Under the narrowed ownership (D2), the caller decides the target
 explicitly per dispatch; Orchestration executes the routing decision rather than making
 it. Settles an item left open in the original scoping.
+
+**D18 — AIDE functionality delivered by plugins is Infrastructure's direction, not
+Orchestration-specific.** The local MCP server delivery model (marketplace plugin for
+Code/Cowork, `claude_desktop_config.json` bootstrap for Chat, one server codebase)
+was tested and confirmed empirically on 2026-09-16 during Orchestration's
+investigation. The same pattern applies to binder, FUP, and future AIDE tooling.
+Infrastructure owns the delivery model; Orchestration and other components are
+consumers. Raised to Infrastructure's design pass, not decided inside Orchestration.
+
+**D19 — Assurance's D14 wording needs correcting.** D14 currently reads
+"Infrastructure plumbing, Orchestration coordinates invocation" for learning-loop queue
+writing. With the framework inbox and Assurance data logger scoped as remote-hosted MCP
+services (always-on, cloud-hosted, reachable to any client), there is nothing for
+Orchestration to coordinate — Assurance calls the hosted service directly. Drop the
+Orchestration clause from D14 when Assurance's documents are next updated. The hosted
+services themselves sit under Infrastructure's "hosted AIDE services" sub-scope
+(also pending Infrastructure's design pass).
 
 ---
 
@@ -11761,13 +12024,46 @@ explicitly deferred, not designed against.
 
 ## Implementation home
 
-Recommended: **`aide dispatch`**, inside the existing `aide` CLI, rather than a new
-standalone runtime. Infrastructure already owns the CLI host, settings loading, logging,
-and packaging/update plumbing for AIDE's tools. Orchestration owns dispatch behaviour,
-adapters, model-level resolution, and invocation semantics on top of that host. This was
-one of the investigation's open questions (standalone script vs Code skill vs Desktop
-Extension) — the existing CLI is a better answer than any of the three original options
-because it avoids standing up new infrastructure Orchestration doesn't need to own.
+Orchestration's dispatch mechanism lives in a **local MCP server, delivered as a
+marketplace plugin** — not inside the `aide` CLI as originally proposed.
+
+This follows the broader direction confirmed by empirical testing on 2026-09-16: AIDE
+functionality is delivered via marketplace plugins that bundle local MCP servers. The
+delivery model itself belongs to Infrastructure, not Orchestration — Orchestration is
+the first consumer, not the owner, and the same model applies to binder, FUP, and
+future tooling.
+
+Orchestration owns the dispatch behaviour, adapters, model-level resolution, and
+invocation semantics inside the MCP server. Infrastructure owns how that server gets
+packaged, distributed, updated, and made available across surfaces.
+
+### Surface coverage (tested, all three confirmed)
+
+| Surface | Mechanism | Server file |
+|---|---|---|
+| Code | Marketplace plugin `.mcp.json` | Marketplace clone |
+| Cowork | Marketplace plugin `.mcp.json` | Marketplace clone |
+| Chat | `claude_desktop_config.json` entry | Same file in marketplace clone |
+
+All three surfaces read the same physical server file. The `claude_desktop_config.json`
+entry for Chat is a one-time bootstrap that points at the marketplace clone's server
+path. Plugin updates (merged PR → clone refresh → restart) propagate to all three
+surfaces automatically — no rebuild, no reinstall.
+
+Chat's requirement for a separate config entry is due to a current Claude Desktop
+platform bug (plugin-delivered `.mcp.json` tools don't reliably reach the Chat model,
+despite Anthropic's documentation saying they should). Multiple independent
+reproductions exist. When Anthropic fixes this, the config entry becomes redundant and
+can be removed — a removal, not a rework. See Infrastructure's MCP delivery model
+documentation for the full tested methodology and known platform issues.
+
+### What was superseded
+
+The original investigation considered three options: standalone script, Claude Code
+skill, or Desktop Extension. The design-shaping pass selected `aide dispatch` inside
+the CLI as a fourth option. The plugin-delivered MCP server supersedes all four —
+it avoids standing up new infrastructure, integrates with the existing marketplace
+update path, and reaches all three surfaces from a single server codebase.
 
 ## Target adapters
 
@@ -11977,51 +12273,55 @@ concept at all.
 
 ---
 
-## 5. Assurance's learning-loop queue writing
+## 5. Assurance's learning-loop queue writing — RESOLVED 2026-09-15
 
 **What it is.** Assurance's learning loop captures "measurable moments" for later
-pattern analysis. Its own design pass (accepted 2026-09-15) already settled the
-boundary: Infrastructure owns the plumbing, **Orchestration coordinates the invocation**,
-Assurance decides what to capture (Assurance D14).
+pattern analysis. Its own design pass (accepted 2026-09-15) originally settled the
+boundary as: Infrastructure owns the plumbing, "Orchestration coordinates the
+invocation," Assurance decides what to capture (Assurance D14).
 
-**Caller.** Assurance, indirectly — via whatever triggers a capture moment during a
-session.
+**Resolution.** This was flagged as a gap against Design v1's dispatch model — a queue
+write isn't cross-platform execution, it doesn't fit "dispatch to an execution target,
+get a result back." The resolution dissolves the gap rather than extending Orchestration
+to cover it: the framework inbox and Assurance's data logger are **remote-hosted MCP
+services** (always-on, cloud-hosted — Supabase/Postgres behind a Cloudflare Workers MCP
+layer, ~$25-30/month), reachable directly by any client. Assurance calls the hosted
+service the same way it would call any other connected MCP tool. There is nothing for
+Orchestration to coordinate.
 
-**Shape.** Unclear from Design v1 as written. "Coordinates the invocation" of a queue
-write doesn't obviously map to "dispatch work to an execution target and get a result
-back" — a queue write isn't naturally a cross-platform execution task, it's closer to a
-local persistence action. **Gap:** Design v1 doesn't address this case at all, and it's
-the one place another component's already-accepted design explicitly names Orchestration
-as responsible for something.
+**Action taken.** Assurance's D14 wording ("Orchestration coordinates invocation") needs
+correcting to drop the Orchestration clause — tracked as Orchestration Decisions v1,
+D19. The hosted services themselves sit under Infrastructure's "hosted AIDE services"
+sub-scope, proposed as one generic service with two logical streams
+(`framework-inbox`, `assurance-log`) rather than two bespoke builds.
 
-**Action needed.** Either (a) queue-writing fits the dispatch model as a degenerate case
-(target could be "local," workspace the project root, payload the queue entry) and
-Design v1 should say so explicitly, or (b) it doesn't really fit and Assurance's D14
-wording needs revisiting once Orchestration's actual shape is settled. Flag for Dave —
-this is the first use case that doesn't obviously fit the model as drafted.
+**Checks against Design v1.** No longer a gap against Orchestration — it was never
+Orchestration's use case. Design v1 correctly has nothing to say about it.
 
 ---
 
-## 6. Improvement's periodic pattern analysis and scheduling
+## 6. Improvement's periodic pattern analysis and scheduling — RESOLVED 2026-09-15
 
 **What it is.** The Improvement component (identified but not designed) analyses the
-learnings queue periodically and escalates findings. Its design note states "Orchestration
-provides scheduling mechanism," and both Improvement and Assurance's learning-loop
-recording are explicitly deferred until Orchestration is "completed and tested."
+learnings queue periodically and escalates findings. Its design note originally stated
+"Orchestration provides scheduling mechanism," and both Improvement and Assurance's
+learning-loop recording were explicitly deferred until Orchestration was "completed and
+tested."
 
-**Caller.** Improvement (not yet designed).
+**Resolution.** Same family as use case 5, same fix. A recurring/scheduled trigger
+querying a data store isn't a dispatch to an execution target either. Once the learnings
+queue is a hosted MCP service (see use case 5), Improvement's periodic analysis is a
+client querying that service on a schedule — a scheduling concern, not an Orchestration
+concern. Orchestration's dispatch model was never the right home for this; the "provides
+scheduling mechanism" wording in Improvement's design note needs the same kind of
+correction as Assurance's D14.
 
-**Shape.** Unclear, same as use case 5 — "scheduling mechanism" isn't dispatch-shaped
-either. A scheduled/periodic trigger is a different kind of thing from a one-shot
-dispatch to an execution target.
+**Action taken.** Flagged for Improvement's own design pass (not yet run) to correct its
+wording and unblock — Improvement no longer needs to wait on Orchestration's completion,
+since the actual dependency was the hosted queue service, not Orchestration itself.
 
-**Checks against Design v1.** **Gap, same family as use case 5.** Design v1 has nothing
-to say about recurring/scheduled invocation — it's implicitly single-shot,
-caller-initiated. Since Improvement's own design pass is explicitly blocked on
-Orchestration being done, this needs at least a stated position (in scope, deferred, or
-someone else's job) before Orchestration can honestly be called complete for AIDE's
-purposes — even if the position is "scheduling is Infrastructure's job, not
-Orchestration's, and Improvement should say so instead."
+**Checks against Design v1.** No longer a gap. Design v1 correctly has nothing to say
+about scheduling — that was never its job.
 
 ---
 
@@ -12052,21 +12352,22 @@ with D1/D2: task semantics are the caller's business, not Orchestration's).
 | 2. Build delegation | Covered in shape, unproven in practice | Needs Build's design pass before it's truly tested |
 | 3. Cross-platform review | Covered | Already a real manual task, highest-value first wire-up |
 | 4. Risk-flagged review (heavyweight) | Covered by composition | Confirms D16 was the right call |
-| 5. Assurance learning-loop queue writing | **Gap** | Doesn't obviously fit the dispatch model; needs a stated position |
-| 6. Improvement scheduling | **Gap** | Recurring/scheduled invocation isn't addressed at all; Improvement's own design is blocked on this |
+| 5. Assurance learning-loop queue writing | **Resolved** | Never Orchestration's use case — hosted MCP service, called directly (Decisions v1 D19) |
+| 6. Improvement scheduling | **Resolved** | Same family — hosted queue service unblocks Improvement's design pass directly, not via Orchestration |
 | 7. Search/collaboration | Covered | Confirms task-type doesn't need to be an Orchestration concept |
 
-**Two real gaps, both the same shape:** Design v1 covers one-shot, caller-initiated,
-cross-platform execution well. It says nothing about local/non-execution invocation
-(queue writes) or recurring/scheduled invocation. Both were named as Orchestration's job
-by other components' already-accepted designs, so this isn't optional scope creep to
-wave away — it's existing debt against the design as currently drafted.
+**Both original gaps resolved 2026-09-15, by dissolution rather than extension.**
+Neither queue-writing nor scheduling turned out to be Orchestration's job — both are
+clients of a hosted MCP service that sits under Infrastructure. Design v1 was right not
+to address them; the components that originally named Orchestration as responsible
+(Assurance's D14, Improvement's design note) need their own wording corrected instead.
+That correction is tracked in Orchestration Decisions v1 (D19) for Assurance, and
+flagged here for Improvement's own design pass to pick up.
 
-**Recommendation for the morning read:** decide, for each gap, one of — (a) genuinely
-Orchestration's job and Design v1 needs a section for it, (b) belongs to Infrastructure
-or another component and the other component's wording needs correcting, or (c)
-deferred with a stated reason, same as the nine already-deferred items. Don't let
-either gap get resolved by assumption the way the original Core wording did.
+**Net result:** all seven known use cases are now covered by Design v1 as drafted, with
+one real open risk remaining — build delegation (use case 2) is covered in shape but
+unproven until Build has its own design pass and a real payload can be tested through
+the dispatch mechanism.
 <!-- END SOURCE: Orchestration/AIDE_Orchestration_UseCases_v1.md -->
 
 ---
