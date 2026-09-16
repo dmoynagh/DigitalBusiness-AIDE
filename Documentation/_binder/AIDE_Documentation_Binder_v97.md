@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 96** (2026-09-17).
+> **Binder Version 97** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -72,8 +72,8 @@ individual files.
 - `Messaging/Messaging_Design_v4.md` - sha256 `48b767e284b0`
 - `Messaging/Messaging_Standard_v4.md` - sha256 `39a0045e2403`
 - `Messaging/Messaging_Tool_v4.md` - sha256 `c0a40ad3383d`
-- `Orchestration/AIDE_Orchestration_Decisions_v2.md` - sha256 `e547c3f7e038`
-- `Orchestration/AIDE_Orchestration_Design_v2.md` - sha256 `dddbcd935f3e`
+- `Orchestration/AIDE_Orchestration_Decisions_v3.md` - sha256 `ae32b6e0e310`
+- `Orchestration/AIDE_Orchestration_Design_v3.md` - sha256 `085b5dae47dd`
 - `Orchestration/AIDE_Orchestration_UseCases_v2.md` - sha256 `5d4ecab3a53d`
 - `Principles/Principles_Decisions_v5.md` - sha256 `33df0c86fba0`
 - `Principles/Principles_Design_v5.md` - sha256 `ba6e146bf1b7`
@@ -93,7 +93,7 @@ individual files.
 - `Tools/Tools_Authoring_Standard_v8.md` - sha256 `d05452eddaa6`
 - `Tools/Tools_Decisions_v7.md` - sha256 `f83f2411202f`
 - `Tools/Tools_Design_v6.md` - sha256 `62b2eb15c979`
-- `Working Practices/_index.md` - sha256 `69a1be1e3d12`
+- `Working Practices/_index.md` - sha256 `25410df7a086`
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
 - `Working Practices/Boards/WP_Boards_Design_v1.md` - sha256 `a36bf3d79609`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
@@ -102,6 +102,7 @@ individual files.
 - `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `6b858ff04f50`
 - `Working Practices/WP_Decisions_v4.md` - sha256 `9957a8fb75f9`
 - `Working Practices/WP_Design_v6.md` - sha256 `da8923648608`
+- `Working Practices/WP_Standard_v1.md` - sha256 `76650bf1e80b`
 - `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `59a0bba2401c`
 
 ---
@@ -12660,247 +12661,210 @@ Version note: v4 — third cross-review remediation. R5: QueryReceipt response s
 
 ---
 
-<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Decisions_v2.md -->
-# AIDE Orchestration — Decisions v2
+<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Decisions_v3.md -->
+# AIDE Orchestration — Decisions v3
 
-> identity: Orchestration_Decisions@v2 | doctype: decisions | updated: 2026-09-17
+> identity: Orchestration_Decisions@v3 | doctype: decisions | updated: 2026-09-17
 
-Cross-review remediation from v1. Fifteen findings from independent review (ChatGPT),
-all resolved per agreed dispositions. D1–D19 unchanged except where noted; D20–D34
-added.
+Two cross-review rounds completed (independent AI). Round 1: F1–F15, resolved in v2
+(D20–D34). Round 2: R2-F1–R2-F7, resolved in v3 (D35–D41). D1–D34 unchanged except
+where noted.
 
 ---
 
-## v1 decisions (unchanged unless noted)
+## v1 decisions
 
 **D1 — Dispatch replaces the universal Work Package as Orchestration's artefact.**
-The investigation's proposed universal Work Package and mandatory Verification Response
-would make Orchestration own task semantics, violating the component's ownership
-boundary. A thin dispatch (target, workspace, model level, payload) is the
-Orchestration-level artefact instead. Caller-owned artefacts (Build packages, review
-requests, Messaging envelopes) travel as the payload.
+Unchanged.
 
-**D2 — Orchestration ownership narrowed.** Owns: dispatch, invocation, target-native
-invocation mechanics, target adapters, model-level resolution (model capability settings
-only), execution-endpoint interaction, dispatch correlation, transport/invocation
-failure, returning results to the caller. Does not own: work-package/build-package
-structure, task types, verification policy, acceptance criteria, review semantics,
-Build's return semantics, generic response semantics, human/autonomy policy,
-model-mapping content, routing/target-selection decisions, or message/thread
-correlation.
+**D2 — Orchestration ownership narrowed.** Owns: dispatch acceptance and dispatch_id
+creation, invocation, target-native invocation mechanics, target adapters, model-level
+resolution (model capability settings only), execution-endpoint interaction, dispatch
+correlation, transport/invocation failure, returning results to the caller. Does not
+own: work-package/build-package structure, task types, verification policy, acceptance
+criteria, review semantics, Build's return semantics, generic response semantics,
+human/autonomy policy, model-mapping content, routing/target-selection decisions, or
+message/thread correlation.
 
-*v2 change (F4, F5, F6):* "correlation" narrowed to "dispatch correlation";
-"transport/channel selection" replaced by "target-native invocation mechanics";
-"execution mode" removed from model-level resolution scope and replaced by "model
-capability settings only."
+*v3 change (R2-F1):* "dispatch acceptance and dispatch_id creation" replaces "dispatch"
+to clarify that Orchestration creates the correlation identifier, not the caller.
 
-**D3 — Core's current wording needs correction.** Core presently assigns Orchestration
-ownership of "work package structure, verification, and capability profiles." This
-contradicts D2 and needs correcting in Core's own document. Proposed replacement
-wording updated in v2 Design per F5/F15.
+**D3 — Core's current wording needs correction.** Proposed replacement wording in
+Design v3. Unchanged from v2.
 
-**D4 — Transport outcome and task outcome are distinct fields.** `transport_status`
-(e.g. `completed`) reports only that the invocation returned. It never implies the
-requested task succeeded — that judgement stays with the owning component. Prevents a
-completed-but-failed task being misread as done.
+**D4 — Transport outcome and task outcome are distinct fields.** Unchanged.
 
 **D5 — `response_schema` is an adapter capability, not a mandatory contract.**
-Schema-constrained output (Agent SDK `outputFormat`, Codex `--output-schema`) is real and
-useful, confirmed by investigation. Orchestration may pass a caller-supplied schema
-through to a target that supports it. It is never required as part of the Orchestration
-contract itself.
+Unchanged in principle.
 
-**D6 — Model capability is caller-selected, not classifier-selected.** Automatic
-model-selection (an AIDE classifier deciding required capability) is parked, not
-designed. The caller states required capability directly using a small logical
-vocabulary (`basic/standard/high/maximum`), with an `exact` escape hatch for a specific
-provider model. `level` and `exact` are mutually exclusive.
+*v3 change (R2-F2):* behaviour when adapter doesn't support it changed from silent
+degradation to invocation failure. See D36.
+
+**D6 — Model capability is caller-selected, not classifier-selected.** Unchanged.
 
 **D7 — Model-capability mapping content belongs to Core (Framework Resources), not
-Orchestration.** The Framework/Framework-Resources split (durable behaviour vs volatile
-current knowledge) is a cross-cutting AIDE pattern, confirmed as Core's to own.
-Orchestration is a consumer of Resources, not its owner.
+Orchestration.** Unchanged.
 
-**D8 — Availability is discovered, not configured, wherever discovery can represent the
-fact.** Machine-specific settings are only introduced where detection genuinely cannot
-substitute. Effective available targets = supported-by-Resources ∩ detected-on-endpoint
-∩ not-explicitly-disabled.
+**D8 — Availability is discovered, not configured.** Unchanged.
 
 **D9 — Capability availability and execution-endpoint availability are different
-things.** An AI session having the Orchestration capability does not imply a local
-execution endpoint is present. The endpoint exposes its own effective target list.
+things.** Unchanged.
 
-**D10 — Orchestration requires a local execution endpoint exposing dispatch
-functionality.** The current implementation is a local MCP server. The delivery
-mechanism — packaging, distribution, surface coverage, update propagation — belongs to
-Infrastructure, not Orchestration.
+**D10 — Orchestration requires a local execution endpoint.** Unchanged from v2.
 
-*v2 change (F11):* split from original D10, which decided both the endpoint requirement
-and the delivery mechanism. Orchestration decides its runtime requirement;
-Infrastructure decides how it's packaged. The empirically tested marketplace-plugin
-approach is evidence/input to Infrastructure's design pass, not an Orchestration design
-decision.
+**D11 — First adapters: `claude-code` and `codex` only.** Unchanged.
 
-**D11 — First adapters: `claude-code` and `codex` only.** Gemini/Google support is
-additive when a stable execution path exists. Not required to block v1.
+**D12 — Stateless first.** Unchanged.
 
-**D12 — Stateless first, unchanged from the original investigation position.** Each
-dispatch is independently executable. No AIDE session-management abstraction is built
-until a demonstrated workflow needs one.
+**D13 — No semantic intermediate-progress protocol in v1.** Unchanged.
 
-**D13 — No semantic intermediate-progress protocol in v1.** The stable contract
-distinguishes only transport completion from transport failure.
+**D14 — FUP remains the validation scenario.** Unchanged.
 
-**D14 — FUP remains the validation scenario, using `aide fup` unchanged.** Test the
-orchestrated invocation first; change `aide fup` only if a real failure demonstrates
-the need.
+**D15 — No second generic messaging envelope.** Unchanged.
 
-**D15 — No second generic messaging envelope.** Messaging already owns structured
-cross-boundary communication and message/thread correlation semantics. Where a dispatch
-payload needs to travel as structured text, it travels inside Messaging's existing
-envelope.
+**D16 — Tier is caller-owned.** Unchanged.
 
-*v2 change (F4):* added "message/thread correlation" to make the correlation boundary
-explicit.
+**D17 — Routing is caller-owned.** Unchanged.
 
-**D16 — Tier (autonomous vs heavyweight) is caller-owned.** Orchestration dispatches
-without knowing or tracking whether the surrounding workflow is autonomous or
-Dave-driven-interactive. Unchanged.
+**D18 — Plugin delivery is Infrastructure's direction.** Unchanged.
 
-**D17 — Routing (which tasks get delegated, and the threshold for it) is caller-owned.**
-The caller decides the target explicitly per dispatch; Orchestration executes the
-routing decision. Unchanged.
-
-**D18 — AIDE functionality delivered by plugins is Infrastructure's direction, not
-Orchestration-specific.** Infrastructure owns the delivery model. Unchanged.
-
-**D19 — Assurance's D14 wording needs correcting.** Drop the Orchestration clause from
-Assurance's D14 when Assurance's documents are next updated. Unchanged.
+**D19 — Assurance's D14 wording needs correcting.** Unchanged.
 
 ---
 
-## v2 decisions — cross-review remediation
+## v2 decisions (round 1 remediation)
 
-**D20 — `response_schema` added as an optional top-level dispatch field (remediates
-F1).** The v1 design described Orchestration passing a caller-supplied schema to the
-target but did not include it in the dispatch contract. Since Orchestration itself must
-recognise the field to route it to the adapter (it cannot be inside the opaque payload),
-it belongs at the dispatch level. Orchestration does not own or interpret the schema; it
-transports it. When the selected adapter does not support schema-constrained output, the
-field is ignored and the dispatch proceeds — this is not a transport failure.
+**D20 — `response_schema` added as optional top-level dispatch field (F1).** Unchanged
+in placement.
 
-**D21 — Payload is a UTF-8 text value for v1 (remediates F2).** "Opaque" correctly
-describes the ownership principle (Orchestration does not interpret task semantics) but
-does not answer the transport question of what the payload is at the API boundary. For
-v1, payload is explicitly a UTF-8 text string. Callers serialise their own artefacts
-into this text. Richer representations (structured objects, file references) are added
-only when a demonstrated use case requires them. This is the smallest stable transport
-representation that avoids forcing adapters to inspect caller artefacts.
+*v3 change (R2-F2):* silent-ignore behaviour replaced by invocation failure. See D36.
+
+**D21 — Payload is UTF-8 text for v1 (F2).** Unchanged.
 
 **D22 — Dispatch correlation is Orchestration-owned; message/thread correlation is
-Messaging-owned (remediates F4).** The v1 design claimed "correlation" without
-qualifying it. Two different kinds of correlation exist: dispatch correlation
-(`dispatch_id` tying an invocation to its transport result, lifecycle owned by
-Orchestration) and message/thread correlation (conversation identity and threading,
-owned by Messaging). Both are renamed in v2 to prevent future conflation.
+Messaging-owned (F4).** Unchanged.
 
 **D23 — "Transport/channel selection" replaced by "target-native invocation mechanics"
-(remediates F5).** The v1 wording "transport/channel selection" and "transport/channel
-routing" was broad enough to imply a routing decision that D17 explicitly assigns to the
-caller. Orchestration doesn't select which target to use — it handles the
-target-specific invocation mechanics once the caller has made that choice. The proposed
-Core wording is updated accordingly.
+(F5).** Unchanged.
 
-**D24 — Model-level resolution narrowed to model capability settings only (remediates
-F6).** The v1 design described model-level resolution as potentially including
-"execution mode," which is too broad. On current AI tooling, native execution settings
-can include sandboxing, permission/approval mode, tool access, and other behaviours that
-are caller policy, not model capability. Resolution produces native model identity and
-reasoning effort. Caller-owned execution constraints are separate if and when a
-demonstrated use case requires them.
+**D24 — Model-level resolution narrowed to model capability settings only (F6).**
+Unchanged.
 
-**D25 — Dispatch field cardinality and omission behaviour defined (remediates F7).**
-The v1 dispatch had no required/optional semantics stated. v2 defines: `dispatch_id`
-required (Orchestration-created); `target` required; `payload` required; `workspace`
-optional (omit when no working directory needed); `model` optional (omit to use
-target's default from Resources — the caller is still the owner of the selection;
-omission is explicit delegation to the configured default); `response_schema` optional
-(ignored silently when adapter doesn't support it).
+**D25 — Dispatch field cardinality and omission behaviour defined (F7).**
 
-**D26 — Transport failure contract defined (remediates F3).** The v1 design owned
-transport failure but only showed the success shape. v2 defines a minimal failure result:
-`dispatch_id`, `target`, `transport_status: failed`, and a `failure` object with
-`category` and `detail`. Categories are transport-owned (invocation_error, timeout,
-target_unavailable, auth_failure, adapter_error). The boundary: if the target ran and
-returned output saying it could not complete the task, that is `completed` with the
-target's response; `failed` means the target was never successfully reached or did not
-return.
+*v3 change (R2-F1):* `dispatch_id` removed from the dispatch request fields — it
+appears only in the dispatch (Orchestration-created) and the transport result.
 
-**D27 — Provenance is a required field on completed transport results (remediates
-F13).** The v1 design said execution results "should retain" provenance. This is made a
-requirement: every `completed` transport result carries the requested logical capability,
-the resolved native model/settings, and the Resources version used. This makes past
-executions interpretable after mappings change — a genuine reproducibility requirement,
-not optional metadata.
+*v3 change (R2-F6):* workspace omission behaviour tightened — if the target/adapter
+requires a workspace and none was supplied, the dispatch fails before execution rather
+than using an unspecified native default.
 
-**D28 — Charter alignment corrected — Principles premises cited as Principles, not
-attributed to Charter (remediates F14).** The v1 design said the Charter's development
-principles include "build the smallest thing" and "difficulty as evidence." Those are
-Principles premises (apparatus-avoidance and difficulty-as-evidence), not Charter
-statements. The Charter provides objectives (O1–O7); the Principles component provides
-the reasoning premises that govern how those objectives are pursued. v2 Charter
-alignment section maps explicitly against Charter objectives and cites Principles
-separately.
+**D26 — Transport failure contract defined (F3).**
 
-**D29 — Proposed Core wording updated (remediates F15, incorporates F4/F5).** The v1
-proposed Core wording preserved ambiguity around "routing" and "correlation." v2
-replaces it with boundary-safe wording that makes the ownership distinctions explicit:
-caller owns routing, Orchestration owns dispatch correlation, Core owns model-mapping
-content.
+*v3 change (R2-F2):* `unsupported_capability` added as a failure category for
+invocation-capability mismatches (e.g. response_schema on an adapter that doesn't
+support it).
 
-**D30 — Implementation home split: Orchestration requires endpoint, Infrastructure
-decides delivery (remediates F11).** The v1 D10 decided both that Orchestration's
-implementation home is a local MCP server (an Orchestration decision) and that it is
-delivered as a marketplace plugin with a specific Chat bootstrap mechanism (an
-Infrastructure decision). v2 splits this: Orchestration decides it requires a local
-execution endpoint; the delivery mechanism belongs to Infrastructure. The tested
-marketplace approach is evidence for Infrastructure's design pass, not an Orchestration
-design decision.
+**D27 — Provenance is required on completed transport results (F13).**
 
-**D31 — Use cases 5 and 6 reworded: "not Orchestration's responsibility, downstream
-design action required" (remediates F12).** The v1 use cases correctly established that
-queue writing and scheduling are not Orchestration concerns, but then prescribed a
-specific hosted-service architecture (Supabase/Cloudflare/cost estimate) that belongs to
-Infrastructure. v2 separates the two conclusions: the dissolution of Orchestration
-responsibility is settled; the replacement architecture is not decided by these
-documents. Specific architectural content removed from use cases.
+*v3 change (R2-F3):* `requested_level` replaced by `requested_model`, which
+symmetrically represents both `{ level: high }` and `{ exact: provider-model }`.
+`resources_version` is `null` for the exact-model path, which bypasses Resources
+resolution.
 
-**D32 — Target discovery noted as implementation concern (remediates F8, downgraded
-from Gap to Observation).** The cross-review identified that callers need to discover
-available targets before dispatching. This is real but is an operational detail of the
-execution endpoint rather than a missing design use case — the dispatch MCP server
-already exposes what targets are available through its tool listing. Noted for
-implementation: the endpoint should expose effective target availability as part of its
-normal operation.
+**D28 — Charter alignment corrected (F14).** Unchanged.
 
-**D33 — Capability level names are a pre-deployment decision, not indefinitely deferred
-(remediates F9).** The v1 design listed "final naming of capability levels" as a
-deferred item alongside genuinely optional future work. Renaming after deployment is an
-interface migration. v2 moves this to a new "pre-deployment decisions" section — settled
-in principle (the vocabulary and its semantics are designed), with final values confirmed
-before the dispatch contract is frozen.
+**D29 — Proposed Core wording updated (F15).** Unchanged from v2.
 
-**D34 — Framework Resources consumer contract stated (remediates F10).** The v1 design
-correctly left the Resources mechanism to Core but treated the consumer contract with
-the same deference. Orchestration can state what service it requires without designing
-Core's schema: `resolve(target, logical_level) → native invocation settings + resources
-version`. This is a functional dependency — not deferrable for v1 deployment — and is
-now stated in the Design. Core remains completely free to decide how Resources are
-represented and delivered.
+**D30 — Implementation home split (F11).** Unchanged.
+
+**D31 — Use cases 5/6 reworded (F12).** Unchanged.
+
+**D32 — Target discovery noted as implementation concern (F8).**
+
+*v3 change (R2-F5):* upgraded from implementation note to explicit endpoint operation.
+See D39.
+
+**D33 — Capability level names are pre-deployment, not indefinitely deferred (F9).**
+
+*v3 change (R2-F7):* timing language corrected. See D41.
+
+**D34 — Framework Resources consumer contract stated (F10).**
+
+*v3 change (R2-F4):* consumer contract expanded. See D40.
 
 ---
 
-## Deferred (not decided, recorded so they aren't silently lost)
+## v3 decisions (round 2 remediation)
+
+**D35 — Dispatch request separated from dispatch (remediates R2-F1).** The v2 contract
+conflated what the caller sends with what Orchestration creates. `dispatch_id` appeared
+as a "required" field in the dispatch, but Orchestration creates it — a caller cannot be
+required to provide a value it doesn't own. v3 separates: the **dispatch request** is
+what the caller sends (target, payload, optional workspace/model/response_schema); the
+**dispatch** is the accepted request plus the Orchestration-created `dispatch_id`. The
+transport result echoes that `dispatch_id`. This is not a new artefact model — it is the
+minimal distinction needed for an implementable API boundary.
+
+**D36 — Unsupported `response_schema` fails the invocation, not silent degradation
+(remediates R2-F2).** v2 said the adapter silently ignores an unsupported
+`response_schema` and the dispatch proceeds without schema constraint. This is unsafe:
+the caller explicitly requested constrained output and may treat the response as
+constrained when it was not. v3 changes the behaviour: when the selected adapter does
+not support schema-constrained invocation, the dispatch fails before invocation with
+category `unsupported_capability`. The caller can retry without the schema if they want
+unconstrained output. Orchestration still does not own or validate the schema's meaning
+— it only ensures the requested invocation capability was applied or honestly reported
+as unavailable.
+
+**D37 — Provenance represents the requested model symmetrically (remediates R2-F3).**
+v2 provenance required `requested_level`, which cannot represent a dispatch using
+`model.exact`. v3 replaces this with `requested_model`, which carries either
+`{ level: high }` or `{ exact: provider-model }` matching the form the caller used.
+For the exact-model path: no Resources resolution is involved, the adapter uses the
+specified model directly and records the native settings it applied, and
+`resources_version` is `null`. This makes the dispatch contract and the result contract
+mutually consistent across both model-selection forms.
+
+**D38 — Workspace omission fails when the target requires a workspace (remediates
+R2-F6).** v2 said an omitted workspace could fall back to the target's native default.
+This is dangerous: operating against an unspecified working directory can cause
+otherwise valid work to execute against the wrong location, with `completed` transport
+status, which is worse than a transport failure. v3 tightens: if the target/adapter
+requires a workspace and none was supplied, the dispatch fails before execution. If the
+target supports genuinely workspace-free invocation (e.g. a review prompt fully
+self-contained in payload), no workspace is passed. Orchestration does not substitute an
+unspecified native default for the caller's routing decision.
+
+**D39 — Target discovery is an explicit endpoint operation (remediates R2-F5, upgrades
+D32).** v2 downgraded target discovery to an implementation note. The round 2 review
+correctly identified that the design requires callers to choose a valid target (D17) but
+provides no defined way to learn which targets are currently valid. This is the discovery
+half of the endpoint contract already required by the detection-before-configuration
+principle (D8/D9). v3 adds `available_targets()` as an explicit endpoint operation
+returning the effective target set with unavailability reasons. This is a very small
+addition — not a capability-negotiation framework — and closes the gap between
+caller-owned routing and the information callers need to exercise it.
+
+**D40 — Framework Resources consumer contract expanded to three behaviours (remediates
+R2-F4).** v2's consumer contract was `resolve(target, logical_level) → native settings +
+version`. Two behaviours the design already requires were missing: determining the
+target's default logical level (used when the caller omits `model`), and determining
+whether a target is currently supported by Resources (used in availability calculation).
+v3 states all three as required behaviours without prescribing Core's API: (1) resolve a
+logical level to native settings; (2) obtain a target's default level; (3) check target
+support. Core may satisfy them however it chooses.
+
+**D41 — Capability level naming timing corrected (remediates R2-F7).** v2 said the
+proposed names are "not deferrable beyond design acceptance" and then listed them as a
+pre-deployment decision. These statements are contradictory. v3 settles: final
+capability-level names may remain provisional at design acceptance and must be settled
+before the dispatch contract is frozen (pre-deployment). The substantive point —
+renaming after deployment is an interface migration — is unchanged.
+
+---
+
+## Deferred
 
 1. Framework Resources schema and deployment mechanism — Core's design pass.
 2. Portable user/account settings mechanism.
@@ -12914,24 +12878,19 @@ represented and delivered.
 ## Pre-deployment decisions
 
 1. Final naming of model capability levels (`basic/standard/high/maximum` proposed).
-<!-- END SOURCE: Orchestration/AIDE_Orchestration_Decisions_v2.md -->
+   May remain provisional at design acceptance; must be settled before interface freeze.
+<!-- END SOURCE: Orchestration/AIDE_Orchestration_Decisions_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Design_v2.md -->
-# AIDE Orchestration — Design v2
+<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Design_v3.md -->
+# AIDE Orchestration — Design v3
 
-> identity: Orchestration_Design@v2 | doctype: design | updated: 2026-09-17
+> identity: Orchestration_Design@v3 | doctype: design | updated: 2026-09-17
 
-Cross-review remediation from v1. Fifteen findings (F1–F15), all resolved. Changes
-tracked in Decisions v2 (D20–D34).
-
-Input: v1 design (scoping, investigation, design-shaping pass), plus independent
-cross-review findings and agreed remediation dispositions.
-
-Dependency note: Build's design pass is complete (Design v3, Decisions v3 deployed).
-This design does not depend on Build's internal structure — it treats anything Build
-hands it as opaque, caller-owned payload.
+Two cross-review rounds completed (independent AI). Round 1: fifteen findings (F1–F15),
+all resolved in v2 (D20–D34). Round 2: seven findings (R2-F1–R2-F7), all resolved in
+v3 (D35–D41). Reviewer accepted the model; remaining work was contract tightening.
 
 ---
 
@@ -12985,10 +12944,10 @@ defined by its caller (the owning component or the human), dispatches it to an
 execution target through an adapter, and returns the result.
 
 ```
-caller-owned work
+caller-owned dispatch request
       │
       ▼
-Orchestration (dispatch, adapter selection, invocation, dispatch correlation)
+Orchestration (accept, assign dispatch_id, adapter selection, invocation, dispatch correlation)
       │
       ▼
 target adapter
@@ -13012,91 +12971,124 @@ meaning of the returned result.
 
 ### What Orchestration owns
 
-Dispatch; invocation; target-native invocation mechanics; target adapters; model-
-capability-level resolution; execution-endpoint interaction; dispatch correlation
-(tying a dispatch_id to its transport result); transport/invocation failure; returning
-the target's result to the caller.
+Dispatch acceptance and dispatch_id creation; invocation; target-native invocation
+mechanics; target adapters; model-capability-level resolution; execution-endpoint
+interaction; dispatch correlation (tying a dispatch_id to its transport result);
+transport/invocation failure; returning the target's result to the caller.
 
 Orchestration owns **dispatch correlation** — the lifecycle of `dispatch_id`, created by
-Orchestration at dispatch time and echoed in every transport outcome. This is distinct
-from **message/thread correlation**, which is owned by Messaging.
+Orchestration when it accepts a dispatch request and echoed in every transport outcome.
+This is distinct from **message/thread correlation**, which is owned by Messaging.
 
 ### What Orchestration explicitly does not own
 
 Work-package structure; Build packages or other workflow artefacts; task types/work
 modes; verification policy; acceptance criteria; review semantics; Build's return
 semantics; generic response semantics; human/autonomy policy; model-capability-mapping
-*content* (owned by Core, see Resources below — Orchestration consumes it, doesn't own
-it); the routing/target-selection decision (caller-owned, see D17); message/thread
-correlation (Messaging-owned).
+*content* (owned by Core — Orchestration consumes it, doesn't own it); the
+routing/target-selection decision (caller-owned); message/thread correlation
+(Messaging-owned).
 
 This narrows the wording currently carried in Core, which assigns Orchestration
 ownership of "work package structure, verification, and capability profiles." That
 wording needs correcting as part of accepting this design — flagged as a decision
 against Core, not silently absorbed here.
 
-### The dispatch contract
+### The dispatch request and the dispatch
 
-A dispatch is the Orchestration-level artefact. It carries a caller's work to a target
-without Orchestration interpreting its task semantics.
+The caller sends a **dispatch request** — the fields the caller owns and provides.
+Orchestration accepts the request, creates a `dispatch_id`, and produces the
+**dispatch** — the accepted request plus the Orchestration-generated identifier that
+correlates it with its transport result.
+
+**Dispatch request** (what the caller sends):
 
 ```yaml
-dispatch_id: ...          # required — created by Orchestration
-target: claude-code       # required — caller-selected
-workspace: /path/to/repo  # optional — omit when the target needs no working directory
-model:                    # optional — omit to use the target's default level from Resources
-  level: high
-payload: "..."            # required — UTF-8 text, caller-owned
-response_schema: { ... }  # optional — caller-supplied, passed to target if adapter supports it
+target: claude-code         # required — caller-selected
+payload: "..."              # required — UTF-8 text, caller-owned
+workspace: /path/to/repo    # optional — see omission rules below
+model:                      # optional — see omission rules below
+  level: high               #   OR exact: provider-specific-model (mutually exclusive)
+response_schema: { ... }    # optional — see invocation-capability rules below
 ```
+
+**Dispatch** (what Orchestration creates from the request):
+
+```yaml
+dispatch_id: abc-123        # created by Orchestration
+target: claude-code
+payload: "..."
+workspace: /path/to/repo
+model:
+  level: high
+response_schema: { ... }
+```
+
+`dispatch_id` never appears in the caller's request. It is Orchestration's contribution
+and the key for dispatch correlation.
 
 **Field semantics:**
 
-- **`dispatch_id`** — Required. Created by Orchestration, echoed in every transport
-  outcome. Provides dispatch correlation only — not message/thread correlation.
 - **`target`** — Required. The caller's explicit routing decision (D17). Orchestration
-  executes it; it does not make or override it.
-- **`workspace`** — Optional. The repository/project location passed to the target as
-  `cwd`, `--cd`, or equivalent. Omit for dispatches that don't operate against a
-  specific location (e.g. cross-platform review with the prompt self-contained in
-  payload). When omitted, the adapter uses no workspace argument, or its target-native
-  default if the target requires one.
-- **`model`** — Optional. When omitted, the target's `defaultModelLevel` from Framework
-  Resources is used. When provided, `level` and `exact` are mutually exclusive.
+  executes it; it does not make or override it. Must be a currently available target
+  (see endpoint operations below).
 - **`payload`** — Required. A UTF-8 text value. Orchestration does not interpret it.
   Callers serialise their own artefacts (Build packages, review prompts, Messaging
   envelopes) into this text. Richer payload representations (structured objects, file
   references) are added only when a demonstrated use case requires them.
-- **`response_schema`** — Optional. A caller-supplied schema passed through to the
-  target adapter if the adapter supports schema-constrained output (Agent SDK
-  `outputFormat`, Codex `--output-schema`). Orchestration does not own or interpret
-  the schema's meaning; it transports it. When the selected target cannot honour it,
-  the adapter ignores it and the dispatch proceeds without schema constraint — this is
-  not a transport failure.
+- **`workspace`** — Optional. The repository/project location passed to the target as
+  `cwd`, `--cd`, or equivalent. Omit for dispatches that don't operate against a
+  specific location (e.g. cross-platform review with the prompt self-contained in
+  payload). If the target/adapter requires a workspace and none was supplied, the
+  dispatch fails before execution — Orchestration does not fall back to an unspecified
+  native working directory.
+- **`model`** — Optional. When provided, `level` and `exact` are mutually exclusive.
+  When omitted, the target's default logical level from Framework Resources is used.
+  The caller is still the owner of the selection — omission is an explicit delegation
+  to the configured default, not a transfer of authority.
+- **`response_schema`** — Optional. A caller-supplied schema requesting
+  schema-constrained output from the target. If the selected adapter supports
+  schema-constrained invocation (Agent SDK `outputFormat`, Codex `--output-schema`),
+  the schema is passed through. If the adapter does not support it, the dispatch
+  **fails before invocation** with category `unsupported_capability` — Orchestration
+  does not silently degrade to unconstrained invocation. The caller can retry without
+  the schema if they want unconstrained output.
 
 ### The transport result contract
 
-Every dispatch produces a transport result:
+Every dispatch produces a transport result, keyed by the `dispatch_id` Orchestration
+created:
 
 ```yaml
 # Success — target returned a response
-dispatch_id: ...
+dispatch_id: abc-123
 target: claude-code
 transport_status: completed
 provenance:
-  requested_level: high
+  requested_model: { level: high }
   resolved_model: claude-sonnet-4-20260514
-  resolved_settings: { ... }
+  resolved_settings: { reasoningEffort: high }
   resources_version: "2026-09-17"
 response: "..."
 
+# Success — exact model path (no Resources resolution)
+dispatch_id: def-456
+target: codex
+transport_status: completed
+provenance:
+  requested_model: { exact: o3 }
+  resolved_model: o3
+  resolved_settings: { reasoningEffort: high }
+  resources_version: null
+response: "..."
+
 # Failure — target did not return a response
-dispatch_id: ...
+dispatch_id: ghi-789
 target: codex
 transport_status: failed
 failure:
-  category: invocation_error | timeout | target_unavailable | auth_failure | adapter_error
-  detail: "..."
+  category: timeout
+  detail: "Codex exec did not return within 300s"
 ```
 
 **`transport_status`** is either `completed` or `failed`:
@@ -13105,25 +13097,36 @@ failure:
   response was returned. It does **not** mean the requested task succeeded — that
   judgement belongs to whichever component owns the work.
 - **`failed`** means no target response was obtained. The `failure` object carries a
-  category and human-readable detail. Categories are transport-owned — they describe
-  what went wrong in invocation, not whether the task's objectives were met.
+  category and human-readable detail.
+
+**Failure categories** (transport-owned — they describe what went wrong in invocation,
+not whether the task's objectives were met):
+
+- `invocation_error` — the adapter could not start the target process
+- `timeout` — invocation started but did not return within the allowed time
+- `target_unavailable` — the target is not currently available on this endpoint
+- `auth_failure` — authentication/authorisation failed for the target
+- `adapter_error` — the adapter encountered an internal error
+- `unsupported_capability` — an explicitly requested invocation capability (e.g.
+  `response_schema`) cannot be honoured by the selected adapter
 
 The boundary: if the target's agent loop ran and returned output saying "I could not
 complete this task," that is `transport_status: completed` with the target's response.
 Transport failure means the target was never successfully reached or did not return.
 
-**Provenance** is required on `completed` results. It records the requested logical
-capability, the resolved native model and settings, and the Resources version used —
-so a past execution stays interpretable even after mappings later change. The adapter
-populates this from its resolution step.
+**Provenance** is required on `completed` results. It records:
 
-### `response_schema` as adapter capability, not contract
+- **`requested_model`** — the caller's model selection, represented symmetrically:
+  `{ level: high }` for logical-level requests, `{ exact: provider-model }` for exact
+  requests. Matches the form the caller used.
+- **`resolved_model`** — the native model identity actually used.
+- **`resolved_settings`** — the native invocation settings applied (reasoning effort,
+  etc.).
+- **`resources_version`** — the Framework Resources version used for resolution. `null`
+  for the exact-model path, which bypasses Resources resolution — the adapter uses the
+  exact model directly, recording the native settings it applied.
 
-The Claude Agent SDK's `outputFormat` and Codex's `--output-schema` both support
-schema-constrained final output — confirmed technically by the investigation. This is a
-useful capability some adapters expose; it is never a mandatory part of the
-Orchestration contract itself. Orchestration transports a caller-supplied schema to
-a target that supports it; it does not enforce or validate the schema.
+Provenance ensures past executions stay interpretable after mappings change.
 
 ### Model capability selection
 
@@ -13138,8 +13141,7 @@ basic | standard | high | maximum
 
 These are the proposed v1 names. Final naming is a pre-deployment decision — the names
 must be settled before the v1 dispatch contract is frozen, because renaming after
-deployment is an interface migration affecting callers, Resources, and adapters. They
-are not deferrable beyond design acceptance.
+deployment is an interface migration. They may remain provisional at design acceptance.
 
 An escape hatch allows requesting an exact provider model directly, for testing,
 comparison, or reproduction:
@@ -13151,9 +13153,10 @@ model:
 
 `level` and `exact` are mutually exclusive.
 
-When `model` is omitted from a dispatch, the target's `defaultModelLevel` from
-Framework Resources is used. The caller is still the owner of the selection — omission
-is an explicit delegation to the configured default, not a transfer of authority.
+When `model` is omitted from a dispatch request, the target's default logical level
+from Framework Resources is used. The caller is still the owner of the selection —
+omission is an explicit delegation to the configured default, not a transfer of
+authority.
 
 ### Model-level resolution
 
@@ -13162,9 +13165,26 @@ produces native model identity and reasoning effort — settings that express mo
 capability. It does not include sandbox mode, permission/approval mode, tool access, or
 other execution-policy settings that belong to the caller's workflow.
 
+The **exact-model path** bypasses logical-level resolution. The adapter uses the
+specified model directly and records the native settings it applied. No Resources
+resolution is involved; `resources_version` in provenance is `null`.
+
 Two logical levels may legitimately resolve to the same native configuration where a
 provider doesn't currently expose a meaningful distinction. **The mapping content itself
 is not owned by Orchestration — see Framework Resources, below.**
+
+### `response_schema` as invocation capability, not contract
+
+The Claude Agent SDK's `outputFormat` and Codex's `--output-schema` both support
+schema-constrained final output — confirmed technically by the investigation. This is a
+useful capability some adapters expose; it is never a mandatory part of the
+Orchestration contract itself. Orchestration transports a caller-supplied schema to
+a target that supports it; it does not enforce or validate the schema's content.
+
+When an adapter does not support schema-constrained invocation, the dispatch fails with
+`unsupported_capability` rather than silently proceeding without the constraint. The
+caller explicitly requested constrained output; silently delivering unconstrained output
+would undermine the trust and integrity rationale.
 
 ---
 
@@ -13174,18 +13194,22 @@ This model-mapping need exposed a pattern broader than Orchestration: the distin
 between AIDE's durable behaviour/model and the volatile current knowledge that behaviour
 consumes (current platform list, current model-capability mappings, current defaults).
 
-**This belongs to Core, as a cross-cutting framework pattern — confirmed in the
-original design session, not decided here.** Orchestration is a consumer of Framework
-Resources, not its owner. Core is free to design the Resources mechanism (naming,
-deployment cadence, storage) however it sees fit.
+**This belongs to Core, as a cross-cutting framework pattern.** Orchestration is a
+consumer of Framework Resources, not its owner. Core is free to design the Resources
+mechanism (naming, deployment cadence, storage) however it sees fit.
 
-**Orchestration's consumer contract:** Orchestration requires Core to provide a
-resolution that, given a target and a logical capability level, returns the native
-invocation settings and the Resources version used. Indicatively:
+**Orchestration's consumer contract:** Orchestration requires Core to enable it to:
 
-```
-resolve(target, logical_level) → { native_model, native_settings, resources_version }
-```
+1. **Resolve a logical level** — given a target and a logical capability level, obtain
+   the native invocation settings and the Resources version used.
+2. **Obtain a target's default level** — when the caller omits `model`, determine the
+   configured default logical level for the specified target.
+3. **Determine target support** — check whether a target is currently supported by
+   Resources, for use in availability calculation.
+
+These are stated as required behaviours, not as a prescribed API. Core may satisfy them
+through one operation, several operations, a loaded resource document, or another
+mechanism entirely.
 
 What Orchestration needs Resources to contain, indicatively:
 
@@ -13204,14 +13228,12 @@ orchestration:
         maximum: { model: ..., reasoningEffort: ... }
 ```
 
-The actual schema is Core's to settle, kept as small as demonstrated need allows. The
-consumer contract above is the minimum Orchestration needs before v1 deployment.
+The actual schema is Core's to settle.
 
-**Settings vs Resources (also a Core-level distinction, noted here because
-Orchestration is a consumer of both):** Resources describe the default/current AIDE
-world (which platforms are supported); a portable user setting customises it for one
-person (e.g. `disabledOrchestrationPlatforms: [Gemini]`). Not critical to Orchestration
-v1 — noted so the boundary isn't invented ad hoc later inside Orchestration.
+**Settings vs Resources:** Resources describe the default/current AIDE world (which
+platforms are supported); a portable user setting customises it for one person (e.g.
+`disabledOrchestrationPlatforms: [Gemini]`). Not critical to Orchestration v1 — noted
+so the boundary isn't invented ad hoc later inside Orchestration.
 
 ---
 
@@ -13219,9 +13241,7 @@ v1 — noted so the boundary isn't invented ad hoc later inside Orchestration.
 
 ### Detection before configuration
 
-Availability of an execution target should normally be discovered, not configured. A
-local AIDE execution endpoint can determine whether `claude` exists, whether `codex`
-exists, whether required runtimes are installed, and whether auth appears usable.
+Availability of an execution target should normally be discovered, not configured.
 Effective availability is:
 
 ```
@@ -13229,23 +13249,33 @@ supported by Resources ∩ detected on this endpoint ∩ not explicitly disabled
 ```
 
 Machine-specific configuration is only introduced where detection genuinely cannot
-represent a real requirement — not to describe facts that discovery already gives.
+represent a real requirement.
 
 ### Capability availability is not execution-endpoint availability
 
 An AI session having the Orchestration capability does not imply it has access to a
 local execution endpoint. A web-only chat session may have none; one machine may have
-Claude Code and Codex both available, another only Claude Code. The execution endpoint
-exposes its own effective target list; the calling session queries it rather than
-inferring the environment itself:
+Claude Code and Codex both available, another only Claude Code.
 
-```yaml
-endpoint: david-laptop
-targets:
-  claude-code: { available: true }
-  codex: { available: true }
-  gemini: { available: false, reason: disabled }
-```
+### Endpoint operations
+
+The local execution endpoint exposes two operations:
+
+1. **`available_targets()`** — returns the effective target set: which targets are
+   currently available and, for unavailable targets, the reason. This is how a caller
+   determines which target choices are valid before dispatching.
+
+   ```yaml
+   endpoint: david-laptop
+   targets:
+     claude-code: { available: true }
+     codex: { available: true }
+     gemini: { available: false, reason: "consumer auth discontinued" }
+   ```
+
+2. **`dispatch(request)`** — accepts a dispatch request (target, payload, optional
+   workspace/model/response_schema), creates a dispatch_id, invokes the target through
+   its adapter, and returns the transport result.
 
 Orchestration does not depend on a chat session discovering machine hostname,
 desktop-vs-web mode, installed executables, or environment variables directly. Where
@@ -13263,7 +13293,7 @@ explicitly deferred, not designed against.
 ## Implementation home
 
 Orchestration requires a **local execution endpoint** that exposes dispatch
-functionality. The current implementation is a local MCP server.
+functionality and target availability. The current implementation is a local MCP server.
 
 The delivery mechanism — how this server is packaged, distributed, installed, updated,
 and made available across surfaces — belongs to Infrastructure, not Orchestration.
@@ -13279,9 +13309,7 @@ Orchestration design decision.
 
 The original investigation considered standalone script, Claude Code skill, Desktop
 Extension, and `aide dispatch` inside the CLI. The plugin-delivered MCP server
-supersedes all four — it avoids standing up new infrastructure, integrates with the
-existing marketplace update path, and reaches all three surfaces from a single server
-codebase.
+supersedes all four.
 
 ## Target adapters
 
@@ -13291,24 +13319,19 @@ resolves via current Resources to a native model plus `reasoning_effort: high`, 
 invokes `codex exec`.
 
 Gemini/Google support is additive, added when there's a sufficiently stable execution
-path — not required to block the first implementation. (The investigation found Gemini
-CLI's consumer/subscription auth path discontinued in June 2026, replaced by the early
-and less mature Antigravity CLI — this is a live reason for deferring rather than an
-arbitrary one.)
+path — not required to block the first implementation.
 
 ## Statelessness
 
 Each dispatch is independently executable. Provider session IDs may be preserved as
 returned metadata where useful, but no AIDE session-management abstraction is built
-until a demonstrated workflow requires one. This was the investigation's own
-stateless-first position and is carried forward unchanged.
+until a demonstrated workflow requires one.
 
 ## Intermediate progress
 
 No semantic progress protocol in v1. Provider event streams may be surfaced or logged
 opportunistically; the stable contract only needs to distinguish transport completion
-from transport failure. A richer progress model is added only if real usage demonstrates
-the need.
+from transport failure.
 
 ---
 
@@ -13317,8 +13340,8 @@ the need.
 Still the end-to-end transport test:
 
 ```
-caller supplies work → Orchestration dispatches to Claude Code
-    → Claude Code runs `aide fup` → result returns
+caller supplies dispatch request → Orchestration creates dispatch, invokes Claude Code
+    → Claude Code runs `aide fup` → transport result returns
 ```
 
 Exercises invocation, authentication, workspace passing, local tooling, execution,
@@ -13326,11 +13349,7 @@ dispatch correlation, and return handling — the whole transport, without needi
 prove anything about sophisticated build delegation at the same time.
 
 Do not reproduce FUP deployment logic inside Orchestration or inside the invoked agent.
-Use the existing `aide fup` unchanged. The investigation's proposed `--batch` flag for
-non-interactive deployment is not assumed necessary — current `aide fup` behaviour
-already avoids interactive waiting when no interactive console is present. Test the
-actual orchestrated invocation first; only change `aide fup` if a real failure
-demonstrates the need.
+Use the existing `aide fup` unchanged.
 
 ## Messaging boundary
 
@@ -13338,26 +13357,16 @@ Orchestration does not define a second generic messaging envelope. Messaging alr
 owns structured communication and message/thread correlation semantics for
 cross-boundary communication. Where work needs to cross as structured text, Messaging's
 envelope carries the caller-owned request; Orchestration owns moving and invoking it.
-For direct programmatic execution, a dispatch is passed directly — no Markdown
-work-package doctype is invented to duplicate what Messaging already does.
 
 ---
 
-## Two boundary confirmations carried forward from the design-shaping pass
-
-These were open in the original scoping and are treated as settled by this design:
+## Two boundary confirmations
 
 - **Tier (autonomous vs heavyweight) is caller-owned, not Orchestration-owned.**
   Orchestration dispatches; whether the surrounding workflow is autonomous or
-  Dave-driven-interactive is a property of the caller's process, not something
-  Orchestration decides or tracks. Risk-flagged external review for heavyweight work is
-  the caller's workflow calling Orchestration twice (plan review, build review), not a
-  special Orchestration mode.
-- **Routing (which tasks even get delegated, and to what threshold) is caller-owned.**
-  The original scoping had Orchestration holding a crude size/complexity threshold.
-  Under the narrowed ownership, the caller decides the target explicitly
-  (`dispatch.target: claude-code`). Orchestration doesn't run a router; it executes the
-  caller's routing decision.
+  Dave-driven-interactive is a property of the caller's process.
+- **Routing is caller-owned.** The caller decides the target explicitly per dispatch;
+  Orchestration executes the routing decision.
 
 ---
 
@@ -13370,15 +13379,11 @@ These were open in the original scoping and are treated as settled by this desig
 > Orchestration does not define the task, verification policy, routing decision, or
 > semantic meaning of the response.**
 
-This replaces the current Core wording that assigns Orchestration ownership of "work
-package structure, verification, and capability profiles."
-
 ---
 
-## Deferred — not solved in this design, per demonstrated-requirement discipline
+## Deferred
 
-1. Framework Resources schema and deployment mechanism — Core's design pass. (The
-   consumer contract Orchestration needs is stated above; the mechanism is Core's.)
+1. Framework Resources schema and deployment mechanism — Core's design pass.
 2. Portable user/account settings mechanism and deployment.
 3. Any genuine machine-specific settings beyond environment discovery.
 4. Remote execution endpoints reachable from web-hosted sessions.
@@ -13387,9 +13392,11 @@ package structure, verification, and capability profiles."
 7. Broader Google/Gemini execution support.
 8. Additional target-capability metadata beyond what the first two adapters demonstrate.
 
-## Pre-deployment decisions (settled in principle, final values before interface freeze)
+## Pre-deployment decisions
 
 1. Final naming of model capability levels (`basic/standard/high/maximum` proposed).
+   May remain provisional at design acceptance; must be settled before the dispatch
+   contract is frozen.
 
 ---
 
@@ -13402,7 +13409,7 @@ package structure, verification, and capability profiles."
 > Orchestration owns the crossing — dispatch correlation, invocation, and transport
 > outcome — not the work, its verification policy, or the semantic meaning of the
 > response.
-<!-- END SOURCE: Orchestration/AIDE_Orchestration_Design_v2.md -->
+<!-- END SOURCE: Orchestration/AIDE_Orchestration_Design_v3.md -->
 
 ---
 
@@ -15842,8 +15849,9 @@ WP operates at two levels. At component level, capture-and-place, operational to
 | Prefix | Document | Type |
 |---|---|---|
 | WP_ | Brief v2 | brief |
-| WP_ | Design v5 | design |
-| WP_ | Decisions v3 | decisions |
+| WP_ | Design v6 | design |
+| WP_ | Decisions v4 | decisions |
+| WP_ | Standard v1 | standard |
 
 ## Parts
 
@@ -16647,6 +16655,171 @@ WP owns generic operating behaviour and live state — the middle placement band
 
 Version note: v6 — Work plan section replaced by Board reference; Boards added as a part under WP (WP_Boards_Design_v1, WP_Boards_Decisions_v1). Boundaries updated. 2026-09-17. Replaces v5.
 <!-- END SOURCE: Working Practices/WP_Design_v6.md -->
+
+---
+
+<!-- BEGIN SOURCE: Working Practices/WP_Standard_v1.md -->
+> identity: WP_Standard@v1 | doctype: standard | updated: 2026-09-17 | uses: Standards_Authoring_Standard@v8
+
+# Working Practices
+
+Define the operational conventions, behaviours, and working methods that govern how work is conducted in any AI session.
+
+Document-level default strength: Required.
+
+## Applicability
+
+Information. This standard applies to any AI-assisted work session, regardless of phase or surface. The placement test: if a convention does not change when the session switches from design to build, it belongs to WP.
+
+## Capture-and-place
+
+The AI's standing responsibility to organise and allocate everything of value produced in a session to its correct home.
+
+**Three obligations:**
+
+1. **Continuous silent capture** — notice and hold content of value as it arises, without interrupting the flow of work.
+2. **Placement by destination definitions** — route content to where it belongs using the destination map below.
+3. **Batched surfacing at natural breaks** — surface allocations at natural pauses rather than interrupting for each piece.
+
+**Destination map:**
+
+- Component documents (design, decisions, knowledge, brief) — confirmed content with a permanent home
+- Open items — work to be discussed or done, not yet home
+- Working documents — when volume exceeds what an open item can hold, or content needs its own working space
+- WIP — transient, staging, or homeless content
+
+**Homeless pieces** — content with no identified destination — are named, not dropped. Err toward over-capture. When multiple destinations are plausible and the choice is not confident, surface the alternatives and ask rather than silently choosing.
+
+**Session-end allocation.** Work through the session's output and confirm what goes where. Parking in WIP for a quick save, or a working document for a longer one, is acceptable — but the discipline is allocating to the real home. Content that stays parked past the session it was captured in is a signal to address it.
+
+**Proactive knowledge preservation.** Watch for content at risk of being silently lost: session length approaching compaction, context getting heavy, a switch to a new chat or platform without saving. Push back and advise what needs saving before the human proceeds into that risk.
+
+**Uncertain destination.** Confident → place silently. Unsure → recommend a destination with reasoning. No defined home exists → name the gap rather than forcing a fit or dropping the content.
+
+## Operational tools
+
+Named, invokable actions that trigger WP behaviours. Names are the human's to set — treat the following as working labels for the behaviour, not fixed command text.
+
+- **Full stop** — session is over. Run the strongest capture-and-place sweep.
+- **Checkpoint and continue** — a natural break. Flush content, then hand off current position and next steps.
+- **Flush without closing** — commit captured content to WIP, or push to masters plus binder, while the session continues.
+- **/more** — expand the current prompt with additional detail (AI-presented prompts are concise by default).
+
+Recommended. Maintain a summary reference guide listing all active operational tools and what they do, updated as tools are added or changed.
+
+## File delivery rules
+
+Apply based on the platform's file-access capability, not by which surface is in use:
+
+1. **No direct file access** — when handing back an updated file for download, tell the user where to save it, based on the path in the document's header.
+2. **Direct file access** — check the file's physical location against the path in its header. Move it if they disagree.
+
+## Overview-first working discipline
+
+Stay at the overview level until it could drive excellent execution; probe rather than dive into detail before the shape is clear. This applies to any work carrying the temptation to descend into detail early, not only design.
+
+Information. Project Design owns the design-specific application of this discipline. Assurance consumes it as one of its proactive conventions. Neither is restated here.
+
+## Working State
+
+Where content lives while in motion, and how work is tracked and completed.
+
+### WIP
+
+The transactional staging mechanism, with three roles:
+
+1. **Homeless shelter** — temporary home for content without a destination yet. Nothing stays by default; content that looks permanently resident is a signal to place it properly.
+2. **Persisted working memory** — current thinking and working state that must survive across sessions.
+3. **Transactional staging** — confirmed or pending changes to master documents, held here until written (see Pending content rule below).
+
+**Conventions:** multiple WIP documents may exist at once, split by size or subject. WIP loads directly into context — it is not delivered via the binder. Prefer visibility over a fixed location: easy to find, easy to save to, easy to load. Track active WIP documents in the project's index to prevent orphaned content. Content should flow through a WIP document to its destination, not accumulate in it.
+
+### Pending content rule
+
+Confirmed content awaiting delivery to a master document, held in WIP under the destination document's heading.
+
+**Composite authority rule:** the current truth of a master is master content plus its pending overlay. Before acting on a master, check WIP for pending content on it and work from the merge. The pending overlay wins where it explicitly changes master state. If the merged state is ambiguous, surface the conflict rather than infer it.
+
+### Working documents
+
+Information. Used when volume exceeds what an open item can hold, or content needs dedicated working room — the split test governs this escalation. Three types: **working document** (incomplete material, confirmed items awaiting placement, in-progress thinking), **report** (findings, analysis, or review results), **resource** (reference or knowledge supporting the work). WP owns these types as workflow containers; Documentation Methodology owns their doctype mechanics.
+
+### Work items
+
+A generic entity flowing through a workflow — something noticed that needs tracking, discussion, resolution, or action.
+
+**Two axes:** type (what kind of thing it turned out to be, decided on judgement rather than chosen from an enumerated list) and state (open, current, closed — filtered views over the same items, not separate lists).
+
+**Five fates:** dealt with in conversation leaving no trace, resolved and recorded as a decision, parked as an open item, captured into WIP, or committed as work on a board.
+
+**Governing rule: no knowledge lost.** A work item may be dropped, but only by deciding it carries nothing worth keeping — disappearance is never an accident.
+
+**Scalable implementation.** A session may realise this model not at all, lightly, ad hoc, or in full, chosen by the scale and importance of the work.
+
+**Distinct from work register entries.** A register entry is confirmed work owed under Project Design's commitment ledger — different purpose, different owner, no subset relationship.
+
+### Board
+
+A scoped record of work across its full lifecycle, maintained by the AI as part of capture-and-place. One board per scope, each its own document.
+
+**Five zones** stage work from intake to completion — a staging model, not a pipeline with gates:
+
+- **Inbox** — fast capture: a task with just a name, zoned later.
+- **Future** — recorded and placed, not yet in play.
+- **Pending** — ready to be drawn into current; next in line.
+- **Current** — the immediate working context; the orientation view at session start.
+- **Done** — completed; kept for reference until cleared.
+
+General flow is inbox → future → pending → current → done, but shortcuts are normal — urgent work goes straight to current. An unresolved dependency, not a separate zone, is what marks a task blocked.
+
+**Task properties:** name, ID (a short code for cross-referencing in dependencies), state (its zone), order (position within zone), dependencies (another task by ID, an external event, or a person — resolved dependencies marked), who, sub-items (parent completes when all children complete), work sets (sub-items with no inter-dependency, all in play at once), categories/tags, a completion link, and notes.
+
+**AI maintenance, as part of capture-and-place:**
+
+- Session start — read the relevant board's current zone; orient from it.
+- During work — add agreed work; update state as it progresses or completes; mark dependencies as they resolve; capture new tasks to inbox or the appropriate zone.
+- Session end — the board reflects what happened, as part of the capture-and-place sweep.
+
+Keep boards outside the binder — the same churn handling as WIP.
+
+**Dashboard.** A rendered view across boards, assembled on demand and filtered by zone, tags, who, or dependency state. Not a stored record.
+
+### Definition of done
+
+Every component defines how its own work completes, against a testable-or-assessable invariant. WP owns the definition-of-done block type — the mechanism a consumer uses to declare and check completion. Project Design fills it in the brief, component design passes fill it in their own completion criteria, and Build checks outcomes against it. Its schema is defined separately.
+
+### Development lifecycle
+
+Information. Phases (research, design, build, deploy, review) describe what kind of work is being done. AIDE realises phases as modes — states the AI session operates in, shaped by which standards and tools are loaded. WP owns the lifecycle concept; each phase component owns its own mode.
+
+## Content Delivery
+
+How working and project context is assembled and delivered to the AI session.
+
+### Binder
+
+WP owns the binder — why it exists, how it is used, what it includes, and its doctype. Assemble it using the three-tier inclusion model:
+
+1. **In the binder** — needed for thinking and reasoning about the work at hand.
+2. **Known to the framework** — part of the project, listed in the folder's index, but not loaded into context.
+3. **Just present** — incidental files with no framework registration.
+
+The test for inclusion is whether a file is needed for the work, not whether it is a governed document. Keep high-churn content (WIP, boards) out of the binder — including it would force a rebuild on every change.
+
+## Boundaries
+
+Information.
+
+**WP does not own:** the design method (Project Design), how code is structured (Build), document structure and the split test (Documentation Methodology), the component model and framework-wide requirements (Core), universal reasoning premises (Principles), the work register (Project Design), trust conventions and verification behaviours (Assurance), cross-platform transport (Orchestration).
+
+**WP owns:** capture-and-place, operational tools, the WIP model, work items, boards, open items, pending content, the definition-of-done block type, the development lifecycle concept, process document types, the binder, the generic overview-first discipline, and file delivery rules.
+
+File Operations is dissolved; its content redistributed to natural owners (WP retains only the file delivery rules above).
+
+---
+
+Version note: v1 — initial standard, authored from WP_Design_v6, WP_Decisions_v4, WP_Boards_Design_v1, and WP_Boards_Decisions_v1. 2026-09-17.
+<!-- END SOURCE: Working Practices/WP_Standard_v1.md -->
 
 ---
 
