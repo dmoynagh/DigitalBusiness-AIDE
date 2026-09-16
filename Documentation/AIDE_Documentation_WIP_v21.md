@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v18 | 2026-09-16
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v21 | 2026-09-17
 
 ## Active threads
 
@@ -132,6 +132,27 @@ Fourteen decisions recorded (D1–D14). Pending: standard authoring, old-materia
 
 ---
 
+## 10. Build ✅
+
+Take defined work and produce the outcome by creating and modifying files against a target. Return the result for acceptance. Behavioural component — conventions applied by following them, not machinery.
+
+**Design and decisions**
+- Build_Brief_v1.md
+- Build_Design_v2.md (v3 pending — incorporates D24-D32)
+- Build_Decisions_v2.md (v3 pending — incorporates D24-D32)
+- Build_Overview_v1.md (pending — new document)
+
+**Standards**
+- Deferred by design (D32) — first instance authored when documentation-update build standard has a consumer
+
+**Pending:** Design v3, Decisions v3, Overview v1 authoring (in progress). Cross-review required before standard authoring. Carry note for Assurance: consider V&V as its own area.
+
+### Work register tracking for deployed skills
+
+Once a standard or tool has a deployed skill, design changes to that component must be tracked in a work register so the skill is rebuilt and redeployed. This closes the design-build-deploy loop: a design change produces a standard update, the standard update is a build input, and the skill is the build output that gets deployed. Without the work register entry, a changed standard silently drifts from its deployed skill. Convention starts with Phase 2 skill authoring — each component's work register should carry the skill rebuild as a linked build outcome.
+
+---
+
 ## Pending — Infrastructure
 
 ### Carries from FileOps dissolution (D17)
@@ -148,21 +169,26 @@ The `user_instructions` field is only for tasks the user must do outside the AI 
 
 The `user_instructions` message should display after the deploy success statement, not before the deploy prompt. Log for Code session.
 
-### MCP server delivery model — tested 2026-09-16
+### MCP server delivery model — tested 2026-09-16, Phase 1 deployed 2026-09-17
 
-`Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v1.md` — a tested, empirically confirmed methodology for delivering AIDE functionality as local MCP servers via marketplace plugins, reaching Code, Cowork, and Chat from one server codebase with automatic update propagation. Discovered during Orchestration's investigation, but the delivery model itself is Infrastructure-owned — components are consumers, not owners (Orchestration_Decisions_v1 D18).
+`Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` — a tested, empirically confirmed methodology for delivering AIDE functionality as local MCP servers via marketplace plugins, reaching Code, Cowork, and Chat from one server codebase with automatic update propagation. Discovered during Orchestration's investigation, but the delivery model itself is Infrastructure-owned — components are consumers, not owners (Orchestration_Decisions_v1 D18).
 
 Confirmed via three tested probes (dispatch-probe, mcp-ping-test v1.0.0–v1.0.3). Includes the working configuration (marketplace plugin for Code/Cowork, `claude_desktop_config.json` entry for Chat), five known platform issues with workarounds, and the `.mcpb` Desktop Extension approach as a deprioritised fallback. Not yet a formal design document — carry forward for Infrastructure's design pass, including the open question of whether the Chat bootstrap step should be automated (e.g. `aide mcp-register`).
 
+**v2 update (2026-09-17):** Registration-path distinction added as known issue #7 — two separate registration paths exist (desktop app Settings → Plugins → Discover for Code tab MCP tools; claude.ai web UI Settings → Plugins for account-level server-side skill mount at `/mnt/skills/plugins/`). Both needed for full three-surface coverage. Missing `%APPDATA%\Claude` path documented as issue #8. MSIX section corrected. "Skill delivery to chat" section added.
+
+**Phase 1 deployed (2026-09-17).** Plugin marketplace `digitalbusiness-aide` live on `DigitalBusiness-AIDE-Deploy` (PR #1 merged). `aide` plugin: dispatch MCP server (claude-code and codex targets) + design-check and messaging skills — confirmed working on Code, Cowork, and Chat. `aide-dev` plugin: scaffold only, no skills yet. Blocking issue resolved: skills require web UI registration (account-level) in addition to desktop app registration (Code tab only). See `_rebuild/Deployment_Plugin_Working_v1.md` for the full plugin structure, skill-to-plugin allocation, and phased rollout plan.
+
 **Repo distinction noted:** `DigitalBusiness-AIDE-Marketplace` is the temporary testing ground for plugin probes; `DigitalBusiness-AIDE-Deploy` is where the delivery model graduates to once it moves from "confirming the mechanism works" to "this is how AIDE actually ships."
 
----
+**Phase 1 outstanding — all resolved 2026-09-17:**
+- ~~Flatten `plugins/aide/` to `aide/` at repo root~~ — resolved: `plugins/` structure is correct per Anthropic's documented pattern. No change needed.
+- ~~Remove old test probes from account via web UI~~ — done.
+- ~~Test update propagation~~ — confirmed during troubleshooting.
 
-## Pending — Build (NOT YET STARTED)
+### Phase 2 — deploy completed standards as skills (in progress)
 
-### Seed material
-
-`_rebuild/Build_Input_Working_v1.md` — the design-build separation principle (leaning, not a rule) and the concrete near-term question of where AIDE's own framework outputs go. From FileOps dissolution (D17).
+Eight skills to author from cross-reviewed, accepted standards and deploy to `aide` and `aide-dev` plugins. Code session. See `_rebuild/Deployment_Plugin_Working_v1.md` for the full allocation table.
 
 ---
 
@@ -225,7 +251,7 @@ Current agreed order for remaining component design passes:
 1. ~~Working Practices~~ — DONE
 2. ~~Assurance~~ — DONE
 3. **Messaging** — next
-4. Build
+4. ~~Build~~ — DONE
 5. Infrastructure
 6. Orchestration (depends on Messaging and Build) — see Pending — Orchestration above for substantial pre-work already done ahead of this position
 7. Migration and Deployment (either order)
@@ -301,10 +327,12 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 | Tools Authoring Standard v7 (Design v6, Decisions v7) | Authoring rules reference, incorporation contract, scope | **Accepted** — three rounds (10 findings resolved, 1 carried to Standards). Published 2026-09-14 |
 | Principles premise strengthenings (P3, P4) | Three candidate strengthenings from design-approach work (F12 pattern) | **Accepted** — F1 remediated (false-exclusive), F2 remediated (D10 wording), F3 remediated (D11 wording). Published 2026-09-15 |
 | Standards acceptance-test wording (ambient context) | Framework-contract issue exposed by Tools cross-review | **Accepted** — F1 defect (definition), F2 defect (guaranteed wording), F3 concern (Tools sync) — all remediated. Published 2026-09-15 |
-| WP Design v1 (Brief v1, Decisions v1) | WP design pass — new component model, Assurance extraction, 16 decisions | **Pending cross-review** |
+| WP Design v1 (Brief v1, Decisions v1) | WP design pass — new component model, Assurance extraction, 17 decisions | **Pending cross-review** — longest-standing pending item, no blocker, recommended to start now |
 | Assurance Design v3 (Decisions v3) | Assurance design pass — three-layer behavioural model, autonomy tiering, confidence vocabulary, learning loop, 14 decisions | **Accepted** — three rounds (19 findings resolved). Published 2026-09-15 |
-| Orchestration Design v1 (Decisions v1, UseCases v1) | Draft — dispatch model, ownership narrowing, empirically tested MCP delivery mechanism, 19 decisions | **Not yet submitted for cross-review** — draft status, pending Build's design pass for full validation |
+| Core_Design_v2, Core_AIDEMap_v2 (WP carries) | Six WP-design-pass carries applied to Core — definition of done, Assurance as framework requirement, P6 as ownership rule, component map updates, archived folder convention, git-as-history | **Not cross-reviewed** — deployed via FUP 2026-09-15. Known stale: WP purpose line in component map predates Assurance extraction |
+| Orchestration Design v1 (Decisions v1, UseCases v1) | Draft — dispatch model, ownership narrowing, empirically tested MCP delivery mechanism, 19 decisions | **Not yet submitted for cross-review** — Build blocker now resolved (Build design pass done). Submittable once Build's own cross-review validates the boundaries Orchestration depends on |
+| Build Design v2 (Brief v1, Decisions v2) | Build design pass — behavioural component, file-target execution model, 32 decisions | **Pending cross-review** — Design v3, Decisions v3 in progress (incorporating D24–D32) |
 
 ---
 
-Version note: v18 — Orchestration's substantial pre-work (Design v1, Decisions v1, UseCases v1, all empirically tested) recorded under a new Pending — Orchestration section, without reordering the design-pass queue. New Pending — Infrastructure entry for the tested MCP server delivery model (Orchestration_Decisions_v1 D18). Assurance's D14 and the Learnings queue ownership both flagged for correction — the Orchestration-coordinates-writes wording is superseded by direct hosted-service calls (D19) — not yet applied to their formal documents. Improvement's Orchestration-dependency wording similarly flagged. Assurance Cases_Working started as an informal parking place for learning-loop candidates pending the hosted queue and Improvement's design pass. Cross-review register updated with Orchestration's draft entry. 2026-09-16. Replaces v17.
+Version note: v21 — Phase 1 outstanding items all resolved (directory structure confirmed correct, probes cleaned, propagation tested). Phase 2 skill authoring started. Work register tracking convention for deployed skills added under Build. Cross-review register updated: Core_Design_v2/Core_AIDEMap_v2 WP carries added (not cross-reviewed, deployed via FUP), Orchestration blocker noted as resolved, WP Design v1 flagged as ready to start. 2026-09-17. Replaces v20.
