@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 84** (2026-09-16).
+> **Binder Version 85** (2026-09-16).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -27,6 +27,9 @@ individual files.
 - `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `2147d7d8e090`
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
+- `Build/Build_Brief_v1.md` - sha256 `cfba70989170`
+- `Build/Build_Decisions_v1.md` - sha256 `8027f0ab727a`
+- `Build/Build_Design_v1.md` - sha256 `a46b0f3f868b`
 - `Core/_index.md` - sha256 `8746bf38a3fa`
 - `Core/Core_AIDEMap.md` - sha256 `9cb56b3c7791`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
@@ -5458,6 +5461,284 @@ New failure modes discovered in practice become new conventions or detection beh
 
 Version note: v3 — rounds 2 and 3 cross-review remediation. Seven findings addressed. Improvement boundary narrowed to accumulated-pattern decisions; human owns immediate high-impact action decisions (F3). Autonomy tier scope, lifecycle, and approval semantics settled at design level (F4). Conversational confidence vocabulary defined and owned by Assurance (F15). Autonomous tier authorisation reconciled with tier selection rules (F16). Queue-writing ownership consistent — Infrastructure owns plumbing, Orchestration coordinates and invokes writes requested by governing behaviours (F17, F19). D1 wording corrected (F18). 2026-09-15. Replaces v2.
 <!-- END SOURCE: Assurance/Assurance_Design_v3.md -->
+
+---
+
+<!-- BEGIN SOURCE: Build/Build_Brief_v1.md -->
+> identity: Build_Brief@v1 | doctype: brief | updated: 2026-09-16
+
+# Build — Brief
+
+## Purpose
+
+Build is the transition to execution. When something has been defined — in design or elsewhere — Build produces the outcome by creating and modifying files against a target, and returns the result to its caller for acceptance.
+
+## Objectives
+
+1. Provide a common build mechanism applicable across all build targets, from software development to documentation persistence to framework output packaging.
+2. Support composable, reusable build standards that carry target-specific conventions without restating them per task.
+3. Define the contract between Build and its caller — what rides in a build request and what comes back — so that Orchestration can carry it as opaque payload.
+4. Implement verification by behaviour as Build's own contribution to the assurance requirement.
+5. Support a caller-defined spectrum of instruction specificity and decision scope, so the same mechanism serves prescriptive and intent-level work.
+
+## Scope and boundaries
+
+**In scope:**
+
+- The build mechanism — caller, instruction, decision scope, sign-off, return.
+- Build standards — composable documents carrying the how for a build channel, authored on the existing Standards methodology.
+- Profiles — structural containers naming an ordered stack of build standards for a target.
+- The build act — the common spine: instruction crosses, agent discovers, edits, records, returns.
+- Build's contribution to the assurance requirement — implementing Assurance's goals by behaviour.
+- The known build activities: software development (.NET focus initially), document persistence, framework payload outputs (standards and tools into skills and packages), framework utility outputs.
+
+**Out of scope:**
+
+- Design specification (Project Design).
+- Transport and dispatch to AI platforms (Orchestration — one channel Build can use, not the only one).
+- Deployment channel and delivery plumbing (Infrastructure / Deployment).
+- Verification and assurance conventions (Assurance — sets goals, approaches and expectations; Build identifies where they apply and implements by behaviour).
+- Documentation folder structure (cross-cutting — leaning to design project, possibly global; Build consumes it).
+
+**Linked build outcome:** Build's channel-agnostic contract (what a build package contains and what comes back) unblocks Orchestration's build-delegation use case (use case 2), which needs Build's payload shape to carry as opaque dispatch.
+
+## Definition of done
+
+1. Build's purpose, model and boundaries are defined at overview level.
+2. The build mechanism is specified — caller, instruction, decision scope, sign-off, return.
+3. Build standards and profile composition are defined.
+4. Build's contribution to the assurance requirement is stated.
+5. The contract Orchestration consumes (the shape of a build task and a build return) is defined.
+6. Terminology is locked.
+
+## Considerations
+
+- The build mechanism must hold for targets not yet defined. The model should support extension without disproportionate cost now.
+- FUP is Build scope (document persistence). Whether Build absorbs FUP immediately or claims it as scope with a working mechanism is an open sequencing question.
+- Build standards are authored on the same methodology as ordinary Standards but subgrouped as "build standards" for delineation. The exact relationship to the Standards component's authoring rules is a detail question for the design, not the brief.
+- A note to carry to Assurance: consider whether verification and validation should be elevated to its own area within Assurance, with stated expectations on components — raised from this Build session.
+
+## Charter alignment
+
+Build sits under the Work role. It directly serves O2 (consistent, high-quality outcomes) by making execution repeatable and convention-driven rather than interpretive. It contributes to O1 (trust and integrity) through its verification-by-behaviour commitment, and to O3 (efficiency) by carrying conventions in reusable build standards rather than restating them per task.
+
+---
+
+Version note: v1 — produced from the Build design-pass voice session 2026-09-16. Overview-level brief; detail deferred to the design.
+<!-- END SOURCE: Build/Build_Brief_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Build/Build_Decisions_v1.md -->
+> identity: Build_Decisions@v1 | doctype: decisions | updated: 2026-09-16
+
+# Build — Decisions
+
+## Summary
+
+Reasoning and resolutions from the Build design pass voice session 2026-09-16. Twelve decisions covering the build model, caller relationship, terminology, and boundary placements.
+
+---
+
+## D1. The file-change principle as spine
+
+When files get created or modified, that is Build. Adopted as a strong convention, not a blanket rule. This unifies what might otherwise fragment into separate paths — applying a specification to a .NET codebase and persisting documentation changes are the same act against different targets. The principle identifies the spine without claiming every file operation is formally a build.
+
+## D2. One act, not separate paths
+
+Build is one common act — instruction crosses, agent discovers, edits, records, returns — with target-specific conventions layered on via build standards. The alternative was four or more discrete build paths with separate methodologies. Rejected because the act is the same; what differs is the verification and convention, which belongs in build standards for each channel. The common act is the build mechanism; the target contributes its specifics through build standards composed into a profile.
+
+**Caution recorded:** this holds for current scope but may not fit all future build channels. The model should support extension without disproportionate cost now — "a hammer that can grow to be a sledgehammer."
+
+## D3. Caller, not design
+
+Build returns to whatever initiated it — the caller — not specifically to design. A build request can be spawned by another build in a chain. Design is just the most common originator. This generalises the model and matches Orchestration's language, where the caller owns the request and the meaning of the result.
+
+Consequence: reconciliation is the caller's act, not inherently design's. When the caller is design, the caller closes the register. When the caller is another build, that build handles the outcome.
+
+## D4. Default sign-off convention
+
+By default, a build does not sign off its own work — it returns to the caller for acceptance. But the caller may grant authority to self-accept. This is a default convention, not a rule: the safe state holds when nothing is said, with the caller's grant able to lift it. Same pattern as the default-Required strength model in Standards.
+
+## D5. Decision scope is caller-defined
+
+The latitude and authority a build has is defined by the caller, not by Build. The caller sets how much decision scope the build has — from "take care of it, don't come back to me" to "apply only these specific changes." The governing backstop: a build may act within its granted scope as long as it does not structurally change the fundamental design. Beyond that, it returns.
+
+This is the escalation boundary from Project Design's commitment-and-return loop, now stated from Build's side as a caller-granted scope rather than a Build-owned rule.
+
+## D6. Build standards as the term
+
+The composable documents carrying target-specific build conventions are called **build standards**. "Build instructions" was considered and rejected — it collides with the caller's per-task instruction, blurring the standing-reusable-how (standards) and the task-specific-what (instructions). Build standards are authored on the same Standards methodology and delivered the same way, but subgrouped for delineation.
+
+## D7. Profile as structural container
+
+A **profile** is a structural container that names and orders a set of build standards into a stack. It holds nothing of its own. Profiles can be named presets (saved for reuse) or defined inline, and the two combine. Profiles compose on each other — an "AIDE framework documentation update" inherits "documentation update" and adds the delta.
+
+## D8. Working target as scope-of-work concept
+
+The scope of work a build operates on is expressed as a **working target** — the folder, subtree or scope the agent is authorised to touch. Not mandatory on every build, but common enough to warrant its own recognised structure. Its shape depends on the build target: code has repos and projects; documentation has documentation roots and work folders. Branching and git instructions belong in this structure where relevant.
+
+The specific structure of the working-target convention is deferred — a recommendation will be made once the full design scope is in view.
+
+## D9. Documentation root replaces "doc repo"
+
+The contained root of documentation for a project or area is a **documentation root** — a folder, not a repo. "Doc repo" was the working term but conflated the file-management system (the repo) with the documentation container within it. A repo can hold multiple documentation roots; the root is the right level to name. Plain English, accessible to non-architects.
+
+## D10. Assurance boundary — goals and expectations, not just guidance
+
+Assurance sets goals, approaches, objectives and requirements/expectations for integrity. It operates on a spectrum: for some areas it provides methodology and guidance; for others, guidance and expectations alone. Build identifies where each integrity objective can be applied in Build's context and how — for example, Assurance states that components should where realistically possible use verification to ensure what is asked is what is delivered; Build identifies where that applies (test results, schema checks, etc.) and implements it by behaviour.
+
+Assurance also owns shared assurance components — the framework tasks queue (name pending) and learning patterns — which Build consumes where relevant.
+
+**Carry note for Assurance:** consider whether verification and validation should be elevated to its own area within Assurance, with stated expectations on components — currently only a detective behaviour. Raised from this session.
+
+## D11. Design-build separation resolved as a light convention
+
+The seed material's design-build separation principle — build outputs reside outside the design area — resolved as a general good-practice convention: keep documentation separate from build outputs, the same way you wouldn't nest code libraries under your documentation folder. This is a property of the target (documentation says "keep me separate"), not a Build rule. Hold lightly, state as convention, don't build machinery for it.
+
+## D12. Documentation folder structure is cross-cutting
+
+The documentation folder structure — roots, underscore folders, binder storage, work folders and their nesting — is a cross-cutting concern consumed by Build but not owned by it. Leaning toward design project as the home, but it may be more global, reaching equally across design, build, deployment and tooling. Build needs to locate the structural root and its working target within it; the structure is declared once, somewhere central.
+
+---
+
+Version note: v1 — produced from the Build design-pass voice session 2026-09-16.
+<!-- END SOURCE: Build/Build_Decisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Build/Build_Design_v1.md -->
+> identity: Build_Design@v1 | doctype: design | updated: 2026-09-16
+
+# Build — Design
+
+## What Build is
+
+Build is the transition to execution. It takes something defined — typically from design, but from any caller — and produces the outcome by creating and modifying files against a target. It then returns the result to whatever initiated the build for acceptance.
+
+Build is a behavioural component: it defines conventions that are applied by following them, not machinery. The only concrete artefacts it produces as a component are the build mechanism, build standards, and the contract shape for build tasks and returns.
+
+## The file-change principle
+
+When files get created or modified, that is Build. This is a strong convention, not a blanket rule — it identifies the spine of build activity without claiming every file operation is formally a build.
+
+The principle unifies what might otherwise appear as separate paths: applying a specification to a .NET codebase and persisting documentation changes to a document repo are the same act against different targets — instruction crosses, agent discovers, edits, records, returns. What differs is the verification and convention layered on, not the act itself.
+
+---
+
+## The build mechanism
+
+The build mechanism is the generic framework that applies to every build, regardless of target. It defines the relationship between the caller and the build, the authorities in play, and the completion model.
+
+### The caller
+
+Build returns to whatever initiated it — the **caller**. In many cases that is design, but it may be another build in a chain, or any other origin. Build neither knows nor cares what the caller is; it serves the request and returns.
+
+The caller owns:
+
+- **The instruction** — what the build should do. This sits on a spectrum from prescriptive ("change this exact line in this file") to intent-level ("apply this specification to the codebase"), where the agent owns discovery, planning and execution.
+- **The decision scope** — the latitude and authority the build has to make its own calls. This ranges from "take care of it, don't come back to me" to "apply only these specific changes." The governing constraint: a build may make changes as needed within the granted scope, as long as it does not structurally change the fundamental design. Beyond that boundary, it returns to the caller.
+- **Sign-off** — by default, a build does not sign off its own work; it returns to the caller for acceptance. But the caller may grant the build authority to self-accept. The default is the safe state; override must be explicit.
+
+### The build package
+
+The outbound handoff — what the caller sends to initiate a build. It composes the instruction, the decision scope, the working target (where relevant), the profile reference (which build standards apply), and the definition of done. The build package and the build return are a matched pair: an open package with no return is an incomplete transaction.
+
+The build package is **channel-agnostic** — it defines what crosses, not how it crosses. Orchestration can carry it as opaque payload to another platform; Messaging's envelope can carry it as structured communication; it can be stated directly in a chat session. The channel is the caller's choice, not the package's concern.
+
+### The return
+
+Every build expects a return to the caller — transactional by default. The return reports against the **definition of done** supplied by the caller's request. The framework's definition-of-done directive is the governing completion model: a clear, and where possible testable, statement of what the outcome is and how to know it is correct.
+
+The return states — confirmed, needs information, raises an issue, failed, done with deviation — serve this model. They are kept loose and optional at this stage; what does the real work is the definition of done, not the enumeration of states.
+
+Fire-and-forget (no return expected) is allowed but must be explicitly declared by the caller. The safe default is expected-return.
+
+### Work scope
+
+Build tasks commonly need a declared scope of work — what the build is allowed to operate on and its authorisation within that. For file-based targets this is expressed as a **working target**: the folder or subtree where the agent may create and modify, with the structural root above it carrying context (the documentation root, underscore folders, binders; or the solution root, project structure).
+
+Work scope is not mandatory on every build — its presence depends on the context and the target. But it is common enough to warrant its own recognised structure, available as a convention that makes it easy for both sides. Branching and git instructions belong in this structure where relevant.
+
+---
+
+## Build standards and profiles
+
+### Build standards
+
+The standing conventions for a build channel — instructions, guidance, methodology, rules, conventions, resources and considerations specific to a kind of build work. Authored on the same Standards methodology as ordinary standards (same schema, same authoring rules, loaded into AI context) but subgrouped as **build standards** for delineation.
+
+Build standards are composable: for a web-based .NET project, the .NET development build standard applies, then the web-based build standard layers over it. Each carries only the conventions specific to its scope; the build mechanism underneath carries the common obligations.
+
+### Profiles
+
+A **profile** is a structural container: it names and orders a set of build standards into a stack, and that is all it does. The substance lives in the build standards; the profile describes which ones apply and how they compose.
+
+Profiles can be **named presets** — defined and saved for reuse ("documentation update", ".NET web project", "AIDE framework documentation update") — or **defined inline** on a specific build. The two combine: apply this named preset, and also these additional standards for this task.
+
+Profiles compose on each other. An "AIDE framework documentation update" profile inherits the base "documentation update" profile and adds AIDE-specific conventions over the top. The delta stays small — only where AIDE genuinely differs from any documentation update.
+
+---
+
+## Build's contribution to assurance
+
+Assurance sets goals, approaches, objectives and requirements/expectations for integrity across the framework. It operates on a spectrum: for some areas it provides **methodology and guidance** (here is how to do it); for others, **guidance and expectations** (here is what we expect, you work out how). Build identifies where each integrity objective can be applied in Build's context and how it is applied there.
+
+As a rough example: Assurance might state that components and behaviours should, where realistically possible, use verification to ensure what is asked is what is delivered. Build then identifies the areas where this applies — test results in a .NET build, schema checks on a document update — and implements verification **by behaviour** inside the build act, not as an external gate. The checks a build channel requires live in its build standards; the definition of done says what "correct" means for the task; the return carries the evidence.
+
+Assurance also owns shared assurance components — the framework tasks queue (name pending) and learning patterns — which Build consumes where relevant.
+
+---
+
+## Known build activities
+
+These are the currently identified kinds of work Build covers. They are not fixed paths — each is the build mechanism applied to a target, with build standards carrying the target-specific conventions.
+
+1. **Software development** — applying confirmed design to .NET projects and solutions. Scope expands to other software and development platforms later; .NET is the current focus.
+2. **Document persistence** — creating and modifying files in a documentation working target. Currently done via FUP from chat. Applies to AIDE framework development and to any design work. FUP is Build scope; whether Build absorbs FUP immediately or treats it as scope with a working mechanism is an open sequencing question.
+3. **Framework payload outputs** — building standards and tools into their endpoint form (skills) and into packages for deployment via the marketplace plugin channel.
+4. **Framework utility outputs** — building utilities into their endpoint form.
+
+---
+
+## Terminology
+
+| Term | Meaning |
+|---|---|
+| **Caller** | Whatever initiated the build — design, another build, or any other origin. Owns the instruction, decision scope and sign-off authority. |
+| **Build package** | The outbound handoff: composes instruction, decision scope, working target, profile reference and definition of done. Channel-agnostic — defines what crosses, not how. |
+| **Build mechanism** | The generic framework: caller, build package, sign-off, return. Applies to every build. |
+| **Build standard** | A composable document carrying the how for a build channel. Authored on the Standards methodology, subgrouped as "build standards." |
+| **Profile** | A structural container naming an ordered stack of build standards. Can be a named preset or defined inline. |
+| **Working target** | The folder, subtree or scope the build is authorised to operate on. |
+| **Documentation root** | The contained root of documentation for a project or area — a folder, not a repo. Replaces "doc repo." |
+| **Instruction** | The caller's per-task ask — prescriptive to intent-level. |
+| **Decision scope** | The caller-granted latitude and authority for the build to make its own calls. |
+
+---
+
+## Boundaries and edges
+
+- **Project Design** — owns the design specification, the work register, and reconciliation when it is the caller. Build takes what design hands off and returns the outcome; it does not write to the register.
+- **Orchestration** — owns transport and dispatch to AI platforms. One channel the build mechanism can use, not the only one — direct chat, copy-paste messages, Messaging's envelope are equally valid depending on context. Build defines a channel-agnostic contract (what a build task contains and what comes back); Orchestration carries it as opaque payload when dispatch to another platform is the delivery method.
+- **Assurance** — sets goals, approaches, objectives and requirements/expectations for integrity. Provides methodology and guidance for some areas, guidance and expectations for others. Build identifies where integrity objectives apply in its context and implements them by behaviour. Assurance also owns shared assurance components (framework tasks queue, learning patterns) that Build consumes.
+- **Infrastructure** — owns the deployment channel (marketplace plugin delivery model), the aide CLI, and operational tooling. Build produces outputs; Infrastructure delivers them.
+- **Documentation folder structure** — a cross-cutting concern consumed by Build, not owned by it. Leaning toward design project as the home; possibly more global. Build needs to locate the structural root and working target within it.
+
+---
+
+## Open items
+
+1. **FUP absorption timing** — FUP is Build scope. Whether Build replaces FUP with a direct file-instruction approach or continues using FUP as a working mechanism is a sequencing decision, not a design question.
+2. **Build standards authoring detail** — how build standards relate to the Standards component's authoring methodology in practice (same methodology, subgrouped — stated but not specified at detail level).
+3. **Work-scope structure** — the recognised structure for declaring work scope, branching and git instructions. Shape to be recommended once the full design scope is in view.
+4. **Assurance carry note** — consider whether verification and validation should be its own area within Assurance, with stated expectations on components. Raised from this session.
+5. **Documentation folder structure ownership** — cross-cutting concern; leaning to design project, possibly global. Not Build's to resolve.
+
+---
+
+Version note: v1 — produced from the Build design-pass voice session 2026-09-16. Overview-level design; detail not descended into. Old-material pass complete — both seed items from Build_Input_Working_v1 resolved (design-build separation as a light convention; framework outputs as known build activities 3 and 4).
+<!-- END SOURCE: Build/Build_Design_v1.md -->
 
 ---
 
