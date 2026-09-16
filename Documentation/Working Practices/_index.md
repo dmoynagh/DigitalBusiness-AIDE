@@ -12,8 +12,9 @@ WP operates at two levels. At component level, capture-and-place, operational to
 | Prefix | Document | Type |
 |---|---|---|
 | WP_ | Brief v2 | brief |
-| WP_ | Design v5 | design |
-| WP_ | Decisions v3 | decisions |
+| WP_ | Design v6 | design |
+| WP_ | Decisions v4 | decisions |
+| WP_ | Standard v1 | standard |
 
 ## Parts
 
