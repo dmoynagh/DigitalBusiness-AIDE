@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 90** (2026-09-17).
+> **Binder Version 91** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -66,7 +66,7 @@ individual files.
 - `Infrastructure/version-cleanup/README.md` - sha256 `307a43363adb`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `329d08514ab2`
-- `Messaging/_index.md` - sha256 `f58053f2afc6`
+- `Messaging/_index.md` - sha256 `0068c2702d8b`
 - `Messaging/Messaging_Brief_v1.md` - sha256 `c1687d821833`
 - `Messaging/Messaging_Decisions_v4.md` - sha256 `c6a0f75cba95`
 - `Messaging/Messaging_Design_v4.md` - sha256 `48b767e284b0`
@@ -95,11 +95,11 @@ individual files.
 - `Tools/Tools_Design_v6.md` - sha256 `62b2eb15c979`
 - `Working Practices/_index.md` - sha256 `f1d40d14c547`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
-- `Working Practices/WP_Brief_v1.md` - sha256 `4a970773c638`
+- `Working Practices/WP_Brief_v2.md` - sha256 `844fa051dedb`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
 - `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `6b858ff04f50`
-- `Working Practices/WP_Decisions_v2.md` - sha256 `4f8e32b0cc88`
-- `Working Practices/WP_Design_v2.md` - sha256 `1daab8c38faa`
+- `Working Practices/WP_Decisions_v3.md` - sha256 `04d898865dde`
+- `Working Practices/WP_Design_v3.md` - sha256 `feea15ece433`
 - `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `59a0bba2401c`
 
 ---
@@ -4944,27 +4944,11 @@ Produce design specifications. Owns both ends of the design-build loop: handoff,
 
 ---
 
-## 9. Build ⏳ (design pass done, cross-review pending)
-
-Take defined work and produce the outcome by creating and modifying files against a target. Return the result for acceptance. Behavioural component — conventions applied by following them, not machinery.
-
-**Design and decisions**
-- Build_Brief_v1.md
-- Build_Design_v2.md (v3 pending — incorporates D24–D32)
-- Build_Decisions_v2.md (v3 pending — incorporates D24–D32)
-- Build_Overview_v1.md (pending — new document)
-
-**Standards**
-- Deferred by design (D32) — first instance authored when documentation-update build standard has a consumer
-
-**Pending:** Design v3, Decisions v3, Overview v1 authoring (in progress). Cross-review required before standard authoring. Carry note for Assurance: consider V&V as its own area.
-
----
-
 ## Components without documents yet
 
 | Component | Role | Status |
 |---|---|---|
+| Build (5) | Take the design specification and execute it — produce the outcome, report what was done | ⏳ Not started |
 | Migration (8) | Keep things current when dependencies change — collate, distribute, and execute change actions | ⏳ Not started |
 | Messaging (9) | Carry a message across any boundary reliably, with a known envelope and delivery convention | ⏳ Not started |
 | External AI (10) | Bring another AI into your work — five modes: review, research, parallel solutioning, consultation, delegation | ⏳ Not started |
@@ -5027,7 +5011,6 @@ Working documents that govern the rebuild itself, not owned by a single componen
 - AIDE_Rebuild_Guide_v1.md — review of rebuild state with findings F1–F13
 - AIDE_Rebuild_Overview_v1.md — the overview driving the rebuild
 - AIDE_Rebuild_SettledDecisions_v1.md — cross-component decisions locked during the rebuild
-- Deployment_Plugin_Working_v1.md — plugin marketplace structure, skill-to-plugin allocation, and phased rollout plan (pending content for Infrastructure and Deployment)
 
 **Project Design pending files** (staged for deployment)
 - ProjectDesign_Decisions_Pending_v1.md
@@ -5053,7 +5036,7 @@ Working documents that govern the rebuild itself, not owned by a single componen
 
 ---
 
-**Document count:** 59 files in binder · 3 WIP files outside · 4 components without documents
+**Document count:** 59 files in binder · 3 WIP files outside · 5 components without documents
 <!-- END SOURCE: AIDE_Solution_Map.md -->
 
 ---
@@ -11469,10 +11452,10 @@ Messaging is a grammar, not a transport. It defines what is carried, not how. Me
 ## Documents
 
 - Messaging_Brief_v1
-- Messaging_Design_v1
-- Messaging_Decisions_v1
-- Messaging_Standard_v1
-- Messaging_Tool_v1
+- Messaging_Design_v4
+- Messaging_Decisions_v4
+- Messaging_Standard_v4
+- Messaging_Tool_v4
 <!-- END SOURCE: Messaging/_index.md -->
 
 ---
@@ -15787,8 +15770,8 @@ Version note: v1 — initial working document from session 2026-09-10.
 
 ---
 
-<!-- BEGIN SOURCE: Working Practices/WP_Brief_v1.md -->
-Working Practices | brief | WP_Brief@v1 | 2026-09-15
+<!-- BEGIN SOURCE: Working Practices/WP_Brief_v2.md -->
+Working Practices | brief | WP_Brief@v2 | 2026-09-17
 
 # Working Practices — Brief
 
@@ -15832,14 +15815,22 @@ The current five-part structure (FileOps, WorkManagement, Capture, ContentDelive
 **WP owns:**
 
 - Capture-and-place as the primary operational mechanism
-- Workflow commands (the concept, definition methodology, reference guide)
+- Operational tools that invoke WP behaviours (session transitions, flush, more)
 - WIP model and conventions
 - Work items, work plan, open items, pending content
+- Definition of done as a block type (Core states the framework-wide requirement)
 - The development lifecycle concept (phases and modes)
 - Process document types (working document, report, resource)
-- File operation conventions (parked for review)
-- The binder concept (why and how, not the doctype)
+- The binder (concept, doctype, and assembly)
 - The overview-first working discipline (generic — consumed by Assurance and PD)
+
+## Requirements
+
+No stated requirements beyond the objectives above. The design is shaped by the objectives, the boundaries, and the governing standards (Standards Authoring Standard v8, Project Design Standard v4, Principles Standard v2).
+
+## Linked build outcome
+
+The WP standard — a deployed standard authored from the design, cross-reviewed, and live in a session as a skill in the `aide` plugin.
 
 ## Definition of done
 
@@ -15852,8 +15843,8 @@ The current five-part structure (FileOps, WorkManagement, Capture, ContentDelive
 
 ---
 
-Version note: v1 — initial brief from the WP design pass. 2026-09-15.
-<!-- END SOURCE: Working Practices/WP_Brief_v1.md -->
+Version note: v2 — cross-review remediation (F1). Requirements section and Linked build outcome added per PD Standard v4 brief requirements. 2026-09-17. Replaces v1.
+<!-- END SOURCE: Working Practices/WP_Brief_v2.md -->
 
 ---
 
@@ -15919,14 +15910,14 @@ Version note: v1 — initial working document from session 2026-09-10.
 
 ---
 
-<!-- BEGIN SOURCE: Working Practices/WP_Decisions_v2.md -->
-> identity: WP_Decisions@v2 | doctype: decisions | updated: 2026-09-15
+<!-- BEGIN SOURCE: Working Practices/WP_Decisions_v3.md -->
+> identity: WP_Decisions@v3 | doctype: decisions | updated: 2026-09-17
 
 # Working Practices — Decisions
 
 ## Summary
 
-Reasoning and resolutions from the Working Practices design pass. Seventeen decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, dispositions of accumulated items from other component passes, and the FileOps dissolution.
+Reasoning and resolutions from the Working Practices design pass. Twenty decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, dispositions of accumulated items from other component passes, the FileOps dissolution, and cross-review remediations.
 
 ---
 
@@ -15934,7 +15925,7 @@ Reasoning and resolutions from the Working Practices design pass. Seventeen deci
 
 The Human-AI Collaboration area — human working model, tiering, confidence, verification behaviours, drift detection, anomalies channel, assumptions/gap-fill report — was originally planned as an area within WP. During the design pass it became clear this content directly delivers charter objective O1 (trust and integrity), which is the framework's primary reason for existing. Burying it as an area inside WP would subordinate the most important thing AIDE does.
 
-Assurance is a cross-cutting concern — every element in the framework contributes to it. The brief-required gate, cross-review, operations test, acceptance test, strength model, capture-and-place, the design-check skill, definition of done, Principles P7/P8/P10 all contribute to assurance.
+Assurance is a cross-cutting concern — every element in the framework contributes to it. The brief-required gate, cross-review, operations test, acceptance test, strength model, capture-and-place, the design-check skill, definition of done, and the principles of loud failure over quiet absorption, verified truth over plausible assertion, and confirmed state over assumed state all contribute to assurance.
 
 Resolved as both: a component in the Guidance role owning its specific mechanisms (human working model, detection conventions), and a framework-wide requirement in Core ("every component contributes to assurance"). Same pattern as no-knowledge-lost and definition-of-done.
 
@@ -15974,7 +15965,7 @@ PD Standard v4 already has the design-specific application. The broader discipli
 
 ## D8. Verification behaviours — Assurance, not WP
 
-Verification behaviours (verify inspectable facts, distinguish generated intent from applied state — consuming Principles P7 and P10) were placed in the Human-AI Collaboration area. When that area became the Assurance component, verification moved with it as detective-side conventions. They are about trust and visibility of reality, not about how work is conducted.
+Verification behaviours (verify inspectable facts, distinguish generated intent from applied state — consuming the verified truth over plausible assertion and confirmed state over assumed state premises) were placed in the Human-AI Collaboration area. When that area became the Assurance component, verification moved with it as detective-side conventions. They are about trust and visibility of reality, not about how work is conducted.
 
 ## D9. WIP as a defined model with three roles
 
@@ -15986,9 +15977,9 @@ The work plan addresses a practical need: visibility of what's currently decided
 
 Not project management — a todo list that scales. Formalised enough to have a known name and shape, light enough to be a WIP section.
 
-## D11. Workflow commands replace session-transition commands
+## D11. Session-transition commands generalised as WP operational tools
 
-Session-transition commands (full stop, checkpoint-and-continue, flush without closing) were the first examples of a broader concept: named, invokable actions that trigger operational behaviours. The concept generalised to workflow commands — WP owns what a workflow command is and how new ones are defined; individual commands are defined by whatever owns the behaviour they trigger. A reference guide is a deployment output.
+Session-transition commands (full stop, checkpoint-and-continue, flush without closing) were the first examples of a broader pattern: named, invokable actions that trigger WP operational behaviours. These are tools in the framework sense — they pass the invocability test. Tools owns what a tool is and how tools are authored; WP owns these specific tools because they invoke WP behaviours. Individual tools are defined by whatever owns the behaviour they trigger. A reference guide is a deployment output.
 
 ## D12. Proactive knowledge preservation as a capture-and-place obligation
 
@@ -16027,13 +16018,33 @@ The working document `Working Practices/FileOps/WP_FileOps_Working_v1.md` is sup
 
 ---
 
-Version note: v2 — D17 added (FileOps dissolved, content redistributed). D14 marked as superseded by D17. Summary updated. 2026-09-15.
-<!-- END SOURCE: Working Practices/WP_Decisions_v2.md -->
+## D18. Binder doctype ownership moved to WP (cross-review F4)
+
+The binder concept and its doctype definition both belong to WP, not Documentation Methodology. Core's ownership rules say the component that knows most about a doctype owns its definition. WP knows most about the binder — why it exists, what it includes, how it is assembled and delivered. Documentation Methodology owns the document structure mechanics that the binder doctype consumes, but not the binder-specific definition itself.
+
+The three-tier inclusion model (binder / known / just-present) is a framework-wide construct owned by Core Structure. WP consumes it for binder assembly. This resolves the dual-ownership identified in the cross-review: the model appears once, in Core Structure, and WP references it.
+
+## D19. Composite authority for pending content (cross-review F5)
+
+The WIP pending-content model creates a composite authority: current truth = master + pending overlay. This is a deliberate exception to the single-source convention, justified by the cost of thrashing the full corpus on every confirmed change. The merge rule (check WIP before acting on a master) is the mechanism that makes it work.
+
+This conflicts with Project Design's sufficiency contract ("current confirmed model, sufficient on its own"). The conflict is real and the resolution is: both hold, with an explicit acknowledgement. PD's sufficiency contract needs amendment to state that pending content may exist for a design and the merge rule applies. Carried to PD — not applied yet.
+
+## D20. Work register entry boundary corrected (cross-review F6)
+
+The distinction between work items and work register entries was originally stated as partly about origin ("a design change had a downstream impact"). PD Standard v4 explicitly allows directly-entered, non-design-generated work in the register with an origin tag. Origin is not a valid part of the distinction.
+
+Corrected to purpose/state: a work item is a generic entity flowing through a workflow; a register entry is confirmed work owed under the PD commitment ledger, regardless of origin.
 
 ---
 
-<!-- BEGIN SOURCE: Working Practices/WP_Design_v2.md -->
-> identity: WP_Design@v2 | doctype: design | updated: 2026-09-15
+Version note: v3 — cross-review remediation (F1, F3, F4, F5, F6, F8). D1 and D8 premise references corrected to current names (F8). D11 rewritten: workflow commands → WP operational tools, Tools owns the generic concept (F3). D18 added: binder doctype ownership to WP, three-tier model to Core Structure (F4). D19 added: composite authority rule for pending content, PD carry noted (F5). D20 added: work register entry boundary corrected to purpose/state (F6). Summary updated to 20 decisions. 2026-09-17. Replaces v2.
+<!-- END SOURCE: Working Practices/WP_Decisions_v3.md -->
+
+---
+
+<!-- BEGIN SOURCE: Working Practices/WP_Design_v3.md -->
+> identity: WP_Design@v3 | doctype: design | updated: 2026-09-17
 
 # Working Practices — Design
 
@@ -16076,20 +16087,18 @@ Homeless pieces — content with no identified destination — are named, not dr
 
 **Four methodology rules from the Core shaping session (confirmed):** The AI captures continuously; places by destination definitions; batches surfacing at natural breaks; and names homeless pieces rather than dropping them.
 
-### Workflow commands
+### Operational tools
 
-Named, invokable actions that trigger operational behaviours. WP owns the concept — what a workflow command is, how new ones are defined and documented, how the reference guide is maintained. Individual commands are defined by whatever area or component owns the behaviour they trigger.
+Named, invokable actions that trigger WP operational behaviours. These are tools in the framework sense — Tools owns what a tool is and how tools are authored (the invocability test, the authoring standard); WP owns these specific tools because they invoke WP behaviours.
 
-**The concept:** A workflow command is a short, named instruction the human can invoke to trigger a defined operational behaviour. Commands are learned and added as the framework matures — they emerge from repeated manual patterns that earn a named shortcut.
-
-**Confirmed commands (working labels — names are the human's to set):**
+**Confirmed tools (working labels — names are the human's to set):**
 
 - **Full stop** — session over; strongest capture-and-place sweep
 - **Checkpoint and continue** — a natural break; flush content plus a handoff of current position and next steps
 - **Flush without closing** — commit to WIP, or push to masters plus binder, while the chat continues
 - **/more** — expand the current prompt with additional detail (AI-presented prompts are concise by default)
 
-**A deployment output:** a summary reference guide listing all active workflow commands and what they do, maintained as commands are added or modified.
+**A deployment output:** a summary reference guide listing all active operational tools and what they do, maintained as tools are added or modified.
 
 ### File delivery rules
 
@@ -16163,7 +16172,7 @@ A generic entity flowing through a workflow. A thing noticed that needs to be tr
 
 **Defined concept, scalable implementation.** A session may realise the work item model not at all, lightly, ad hoc, or in full — chosen by scale, severity, importance, and the nature of the workflow.
 
-**Distinct from work register entries.** A work item is a generic entity flowing through a workflow. A work register entry exists because a design change had a downstream impact not yet delivered. Different origin, different purpose, different owner (work register is Project Design). No subset relationship.
+**Distinct from work register entries.** A work item is a generic entity flowing through a workflow. A work register entry is confirmed work owed under the Project Design commitment ledger. Different purpose, different owner (work register is Project Design), different state model. A register entry may originate from a design change with downstream impact or be directly entered — origin is not the distinguishing property. No subset relationship.
 
 ### Work plan
 
@@ -16179,7 +16188,17 @@ Not project management — a todo list that scales. If cross-stream dependencies
 
 ### Pending content rule
 
-Confirmed content awaiting delivery to master documents. Held in WIP under the destination document's heading. The master is not authoritative alone between updates — reading a master to act on it means checking its pending section in WIP first. This is the transactional staging role of WIP formalised as a rule.
+Confirmed content awaiting delivery to master documents. Held in WIP under the destination document's heading. The master is not the sole authority between updates — reading a master to act on it means checking its pending section in WIP first and working from the composite of both. This is the transactional staging role of WIP formalised as a rule.
+
+**Composite authority rule:** the current truth is master + pending overlay. When pending content exists for a master, the effective state is the merge. This is stated explicitly because the framework's other conventions (particularly Project Design's sufficiency contract) assume a single authoritative source. The pending content model is a deliberate exception — justified by the cost of thrashing the whole corpus on every confirmed change — and the merge rule is the mechanism that makes it work. Carry to Project Design: PD's "current confirmed model, sufficient on its own" contract needs an explicit acknowledgement that pending content may exist and the merge rule applies.
+
+### Definition of done
+
+Core states the framework-wide requirement: every component defines how its work completes, with a testable-or-assessable invariant. WP owns the definition-of-done block type — the mechanism consumers use to declare and check completion.
+
+The block type defines what a definition of done contains, how it is structured, and how it is evaluated. It is used by PD in the brief, by component design passes in their own completion criteria, and by Build to check whether an outcome meets the stated bar.
+
+Schema definition deferred (pending schema definitions task). The ownership and role are stated here; the formal block type properties land when the schema is authored.
 
 ### Development lifecycle
 
@@ -16193,23 +16212,21 @@ WP owns the lifecycle concept because it describes how work progresses — a wor
 
 ## Content Delivery
 
-How content is assembled and delivered to the AI platform for use in a session.
+How working and project context is assembled and delivered to the AI session, particularly binder-based context. This does not include capability packaging, triggering, or deployment — those are owned by Infrastructure (packaging) and Deployment (the pipeline to the session).
 
 ### Binder concept
 
-WP owns the binder concept — why the binder exists, how it is used, what it includes, how it delivers content. The binder exists to solve a workflow problem: assembling and delivering content to the AI platform for use in a session.
-
-Documentation Methodology owns the binder as a doctype definition — its structure as a document.
+WP owns the binder — the concept (why it exists, how it is used, what it includes, how it delivers content) and the doctype definition (its structure as a document type). WP knows most about the binder, so under Core's ownership rules the doctype belongs here, not with Documentation Methodology. Documentation Methodology owns the document structure mechanics that the binder doctype consumes.
 
 ### Three-tier inclusion model
 
-What lives in a project folder falls into three tiers based on its relationship to the AI session:
+Core Structure owns the three-tier file model — a framework-wide construct governing what lives in a project folder based on its relationship to the AI session. WP consumes it for binder assembly:
 
-1. **In the binder** — needed for thinking and reasoning. Design documents, and any other file the AI needs to see to do its work. The test: does it need to be there for thinking and reasoning? If so, include it.
+1. **In the binder** — needed for thinking and reasoning. The test: does it need to be there for thinking and reasoning? If so, include it.
 
-2. **Known to the framework** — part of the project but not needed in context. Listed in the folder's index document. The framework knows it exists, can reference it, but does not load it. Scripts, settings files, assets.
+2. **Known to the framework** — part of the project but not needed in context. Listed in the folder's index document. The framework knows it exists, can reference it, but does not load it.
 
-3. **Just present** — incidental files. AIDE has no opinion. Logs, temp files, personal notes.
+3. **Just present** — incidental files. AIDE has no opinion.
 
 The binder is the context-loading mechanism. The index is the awareness mechanism. Files that need neither are just files.
 
@@ -16226,7 +16243,7 @@ Content redistributed to:
 - **WP component level** — file delivery rules (already placed above)
 - **Core Structure** — archived folder convention; git-as-history decision (superseded-folder pattern dropped). Carried in `_rebuild/WP_CoreCarries_v2.md`.
 - **Infrastructure** — utility git commit behaviour; FUP move action; version-cleanup deletion mechanism. Carried in WIP.
-- **Build** — design-and-output separation principle and AIDE output conventions. Captured in `_rebuild/Build_Input_Working_v1.md`.
+- **Build** — design-and-output separation principle as an unsettled leaning (not yet a decision), supplied as input for Build's design pass. Concrete output conventions remain for Build to determine. Captured in `_rebuild/Build_Input_Working_v1.md`.
 
 The working document `Working Practices/FileOps/WP_FileOps_Working_v1.md` is superseded by this redistribution.
 
@@ -16250,19 +16267,20 @@ WP owns generic operating behaviour and live state — the middle placement band
 **WP owns:**
 
 - Capture-and-place as the primary operational mechanism
-- Workflow commands (concept, definition methodology, reference guide)
+- Operational tools that invoke WP behaviours (session transitions, flush, more)
 - WIP model and conventions
 - Work items, work plan, open items, pending content
+- Definition of done as a block type (Core states the framework-wide requirement)
 - The development lifecycle concept (phases and modes)
 - Process document types (working document, report, resource)
-- The binder concept (why and how, not the doctype)
+- The binder (concept, doctype, and assembly — three-tier model consumed from Core Structure)
 - The overview-first working discipline (generic)
 - File delivery rules
 
 ---
 
-Version note: v2 — FileOps dissolved (D17): content redistributed to WP component level, Core Structure, Infrastructure, and Build. Two pending-FileOps-resolution lines in WP-owns list resolved. 2026-09-15.
-<!-- END SOURCE: Working Practices/WP_Design_v2.md -->
+Version note: v3 — cross-review remediation (F2–F7, F9). Definition of done ownership added to Working State (F2). Workflow commands renamed to operational tools, generic concept deferred to Tools (F3). Binder doctype ownership moved to WP, three-tier model attributed to Core Structure (F4). Composite authority rule made explicit for pending content, PD carry noted (F5). Work register entry boundary corrected to purpose/state (F6). Content Delivery scope narrowed, capability deployment excluded (F7). Build carry aligned to D17's unsettled-leaning status (F9). 2026-09-17. Replaces v2.
+<!-- END SOURCE: Working Practices/WP_Design_v3.md -->
 
 ---
 
