@@ -3,21 +3,25 @@
 Role: component design
 Aliases: WP, workprac
 
-Working Practices owns the conventions and behaviours for how an AI and user actually work together across surfaces. Cross-cutting operational conventions covering file handling, work management, content capture, content delivery, and how the human and AI collaborate.
+Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
+
+WP operates at two levels. At component level, capture-and-place, operational tools, file delivery rules, and the overview-first discipline are standing obligations. Below that, two areas provide the models and conventions work uses: Working State and Content Delivery.
+
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| WP_ | Brief v2 | brief |
+| WP_ | Design v5 | design |
+| WP_ | Decisions v3 | decisions |
 
 ## Parts
 
-**File Operations** (prefix `WP_FileOps_`)
-How files are physically managed — delivery, placement, versioning lifecycle, separation of design and output, git integration.
+**Boards** (prefix `WP_Boards_`)
+How work is tracked across its full lifecycle — boards as scoped task records with zones, dependencies, work sets, and AI maintenance. Supersedes the work plan (D10).
 
-**Work Management** (prefix `WP_WorkManagement_`)
-How work is tracked, progresses, and completes — work items, definition of done, pending content, development lifecycle, WIP conventions.
+## Working documents
 
-**Capture and Organisation** (prefix `WP_Capture_`)
-How content is captured during work and allocated to its home — capture-and-place rules, session-end allocation, process document types.
-
-**Content Delivery** (prefix `WP_ContentDelivery_`)
-How content is assembled and delivered to the AI platform — binder concept, inclusion rules, context loading.
-
-**Human-AI Collaboration** (prefix `WP_HumanAI_`)
-How the AI works with the human — the human working model, tiering, confidence, drift detection, anomalies channel.
+| Prefix | Document | Type |
+|---|---|---|
+| WP_WorkManagement_ | Working v1 | working |
