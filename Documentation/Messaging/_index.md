@@ -10,7 +10,7 @@ Messaging is a grammar, not a transport. It defines what is carried, not how. Me
 ## Documents
 
 - Messaging_Brief_v1
-- Messaging_Design_v1
-- Messaging_Decisions_v1
-- Messaging_Standard_v1
-- Messaging_Tool_v1
+- Messaging_Design_v4
+- Messaging_Decisions_v4
+- Messaging_Standard_v4
+- Messaging_Tool_v4
