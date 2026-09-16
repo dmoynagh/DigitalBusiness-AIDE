@@ -3163,3 +3163,779 @@ COMPLETION SUMMARY
 COMPLETED SUCCESSFULLY
 ========================================================================
 
+========================================================================
+file update package   2026-09-15 17:56:36   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            AIDE_FileOps_Assurance_2026-09-15.zip  (2026-09-15 17:56, 24,479 bytes)
+description:        FileOps dissolution (D17), Assurance brief sketch v2 (learning loop, full-lifecycle scope), Build input seed, work queue update, Improvement component noted. WIP v14 → v15.
+------------------------------------------------------------------------
+
+[Working Practices]
+  DELETED           WP_Design_v1.md
+  REPLACED          Working Practices/WP_Design_v2.md  (16,179 bytes)
+  DELETED           WP_Decisions_v1.md
+  REPLACED          Working Practices/WP_Decisions_v2.md  (10,799 bytes)
+
+[_rebuild]
+  DELETED           Assurance_Brief_Sketch_v1.md
+  REPLACED          _rebuild/Assurance_Brief_Sketch_v2.md  (7,287 bytes)
+  CREATED           _rebuild/Build_Input_Working_v1.md  (1,707 bytes)
+  DELETED           WP_CoreCarries_v1.md
+  REPLACED          _rebuild/WP_CoreCarries_v2.md  (3,957 bytes)
+
+[.]
+  DELETED           AIDE_Documentation_WIP_v14.md
+  REPLACED          AIDE_Documentation_WIP_v15.md  (17,315 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         AIDE_FileOps_Assurance_2026-09-15.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 5 replaced, 1 created, 5 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              AIDE_FileOps_Assurance_2026-09-15.zip
+                        FileOps dissolution (D17), Assurance brief sketch v2 (learning loop, full-lifecycle scope), Build input seed, work queue update, Improvement component noted. WIP v14 → v15.
+  files replaced:       5
+  files created:        1
+  files moved:          0
+  files deleted:        5
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 19:53:49   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Assurance_Design_Pass_2026-09-15.zip  (2026-09-15 19:52, 11,393 bytes)
+description:        Assurance design pass — Design v1, Decisions v1, and component index. New component folder.
+------------------------------------------------------------------------
+
+[Assurance]
+  CREATED           Assurance/_index.md  (505 bytes)
+  CREATED           Assurance/Assurance_Design_v1.md  (18,220 bytes)
+  CREATED           Assurance/Assurance_Decisions_v1.md  (9,464 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Assurance_Design_Pass_2026-09-15.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Assurance_Design_Pass_2026-09-15.zip
+                        Assurance design pass — Design v1, Decisions v1, and component index. New component folder.
+  files replaced:       0
+  files created:        3
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 20:14:19   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Assurance_CrossReview_Remediation_2026-09-15.zip  (2026-09-15 20:14, 13,219 bytes)
+description:        Assurance cross-review remediation — Design v2 and Decisions v2 replace v1. Fourteen findings addressed. Run version-cleanup after deploy to remove v1 files.
+------------------------------------------------------------------------
+
+[Assurance]
+  CREATED           Assurance/Assurance_Design_v2.md  (20,673 bytes)
+  CREATED           Assurance/Assurance_Decisions_v2.md  (14,385 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Assurance_CrossReview_Remediation_2026-09-15.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Assurance_CrossReview_Remediation_2026-09-15.zip
+                        Assurance cross-review remediation — Design v2 and Decisions v2 replace v1. Fourteen findings addressed. Run version-cleanup after deploy to remove v1 files.
+  files replaced:       0
+  files created:        2
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 20:28:26   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Assurance_Round2_Remediation_2026-09-15.zip  (2026-09-15 20:28, 14,468 bytes)
+description:        Assurance round 2 cross-review remediation — Design v3 and Decisions v3 replace v2. Six findings addressed. Run version-cleanup after deploy to remove v2 files.
+------------------------------------------------------------------------
+
+[Assurance]
+  CREATED           Assurance/Assurance_Design_v3.md  (21,422 bytes)
+  CREATED           Assurance/Assurance_Decisions_v3.md  (18,103 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Assurance_Round2_Remediation_2026-09-15.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Assurance_Round2_Remediation_2026-09-15.zip
+                        Assurance round 2 cross-review remediation — Design v3 and Decisions v3 replace v2. Six findings addressed. Run version-cleanup after deploy to remove v2 files.
+  files replaced:       0
+  files created:        2
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 20:39:45   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Assurance_Final_2026-09-15.zip  (2026-09-15 20:39, 14,636 bytes)
+description:        Assurance final — Design v3 and Decisions v3 with all cross-review findings resolved (F1-F19). Run version-cleanup after deploy to remove earlier versions.
+------------------------------------------------------------------------
+
+[Assurance]
+  CONFLICT          Assurance/Assurance_Design_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Assurance/Assurance_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+
+------------------------------------------------------------------------
+Result: 2 conflict
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Assurance_Final_2026-09-15.zip
+                        Assurance final — Design v3 and Decisions v3 with all cross-review findings resolved (F1-F19). Run version-cleanup after deploy to remove earlier versions.
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            2
+    - Assurance/Assurance_Design_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Assurance/Assurance_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered - no files were deployed
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-15 20:42:27   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Assurance_Final_v2_2026-09-15.zip  (2026-09-15 20:42, 14,634 bytes)
+description:        Assurance final — Design v3 and Decisions v3 with F19 correction applied. Replaces the round 2 v3 files. Run version-cleanup after deploy to remove v1 and v2 files.
+------------------------------------------------------------------------
+
+[Assurance]
+  DELETED           Assurance_Design_v3.md
+  REPLACED          Assurance/Assurance_Design_v3.md  (21,568 bytes)
+  DELETED           Assurance_Decisions_v3.md
+  REPLACED          Assurance/Assurance_Decisions_v3.md  (18,634 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Assurance_Final_v2_2026-09-15.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 replaced, 2 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Assurance_Final_v2_2026-09-15.zip
+                        Assurance final — Design v3 and Decisions v3 with F19 correction applied. Replaces the round 2 v3 files. Run version-cleanup after deploy to remove v1 and v2 files.
+  files replaced:       2
+  files created:        0
+  files moved:          0
+  files deleted:        2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 21:07:53   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Core_Carries_FUP.zip  (2026-09-15 21:07, 8,189 bytes)
+------------------------------------------------------------------------
+
+[Core]
+  CREATED           Core/Core_Design_v2.md  (14,164 bytes)
+  DELETED           Core_AIDEMap.md
+  REPLACED          Core/Core_AIDEMap.md  (2,449 bytes)
+  DELETED           _index.md
+  REPLACED          Core/_index.md  (1,778 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Core_Carries_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 replaced, 1 created, 2 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Core_Carries_FUP.zip
+  files replaced:       2
+  files created:        1
+  files moved:          0
+  files deleted:        2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 21:19:08   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Messaging_FUP.zip  (2026-09-15 21:19, 22,280 bytes)
+description:        Messaging component — initial design pass. Creates the Messaging folder under Foundation with brief, design, decisions, standard, and tool.
+------------------------------------------------------------------------
+
+[Messaging]
+  CREATED           Messaging/_index.md  (671 bytes)
+  CREATED           Messaging/Messaging_Brief_v1.md  (3,326 bytes)
+  CREATED           Messaging/Messaging_Design_v1.md  (22,641 bytes)
+  CREATED           Messaging/Messaging_Decisions_v1.md  (11,194 bytes)
+  CREATED           Messaging/Messaging_Standard_v1.md  (8,311 bytes)
+  CREATED           Messaging/Messaging_Tool_v1.md  (5,677 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Messaging_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 6 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Messaging_FUP.zip
+                        Messaging component — initial design pass. Creates the Messaging folder under Foundation with brief, design, decisions, standard, and tool.
+  files replaced:       0
+  files created:        6
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 21:38:27   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Messaging_v2_FUP.zip  (2026-09-15 21:38, 25,061 bytes)
+description:        Messaging component — cross-review remediation (F1-F7). Replaces Design v1, Decisions v1, Standard v1, Tool v1 with v2. Brief and index unchanged.
+------------------------------------------------------------------------
+
+[Messaging]
+  DELETED           Messaging_Design_v1.md
+  REPLACED          Messaging/Messaging_Design_v2.md  (28,148 bytes)
+  DELETED           Messaging_Decisions_v1.md
+  REPLACED          Messaging/Messaging_Decisions_v2.md  (16,700 bytes)
+  DELETED           Messaging_Standard_v1.md
+  REPLACED          Messaging/Messaging_Standard_v2.md  (9,042 bytes)
+  DELETED           Messaging_Tool_v1.md
+  REPLACED          Messaging/Messaging_Tool_v2.md  (8,258 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Messaging_v2_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 4 replaced, 4 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Messaging_v2_FUP.zip
+                        Messaging component — cross-review remediation (F1-F7). Replaces Design v1, Decisions v1, Standard v1, Tool v1 with v2. Brief and index unchanged.
+  files replaced:       4
+  files created:        0
+  files moved:          0
+  files deleted:        4
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 21:46:08   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Messaging_v3_FUP.zip  (2026-09-15 21:46, 27,993 bytes)
+description:        Messaging component — second cross-review remediation (R1-R4, one cross-reference fix). Replaces Design v2, Decisions v2, Standard v2, Tool v2 with v3.
+------------------------------------------------------------------------
+
+[Messaging]
+  DELETED           Messaging_Design_v2.md
+  REPLACED          Messaging/Messaging_Design_v3.md  (32,190 bytes)
+  DELETED           Messaging_Decisions_v2.md
+  REPLACED          Messaging/Messaging_Decisions_v3.md  (20,556 bytes)
+  DELETED           Messaging_Standard_v2.md
+  REPLACED          Messaging/Messaging_Standard_v3.md  (10,012 bytes)
+  DELETED           Messaging_Tool_v2.md
+  REPLACED          Messaging/Messaging_Tool_v3.md  (9,028 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Messaging_v3_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 4 replaced, 4 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Messaging_v3_FUP.zip
+                        Messaging component — second cross-review remediation (R1-R4, one cross-reference fix). Replaces Design v2, Decisions v2, Standard v2, Tool v2 with v3.
+  files replaced:       4
+  files created:        0
+  files moved:          0
+  files deleted:        4
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-15 21:54:59   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Messaging_v4_FUP.zip  (2026-09-15 21:54, 28,843 bytes)
+description:        Messaging component — third cross-review remediation (R5-R7). Replaces Design v3, Decisions v3, Standard v3, Tool v3 with v4.
+------------------------------------------------------------------------
+
+[Messaging]
+  DELETED           Messaging_Design_v3.md
+  REPLACED          Messaging/Messaging_Design_v4.md  (32,437 bytes)
+  DELETED           Messaging_Decisions_v3.md
+  REPLACED          Messaging/Messaging_Decisions_v4.md  (22,882 bytes)
+  DELETED           Messaging_Standard_v3.md
+  REPLACED          Messaging/Messaging_Standard_v4.md  (9,702 bytes)
+  DELETED           Messaging_Tool_v3.md
+  REPLACED          Messaging/Messaging_Tool_v4.md  (9,413 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         Messaging_v4_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 4 replaced, 4 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Messaging_v4_FUP.zip
+                        Messaging component — third cross-review remediation (R5-R7). Replaces Design v3, Decisions v3, Standard v3, Tool v3 with v4.
+  files replaced:       4
+  files created:        0
+  files moved:          0
+  files deleted:        4
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-16 14:27:53   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            AIDE_Orchestration_FUP_v1.zip  (2026-09-16 14:27, 20,827 bytes)
+------------------------------------------------------------------------
+
+[Orchestration]
+  DELETED           AIDE_Orchestration_Design_v1.md
+  REPLACED          Orchestration/AIDE_Orchestration_Design_v1.md  (19,674 bytes)
+  DELETED           AIDE_Orchestration_Decisions_v1.md
+  REPLACED          Orchestration/AIDE_Orchestration_Decisions_v1.md  (8,579 bytes)
+  DELETED           AIDE_Orchestration_UseCases_v1.md
+  REPLACED          Orchestration/AIDE_Orchestration_UseCases_v1.md  (9,437 bytes)
+
+[Infrastructure]
+  CREATED           Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v1.md  (10,209 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         AIDE_Orchestration_FUP_v1.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 replaced, 1 created, 3 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              AIDE_Orchestration_FUP_v1.zip
+  files replaced:       3
+  files created:        1
+  files moved:          0
+  files deleted:        3
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-16 14:37:44   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            AIDE_Assurance_CasesWorking_FUP_v1.zip  (2026-09-16 14:37, 2,293 bytes)
+------------------------------------------------------------------------
+
+[Assurance]
+  CREATED           Assurance/AIDE_Assurance_Cases_Working_v1.md  (3,302 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         AIDE_Assurance_CasesWorking_FUP_v1.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              AIDE_Assurance_CasesWorking_FUP_v1.zip
+  files replaced:       0
+  files created:        1
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-16 15:12:10   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            AIDE_WIP_v18_FUP.zip  (2026-09-16 15:12, 8,782 bytes)
+------------------------------------------------------------------------
+
+[.]
+  CREATED           AIDE_Documentation_WIP_v18.md  (23,664 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         AIDE_WIP_v18_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 created, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              AIDE_WIP_v18_FUP.zip
+  files replaced:       0
+  files created:        1
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-16 17:05:16   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            AIDE_CasesAndInfra_FUP_v2.zip  (2026-09-16 17:05, 9,127 bytes)
+------------------------------------------------------------------------
+
+[Assurance]
+  DELETED           AIDE_Assurance_Cases_Working_v1.md
+  REPLACED          Assurance/AIDE_Assurance_Cases_Working_v1.md  (5,416 bytes)
+
+[Infrastructure]
+  DELETED           AIDE_Infrastructure_MCPDeliveryModel_v1.md
+  REPLACED          Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v1.md  (13,182 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         AIDE_CasesAndInfra_FUP_v2.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 2 replaced, 2 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              AIDE_CasesAndInfra_FUP_v2.zip
+  files replaced:       2
+  files created:        0
+  files moved:          0
+  files deleted:        2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-16 19:51:16   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  SKIPPED           no packages found in C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+
+------------------------------------------------------------------------
+Result: 1 skipped
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              none - nothing to deploy
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY - there was nothing to do
+========================================================================
+
+========================================================================
+file update package   2026-09-16 20:52:40   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  SKIPPED           no packages found in C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+
+------------------------------------------------------------------------
+Result: 1 skipped
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              none - nothing to deploy
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY - there was nothing to do
+========================================================================
+
+========================================================================
+file update package   2026-09-16 20:53:17   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  SKIPPED           no packages found in C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+
+------------------------------------------------------------------------
+Result: 1 skipped
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              none - nothing to deploy
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY - there was nothing to do
+========================================================================
+
+========================================================================
+file update package   2026-09-16 21:04:56   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  SKIPPED           no packages found in C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+
+------------------------------------------------------------------------
+Result: 1 skipped
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              none - nothing to deploy
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY - there was nothing to do
+========================================================================
+
+========================================================================
+file update package   2026-09-17 00:27:13   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            AIDE_Infrastructure_MCPDeliveryModel_v2_FUP.zip  (2026-09-17 00:26, 7,675 bytes)
+description:        Update MCP Delivery Model to v2 — registration-path distinction (issue #7), missing %APPDATA%\Claude (issue #8), skill delivery to chat section, MSIX-only correction, Deploy repo as production
+------------------------------------------------------------------------
+
+[Infrastructure]
+  DELETED           AIDE_Infrastructure_MCPDeliveryModel_v1.md
+  REPLACED          Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md  (17,249 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         AIDE_Infrastructure_MCPDeliveryModel_v2_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              AIDE_Infrastructure_MCPDeliveryModel_v2_FUP.zip
+                        Update MCP Delivery Model to v2 — registration-path distinction (issue #7), missing %APPDATA%\Claude (issue #8), skill delivery to chat section, MSIX-only correction, Deploy repo as production
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+

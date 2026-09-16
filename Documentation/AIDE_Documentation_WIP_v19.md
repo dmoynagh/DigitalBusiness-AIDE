@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v15 | 2026-09-15
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v19 | 2026-09-17
 
 ## Active threads
 
@@ -82,40 +82,70 @@ Seventeen decisions recorded (D1–D17). FileOps dissolved (D17) — content red
 
 ---
 
-## Pending — Core
+## Completed — Core
 
-### Component alias uniqueness
+### Component alias uniqueness — DONE
 
-Component names and aliases must be unique within the framework. Aliases are used as type-reference prefixes in the dot-qualified naming grammar (`pd.brief`). Core Structure owns this rule.
+Stated in Core_Design_v2: component names and aliases must be unique within the framework; aliases are used as type-reference prefixes in the dot-qualified naming grammar (`pd.brief`); declared in the component's index document. Carried in the Component naming subsection.
 
-### Carries from WP design pass
+### Carries from WP design pass — DONE
 
-Items to add to Core_Design (detailed in `_rebuild/WP_CoreCarries_v2.md`):
+Completed 2026-09-15. All six items applied to Core_Design_v2 and Core_AIDEMap_v2, deployed via FUP:
 
-1. **Definition of done** — framework-wide requirement. Invariant: testable or assessable. WP owns the block type; consumers fill content.
-2. **Assurance** — framework-wide requirement. Every component contributes to assurance.
-3. **P6** — sixth ownership rule. Information holder decides the boundary.
-4. **Assurance** — new component in the Guidance role added to the component map. Component count 13 → 15 (Assurance + Improvement).
-5. **Archived folder convention** — one `_archived` folder at the documentation root; underscore prefix removes from binder scope; files remain in the repo and searchable. (From FileOps dissolution, D17.)
-6. **Git-as-history** — git is the version history; the `_superseded` folder pattern is dropped. Rollback means `git checkout` of the previous version. (From FileOps dissolution, D17.)
+1. **Definition of done** — added as a framework-wide requirement.
+2. **Assurance** — added as a framework-wide requirement.
+3. **P6** — added as the sixth ownership rule.
+4. **Assurance and Improvement** — added to the component map under Guidance. Component count 13 → 15.
+5. **Archived folder convention** — added to Core Structure.
+6. **Git-as-history** — added to Core Structure; `_superseded` folder pattern dropped.
+
+Also updated: Core_AIDEMap_v2 — Assurance and Improvement added under Guidance; WP subtree updated to reflect WP_Design_v2 areas (Working State, Content Delivery).
+
+Open: the WP entry in Core_Design's component map table still carries a pre-design-pass purpose line and boundary description (predates the Assurance extraction). Flagged for correction, not yet applied.
+
+Source: `_rebuild/WP_CoreCarries_v2.md`.
 
 ---
 
-## Pending — Assurance (NEW COMPONENT — next in queue)
+## Completed — Assurance
 
-Guidance role. Brief sketch expanded to v2 in `_rebuild/Assurance_Brief_Sketch_v2.md`.
+### Assurance design pass — design, decisions — DONE
 
-**Purpose:** Build justified trust in AI-assisted work by defining and evolving the conventions, structures, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur.
+Completed 2026-09-15. Assurance_Design_v3, Assurance_Decisions_v3 authored. Three-round cross-review (19 findings, all resolved).
 
-**Scope correction (2026-09-15):** Assurance runs the full lifecycle from first conversational concept through to delivery, not primarily a build-side concern. The quality of the top two design levels carries a near one-to-one relationship with everything downstream. Assurance protects the highest-leverage work first.
+Key outcomes:
+- Three concurrent layers of defence: proactive conventions, detective conventions, learning and feedback loop — concurrent, not sequential
+- Three autonomy tiers named: directed, collaborative, autonomous. Either side selects directed/collaborative; only the human authorises autonomous
+- Conversational confidence vocabulary defined and owned by Assurance: strong, moderate, low (separate from the standards strength model)
+- Conformance checking added as a detective convention (cross-review F2) — intended-outcome-to-delivered-outcome closure loop
+- Active identification added as a cross-cutting AI obligation (O6) — forward-looking, not retrospective
+- Assurance does not make action decisions — identifies, captures, surfaces. Human decides on high-impact instances; Improvement decides on accumulated patterns
+- Learning loop designed, implementation deferred until Orchestration is built and tested
+- Low friction as proportionate overhead — governing test is whether overhead produces trust that justifies its cost
+- Queue-writing ownership: Assurance decides what to capture, Orchestration coordinates the write, Infrastructure provides the plumbing
 
-**Three areas of concern:** proactive conventions (human working model, overview-first discipline), detective conventions (verification, drift detection, anomalies channel), and the learning and feedback loop (measurable moments, A-B comparisons, learnings queue, two escalation triggers).
+Fourteen decisions recorded (D1–D14). Pending: standard authoring, old-material pass.
 
-**Learning loop additions (2026-09-15):** AI-initiated background comparison at measurable moments; learnings queue distinct from the task queue; two escalation triggers (single high-impact instance, or accumulated pattern); threshold and frequency tunable. The Improvement component (see below) owns the periodic pattern analysis; Assurance owns the capture conventions.
+**Correction flagged 2026-09-16:** the queue-writing ownership line above (D14 — "Orchestration coordinates the write") needs revisiting. Orchestration's investigation found the framework inbox and Assurance's data logger are better modelled as remote-hosted MCP services, called directly by any client — there is nothing for Orchestration to coordinate. See Orchestration_Decisions_v1 D19. D14's wording should drop the Orchestration clause when Assurance is next worked. Not yet applied — recorded here so it isn't lost.
 
-**Confirmed design decisions (to review at full design pass):** Named tiers for autonomy, anomalies channel as behaviour with capture-and-place destination, confidence uses existing framework strength vocabulary, learnings queue distinct from task queue, two escalation triggers.
+**Cases_Working started 2026-09-16.** `Assurance/AIDE_Assurance_Cases_Working_v1.md` — an informal parking place for candidate learning-loop entries, pending the hosted queue service and Improvement's design pass settling the real schema. First entry: a recurring pattern from Orchestration's investigation (documented platform features not behaving as documented — search-for-known-issues should trigger earlier than it did). Unreviewed.
 
-**Design pass is next** — Assurance moved ahead of Messaging in the work queue because it is the framework's primary objective (O1) and the cross-cutting lens later passes should be designed through.
+---
+
+## 10. Build ✅
+
+Take defined work and produce the outcome by creating and modifying files against a target. Return the result for acceptance. Behavioural component — conventions applied by following them, not machinery.
+
+**Design and decisions**
+- Build_Brief_v1.md
+- Build_Design_v2.md (v3 pending — incorporates D24-D32)
+- Build_Decisions_v2.md (v3 pending — incorporates D24-D32)
+- Build_Overview_v1.md (pending — new document)
+
+**Standards**
+- Deferred by design (D32) — first instance authored when documentation-update build standard has a consumer
+
+**Pending:** Design v3, Decisions v3, Overview v1 authoring (in progress). Cross-review required before standard authoring. Carry note for Assurance: consider V&V as its own area.
 
 ---
 
@@ -135,13 +165,29 @@ The `user_instructions` field is only for tasks the user must do outside the AI 
 
 The `user_instructions` message should display after the deploy success statement, not before the deploy prompt. Log for Code session.
 
+### MCP server delivery model — tested 2026-09-16
+
+`Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v1.md` — a tested, empirically confirmed methodology for delivering AIDE functionality as local MCP servers via marketplace plugins, reaching Code, Cowork, and Chat from one server codebase with automatic update propagation. Discovered during Orchestration's investigation, but the delivery model itself is Infrastructure-owned — components are consumers, not owners (Orchestration_Decisions_v1 D18).
+
+Confirmed via three tested probes (dispatch-probe, mcp-ping-test v1.0.0–v1.0.3). Includes the working configuration (marketplace plugin for Code/Cowork, `claude_desktop_config.json` entry for Chat), five known platform issues with workarounds, and the `.mcpb` Desktop Extension approach as a deprioritised fallback. Not yet a formal design document — carry forward for Infrastructure's design pass, including the open question of whether the Chat bootstrap step should be automated (e.g. `aide mcp-register`).
+
+**Repo distinction noted:** `DigitalBusiness-AIDE-Marketplace` is the temporary testing ground for plugin probes; `DigitalBusiness-AIDE-Deploy` is where the delivery model graduates to once it moves from "confirming the mechanism works" to "this is how AIDE actually ships."
+
 ---
 
-## Pending — Build (NOT YET STARTED)
+## Pending — Orchestration (substantial pre-work done, formal pass still queued behind Build)
 
-### Seed material
+Orchestration's design pass has not formally started — it remains queued behind Build in the work order (see Design pass work queue, below), because build delegation (Orchestration's first real use case) needs Build's boundaries to test against. That dependency is unchanged.
 
-`_rebuild/Build_Input_Working_v1.md` — the design-build separation principle (leaning, not a rule) and the concrete near-term question of where AIDE's own framework outputs go. From FileOps dissolution (D17).
+However, substantial grounded work happened ahead of the queue position, starting from the original scoping session (`AIDE_Orchestration_WIP_v1.md`) and extending through an investigation and empirical testing pass on 2026-09-15/16:
+
+- **Design v1, Decisions v1 (D1–D19), UseCases v1** drafted in `Orchestration/`. Draft status — not cross-reviewed, not formally accepted.
+- **Core boundary correction proposed** — Orchestration owns the crossing (dispatch, invocation, adapters, correlation), not task semantics, verification policy, or response meaning. Core's current wording ("work package structure, verification, and capability profiles") needs correcting to match (D3) — a dependency on Core, not yet applied.
+- **Two use-case gaps resolved by dissolution, not extension** — Assurance's learning-loop queue writing and Improvement's scheduling both turned out to be hosted-MCP-service clients, not Orchestration concerns (see the Assurance correction above and D19).
+- **Implementation home empirically settled** — not `aide dispatch` in the CLI as first proposed, but a plugin-delivered local MCP server (D10, revised). See the Infrastructure MCP delivery model entry above — this is the concrete evidence base the revision rests on.
+- **Real open risk remaining:** build delegation (use case 2) is covered in shape by the dispatch model but genuinely unproven — nothing has exercised it with a real Build payload, because Build doesn't exist yet. This is the actual reason Orchestration can't be called complete ahead of Build, not a formality.
+
+Net position: don't reorder the queue on the strength of this — the dependency on Build is real, not just procedural. But the design-shaping and empirical-testing work already done should carry forward directly into the formal pass rather than being redone.
 
 ---
 
@@ -149,9 +195,9 @@ The `user_instructions` message should display after the deploy success statemen
 
 Iterative improvement of the framework and working practices, regardless of source (human or AI). Owns the pattern analysis, periodic review of the learnings queue, and the decision about what to act on.
 
-**Boundary with Assurance:** Assurance identifies measurable moments and captures learnings to the queue. Improvement analyses the queue, finds patterns, and decides what to act on. The learnings queue is the interface between them.
+**Boundary with Assurance:** Assurance identifies measurable moments, captures learnings to the queue, and surfaces high-impact instances to the human. Improvement owns accumulated-pattern analysis, escalation decisions arising from that analysis, and subsequent action decisions including convention changes. The learnings queue is the interface between them.
 
-**Boundary with Orchestration:** Orchestration provides the mechanism to run the reviewer on a schedule. Improvement owns the business logic — what the reviewer does, what counts as a pattern, when to escalate.
+**Boundary with Orchestration — correction flagged 2026-09-16:** this was previously stated as "Orchestration provides the mechanism to run the reviewer on a schedule." Orchestration's investigation found scheduling isn't dispatch-shaped any more than queue-writing is (see the Assurance correction above) — the actual dependency is the hosted learnings-queue service existing, not Orchestration being built and tested. Improvement's design pass may be unblockable sooner than previously assumed, once the hosted service (Infrastructure's sub-scope) exists. Wording not yet corrected in a formal document — recorded here so it isn't lost.
 
 **Working-direction name:** Improvement (plain, direct, source-agnostic).
 
@@ -167,17 +213,17 @@ AIDE needs a mechanism for submitting tasks, additions, changes and new function
 
 **Concept.** Work side: single action on any surface, no triage required. AIDE development side: queue reviewed, triaged, worked through the normal design-build-deploy cycle.
 
-**Preferred mechanism.** An MCP server callable from any AI surface, writing to a queue document in the AIDE git repo.
+**Preferred mechanism.** An MCP server callable from any AI surface, writing to a queue document in the AIDE git repo. **Note 2026-09-16:** this is now a tested, not just proposed, mechanism — see the Infrastructure MCP delivery model entry above.
 
 ### Learnings queue — feedback from work outcomes
 
 A distinct queue from the task queue. Holds raw observations from A-B comparisons at measurable moments. AI-initiated, written in the background when significant. Most entries sit and wait for aggregate analysis.
 
-**Two escalation triggers:** a single high-impact instance escalates to the task queue immediately; accumulated patterns surface during periodic review by the Improvement component's reviewer.
+**Two escalation triggers:** a single high-impact instance is surfaced to the human through capture-and-place (the human decides whether it becomes a task); accumulated patterns surface during periodic review by the Improvement component's reviewer.
 
 **Mechanism:** same MCP as the task queue, writing to a separate queue document. The AI can write to it unprompted.
 
-**Ownership:** the queue mechanism is Infrastructure; the capture conventions are Assurance; the periodic analysis is Improvement.
+**Ownership — correction flagged 2026-09-16:** previously stated as Infrastructure (MCP server, file format, location), Orchestration (coordinates and invokes writes), Assurance (capture conventions), Improvement (pattern analysis). The Orchestration clause is now understood to be unnecessary — a hosted MCP service is called directly. Ownership narrows to: Infrastructure (the hosted service, the format, the location), Assurance (what and when to write), Improvement (periodic analysis). Not yet applied to a formal document.
 
 ---
 
@@ -186,11 +232,11 @@ A distinct queue from the task queue. Holds raw observations from A-B comparison
 Current agreed order for remaining component design passes:
 
 1. ~~Working Practices~~ — DONE
-2. **Assurance** — next (moved ahead of Messaging; directly delivers O1, sets the cross-cutting lens)
-3. Messaging
-4. Build
+2. ~~Assurance~~ — DONE
+3. **Messaging** — next
+4. ~~Build~~ — DONE
 5. Infrastructure
-6. Orchestration (depends on Messaging and Build)
+6. Orchestration (depends on Messaging and Build) — see Pending — Orchestration above for substantial pre-work already done ahead of this position
 7. Migration and Deployment (either order)
 
 ---
@@ -265,7 +311,9 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 | Principles premise strengthenings (P3, P4) | Three candidate strengthenings from design-approach work (F12 pattern) | **Accepted** — F1 remediated (false-exclusive), F2 remediated (D10 wording), F3 remediated (D11 wording). Published 2026-09-15 |
 | Standards acceptance-test wording (ambient context) | Framework-contract issue exposed by Tools cross-review | **Accepted** — F1 defect (definition), F2 defect (guaranteed wording), F3 concern (Tools sync) — all remediated. Published 2026-09-15 |
 | WP Design v1 (Brief v1, Decisions v1) | WP design pass — new component model, Assurance extraction, 16 decisions | **Pending cross-review** |
+| Assurance Design v3 (Decisions v3) | Assurance design pass — three-layer behavioural model, autonomy tiering, confidence vocabulary, learning loop, 14 decisions | **Accepted** — three rounds (19 findings resolved). Published 2026-09-15 |
+| Orchestration Design v1 (Decisions v1, UseCases v1) | Draft — dispatch model, ownership narrowing, empirically tested MCP delivery mechanism, 19 decisions | **Not yet submitted for cross-review** — draft status, pending Build's design pass for full validation |
 
 ---
 
-Version note: v15 — FileOps dissolved (D17), content redistributed. Assurance brief sketch expanded to v2 (learning loop, full-lifecycle scope, Improvement boundary). Work queue updated: Assurance next. Improvement identified as new component (count 14 → 15). Two submission queues distinguished (task queue, learnings queue). Build input document created. Core and Infrastructure carries from FileOps noted. 2026-09-15. Replaces v14.
+Version note: v19 — Build design pass completed: Build section added (§10), Pending — Build section removed, design-pass queue updated. Deployment_Plugin_Working_v1.md deployed to `_rebuild/` — plugin marketplace structure, skill-to-plugin allocation, and phased rollout plan from the Build design-pass session 2026-09-16. 2026-09-17. Replaces v18.

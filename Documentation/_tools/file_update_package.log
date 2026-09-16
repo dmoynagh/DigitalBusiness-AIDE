@@ -254,3 +254,160 @@ COMPLETION SUMMARY
 COMPLETED SUCCESSFULLY
 ========================================================================
 
+========================================================================
+file update package   2026-09-16 21:06:01   DRY RUN (nothing changed)
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Build_v3_2026-09-16.zip  (2026-09-16 21:05, 22,404 bytes)
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  INVALID           Build_v3_2026-09-16.zip: files entry 1 (Build/Build_Design_v3.md): action is "replace", but it must be "create" or "update"
+  INVALID           Build_v3_2026-09-16.zip: files entry 2 (Build/Build_Decisions_v3.md): action is "replace", but it must be "create" or "update"
+
+------------------------------------------------------------------------
+Result: 2 invalid
+========================================================================
+COMPLETION SUMMARY   (DRY RUN - nothing was changed)
+------------------------------------------------------------------------
+  package:              Build_v3_2026-09-16.zip
+  files updated:        0
+  files created:        0
+  files superseded:     0
+  conflicts:            0
+  errors:               0
+  package rejected:     nothing in it was deployed
+    - Build_v3_2026-09-16.zip: files entry 1 (Build/Build_Design_v3.md): action is "replace", but it must be "create" or "update"
+    - Build_v3_2026-09-16.zip: files entry 2 (Build/Build_Decisions_v3.md): action is "replace", but it must be "create" or "update"
+  user instructions:    none in this package
+  binder builder:       not triggered
+  the package is now:   left in the drop folder
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-16 21:06:32   DRY RUN (nothing changed)
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Build_v3_2026-09-16.zip  (2026-09-16 21:06, 22,406 bytes)
+description:        Build v3 — resolves open items 2/3/4 (profile storage, autonomy default, build standard deferral), adds scalability, proactive feedback obligation, review activation model, build execution conventions; new Build Overview v1
+------------------------------------------------------------------------
+
+[Build]
+  WOULD SUPERSEDE   Build_Design_v2.md -> _superseded/
+  CONFLICT          Build/Build_Design_v3.md: not deployed - a file already exists there and the package did not name it as superseded
+  WOULD SUPERSEDE   Build_Decisions_v2.md -> _superseded/
+  CONFLICT          Build/Build_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as superseded
+  CONFLICT          Build/Build_Overview_v1.md: not deployed - a file already exists there and the package did not name it as superseded
+
+------------------------------------------------------------------------
+Result: 2 would supersede, 3 conflict
+========================================================================
+COMPLETION SUMMARY   (DRY RUN - nothing was changed)
+------------------------------------------------------------------------
+  package:              Build_v3_2026-09-16.zip
+                        Build v3 — resolves open items 2/3/4 (profile storage, autonomy default, build standard deferral), adds scalability, proactive feedback obligation, review activation model, build execution conventions; new Build Overview v1
+  files updated:        0
+  files created:        0
+  files superseded:     2
+  conflicts:            3
+    - Build/Build_Design_v3.md: not deployed - a file already exists there and the package did not name it as superseded
+    - Build/Build_Decisions_v3.md: not deployed - a file already exists there and the package did not name it as superseded
+    - Build/Build_Overview_v1.md: not deployed - a file already exists there and the package did not name it as superseded
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered - no files were deployed
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+
+========================================================================
+file update package   2026-09-16 21:07:21   DRY RUN (nothing changed)
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Build_v3_2026-09-16.zip  (2026-09-16 21:06, 22,406 bytes)
+description:        Build v3 — resolves open items 2/3/4 (profile storage, autonomy default, build standard deferral), adds scalability, proactive feedback obligation, review activation model, build execution conventions; new Build Overview v1
+------------------------------------------------------------------------
+
+[Build]
+  WOULD SUPERSEDE   Build_Design_v2.md -> _superseded/
+  WOULD DEPLOY      Build/Build_Design_v3.md  (34,310 bytes)
+  WOULD SUPERSEDE   Build_Decisions_v2.md -> _superseded/
+  WOULD DEPLOY      Build/Build_Decisions_v3.md  (21,422 bytes)
+  WOULD CREATE      Build/Build_Overview_v1.md  (4,112 bytes)
+
+[_tools]
+  BINDER            would run binder_builder.py
+
+[_fileupdatepackages]
+  WOULD PROCESS     Build_v3_2026-09-16.zip -> _superseded/
+
+------------------------------------------------------------------------
+Result: 2 would deploy, 1 would create, 2 would supersede, 1 binder, 1 would process
+========================================================================
+COMPLETION SUMMARY   (DRY RUN - nothing was changed)
+------------------------------------------------------------------------
+  package:              Build_v3_2026-09-16.zip
+                        Build v3 — resolves open items 2/3/4 (profile storage, autonomy default, build standard deferral), adds scalability, proactive feedback obligation, review activation model, build execution conventions; new Build Overview v1
+  files updated:        2
+  files created:        1
+  files superseded:     2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       would be triggered (dry run)
+  the package is now:   would be moved to _superseded/
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY - dry run, nothing was changed
+========================================================================
+
+========================================================================
+file update package   2026-09-16 21:07:28   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings:           C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_tools\file_update_package_settings.json
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            Build_v3_2026-09-16.zip  (2026-09-16 21:06, 22,406 bytes)
+description:        Build v3 — resolves open items 2/3/4 (profile storage, autonomy default, build standard deferral), adds scalability, proactive feedback obligation, review activation model, build execution conventions; new Build Overview v1
+------------------------------------------------------------------------
+
+[Build]
+  SUPERSEDED        Build_Design_v2.md -> _superseded/
+  DEPLOYED          Build/Build_Design_v3.md  (34,310 bytes)
+  SUPERSEDED        Build_Decisions_v2.md -> _superseded/
+  DEPLOYED          Build/Build_Decisions_v3.md  (21,422 bytes)
+  CREATED           Build/Build_Overview_v1.md  (4,112 bytes)
+
+[_tools]
+  BINDER            binder builder run: 91 included, 4 skipped, 1 written, 1 superseded
+
+[_fileupdatepackages]
+  PROCESSED         Build_v3_2026-09-16.zip -> _superseded/
+
+------------------------------------------------------------------------
+Result: 2 deployed, 1 created, 2 superseded, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              Build_v3_2026-09-16.zip
+                        Build v3 — resolves open items 2/3/4 (profile storage, autonomy default, build standard deferral), adds scalability, proactive feedback obligation, review activation model, build execution conventions; new Build Overview v1
+  files updated:        2
+  files created:        1
+  files superseded:     2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered - 91 included, 4 skipped, 1 written, 1 superseded
+  the package is now:   moved to _superseded/
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
