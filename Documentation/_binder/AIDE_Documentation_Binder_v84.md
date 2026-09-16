@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 83** (2026-09-16).
+> **Binder Version 84** (2026-09-16).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -24,7 +24,7 @@ individual files.
 - `AIDE_Orchestration_Investigation_Findings.md` - sha256 `e7c281c19fb4`
 - `AIDE_Solution_Map.md` - sha256 `3c2294f7ae2b`
 - `Assurance/_index.md` - sha256 `fde4b0521828`
-- `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `b8b37eb9fa3a`
+- `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `2147d7d8e090`
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
 - `Core/_index.md` - sha256 `8746bf38a3fa`
@@ -48,7 +48,7 @@ individual files.
 - `Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md` - sha256 `8098d9714c57`
 - `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `8301aa2a0395`
 - `Infrastructure/_index.md` - sha256 `fb736219786c`
-- `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v1.md` - sha256 `c4d945c33191`
+- `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v1.md` - sha256 `c49386cc8cb5`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `07a3284570d1`
 - `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
@@ -5009,6 +5009,41 @@ queue existing.
 
 ---
 
+## Case 2 — A theory tested before acted on, and the total cost across the session
+
+**Captured:** 2026-09-16, tail end of the same investigation (orchestration-probe's
+Chat surface debugging).
+
+**Pattern observed, positive this time.** Chat calls were failing. The first theory —
+MSIX filesystem virtualization silently shadowing config edits — was plausible,
+well-reasoned, and wrong. Unlike Case 1's pattern, the theory was checked against real
+evidence (`SignatureKind: Developer`, not Store; comparing file sizes/timestamps across
+the supposed real and shadow paths) before being acted on. It was ruled out cheaply, and
+the actual root cause — a `claude_desktop_config.json` with no `mcpServers` key at all
+— was found immediately after. This is the correction Case 1 asked for, working.
+
+**Candidate recommendation.** Worth confirming this wasn't a one-off — watch for
+whether "test the theory before building around it" holds on the next few debugging
+instances, or whether it regresses once the specific memory of Case 1 fades.
+
+**Total session cost, named plainly.** The full MCP-delivery investigation, across
+several probes and this final Chat-surface debugging session, took roughly five hours
+to go from "we think this should work" to "confirmed working on all three surfaces for
+both dispatch and Python invocation." Some of that was genuine first-time-discovery
+cost in a space where Anthropic's own documentation is actively misleading in places —
+not avoidable by working faster. Real avoidable cost within it: the search-before-
+building miss (Case 1), and a wrong conclusion ("Chat requires hosted MCP") stated with
+more confidence than the evidence supported, which sent part of the investigation
+toward a more complex fallback (`.mcpb`) before the simpler working path
+(`claude_desktop_config.json`) was tried. The offsetting factor: this produced a
+reusable delivery methodology for all future AIDE tooling, not a one-off result — the
+cost was paid once, not per-tool.
+
+**Status.** Unreviewed. Parked here pending Improvement's design pass and the hosted
+queue existing.
+
+---
+
 ## Adding a case
 
 Each entry: what happened, why it recurred (if it did), a candidate recommendation if
@@ -7414,6 +7449,23 @@ Confirmed all three surfaces return the updated payload from the same server fil
 Code via plugin, Chat via `claude_desktop_config.json` entry, Cowork via plugin.
 Confirmed the Chat config entry survives plugin updates without re-running bootstrap.
 
+### Probe 4 — orchestration-probe (cross-tool invocation)
+
+Fresh plugin, built applying the proven methodology from the start rather than
+rediscovering it. Two tools: `test_python` (spawns a bundled Python script as a
+subprocess, returns timestamped JSON with a UUID) and `test_dispatch(target, prompt)`
+(invokes `claude -p` or the standalone Codex executable, returns the response).
+
+Confirms an MCP server running inside Claude Desktop can shell out to both Python
+tooling and external AI CLIs — the building block for wrapping AIDE's existing Python
+utilities (binder builder, FUP deployer) and for cross-platform dispatch, from the same
+mechanism, without modification to the underlying scripts.
+
+Both tools pass on all three surfaces. Python on this machine resolves cleanly to the
+real interpreter (`Python313\python.exe`) — no Microsoft Store stub, no equivalent of
+the Codex PATH-shim problem. Chat was the last surface to pass; getting there required
+debugging a config issue, not a code issue — see known issue 6, below.
+
 ---
 
 ## Known platform issues (all workaroundable)
@@ -7448,6 +7500,36 @@ confusing during debugging.
 Plugin-delivered `.mcp.json` tools don't reliably reach the Chat model despite the
 server starting and responding to `initialize` and `tools/list`. Multiple
 reproductions across GitHub issues. Workaround: `claude_desktop_config.json` entry.
+
+### 6. A fresh or Extensions-only install may have no `mcpServers` key at all
+
+Don't assume the `mcpServers` block exists in `claude_desktop_config.json` — if the
+install has only ever used Desktop Extensions (`.mcpb`), the key may be entirely
+absent, not just empty. Check before assuming a "add an entry next to the existing
+one" instruction applies; the block itself may need creating first.
+
+**Two parallel mechanisms confirmed to coexist:** the `mcpServers` config block
+(Settings → Developer) and installed `.mcpb` Desktop Extensions (Settings →
+Extensions, internally called "dxt" — evidenced by `dxt:allowlistEnabled` /
+`dxt:allowlistCache` keys in the config). Both can be present on the same install
+simultaneously with no conflict.
+
+**`%APPDATA%\Claude` may be an NTFS junction, not MSIX virtualization.** On at least
+one tested machine, this path is a plain filesystem junction pointing at
+`%LOCALAPPDATA%\Packages\<PackageFamilyName>\LocalCache\Roaming\Claude` — meaning any
+process, packaged or not, editing the `%APPDATA%\Claude` path gets transparently
+redirected to the real file the app reads. This looks superficially like MSIX
+filesystem virtualization (which *would* shadow edits) but isn't the same mechanism —
+worth checking (`Get-Item` on the folder, look for `LinkType: Junction`) before
+assuming a config edit didn't take effect. Also worth checking `SignatureKind` via
+`Get-AppxPackage` — a sideloaded package (`Developer`) behaves differently from a true
+Store-distributed one, and the two are easy to conflate.
+
+**Multiple Start Menu "Claude" entries may exist and be indistinguishable.** One
+tested machine had two identically-labelled Start Menu entries for Claude Desktop,
+same binary version, sharing config via the junction above. Harmless when they share
+config, but worth knowing this can happen before treating "wrong instance launched" as
+an explanation for unexpected behaviour.
 
 ---
 
