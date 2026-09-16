@@ -140,6 +140,23 @@ Confirmed all three surfaces return the updated payload from the same server fil
 Code via plugin, Chat via `claude_desktop_config.json` entry, Cowork via plugin.
 Confirmed the Chat config entry survives plugin updates without re-running bootstrap.
 
+### Probe 4 — orchestration-probe (cross-tool invocation)
+
+Fresh plugin, built applying the proven methodology from the start rather than
+rediscovering it. Two tools: `test_python` (spawns a bundled Python script as a
+subprocess, returns timestamped JSON with a UUID) and `test_dispatch(target, prompt)`
+(invokes `claude -p` or the standalone Codex executable, returns the response).
+
+Confirms an MCP server running inside Claude Desktop can shell out to both Python
+tooling and external AI CLIs — the building block for wrapping AIDE's existing Python
+utilities (binder builder, FUP deployer) and for cross-platform dispatch, from the same
+mechanism, without modification to the underlying scripts.
+
+Both tools pass on all three surfaces. Python on this machine resolves cleanly to the
+real interpreter (`Python313\python.exe`) — no Microsoft Store stub, no equivalent of
+the Codex PATH-shim problem. Chat was the last surface to pass; getting there required
+debugging a config issue, not a code issue — see known issue 6, below.
+
 ---
 
 ## Known platform issues (all workaroundable)
@@ -174,6 +191,36 @@ confusing during debugging.
 Plugin-delivered `.mcp.json` tools don't reliably reach the Chat model despite the
 server starting and responding to `initialize` and `tools/list`. Multiple
 reproductions across GitHub issues. Workaround: `claude_desktop_config.json` entry.
+
+### 6. A fresh or Extensions-only install may have no `mcpServers` key at all
+
+Don't assume the `mcpServers` block exists in `claude_desktop_config.json` — if the
+install has only ever used Desktop Extensions (`.mcpb`), the key may be entirely
+absent, not just empty. Check before assuming a "add an entry next to the existing
+one" instruction applies; the block itself may need creating first.
+
+**Two parallel mechanisms confirmed to coexist:** the `mcpServers` config block
+(Settings → Developer) and installed `.mcpb` Desktop Extensions (Settings →
+Extensions, internally called "dxt" — evidenced by `dxt:allowlistEnabled` /
+`dxt:allowlistCache` keys in the config). Both can be present on the same install
+simultaneously with no conflict.
+
+**`%APPDATA%\Claude` may be an NTFS junction, not MSIX virtualization.** On at least
+one tested machine, this path is a plain filesystem junction pointing at
+`%LOCALAPPDATA%\Packages\<PackageFamilyName>\LocalCache\Roaming\Claude` — meaning any
+process, packaged or not, editing the `%APPDATA%\Claude` path gets transparently
+redirected to the real file the app reads. This looks superficially like MSIX
+filesystem virtualization (which *would* shadow edits) but isn't the same mechanism —
+worth checking (`Get-Item` on the folder, look for `LinkType: Junction`) before
+assuming a config edit didn't take effect. Also worth checking `SignatureKind` via
+`Get-AppxPackage` — a sideloaded package (`Developer`) behaves differently from a true
+Store-distributed one, and the two are easy to conflate.
+
+**Multiple Start Menu "Claude" entries may exist and be indistinguishable.** One
+tested machine had two identically-labelled Start Menu entries for Claude Desktop,
+same binary version, sharing config via the junction above. Harmless when they share
+config, but worth knowing this can happen before treating "wrong instance launched" as
+an explanation for unexpected behaviour.
 
 ---
 

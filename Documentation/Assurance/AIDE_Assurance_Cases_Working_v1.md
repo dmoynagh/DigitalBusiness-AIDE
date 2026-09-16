@@ -52,6 +52,41 @@ queue existing.
 
 ---
 
+## Case 2 — A theory tested before acted on, and the total cost across the session
+
+**Captured:** 2026-09-16, tail end of the same investigation (orchestration-probe's
+Chat surface debugging).
+
+**Pattern observed, positive this time.** Chat calls were failing. The first theory —
+MSIX filesystem virtualization silently shadowing config edits — was plausible,
+well-reasoned, and wrong. Unlike Case 1's pattern, the theory was checked against real
+evidence (`SignatureKind: Developer`, not Store; comparing file sizes/timestamps across
+the supposed real and shadow paths) before being acted on. It was ruled out cheaply, and
+the actual root cause — a `claude_desktop_config.json` with no `mcpServers` key at all
+— was found immediately after. This is the correction Case 1 asked for, working.
+
+**Candidate recommendation.** Worth confirming this wasn't a one-off — watch for
+whether "test the theory before building around it" holds on the next few debugging
+instances, or whether it regresses once the specific memory of Case 1 fades.
+
+**Total session cost, named plainly.** The full MCP-delivery investigation, across
+several probes and this final Chat-surface debugging session, took roughly five hours
+to go from "we think this should work" to "confirmed working on all three surfaces for
+both dispatch and Python invocation." Some of that was genuine first-time-discovery
+cost in a space where Anthropic's own documentation is actively misleading in places —
+not avoidable by working faster. Real avoidable cost within it: the search-before-
+building miss (Case 1), and a wrong conclusion ("Chat requires hosted MCP") stated with
+more confidence than the evidence supported, which sent part of the investigation
+toward a more complex fallback (`.mcpb`) before the simpler working path
+(`claude_desktop_config.json`) was tried. The offsetting factor: this produced a
+reusable delivery methodology for all future AIDE tooling, not a one-off result — the
+cost was paid once, not per-tool.
+
+**Status.** Unreviewed. Parked here pending Improvement's design pass and the hosted
+queue existing.
+
+---
+
 ## Adding a case
 
 Each entry: what happened, why it recurred (if it did), a candidate recommendation if
