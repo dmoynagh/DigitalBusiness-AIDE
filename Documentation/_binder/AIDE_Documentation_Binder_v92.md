@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 91** (2026-09-17).
+> **Binder Version 92** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -99,7 +99,7 @@ individual files.
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
 - `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `6b858ff04f50`
 - `Working Practices/WP_Decisions_v3.md` - sha256 `04d898865dde`
-- `Working Practices/WP_Design_v3.md` - sha256 `feea15ece433`
+- `Working Practices/WP_Design_v4.md` - sha256 `1aa9be2582ae`
 - `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `59a0bba2401c`
 
 ---
@@ -16043,8 +16043,8 @@ Version note: v3 — cross-review remediation (F1, F3, F4, F5, F6, F8). D1 and D
 
 ---
 
-<!-- BEGIN SOURCE: Working Practices/WP_Design_v3.md -->
-> identity: WP_Design@v3 | doctype: design | updated: 2026-09-17
+<!-- BEGIN SOURCE: Working Practices/WP_Design_v4.md -->
+> identity: WP_Design@v4 | doctype: design | updated: 2026-09-17
 
 # Working Practices — Design
 
@@ -16052,7 +16052,7 @@ Version note: v3 — cross-review remediation (F1, F3, F4, F5, F6, F8). D1 and D
 
 Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
 
-WP operates at two levels. At component level, capture-and-place, workflow commands, file delivery rules, and the overview-first discipline are standing obligations that run continuously. Below that, two areas provide the models and conventions work uses: Working State (where content lives while in motion, how work is tracked and completed) and Content Delivery (how content reaches the AI session).
+WP operates at two levels. At component level, capture-and-place, operational tools, file delivery rules, and the overview-first discipline are standing obligations that run continuously. Below that, two areas provide the models and conventions work uses: Working State (where content lives while in motion, how work is tracked and completed) and Content Delivery (how content reaches the AI session).
 
 The Assurance component, identified during this design pass, takes ownership of the human working model, trust-building conventions, verification behaviours, drift detection, and anomalies — the content originally placed in a Human-AI Collaboration area. Assurance is both a component (Guidance role) and a framework-wide requirement (Core).
 
@@ -16072,7 +16072,7 @@ The AI's standing responsibility to organise and allocate everything of value pr
 2. **Placement by destination definitions** — the AI knows where things belong and routes them correctly.
 3. **Batched surfacing at natural breaks** — rather than interrupting to allocate each piece, the AI batches and surfaces allocations at natural pauses.
 
-Homeless pieces — content with no identified destination — are named, not dropped. The AI errs toward over-capture.
+Homeless pieces — content with no identified destination — are named, not dropped. The AI errs toward over-capture. When multiple plausible destinations exist and the AI cannot confidently distinguish between them, it surfaces the alternatives and asks rather than silently selecting one.
 
 **The destination map** — where capture-and-place routes content:
 
@@ -16102,10 +16102,10 @@ Named, invokable actions that trigger WP operational behaviours. These are tools
 
 ### File delivery rules
 
-Two rules for when files are updated outside of a FileUpdatePackage:
+Two rules based on the platform's file-access capability, not named surfaces:
 
-1. **Chat delivery** — when outputting an updated file for download, instruct the user where to save it based on the path in the document header.
-2. **Code / Cowork direct file access** — check the file's physical location against the path in the header; move it if they disagree.
+1. **No direct file access** (downloadable delivery) — when outputting an updated file for download, instruct the user where to save it based on the path in the document header.
+2. **Direct file access** — check the file's physical location against the path in the header; move it if they disagree.
 
 ### Overview-first working discipline
 
@@ -16190,7 +16190,7 @@ Not project management — a todo list that scales. If cross-stream dependencies
 
 Confirmed content awaiting delivery to master documents. Held in WIP under the destination document's heading. The master is not the sole authority between updates — reading a master to act on it means checking its pending section in WIP first and working from the composite of both. This is the transactional staging role of WIP formalised as a rule.
 
-**Composite authority rule:** the current truth is master + pending overlay. When pending content exists for a master, the effective state is the merge. This is stated explicitly because the framework's other conventions (particularly Project Design's sufficiency contract) assume a single authoritative source. The pending content model is a deliberate exception — justified by the cost of thrashing the whole corpus on every confirmed change — and the merge rule is the mechanism that makes it work. Carry to Project Design: PD's "current confirmed model, sufficient on its own" contract needs an explicit acknowledgement that pending content may exist and the merge rule applies.
+**Composite authority rule:** the current truth is master + pending overlay. When pending content exists for a master, the effective state is the merge. Pending overlay wins where it explicitly changes master state; if the intended merged state cannot be determined unambiguously, surface the conflict rather than infer it. This is stated explicitly because the framework's other conventions (particularly Project Design's sufficiency contract) assume a single authoritative source. The pending content model is a deliberate exception — justified by the cost of thrashing the whole corpus on every confirmed change — and the merge rule is the mechanism that makes it work. Carry to Project Design: PD's "current confirmed model, sufficient on its own" contract needs an explicit acknowledgement that pending content may exist and the merge rule applies.
 
 ### Definition of done
 
@@ -16279,8 +16279,8 @@ WP owns generic operating behaviour and live state — the middle placement band
 
 ---
 
-Version note: v3 — cross-review remediation (F2–F7, F9). Definition of done ownership added to Working State (F2). Workflow commands renamed to operational tools, generic concept deferred to Tools (F3). Binder doctype ownership moved to WP, three-tier model attributed to Core Structure (F4). Composite authority rule made explicit for pending content, PD carry noted (F5). Work register entry boundary corrected to purpose/state (F6). Content Delivery scope narrowed, capability deployment excluded (F7). Build carry aligned to D17's unsettled-leaning status (F9). 2026-09-17. Replaces v2.
-<!-- END SOURCE: Working Practices/WP_Design_v3.md -->
+Version note: v4 — cross-review round 2 remediation (R2-F1, R2-F3, R2-F4, R2-F5). Stale "workflow commands" in summary corrected. Merge precedence/conflict rule added to composite authority. File delivery generalised to capability-based. Uncertain-destination behaviour added to capture-and-place. PD carry (D19) recorded but not yet applied. 2026-09-17. Replaces v3.
+<!-- END SOURCE: Working Practices/WP_Design_v4.md -->
 
 ---
 
