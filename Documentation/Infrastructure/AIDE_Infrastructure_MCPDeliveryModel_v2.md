@@ -1,6 +1,7 @@
 # AIDE Infrastructure — MCP Server Delivery Model
 
-Status: tested and confirmed, 2026-09-16. Not yet a formal Infrastructure design
+Status: tested and confirmed, 2026-09-16; updated 2026-09-17 with skill-delivery
+findings and registration-path corrections. Not yet a formal Infrastructure design
 document — Infrastructure's design pass has not been run. This records the empirical
 findings and tested methodology so they are available when that pass happens, and so
 other components (Orchestration first, then binder, FUP, future tooling) can build
@@ -37,8 +38,9 @@ well-documented by Anthropic and was discovered during testing.
 ### One distribution unit
 
 A marketplace plugin in a git repo. Contains the server code, `.mcp.json` (using
-`${CLAUDE_PLUGIN_ROOT}`), skills, and `plugin.json`. The existing AIDE marketplace
-repo is `dmoynagh/DigitalBusiness-AIDE-Marketplace`.
+`${CLAUDE_PLUGIN_ROOT}`), skills, and `plugin.json`. The production AIDE marketplace
+repo is `dmoynagh/DigitalBusiness-AIDE-Deploy`. The earlier testing repo
+`dmoynagh/DigitalBusiness-AIDE-Marketplace` is retained for experiments only.
 
 Plugin structure:
 
@@ -90,6 +92,42 @@ All three surfaces read the **same physical server file** in the marketplace clo
 The Chat config entry is a **one-time bootstrap**. It points at the same file the
 plugin uses, so plugin updates are picked up automatically on restart. No need to
 re-run the bootstrap after updates.
+
+### Skill delivery to chat (separate from MCP tools)
+
+Plugin-delivered skills (SKILL.md files) reach claude.ai chat through a different
+mechanism from MCP tools. Skills are mounted server-side at `/mnt/skills/plugins/`
+based on **account-level** plugin registration, not local Desktop config. This
+mechanism is independent of `claude_desktop_config.json` and `settings.json`.
+
+**The registration path matters.** Two different "Add marketplace" paths exist, and
+they register at different levels:
+
+| Registration path | Where it registers | What it delivers |
+|---|---|---|
+| claude.ai web UI → Settings → Plugins | Account level | Skills to chat (server-side mount) |
+| Claude Desktop app → Settings → Plugins → Discover | Code tab | MCP tools to Code and Cowork only |
+
+**Both registrations are needed for full three-surface coverage:** the web UI
+registration for chat skills, and the Desktop/`settings.json` registration for MCP
+tools on Code and Cowork. They are not interchangeable and neither implies the other.
+
+This distinction was discovered on 2026-09-17 when the `aide` plugin's `design-check`
+and `messaging` skills were confirmed present in the Deploy repo and correctly merged,
+but invisible in chat. The Desktop "Add marketplace" had registered the Deploy repo
+under the Code tab only. Re-registering via the web UI at account level made both
+skills visible in chat immediately (after starting a fresh session — skills are
+frozen at session start).
+
+**Marketplace short form works:** `dmoynagh/DigitalBusiness-AIDE-Deploy` in the web
+UI resolves to the full GitHub URL. This is the form used for the original testing
+and the production registration.
+
+**Earlier testing (2026-09-04/05) used the web path without realising it.** The test
+probes (reach-probe, currency-probe) were registered at account level via the web UI
+and worked in chat. When the production marketplace was later added via Desktop, it
+went to the wrong level. The distinction was not documented at the time because both
+registrations appeared to happen through the same "Add marketplace" action.
 
 ### Update path
 
@@ -222,6 +260,34 @@ same binary version, sharing config via the junction above. Harmless when they s
 config, but worth knowing this can happen before treating "wrong instance launched" as
 an explanation for unexpected behaviour.
 
+### 7. Desktop "Add marketplace" registers under Code tab, not account level
+
+**This is the highest-impact issue in this list.** Adding a marketplace via Claude
+Desktop's Settings → Plugins → Discover registers it under the Code tab only. This
+delivers MCP tools to Code and Cowork, but does **not** register at the account level
+that feeds skills to chat. The web UI at claude.ai → Settings → Plugins is the only
+path to account-level registration.
+
+Symptom: plugin skills appear in Code and Cowork but are absent from the chat
+`available_skills` listing and `/mnt/skills/plugins/` mount. MCP tools may or may not
+work in chat depending on whether the `claude_desktop_config.json` bootstrap entry
+exists (a separate mechanism).
+
+Workaround: register the marketplace via the web UI as well. Both registrations are
+needed. The short form (`dmoynagh/DigitalBusiness-AIDE-Deploy`) works in the web UI.
+
+This was not caught during original testing (2026-09-04/05) because the test probes
+happened to be registered via the web path. The production marketplace was later added
+via Desktop, which went to the wrong level.
+
+### 8. `%APPDATA%\Claude` may not exist at all
+
+On at least one tested MSIX install, `%APPDATA%\Claude` does not exist — not as a
+junction, not as a real folder. This means `claude_desktop_config.json` has no
+location, and the Chat MCP bootstrap entry cannot be written until the correct config
+path is established. When issue 6 says "check before assuming," this is the further
+case: the entire directory may be absent, not just the `mcpServers` key within it.
+
 ---
 
 ## What was also tested and deprioritised
@@ -247,15 +313,21 @@ Key differences from the plugin path:
 | Update path | Merge PR → refresh clone | Rebuild `.mcpb` → reinstall |
 | Surfaces | Code, Cowork | Chat |
 
-### MSIX/Windows Store install of Claude Desktop
+### MSIX is the only Windows install (no standalone)
 
-Dave's Claude Desktop was originally the MSIX/Windows Store build (confirmed via
-`Get-AppxPackage`, package family `Claude_pzs8sxrjxfjjc`). This has a known bug
-where Python-type Desktop Extensions fail because `${__dirname}` resolves inside the
-MSIX virtual filesystem, which spawned `py.exe` processes can't see. Reinstalled to
-standalone from `claude.ai/download` to sidestep this and other MSIX
-path-virtualisation issues. The Node.js-based approach used here is not affected by
-this specific bug, but the standalone install is recommended regardless.
+As of 2026-09-17, `claude.ai/download` serves only the MSIX package. The
+`ClaudeSetup.exe` bootstrapper installs an MSIX sideloaded package
+(`SignatureKind: Developer`). The earlier Squirrel-based standalone `.exe` installer
+is no longer distributed. Reinstalling from `claude.ai/download` replaces one MSIX
+with another — it does not produce a standalone install.
+
+Current install: `C:\Program Files\WindowsApps\Claude_2.110.0.0_x64__pzs8sxrjxfjjc`,
+package family `Claude_pzs8sxrjxfjjc`.
+
+The MSIX build has a known bug where Python-type Desktop Extensions fail because
+`${__dirname}` resolves inside the MSIX virtual filesystem, which spawned `py.exe`
+processes can't see. The Node.js-based approach used here is not affected by this
+specific bug.
 
 ---
 
