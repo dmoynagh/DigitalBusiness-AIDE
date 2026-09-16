@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 80** (2026-09-15).
+> **Binder Version 81** (2026-09-16).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -65,6 +65,9 @@ individual files.
 - `Messaging/Messaging_Design_v4.md` - sha256 `48b767e284b0`
 - `Messaging/Messaging_Standard_v4.md` - sha256 `39a0045e2403`
 - `Messaging/Messaging_Tool_v4.md` - sha256 `c0a40ad3383d`
+- `Orchestration/AIDE_Orchestration_Decisions_v1.md` - sha256 `4e13b3c845d2`
+- `Orchestration/AIDE_Orchestration_Design_v1.md` - sha256 `20d4133b9ae3`
+- `Orchestration/AIDE_Orchestration_UseCases_v1.md` - sha256 `10fc0efe40fa`
 - `Principles/Principles_Decisions_v5.md` - sha256 `33df0c86fba0`
 - `Principles/Principles_Design_v5.md` - sha256 `ba6e146bf1b7`
 - `Principles/Principles_Standard_v2.md` - sha256 `a2c5cf6f320d`
@@ -11342,6 +11345,729 @@ If the write or Index context cannot be resolved safely, return the required act
 
 Version note: v4 — third cross-review remediation. R5: QueryReceipt response step now cross-references the standard's positive-evidence model directly rather than asserting evidentiary status independently. R6: idempotency table and Receive procedure updated — Receive's "Yes" now covers only parsing/interpretation; recommending an action is explicitly a separate invocation carrying that action's own idempotency, and Receive step 8 changed from "recommend/execute" to "recommend." 2026-09-15. Replaces v3.
 <!-- END SOURCE: Messaging/Messaging_Tool_v4.md -->
+
+---
+
+<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Decisions_v1.md -->
+# AIDE Orchestration — Decisions v1 (DRAFT — for review)
+
+Status: proposed alongside Design v1. Not deployed, not cross-reviewed.
+
+---
+
+**D1 — Dispatch replaces the universal Work Package as Orchestration's artefact.**
+The investigation's proposed universal Work Package and mandatory Verification Response
+would make Orchestration own task semantics, violating the component's ownership
+boundary. A thin `dispatch` (target, workspace, model level, opaque payload) is the
+Orchestration-level artefact instead. Caller-owned artefacts (Build packages, review
+requests, Messaging envelopes) travel as the payload.
+
+**D2 — Orchestration ownership narrowed.** Owns: dispatch, invocation, transport/channel
+selection, target adapters, target-specific invocation mechanics, model-level
+resolution, execution-endpoint interaction, correlation, transport/invocation failure,
+returning results to the caller. Does not own: work-package/build-package structure,
+task types, verification policy, acceptance criteria, review semantics, Build's return
+semantics, generic response semantics, human/autonomy policy, or model-mapping content.
+
+**D3 — Core's current wording needs correction.** Core presently assigns Orchestration
+ownership of "work package structure, verification, and capability profiles." This
+contradicts D2 and needs correcting in Core's own document, not silently absorbed by
+Orchestration. Tracked here as a dependency on Core; proposed wording included in the
+Design document for Core's design pass to adopt or amend.
+
+**D4 — Transport outcome and task outcome are distinct fields.** `transport_status`
+(e.g. `completed`) reports only that the invocation returned. It never implies the
+requested task succeeded — that judgement stays with the owning component. Prevents a
+completed-but-failed task being misread as done.
+
+**D5 — `response_schema` is an adapter capability, not a mandatory contract.**
+Schema-constrained output (Agent SDK `outputFormat`, Codex `--output-schema`) is real and
+useful, confirmed by investigation. Orchestration may pass a caller-supplied schema
+through to a target that supports it. It is never required as part of the Orchestration
+contract itself.
+
+**D6 — Model capability is caller-selected, not classifier-selected.** Automatic
+model-selection (an AIDE classifier deciding required capability) is parked, not
+designed. The caller states required capability directly using a small logical
+vocabulary (`basic/standard/high/maximum`), with an `exact` escape hatch for a specific
+provider model. `level` and `exact` are normally mutually exclusive.
+
+**D7 — Model-capability mapping content belongs to Core (Framework Resources), not
+Orchestration.** The Framework/Framework-Resources split (durable behaviour vs volatile
+current knowledge) is a cross-cutting AIDE pattern, confirmed in this session's review as
+Core's to own and design. Orchestration is a consumer of Resources, not its owner. Not
+deciding the Resources mechanism itself here — recorded as a dependency for Core's
+design pass.
+
+**D8 — Availability is discovered, not configured, wherever discovery can represent the
+fact.** Machine-specific settings are only introduced where detection genuinely cannot
+substitute. Effective available targets = supported-by-Resources ∩ detected-on-endpoint
+∩ not-explicitly-disabled.
+
+**D9 — Capability availability and execution-endpoint availability are different
+things.** An AI session having the Orchestration capability does not imply a local
+execution endpoint is present. The endpoint exposes its own effective target list; a
+session queries it rather than inferring the environment (hostname, desktop-vs-web,
+installed executables) directly.
+
+**D10 — Implementation home is `aide dispatch` inside the existing `aide` CLI**, not a
+new standalone runtime, not a Claude Code skill, not a Desktop Extension. Infrastructure
+already owns the CLI host, settings, logging, and packaging; Orchestration adds dispatch
+behaviour, adapters, and resolution on top of it. Supersedes the three options raised by
+the investigation (standalone script / Code skill / Desktop Extension) as the primary
+implementation path.
+
+**D11 — First adapters: `claude-code` and `codex` only.** Gemini/Google support is
+additive when a stable execution path exists (Gemini CLI's consumer auth path was found
+discontinued as of June 2026; its successor, Antigravity CLI, is early). Not required to
+block v1.
+
+**D12 — Stateless first, unchanged from the original investigation position.** Each
+dispatch is independently executable. Provider session IDs may be preserved as returned
+metadata. No AIDE session-management abstraction is built until a demonstrated workflow
+needs one.
+
+**D13 — No semantic intermediate-progress protocol in v1.** Provider event streams may
+be surfaced/logged opportunistically. The stable contract distinguishes only transport
+completion from transport failure.
+
+**D14 — FUP remains the validation scenario, using `aide fup` unchanged.** The
+investigation's proposed `--batch` flag for non-interactive deployment is not adopted
+pre-emptively — current `aide fup` behaviour already avoids interactive waiting without
+a console. Test the orchestrated invocation first; change `aide fup` only if a real
+failure demonstrates the need. Applies apparatus-avoidance directly.
+
+**D15 — No second generic messaging envelope.** Messaging already owns structured
+cross-boundary communication and correlation semantics. Where a dispatch payload needs
+to travel as structured text, it travels inside Messaging's existing envelope.
+Orchestration does not invent a parallel Markdown work-package doctype.
+
+**D16 — Tier (autonomous vs heavyweight) is caller-owned.** Orchestration dispatches
+without knowing or tracking whether the surrounding workflow is autonomous or
+Dave-driven-interactive. Risk-flagged external review for heavyweight work is the
+caller's workflow invoking Orchestration twice (plan review, build review), not a
+distinct Orchestration mode. Settles an item left open in the original scoping.
+
+**D17 — Routing (which tasks get delegated, and the threshold for it) is caller-owned.**
+The original scoping proposed a crude size/complexity threshold living inside
+Orchestration. Under the narrowed ownership (D2), the caller decides the target
+explicitly per dispatch; Orchestration executes the routing decision rather than making
+it. Settles an item left open in the original scoping.
+
+---
+
+## Deferred (not decided, recorded so they aren't silently lost)
+
+1. Final naming of capability levels.
+2. Framework Resources schema and deployment cadence — Core's design pass.
+3. Portable user/account settings mechanism.
+4. Genuine machine-specific settings beyond environment discovery.
+5. Remote execution endpoints for web-hosted sessions.
+6. Stateful/multi-turn orchestration.
+7. Semantic intermediate-progress protocol.
+8. Broader Gemini/Google execution support.
+9. Adapter-capability metadata beyond what the first two adapters demonstrate.
+<!-- END SOURCE: Orchestration/AIDE_Orchestration_Decisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Design_v1.md -->
+# AIDE Orchestration — Design v1 (DRAFT — for review)
+
+Status: proposed, not deployed. Awaiting Dave's read-through and decision batch before
+this becomes an accepted design. Cross-review not yet run.
+
+Input: `AIDE_Orchestration_WIP_v1.md` (original scoping), the Claude Code investigation
+findings (2026-09-15), and a design-shaping pass done in another AI session (2026-09-15,
+reconciled below). The investigation is treated as technical evidence; the design-shaping
+pass is treated as the model correction that resolves it against AIDE's component
+boundaries.
+
+Dependency note: the work queue places Orchestration after Build. Build has not yet had
+its design pass. This design does not depend on Build's internal structure — it treats
+anything Build hands it as opaque, caller-owned payload — so it can proceed, but the gap
+is worth naming rather than stepping over silently.
+
+---
+
+## Purpose
+
+Orchestration coordinates execution across AI surfaces and platforms. It moves work
+that another component already owns — its intent, its acceptance criteria, its
+verification policy — to an execution target capable of doing it, and brings the result
+back. It owns the crossing, not the work.
+
+## Objectives
+
+- **O1 — Cross-platform reach.** Let work defined in one AI surface (chat, Code) be
+  carried out on another (Claude Code's agent loop, Codex, other platforms) without the
+  originating surface needing to know the target's native invocation mechanics.
+- **O2 — Strict ownership boundary.** Never absorb task semantics, verification policy,
+  or response meaning from the components that use it. Orchestration is a Delivery-role
+  component; the Work-role components it serves keep authority over what "done" means.
+- **O3 — Reduce burden.** Delegating build and review work to Code and to external AI
+  reduces Dave's manual load as AIDE matures, in proportion to what's actually delegated
+  — not by building capacity ahead of demonstrated use.
+- **O4 — Evidence over assumption.** Design choices here are grounded in what was
+  actually tested (Agent SDK, Codex CLI), not in what documentation implied should work.
+
+## Charter alignment
+
+Serves the cross-platform applicability objective directly (O7 in Core Charter terms),
+contributes to trust and integrity (transport-level outcomes are honestly distinguished
+from task outcomes, so nothing is silently claimed as done that only completed transport),
+and to reduce-burden. The Charter's development principles govern throughout: build the
+smallest thing the objective demonstrably needs; do not add apparatus a principle didn't
+ask for; difficulty in implementation is a signal about the model, not a cue for
+cleverness.
+
+---
+
+## Model and approach
+
+### Central model — dispatch, not orchestration-of-work
+
+Orchestration does not describe or own the work being performed. It takes work already
+defined by its caller (the owning component or the human), dispatches it to an
+execution target through an adapter, and returns the result.
+
+```
+caller-owned work
+      │
+      ▼
+Orchestration (dispatch, adapter selection, invocation, correlation)
+      │
+      ▼
+target adapter
+      │
+      ▼
+execution target (Claude Code / Codex / other)
+      │
+      ▼
+result
+      │
+      ▼
+Orchestration
+      │
+      ▼
+caller
+```
+
+The caller retains ownership of: task semantics, specification/intent, acceptance
+criteria, work-package or build-package structure, verification policy, and the semantic
+meaning of the returned result.
+
+### What Orchestration owns
+
+Dispatch; invocation; transport/channel selection; target adapters; target-specific
+invocation mechanics; model-capability-level resolution; execution-endpoint interaction;
+correlation; transport/invocation failure; returning the recipient's result to the
+caller.
+
+### What Orchestration explicitly does not own
+
+Work-package structure; Build packages or other workflow artefacts; task types/work
+modes; verification policy; acceptance criteria; review semantics; Build's return
+semantics; generic response semantics; human/autonomy policy; model-capability-mapping
+*content* (owned by Core, see Resources below — Orchestration consumes it, doesn't own
+it).
+
+This narrows the wording currently carried in Core, which assigns Orchestration
+ownership of "work package structure, verification, and capability profiles." That
+wording needs correcting as part of accepting this design — flagged as a decision
+against Core, not silently absorbed here.
+
+### Dispatch, not Work Package
+
+The original scoping and the investigation both reached for a universal Work Package
+with a mandatory Verification Response shape. Under the ownership boundary above, that
+would make Orchestration own task semantics — which it explicitly must not. A dispatch
+is the thinner artefact that respects the boundary:
+
+```yaml
+dispatch_id: ...
+target: claude-code
+workspace: C:/dev/repos/example
+model:
+  level: high
+payload: ...
+```
+
+`payload` is opaque to Orchestration. It may be a Build handoff, a review request, a
+structured message, a plain instruction, or any other caller-owned artefact.
+
+### `workspace`
+
+The immediate requirement is the repository/project location the target should act on
+— the value that becomes `cwd`, `--cd`, or the equivalent on the target side. A single
+string field, not a broader execution-context object. A richer execution-context
+abstraction is only introduced if multiple genuinely related properties demonstrate the
+need (per the apparatus-avoidance principle) — not speculatively.
+
+### Response handling
+
+No universal Verification Response. Different callers own different return semantics —
+Build, review, and other external-AI interactions may need materially different
+response shapes. Orchestration returns the target's response to the caller without
+redefining what success means.
+
+**Transport outcome and task outcome are kept distinct:**
+
+```yaml
+dispatch_id: ...
+target: claude-code
+transport_status: completed
+response: ...
+```
+
+`transport_status: completed` means the invocation completed and returned a response.
+It does not mean the requested task succeeded — that judgement belongs to whichever
+component owns the work.
+
+### `response_schema` as adapter capability, not contract
+
+The Claude Agent SDK's `outputFormat` and Codex's `--output-schema` both support
+schema-constrained final output — this was confirmed technically by the investigation.
+It is not, on that account, an Orchestration objective. Structured output is a useful
+capability some adapters expose; if a caller owns a response contract and wants it
+enforced, Orchestration may pass that contract through to a target that supports it.
+It is never a mandatory part of the Orchestration contract itself.
+
+### Model capability selection
+
+The caller — human or AI — decides the required capability level; Orchestration does
+not run a classifier to infer it. Automatic model-selection is parked, not designed.
+
+A small, provider-independent vocabulary is used:
+
+```
+basic | standard | high | maximum
+```
+
+```yaml
+model:
+  level: high
+```
+
+An escape hatch allows requesting an exact provider model directly, for testing,
+comparison, or reproduction:
+
+```yaml
+model:
+  exact: provider-specific-model
+```
+
+`level` and `exact` are normally mutually exclusive.
+
+### Model-level resolution
+
+Orchestration maps a logical level to target-specific invocation settings — which may
+involve more than model identity (reasoning effort, execution mode, other
+provider-specific parameters). Two logical levels may legitimately resolve to the same
+native configuration where a provider doesn't currently expose a meaningful distinction.
+**The mapping content itself is not owned by Orchestration — see Framework Resources,
+below.**
+
+Execution results should retain the requested level, the resolved provider model, the
+resolved execution settings, and the resource/profile version used — so a past
+execution stays interpretable even after mappings later change.
+
+---
+
+## Framework Resources — a Core dependency, not an Orchestration artefact
+
+This model-mapping need exposed a pattern broader than Orchestration: the distinction
+between AIDE's durable behaviour/model and the volatile current knowledge that behaviour
+consumes (current platform list, current model-capability mappings, current defaults).
+
+**This belongs to Core, as a cross-cutting framework pattern — confirmed in this
+session's review, not decided here.** Orchestration is a consumer of Framework
+Resources, not its owner. This design records the dependency and the shape of what
+Orchestration needs from it; the Resources mechanism itself (naming, deployment cadence,
+contract) is Core's design pass to run, separately, and is out of scope for Orchestration
+v1.
+
+What Orchestration needs Resources to provide, indicatively:
+
+```yaml
+orchestration:
+  platforms:
+    claude-code:
+      defaultModelLevel: standard
+      models: { basic: ..., standard: ..., high: ..., maximum: ... }
+    codex:
+      defaultModelLevel: standard
+      models:
+        basic: { model: ..., reasoningEffort: low }
+        standard: { model: ..., reasoningEffort: medium }
+        high: { model: ..., reasoningEffort: high }
+        maximum: { model: ..., reasoningEffort: ... }
+```
+
+The actual schema is Core's to settle, kept as small as demonstrated need allows.
+
+**Settings vs Resources (also a Core-level distinction, noted here because
+Orchestration is a consumer of both):** Resources describe the default/current AIDE
+world (which platforms are supported); a portable user setting customises it for one
+person (e.g. `disabledOrchestrationPlatforms: [Gemini]`). Not critical to Orchestration
+v1 — noted so the boundary isn't invented ad hoc later inside Orchestration.
+
+---
+
+## Machine and execution-endpoint availability
+
+### Detection before configuration
+
+Availability of an execution target should normally be discovered, not configured. A
+local AIDE execution endpoint can determine whether `claude` exists, whether `codex`
+exists, whether required runtimes are installed, and whether auth appears usable.
+Effective availability is:
+
+```
+supported by Resources ∩ detected on this endpoint ∩ not explicitly disabled
+```
+
+Machine-specific configuration is only introduced where detection genuinely cannot
+represent a real requirement — not to describe facts that discovery already gives.
+
+### Capability availability is not execution-endpoint availability
+
+An AI session having the Orchestration capability does not imply it has access to a
+local execution endpoint. A web-only chat session may have none; one machine may have
+Claude Code and Codex both available, another only Claude Code. The execution endpoint
+exposes its own effective target list; the calling session queries it rather than
+inferring the environment itself:
+
+```yaml
+endpoint: david-laptop
+targets:
+  claude-code: { available: true }
+  codex: { available: true }
+  gemini: { available: false, reason: disabled }
+```
+
+Orchestration does not depend on a chat session discovering machine hostname,
+desktop-vs-web mode, installed executables, or environment variables directly. Where
+local machine state matters, the local AIDE runtime/endpoint is authoritative for it.
+
+### Local execution endpoint
+
+The local MCP/CLI bridge is an execution endpoint, not the Orchestration design itself.
+A future remote endpoint reachable from web-hosted sessions is conceivable but
+introduces networking, authentication, and security concerns well beyond v1's scope —
+explicitly deferred, not designed against.
+
+---
+
+## Implementation home
+
+Recommended: **`aide dispatch`**, inside the existing `aide` CLI, rather than a new
+standalone runtime. Infrastructure already owns the CLI host, settings loading, logging,
+and packaging/update plumbing for AIDE's tools. Orchestration owns dispatch behaviour,
+adapters, model-level resolution, and invocation semantics on top of that host. This was
+one of the investigation's open questions (standalone script vs Code skill vs Desktop
+Extension) — the existing CLI is a better answer than any of the three original options
+because it avoids standing up new infrastructure Orchestration doesn't need to own.
+
+## Target adapters
+
+First implementation stays small: `claude-code` and `codex`. An adapter converts stable
+dispatch semantics into native invocation details — e.g. for Codex, `model.level: high`
+resolves via current Resources to a native model plus `reasoning_effort: high`, then
+invokes `codex exec`.
+
+Gemini/Google support is additive, added when there's a sufficiently stable execution
+path — not required to block the first implementation. (The investigation found Gemini
+CLI's consumer/subscription auth path discontinued in June 2026, replaced by the early
+and less mature Antigravity CLI — this is a live reason for deferring rather than an
+arbitrary one.)
+
+## Statelessness
+
+Each dispatch is independently executable. Provider session IDs may be preserved as
+returned metadata where useful, but no AIDE session-management abstraction is built
+until a demonstrated workflow requires one. This was the investigation's own
+stateless-first position and is carried forward unchanged.
+
+## Intermediate progress
+
+No semantic progress protocol in v1. Provider event streams may be surfaced or logged
+opportunistically; the stable contract only needs to distinguish transport completion
+from transport failure. A richer progress model is added only if real usage demonstrates
+the need.
+
+---
+
+## FUP validation scenario
+
+Still the end-to-end transport test:
+
+```
+caller supplies work → Orchestration dispatches to Claude Code
+    → Claude Code runs `aide fup` → result returns
+```
+
+Exercises invocation, authentication, workspace passing, local tooling, execution,
+correlation, and return handling — the whole transport, without needing to prove
+anything about sophisticated build delegation at the same time.
+
+Do not reproduce FUP deployment logic inside Orchestration or inside the invoked agent.
+Use the existing `aide fup` unchanged. The investigation's proposed `--batch` flag for
+non-interactive deployment is not assumed necessary — current `aide fup` behaviour
+already avoids interactive waiting when no interactive console is present. Test the
+actual orchestrated invocation first; only change `aide fup` if a real failure
+demonstrates the need. This is the apparatus-avoidance principle applied directly: don't
+build the accommodation before the evidence that it's needed.
+
+## Messaging boundary
+
+Orchestration does not define a second generic messaging envelope. Messaging already
+owns structured communication and correlation semantics for cross-boundary
+communication. Where work needs to cross as structured text, Messaging's envelope
+carries the caller-owned request; Orchestration owns moving and invoking it. For direct
+programmatic execution, a dispatch is passed directly — no Markdown work-package doctype
+is invented to duplicate what Messaging already does.
+
+---
+
+## Two boundary confirmations carried forward from the design-shaping pass
+
+These were open in the original scoping and are treated as settled by this design,
+named explicitly per AIDE's own discipline (commit within the model; only surface a fork
+that genuinely isn't settled and materially shapes the design):
+
+- **Tier (autonomous vs heavyweight) is caller-owned, not Orchestration-owned.**
+  Orchestration dispatches; whether the surrounding workflow is autonomous or
+  Dave-driven-interactive is a property of the caller's process, not something
+  Orchestration decides or tracks. Risk-flagged external review for heavyweight work is
+  the caller's workflow calling Orchestration twice (plan review, build review), not a
+  special Orchestration mode.
+- **Routing (which tasks even get delegated, and to what threshold) is caller-owned.**
+  The original scoping had Orchestration holding a crude size/complexity threshold.
+  Under the narrowed ownership, the caller decides the target explicitly
+  (`dispatch.target: claude-code`). Orchestration doesn't run a router; it executes the
+  caller's routing decision.
+
+---
+
+## Proposed Core boundary wording (for Core's design pass, not adopted here)
+
+> **Orchestration — Coordinate execution across AI surfaces and platforms. Own
+> invocation, dispatch, transport/channel routing, execution-target adapters,
+> model-level resolution, correlation, and transport-level outcomes. Carry work defined
+> by other components without redefining its task, verification, or response
+> semantics.**
+
+This replaces the current Core wording that assigns Orchestration ownership of "work
+package structure, verification, and capability profiles" — that phrase needs to be
+corrected as a Core decision, tracked here as a dependency, not applied by this document.
+
+---
+
+## Deferred — not solved in this design, per demonstrated-requirement discipline
+
+1. Final naming of model capability levels (`basic/standard/high/maximum` proposed).
+2. Framework Resources schema and deployment mechanism — Core's design pass.
+3. Portable user/account settings mechanism and deployment.
+4. Any genuine machine-specific settings beyond environment discovery.
+5. Remote execution endpoints reachable from web-hosted sessions.
+6. Stateful/multi-turn orchestration.
+7. A semantic intermediate-progress protocol.
+8. Broader Google/Gemini execution support.
+9. Additional target-capability metadata beyond what the first two adapters demonstrate.
+
+---
+
+## Short-form model
+
+> Orchestration moves caller-owned work to another AI execution target and brings the
+> result back. The caller chooses the target and required logical model capability.
+> Orchestration resolves that request through current Framework Resources into
+> target-native invocation settings and executes it through an available endpoint.
+> Orchestration owns the crossing, not the work, its verification policy, or the
+> semantic meaning of the response.
+<!-- END SOURCE: Orchestration/AIDE_Orchestration_Design_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_UseCases_v1.md -->
+# AIDE Orchestration — Known Use Cases v1
+
+Purpose: every currently-known consumer of Orchestration, gathered from the scoping
+session, the investigation, and other components' completed design passes. For checking
+Design v1 against real demand — not a design document itself, and not a complete list
+forever, just what's known as of today.
+
+For each: what it needs, who the caller is, what tier/shape it implies, and whether
+Design v1's dispatch model covers it as written.
+
+---
+
+## 1. FUP delivery (the validation scenario)
+
+**What it is.** Deploying a File Update Package — currently a fully manual process
+(build a zip, write a manifest, hand it to Code, watch it run).
+
+**Caller.** Dave or chat, on behalf of whichever component produced the FUP.
+
+**Shape.** `task_type` not modelled explicitly in Design v1's dispatch (dispatch is
+target/workspace/model/payload only) — the FUP instruction is just payload. Target:
+`claude-code`. Runs `aide fup` unchanged (D14).
+
+**Checks against Design v1.** Covered directly — this is the scenario the design was
+built to prove end-to-end. No gap identified.
+
+---
+
+## 2. Build delegation
+
+**What it is.** "Apply this specification to the codebase" — an intent-level
+instruction, agent owns file discovery, edit planning, execution. The core case the
+whole Agent SDK investigation was run to prove.
+
+**Caller.** Build component (not yet designed) or chat directly, pending Build's design
+pass.
+
+**Shape.** Target: `claude-code`. Payload: whatever Build's eventual package shape is —
+opaque to Orchestration per D1/D2. `response_schema` optionally supplied by the caller
+if Build wants schema-constrained verification back (D5).
+
+**Checks against Design v1.** Covered in shape. **Open risk:** Build hasn't had its
+design pass yet, so nothing has actually exercised this end-to-end with a real Build
+payload. The FUP scenario proves transport; it doesn't prove build delegation's specific
+payload shape works through the same dispatch. Worth treating as a second validation
+scenario once Build exists, not assuming FUP coverage extends to it.
+
+---
+
+## 3. Cross-platform review
+
+**What it is.** Getting a second AI's opinion — code review, design review — via Codex
+or another platform, non-interactively. Currently done by hand (compose in chat, run
+`codex exec` manually, read the result back in).
+
+**Caller.** Any component whose workflow includes an external-review step — this
+already happens today for Standards/Tools/Messaging cross-review, done manually.
+
+**Shape.** Target: `codex` (confirmed working via investigation). `response_schema`
+optionally supplied since Codex's `--output-schema` is confirmed to support it.
+
+**Checks against Design v1.** Covered. This is the most immediately useful case to wire
+up first after FUP, since it's already a real, frequent, manual task.
+
+---
+
+## 4. Risk-flagged external review (heavyweight tier)
+
+**What it is.** For heavyweight work: plan reviewed by an external AI, build reviewed
+by an external AI, completion document written. Two review dispatches around one piece
+of Dave-driven interactive work.
+
+**Caller.** Whatever component defines the heavyweight workflow (Working Practices, most
+likely, per its ownership of working state and lifecycle).
+
+**Shape.** Two separate dispatches, target `codex` (or whichever platform), same shape
+as use case 3. Tier itself lives with the caller, not Orchestration (D16) — Orchestration
+just executes two ordinary review dispatches at points the caller's workflow decides.
+
+**Checks against Design v1.** Covered by composition of use case 3, twice, with no
+special Orchestration-side machinery. This is a good sign for D16 — the caller-owned
+tier decision genuinely doesn't need Orchestration to know about "heavyweight" as a
+concept at all.
+
+---
+
+## 5. Assurance's learning-loop queue writing
+
+**What it is.** Assurance's learning loop captures "measurable moments" for later
+pattern analysis. Its own design pass (accepted 2026-09-15) already settled the
+boundary: Infrastructure owns the plumbing, **Orchestration coordinates the invocation**,
+Assurance decides what to capture (Assurance D14).
+
+**Caller.** Assurance, indirectly — via whatever triggers a capture moment during a
+session.
+
+**Shape.** Unclear from Design v1 as written. "Coordinates the invocation" of a queue
+write doesn't obviously map to "dispatch work to an execution target and get a result
+back" — a queue write isn't naturally a cross-platform execution task, it's closer to a
+local persistence action. **Gap:** Design v1 doesn't address this case at all, and it's
+the one place another component's already-accepted design explicitly names Orchestration
+as responsible for something.
+
+**Action needed.** Either (a) queue-writing fits the dispatch model as a degenerate case
+(target could be "local," workspace the project root, payload the queue entry) and
+Design v1 should say so explicitly, or (b) it doesn't really fit and Assurance's D14
+wording needs revisiting once Orchestration's actual shape is settled. Flag for Dave —
+this is the first use case that doesn't obviously fit the model as drafted.
+
+---
+
+## 6. Improvement's periodic pattern analysis and scheduling
+
+**What it is.** The Improvement component (identified but not designed) analyses the
+learnings queue periodically and escalates findings. Its design note states "Orchestration
+provides scheduling mechanism," and both Improvement and Assurance's learning-loop
+recording are explicitly deferred until Orchestration is "completed and tested."
+
+**Caller.** Improvement (not yet designed).
+
+**Shape.** Unclear, same as use case 5 — "scheduling mechanism" isn't dispatch-shaped
+either. A scheduled/periodic trigger is a different kind of thing from a one-shot
+dispatch to an execution target.
+
+**Checks against Design v1.** **Gap, same family as use case 5.** Design v1 has nothing
+to say about recurring/scheduled invocation — it's implicitly single-shot,
+caller-initiated. Since Improvement's own design pass is explicitly blocked on
+Orchestration being done, this needs at least a stated position (in scope, deferred, or
+someone else's job) before Orchestration can honestly be called complete for AIDE's
+purposes — even if the position is "scheduling is Infrastructure's job, not
+Orchestration's, and Improvement should say so instead."
+
+---
+
+## 7. Search/collaboration tasks (open-ended, non-review)
+
+**What it is.** Looser requests to another platform that aren't quite review — "does
+this pattern exist elsewhere," "sanity-check this approach." Named in the original
+scoping as a `task_type` (`search`, `collaborate`) but not otherwise elaborated.
+
+**Caller.** Chat, ad hoc — this is closer to how the GPT design-shaping handoff itself
+was used just now, informally, outside any AIDE mechanism.
+
+**Shape.** Same as use case 3 in dispatch terms — target, workspace, payload, optional
+schema. Nothing distinguishes it structurally from cross-platform review; the difference
+is purely in what the payload asks for.
+
+**Checks against Design v1.** Covered — and this is a useful confirmation that
+`task_type` doesn't need to exist as an Orchestration-level field at all (consistent
+with D1/D2: task semantics are the caller's business, not Orchestration's).
+
+---
+
+## Summary — where Design v1 stands against known demand
+
+| Use case | Fit | Notes |
+|---|---|---|
+| 1. FUP delivery | Covered | The proven scenario |
+| 2. Build delegation | Covered in shape, unproven in practice | Needs Build's design pass before it's truly tested |
+| 3. Cross-platform review | Covered | Already a real manual task, highest-value first wire-up |
+| 4. Risk-flagged review (heavyweight) | Covered by composition | Confirms D16 was the right call |
+| 5. Assurance learning-loop queue writing | **Gap** | Doesn't obviously fit the dispatch model; needs a stated position |
+| 6. Improvement scheduling | **Gap** | Recurring/scheduled invocation isn't addressed at all; Improvement's own design is blocked on this |
+| 7. Search/collaboration | Covered | Confirms task-type doesn't need to be an Orchestration concept |
+
+**Two real gaps, both the same shape:** Design v1 covers one-shot, caller-initiated,
+cross-platform execution well. It says nothing about local/non-execution invocation
+(queue writes) or recurring/scheduled invocation. Both were named as Orchestration's job
+by other components' already-accepted designs, so this isn't optional scope creep to
+wave away — it's existing debt against the design as currently drafted.
+
+**Recommendation for the morning read:** decide, for each gap, one of — (a) genuinely
+Orchestration's job and Design v1 needs a section for it, (b) belongs to Infrastructure
+or another component and the other component's wording needs correcting, or (c)
+deferred with a stated reason, same as the nine already-deferred items. Don't let
+either gap get resolved by assumption the way the original Core wording did.
+<!-- END SOURCE: Orchestration/AIDE_Orchestration_UseCases_v1.md -->
 
 ---
 
