@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 82** (2026-09-16).
+> **Binder Version 83** (2026-09-16).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -24,6 +24,7 @@ individual files.
 - `AIDE_Orchestration_Investigation_Findings.md` - sha256 `e7c281c19fb4`
 - `AIDE_Solution_Map.md` - sha256 `3c2294f7ae2b`
 - `Assurance/_index.md` - sha256 `fde4b0521828`
+- `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `b8b37eb9fa3a`
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
 - `Core/_index.md` - sha256 `8746bf38a3fa`
@@ -4950,6 +4951,71 @@ Assurance builds justified trust in AI-assisted work by defining the conventions
 
 None declared.
 <!-- END SOURCE: Assurance/_index.md -->
+
+---
+
+<!-- BEGIN SOURCE: Assurance/AIDE_Assurance_Cases_Working_v1.md -->
+# AIDE Assurance — Cases Working v1
+
+Status: informal working document, not a designed artefact. Assurance's learning loop
+is designed but not built — it depends on a hosted queue service that doesn't exist
+yet (see Infrastructure's "hosted AIDE services" sub-scope,
+`AIDE_Infrastructure_MCPDeliveryModel_v1.md`). This document is a stand-in place to
+park candidate learning-loop entries as they come up, so they aren't lost between now
+and whenever that service exists and the real schema is designed.
+
+Nothing here is a finished entry in Assurance's eventual format — that format hasn't
+been designed yet. Each case below is written at whatever level of detail made sense
+when it was captured, for a human (or Improvement, later) to review and decide whether
+it's worth carrying forward.
+
+---
+
+## Case 1 — Search before building, when documentation and reality diverge
+
+**Captured:** 2026-09-16, during Orchestration's MCP-delivery investigation.
+
+**Pattern observed.** Twice in one investigation session, a documented Anthropic
+feature (marketplace-plugin MCP servers, Desktop Extensions) didn't behave as
+documented on first build. Both times, the response was another round of
+build-and-debug — real, useful learning (stdio framing, path variables, executable
+resolution) — rather than a web search for prior reports of the same divergence. The
+actual breakthrough on the hardest sub-problem (Chat not receiving plugin-delivered
+MCP tools) came from a deep search turning up multiple independent GitHub issue
+reproductions confirming it as a known platform bug — not from further local
+debugging.
+
+**Why it recurred.** The trigger — "documentation says X, live test shows not-X" —
+was present both times and wasn't treated as a search cue either time. It took an
+explicit, separate request to get the search done.
+
+**Candidate recommendation.** When a documented feature repeatedly fails to behave as
+documented, treat that specifically as a search-first trigger, before further
+build-and-test iteration. This is different from general "search when unsure" advice —
+it's a specific, recognisable pattern (docs say X, reality says not-X, more than once)
+with a specific fix (check for known issues before debugging further).
+
+**Related observation, same session.** A tendency to offer multiple competing
+hypotheses in parallel when a test result was ambiguous, rather than picking the
+cheapest one to test and running it down first. Slowed convergence — needed one test
+per hypothesis instead of one test settling it. Also: a numbered design decision (D10,
+Orchestration's implementation home) was committed before any testing occurred, then
+had to be substantially rewritten once real evidence came in. Worth distinguishing
+"leading candidate, untested" from a committed decision with more care, given this
+project's own stated discipline is test-before-commit.
+
+**Status.** Unreviewed. Parked here pending Improvement's design pass and the hosted
+queue existing.
+
+---
+
+## Adding a case
+
+Each entry: what happened, why it recurred (if it did), a candidate recommendation if
+one's obvious, and status (unreviewed / reviewed-kept / reviewed-dropped). Don't force
+a schema beyond that — the real schema is Improvement and the hosted-service design's
+job, not this document's.
+<!-- END SOURCE: Assurance/AIDE_Assurance_Cases_Working_v1.md -->
 
 ---
 
