@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v21 | 2026-09-17
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v23 | 2026-09-17
 
 ## Active threads
 
@@ -12,7 +12,7 @@ Note: PD_Schema_Standard_v1 was authored against the old Schema Standard v4 prop
 
 Old-material pass (WP1–WP13 from old corpus) not yet run — required before WP can be called complete per the rebuild method and F10.
 
-WP schema definitions not yet written — doctypes (WIP, working document, report, resource) and block types (work item, work plan) need formal definitions per the documentation methodology schema contract.
+WP schema definitions not yet written — doctypes (WIP, working document, report, resource, board) and block types (work item) need formal definitions per the documentation methodology schema contract.
 
 ---
 
@@ -64,11 +64,13 @@ Three superseded draft standards removed from the binder. The naming convention 
 
 Completed 2026-09-15. WP_Brief_v1, WP_Design_v1, WP_Decisions_v1 authored. Check 1 passed with noted gaps (FileOps parked, lifecycle modes thin, old-material pass pending).
 
+**Cross-reviewed 2026-09-17.** Three rounds via ChatGPT, 14 findings total, all resolved. Final documents: WP_Brief_v2, WP_Design_v5, WP_Decisions_v3 (20 decisions, D18–D20 from cross-review remediation).
+
 Key outcomes:
 - Assurance extracted as a new top-level component (Guidance role) and framework-wide requirement in Core (D1, D16)
 - Capture-and-place elevated to WP component level with proactive knowledge preservation (D12)
 - Workflow commands replace session-transition commands as broader concept (D11)
-- Working State absorbs Work Lifecycle (D3) — WIP three-role model, work items, work plan with named workstreams, pending content
+- Working State absorbs Work Lifecycle (D3) — WIP three-role model, work items, board (settled name; design session starting — replaces "work plan with named workstreams"), pending content
 - Capture and Organisation dissolved — content moved to WP component level and Working State (D2)
 - Human-AI Collaboration dissolved — content moved to Assurance component (D1)
 - Definition of done elevated to Core framework-wide requirement (D4)
@@ -78,7 +80,7 @@ Key outcomes:
 - Verification behaviours placed in Assurance (D8)
 - FileOps dissolved — content redistributed to WP component level, Core Structure, Infrastructure, and Build (D17, superseding D14)
 
-Seventeen decisions recorded (D1–D17). FileOps dissolved (D17) — content redistributed to WP component level, Core Structure, Infrastructure, and Build. Pending: old-material pass, schema definitions, standard authoring.
+Twenty decisions recorded (D1–D20, with D18–D20 from cross-review remediation). FileOps dissolved (D17) — content redistributed to WP component level, Core Structure, Infrastructure, and Build. Pending: old-material pass, schema definitions, standard authoring.
 
 ---
 
@@ -175,6 +177,8 @@ The `user_instructions` message should display after the deploy success statemen
 
 Confirmed via three tested probes (dispatch-probe, mcp-ping-test v1.0.0–v1.0.3). Includes the working configuration (marketplace plugin for Code/Cowork, `claude_desktop_config.json` entry for Chat), five known platform issues with workarounds, and the `.mcpb` Desktop Extension approach as a deprioritised fallback. Not yet a formal design document — carry forward for Infrastructure's design pass, including the open question of whether the Chat bootstrap step should be automated (e.g. `aide mcp-register`).
 
+**Deploy repo PR requirement (2026-09-17).** All changes to `DigitalBusiness-AIDE-Deploy` must go through a PR and merge — direct commits to `main` do not trigger plugin updates. This is a hard build/deployment requirement, not a workflow preference. The Documentation repo (`DigitalBusiness-AIDE`) uses direct commits. Discovered during the Messaging skill rebuild when a direct commit did not propagate; corrected via revert and PR #3. The delivery model doc (v2) lists "merge PR" as a step but does not flag it as mandatory for update propagation — needs explicit statement as a build constraint in the update path section. Carry for when the doc is next worked (Infrastructure design pass or sooner).
+
 **v2 update (2026-09-17):** Registration-path distinction added as known issue #7 — two separate registration paths exist (desktop app Settings → Plugins → Discover for Code tab MCP tools; claude.ai web UI Settings → Plugins for account-level server-side skill mount at `/mnt/skills/plugins/`). Both needed for full three-surface coverage. Missing `%APPDATA%\Claude` path documented as issue #8. MSIX section corrected. "Skill delivery to chat" section added.
 
 **Phase 1 deployed (2026-09-17).** Plugin marketplace `digitalbusiness-aide` live on `DigitalBusiness-AIDE-Deploy` (PR #1 merged). `aide` plugin: dispatch MCP server (claude-code and codex targets) + design-check and messaging skills — confirmed working on Code, Cowork, and Chat. `aide-dev` plugin: scaffold only, no skills yet. Blocking issue resolved: skills require web UI registration (account-level) in addition to desktop app registration (Code tab only). See `_rebuild/Deployment_Plugin_Working_v1.md` for the full plugin structure, skill-to-plugin allocation, and phased rollout plan.
@@ -186,9 +190,15 @@ Confirmed via three tested probes (dispatch-probe, mcp-ping-test v1.0.0–v1.0.3
 - ~~Remove old test probes from account via web UI~~ — done.
 - ~~Test update propagation~~ — confirmed during troubleshooting.
 
-### Phase 2 — deploy completed standards as skills (in progress)
+### Phase 2 — deploy completed standards as skills — DONE
 
-Eight skills to author from cross-reviewed, accepted standards and deploy to `aide` and `aide-dev` plugins. Code session. See `_rebuild/Deployment_Plugin_Working_v1.md` for the full allocation table.
+Eight skills authored from cross-reviewed, accepted standards and deployed to `aide` (5: principles, docmeth, docmeth-schema-definitions, standards-consumption, pd-standard) and `aide-dev` (3: standards-authoring, tools-authoring, docmeth-schema-authoring). Confirmed on all three surfaces (Code, Cowork, Chat). PR #2 merged.
+
+**Messaging skill rebuilt (Phase 2 completion).** The Phase 1 messaging skill was a legacy migration. Rebuilt from the accepted Messaging standard v4 and tool v4 — legacy content replaced (obligations register, envelope Lifecycle field, Capability/Element model, `/msg-*` command vocabulary). PR #3 merged. Messaging `_index.md` updated to reference v4 masters (commit `253c6fc`).
+
+### Phase 3 — rolling deployment
+
+Scoped as rolling deployment as standards land, not a batch. Immediately actionable: Assurance standard authoring (design v3 accepted, no blocker). WP standard blocked on cross-review return. Build standard and `db-aide-info` resources plugin remain parked by design.
 
 ---
 
@@ -327,7 +337,7 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 | Tools Authoring Standard v7 (Design v6, Decisions v7) | Authoring rules reference, incorporation contract, scope | **Accepted** — three rounds (10 findings resolved, 1 carried to Standards). Published 2026-09-14 |
 | Principles premise strengthenings (P3, P4) | Three candidate strengthenings from design-approach work (F12 pattern) | **Accepted** — F1 remediated (false-exclusive), F2 remediated (D10 wording), F3 remediated (D11 wording). Published 2026-09-15 |
 | Standards acceptance-test wording (ambient context) | Framework-contract issue exposed by Tools cross-review | **Accepted** — F1 defect (definition), F2 defect (guaranteed wording), F3 concern (Tools sync) — all remediated. Published 2026-09-15 |
-| WP Design v1 (Brief v1, Decisions v1) | WP design pass — new component model, Assurance extraction, 17 decisions | **Pending cross-review** — longest-standing pending item, no blocker, recommended to start now |
+| WP Design v5 (Brief v2, Decisions v3) | WP design pass — new component model, Assurance extraction, 20 decisions | **Accepted** — three rounds via ChatGPT (14 findings resolved). Carry: D19 — PD sufficiency contract needs composite-authority amendment. Published 2026-09-17 |
 | Assurance Design v3 (Decisions v3) | Assurance design pass — three-layer behavioural model, autonomy tiering, confidence vocabulary, learning loop, 14 decisions | **Accepted** — three rounds (19 findings resolved). Published 2026-09-15 |
 | Core_Design_v2, Core_AIDEMap_v2 (WP carries) | Six WP-design-pass carries applied to Core — definition of done, Assurance as framework requirement, P6 as ownership rule, component map updates, archived folder convention, git-as-history | **Not cross-reviewed** — deployed via FUP 2026-09-15. Known stale: WP purpose line in component map predates Assurance extraction |
 | Orchestration Design v1 (Decisions v1, UseCases v1) | Draft — dispatch model, ownership narrowing, empirically tested MCP delivery mechanism, 19 decisions | **Not yet submitted for cross-review** — Build blocker now resolved (Build design pass done). Submittable once Build's own cross-review validates the boundaries Orchestration depends on |
@@ -335,4 +345,4 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 
 ---
 
-Version note: v21 — Phase 1 outstanding items all resolved (directory structure confirmed correct, probes cleaned, propagation tested). Phase 2 skill authoring started. Work register tracking convention for deployed skills added under Build. Cross-review register updated: Core_Design_v2/Core_AIDEMap_v2 WP carries added (not cross-reviewed, deployed via FUP), Orchestration blocker noted as resolved, WP Design v1 flagged as ready to start. 2026-09-17. Replaces v20.
+Version note: v23 — Messaging skill rebuilt from accepted standard v4 + tool v4 (Phase 2 completion, PR #3). Phase 2 fully closed; Phase 3 scoped as rolling deployment. Board name settled (replaces "work plan with named workstreams"; design session starting). Deploy repo PR requirement identified and documented as Infrastructure carry. WP decision count corrected (17 → 20). WP schema definitions updated (work plan → board as doctype). 2026-09-17. Replaces v22.
