@@ -243,3 +243,18 @@ folders processed: 17
 Result: 2 deleted
 ========================================================================
 
+========================================================================
+version cleanup   2026-09-17 01:46:58   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 17
+------------------------------------------------------------------------
+
+[Working Practices]
+  DELETED       WP_Brief_v1.md  (v1 superseded by v2)
+  DELETED       WP_Decisions_v2.md  (v2 superseded by v3)
+  DELETED       WP_Design_v2.md  (v2 superseded by v3)
+
+------------------------------------------------------------------------
+Result: 3 deleted
+========================================================================
+
