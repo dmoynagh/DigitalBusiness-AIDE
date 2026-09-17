@@ -360,3 +360,16 @@ folders processed: 18
 Result: 2 deleted
 ========================================================================
 
+========================================================================
+version cleanup   2026-09-17 17:16:40   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 18
+------------------------------------------------------------------------
+
+[Project Design]
+  DELETED       ProjectDesign_Standard_v4.md  (v4 superseded by v5)
+
+------------------------------------------------------------------------
+Result: 1 deleted
+========================================================================
+
