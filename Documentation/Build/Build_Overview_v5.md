@@ -1,4 +1,4 @@
-> identity: Build_Overview@v4 | doctype: overview | updated: 2026-09-17
+> identity: Build_Overview@v5 | doctype: overview | updated: 2026-09-17
 
 # Build — Overview
 
@@ -16,7 +16,7 @@ A caller sends a build package — instruction, decision scope, profile referenc
 
 - **The build mechanism** — caller, package, execution, return. The generic framework applying to every build, regardless of target.
 - **Build standards and profiles** — composable, target-specific conventions authored on the Standards methodology; a profile names and orders a stack of them.
-- **The review activation model** — dual-sourced (caller and profile), work-level-driven. Pre- and post-execution review points, activated proportionally to consequence and complexity.
+- **The review activation model** — dual-sourced (caller and profile-composed build standards), work-level-driven. Pre- and post-execution review points, activated proportionally to consequence and complexity.
 - **The proactive feedback obligation** — surfacing implications, disproportionate cost, and potential design-review situations, unprompted.
 
 ## Behavioural obligations
@@ -55,7 +55,7 @@ FUP absorption timing. Documentation folder structure ownership. Work-scope stru
 
 ## Document set
 
-Brief v4, Design v6, Decisions v6 (D1–D34), Overview v4. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise.
+Brief v4, Design v7, Decisions v7 (D1–D34), Overview v5. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise.
 
 ---
 
@@ -64,3 +64,5 @@ Version note: v2 — cross-review remediation. F4: build package elements update
 Version note: v3 — cross-review round 2. F4: package elements updated to nine. F8: framework payload output corrected to platform-neutral. F10: stale "until it has a consumer" replaced with sequencing rationale. 2026-09-17. Replaces v2.
 
 Version note: v4 — cross-review round 3. F4: model paragraph updated — working target now conditional. 2026-09-17. Replaces v3.
+
+Version note: v5 — cross-review round 4. F6 terminology: "caller and profile" corrected to "caller and profile-composed build standards." 2026-09-17. Replaces v4.

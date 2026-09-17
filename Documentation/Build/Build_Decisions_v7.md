@@ -1,4 +1,4 @@
-> identity: Build_Decisions@v6 | doctype: decisions | updated: 2026-09-17
+> identity: Build_Decisions@v7 | doctype: decisions | updated: 2026-09-17
 
 # Build — Decisions
 
@@ -217,7 +217,7 @@ Document persistence is the most frequent current build activity and is a real c
 
 ## D33. Work-level interim vocabulary
 
-Build requires an orderable work-level concept for review activation. Until the cross-cutting model is defined, Build uses a four-level qualitative scale — trivial, routine, significant, high-consequence — with the ordering implied by that sequence and a highest-governs resolution rule across caller, profile and build assessment. This is a working definition, not a claim on the cross-cutting model.
+Build requires an orderable work-level concept for review activation. Until the cross-cutting model is defined, Build uses a four-level qualitative scale — trivial, routine, significant, high-consequence — with the ordering implied by that sequence and a highest-governs resolution rule across caller, profile-composed build standards and build's own assessment. This is a working definition, not a claim on the cross-cutting model.
 
 ## D34. Scalability operational semantics
 
@@ -230,3 +230,5 @@ Version note: v4 — cross-review remediation. D14: element count corrected to s
 Version note: v5 — cross-review round 2. D14: element count updated to nine (four optional). D16: delivery model corrected to delivery-neutral. D2, D18: "channel" → "build domain". 2026-09-17. Replaces v4.
 
 Version note: v6 — cross-review round 3. D14: working target reclassified as conditional (F4). D26, D27: "profile policy" corrected to "build standards in the profile" (F6). 2026-09-17. Replaces v5.
+
+Version note: v7 — cross-review round 4. D33: "profile" corrected to "profile-composed build standards" (F6). 2026-09-17. Replaces v6.

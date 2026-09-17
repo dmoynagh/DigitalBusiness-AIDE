@@ -1,4 +1,4 @@
-> identity: Build_Design@v6 | doctype: design | updated: 2026-09-17
+> identity: Build_Design@v7 | doctype: design | updated: 2026-09-17
 
 # Build — Design
 
@@ -62,7 +62,7 @@ A build package composes nine elements. Four — instruction, decision scope, pr
 - **Intermediate exchange support** — whether the caller supports mid-execution questions and responses. Absent means not supported.
 - **Transaction model** — commit, rollback and partial-completion expectations, where the caller wants to override the profile's default. Consumers fill the content; the invariant is that it must be something you can actually check against.
 - **Review requirement** — caller-specified review expectations for this build, where the caller wants to raise review above the floor set by the profile's build standards. Absent means the standing policy in the profile's build standards governs alone.
-- **Work-level declaration** — the caller's assessment of this work's consequence and complexity. Combined with profile policy and build's own assessment; the highest governs. Absent means the profile and build determine work level.
+- **Work-level declaration** — the caller's assessment of this work's consequence and complexity. Combined with the build standards in the profile and build's own assessment; the highest governs. Absent means the profile's build standards and build's own assessment determine work level.
 
 #### Sufficiency
 
@@ -229,7 +229,7 @@ The consequence and complexity of the work — its **work level** — drives whi
 The work level is sourced from three inputs:
 
 - **Caller declaration** — stated in the build package.
-- **Profile policy** — standing rules for the domain.
+- **Profile-composed build standards** — standing conventions for the domain.
 - **Build's own assessment** — what it discovers about the work during planning or execution.
 
 The highest applicable level governs. Work level is not exclusive to Build — the same concept applies to design, deployment, research and other areas; Build implements it within its own context. See D27.
@@ -363,7 +363,7 @@ The build standard is a standard authored under the Standards methodology. The p
 | **Documentation root** | The contained root of documentation for a project or area — a folder, not a repo. Replaces "doc repo." |
 | **Instruction** | The caller's per-task ask — prescriptive to intent-level. |
 | **Decision scope** | The caller-granted latitude and authority for the build to make its own calls. |
-| **Work level** | The consequence and complexity of a piece of work, sourced from caller declaration, profile policy or build's own assessment — the highest governs. Drives review activation. |
+| **Work level** | The consequence and complexity of a piece of work, sourced from caller declaration, profile-composed build standards or build's own assessment — the highest governs. Drives review activation. |
 
 ---
 
@@ -392,3 +392,5 @@ Version note: v4 — cross-review remediation. F4: build package canonical contr
 Version note: v5 — cross-review round 2. F4: review requirement and work-level declaration added as optional package elements (nine total). F6: level-to-review mapping assigned to profile. F8: Build output corrected to accepted standard/tool document (Infrastructure transforms to delivery format). F9: applicability paragraph delivery-neutralised. F10: stale "when it has a consumer" replaced with D32's corrected sequencing rationale. F13: stale DocMeth pattern reference removed. 2026-09-17. Replaces v4.
 
 Version note: v6 — cross-review round 3. F4: working target reclassified as conditional (four always-relevant, five conditional). F6: review/work-level mapping moved from profile to build standards in the profile stack — profiles remain structural-only per D7. 2026-09-17. Replaces v5.
+
+Version note: v7 — cross-review round 4. F6 terminology: remaining "profile policy" references corrected to "build standards in/composed by the profile." 2026-09-17. Replaces v6.
