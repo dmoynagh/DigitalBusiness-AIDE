@@ -1,6 +1,6 @@
 # Working Practices
 
-Role: component design
+Role: component design, project design
 Aliases: WP, workprac
 
 Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
@@ -20,9 +20,3 @@ WP operates at two levels. At component level, capture-and-place, operational to
 
 **Boards** (prefix `WP_Boards_`)
 How work is tracked across its full lifecycle — boards as scoped task records with zones, dependencies, work sets, and AI maintenance. Supersedes the work plan (D10).
-
-## Working documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| WP_WorkManagement_ | Working v1 | working |

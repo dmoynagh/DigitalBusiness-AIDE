@@ -1,6 +1,6 @@
 # Core
 
-Role: component design
+Role: component design, project design
 Aliases: none
 
 Core is the root entry to AIDE — the framework's self-description, component model, framework-wide requirements, and the map to all components. A reader arriving at AIDE reads Core to understand what AIDE is, what a component is, what the framework expects, and where to find any specific component's design.
@@ -22,7 +22,7 @@ Core is the root entry to AIDE — the framework's self-description, component m
 | Core_ | Design v5 | design |
 | Core_ | Decisions v1 | decisions |
 | Core_ | Schema Standard v3 | standard |
-| Core_ | AIDEMap v2 | reference |
+| Core_ | AIDEMap v3 | reference |
 | Core_ | Tags Working v1 | working |
 
 ## Parts
