@@ -1,4 +1,4 @@
-> identity: Build_Brief@v2 | doctype: brief | updated: 2026-09-17
+> identity: Build_Brief@v3 | doctype: brief | updated: 2026-09-17
 
 # Build — Brief
 
@@ -19,11 +19,11 @@ Build is the transition to execution. When something has been defined — in des
 **In scope:**
 
 - The build mechanism — caller, instruction, decision scope, sign-off, return.
-- Build standards — composable documents carrying the how for a build channel, authored on the existing Standards methodology.
+- Build standards — composable documents carrying the how for a build domain, authored on the existing Standards methodology.
 - Profiles — structural containers naming an ordered stack of build standards for a target.
 - The build act — the common spine: instruction crosses, agent discovers, edits, records, returns.
 - Build's contribution to the assurance requirement — implementing Assurance's goals by behaviour.
-- The known build activities: software development (.NET focus initially), document persistence, framework payload outputs (standards and tools into skills and packages), framework utility outputs.
+- The known build activities: software development (.NET focus initially), document persistence, framework payload outputs (authoring standards and tools into their accepted form), framework utility outputs.
 
 **Out of scope:**
 
@@ -62,3 +62,5 @@ Build sits under the Work role. It directly serves O1 (trust and integrity) thro
 ---
 
 Version note: v2 — cross-review remediation. F1: Requirements section added. F2: Charter alignment corrected against Core_Charter_v1 (O2 and O3 were misattributed). 2026-09-17. Replaces v1.
+
+Version note: v3 — cross-review round 2. F8: scope corrected to platform-neutral output (Build authors accepted standards/tools, Infrastructure transforms to delivery format). F14: remaining "build channel" → "build domain". 2026-09-17. Replaces v2.

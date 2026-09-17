@@ -1,4 +1,4 @@
-> identity: Build_Decisions@v4 | doctype: decisions | updated: 2026-09-17
+> identity: Build_Decisions@v5 | doctype: decisions | updated: 2026-09-17
 
 # Build — Decisions
 
@@ -14,7 +14,7 @@ When files get created or modified, that is Build. Adopted as a strong conventio
 
 ## D2. One act, not separate paths
 
-Build is one common act — instruction crosses, agent discovers, edits, records, returns — with target-specific conventions layered on via build standards. The alternative was four or more discrete build paths with separate methodologies. Rejected because the act is the same; what differs is the verification and convention, which belongs in build standards for each channel. The common act is the build mechanism; the target contributes its specifics through build standards composed into a profile.
+Build is one common act — instruction crosses, agent discovers, edits, records, returns — with target-specific conventions layered on via build standards. The alternative was four or more discrete build paths with separate methodologies. Rejected because the act is the same; what differs is the verification and convention, which belongs in build standards for each build domain. The common act is the build mechanism; the target contributes its specifics through build standards composed into a profile.
 
 **Caution recorded:** this holds for current scope but may not fit all future build domains. The model should support extension without disproportionate cost now — "a hammer that can grow to be a sledgehammer."
 
@@ -78,7 +78,7 @@ This means Build defines no new doctypes or block types. It consumes the definit
 
 ## D14. Build package contents derived from PD's handoff
 
-The build package composes seven elements: instruction, decision scope, working target, profile reference, definition of done, intermediate-exchange support and transaction model. The first five were surfaced in the initial design session; intermediate exchanges (D21) and the transaction model (D23) were added as the design developed. They are Build's resolution of PD's sufficiency contract. PD specifies a format-free handoff with a sufficiency floor and ceiling; these seven elements are the semantic fields Build identifies as the content that satisfies that contract.
+The build package composes nine elements. The first five — instruction, decision scope, working target, profile reference, definition of done — are always relevant. The remaining four — intermediate-exchange support, transaction model, review requirement and work-level declaration — are present where applicable. The first five were surfaced in the initial design session; intermediate exchanges (D21) and the transaction model (D23) were added as the design developed; review requirement and work-level declaration were added to make explicit what the review activation model (D26, D27) already implied the package must carry. They are Build's resolution of PD's sufficiency contract. PD specifies a format-free handoff with a sufficiency floor and ceiling; these nine elements are the semantic fields Build identifies as the content that satisfies that contract.
 
 The ceiling rule (from PD's Standard) applies equally: do not re-supply generic execution-platform knowledge the build environment already provides. The profile already carries the standing conventions; the package carries only what is specific to this task.
 
@@ -90,7 +90,7 @@ This keeps Build decoupled from Orchestration's transport concerns and avoids re
 
 ## D16. Build standards follow the Standards methodology
 
-Build standards are authored on the same Standards methodology — same schema, same eight authoring rules, same strength model, same delivery mechanism (skills loaded into AI context). They are subgrouped as "build standards" for delineation, not forked into a separate authoring approach.
+Build standards are authored on the same Standards methodology — same schema, same eight authoring rules, same strength model, delivered through the ordinary Standards delivery model — triggered skills, binder content, or project context. They are subgrouped as "build standards" for delineation, not forked into a separate authoring approach.
 
 **Why not a separate methodology:** Standards already solved the authoring problem. The eight rules (carry test, no-consumer-no-rule, leanness, discriminating guidance, strength assignment, self-containment, applicability scope, name-your-principles) apply identically to build conventions. Forking would duplicate work and create divergence risk for no demonstrated benefit.
 
@@ -117,7 +117,7 @@ Build implements four Assurance conventions by behaviour:
 
 Plus the standing **active identification** obligation — Build identifies opportunities where assurance could be strengthened within its domain.
 
-These are Build's contribution to the assurance requirement, implementing Assurance's goals by behaviour. The specific verification checks a channel needs live in its build standards — so the .NET build standard might specify test coverage expectations, while the documentation-update build standard might specify schema validation. The mechanism (verify by behaviour) is common; the content varies by target.
+These are Build's contribution to the assurance requirement, implementing Assurance's goals by behaviour. The specific verification checks a build domain needs live in its build standards — so the .NET build standard might specify test coverage expectations, while the documentation-update build standard might specify schema validation. The mechanism (verify by behaviour) is common; the content varies by target.
 
 ## D19. Assurance lifecycle weighting consumed
 
@@ -226,3 +226,5 @@ At the small end of the build spectrum, most package elements are implicit — d
 ---
 
 Version note: v4 — cross-review remediation. D14: element count corrected to seven, PD provenance restated as Build's resolution of PD's sufficiency contract (F4, F12). D23: transaction guarantee made conditional on target capability (F7). D30: incorrect DocMeth analogy removed, restated under Core ownership model (F13). D32: rationale corrected from "no consumer" to sequencing (F10). D33: work-level interim vocabulary (F6). D34: scalability operational semantics (F11). "Build channel" → "build domain" where applicable (F14). 2026-09-17. Replaces v3.
+
+Version note: v5 — cross-review round 2. D14: element count updated to nine (four optional). D16: delivery model corrected to delivery-neutral. D2, D18: "channel" → "build domain". 2026-09-17. Replaces v4.
