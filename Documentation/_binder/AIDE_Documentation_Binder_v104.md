@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 103** (2026-09-17).
+> **Binder Version 104** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -29,10 +29,10 @@ individual files.
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
 - `Assurance/Assurance_Standard_v1.md` - sha256 `82253cd4d2c8`
-- `Build/Build_Brief_v2.md` - sha256 `b5ffc69ccba8`
-- `Build/Build_Decisions_v4.md` - sha256 `1af1c5250503`
-- `Build/Build_Design_v4.md` - sha256 `a436dfd80ad6`
-- `Build/Build_Overview_v2.md` - sha256 `4704378e1a10`
+- `Build/Build_Brief_v3.md` - sha256 `b5ffc69ccba8`
+- `Build/Build_Decisions_v5.md` - sha256 `3452c2547149`
+- `Build/Build_Design_v5.md` - sha256 `8de1f496eeb7`
+- `Build/Build_Overview_v3.md` - sha256 `f01c73137a47`
 - `Core/_index.md` - sha256 `8746bf38a3fa`
 - `Core/Core_AIDEMap.md` - sha256 `5f8331b0988d`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
@@ -5689,7 +5689,7 @@ Version note: v1 — authored from Assurance_Design@v3 and Assurance_Decisions@v
 
 ---
 
-<!-- BEGIN SOURCE: Build/Build_Brief_v2.md -->
+<!-- BEGIN SOURCE: Build/Build_Brief_v3.md -->
 > identity: Build_Brief@v3 | doctype: brief | updated: 2026-09-17
 
 # Build — Brief
@@ -5756,12 +5756,12 @@ Build sits under the Work role. It directly serves O1 (trust and integrity) thro
 Version note: v2 — cross-review remediation. F1: Requirements section added. F2: Charter alignment corrected against Core_Charter_v1 (O2 and O3 were misattributed). 2026-09-17. Replaces v1.
 
 Version note: v3 — cross-review round 2. F8: scope corrected to platform-neutral output (Build authors accepted standards/tools, Infrastructure transforms to delivery format). F14: remaining "build channel" → "build domain". 2026-09-17. Replaces v2.
-<!-- END SOURCE: Build/Build_Brief_v2.md -->
+<!-- END SOURCE: Build/Build_Brief_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Build/Build_Decisions_v4.md -->
-> identity: Build_Decisions@v4 | doctype: decisions | updated: 2026-09-17
+<!-- BEGIN SOURCE: Build/Build_Decisions_v5.md -->
+> identity: Build_Decisions@v5 | doctype: decisions | updated: 2026-09-17
 
 # Build — Decisions
 
@@ -5777,7 +5777,7 @@ When files get created or modified, that is Build. Adopted as a strong conventio
 
 ## D2. One act, not separate paths
 
-Build is one common act — instruction crosses, agent discovers, edits, records, returns — with target-specific conventions layered on via build standards. The alternative was four or more discrete build paths with separate methodologies. Rejected because the act is the same; what differs is the verification and convention, which belongs in build standards for each channel. The common act is the build mechanism; the target contributes its specifics through build standards composed into a profile.
+Build is one common act — instruction crosses, agent discovers, edits, records, returns — with target-specific conventions layered on via build standards. The alternative was four or more discrete build paths with separate methodologies. Rejected because the act is the same; what differs is the verification and convention, which belongs in build standards for each build domain. The common act is the build mechanism; the target contributes its specifics through build standards composed into a profile.
 
 **Caution recorded:** this holds for current scope but may not fit all future build domains. The model should support extension without disproportionate cost now — "a hammer that can grow to be a sledgehammer."
 
@@ -5841,7 +5841,7 @@ This means Build defines no new doctypes or block types. It consumes the definit
 
 ## D14. Build package contents derived from PD's handoff
 
-The build package composes seven elements: instruction, decision scope, working target, profile reference, definition of done, intermediate-exchange support and transaction model. The first five were surfaced in the initial design session; intermediate exchanges (D21) and the transaction model (D23) were added as the design developed. They are Build's resolution of PD's sufficiency contract. PD specifies a format-free handoff with a sufficiency floor and ceiling; these seven elements are the semantic fields Build identifies as the content that satisfies that contract.
+The build package composes nine elements. The first five — instruction, decision scope, working target, profile reference, definition of done — are always relevant. The remaining four — intermediate-exchange support, transaction model, review requirement and work-level declaration — are present where applicable. The first five were surfaced in the initial design session; intermediate exchanges (D21) and the transaction model (D23) were added as the design developed; review requirement and work-level declaration were added to make explicit what the review activation model (D26, D27) already implied the package must carry. They are Build's resolution of PD's sufficiency contract. PD specifies a format-free handoff with a sufficiency floor and ceiling; these nine elements are the semantic fields Build identifies as the content that satisfies that contract.
 
 The ceiling rule (from PD's Standard) applies equally: do not re-supply generic execution-platform knowledge the build environment already provides. The profile already carries the standing conventions; the package carries only what is specific to this task.
 
@@ -5853,7 +5853,7 @@ This keeps Build decoupled from Orchestration's transport concerns and avoids re
 
 ## D16. Build standards follow the Standards methodology
 
-Build standards are authored on the same Standards methodology — same schema, same eight authoring rules, same strength model, same delivery mechanism (skills loaded into AI context). They are subgrouped as "build standards" for delineation, not forked into a separate authoring approach.
+Build standards are authored on the same Standards methodology — same schema, same eight authoring rules, same strength model, delivered through the ordinary Standards delivery model — triggered skills, binder content, or project context. They are subgrouped as "build standards" for delineation, not forked into a separate authoring approach.
 
 **Why not a separate methodology:** Standards already solved the authoring problem. The eight rules (carry test, no-consumer-no-rule, leanness, discriminating guidance, strength assignment, self-containment, applicability scope, name-your-principles) apply identically to build conventions. Forking would duplicate work and create divergence risk for no demonstrated benefit.
 
@@ -5880,7 +5880,7 @@ Build implements four Assurance conventions by behaviour:
 
 Plus the standing **active identification** obligation — Build identifies opportunities where assurance could be strengthened within its domain.
 
-These are Build's contribution to the assurance requirement, implementing Assurance's goals by behaviour. The specific verification checks a channel needs live in its build standards — so the .NET build standard might specify test coverage expectations, while the documentation-update build standard might specify schema validation. The mechanism (verify by behaviour) is common; the content varies by target.
+These are Build's contribution to the assurance requirement, implementing Assurance's goals by behaviour. The specific verification checks a build domain needs live in its build standards — so the .NET build standard might specify test coverage expectations, while the documentation-update build standard might specify schema validation. The mechanism (verify by behaviour) is common; the content varies by target.
 
 ## D19. Assurance lifecycle weighting consumed
 
@@ -5989,12 +5989,14 @@ At the small end of the build spectrum, most package elements are implicit — d
 ---
 
 Version note: v4 — cross-review remediation. D14: element count corrected to seven, PD provenance restated as Build's resolution of PD's sufficiency contract (F4, F12). D23: transaction guarantee made conditional on target capability (F7). D30: incorrect DocMeth analogy removed, restated under Core ownership model (F13). D32: rationale corrected from "no consumer" to sequencing (F10). D33: work-level interim vocabulary (F6). D34: scalability operational semantics (F11). "Build channel" → "build domain" where applicable (F14). 2026-09-17. Replaces v3.
-<!-- END SOURCE: Build/Build_Decisions_v4.md -->
+
+Version note: v5 — cross-review round 2. D14: element count updated to nine (four optional). D16: delivery model corrected to delivery-neutral. D2, D18: "channel" → "build domain". 2026-09-17. Replaces v4.
+<!-- END SOURCE: Build/Build_Decisions_v5.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Build/Build_Design_v4.md -->
-> identity: Build_Design@v4 | doctype: design | updated: 2026-09-17
+<!-- BEGIN SOURCE: Build/Build_Design_v5.md -->
+> identity: Build_Design@v5 | doctype: design | updated: 2026-09-17
 
 # Build — Design
 
@@ -6048,7 +6050,7 @@ The build package is the outbound handoff — what the caller sends to initiate 
 
 #### Contents
 
-A build package composes:
+A build package composes nine elements. The first five — instruction, decision scope, working target, profile reference, definition of done — are always relevant. The remaining four — intermediate-exchange support, transaction model, review requirement and work-level declaration — are present where applicable.
 
 - **Instruction** — the caller's per-task ask, prescriptive to intent-level.
 - **Decision scope** — the latitude and authority granted for this build.
@@ -6057,6 +6059,8 @@ A build package composes:
 - **Definition of done** — the testable or assessable completion criteria for this task.
 - **Intermediate exchange support** — whether the caller supports mid-execution questions and responses. Absent means not supported.
 - **Transaction model** — commit, rollback and partial-completion expectations, where the caller wants to override the profile's default. Consumers fill the content; the invariant is that it must be something you can actually check against.
+- **Review requirement** — caller-specified review expectations for this build, where the caller wants to raise review above the profile's standing floor. Absent means the profile's standing policy governs alone.
+- **Work-level declaration** — the caller's assessment of this work's consequence and complexity. Combined with profile policy and build's own assessment; the highest governs. Absent means the profile and build determine work level.
 
 #### Sufficiency
 
@@ -6230,6 +6234,8 @@ The highest applicable level governs. Work level is not exclusive to Build — t
 
 **What Build requires from work level.** Build requires work level to be an orderable concept with a comparison rule: given two independently assessed levels, it must be possible to determine which is higher. Build does not define the full work-level model — the concept is cross-cutting — but the minimum requirement for Build's review activation to function is an ordered set of levels and a highest-governs resolution rule. Until the cross-cutting model is defined, Build uses a qualitative scale — trivial, routine, significant, high-consequence — with the ordering implied by that sequence.
 
+Which review behaviours activate at each work level is determined by the profile. Build provides two review points — pre-execution and post-execution — and the work-level assessment. The profile carries the standing policy that maps work levels to review activation: which points fire, at what depth, and with what requirements. Build's contract is to honour the profile's mapping and to provide the review points; the profile's contract is to supply a mapping that covers every level in the vocabulary.
+
 ### Cross-cutting concerns consumed
 
 Review, collaboration and investigation are cross-cutting concerns defined elsewhere — Assurance, Working Practices, or their own areas — and consumed by Build. Build does not own review methodology. It provides the review points above and applies the cross-cutting capability according to its own policies, the work level, and the profile.
@@ -6255,11 +6261,11 @@ Build standards are authored on the same Standards methodology as ordinary stand
 
 The governing test for what goes into a build standard is the same as for any standard: "is this needed at the moment of application?" — not "is this the definition of the thing." Discriminating guidance — the tell that separates correct build practice from its confusable neighbour — belongs in the standard even when it reads like elaboration.
 
-**Content is deferred by design.** This design defines what a build standard is and what it carries; it does not author one. The first build standard — the documentation-update build standard — is authored when it has a consumer, which will be the framework build. Writing it earlier would invent content ahead of demonstrated need; the first instance creates the template the rest follow. The seed content is already identified, in Build execution conventions above: proportionate planning, execution evidence and recoverability, validation-is-not-production, out-of-scope discovery, and the proactive feedback obligation. See D32.
+**Content is deferred by design.** This design defines what a build standard is and what it carries; it does not author one. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise — the framework's own build work is the most likely trigger. Document persistence is a real consumer now; the deferral is sequencing, not absence of need. The first instance creates the template the rest follow. The seed content is already identified, in Build execution conventions above: proportionate planning, execution evidence and recoverability, validation-is-not-production, out-of-scope discovery, and the proactive feedback obligation. See D32.
 
 #### Applicability
 
-A build standard's applicability scope declares when it applies — which build domains, which target types, which contexts. The platform trigger mechanism activates it when the profile includes it; scope determines whether it applies to the work at hand once loaded. A build standard whose scope does not match should not run. Same pattern as ordinary standards and tools.
+A build standard's applicability scope declares when it applies — which build domains, which target types, which contexts. Profile selection determines which build standards apply to a given build. How those standards are loaded — as triggered skills, binder content, or project context — follows the ordinary Standards delivery model. The profile selects; the delivery mechanism loads. Scope determines whether it applies to the work at hand once loaded. A build standard whose scope does not match should not run. Same pattern as ordinary standards and tools.
 
 ### Profiles
 
@@ -6269,7 +6275,7 @@ Profiles can be **named presets** — defined and saved for reuse ("documentatio
 
 Profiles compose on each other. An "AIDE framework documentation update" profile inherits the base "documentation update" profile and adds AIDE-specific conventions over the top. The delta stays small — only where AIDE genuinely differs from any documentation update.
 
-**Storage.** Named profile presets follow the Documentation Methodology pattern: Build defines the mechanism — the shape of a profile and its composition rules — and each instance is stored with the owning target area, the area with the most knowledge of that target. Build owns the mechanism; the target area owns the instance. A documentation-update profile lives under the documentation methodology area; an AIDE framework build profile lives under the AIDE area. This follows Core's ownership model: each component defines its own types, and the component with the most knowledge of a concern owns it. Build defines the profile concept and its semantics; owning components define their own build standards because they hold the domain knowledge. The split matches doctype and block-type ownership — the defining component carries the definition, not a central registry. This keeps Build from becoming a dumping ground for every target domain's configuration. See D30.
+**Storage.** Named profile presets follow Core's ownership model: the component with the most knowledge of a build domain defines its own build standards; Build defines the profile concept and its composition semantics. Build defines the mechanism — the shape of a profile and its composition rules — and each instance is stored with the owning target area, the area with the most knowledge of that target. Build owns the mechanism; the target area owns the instance. A documentation-update profile lives under the documentation methodology area; an AIDE framework build profile lives under the AIDE area. The split matches doctype and block-type ownership — the defining component carries the definition, not a central registry. This keeps Build from becoming a dumping ground for every target domain's configuration. See D30.
 
 ---
 
@@ -6323,7 +6329,7 @@ The documentation-update build standard (not yet authored) will carry: conventio
 
 ### 3. Framework payload outputs
 
-Authoring standards and tools into their endpoint content — skill files — from the accepted design. Infrastructure packages the content into marketplace plugins; Deployment delivers them. A design covering an area of feature or functionality may translate into one or more standards or one or more tools; the relationship is one-to-many.
+Authoring standards and tools from the accepted design into their complete, reviewed form. Infrastructure transforms the accepted output into the delivery format (e.g. skill files for the marketplace plugin channel) and packages it; Deployment delivers. A design covering an area of feature or functionality may translate into one or more standards or one or more tools; the relationship is one-to-many.
 
 ### 4. Framework utility outputs
 
@@ -6346,7 +6352,7 @@ The build standard is a standard authored under the Standards methodology. The p
 | Term | Meaning |
 |---|---|
 | **Caller** | Whatever initiated the build — design, another build, or any other origin. Owns the instruction, decision scope and sign-off authority. |
-| **Build package** | The outbound handoff: composes instruction, decision scope, working target, profile reference, definition of done, intermediate-exchange support and transaction model. Channel-agnostic — defines what crosses, not how. |
+| **Build package** | The outbound handoff: composes instruction, decision scope, working target, profile reference, definition of done, and (where applicable) intermediate-exchange support, transaction model, review requirement and work-level declaration. Channel-agnostic — defines what crosses, not how. |
 | **Build mechanism** | The generic framework: caller, build package, sign-off, return. Applies to every build. |
 | **Build standard** | A composable document carrying the how for a build domain. Authored on the Standards methodology, subgrouped as "build standards." |
 | **Build domain** | The category of build target — e.g. .NET software development, document persistence, framework payload. Determines which build standards apply. Distinct from channel (transport). |
@@ -6364,7 +6370,7 @@ The build standard is a standard authored under the Standards methodology. The p
 - **Project Design** — owns the design specification, the work register, and reconciliation when it is the caller. Build takes what design hands off and returns the outcome; it does not write to the register. Build never closes a register item.
 - **Orchestration** — owns transport and dispatch to AI platforms. The most common channel for build work that dispatches to another platform, and the default where a build targets an AI agent — but one channel among several. Direct chat, copy-paste messages, and Messaging's envelope are equally valid depending on context. Build defines a channel-agnostic contract; Orchestration carries it as opaque payload when dispatch is the delivery method.
 - **Assurance** — sets goals, approaches, objectives and requirements/expectations for integrity. Provides methodology and guidance for some areas, guidance and expectations for others. Build identifies where integrity objectives apply in its context and implements them by behaviour. Assurance also owns shared assurance components (framework tasks queue, learning patterns) that Build consumes, and the cross-cutting review, collaboration and investigation capabilities Build applies at its review points.
-- **Infrastructure** — owns the deployment channel (marketplace plugin delivery model), the aide CLI, and operational tooling. Build produces the content output (e.g. a skill file authored from a standard). Infrastructure packages it for the delivery channel (e.g. marketplace plugin structure). Deployment delivers it.
+- **Infrastructure** — owns the deployment channel (marketplace plugin delivery model), the aide CLI, and operational tooling. Build produces the accepted standard or tool document. Infrastructure transforms it into the delivery format (e.g. skill files, plugin structure) and packages it for the delivery channel. Deployment delivers.
 - **Working Practices** — owns the definition-of-done generic block, work items, capture-and-place, and the overview-first discipline. Build consumes all of these.
 - **Documentation folder structure** — a cross-cutting concern consumed by Build, not owned by it. Leaning toward design project as the home; possibly more global. Build needs to locate the structural root and working target within it.
 
@@ -6380,12 +6386,14 @@ The build standard is a standard authored under the Standards methodology. The p
 ---
 
 Version note: v4 — cross-review remediation. F4: build package canonical contract (seven elements, all references aligned). F5: return states corrected to PD Standard's settled model. F6: work-level requirements stated (gap). F7: transaction guarantee made conditional on target capability. F8: packaging boundary clarified (Build authors content, Infrastructure packages, Deployment delivers). F9: build-standard delivery model aligned with Standards methodology. F11: scalability operational semantics added (implicit defaults at small end). F14: "build domain" introduced, "channel" reserved for transport. Plus: caller persistence convention referenced in intermediate exchanges. 2026-09-17. Replaces v3.
-<!-- END SOURCE: Build/Build_Design_v4.md -->
+
+Version note: v5 — cross-review round 2. F4: review requirement and work-level declaration added as optional package elements (nine total). F6: level-to-review mapping assigned to profile. F8: Build output corrected to accepted standard/tool document (Infrastructure transforms to delivery format). F9: applicability paragraph delivery-neutralised. F10: stale "when it has a consumer" replaced with D32's corrected sequencing rationale. F13: stale DocMeth pattern reference removed. 2026-09-17. Replaces v4.
+<!-- END SOURCE: Build/Build_Design_v5.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Build/Build_Overview_v2.md -->
-> identity: Build_Overview@v2 | doctype: overview | updated: 2026-09-17
+<!-- BEGIN SOURCE: Build/Build_Overview_v3.md -->
+> identity: Build_Overview@v3 | doctype: overview | updated: 2026-09-17
 
 # Build — Overview
 
@@ -6397,7 +6405,7 @@ Build is the transition to execution — taking defined work and producing the o
 
 ## The model, in one paragraph
 
-A caller sends a build package — instruction, decision scope, working target, profile reference, definition of done, and (where applicable) intermediate-exchange support and transaction model. Build executes within its granted scope, applying build standards composed into a profile for the target. Build returns the result — confirmed, needs information, raises an issue, failed, or done with deviation — with an account of what was done. The model scales from a single-line file operation to a multi-stage coordinated build without changing shape; only the density of the package and which profile conventions activate change.
+A caller sends a build package — instruction, decision scope, working target, profile reference, definition of done, and (where applicable) intermediate-exchange support, transaction model, review requirement and work-level declaration. Build executes within its granted scope, applying build standards composed into a profile for the target. Build returns the result — confirmed, needs information, raises an issue, failed, or done with deviation — with an account of what was done. The model scales from a single-line file operation to a multi-stage coordinated build without changing shape; only the density of the package and which profile conventions activate change.
 
 ## Key mechanisms
 
@@ -6434,7 +6442,7 @@ Review, collaboration and investigation are cross-cutting concerns Build consume
 
 ## Known build activities
 
-Software development (.NET), document persistence (FUP), framework payload outputs (standards and tools into endpoint content — skill files; Infrastructure packages, Deployment delivers), framework utility outputs.
+Software development (.NET), document persistence (FUP), framework payload outputs (standards and tools into their accepted form; Infrastructure transforms to delivery format, Deployment delivers), framework utility outputs.
 
 ## Open items
 
@@ -6442,12 +6450,14 @@ FUP absorption timing. Documentation folder structure ownership. Work-scope stru
 
 ## Document set
 
-Brief v2, Design v4, Decisions v4 (D1–D34), Overview v2. The first build standard is deferred by design until it has a consumer (the framework build).
+Brief v3, Design v5, Decisions v5 (D1–D34), Overview v3. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise.
 
 ---
 
 Version note: v2 — cross-review remediation. F4: build package elements updated to seven. F5: return states corrected to PD Standard's settled model. F14: "build domain" terminology, packaging boundary corrected. 2026-09-17. Replaces v1.
-<!-- END SOURCE: Build/Build_Overview_v2.md -->
+
+Version note: v3 — cross-review round 2. F4: package elements updated to nine. F8: framework payload output corrected to platform-neutral. F10: stale "until it has a consumer" replaced with sequencing rationale. 2026-09-17. Replaces v2.
+<!-- END SOURCE: Build/Build_Overview_v3.md -->
 
 ---
 
