@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 105** (2026-09-17).
+> **Binder Version 106** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -30,9 +30,9 @@ individual files.
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
 - `Assurance/Assurance_Standard_v1.md` - sha256 `82253cd4d2c8`
 - `Build/Build_Brief_v4.md` - sha256 `d9717a0475c0`
-- `Build/Build_Decisions_v6.md` - sha256 `cb5e227983ba`
-- `Build/Build_Design_v6.md` - sha256 `ed70ee73444d`
-- `Build/Build_Overview_v4.md` - sha256 `7645edc0f7a3`
+- `Build/Build_Decisions_v7.md` - sha256 `c072a2506d82`
+- `Build/Build_Design_v7.md` - sha256 `86e26cc8c35d`
+- `Build/Build_Overview_v5.md` - sha256 `6a8c2b7f2bea`
 - `Core/_index.md` - sha256 `8746bf38a3fa`
 - `Core/Core_AIDEMap.md` - sha256 `5f8331b0988d`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
@@ -5763,8 +5763,8 @@ Version note: v4 — cross-review round 3. F8: Objective 1 corrected — "framew
 
 ---
 
-<!-- BEGIN SOURCE: Build/Build_Decisions_v6.md -->
-> identity: Build_Decisions@v6 | doctype: decisions | updated: 2026-09-17
+<!-- BEGIN SOURCE: Build/Build_Decisions_v7.md -->
+> identity: Build_Decisions@v7 | doctype: decisions | updated: 2026-09-17
 
 # Build — Decisions
 
@@ -5983,7 +5983,7 @@ Document persistence is the most frequent current build activity and is a real c
 
 ## D33. Work-level interim vocabulary
 
-Build requires an orderable work-level concept for review activation. Until the cross-cutting model is defined, Build uses a four-level qualitative scale — trivial, routine, significant, high-consequence — with the ordering implied by that sequence and a highest-governs resolution rule across caller, profile and build assessment. This is a working definition, not a claim on the cross-cutting model.
+Build requires an orderable work-level concept for review activation. Until the cross-cutting model is defined, Build uses a four-level qualitative scale — trivial, routine, significant, high-consequence — with the ordering implied by that sequence and a highest-governs resolution rule across caller, profile-composed build standards and build's own assessment. This is a working definition, not a claim on the cross-cutting model.
 
 ## D34. Scalability operational semantics
 
@@ -5996,12 +5996,14 @@ Version note: v4 — cross-review remediation. D14: element count corrected to s
 Version note: v5 — cross-review round 2. D14: element count updated to nine (four optional). D16: delivery model corrected to delivery-neutral. D2, D18: "channel" → "build domain". 2026-09-17. Replaces v4.
 
 Version note: v6 — cross-review round 3. D14: working target reclassified as conditional (F4). D26, D27: "profile policy" corrected to "build standards in the profile" (F6). 2026-09-17. Replaces v5.
-<!-- END SOURCE: Build/Build_Decisions_v6.md -->
+
+Version note: v7 — cross-review round 4. D33: "profile" corrected to "profile-composed build standards" (F6). 2026-09-17. Replaces v6.
+<!-- END SOURCE: Build/Build_Decisions_v7.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Build/Build_Design_v6.md -->
-> identity: Build_Design@v6 | doctype: design | updated: 2026-09-17
+<!-- BEGIN SOURCE: Build/Build_Design_v7.md -->
+> identity: Build_Design@v7 | doctype: design | updated: 2026-09-17
 
 # Build — Design
 
@@ -6065,7 +6067,7 @@ A build package composes nine elements. Four — instruction, decision scope, pr
 - **Intermediate exchange support** — whether the caller supports mid-execution questions and responses. Absent means not supported.
 - **Transaction model** — commit, rollback and partial-completion expectations, where the caller wants to override the profile's default. Consumers fill the content; the invariant is that it must be something you can actually check against.
 - **Review requirement** — caller-specified review expectations for this build, where the caller wants to raise review above the floor set by the profile's build standards. Absent means the standing policy in the profile's build standards governs alone.
-- **Work-level declaration** — the caller's assessment of this work's consequence and complexity. Combined with profile policy and build's own assessment; the highest governs. Absent means the profile and build determine work level.
+- **Work-level declaration** — the caller's assessment of this work's consequence and complexity. Combined with the build standards in the profile and build's own assessment; the highest governs. Absent means the profile's build standards and build's own assessment determine work level.
 
 #### Sufficiency
 
@@ -6232,7 +6234,7 @@ The consequence and complexity of the work — its **work level** — drives whi
 The work level is sourced from three inputs:
 
 - **Caller declaration** — stated in the build package.
-- **Profile policy** — standing rules for the domain.
+- **Profile-composed build standards** — standing conventions for the domain.
 - **Build's own assessment** — what it discovers about the work during planning or execution.
 
 The highest applicable level governs. Work level is not exclusive to Build — the same concept applies to design, deployment, research and other areas; Build implements it within its own context. See D27.
@@ -6366,7 +6368,7 @@ The build standard is a standard authored under the Standards methodology. The p
 | **Documentation root** | The contained root of documentation for a project or area — a folder, not a repo. Replaces "doc repo." |
 | **Instruction** | The caller's per-task ask — prescriptive to intent-level. |
 | **Decision scope** | The caller-granted latitude and authority for the build to make its own calls. |
-| **Work level** | The consequence and complexity of a piece of work, sourced from caller declaration, profile policy or build's own assessment — the highest governs. Drives review activation. |
+| **Work level** | The consequence and complexity of a piece of work, sourced from caller declaration, profile-composed build standards or build's own assessment — the highest governs. Drives review activation. |
 
 ---
 
@@ -6395,12 +6397,14 @@ Version note: v4 — cross-review remediation. F4: build package canonical contr
 Version note: v5 — cross-review round 2. F4: review requirement and work-level declaration added as optional package elements (nine total). F6: level-to-review mapping assigned to profile. F8: Build output corrected to accepted standard/tool document (Infrastructure transforms to delivery format). F9: applicability paragraph delivery-neutralised. F10: stale "when it has a consumer" replaced with D32's corrected sequencing rationale. F13: stale DocMeth pattern reference removed. 2026-09-17. Replaces v4.
 
 Version note: v6 — cross-review round 3. F4: working target reclassified as conditional (four always-relevant, five conditional). F6: review/work-level mapping moved from profile to build standards in the profile stack — profiles remain structural-only per D7. 2026-09-17. Replaces v5.
-<!-- END SOURCE: Build/Build_Design_v6.md -->
+
+Version note: v7 — cross-review round 4. F6 terminology: remaining "profile policy" references corrected to "build standards in/composed by the profile." 2026-09-17. Replaces v6.
+<!-- END SOURCE: Build/Build_Design_v7.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Build/Build_Overview_v4.md -->
-> identity: Build_Overview@v4 | doctype: overview | updated: 2026-09-17
+<!-- BEGIN SOURCE: Build/Build_Overview_v5.md -->
+> identity: Build_Overview@v5 | doctype: overview | updated: 2026-09-17
 
 # Build — Overview
 
@@ -6418,7 +6422,7 @@ A caller sends a build package — instruction, decision scope, profile referenc
 
 - **The build mechanism** — caller, package, execution, return. The generic framework applying to every build, regardless of target.
 - **Build standards and profiles** — composable, target-specific conventions authored on the Standards methodology; a profile names and orders a stack of them.
-- **The review activation model** — dual-sourced (caller and profile), work-level-driven. Pre- and post-execution review points, activated proportionally to consequence and complexity.
+- **The review activation model** — dual-sourced (caller and profile-composed build standards), work-level-driven. Pre- and post-execution review points, activated proportionally to consequence and complexity.
 - **The proactive feedback obligation** — surfacing implications, disproportionate cost, and potential design-review situations, unprompted.
 
 ## Behavioural obligations
@@ -6457,7 +6461,7 @@ FUP absorption timing. Documentation folder structure ownership. Work-scope stru
 
 ## Document set
 
-Brief v4, Design v6, Decisions v6 (D1–D34), Overview v4. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise.
+Brief v4, Design v7, Decisions v7 (D1–D34), Overview v5. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise.
 
 ---
 
@@ -6466,7 +6470,9 @@ Version note: v2 — cross-review remediation. F4: build package elements update
 Version note: v3 — cross-review round 2. F4: package elements updated to nine. F8: framework payload output corrected to platform-neutral. F10: stale "until it has a consumer" replaced with sequencing rationale. 2026-09-17. Replaces v2.
 
 Version note: v4 — cross-review round 3. F4: model paragraph updated — working target now conditional. 2026-09-17. Replaces v3.
-<!-- END SOURCE: Build/Build_Overview_v4.md -->
+
+Version note: v5 — cross-review round 4. F6 terminology: "caller and profile" corrected to "caller and profile-composed build standards." 2026-09-17. Replaces v4.
+<!-- END SOURCE: Build/Build_Overview_v5.md -->
 
 ---
 
