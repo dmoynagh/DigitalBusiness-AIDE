@@ -9,8 +9,9 @@ Assurance builds justified trust in AI-assisted work by defining the conventions
 
 | Prefix | Document | Type |
 |---|---|---|
-| Assurance_ | Design v1 | design |
-| Assurance_ | Decisions v1 | decisions |
+| Assurance_ | Design v3 | design |
+| Assurance_ | Decisions v3 | decisions |
+| Assurance_ | Standard v1 | standard |
 
 ## Parts
 
