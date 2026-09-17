@@ -136,7 +136,7 @@ Human-readable in any browser. AI-parseable for updates — the HTML structure i
 - **WIP** — the board lives alongside WIP, not inside it. Both are working state; WIP is transactional staging and working memory, the board is task tracking.
 - **Work register** — PD's commitment ledger. A register entry might appear on a board when picked up as active work. Different purpose, different owner.
 - **Open items** — parked, unresolved things. Not on the board unless brought into play. An open item that becomes decided work moves to the board.
-- **Work items** — the generic workflow entity. A work item that becomes committed work may land on the board. The board is one of the five fates of a work item (alongside dealt with, decision, open item, WIP).
+- **Work items** — the generic workflow entity. A work item may be placed on the board for tracking alongside any of its five fates (dealt with, decision, open item, WIP, work register). The board is a tracking mechanism, not a fate — a work item on a board may also be in a work register, in WIP, or parked as an open item.
 
 ---
 

@@ -73,6 +73,8 @@ The transactional staging mechanism, with three roles:
 
 **Conventions:** multiple WIP documents may exist at once, split by size or subject. WIP loads directly into context — it is not delivered via the binder. Prefer visibility over a fixed location: easy to find, easy to save to, easy to load. Track active WIP documents in the project's index to prevent orphaned content. Content should flow through a WIP document to its destination, not accumulate in it.
 
+**Caller persistence convention:** when a caller assembles a unit of work (build package or build instruction), WIP is the default home for in-session transactional state — what was requested, what came back. Memory is the default for cross-session continuity. The caller decides; these are defaults when no decision is made.
+
 ### Pending content rule
 
 Confirmed content awaiting delivery to a master document, held in WIP under the destination document's heading.
@@ -89,7 +91,7 @@ A generic entity flowing through a workflow — something noticed that needs tra
 
 **Two axes:** type (what kind of thing it turned out to be, decided on judgement rather than chosen from an enumerated list) and state (open, current, closed — filtered views over the same items, not separate lists).
 
-**Five fates:** dealt with in conversation leaving no trace, resolved and recorded as a decision, parked as an open item, captured into WIP, or committed as work on a board.
+**Five fates:** dealt with in conversation leaving no trace, resolved and recorded as a decision, parked as an open item, captured into WIP, or becomes committed work in a work register. Placing a work item on a board is a tracking action — it can happen alongside any fate and is not itself a fate.
 
 **Governing rule: no knowledge lost.** A work item may be dropped, but only by deciding it carries nothing worth keeping — disappearance is never an accident.
 
@@ -157,4 +159,4 @@ File Operations is dissolved; its content redistributed to natural owners (WP re
 
 ---
 
-Version note: v1 — initial standard, authored from WP_Design_v6, WP_Decisions_v4, WP_Boards_Design_v1, and WP_Boards_Decisions_v1. 2026-09-17.
+Version note: v1 — initial standard, authored from WP_Design_v6, WP_Decisions_v4, WP_Boards_Design_v1, and WP_Boards_Decisions_v1. 2026-09-17. Corrected: fifth work-item fate restored to work register (board is tracking, not a fate); caller persistence convention added to WIP section.
