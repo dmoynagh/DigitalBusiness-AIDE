@@ -1,4 +1,4 @@
-> identity: Core_AIDEMap@v2 | updated: 2026-09-15
+> identity: Core_AIDEMap@v3 | updated: 2026-09-17
 
 # AIDE Map
 
@@ -22,13 +22,13 @@ AIDE
 │
 ├── Work
 │   ├── Working Practices (WP)
-│   │   ├── Working State — WIP model, work items, work plan, pending content, development lifecycle
+│   │   ├── Working State — WIP model, work items, boards, pending content, development lifecycle
 │   │   └── Content Delivery — binder concept, inclusion rules, context loading
 │   ├── Project Design (PD) — design specification, design-build loop, work register
 │   └── Build — execute the spec, report what was done, own code structure
 │
 ├── Delivery
-│   ├── Orchestration — transport, routing, work packages, verification, capability profiles
+│   ├── Orchestration — dispatch correlation, invocation, target adapters, model-level resolution
 │   ├── Migration — change detection, distribution, execution
 │   ├── Deployment — build plugin, push to marketplace, weight gate
 │   └── Infrastructure — CLI, deployment utilities, settings merge
@@ -42,4 +42,4 @@ AIDE
 
 ---
 
-Version note: v2 — Assurance and Improvement added under Guidance; WP subtree updated to reflect WP_Design_v2 areas (Working State and Content Delivery replace the five pre-design-pass areas). 2026-09-15. Replaces v1.
+Version note: v3 — Orchestration description corrected to match accepted Orchestration_Design_v5 (D3/D29). Working State: work plan replaced by boards (WP D21). 2026-09-17. Replaces v2.

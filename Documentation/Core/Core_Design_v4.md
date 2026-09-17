@@ -1,4 +1,4 @@
-> identity: Core_Design@v3 | doctype: design | updated: 2026-09-15
+> identity: Core_Design@v4 | doctype: design | updated: 2026-09-17
 
 # Core — Design
 
@@ -106,7 +106,7 @@ Fifteen active components, organised by primary role. Each component's entry poi
 
 | Component | Purpose | Key boundaries |
 |---|---|---|
-| Working Practices | Define the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. | Owns generic operating behaviour and live state — the middle placement band: capture-and-place, WIP model, work items, workflow commands. Does not own trust conventions or the human working model — Assurance. May grow into a container with sub-components. |
+| Working Practices | Define the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. | Umbrella for action and behaviour. At component level: capture-and-place, operational tools, file delivery, overview-first discipline. Two areas: Working State (WIP, work items, boards, completion) and Content Delivery (binder, session content). Does not own trust conventions or the human working model — Assurance. |
 | Project Design | Produce the design specification. | One scalable architecture. Owns both ends of the design-build loop. |
 | Build | Take the design specification and execute it — produce the outcome, report what was done. | Does not design — receives the specification from Project Design. Creates from the spec, thinking not transcribing. Likely an umbrella with different build paths. |
 
@@ -114,7 +114,7 @@ Fifteen active components, organised by primary role. Each component's entry poi
 
 | Component | Purpose | Key boundaries |
 |---|---|---|
-| Orchestration | Coordinate work across AI surfaces and platforms — the channels, communication mechanics, and coordination logic that allow multiple AI components to work together. | Owns transport, routing, work package structure, verification, and capability profiles. Does not own the work modes that consume it. Likely an umbrella with areas or parts. |
+| Orchestration | Coordinate invocation across AI execution targets — accept caller-owned work, resolve model selection through Core-owned Framework Resources, invoke target adapters, correlate dispatch with transport outcome, and return the response. | Owns the crossing: dispatch correlation, invocation, transport outcome, target adapters, model-level resolution. Does not own the task, verification policy, routing decision, or semantic meaning of the response. Likely an umbrella with areas or parts. |
 | Migration | Keep things current when something they depend on changes — collate, distribute and execute change actions. | Does not detect changes — detection varies by consumer. The mechanism is generic. |
 | Deployment | Get the publishable capabilities live in a session, on whatever surface is in use. | Does not define capabilities — receives them from their owning components. Simple pipeline: build, push, reload. |
 | Infrastructure | Methodological infrastructure — CLI, deployment utilities, settings merge. | Serves the framework's own operation. Does not own design documents or standards. |
@@ -166,4 +166,4 @@ Fifteen active components, organised by primary role. Each component's entry poi
 
 ---
 
-Version note: v3 — Working Practices' component map entry corrected to match WP_Design_v2 and WP_Decisions_v2: purpose line updated to the WP brief's stated purpose; boundary updated to reflect the Assurance extraction (human working model no longer WP's). No other content changed from v2. 2026-09-15. Replaces v2.
+Version note: v4 — Orchestration component map entry corrected to match accepted Orchestration_Design_v5 (D3/D29 proposed Core wording). WP component map entry boundaries updated to match WP_Design_v6 (umbrella structure confirmed, boards replace work plan per D21). 2026-09-17. Replaces v3.
