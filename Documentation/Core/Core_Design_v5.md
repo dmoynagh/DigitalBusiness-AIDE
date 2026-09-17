@@ -1,4 +1,4 @@
-> identity: Core_Design@v4 | doctype: design | updated: 2026-09-17
+> identity: Core_Design@v5 | doctype: design | updated: 2026-09-17
 
 # Core — Design
 
@@ -108,7 +108,7 @@ Fifteen active components, organised by primary role. Each component's entry poi
 |---|---|---|
 | Working Practices | Define the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. | Umbrella for action and behaviour. At component level: capture-and-place, operational tools, file delivery, overview-first discipline. Two areas: Working State (WIP, work items, boards, completion) and Content Delivery (binder, session content). Does not own trust conventions or the human working model — Assurance. |
 | Project Design | Produce the design specification. | One scalable architecture. Owns both ends of the design-build loop. |
-| Build | Take the design specification and execute it — produce the outcome, report what was done. | Does not design — receives the specification from Project Design. Creates from the spec, thinking not transcribing. Likely an umbrella with different build paths. |
+| Build | Take the design specification and execute it — produce the outcome, report what was done. | Does not design — receives the specification from its caller, most often Project Design but any caller including another build. Creates from the spec, thinking not transcribing. Likely an umbrella with different build paths. |
 
 ### Delivery
 
@@ -167,3 +167,5 @@ Fifteen active components, organised by primary role. Each component's entry poi
 ---
 
 Version note: v4 — Orchestration component map entry corrected to match accepted Orchestration_Design_v5 (D3/D29 proposed Core wording). WP component map entry boundaries updated to match WP_Design_v6 (umbrella structure confirmed, boards replace work plan per D21). 2026-09-17. Replaces v3.
+
+Version note: v5 — Build component map entry generalised to any-caller per Build_Decisions_v8 D3 (cross-review carry F3). 2026-09-17. Replaces v4.

@@ -19,7 +19,7 @@ Core is the root entry to AIDE — the framework's self-description, component m
 |---|---|---|
 | Core_ | Charter v1 | charter |
 | Core_ | Brief v2 | brief |
-| Core_ | Design v2 | design |
+| Core_ | Design v5 | design |
 | Core_ | Decisions v1 | decisions |
 | Core_ | Schema Standard v3 | standard |
 | Core_ | AIDEMap v2 | reference |
