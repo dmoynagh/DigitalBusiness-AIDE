@@ -1,4 +1,4 @@
-> identity: Build_Overview@v3 | doctype: overview | updated: 2026-09-17
+> identity: Build_Overview@v4 | doctype: overview | updated: 2026-09-17
 
 # Build — Overview
 
@@ -10,7 +10,7 @@ Build is the transition to execution — taking defined work and producing the o
 
 ## The model, in one paragraph
 
-A caller sends a build package — instruction, decision scope, working target, profile reference, definition of done, and (where applicable) intermediate-exchange support, transaction model, review requirement and work-level declaration. Build executes within its granted scope, applying build standards composed into a profile for the target. Build returns the result — confirmed, needs information, raises an issue, failed, or done with deviation — with an account of what was done. The model scales from a single-line file operation to a multi-stage coordinated build without changing shape; only the density of the package and which profile conventions activate change.
+A caller sends a build package — instruction, decision scope, profile reference, definition of done, and (where applicable) working target, intermediate-exchange support, transaction model, review requirement and work-level declaration. Build executes within its granted scope, applying build standards composed into a profile for the target. Build returns the result — confirmed, needs information, raises an issue, failed, or done with deviation — with an account of what was done. The model scales from a single-line file operation to a multi-stage coordinated build without changing shape; only the density of the package and which profile conventions activate change.
 
 ## Key mechanisms
 
@@ -55,10 +55,12 @@ FUP absorption timing. Documentation folder structure ownership. Work-scope stru
 
 ## Document set
 
-Brief v3, Design v5, Decisions v5 (D1–D34), Overview v3. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise.
+Brief v4, Design v6, Decisions v6 (D1–D34), Overview v4. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise.
 
 ---
 
 Version note: v2 — cross-review remediation. F4: build package elements updated to seven. F5: return states corrected to PD Standard's settled model. F14: "build domain" terminology, packaging boundary corrected. 2026-09-17. Replaces v1.
 
 Version note: v3 — cross-review round 2. F4: package elements updated to nine. F8: framework payload output corrected to platform-neutral. F10: stale "until it has a consumer" replaced with sequencing rationale. 2026-09-17. Replaces v2.
+
+Version note: v4 — cross-review round 3. F4: model paragraph updated — working target now conditional. 2026-09-17. Replaces v3.

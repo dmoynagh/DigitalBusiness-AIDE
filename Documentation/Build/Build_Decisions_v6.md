@@ -1,4 +1,4 @@
-> identity: Build_Decisions@v5 | doctype: decisions | updated: 2026-09-17
+> identity: Build_Decisions@v6 | doctype: decisions | updated: 2026-09-17
 
 # Build — Decisions
 
@@ -78,7 +78,7 @@ This means Build defines no new doctypes or block types. It consumes the definit
 
 ## D14. Build package contents derived from PD's handoff
 
-The build package composes nine elements. The first five — instruction, decision scope, working target, profile reference, definition of done — are always relevant. The remaining four — intermediate-exchange support, transaction model, review requirement and work-level declaration — are present where applicable. The first five were surfaced in the initial design session; intermediate exchanges (D21) and the transaction model (D23) were added as the design developed; review requirement and work-level declaration were added to make explicit what the review activation model (D26, D27) already implied the package must carry. They are Build's resolution of PD's sufficiency contract. PD specifies a format-free handoff with a sufficiency floor and ceiling; these nine elements are the semantic fields Build identifies as the content that satisfies that contract.
+The build package composes nine elements. Four — instruction, decision scope, profile reference, definition of done — are always relevant. The remaining five — working target, intermediate-exchange support, transaction model, review requirement and work-level declaration — are present where applicable. The first five were surfaced in the initial design session; intermediate exchanges (D21) and the transaction model (D23) were added as the design developed; review requirement and work-level declaration were added to make explicit what the review activation model (D26, D27) already implied the package must carry. They are Build's resolution of PD's sufficiency contract. PD specifies a format-free handoff with a sufficiency floor and ceiling; these nine elements are the semantic fields Build identifies as the content that satisfies that contract.
 
 The ceiling rule (from PD's Standard) applies equally: do not re-supply generic execution-platform knowledge the build environment already provides. The profile already carries the standing conventions; the package carries only what is specific to this task.
 
@@ -173,15 +173,15 @@ The caller decides what to do with the feedback. Build's job is to surface it.
 
 ## D26. Review activation is dual-sourced
 
-Review within a build is activated from two directions: the caller specifies review requirements in the build package, and standing policy in the profile requires review for the applicable build domain. Both apply. The profile sets the minimum floor; the caller can raise the review level but not lower it below what the profile requires.
+Review within a build is activated from two directions: the caller specifies review requirements in the build package, and standing policy in the build standards the profile composes requires review for the applicable build domain. Both apply. The build standards in the profile set the minimum floor; the caller can raise the review level but not lower it below what the profile's standards require.
 
-This matches the profile composition model (D7/D8) and the decision-scope model (D5) — the profile carries standing conventions, the caller adds per-task specifics.
+This matches the profile composition model (D7/D8) and the decision-scope model (D5) — the build standards in the profile carry standing conventions, the caller adds per-task specifics.
 
 ## D27. Work level determines review activation
 
 The consequence and complexity of the work — its work level — drives which review behaviours apply and at what depth. A trivial file rename gets no review; a structural change to the framework gets mandatory pre- and post-execution review.
 
-The work level is sourced from three inputs: the caller's declaration (in the build package), the profile's standing policy (for the domain), and build's own assessment (what it discovers about the work during planning and execution). The highest applicable level governs.
+The work level is sourced from three inputs: the caller's declaration (in the build package), the standing policy in the build standards the profile composes (for the domain), and build's own assessment (what it discovers about the work during planning and execution). The highest applicable level governs.
 
 The concept of "work level" is not exclusive to Build — it applies equally to design, deployment, research and other areas. Build implements the cross-cutting concept within its own context.
 
@@ -228,3 +228,5 @@ At the small end of the build spectrum, most package elements are implicit — d
 Version note: v4 — cross-review remediation. D14: element count corrected to seven, PD provenance restated as Build's resolution of PD's sufficiency contract (F4, F12). D23: transaction guarantee made conditional on target capability (F7). D30: incorrect DocMeth analogy removed, restated under Core ownership model (F13). D32: rationale corrected from "no consumer" to sequencing (F10). D33: work-level interim vocabulary (F6). D34: scalability operational semantics (F11). "Build channel" → "build domain" where applicable (F14). 2026-09-17. Replaces v3.
 
 Version note: v5 — cross-review round 2. D14: element count updated to nine (four optional). D16: delivery model corrected to delivery-neutral. D2, D18: "channel" → "build domain". 2026-09-17. Replaces v4.
+
+Version note: v6 — cross-review round 3. D14: working target reclassified as conditional (F4). D26, D27: "profile policy" corrected to "build standards in the profile" (F6). 2026-09-17. Replaces v5.

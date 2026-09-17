@@ -1,4 +1,4 @@
-> identity: Build_Design@v5 | doctype: design | updated: 2026-09-17
+> identity: Build_Design@v6 | doctype: design | updated: 2026-09-17
 
 # Build — Design
 
@@ -52,16 +52,16 @@ The build package is the outbound handoff — what the caller sends to initiate 
 
 #### Contents
 
-A build package composes nine elements. The first five — instruction, decision scope, working target, profile reference, definition of done — are always relevant. The remaining four — intermediate-exchange support, transaction model, review requirement and work-level declaration — are present where applicable.
+A build package composes nine elements. Four — instruction, decision scope, profile reference, definition of done — are always relevant. The remaining five — working target, intermediate-exchange support, transaction model, review requirement and work-level declaration — are present where applicable.
 
 - **Instruction** — the caller's per-task ask, prescriptive to intent-level.
 - **Decision scope** — the latitude and authority granted for this build.
-- **Working target** — where the build may operate (when relevant to the target type).
 - **Profile reference** — which build standards apply, as a named preset, inline definition, or both.
 - **Definition of done** — the testable or assessable completion criteria for this task.
+- **Working target** — where the build may operate (when relevant to the target type). Where the build operates on a specific file location or subtree. Not applicable for all build types.
 - **Intermediate exchange support** — whether the caller supports mid-execution questions and responses. Absent means not supported.
 - **Transaction model** — commit, rollback and partial-completion expectations, where the caller wants to override the profile's default. Consumers fill the content; the invariant is that it must be something you can actually check against.
-- **Review requirement** — caller-specified review expectations for this build, where the caller wants to raise review above the profile's standing floor. Absent means the profile's standing policy governs alone.
+- **Review requirement** — caller-specified review expectations for this build, where the caller wants to raise review above the floor set by the profile's build standards. Absent means the standing policy in the profile's build standards governs alone.
 - **Work-level declaration** — the caller's assessment of this work's consequence and complexity. Combined with profile policy and build's own assessment; the highest governs. Absent means the profile and build determine work level.
 
 #### Sufficiency
@@ -218,9 +218,9 @@ These are points *available* for activation, not mandated steps. Whether either 
 Review is activated from two directions, and both apply:
 
 - The **caller** may specify review in the build package.
-- **Standing policy in the profile** may require review for the applicable build domain.
+- **Standing policy in the build standards the profile composes** may require review for the applicable build domain.
 
-The profile sets the floor; the caller can raise the review level but not lower it below what the profile requires. This matches the profile composition model and the decision-scope model — the profile carries standing conventions, the caller adds per-task specifics. See D26.
+The build standards in the profile set the floor; the caller can raise the review level but not lower it below what the profile's standards require. This matches the profile composition model and the decision-scope model — the build standards in the profile carry standing conventions, the caller adds per-task specifics. See D26.
 
 ### Work level determines review activation
 
@@ -236,7 +236,7 @@ The highest applicable level governs. Work level is not exclusive to Build — t
 
 **What Build requires from work level.** Build requires work level to be an orderable concept with a comparison rule: given two independently assessed levels, it must be possible to determine which is higher. Build does not define the full work-level model — the concept is cross-cutting — but the minimum requirement for Build's review activation to function is an ordered set of levels and a highest-governs resolution rule. Until the cross-cutting model is defined, Build uses a qualitative scale — trivial, routine, significant, high-consequence — with the ordering implied by that sequence.
 
-Which review behaviours activate at each work level is determined by the profile. Build provides two review points — pre-execution and post-execution — and the work-level assessment. The profile carries the standing policy that maps work levels to review activation: which points fire, at what depth, and with what requirements. Build's contract is to honour the profile's mapping and to provide the review points; the profile's contract is to supply a mapping that covers every level in the vocabulary.
+Which review behaviours activate at each work level is determined by the build standards in the profile stack. Build provides two review points — pre-execution and post-execution — and the work-level assessment. The build standards composed into the profile carry the conventions that map work levels to review activation: which points fire, at what depth, and with what requirements. A review-policy build standard is the natural home for this mapping — the profile selects it alongside the domain-specific standards.
 
 ### Cross-cutting concerns consumed
 
@@ -354,7 +354,7 @@ The build standard is a standard authored under the Standards methodology. The p
 | Term | Meaning |
 |---|---|
 | **Caller** | Whatever initiated the build — design, another build, or any other origin. Owns the instruction, decision scope and sign-off authority. |
-| **Build package** | The outbound handoff: composes instruction, decision scope, working target, profile reference, definition of done, and (where applicable) intermediate-exchange support, transaction model, review requirement and work-level declaration. Channel-agnostic — defines what crosses, not how. |
+| **Build package** | The outbound handoff: composes instruction, decision scope, profile reference, definition of done, and (where applicable) working target, intermediate-exchange support, transaction model, review requirement and work-level declaration. Channel-agnostic — defines what crosses, not how. |
 | **Build mechanism** | The generic framework: caller, build package, sign-off, return. Applies to every build. |
 | **Build standard** | A composable document carrying the how for a build domain. Authored on the Standards methodology, subgrouped as "build standards." |
 | **Build domain** | The category of build target — e.g. .NET software development, document persistence, framework payload. Determines which build standards apply. Distinct from channel (transport). |
@@ -390,3 +390,5 @@ The build standard is a standard authored under the Standards methodology. The p
 Version note: v4 — cross-review remediation. F4: build package canonical contract (seven elements, all references aligned). F5: return states corrected to PD Standard's settled model. F6: work-level requirements stated (gap). F7: transaction guarantee made conditional on target capability. F8: packaging boundary clarified (Build authors content, Infrastructure packages, Deployment delivers). F9: build-standard delivery model aligned with Standards methodology. F11: scalability operational semantics added (implicit defaults at small end). F14: "build domain" introduced, "channel" reserved for transport. Plus: caller persistence convention referenced in intermediate exchanges. 2026-09-17. Replaces v3.
 
 Version note: v5 — cross-review round 2. F4: review requirement and work-level declaration added as optional package elements (nine total). F6: level-to-review mapping assigned to profile. F8: Build output corrected to accepted standard/tool document (Infrastructure transforms to delivery format). F9: applicability paragraph delivery-neutralised. F10: stale "when it has a consumer" replaced with D32's corrected sequencing rationale. F13: stale DocMeth pattern reference removed. 2026-09-17. Replaces v4.
+
+Version note: v6 — cross-review round 3. F4: working target reclassified as conditional (four always-relevant, five conditional). F6: review/work-level mapping moved from profile to build standards in the profile stack — profiles remain structural-only per D7. 2026-09-17. Replaces v5.

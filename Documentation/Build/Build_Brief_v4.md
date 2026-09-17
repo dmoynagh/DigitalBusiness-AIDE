@@ -1,4 +1,4 @@
-> identity: Build_Brief@v3 | doctype: brief | updated: 2026-09-17
+> identity: Build_Brief@v4 | doctype: brief | updated: 2026-09-17
 
 # Build — Brief
 
@@ -8,7 +8,7 @@ Build is the transition to execution. When something has been defined — in des
 
 ## Objectives
 
-1. Provide a common build mechanism applicable across all build targets, from software development to documentation persistence to framework output packaging.
+1. Provide a common build mechanism applicable across all build targets, from software development to documentation persistence to framework payload authoring.
 2. Support composable, reusable build standards that carry target-specific conventions without restating them per task.
 3. Define the contract between Build and its caller — what rides in a build request and what comes back — so that Orchestration can carry it as opaque payload.
 4. Implement verification by behaviour as Build's own contribution to the assurance requirement.
@@ -64,3 +64,5 @@ Build sits under the Work role. It directly serves O1 (trust and integrity) thro
 Version note: v2 — cross-review remediation. F1: Requirements section added. F2: Charter alignment corrected against Core_Charter_v1 (O2 and O3 were misattributed). 2026-09-17. Replaces v1.
 
 Version note: v3 — cross-review round 2. F8: scope corrected to platform-neutral output (Build authors accepted standards/tools, Infrastructure transforms to delivery format). F14: remaining "build channel" → "build domain". 2026-09-17. Replaces v2.
+
+Version note: v4 — cross-review round 3. F8: Objective 1 corrected — "framework output packaging" replaced with platform-neutral authoring language. 2026-09-17. Replaces v3.
