@@ -4135,3 +4135,47 @@ COMPLETION SUMMARY
 FAILED - nothing was deployed
 ========================================================================
 
+========================================================================
+file update package   2026-09-17 16:34:55   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            AIDE_StateUpdate_FUP.zip  (2026-09-17 16:34, 23,826 bytes)
+------------------------------------------------------------------------
+
+[Assurance]
+  DELETED           Assurance_Standard_v1.md
+  REPLACED          Assurance/Assurance_Standard_v1.md  (8,112 bytes)
+
+[.]
+  DELETED           AIDE_Board.html
+  REPLACED          AIDE_Board.html  (29,569 bytes)
+  CREATED           AIDE_Documentation_WIP_v27.md  (30,709 bytes)
+  SKIPPED           AIDE_Documentation_WIP_v2.md: nothing replaced - "AIDE_Documentation_WIP_v2.md" is not in the documentation tree
+  REPLACED          AIDE_Documentation_WIP_v2.md  (6,146 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         AIDE_StateUpdate_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 3 replaced, 1 created, 2 deleted, 1 skipped, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              AIDE_StateUpdate_FUP.zip
+  files replaced:       3
+  files created:        1
+  files moved:          0
+  files deleted:        2
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+

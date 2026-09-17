@@ -335,3 +335,28 @@ Nothing to do - every document in the tree is already at its current version.
 Result: no changes
 ========================================================================
 
+========================================================================
+version cleanup   2026-09-17 16:34:51   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 18
+------------------------------------------------------------------------
+Nothing to do - every document in the tree is already at its current version.
+
+------------------------------------------------------------------------
+Result: no changes
+========================================================================
+
+========================================================================
+version cleanup   2026-09-17 16:39:03   LIVE
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+folders processed: 18
+------------------------------------------------------------------------
+
+[.]
+  DELETED       AIDE_Documentation_WIP_v2.md  (v2 superseded by v27)
+  DELETED       AIDE_Documentation_WIP_v26.md  (v26 superseded by v27)
+
+------------------------------------------------------------------------
+Result: 2 deleted
+========================================================================
+

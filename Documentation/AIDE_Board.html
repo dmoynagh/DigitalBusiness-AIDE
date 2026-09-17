@@ -276,23 +276,7 @@
 <section class="zone zone-current">
   <div class="zone-header">
     <h2>Current</h2>
-    <span class="count">1 item</span>
-  </div>
-
-  <div class="task">
-    <details>
-      <summary>
-        <span class="task-id">BLD-XR</span>
-        <span class="task-name">Build cross-review — in progress (round 2)</span>
-      </summary>
-      <div class="task-body">
-        <p>Round 1: 14 findings (F1–F14), all accepted. Remediated and deployed: Brief v2, Design v4, Decisions v4, Overview v2. Round 2: 7 remaining findings, all remediated and deployed: Brief v3, Design v5, Decisions v5, Overview v3. Pending: closure check from ChatGPT. Core carry registered (F3 — generic-caller model update).</p>
-        <div class="tags">
-          <span class="tag">build</span>
-          <span class="tag">cross-review</span>
-        </div>
-      </div>
-    </details>
+    <span class="count">0 items</span>
   </div>
 </section>
 
@@ -300,7 +284,7 @@
 <section class="zone zone-pending">
   <div class="zone-header">
     <h2>Pending</h2>
-    <span class="count">4 items</span>
+    <span class="count">5 items</span>
   </div>
 
   <div class="task">
@@ -365,6 +349,22 @@
         <div class="tags">
           <span class="tag">project-design</span>
           <span class="tag">standard</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">CORE-BLD</span>
+        <span class="task-name">Core_Design Build entry — generic-caller update</span>
+      </summary>
+      <div class="task-body">
+        <p>Core_Design component map still describes Build as receiving specification from Project Design. Build's accepted design (D3) deliberately generalises to any caller. Update Core_Design Build entry to match. Same pattern as CORE-ORC and CORE-WP (already completed). Cross-review carry F3.</p>
+        <div class="tags">
+          <span class="tag">core</span>
+          <span class="tag">housekeeping</span>
         </div>
       </div>
     </details>
@@ -497,7 +497,7 @@
         <span class="task-name">Build standard</span>
       </summary>
       <div class="task-body">
-        <p>Deferred by design (D32) until the first framework build consumer. The standard needs a real consumer to write against.</p>
+        <p>Deferred by design (D32) — sequencing, not absence of consumer. Document persistence is a real consumer; deferral is until the Build design has been exercised and conventions are stable enough to standardise.</p>
         <div class="tags">
           <span class="tag">build</span>
           <span class="tag">standard</span>
@@ -611,7 +611,24 @@
 <section class="zone zone-done">
   <div class="zone-header">
     <h2>Done</h2>
-    <span class="count">16 items</span>
+    <span class="count">17 items</span>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">BLD-XR</span>
+        <span class="task-name">Build cross-review — 5 rounds, 15 findings</span>
+      </summary>
+      <div class="task-body">
+        <p>Cross-review completed (ChatGPT, 5 rounds, 15 findings F1–F15, all resolved). Final: Brief v4, Design v8, Decisions v8 (D1–D34), Overview v6. Key changes: nine package elements (four always-relevant, five conditional), "build domain" terminology, profiles structural-only throughout, platform-neutral Build output. F3 accepted as Core carry (CORE-BLD).</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">build</span>
+          <span class="tag">cross-review</span>
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="task is-done">
@@ -808,7 +825,7 @@
         <span class="task-name">Build design pass — brief, design, decisions, overview</span>
       </summary>
       <div class="task-body">
-        <p>Full design pass including legacy binder review. Design v3, Decisions v3 (D1–D32), Overview v1 deployed. Cross-review pending (BLD-XR).</p>
+        <p>Full design pass including legacy binder review. Cross-reviewed through 5 rounds (BLD-XR). Final: Brief v4, Design v8, Decisions v8 (D1–D34), Overview v6.</p>
         <p class="completed-date">Completed: 2026-09-16</p>
         <div class="tags">
           <span class="tag">build</span>
