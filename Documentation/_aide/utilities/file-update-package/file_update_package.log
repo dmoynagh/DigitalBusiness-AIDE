@@ -4179,3 +4179,89 @@ COMPLETION SUMMARY
 COMPLETED SUCCESSFULLY
 ========================================================================
 
+========================================================================
+file update package   2026-09-18 09:07:13   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            IndexPass_2026-09-18.zip  (2026-09-18 09:06, 11,267 bytes)
+description:        Index pass — root _index, three missing component indexes, Boards index, and role updates across all existing component indexes
+------------------------------------------------------------------------
+
+[.]
+  CREATED           _index.md  (1,121 bytes)
+
+[Build]
+  CREATED           Build/_index.md  (630 bytes)
+
+[Principles]
+  CREATED           Principles/_index.md  (504 bytes)
+
+[Orchestration]
+  CREATED           Orchestration/_index.md  (512 bytes)
+
+[Working Practices\Boards]
+  CREATED           Working Practices/Boards/_index.md  (382 bytes)
+
+[Core]
+  DELETED           _index.md
+  REPLACED          Core/_index.md  (1,794 bytes)
+
+[Assurance]
+  DELETED           _index.md
+  REPLACED          Assurance/_index.md  (561 bytes)
+
+[Documentation Methodology]
+  DELETED           _index.md
+  REPLACED          Documentation Methodology/_index.md  (985 bytes)
+
+[Infrastructure]
+  DELETED           _index.md
+  REPLACED          Infrastructure/_index.md  (1,375 bytes)
+
+[Messaging]
+  DELETED           _index.md
+  REPLACED          Messaging/_index.md  (834 bytes)
+
+[Project Design]
+  DELETED           _index.md
+  REPLACED          Project Design/_index.md  (537 bytes)
+
+[Standards]
+  DELETED           _index.md
+  REPLACED          Standards/_index.md  (793 bytes)
+
+[Tools]
+  DELETED           _index.md
+  REPLACED          Tools/_index.md  (723 bytes)
+
+[Working Practices]
+  DELETED           _index.md
+  REPLACED          Working Practices/_index.md  (1,076 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         IndexPass_2026-09-18.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 9 replaced, 5 created, 9 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              IndexPass_2026-09-18.zip
+                        Index pass — root _index, three missing component indexes, Boards index, and role updates across all existing component indexes
+  files replaced:       9
+  files created:        5
+  files moved:          0
+  files deleted:        9
+  conflicts:            0
+  errors:               0
+  user instructions:    present, shown and acknowledged
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
