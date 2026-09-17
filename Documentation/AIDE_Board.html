@@ -276,42 +276,7 @@
 <section class="zone zone-current">
   <div class="zone-header">
     <h2>Current</h2>
-    <span class="count">3 items</span>
-  </div>
-
-  <div class="task is-set">
-    <details>
-      <summary>
-        <span class="task-id">WP-OUT</span>
-        <span class="task-name">WP standard, build, and deploy</span>
-      </summary>
-      <div class="task-body">
-        <p>Author the Working Practices standard (including board), build the binder, deploy to the aide plugin as a skill.</p>
-        <p class="dep">depends: <span class="resolved"><span class="dep-id">WP-DP</span> cross-review accepted</span> ✓, <span class="resolved"><span class="dep-id">BRD-D</span> board design complete</span> ✓</p>
-        <div class="sub-items">
-          <div class="sub-item">
-            <span class="checkbox">☐</span>
-            <span class="sub-id">WP-OUT.1</span>
-            <span class="sub-name">WP standard authoring — from design v6 including board, cross-reviewed</span>
-          </div>
-          <div class="sub-item">
-            <span class="checkbox">☐</span>
-            <span class="sub-id">WP-OUT.2</span>
-            <span class="sub-name">Binder rebuild — pick up Boards part, WP design v6, WP decisions v4</span>
-          </div>
-          <div class="sub-item">
-            <span class="checkbox">☐</span>
-            <span class="sub-id">WP-OUT.3</span>
-            <span class="sub-name">Deploy WP standard as skill in aide plugin</span>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag">working-practices</span>
-          <span class="tag">standard</span>
-          <span class="tag">deploy</span>
-        </div>
-      </div>
-    </details>
+    <span class="count">2 items</span>
   </div>
 
   <div class="task">
@@ -351,20 +316,36 @@
 <section class="zone zone-pending">
   <div class="zone-header">
     <h2>Pending</h2>
-    <span class="count">7 items</span>
+    <span class="count">8 items</span>
   </div>
 
   <div class="task">
     <details>
       <summary>
-        <span class="task-id">ORC-DEP</span>
-        <span class="task-name">Orchestration v5 deployment — binder and Core correction</span>
+        <span class="task-id">WP-XR</span>
+        <span class="task-name">WP standard cross-review</span>
       </summary>
       <div class="task-body">
-        <p>Deploy accepted Design v5, Decisions v5, UseCases v2 to Orchestration/ in documentation repo. Rebuild binder. Apply Core boundary wording correction (D3/D29) — Orchestration description in Core_Design and Core_AIDEMap. Update Orchestration/_index.md.</p>
+        <p>WP_Standard_v1 deployed but not yet cross-reviewed. Design was cross-reviewed (three rounds accepted), standard is a carry — lower risk. Non-blocking; run when convenient.</p>
         <div class="tags">
-          <span class="tag">orchestration</span>
-          <span class="tag">deploy</span>
+          <span class="tag">working-practices</span>
+          <span class="tag">cross-review</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">CORE-ORC</span>
+        <span class="task-name">Core boundary wording — Orchestration description correction</span>
+      </summary>
+      <div class="task-body">
+        <p>Core_Design and Core_AIDEMap still describe Orchestration as owning "work package structure, verification, and capability profiles." Accepted Orchestration design (D3/D29) proposes replacement wording. Apply when Core documents are next worked — can batch with CORE-WP (stale WP purpose line).</p>
+        <div class="tags">
+          <span class="tag">core</span>
+          <span class="tag">housekeeping</span>
         </div>
       </div>
     </details>
@@ -725,7 +706,42 @@
 <section class="zone zone-done">
   <div class="zone-header">
     <h2>Done</h2>
-    <span class="count">9 items</span>
+    <span class="count">11 items</span>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">ORC-DEP</span>
+        <span class="task-name">Orchestration v5 deployment</span>
+      </summary>
+      <div class="task-body">
+        <p>Design v5, Decisions v5 (D1–D48), UseCases v2 deployed to documentation repo. Binder rebuilt to v100. Core boundary correction separated as CORE-ORC.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">orchestration</span>
+          <span class="tag">deploy</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-set is-done">
+    <details>
+      <summary>
+        <span class="task-id">WP-OUT</span>
+        <span class="task-name">WP standard, build, and deploy</span>
+      </summary>
+      <div class="task-body">
+        <p>WP_Standard_v1 authored from Design v6 including board conventions. Binder rebuilt to v100. Skill deployed to aide plugin (PR #5, corrected PR #6). Fifth work-item fate corrected (board→register), caller persistence convention added.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">working-practices</span>
+          <span class="tag">standard</span>
+          <span class="tag">deploy</span>
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="task is-done">

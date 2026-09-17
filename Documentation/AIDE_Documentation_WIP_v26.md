@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v25 | 2026-09-17
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v26 | 2026-09-17
 
 ## Active threads
 
@@ -217,7 +217,9 @@ Eight skills authored from cross-reviewed, accepted standards and deployed to `a
 
 ### Phase 3 — rolling deployment
 
-Scoped as rolling deployment as standards land, not a batch. Immediately actionable: Assurance standard authoring (design v3 accepted, no blocker). WP standard blocked on cross-review return. Build standard and `db-aide-info` resources plugin remain parked by design.
+Scoped as rolling deployment as standards land, not a batch. WP standard authored, corrected, and deployed (PR #5 + correction PR #6, binder v100). Immediately actionable: Assurance standard authoring (design v3 accepted, no blocker). Build standard and `db-aide-info` resources plugin remain parked by design. WP standard cross-review queued (non-blocking — design was cross-reviewed, standard is a carry).
+
+**Work ownership clarifications (2026-09-17).** During WP standard deployment, the distinction between board (tracking view, WP), work register (commitment ledger, PD), and WIP (transactional staging, WP) was sharpened. The fifth work-item fate was corrected from "board" back to "work register" — the board is a tracking mechanism orthogonal to all five fates. A caller persistence convention was added to WIP (default: WIP for in-session transactional state, memory for cross-session continuity). Context summary produced for the Build cross-review.
 
 ---
 
@@ -373,4 +375,4 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 
 ---
 
-Version note: v25 — Orchestration moved from Pending to Completed (cross-review accepted, Design v5/Decisions v5/UseCases v2, 29 findings across 4 rounds + acceptance check). Orchestration struck through in design pass queue. Improvement boundary-with-Orchestration wording corrected (confirmed by accepted documents). Queue-writing ownership correction confirmed. Cross-review register updated. 2026-09-17. Replaces v24.
+Version note: v26 — WP standard authored, corrected, and deployed (WP-OUT complete). Fifth work-item fate corrected (board→register), caller persistence convention added, binder v100, skill PR #5 + correction PR #6. WP standard cross-review queued (non-blocking). Work ownership clarifications documented (board/register/WIP distinction, caller persistence). Build cross-review context summary produced. 2026-09-17. Replaces v25.
