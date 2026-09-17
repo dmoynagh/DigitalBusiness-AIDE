@@ -1,10 +1,12 @@
-# AIDE Orchestration — Design v3
+# AIDE Orchestration — Design v5
 
-> identity: Orchestration_Design@v3 | doctype: design | updated: 2026-09-17
+> identity: Orchestration_Design@v5 | doctype: design | updated: 2026-09-17
 
-Two cross-review rounds completed (independent AI). Round 1: fifteen findings (F1–F15),
-all resolved in v2 (D20–D34). Round 2: seven findings (R2-F1–R2-F7), all resolved in
-v3 (D35–D41). Reviewer accepted the model; remaining work was contract tightening.
+Three cross-review rounds plus acceptance check completed (independent AI). Round 1:
+fifteen findings (F1–F15), resolved in v2. Round 2: seven findings (R2-F1–R2-F7),
+resolved in v3. Round 3: five findings (R3-F1–R3-F5), resolved in v4. Acceptance check:
+two findings (R4-F1–R4-F2), resolved in v5 (D47–D48). Architecture and model accepted
+in substance after round 2; subsequent rounds were contract tightening.
 
 ---
 
@@ -192,8 +194,19 @@ transport_status: completed
 provenance:
   requested_model: { exact: o3 }
   resolved_model: o3
-  resolved_settings: { reasoningEffort: high }
+  resolved_settings: { reasoningEffort: high }    # provider-native default, not Orchestration-selected
   resources_version: null
+response: "..."
+
+# Success — model omitted, default used
+dispatch_id: jkl-012
+target: claude-code
+transport_status: completed
+provenance:
+  requested_model: { default: true, resolved_level: standard }
+  resolved_model: claude-sonnet-4-20260514
+  resolved_settings: { }
+  resources_version: "2026-09-17"
 response: "..."
 
 # Failure — target did not return a response
@@ -201,8 +214,8 @@ dispatch_id: ghi-789
 target: codex
 transport_status: failed
 failure:
-  category: timeout
-  detail: "Codex exec did not return within 300s"
+  category: invocation_error
+  detail: "Codex rejected the requested model: model not available"
 ```
 
 **`transport_status`** is either `completed` or `failed`:
@@ -216,8 +229,13 @@ failure:
 **Failure categories** (transport-owned — they describe what went wrong in invocation,
 not whether the task's objectives were met):
 
-- `invocation_error` — the adapter could not start the target process
-- `timeout` — invocation started but did not return within the allowed time
+- `invocation_error` — the target invocation could not successfully reach executable
+  task execution, including failure to start the target process and native invocation
+  rejection by the target or provider (e.g. invalid model, unsupported option)
+- `timeout` — invocation started but did not return within the allowed time. In v1,
+  this covers native/provider-imposed timeouts only — Orchestration does not impose
+  its own timeout. A caller-supplied timeout may be added in a future version if
+  demonstrated workload variation requires it
 - `target_unavailable` — the target is not currently available on this endpoint
 - `auth_failure` — authentication/authorisation failed for the target
 - `adapter_error` — the adapter encountered an internal error
@@ -230,15 +248,21 @@ Transport failure means the target was never successfully reached or did not ret
 
 **Provenance** is required on `completed` results. It records:
 
-- **`requested_model`** — the caller's model selection, represented symmetrically:
-  `{ level: high }` for logical-level requests, `{ exact: provider-model }` for exact
-  requests. Matches the form the caller used.
+- **`requested_model`** — the caller's model selection, represented symmetrically in
+  the form the caller used:
+  - `{ level: high }` — caller explicitly requested a logical level.
+  - `{ exact: provider-model }` — caller requested an exact provider model.
+  - `{ default: true, resolved_level: standard }` — caller omitted `model`, delegating
+    to the configured default. The `resolved_level` records which default was selected
+    from Resources for that execution. This is distinct from an explicit `{ level:
+    standard }` request — a historical execution that delegated to default is not
+    semantically identical to one that explicitly requested the same level.
 - **`resolved_model`** — the native model identity actually used.
 - **`resolved_settings`** — the native invocation settings applied (reasoning effort,
-  etc.).
+  etc.). For the exact-model path, these are the provider-native defaults actually
+  observed, not Orchestration-selected values.
 - **`resources_version`** — the Framework Resources version used for resolution. `null`
-  for the exact-model path, which bypasses Resources resolution — the adapter uses the
-  exact model directly, recording the native settings it applied.
+  for the exact-model path, which bypasses Resources resolution.
 
 Provenance ensures past executions stay interpretable after mappings change.
 
@@ -258,7 +282,7 @@ must be settled before the v1 dispatch contract is frozen, because renaming afte
 deployment is an interface migration. They may remain provisional at design acceptance.
 
 An escape hatch allows requesting an exact provider model directly, for testing,
-comparison, or reproduction:
+model pinning, or comparison:
 
 ```yaml
 model:
@@ -280,8 +304,12 @@ capability. It does not include sandbox mode, permission/approval mode, tool acc
 other execution-policy settings that belong to the caller's workflow.
 
 The **exact-model path** bypasses logical-level resolution. The adapter uses the
-specified model directly and records the native settings it applied. No Resources
-resolution is involved; `resources_version` in provenance is `null`.
+specified model directly. Other model-capability settings (reasoning effort, etc.) use
+the target/provider's native defaults — Orchestration does not independently select
+them. Provenance records whatever native settings were actually applied where they can
+be determined. If exact control of individual capability settings later becomes a
+demonstrated requirement, that is designed separately rather than allowed to emerge
+through adapter behaviour.
 
 Two logical levels may legitimately resolve to the same native configuration where a
 provider doesn't currently expose a meaningful distinction. **The mapping content itself
@@ -363,7 +391,10 @@ supported by Resources ∩ detected on this endpoint ∩ not explicitly disabled
 ```
 
 Machine-specific configuration is only introduced where detection genuinely cannot
-represent a real requirement.
+represent a real requirement. Until a portable user/account settings mechanism exists
+(deferred), the "not explicitly disabled" condition is vacuously true — all detected,
+Resources-supported targets are available. Once Core/Settings provides explicit
+disabling, the endpoint incorporates it into effective availability.
 
 ### Capability availability is not execution-endpoint availability
 
@@ -422,8 +453,9 @@ Orchestration design decision.
 ### What was superseded
 
 The original investigation considered standalone script, Claude Code skill, Desktop
-Extension, and `aide dispatch` inside the CLI. The plugin-delivered MCP server
-supersedes all four.
+Extension, and `aide dispatch` inside the CLI. The local execution-endpoint model
+supersedes all four Orchestration-side alternatives. The currently proven
+implementation is an MCP server; its delivery mechanism is an Infrastructure decision.
 
 ## Target adapters
 
@@ -487,11 +519,11 @@ envelope carries the caller-owned request; Orchestration owns moving and invokin
 ## Proposed Core boundary wording (for Core's design pass, not adopted here)
 
 > **Orchestration — Coordinate invocation across AI execution targets. Accept
-> caller-selected targets and caller-owned work, resolve requested logical model
-> capability using Core-owned Framework Resources, invoke target adapters/endpoints,
-> correlate each dispatch with its transport outcome, and return the target response.
-> Orchestration does not define the task, verification policy, routing decision, or
-> semantic meaning of the response.**
+> caller-selected targets and caller-owned work, apply the caller's model selection
+> using Core-owned Framework Resources for logical capability resolution, invoke target
+> adapters/endpoints, correlate each dispatch with its transport outcome, and return the
+> target response. Orchestration does not define the task, verification policy, routing
+> decision, or semantic meaning of the response.**
 
 ---
 
@@ -517,9 +549,9 @@ envelope carries the caller-owned request; Orchestration owns moving and invokin
 ## Short-form model
 
 > Orchestration moves caller-owned work to another AI execution target and brings the
-> result back. The caller chooses the target and required logical model capability.
-> Orchestration resolves that request through Core-owned Framework Resources into
-> target-native invocation settings and executes it through an available endpoint.
-> Orchestration owns the crossing — dispatch correlation, invocation, and transport
-> outcome — not the work, its verification policy, or the semantic meaning of the
-> response.
+> result back. The caller chooses the target and either selects a logical model
+> capability, delegates to the configured default, or pins an exact provider model.
+> Orchestration resolves the selection as applicable through Core-owned Framework
+> Resources and executes it through an available endpoint. Orchestration owns the
+> crossing — dispatch correlation, invocation, and transport outcome — not the work,
+> its verification policy, or the semantic meaning of the response.

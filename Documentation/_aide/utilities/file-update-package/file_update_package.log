@@ -4035,3 +4035,39 @@ COMPLETION SUMMARY
 COMPLETED WITH ERRORS - the deploy is incomplete
 ========================================================================
 
+========================================================================
+file update package   2026-09-17 12:13:44   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            WP_Standard_FUP.zip  (2026-09-17 11:52, 5,441 bytes)
+description:        Authors and deploys the Working Practices standard (v1) from the accepted WP design (WP_Design_v6, WP_Decisions_v4), the Boards design (WP_Boards_Design_v1, WP_Boards_Decisions_v1), under Standards Authoring Standard v8. Carried standard: capture-and-place, operational tools, file delivery rules, overview-first discipline, Working State (WIP, pending content, working documents, work items, board model, definition of done, development lifecycle), Content Delivery (binder), and boundaries.
+------------------------------------------------------------------------
+
+[_fileupdatepackages]
+  SKIPPED           WP_Boards_FUP.zip: waiting - only the newest package is processed in a run
+
+[Working Practices]
+  CONFLICT          Working Practices/WP_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+
+------------------------------------------------------------------------
+Result: 1 conflict, 1 skipped
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              WP_Standard_FUP.zip
+                        Authors and deploys the Working Practices standard (v1) from the accepted WP design (WP_Design_v6, WP_Decisions_v4), the Boards design (WP_Boards_Design_v1, WP_Boards_Decisions_v1), under Standards Authoring Standard v8. Carried standard: capture-and-place, operational tools, file delivery rules, overview-first discipline, Working State (WIP, pending content, working documents, work items, board model, definition of done, development lifecycle), Content Delivery (binder), and boundaries.
+  files replaced:       0
+  files created:        0
+  files moved:          0
+  files deleted:        0
+  conflicts:            1
+    - Working Practices/WP_Standard_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       not triggered - no files were deployed
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+FAILED - nothing was deployed
+========================================================================
+

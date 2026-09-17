@@ -1,10 +1,11 @@
-# AIDE Orchestration — Decisions v3
+# AIDE Orchestration — Decisions v5
 
-> identity: Orchestration_Decisions@v3 | doctype: decisions | updated: 2026-09-17
+> identity: Orchestration_Decisions@v5 | doctype: decisions | updated: 2026-09-17
 
-Two cross-review rounds completed (independent AI). Round 1: F1–F15, resolved in v2
-(D20–D34). Round 2: R2-F1–R2-F7, resolved in v3 (D35–D41). D1–D34 unchanged except
-where noted.
+Three cross-review rounds plus acceptance check completed (independent AI). Round 1:
+F1–F15, resolved in v2 (D20–D34). Round 2: R2-F1–R2-F7, resolved in v3 (D35–D41).
+Round 3: R3-F1–R3-F5, resolved in v4 (D42–D46). Acceptance check: R4-F1–R4-F2,
+resolved in v5 (D47–D48). D1–D46 unchanged.
 
 ---
 
@@ -197,6 +198,82 @@ pre-deployment decision. These statements are contradictory. v3 settles: final
 capability-level names may remain provisional at design acceptance and must be settled
 before the dispatch contract is frozen (pre-deployment). The substantive point —
 renaming after deployment is an interface migration — is unchanged.
+
+---
+
+## v4 decisions (round 3 remediation)
+
+**D42 — Supersession wording corrected to not re-settle Infrastructure's delivery
+decision (remediates R3-F1).** v3 said "the plugin-delivered MCP server supersedes all
+four," which re-settles the delivery mechanism that D30 returned to Infrastructure. v4
+says the local execution-endpoint model supersedes the four Orchestration-side
+alternatives. The currently proven implementation is an MCP server; its delivery
+mechanism is an Infrastructure decision. This preserves the investigation result without
+making Infrastructure's decision inside Orchestration.
+
+**D43 — Timeout in v1 covers native/provider timeouts only; no Orchestration-imposed
+timeout (remediates R3-F2).** The v3 failure example implied Orchestration imposes its
+own timeout (300s) but no field or policy defined it. v4 clarifies: in v1, the `timeout`
+failure category covers native/provider-imposed timeouts only. Orchestration does not
+impose its own invocation timeout — doing so for workload-dependent operations (Build,
+FUP) risks terminating legitimate caller-owned work. A caller-supplied optional timeout
+may be added in a future version if demonstrated workload variation requires it. The
+example is changed to show `invocation_error` (native rejection) rather than a
+specific-seconds timeout.
+
+**D44 — `invocation_error` broadened to cover native invocation rejection (remediates
+R3-F3).** The v3 definition ("the adapter could not start the target process") was too
+narrow. A common failure state exists between "could not start" and "adapter internal
+error": the target process starts but rejects the invocation before an agent response
+exists (e.g. invalid model, unsupported option, provider-side rejection). v4 broadens
+the definition to: the target invocation could not successfully reach executable task
+execution, including failure to start and native invocation rejection. This keeps v1
+smaller than introducing a separate `invocation_rejected` category.
+
+**D45 — Exact-model escape hatch claim narrowed from "reproduction" to "model pinning"
+(remediates R3-F4).** The v3 wording said exact model selection exists for "testing,
+comparison, or reproduction." Exact model identity alone does not reproduce an earlier
+invocation when reasoning effort or other settings affect behaviour. Provenance records
+the applied settings and provides evidence about configuration, but the `exact` field
+alone does not guarantee reproduction. v4 narrows to "testing, model pinning, or
+comparison."
+
+**D46 — Disabling condition is vacuously true until a settings mechanism exists
+(remediates R3-F5).** The availability equation includes "not explicitly disabled" but
+the portable user/account settings mechanism is deferred. v4 states that until a
+settings mechanism exists, the condition is vacuously true — all detected,
+Resources-supported targets are available. Once Core/Settings provides explicit
+disabling, the endpoint incorporates it into effective availability. This keeps the
+future model without creating an undeclared v1 dependency.
+
+---
+
+## v5 decisions (acceptance check remediation)
+
+**D47 — Provenance represents all three valid model-selection forms (remediates
+R4-F1).** The v4 provenance contract defined `requested_model` as either
+`{ level: ... }` or `{ exact: ... }`, but the dispatch request permits a third form:
+`model` omitted entirely, delegating to the configured default. Neither of the two
+provenance forms matches what the caller actually did, and recording `{ level: standard }`
+would falsely imply an explicit selection. v5 adds `{ default: true, resolved_level:
+standard }` as the third provenance form, preserving both facts: (1) the caller
+delegated to the configured default, and (2) the default resolved to `standard` for
+that execution. The Resources version tells which configuration produced that default.
+This is exactly the kind of distinction provenance exists to preserve — a historical
+execution that delegated to default is not semantically identical to one that explicitly
+requested the same level, even when both resolved identically.
+
+**D48 — Exact-model path uses provider-native defaults for other capability settings
+(remediates R4-F2).** The v4 exact-model provenance example showed
+`reasoningEffort: high` without explaining where that value came from — Resources is
+bypassed, the caller didn't specify it, and the adapter shouldn't independently own
+model-capability policy. v5 states the rule: exact-model selection pins native model
+identity only; other model-capability settings use the target/provider's native
+defaults; Orchestration does not independently select them. Provenance records whatever
+native settings were actually applied where they can be determined — these are
+provider-observed values, not Orchestration-selected ones. If exact control of
+individual capability settings later becomes a demonstrated requirement, that is
+designed separately rather than allowed to emerge through adapter behaviour.
 
 ---
 
