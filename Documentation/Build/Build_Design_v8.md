@@ -1,4 +1,4 @@
-> identity: Build_Design@v7 | doctype: design | updated: 2026-09-17
+> identity: Build_Design@v8 | doctype: design | updated: 2026-09-17
 
 # Build — Design
 
@@ -18,13 +18,13 @@ The principle unifies what might otherwise appear as separate paths: applying a 
 
 ## Scalability as a governing property
 
-The build package spectrum runs from a single-line file operation — "add this file," "rename this file" — to a multi-stage coordinated build with review gates, decision paths and multi-step stages. The model — caller, package, execution, return — holds at both ends without changing shape. What changes is the density of the package contents and which profile conventions activate.
+The build package spectrum runs from a single-line file operation — "add this file," "rename this file" — to a multi-stage coordinated build with review gates, decision paths and multi-step stages. The model — caller, package, execution, return — holds at both ends without changing shape. What changes is the density of the package contents and which conventions carried by the profile's build standards activate.
 
 This is the same scaling principle Project Design applies to briefs, doing its work inside the build package itself: the block-level scaling rule, not a separate one invented for Build.
 
 This is more than an observation on format. It governs everything added to Build from here: any mechanism or convention must hold at both ends of the spectrum. A convention that requires full structure for a file rename has failed; one that cannot support review gates on a complex build has equally failed. See D24.
 
-**Scaling down: implicit defaults.** At the small end of the spectrum, most package elements are implicit. A single-line file rename carries only instruction and working target; decision scope defaults to the minimum needed, profile inherits the standing default for the domain, definition of done is implicit (the file is renamed), intermediate exchanges are not supported, and transaction model inherits from the profile. The contract is the same; only the density changes.
+**Scaling down: implicit defaults.** At the small end of the spectrum, most package elements are implicit. A single-line file rename carries only instruction and working target; decision scope defaults to the minimum needed, the build standards in the profile supply the standing default for the domain, definition of done is implicit (the file is renamed), intermediate exchanges are not supported, and transaction model inherits from the build standards in the profile. The contract is the same; only the density changes.
 
 **Test:** a trivial rename and a multi-stage coordinated build must both satisfy exactly the same contract. The rename satisfies it by defaulting most elements; the coordinated build satisfies it by stating them explicitly.
 
@@ -44,7 +44,7 @@ The caller owns:
 - **The decision scope** — the latitude and authority the build has to make its own calls. This ranges from "take care of it, don't come back to me" to "apply only these specific changes." The governing constraint: a build may make changes as needed within the granted scope, as long as it does not structurally change the fundamental design. Beyond that boundary, it returns to the caller.
 - **Sign-off** — by default, a build does not sign off its own work; it returns to the caller for acceptance. But the caller may grant the build authority to self-accept. The default is the safe state; override must be explicit.
 
-**Autonomy tier.** Build's default operating tier is **Collaborative** — matching the default sign-off convention above: build acts within its granted scope and surfaces decisions at natural points, then returns for sign-off. This consumes Assurance's autonomy tiering (Directed, Collaborative, Autonomous). A caller or profile may set Build to Directed where closer control is wanted, or raise it to Autonomous — but only with the explicit human authorisation Assurance's Autonomous tier requires. Build cannot select Autonomous for itself. See D31.
+**Autonomy tier.** Build's default operating tier is **Collaborative** — matching the default sign-off convention above: build acts within its granted scope and surfaces decisions at natural points, then returns for sign-off. This consumes Assurance's autonomy tiering (Directed, Collaborative, Autonomous). A caller or the build standards in the profile may set Build to Directed where closer control is wanted, or raise it to Autonomous — but Autonomous still requires the explicit human authorisation Assurance's Autonomous tier requires; that authorisation is not something the profile itself can grant. Build cannot select Autonomous for itself. See D31.
 
 ### The build package
 
@@ -60,7 +60,7 @@ A build package composes nine elements. Four — instruction, decision scope, pr
 - **Definition of done** — the testable or assessable completion criteria for this task.
 - **Working target** — where the build may operate (when relevant to the target type). Where the build operates on a specific file location or subtree. Not applicable for all build types.
 - **Intermediate exchange support** — whether the caller supports mid-execution questions and responses. Absent means not supported.
-- **Transaction model** — commit, rollback and partial-completion expectations, where the caller wants to override the profile's default. Consumers fill the content; the invariant is that it must be something you can actually check against.
+- **Transaction model** — commit, rollback and partial-completion expectations, where the caller wants to override the default in the profile's build standards. Consumers fill the content; the invariant is that it must be something you can actually check against.
 - **Review requirement** — caller-specified review expectations for this build, where the caller wants to raise review above the floor set by the profile's build standards. Absent means the standing policy in the profile's build standards governs alone.
 - **Work-level declaration** — the caller's assessment of this work's consequence and complexity. Combined with the build standards in the profile and build's own assessment; the highest governs. Absent means the profile's build standards and build's own assessment determine work level.
 
@@ -136,9 +136,9 @@ Three concerns:
 - **Rollback** — if the build fails or is cancelled, is completed work reversed? For code targets this may mean `git reset`; for documentation it may mean restoring files; for some work rollback is not possible.
 - **Partial completion** — does work succeed in part or only in full? Can a build return "done with deviation" carrying partial results the caller can accept?
 
-**Who decides:** the transaction model is declared by the **caller** (in the build package) or by the **build standards** (in the profile), or both — the caller's declaration overrides the profile's default where they conflict. This is a property of the handoff, not a fixed rule, because different targets and different tasks genuinely need different models: a code refactoring may need atomic all-or-nothing, while a documentation batch update may accept partial commits.
+**Who decides:** the transaction model is declared by the **caller** (in the build package) or by the **build standards** (in the profile), or both — the caller's declaration overrides the default in the profile's build standards where they conflict. This is a property of the handoff, not a fixed rule, because different targets and different tasks genuinely need different models: a code refactoring may need atomic all-or-nothing, while a documentation batch update may accept partial commits.
 
-Where neither the caller nor the profile declares a transaction model, the default is **commit on completion** — work becomes permanent when the build returns confirmed. Where the target supports staging or rollback, a failed or cancelled build leaves no permanent changes. Where it does not, the build's account of what was done includes what has already been committed. The transaction model in the profile or build package must reflect the target's actual capability — a guarantee stronger than the target can deliver is not a valid configuration. This is the safe default; override must be explicit.
+Where neither the caller nor the build standards in the profile declare a transaction model, the default is **commit on completion** — work becomes permanent when the build returns confirmed. Where the target supports staging or rollback, a failed or cancelled build leaves no permanent changes. Where it does not, the build's account of what was done includes what has already been committed. The transaction model in the profile's build standards or in the build package must reflect the target's actual capability — a guarantee stronger than the target can deliver is not a valid configuration. This is the safe default; override must be explicit.
 
 ---
 
@@ -240,7 +240,7 @@ Which review behaviours activate at each work level is determined by the build s
 
 ### Cross-cutting concerns consumed
 
-Review, collaboration and investigation are cross-cutting concerns defined elsewhere — Assurance, Working Practices, or their own areas — and consumed by Build. Build does not own review methodology. It provides the review points above and applies the cross-cutting capability according to its own policies, the work level, and the profile.
+Review, collaboration and investigation are cross-cutting concerns defined elsewhere — Assurance, Working Practices, or their own areas — and consumed by Build. Build does not own review methodology. It provides the review points above and applies the cross-cutting capability according to its own policies, the work level, and the build standards in the profile.
 
 The same capabilities apply to design, deployment, research and other areas. Build implements them within its own context; the capabilities themselves stay owned by their defining components. See D28.
 
@@ -275,7 +275,7 @@ A **profile** is a structural container: it names and orders a set of build stan
 
 Profiles can be **named presets** — defined and saved for reuse ("documentation update", ".NET web project", "AIDE framework documentation update") — or **defined inline** on a specific build. The two combine: apply this named preset, and also these additional standards for this task.
 
-Profiles compose on each other. An "AIDE framework documentation update" profile inherits the base "documentation update" profile and adds AIDE-specific conventions over the top. The delta stays small — only where AIDE genuinely differs from any documentation update.
+Profiles compose on each other. An "AIDE framework documentation update" profile inherits the base "documentation update" profile and layers additional AIDE-specific build standards over the top. The delta stays small — only where AIDE genuinely differs from any documentation update.
 
 **Storage.** Named profile presets follow Core's ownership model: the component with the most knowledge of a build domain defines its own build standards; Build defines the profile concept and its composition semantics. Build defines the mechanism — the shape of a profile and its composition rules — and each instance is stored with the owning target area, the area with the most knowledge of that target. Build owns the mechanism; the target area owns the instance. A documentation-update profile lives under the documentation methodology area; an AIDE framework build profile lives under the AIDE area. The split matches doctype and block-type ownership — the defining component carries the definition, not a central registry. This keeps Build from becoming a dumping ground for every target domain's configuration. See D30.
 
@@ -394,3 +394,5 @@ Version note: v5 — cross-review round 2. F4: review requirement and work-level
 Version note: v6 — cross-review round 3. F4: working target reclassified as conditional (four always-relevant, five conditional). F6: review/work-level mapping moved from profile to build standards in the profile stack — profiles remain structural-only per D7. 2026-09-17. Replaces v5.
 
 Version note: v7 — cross-review round 4. F6 terminology: remaining "profile policy" references corrected to "build standards in/composed by the profile." 2026-09-17. Replaces v6.
+
+Version note: v8 — cross-review round 5. F15: comprehensive profile-as-structural-only sweep — all remaining policy-bearing "profile" references corrected to "build standards in/composed by the profile" across autonomy, transaction, scalability and general shorthand. 2026-09-17. Replaces v7.

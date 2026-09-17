@@ -1,4 +1,4 @@
-> identity: Build_Overview@v5 | doctype: overview | updated: 2026-09-17
+> identity: Build_Overview@v6 | doctype: overview | updated: 2026-09-17
 
 # Build — Overview
 
@@ -10,7 +10,7 @@ Build is the transition to execution — taking defined work and producing the o
 
 ## The model, in one paragraph
 
-A caller sends a build package — instruction, decision scope, profile reference, definition of done, and (where applicable) working target, intermediate-exchange support, transaction model, review requirement and work-level declaration. Build executes within its granted scope, applying build standards composed into a profile for the target. Build returns the result — confirmed, needs information, raises an issue, failed, or done with deviation — with an account of what was done. The model scales from a single-line file operation to a multi-stage coordinated build without changing shape; only the density of the package and which profile conventions activate change.
+A caller sends a build package — instruction, decision scope, profile reference, definition of done, and (where applicable) working target, intermediate-exchange support, transaction model, review requirement and work-level declaration. Build executes within its granted scope, applying build standards composed into a profile for the target. Build returns the result — confirmed, needs information, raises an issue, failed, or done with deviation — with an account of what was done. The model scales from a single-line file operation to a multi-stage coordinated build without changing shape; only the density of the package and which conventions carried by the profile's build standards activate change.
 
 ## Key mechanisms
 
@@ -31,7 +31,7 @@ A caller sends a build package — instruction, decision scope, profile referenc
 
 Conformance checking, verification of inspectable facts, assumptions and gap-fill disclosure, confidence signalling, and the standing active-identification obligation. Detective conventions carry the most weight at build — the specification exists; the question is whether build honours it.
 
-**Default autonomy tier: Collaborative.** Build acts within its granted scope and returns for sign-off. A caller or profile may raise it to Autonomous only with explicit human authorisation.
+**Default autonomy tier: Collaborative.** Build acts within its granted scope and returns for sign-off. A caller or the build standards in the profile may raise it to Autonomous, but only with explicit human authorisation — never granted by the profile itself.
 
 ## Boundaries
 
@@ -55,7 +55,7 @@ FUP absorption timing. Documentation folder structure ownership. Work-scope stru
 
 ## Document set
 
-Brief v4, Design v7, Decisions v7 (D1–D34), Overview v5. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise.
+Brief v4, Design v8, Decisions v8 (D1–D34), Overview v6. The first build standard is deferred until the Build design has been exercised and its conventions are stable enough to standardise.
 
 ---
 
@@ -66,3 +66,5 @@ Version note: v3 — cross-review round 2. F4: package elements updated to nine.
 Version note: v4 — cross-review round 3. F4: model paragraph updated — working target now conditional. 2026-09-17. Replaces v3.
 
 Version note: v5 — cross-review round 4. F6 terminology: "caller and profile" corrected to "caller and profile-composed build standards." 2026-09-17. Replaces v4.
+
+Version note: v6 — cross-review round 5. F15: autonomy and remaining shorthand corrected — profile references now structural-only throughout. 2026-09-17. Replaces v5.

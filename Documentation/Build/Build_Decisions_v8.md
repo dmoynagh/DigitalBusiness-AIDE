@@ -1,4 +1,4 @@
-> identity: Build_Decisions@v7 | doctype: decisions | updated: 2026-09-17
+> identity: Build_Decisions@v8 | doctype: decisions | updated: 2026-09-17
 
 # Build — Decisions
 
@@ -80,7 +80,7 @@ This means Build defines no new doctypes or block types. It consumes the definit
 
 The build package composes nine elements. Four — instruction, decision scope, profile reference, definition of done — are always relevant. The remaining five — working target, intermediate-exchange support, transaction model, review requirement and work-level declaration — are present where applicable. The first five were surfaced in the initial design session; intermediate exchanges (D21) and the transaction model (D23) were added as the design developed; review requirement and work-level declaration were added to make explicit what the review activation model (D26, D27) already implied the package must carry. They are Build's resolution of PD's sufficiency contract. PD specifies a format-free handoff with a sufficiency floor and ceiling; these nine elements are the semantic fields Build identifies as the content that satisfies that contract.
 
-The ceiling rule (from PD's Standard) applies equally: do not re-supply generic execution-platform knowledge the build environment already provides. The profile already carries the standing conventions; the package carries only what is specific to this task.
+The ceiling rule (from PD's Standard) applies equally: do not re-supply generic execution-platform knowledge the build environment already provides. The build standards composed into the profile already carry the standing conventions; the package carries only what is specific to this task.
 
 ## D15. Orchestration is the default channel, not the only one
 
@@ -149,17 +149,17 @@ Build work may succeed in full, fail entirely, or land in between. The transacti
 
 Three concerns: commit granularity (all-at-once or incremental), rollback capability (can completed work be reversed?), and partial completion (does work succeed in part or only in full?).
 
-**Who decides:** the caller (in the build package) or the build standards (in the profile), or both — caller overrides profile where they conflict. Different targets genuinely need different models: code refactoring may need atomic all-or-nothing; documentation batch updates may accept partial commits.
+**Who decides:** the caller (in the build package) or the build standards (in the profile), or both — the caller overrides the build standards in the profile where they conflict. Different targets genuinely need different models: code refactoring may need atomic all-or-nothing; documentation batch updates may accept partial commits.
 
 **Default:** commit on completion — work becomes permanent when the build returns confirmed; a failed or cancelled build leaves no permanent changes. Safe default; override must be explicit.
 
-The guarantee is conditional on target capability. Where a target does not support staging or rollback, the profile or build package must reflect that constraint — a guarantee stronger than the target can deliver is a misconfiguration, not a Build obligation. Build's obligation is to honour the declared model and to account accurately for what was committed.
+The guarantee is conditional on target capability. Where a target does not support staging or rollback, the profile's build standards or the build package must reflect that constraint — a guarantee stronger than the target can deliver is a misconfiguration, not a Build obligation. Build's obligation is to honour the declared model and to account accurately for what was committed.
 
 ---
 
 ## D24. Scalability is a governing property of Build
 
-The build package spectrum runs from a single-line file operation to a multi-stage coordinated build with review gates and decision paths. The model — caller, package, execution, return — holds at both ends without changing shape. What changes is the density of the package contents and which profile conventions activate.
+The build package spectrum runs from a single-line file operation to a multi-stage coordinated build with review gates and decision paths. The model — caller, package, execution, return — holds at both ends without changing shape. What changes is the density of the package contents and which conventions carried by the profile's build standards activate.
 
 This is more than an observation on the package format. It is a governing property: any mechanism or convention added to Build must hold at both ends of the spectrum. A convention that requires full structure for a file rename has failed; one that cannot support review gates on a complex build has equally failed.
 
@@ -187,7 +187,7 @@ The concept of "work level" is not exclusive to Build — it applies equally to 
 
 ## D28. Review, collaboration and investigation are cross-cutting concerns consumed by Build
 
-These capabilities are defined elsewhere — Assurance, Working Practices, or their own areas — and consumed by Build with Build-specific application. Build does not own review methodology. Build provides the review points (pre-execution and post-execution) and activates the cross-cutting capability according to its own policies, the work level, and the profile.
+These capabilities are defined elsewhere — Assurance, Working Practices, or their own areas — and consumed by Build with Build-specific application. Build does not own review methodology. Build provides the review points (pre-execution and post-execution) and activates the cross-cutting capability according to its own policies, the work level, and the build standards in the profile.
 
 The same capabilities apply to design, deployment, research and other areas. Build defines how and when they apply within build execution; the capabilities themselves are defined by their owning components.
 
@@ -221,7 +221,7 @@ Build requires an orderable work-level concept for review activation. Until the 
 
 ## D34. Scalability operational semantics
 
-At the small end of the build spectrum, most package elements are implicit — defaulting from the profile, the domain or the nature of the task. The package contract is the same at both ends; only the density changes. This is a design test: any convention added to Build must hold at both ends of the spectrum.
+At the small end of the build spectrum, most package elements are implicit — defaulting from the build standards in the profile, the domain or the nature of the task. The package contract is the same at both ends; only the density changes. This is a design test: any convention added to Build must hold at both ends of the spectrum.
 
 ---
 
@@ -232,3 +232,5 @@ Version note: v5 — cross-review round 2. D14: element count updated to nine (f
 Version note: v6 — cross-review round 3. D14: working target reclassified as conditional (F4). D26, D27: "profile policy" corrected to "build standards in the profile" (F6). 2026-09-17. Replaces v5.
 
 Version note: v7 — cross-review round 4. D33: "profile" corrected to "profile-composed build standards" (F6). 2026-09-17. Replaces v6.
+
+Version note: v8 — cross-review round 5. F15: D14, D23 and remaining decisions corrected — "profile" as policy-bearer → "build standards in the profile." 2026-09-17. Replaces v7.
