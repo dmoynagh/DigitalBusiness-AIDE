@@ -1,4 +1,4 @@
-> identity: Assurance_Standard@v1 | doctype: standard | uses: Principles_Standard, WP_Standard | updated: 2026-09-17
+> identity: Assurance_Standard@v1 | doctype: standard | uses: Principles_Standard, WorkingPractices_Standard | updated: 2026-09-17
 
 # Assurance
 

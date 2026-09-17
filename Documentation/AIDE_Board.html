@@ -300,23 +300,7 @@
 <section class="zone zone-pending">
   <div class="zone-header">
     <h2>Pending</h2>
-    <span class="count">5 items</span>
-  </div>
-
-  <div class="task">
-    <details>
-      <summary>
-        <span class="task-id">WP-XR</span>
-        <span class="task-name">WP standard cross-review</span>
-      </summary>
-      <div class="task-body">
-        <p>WP_Standard_v1 deployed but not yet cross-reviewed. Design was cross-reviewed (three rounds accepted), standard is a carry — lower risk. Non-blocking; run when convenient.</p>
-        <div class="tags">
-          <span class="tag">working-practices</span>
-          <span class="tag">cross-review</span>
-        </div>
-      </div>
-    </details>
+    <span class="count">4 items</span>
   </div>
 
   <div class="task">
@@ -627,7 +611,7 @@
 <section class="zone zone-done">
   <div class="zone-header">
     <h2>Done</h2>
-    <span class="count">15 items</span>
+    <span class="count">16 items</span>
   </div>
 
   <div class="task is-done">
@@ -715,6 +699,23 @@
     </details>
   </div>
 
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">WP-XR</span>
+        <span class="task-name">WP standard cross-review</span>
+      </summary>
+      <div class="task-body">
+        <p>Cross-review completed (ChatGPT, 4 rounds, 18 findings — 12 original + 6 new, all resolved). Standard renamed to WorkingPractices_Standard_v2 for human readability. Key remediations: open-item model added, board task/work-item relationship stated, zone renamed from state, task properties split invariant/conditional, definition-of-done minimum schema added. Deployed: documentation repo commit 0a60d6a, aide plugin PR #8 merged.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">working-practices</span>
+          <span class="tag">cross-review</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
   <div class="task is-set is-done">
     <details>
       <summary>
@@ -722,7 +723,7 @@
         <span class="task-name">WP standard, build, and deploy</span>
       </summary>
       <div class="task-body">
-        <p>WP_Standard_v1 authored from Design v6 including board conventions. Binder rebuilt to v100. Skill deployed to aide plugin (PR #5, corrected PR #6). Fifth work-item fate corrected (board→register), caller persistence convention added.</p>
+        <p>WP_Standard_v1 authored from Design v6 including board conventions. Binder rebuilt to v100. Skill deployed to aide plugin (PR #5, corrected PR #6). Fifth work-item fate corrected (board→register), caller persistence convention added. Cross-reviewed and deployed as WorkingPractices_Standard_v2 (see WP-XR).</p>
         <p class="completed-date">Completed: 2026-09-17</p>
         <div class="tags">
           <span class="tag">working-practices</span>
