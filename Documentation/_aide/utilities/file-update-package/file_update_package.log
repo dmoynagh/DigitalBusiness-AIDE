@@ -3939,3 +3939,99 @@ COMPLETION SUMMARY
 COMPLETED SUCCESSFULLY
 ========================================================================
 
+========================================================================
+file update package   2026-09-17 10:49:28   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            WP_Boards_FUP.zip  (2026-09-17 10:49, 23,671 bytes)
+description:        Adds the Boards part under Working Practices (design v1, decisions v1). Creates WP_Design v6 (work plan replaced by board reference, boundaries updated) and WP_Decisions v4 (D10 supersession noted, D21 added). Updates WP _index. Places the AIDE Board HTML document at the documentation root. Run version cleanup after deploy to remove superseded v5/v3 files.
+------------------------------------------------------------------------
+
+[Working Practices\Boards]
+  CREATED           Working Practices/Boards/WP_Boards_Design_v1.md  (9,158 bytes)
+  CREATED           Working Practices/Boards/WP_Boards_Decisions_v1.md  (3,710 bytes)
+
+[Working Practices]
+  CREATED           Working Practices/WP_Design_v6.md  (17,704 bytes)
+  CREATED           Working Practices/WP_Decisions_v4.md  (14,451 bytes)
+  DELETED           _index.md
+  REPLACED          Working Practices/_index.md  (1,125 bytes)
+
+[.]
+  CREATED           AIDE_Board.html  (13,308 bytes)
+
+[_fileupdatepackages]
+  PROCESSED         WP_Boards_FUP.zip deleted
+
+[.]
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 5 created, 1 deleted, 1 binder, 1 processed
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              WP_Boards_FUP.zip
+                        Adds the Boards part under Working Practices (design v1, decisions v1). Creates WP_Design v6 (work plan replaced by board reference, boundaries updated) and WP_Decisions v4 (D10 supersession noted, D21 added). Updates WP _index. Places the AIDE Board HTML document at the documentation root. Run version cleanup after deploy to remove superseded v5/v3 files.
+  files replaced:       1
+  files created:        5
+  files moved:          0
+  files deleted:        1
+  conflicts:            0
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   deleted
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED SUCCESSFULLY
+========================================================================
+
+========================================================================
+file update package   2026-09-17 10:54:38   LIVE
+documentation root: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+drop folder:        C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_fileupdatepackages
+package:            WP_Boards_FUP.zip  (2026-09-17 10:54, 24,019 bytes)
+description:        Adds the Boards part under Working Practices (design v1, decisions v1). Creates WP_Design v6 (work plan replaced by board reference, boundaries updated) and WP_Decisions v4 (D10 supersession noted, D21 added). Updates WP _index. Places the AIDE Board HTML document at the documentation root. Run version cleanup after deploy to remove superseded v5/v3 files.
+------------------------------------------------------------------------
+
+[Working Practices\Boards]
+  CONFLICT          Working Practices/Boards/WP_Boards_Design_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Working Practices/Boards/WP_Boards_Decisions_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+
+[Working Practices]
+  CONFLICT          Working Practices/WP_Design_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+  CONFLICT          Working Practices/WP_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+  DELETED           _index.md
+  REPLACED          Working Practices/_index.md  (1,125 bytes)
+
+[.]
+  CONFLICT          AIDE_Board.html: not deployed - a file already exists there and the package did not name it as replaced
+  BINDER            binder rebuild triggered
+
+------------------------------------------------------------------------
+Result: 1 replaced, 1 deleted, 5 conflict, 1 binder
+========================================================================
+COMPLETION SUMMARY
+------------------------------------------------------------------------
+  package:              WP_Boards_FUP.zip
+                        Adds the Boards part under Working Practices (design v1, decisions v1). Creates WP_Design v6 (work plan replaced by board reference, boundaries updated) and WP_Decisions v4 (D10 supersession noted, D21 added). Updates WP _index. Places the AIDE Board HTML document at the documentation root. Run version cleanup after deploy to remove superseded v5/v3 files.
+  files replaced:       1
+  files created:        0
+  files moved:          0
+  files deleted:        1
+  conflicts:            5
+    - Working Practices/Boards/WP_Boards_Design_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Working Practices/Boards/WP_Boards_Decisions_v1.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Working Practices/WP_Design_v6.md: not deployed - a file already exists there and the package did not name it as replaced
+    - Working Practices/WP_Decisions_v4.md: not deployed - a file already exists there and the package did not name it as replaced
+    - AIDE_Board.html: not deployed - a file already exists there and the package did not name it as replaced
+  errors:               0
+  user instructions:    none in this package
+  binder builder:       triggered
+  the package is now:   left in the drop folder - the deploy was not complete
+  folder naming:        no misspelled folders found
+------------------------------------------------------------------------
+COMPLETED WITH ERRORS - the deploy is incomplete
+========================================================================
+

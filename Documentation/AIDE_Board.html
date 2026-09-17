@@ -276,21 +276,39 @@
 <section class="zone zone-current">
   <div class="zone-header">
     <h2>Current</h2>
-    <span class="count">2 items</span>
+    <span class="count">3 items</span>
   </div>
 
-  <div class="task">
+  <div class="task is-set">
     <details>
       <summary>
-        <span class="task-id">WP-STD</span>
-        <span class="task-name">WP standard authoring</span>
+        <span class="task-id">WP-OUT</span>
+        <span class="task-name">WP standard, build, and deploy</span>
       </summary>
       <div class="task-body">
-        <p>Author the Working Practices standard from the cross-reviewed design v5. First standard authored from a completed design pass.</p>
-        <p class="dep">depends: <span class="resolved"><span class="dep-id">WP-DP</span> cross-review accepted</span> ✓</p>
+        <p>Author the Working Practices standard (including board), build the binder, deploy to the aide plugin as a skill.</p>
+        <p class="dep">depends: <span class="resolved"><span class="dep-id">WP-DP</span> cross-review accepted</span> ✓, <span class="resolved"><span class="dep-id">BRD-D</span> board design complete</span> ✓</p>
+        <div class="sub-items">
+          <div class="sub-item">
+            <span class="checkbox">☐</span>
+            <span class="sub-id">WP-OUT.1</span>
+            <span class="sub-name">WP standard authoring — from design v6 including board, cross-reviewed</span>
+          </div>
+          <div class="sub-item">
+            <span class="checkbox">☐</span>
+            <span class="sub-id">WP-OUT.2</span>
+            <span class="sub-name">Binder rebuild — pick up Boards part, WP design v6, WP decisions v4</span>
+          </div>
+          <div class="sub-item">
+            <span class="checkbox">☐</span>
+            <span class="sub-id">WP-OUT.3</span>
+            <span class="sub-name">Deploy WP standard as skill in aide plugin</span>
+          </div>
+        </div>
         <div class="tags">
           <span class="tag">working-practices</span>
           <span class="tag">standard</span>
+          <span class="tag">deploy</span>
         </div>
       </div>
     </details>
@@ -299,14 +317,30 @@
   <div class="task">
     <details>
       <summary>
-        <span class="task-id">BRD-D</span>
-        <span class="task-name">Board design</span>
+        <span class="task-id">BLD-XR</span>
+        <span class="task-name">Build cross-review — submit v3 to ChatGPT</span>
       </summary>
       <div class="task-body">
-        <p>Design the board concept — purpose, model, format. Originated in the WP design pass. Separate tool, AIDE is primary consumer.</p>
+        <p>Build_Design_v3, Build_Decisions_v3, Build_Overview_v1 deployed to binder. Cross-review prompt drafted in Phase 2 chat. Three sequential reviews planned: Core carries (quick), Build (substantial — 32 decisions), Orchestration (after Build accepted).</p>
+        <div class="tags">
+          <span class="tag">build</span>
+          <span class="tag">cross-review</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">BRD-POP</span>
+        <span class="task-name">Populate AIDE board from rebuild state</span>
+      </summary>
+      <div class="task-body">
+        <p>Full pass through WIP v23, rebuild memory, component designs, and past chats. All current, pending, future, and inbox items captured. Four WIP staleness corrections identified and applied.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
         <div class="tags">
           <span class="tag">board</span>
-          <span class="tag">design</span>
         </div>
       </div>
     </details>
@@ -317,19 +351,36 @@
 <section class="zone zone-pending">
   <div class="zone-header">
     <h2>Pending</h2>
-    <span class="count">3 items</span>
+    <span class="count">5 items</span>
   </div>
 
   <div class="task">
     <details>
       <summary>
-        <span class="task-id">ASR-DP</span>
-        <span class="task-name">Assurance — design pass</span>
+        <span class="task-id">ASR-STD</span>
+        <span class="task-name">Assurance standard authoring + skill deployment</span>
       </summary>
       <div class="task-body">
-        <p>Brief, design, and decisions for the Assurance component. Extracted from WP as a top-level component during the WP design pass.</p>
+        <p>Author the Assurance standard from accepted Design v3, cross-review, deploy as skill to aide plugin. No blocker — design pass and cross-review complete.</p>
         <div class="tags">
           <span class="tag">assurance</span>
+          <span class="tag">standard</span>
+          <span class="tag">deploy</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">INF-DP</span>
+        <span class="task-name">Infrastructure design pass</span>
+      </summary>
+      <div class="task-body">
+        <p>Confirm component scope around utilities already built. Real input: MCP delivery model tested and documented (v2), AIDE CLI built and deployed, Phase 1+2 plugin deployment complete. Quick pass expected.</p>
+        <div class="tags">
+          <span class="tag">infrastructure</span>
           <span class="tag">design-pass</span>
         </div>
       </div>
@@ -343,8 +394,8 @@
         <span class="task-name">Schema definitions — WP doctypes and block types</span>
       </summary>
       <div class="task-body">
-        <p>Formal schema definitions for WIP, working document, report, resource (doctypes) and work item, work plan, definition-of-done (block types).</p>
-        <p class="dep">depends: <span class="dep-id">WP-STD</span> WP standard complete</p>
+        <p>Formal schema definitions for WIP, working document, report, resource, board (doctypes) and work item (block type).</p>
+        <p class="dep">depends: <span class="dep-id">WP-OUT.1</span> WP standard complete</p>
         <div class="tags">
           <span class="tag">documentation-methodology</span>
           <span class="tag">schema</span>
@@ -361,7 +412,7 @@
       </summary>
       <div class="task-body">
         <p>Three updates to Project Design flowing from confirmed WP design decisions. Independent of each other — complete in any order.</p>
-        <p class="dep">depends: <span class="dep-id">WP-STD</span> WP standard complete</p>
+        <p class="dep">depends: <span class="dep-id">WP-OUT.1</span> WP standard complete</p>
         <div class="sub-items">
           <div class="sub-item">
             <span class="checkbox">☐</span>
@@ -376,12 +427,28 @@
           <div class="sub-item">
             <span class="checkbox">☐</span>
             <span class="sub-id">PD-UPD.3</span>
-            <span class="sub-name">PD Design — reconcile against WP design v5 decisions</span>
+            <span class="sub-name">PD Design — reconcile against WP design v6 decisions</span>
           </div>
         </div>
         <div class="tags">
           <span class="tag">project-design</span>
           <span class="tag">standard</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">CORE-WP</span>
+        <span class="task-name">Core_Design WP purpose line correction</span>
+      </summary>
+      <div class="task-body">
+        <p>The WP entry in Core_Design's component map table carries a pre-design-pass purpose line and boundary description that predates the Assurance extraction. Known stale since 2026-09-15, flagged but not applied.</p>
+        <div class="tags">
+          <span class="tag">core</span>
+          <span class="tag">housekeeping</span>
         </div>
       </div>
     </details>
@@ -392,7 +459,104 @@
 <section class="zone zone-future">
   <div class="zone-header">
     <h2>Future</h2>
-    <span class="count">3 items</span>
+    <span class="count">9 items</span>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">ORC-DP</span>
+        <span class="task-name">Orchestration design pass</span>
+      </summary>
+      <div class="task-body">
+        <p>Design v1, Decisions v1 (D1–D19), UseCases v1 drafted and empirically tested. Substantial pre-work — formal pass carries it forward, not redoes it. Genuinely depends on Build cross-review validating the boundaries Orchestration references.</p>
+        <p class="dep">depends: <span class="dep-id">BLD-XR</span> Build cross-review accepted</p>
+        <div class="tags">
+          <span class="tag">orchestration</span>
+          <span class="tag">design-pass</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">MIG-DP</span>
+        <span class="task-name">Migration design pass</span>
+      </summary>
+      <div class="task-body">
+        <p>In the design pass queue, independent. Owns generic change detection, distribution, and execution mechanism.</p>
+        <div class="tags">
+          <span class="tag">migration</span>
+          <span class="tag">design-pass</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">DEP-DP</span>
+        <span class="task-name">Deployment design pass</span>
+      </summary>
+      <div class="task-body">
+        <p>In the design pass queue, independent. Either order with Migration. Build plugin, push to marketplace, weight gate.</p>
+        <div class="tags">
+          <span class="tag">deployment</span>
+          <span class="tag">design-pass</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">IMP-SCOPE</span>
+        <span class="task-name">Improvement component scoping</span>
+      </summary>
+      <div class="task-body">
+        <p>Identified during WP/Assurance passes, not yet scoped. Owns pattern analysis of learnings queue, escalation decisions, and the reviewer agent. Boundary with Assurance stated. Dependency on hosted queue service, not Orchestration.</p>
+        <div class="tags">
+          <span class="tag">improvement</span>
+          <span class="tag">design-pass</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">QUEUES</span>
+        <span class="task-name">Submission queues — task queue and learnings queue</span>
+      </summary>
+      <div class="task-body">
+        <p>MCP-based frictionless capture path from work sessions into AIDE development. Architecture direction settled: hosted Supabase + Cloudflare Workers, two logical streams (framework-inbox, assurance-log). Infrastructure owns the hosted services sub-scope.</p>
+        <div class="tags">
+          <span class="tag">infrastructure</span>
+          <span class="tag">assurance</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">SCH-ALL</span>
+        <span class="task-name">DocMeth schema review rework across components</span>
+      </summary>
+      <div class="task-body">
+        <p>Assessment produced (DocMeth_Schema_Review_v1). Each component owning doctypes or block types needs definitions written against the simplified definition contract (6 blocktype properties, 4 doctype properties). Per-component task.</p>
+        <div class="tags">
+          <span class="tag">documentation-methodology</span>
+          <span class="tag">schema</span>
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="task">
@@ -433,7 +597,7 @@
         <span class="task-name">Build standard</span>
       </summary>
       <div class="task-body">
-        <p>Deferred by design until the first framework build consumer. The standard needs a real consumer to write against.</p>
+        <p>Deferred by design (D32) until the first framework build consumer. The standard needs a real consumer to write against.</p>
         <div class="tags">
           <span class="tag">build</span>
           <span class="tag">standard</span>
@@ -447,7 +611,98 @@
 <section class="zone zone-inbox">
   <div class="zone-header">
     <h2>Inbox</h2>
-    <span class="count">1 item</span>
+    <span class="count">7 items</span>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">INF-CARRY</span>
+        <span class="task-name">Infrastructure carries from FileOps dissolution</span>
+      </summary>
+      <div class="task-body">
+        <p>Three items from WP D17: utility git commit behaviour (utilities stage and commit own changes), FUP move action (move/rename for path changes), version-cleanup deletion mechanism (delete old file and commit). Carry to relevant utility design documents.</p>
+        <div class="tags">
+          <span class="tag">infrastructure</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">FUP-FIX</span>
+        <span class="task-name">FUP corrections</span>
+      </summary>
+      <div class="task-body">
+        <p>Two items: user_instructions field clarification (only for tasks outside the AI platform), and deployer display order (user_instructions after deploy success, not before). Small Code session.</p>
+        <div class="tags">
+          <span class="tag">infrastructure</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">CORE-HK</span>
+        <span class="task-name">Core housekeeping</span>
+      </summary>
+      <div class="task-body">
+        <p>Three manual deletions pending (Core_AIDEMap.yaml, Core_Working_v1, Core_Design_Documentation_Working_v1). Plus purpose lines update: rename External AI to Orchestration in AIDE_Component_PurposeLines_v2.</p>
+        <div class="tags">
+          <span class="tag">core</span>
+          <span class="tag">housekeeping</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">DM-CARRY</span>
+        <span class="task-name">Delivery model doc — PR requirement carry</span>
+      </summary>
+      <div class="task-body">
+        <p>The Deploy repo PR requirement (direct commits don't trigger plugin updates) needs to be stated explicitly as a build constraint in the MCP delivery model's update path section. Infrastructure design pass or sooner.</p>
+        <div class="tags">
+          <span class="tag">infrastructure</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">ASR-D14</span>
+        <span class="task-name">Assurance D14 correction — drop Orchestration clause</span>
+      </summary>
+      <div class="task-body">
+        <p>Queue-writing ownership line says "Orchestration coordinates the write." Orchestration's investigation found hosted MCP services are called directly — nothing for Orchestration to coordinate. Drop the clause when Assurance is next worked.</p>
+        <div class="tags">
+          <span class="tag">assurance</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task">
+    <details>
+      <summary>
+        <span class="task-id">ASR-VV</span>
+        <span class="task-name">Assurance V&amp;V carry from Build</span>
+      </summary>
+      <div class="task-body">
+        <p>Consider whether verification and validation should be elevated to its own area within Assurance, with stated expectations on components. Noted in Build design, not yet assessed.</p>
+        <div class="tags">
+          <span class="tag">assurance</span>
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="task">
@@ -471,7 +726,124 @@
 <section class="zone zone-done">
   <div class="zone-header">
     <h2>Done</h2>
-    <span class="count">1 item</span>
+    <span class="count">8 items</span>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">BRD-POP</span>
+        <span class="task-name">Populate AIDE board from rebuild state</span>
+      </summary>
+      <div class="task-body">
+        <p>Full pass through WIP v23, rebuild memory, component designs, and past chats. All current, pending, future, and inbox items captured. Four WIP staleness corrections identified and applied.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">board</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">PLG-P2</span>
+        <span class="task-name">Plugin deployment Phase 1 + Phase 2</span>
+      </summary>
+      <div class="task-body">
+        <p>Phase 1: aide and aide-dev plugin structures in Deploy repo (PR #1), dispatch MCP server, design-check and messaging skills. Phase 2: eight skills from accepted standards deployed to both plugins, confirmed on all three surfaces. Messaging skill rebuilt from v4 standard/tool (PR #3).</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">deploy</span>
+          <span class="tag">infrastructure</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">MSG-DP</span>
+        <span class="task-name">Messaging design pass — design, standard, tool, cross-review</span>
+      </summary>
+      <div class="task-body">
+        <p>Complete design pass including legacy binder review. Three cross-review rounds (F1–F7, R1–R4, R5–R7), all resolved. Final: Design v4, Decisions v4 (D1–D28), Standard v4, Tool v4.</p>
+        <p class="completed-date">Completed: 2026-09-15</p>
+        <div class="tags">
+          <span class="tag">messaging</span>
+          <span class="tag">design-pass</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">BLD-DP</span>
+        <span class="task-name">Build design pass — brief, design, decisions, overview</span>
+      </summary>
+      <div class="task-body">
+        <p>Full design pass including legacy binder review. Design v3, Decisions v3 (D1–D32), Overview v1 deployed. Cross-review pending (BLD-XR).</p>
+        <p class="completed-date">Completed: 2026-09-16</p>
+        <div class="tags">
+          <span class="tag">build</span>
+          <span class="tag">design-pass</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">ASR-DP</span>
+        <span class="task-name">Assurance design pass — design, decisions, cross-review</span>
+      </summary>
+      <div class="task-body">
+        <p>Full design pass with three cross-review rounds, 19 findings resolved. Three concurrent defence layers, autonomy tiering, confidence vocabulary, learning loop designed. Final: Design v3, Decisions v3 (D1–D14).</p>
+        <p class="completed-date">Completed: 2026-09-15</p>
+        <div class="tags">
+          <span class="tag">assurance</span>
+          <span class="tag">design-pass</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">INF-MCP</span>
+        <span class="task-name">Infrastructure MCP delivery model — tested and documented</span>
+      </summary>
+      <div class="task-body">
+        <p>Tested methodology for delivering AIDE as local MCP servers via marketplace plugins. Three probes run, update propagation confirmed. AIDE_Infrastructure_MCPDeliveryModel_v2 authored. Dual registration path and platform issues documented.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">infrastructure</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">BRD-D</span>
+        <span class="task-name">Board design — purpose, model, format, WP part</span>
+      </summary>
+      <div class="task-body">
+        <p>Board concept designed. WP_Boards_Design_v1, WP_Boards_Decisions_v1 authored. Boards added as a WP part. WP_Design updated to v6 (work plan superseded), WP_Decisions updated to v4 (D21). HTML format with collapsible sections. Cloud service architecture settled, deferred.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">board</span>
+          <span class="tag">design</span>
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="task is-done">
@@ -481,7 +853,7 @@
         <span class="task-name">WP design pass — brief, design, decisions, cross-review</span>
       </summary>
       <div class="task-body">
-        <p>Completed the full Working Practices design pass. Three cross-review rounds via ChatGPT, 14 findings resolved. Final documents: WP_Brief_v2, WP_Design_v5, WP_Decisions_v3.</p>
+        <p>Completed the full Working Practices design pass. Three cross-review rounds via ChatGPT, 14 findings resolved. Final documents: WP_Brief_v2, WP_Design_v6, WP_Decisions_v4.</p>
         <p class="completed-date">Completed: 2026-09-17</p>
         <div class="tags">
           <span class="tag">working-practices</span>

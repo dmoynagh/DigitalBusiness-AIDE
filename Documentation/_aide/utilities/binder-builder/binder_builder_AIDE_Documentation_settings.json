@@ -21,7 +21,7 @@
   "exclude": [],
 
   "_comment_file_types": "File extensions to collect, without the dot. json is here so that data and configuration documents are carried. Note that nothing currently excludes JSON: the _tools and _config folders are underscore-prefixed and so out of scope anyway, and Infrastructure is excluded, but JSON dropped into _rebuild WOULD be collected. Add \"~/_rebuild/*.json\" to exclude_files if that becomes a problem.",
-  "file_types": ["md", "yaml", "yml", "json","txt"],
+  "file_types": ["md", "yaml", "yml", "json","txt","html"],
 
   "_comment_exclude_files": "Files to skip. Applied AFTER file_types has chosen what to collect, so this setting only ever removes, and it is the last word. Three forms, the same convention include and exclude use for folders. FILENAME - \"*_WIP_*\" - matched against the name wherever the file appears. ROOT-ANCHORED - \"~/_rebuild/*.json\" - one exact path, measured from the root. TRAILING - \"_rebuild/*.json\" - a pattern rather than a place: any file whose path ends with those segments.",
 
@@ -33,7 +33,7 @@
 
   "_comment_include_rebuild": "~/_rebuild STAYS IN include, deliberately, and this is a decision rather than an omission. The old temporary arrangement had two parts - restore the *_WIP_* exclusions, and remove this include - and only the first was applied. Keeping the include preserves the option of putting a NON-WIP document into _rebuild during the rebuild and having it reach the binder. Decided in binder-settings/aide-rebuild-chat/002, 2026-09-07. THE COST, so nobody rediscovers it by surprise: _rebuild is still walked, and its contents are kept out only because every document in it happens to match *_WIP_*. Any non-WIP document dropped there WILL enter the binder - which is the point, but it is also the accident. Remove this include when Project Design masters land and the option is no longer wanted.",
 
-  "exclude_files": ["*_WIP_*", "*_WIP.*"],
+  "exclude_files": ["*_WIP_*", "*_WIP.*","*_Board.html"],
 
   "_comment_order": "Optional. Filenames pulled to the front of the binder, in the order listed. A name that matches nothing in scope is reported, not silently ignored.",
   "order": [],
