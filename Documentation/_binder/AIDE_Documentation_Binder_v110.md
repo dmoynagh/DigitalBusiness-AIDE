@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 109** (2026-09-17).
+> **Binder Version 110** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -28,7 +28,7 @@ individual files.
 - `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `2147d7d8e090`
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
-- `Assurance/Assurance_Standard_v1.md` - sha256 `82253cd4d2c8`
+- `Assurance/Assurance_Standard_v1.md` - sha256 `16dcf04b00e1`
 - `Build/Build_Brief_v4.md` - sha256 `d9717a0475c0`
 - `Build/Build_Decisions_v8.md` - sha256 `f9a1ac65dfe3`
 - `Build/Build_Design_v8.md` - sha256 `2987f32273f9`
@@ -5576,7 +5576,7 @@ Version note: v3 — rounds 2 and 3 cross-review remediation. Seven findings add
 ---
 
 <!-- BEGIN SOURCE: Assurance/Assurance_Standard_v1.md -->
-> identity: Assurance_Standard@v1 | doctype: standard | uses: Principles_Standard, WP_Standard | updated: 2026-09-17
+> identity: Assurance_Standard@v1 | doctype: standard | uses: Principles_Standard, WorkingPractices_Standard | updated: 2026-09-17
 
 # Assurance
 
