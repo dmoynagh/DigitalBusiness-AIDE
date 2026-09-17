@@ -276,36 +276,20 @@
 <section class="zone zone-current">
   <div class="zone-header">
     <h2>Current</h2>
-    <span class="count">2 items</span>
+    <span class="count">1 item</span>
   </div>
 
   <div class="task">
     <details>
       <summary>
         <span class="task-id">BLD-XR</span>
-        <span class="task-name">Build cross-review — submit v3 to ChatGPT</span>
+        <span class="task-name">Build cross-review — in progress (round 2)</span>
       </summary>
       <div class="task-body">
-        <p>Build_Design_v3, Build_Decisions_v3, Build_Overview_v1 deployed to binder. Cross-review prompt drafted in Phase 2 chat. Core carries cross-review also pending (quick — known stale WP purpose line).</p>
+        <p>Round 1: 14 findings (F1–F14), all accepted. Remediated and deployed: Brief v2, Design v4, Decisions v4, Overview v2. Round 2: 7 remaining findings, all remediated and deployed: Brief v3, Design v5, Decisions v5, Overview v3. Pending: closure check from ChatGPT. Core carry registered (F3 — generic-caller model update).</p>
         <div class="tags">
           <span class="tag">build</span>
           <span class="tag">cross-review</span>
-        </div>
-      </div>
-    </details>
-  </div>
-
-  <div class="task is-done">
-    <details>
-      <summary>
-        <span class="task-id">BRD-POP</span>
-        <span class="task-name">Populate AIDE board from rebuild state</span>
-      </summary>
-      <div class="task-body">
-        <p>Full pass through WIP v23, rebuild memory, component designs, and past chats. All current, pending, future, and inbox items captured. Four WIP staleness corrections identified and applied.</p>
-        <p class="completed-date">Completed: 2026-09-17</p>
-        <div class="tags">
-          <span class="tag">board</span>
         </div>
       </div>
     </details>
@@ -316,7 +300,7 @@
 <section class="zone zone-pending">
   <div class="zone-header">
     <h2>Pending</h2>
-    <span class="count">6 items</span>
+    <span class="count">5 items</span>
   </div>
 
   <div class="task">
@@ -330,23 +314,6 @@
         <div class="tags">
           <span class="tag">working-practices</span>
           <span class="tag">cross-review</span>
-        </div>
-      </div>
-    </details>
-  </div>
-
-  <div class="task">
-    <details>
-      <summary>
-        <span class="task-id">ASR-STD</span>
-        <span class="task-name">Assurance standard authoring + skill deployment</span>
-      </summary>
-      <div class="task-body">
-        <p>Author the Assurance standard from accepted Design v3, cross-review, deploy as skill to aide plugin. No blocker — design pass and cross-review complete.</p>
-        <div class="tags">
-          <span class="tag">assurance</span>
-          <span class="tag">standard</span>
-          <span class="tag">deploy</span>
         </div>
       </div>
     </details>
@@ -376,7 +343,7 @@
       </summary>
       <div class="task-body">
         <p>Formal schema definitions for WIP, working document, report, resource, board (doctypes) and work item (block type).</p>
-        <p class="dep">depends: <span class="dep-id">WP-OUT.1</span> WP standard complete</p>
+        <p class="dep">depends: <span class="resolved dep-id">WP-OUT.1</span> <span class="resolved">WP standard complete</span></p>
         <div class="tags">
           <span class="tag">documentation-methodology</span>
           <span class="tag">schema</span>
@@ -393,7 +360,7 @@
       </summary>
       <div class="task-body">
         <p>Three updates to Project Design flowing from confirmed WP design decisions. Independent of each other — complete in any order.</p>
-        <p class="dep">depends: <span class="dep-id">WP-OUT.1</span> WP standard complete</p>
+        <p class="dep">depends: <span class="resolved dep-id">WP-OUT.1</span> <span class="resolved">WP standard complete</span></p>
         <div class="sub-items">
           <div class="sub-item">
             <span class="checkbox">☐</span>
@@ -560,7 +527,7 @@
 <section class="zone zone-inbox">
   <div class="zone-header">
     <h2>Inbox</h2>
-    <span class="count">7 items</span>
+    <span class="count">6 items</span>
   </div>
 
   <div class="task">
@@ -627,21 +594,6 @@
   <div class="task">
     <details>
       <summary>
-        <span class="task-id">ASR-D14</span>
-        <span class="task-name">Assurance D14 correction — drop Orchestration clause</span>
-      </summary>
-      <div class="task-body">
-        <p>Queue-writing ownership line says "Orchestration coordinates the write." Orchestration's investigation found hosted MCP services are called directly — nothing for Orchestration to coordinate. Drop the clause when Assurance is next worked.</p>
-        <div class="tags">
-          <span class="tag">assurance</span>
-        </div>
-      </div>
-    </details>
-  </div>
-
-  <div class="task">
-    <details>
-      <summary>
         <span class="task-id">ASR-VV</span>
         <span class="task-name">Assurance V&amp;V carry from Build</span>
       </summary>
@@ -675,7 +627,41 @@
 <section class="zone zone-done">
   <div class="zone-header">
     <h2>Done</h2>
-    <span class="count">13 items</span>
+    <span class="count">15 items</span>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">ASR-STD</span>
+        <span class="task-name">Assurance standard authoring + skill deployment</span>
+      </summary>
+      <div class="task-body">
+        <p>Assurance_Standard_v1 authored from Design v3 (110 lines, carried standard). Cross-review completed (ChatGPT, 2 rounds, 10 findings, all accepted). Deployed to documentation repo (commit 11c47ca). Skill deployed to aide plugin (PR #7, commit 55d8f76).</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">assurance</span>
+          <span class="tag">standard</span>
+          <span class="tag">deploy</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">ASR-D14</span>
+        <span class="task-name">Assurance D14 correction — drop Orchestration clause</span>
+      </summary>
+      <div class="task-body">
+        <p>Orchestration coordination clause dropped from queue-writing ownership. Applied in Assurance_Standard_v1 — the standard was authored with the correction already in place.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">assurance</span>
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="task is-done">
