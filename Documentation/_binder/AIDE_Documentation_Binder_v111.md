@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 110** (2026-09-17).
+> **Binder Version 111** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -33,14 +33,14 @@ individual files.
 - `Build/Build_Decisions_v8.md` - sha256 `f9a1ac65dfe3`
 - `Build/Build_Design_v8.md` - sha256 `2987f32273f9`
 - `Build/Build_Overview_v6.md` - sha256 `5fce6400bb23`
-- `Core/_index.md` - sha256 `8746bf38a3fa`
+- `Core/_index.md` - sha256 `38b09dcfddbf`
 - `Core/Core_AIDEMap.md` - sha256 `5f8331b0988d`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
 - `Core/Core_AIDEPrinciples_Design_v1.md` - sha256 `60e20e8d0b9d`
 - `Core/Core_Brief_v2.md` - sha256 `23d1f1d1f622`
 - `Core/Core_Charter_v1.md` - sha256 `3e5f5332b783`
 - `Core/Core_Decisions_v1.md` - sha256 `2545fa050c39`
-- `Core/Core_Design_v4.md` - sha256 `bf0566c40a73`
+- `Core/Core_Design_v5.md` - sha256 `6218e741a9ca`
 - `Core/Core_Schema_Standard_v3.md` - sha256 `49c6de8da5bb`
 - `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
 - `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
@@ -79,11 +79,11 @@ individual files.
 - `Principles/Principles_Decisions_v5.md` - sha256 `33df0c86fba0`
 - `Principles/Principles_Design_v5.md` - sha256 `ba6e146bf1b7`
 - `Principles/Principles_Standard_v2.md` - sha256 `a2c5cf6f320d`
-- `Project Design/_index.md` - sha256 `589d24282970`
+- `Project Design/_index.md` - sha256 `45fb54887487`
 - `Project Design/ProjectDesign_Decisions_v3.md` - sha256 `61029b610785`
 - `Project Design/ProjectDesign_Design_v3.md` - sha256 `845df7d3ba79`
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
-- `Project Design/ProjectDesign_Standard_v4.md` - sha256 `df3c448516ae`
+- `Project Design/ProjectDesign_Standard_v5.md` - sha256 `c035df4e8b17`
 - `Standards/_index.md` - sha256 `3bd4678a60c0`
 - `Standards/Standards_Authoring_Standard_v8.md` - sha256 `e52f99825c80`
 - `Standards/Standards_Consumption_Standard_v3.md` - sha256 `b801499930ac`
@@ -6504,7 +6504,7 @@ Core is the root entry to AIDE — the framework's self-description, component m
 |---|---|---|
 | Core_ | Charter v1 | charter |
 | Core_ | Brief v2 | brief |
-| Core_ | Design v2 | design |
+| Core_ | Design v5 | design |
 | Core_ | Decisions v1 | decisions |
 | Core_ | Schema Standard v3 | standard |
 | Core_ | AIDEMap v2 | reference |
@@ -6876,8 +6876,8 @@ Version note: v1 — initial decisions from the Core design pass. 2026-09-15.
 
 ---
 
-<!-- BEGIN SOURCE: Core/Core_Design_v4.md -->
-> identity: Core_Design@v4 | doctype: design | updated: 2026-09-17
+<!-- BEGIN SOURCE: Core/Core_Design_v5.md -->
+> identity: Core_Design@v5 | doctype: design | updated: 2026-09-17
 
 # Core — Design
 
@@ -6987,7 +6987,7 @@ Fifteen active components, organised by primary role. Each component's entry poi
 |---|---|---|
 | Working Practices | Define the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. | Umbrella for action and behaviour. At component level: capture-and-place, operational tools, file delivery, overview-first discipline. Two areas: Working State (WIP, work items, boards, completion) and Content Delivery (binder, session content). Does not own trust conventions or the human working model — Assurance. |
 | Project Design | Produce the design specification. | One scalable architecture. Owns both ends of the design-build loop. |
-| Build | Take the design specification and execute it — produce the outcome, report what was done. | Does not design — receives the specification from Project Design. Creates from the spec, thinking not transcribing. Likely an umbrella with different build paths. |
+| Build | Take the design specification and execute it — produce the outcome, report what was done. | Does not design — receives the specification from its caller, most often Project Design but any caller including another build. Creates from the spec, thinking not transcribing. Likely an umbrella with different build paths. |
 
 ### Delivery
 
@@ -7046,7 +7046,9 @@ Fifteen active components, organised by primary role. Each component's entry poi
 ---
 
 Version note: v4 — Orchestration component map entry corrected to match accepted Orchestration_Design_v5 (D3/D29 proposed Core wording). WP component map entry boundaries updated to match WP_Design_v6 (umbrella structure confirmed, boards replace work plan per D21). 2026-09-17. Replaces v3.
-<!-- END SOURCE: Core/Core_Design_v4.md -->
+
+Version note: v5 — Build component map entry generalised to any-caller per Build_Decisions_v8 D3 (cross-review carry F3). 2026-09-17. Replaces v4.
+<!-- END SOURCE: Core/Core_Design_v5.md -->
 
 ---
 
@@ -14207,9 +14209,9 @@ Project Design produces a coherent specification for work of any size and manage
 
 | Prefix | Document | Type |
 |---|---|---|
-| ProjectDesign_ | Design v2 | design |
-| ProjectDesign_ | Decisions v2 | decisions |
-| ProjectDesign_ | Standard v3 | standard |
+| ProjectDesign_ | Design v3 | design |
+| ProjectDesign_ | Decisions v3 | decisions |
+| ProjectDesign_ | Standard v5 | standard |
 | ProjectDesign_ | Schema Standard v1 | standard |
 
 ## Parts
@@ -14922,8 +14924,8 @@ Version note: v1 — initial schema standard. Defines Project Design's three blo
 
 ---
 
-<!-- BEGIN SOURCE: Project Design/ProjectDesign_Standard_v4.md -->
-> identity: ProjectDesign_Standard@v4 | doctype: standard | updated: 2026-09-14 | uses: ProjectDesign_Schema_Standard@v1
+<!-- BEGIN SOURCE: Project Design/ProjectDesign_Standard_v5.md -->
+> identity: ProjectDesign_Standard@v5 | doctype: standard | updated: 2026-09-17 | uses: ProjectDesign_Schema_Standard@v1
 
 # Project Design — Standard
 
@@ -15007,7 +15009,7 @@ These five boundary tests involving brief content settle where content belongs w
 
 ### What the design is
 
-Information. The design is the current confirmed model and approach — the authoritative delivery of the brief. A point-in-time snapshot of what is true now. It must be sufficient on its own to produce outcomes, and it governs on conflict with decisions or knowledge.
+Information. The design is the current confirmed model and approach — the authoritative delivery of the brief. A point-in-time snapshot of what is true now. It must be sufficient on its own to produce outcomes, and it governs on conflict with decisions or knowledge. Between master updates, this sufficiency is composite, not singular: the effective state is the master plus any pending design content in the working document, per WP's pending content rule (composite authority rule) — pending content carries the same authority as the master it is destined for and wins where it explicitly changes master state; where the merged state is ambiguous, the conflict is surfaced, not inferred.
 
 The design carries its own live reasoning inline — the rationale for the current approach. Duplication with decisions is accepted and expected.
 
@@ -15207,8 +15209,8 @@ Information. An item that has been round the loop several times is a design smel
 
 ---
 
-Version note: v4 — design-approach content folded in: two-part design structure (PD-F1), approach completeness check and element quality check as application-time guidance, operations test, context rule and derive-from-model, difficulty-as-evidence in the commitment-and-return loop. Brief-required gate made explicit with override. Overview section strengthened with structural/map role. DocMeth definition-contract and schema-placement pointers added (PD-F2, PD-F3). "Design is the default" renamed to "Default methodology" and expanded. Black-box acceptance test carried to Standards Authoring Standard. Cross-review remediation: authority scope restored to decisions/knowledge (F7), "overview" naming collision resolved — check renamed to approach completeness check (F3), conversational how-to removed from checks per WP ownership boundary (F4), strength inconsistencies corrected (F6). 2026-09-14. Replaces v3.
-<!-- END SOURCE: Project Design/ProjectDesign_Standard_v4.md -->
+Version note: v5 — PD-UPD carries applied. PD-UPD.1: sufficiency contract amended to acknowledge WP's composite authority rule — between master updates the effective state is master plus pending overlay, pending wins where it explicitly changes master state, ambiguous merges are surfaced not inferred (WP_Decisions_v4 D19). PD-UPD.2: brief boundary tests checked against the standard — all five already present and correctly stated, confirmed with no change. 2026-09-17. Replaces v4.
+<!-- END SOURCE: Project Design/ProjectDesign_Standard_v5.md -->
 
 ---
 
