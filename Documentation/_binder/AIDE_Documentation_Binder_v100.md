@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 99** (2026-09-17).
+> **Binder Version 100** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -95,14 +95,14 @@ individual files.
 - `Tools/Tools_Design_v6.md` - sha256 `62b2eb15c979`
 - `Working Practices/_index.md` - sha256 `25410df7a086`
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
-- `Working Practices/Boards/WP_Boards_Design_v1.md` - sha256 `a36bf3d79609`
+- `Working Practices/Boards/WP_Boards_Design_v1.md` - sha256 `13384c9edecf`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
 - `Working Practices/WP_Brief_v2.md` - sha256 `844fa051dedb`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
 - `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `6b858ff04f50`
 - `Working Practices/WP_Decisions_v4.md` - sha256 `9957a8fb75f9`
 - `Working Practices/WP_Design_v6.md` - sha256 `da8923648608`
-- `Working Practices/WP_Standard_v1.md` - sha256 `76650bf1e80b`
+- `Working Practices/WP_Standard_v1.md` - sha256 `e7f8876e277f`
 - `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `59a0bba2401c`
 
 ---
@@ -16171,7 +16171,7 @@ Human-readable in any browser. AI-parseable for updates — the HTML structure i
 - **WIP** — the board lives alongside WIP, not inside it. Both are working state; WIP is transactional staging and working memory, the board is task tracking.
 - **Work register** — PD's commitment ledger. A register entry might appear on a board when picked up as active work. Different purpose, different owner.
 - **Open items** — parked, unresolved things. Not on the board unless brought into play. An open item that becomes decided work moves to the board.
-- **Work items** — the generic workflow entity. A work item that becomes committed work may land on the board. The board is one of the five fates of a work item (alongside dealt with, decision, open item, WIP).
+- **Work items** — the generic workflow entity. A work item may be placed on the board for tracking alongside any of its five fates (dealt with, decision, open item, WIP, work register). The board is a tracking mechanism, not a fate — a work item on a board may also be in a work register, in WIP, or parked as an open item.
 
 ---
 
@@ -16843,6 +16843,8 @@ The transactional staging mechanism, with three roles:
 
 **Conventions:** multiple WIP documents may exist at once, split by size or subject. WIP loads directly into context — it is not delivered via the binder. Prefer visibility over a fixed location: easy to find, easy to save to, easy to load. Track active WIP documents in the project's index to prevent orphaned content. Content should flow through a WIP document to its destination, not accumulate in it.
 
+**Caller persistence convention:** when a caller assembles a unit of work (build package or build instruction), WIP is the default home for in-session transactional state — what was requested, what came back. Memory is the default for cross-session continuity. The caller decides; these are defaults when no decision is made.
+
 ### Pending content rule
 
 Confirmed content awaiting delivery to a master document, held in WIP under the destination document's heading.
@@ -16859,7 +16861,7 @@ A generic entity flowing through a workflow — something noticed that needs tra
 
 **Two axes:** type (what kind of thing it turned out to be, decided on judgement rather than chosen from an enumerated list) and state (open, current, closed — filtered views over the same items, not separate lists).
 
-**Five fates:** dealt with in conversation leaving no trace, resolved and recorded as a decision, parked as an open item, captured into WIP, or committed as work on a board.
+**Five fates:** dealt with in conversation leaving no trace, resolved and recorded as a decision, parked as an open item, captured into WIP, or becomes committed work in a work register. Placing a work item on a board is a tracking action — it can happen alongside any fate and is not itself a fate.
 
 **Governing rule: no knowledge lost.** A work item may be dropped, but only by deciding it carries nothing worth keeping — disappearance is never an accident.
 
@@ -16927,7 +16929,7 @@ File Operations is dissolved; its content redistributed to natural owners (WP re
 
 ---
 
-Version note: v1 — initial standard, authored from WP_Design_v6, WP_Decisions_v4, WP_Boards_Design_v1, and WP_Boards_Decisions_v1. 2026-09-17.
+Version note: v1 — initial standard, authored from WP_Design_v6, WP_Decisions_v4, WP_Boards_Design_v1, and WP_Boards_Decisions_v1. 2026-09-17. Corrected: fifth work-item fate restored to work register (board is tracking, not a fate); caller persistence convention added to WIP section.
 <!-- END SOURCE: Working Practices/WP_Standard_v1.md -->
 
 ---
