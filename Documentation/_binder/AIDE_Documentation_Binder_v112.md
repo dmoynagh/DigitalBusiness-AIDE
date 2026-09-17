@@ -2,13 +2,14 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 111** (2026-09-17).
+> **Binder Version 112** (2026-09-18).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
 
 ## Binder manifest
 
+- `_index.md` - sha256 `602ca83ea55c`
 - `_rebuild/AIDE_Component_PurposeLines_v2.md` - sha256 `b1836489f28b`
 - `_rebuild/AIDE_Rebuild_Guide_v1.md` - sha256 `01ceb45e507b`
 - `_rebuild/AIDE_Rebuild_Overview_v1.md` - sha256 `5a65c44f5991`
@@ -24,16 +25,17 @@ individual files.
 - `_rebuild/WP_CoreCarries_v2.md` - sha256 `2f3ab75ce434`
 - `AIDE_Orchestration_Investigation_Findings.md` - sha256 `e7c281c19fb4`
 - `AIDE_Solution_Map.md` - sha256 `3c2294f7ae2b`
-- `Assurance/_index.md` - sha256 `036e50d7163a`
+- `Assurance/_index.md` - sha256 `c53048b16d81`
 - `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `2147d7d8e090`
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
 - `Assurance/Assurance_Standard_v1.md` - sha256 `16dcf04b00e1`
+- `Build/_index.md` - sha256 `d0a4c7492914`
 - `Build/Build_Brief_v4.md` - sha256 `d9717a0475c0`
 - `Build/Build_Decisions_v8.md` - sha256 `f9a1ac65dfe3`
 - `Build/Build_Design_v8.md` - sha256 `2987f32273f9`
 - `Build/Build_Overview_v6.md` - sha256 `5fce6400bb23`
-- `Core/_index.md` - sha256 `38b09dcfddbf`
+- `Core/_index.md` - sha256 `7f8715826510`
 - `Core/Core_AIDEMap.md` - sha256 `5f8331b0988d`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
 - `Core/Core_AIDEPrinciples_Design_v1.md` - sha256 `60e20e8d0b9d`
@@ -45,7 +47,7 @@ individual files.
 - `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
 - `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
 - `Core/Core_Tags_Working_v1.md` - sha256 `ae6557378adf`
-- `Documentation Methodology/_index.md` - sha256 `c3441fd9e4b4`
+- `Documentation Methodology/_index.md` - sha256 `0d1bf372103e`
 - `Documentation Methodology/DocMeth_Brief_v1.md` - sha256 `60c5cf3f5d79`
 - `Documentation Methodology/DocMeth_Decisions_v7.md` - sha256 `15daf15e27ef`
 - `Documentation Methodology/DocMeth_Design_v6.md` - sha256 `8b5d6a24a5d7`
@@ -53,7 +55,7 @@ individual files.
 - `Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md` - sha256 `37a837a65cb3`
 - `Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md` - sha256 `8098d9714c57`
 - `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `8301aa2a0395`
-- `Infrastructure/_index.md` - sha256 `fb736219786c`
+- `Infrastructure/_index.md` - sha256 `3a9629bd73a4`
 - `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` - sha256 `f3dc59b384b2`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `07a3284570d1`
@@ -67,34 +69,37 @@ individual files.
 - `Infrastructure/version-cleanup/README.md` - sha256 `307a43363adb`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `329d08514ab2`
-- `Messaging/_index.md` - sha256 `0068c2702d8b`
+- `Messaging/_index.md` - sha256 `a2ec25975239`
 - `Messaging/Messaging_Brief_v1.md` - sha256 `c1687d821833`
 - `Messaging/Messaging_Decisions_v4.md` - sha256 `c6a0f75cba95`
 - `Messaging/Messaging_Design_v4.md` - sha256 `48b767e284b0`
 - `Messaging/Messaging_Standard_v4.md` - sha256 `39a0045e2403`
 - `Messaging/Messaging_Tool_v4.md` - sha256 `c0a40ad3383d`
+- `Orchestration/_index.md` - sha256 `581a82f86948`
 - `Orchestration/AIDE_Orchestration_Decisions_v5.md` - sha256 `98d336117a70`
 - `Orchestration/AIDE_Orchestration_Design_v5.md` - sha256 `5cb84235137a`
 - `Orchestration/AIDE_Orchestration_UseCases_v2.md` - sha256 `5d4ecab3a53d`
+- `Principles/_index.md` - sha256 `2af1093a8f6f`
 - `Principles/Principles_Decisions_v5.md` - sha256 `33df0c86fba0`
 - `Principles/Principles_Design_v5.md` - sha256 `ba6e146bf1b7`
 - `Principles/Principles_Standard_v2.md` - sha256 `a2c5cf6f320d`
-- `Project Design/_index.md` - sha256 `45fb54887487`
+- `Project Design/_index.md` - sha256 `72d729aab7af`
 - `Project Design/ProjectDesign_Decisions_v3.md` - sha256 `61029b610785`
 - `Project Design/ProjectDesign_Design_v3.md` - sha256 `845df7d3ba79`
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
 - `Project Design/ProjectDesign_Standard_v5.md` - sha256 `c035df4e8b17`
-- `Standards/_index.md` - sha256 `3bd4678a60c0`
+- `Standards/_index.md` - sha256 `f6a234068f1d`
 - `Standards/Standards_Authoring_Standard_v8.md` - sha256 `e52f99825c80`
 - `Standards/Standards_Consumption_Standard_v3.md` - sha256 `b801499930ac`
 - `Standards/Standards_Decisions_v4.md` - sha256 `fcda250bc8aa`
 - `Standards/Standards_Design_v3.md` - sha256 `4a6a79a3a0f1`
 - `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
-- `Tools/_index.md` - sha256 `7bb05b130edc`
+- `Tools/_index.md` - sha256 `0d2984060e1f`
 - `Tools/Tools_Authoring_Standard_v8.md` - sha256 `d05452eddaa6`
 - `Tools/Tools_Decisions_v7.md` - sha256 `f83f2411202f`
 - `Tools/Tools_Design_v6.md` - sha256 `62b2eb15c979`
-- `Working Practices/_index.md` - sha256 `ecd5c0c3a229`
+- `Working Practices/_index.md` - sha256 `4daeb902eb19`
+- `Working Practices/Boards/_index.md` - sha256 `f70b06bd11fa`
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
 - `Working Practices/Boards/WP_Boards_Design_v1.md` - sha256 `13384c9edecf`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
@@ -105,6 +110,39 @@ individual files.
 - `Working Practices/WP_Decisions_v4.md` - sha256 `9957a8fb75f9`
 - `Working Practices/WP_Design_v6.md` - sha256 `da8923648608`
 - `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `59a0bba2401c`
+
+---
+
+<!-- BEGIN SOURCE: _index.md -->
+# AIDE
+
+Role: solution design
+
+AIDE is a methodology-driven framework that makes standards, tools, and behaviours live inside AI sessions. It preserves fidelity between what was decided, what was built, and what is actually deployed, while keeping the human able to hold and challenge the model throughout.
+
+## Components
+
+| Folder | Component | Primary role |
+|---|---|---|
+| Assurance | Assurance | Guidance |
+| Build | Build | Work |
+| Core | Core | Foundation |
+| Documentation Methodology | Documentation Methodology | Foundation |
+| Infrastructure | Infrastructure | Delivery |
+| Messaging | Messaging | Foundation |
+| Orchestration | Orchestration | Delivery |
+| Principles | Principles | Guidance |
+| Project Design | Project Design | Work |
+| Standards | Standards | Guidance |
+| Tools | Tools | Guidance |
+| Working Practices | Working Practices | Work |
+
+## Cross-cutting files
+
+- AIDE_Solution_Map.md — solution map, component status, and dependency graph
+- Core/Core_Charter_v1.md — founding rationale, objectives, development principles
+- Core/Core_AIDEMap.md — structural overview and component tree
+<!-- END SOURCE: _index.md -->
 
 ---
 
@@ -5048,7 +5086,7 @@ Working documents that govern the rebuild itself, not owned by a single componen
 <!-- BEGIN SOURCE: Assurance/_index.md -->
 # Assurance
 
-Role: component design
+Role: component design, project design
 Aliases: none
 
 Assurance builds justified trust in AI-assisted work by defining the conventions, behaviours, and detection that ensure the human's intent is reliably delivered and that problems are visible when they occur. Guidance role. Cross-cutting — both a component and a framework-wide requirement.
@@ -5687,6 +5725,30 @@ Information. Assurance identifies, captures, and surfaces. It does not make acti
 
 Version note: v1 — authored from Assurance_Design@v3 and Assurance_Decisions@v3 (D1–D14); cross-review completed 2026-09-17.
 <!-- END SOURCE: Assurance/Assurance_Standard_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Build/_index.md -->
+# Build
+
+Role: component design, project design
+Aliases: none
+
+Build executes design specifications and reports what was done. It translates intent into reality — the mechanism that turns designs, decisions and specifications into deployed working outputs. Build produces accepted standards and tools from their design specifications, persists documentation updates, and generates framework utility outputs.
+
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| Build_ | Brief v4 | brief |
+| Build_ | Design v8 | design |
+| Build_ | Decisions v8 | decisions |
+| Build_ | Overview v6 | overview |
+
+## Parts
+
+None declared.
+<!-- END SOURCE: Build/_index.md -->
 
 ---
 
@@ -6485,7 +6547,7 @@ Version note: v6 — cross-review round 5. F15: autonomy and remaining shorthand
 <!-- BEGIN SOURCE: Core/_index.md -->
 # Core
 
-Role: component design
+Role: component design, project design
 Aliases: none
 
 Core is the root entry to AIDE — the framework's self-description, component model, framework-wide requirements, and the map to all components. A reader arriving at AIDE reads Core to understand what AIDE is, what a component is, what the framework expects, and where to find any specific component's design.
@@ -6507,7 +6569,7 @@ Core is the root entry to AIDE — the framework's self-description, component m
 | Core_ | Design v5 | design |
 | Core_ | Decisions v1 | decisions |
 | Core_ | Schema Standard v3 | standard |
-| Core_ | AIDEMap v2 | reference |
+| Core_ | AIDEMap v3 | reference |
 | Core_ | Tags Working v1 | working |
 
 ## Parts
@@ -7264,7 +7326,7 @@ Version note: v1 — initial working document from session 2026-09-09.
 <!-- BEGIN SOURCE: Documentation Methodology/_index.md -->
 # Documentation Methodology
 
-Role: component design
+Role: component design, project design
 Aliases: DocMeth, DM
 
 Documentation Methodology defines how documents are structured and created — the generic mechanics. It owns the grammar of documents: doctypes, block types, the declaration, the definition contract, rendering rules, type-reference resolution, and the structural conventions that make documents portable and machine-readable. It is not a registry of types belonging to other components — specific doctypes and block types live with whoever knows the most about them.
@@ -7273,13 +7335,13 @@ Documentation Methodology defines how documents are structured and created — t
 
 | Prefix | Document | Type |
 |---|---|---|
-| DocMeth_ | Design v6 | design |
-| DocMeth_ | Decisions v6 | decisions |
-| DocMeth_ | Working v8 | working |
 | DocMeth_ | Brief v1 | brief |
-| DocumentationMethodology_ | Schema Standard v4 | standard |
-| DocumentationMethodology_ | Authoring Standard v4 | standard |
-| DocumentationMethodology_ | Definitions Standard v4 | standard |
+| DocMeth_ | Design v6 | design |
+| DocMeth_ | Decisions v7 | decisions |
+| DocMeth_ | Working v9 | working |
+| DocumentationMethodology_ | Standard v1 | standard |
+| DocumentationMethodology_ | SchemaDefinitions Standard v1 | standard |
+| DocumentationMethodology_ | SchemaAuthoring Standard v1 | standard |
 
 ## Parts
 
@@ -8316,7 +8378,8 @@ Version note: v1 — clean-sheet rebuild. Replaces DocumentationMethodology_Auth
 <!-- BEGIN SOURCE: Infrastructure/_index.md -->
 # Infrastructure
 
-Role: component design
+Role: component design, project design
+Aliases: none
 
 Infrastructure defines how to build and deploy utilities, and owns the design of the delivery mechanism (the `aide` dispatcher). It is a methodological component — it does not hold all utility designs. Individual utility designs live with the component or area that knows the most about them, under the what-knows-most-about-it principle.
 
@@ -8325,6 +8388,26 @@ Infrastructure is machinery that acts on the corpus and environment from outside
 ## Key distinction
 
 Infrastructure utilities are not capability Tools. Capabilities (Standards, Tools) are loaded into the AI session to shape behaviour. Utilities run outside the session, acting on files, folders, and the environment.
+
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| Infrastructure_ | CLI Design v1 | design |
+| Infrastructure_ | CLI Decisions v1 | decisions |
+| Infrastructure_ | Working v1 | working |
+| AIDE_Infrastructure_ | MCPDeliveryModel v2 | reference |
+
+## Parts
+
+**binder-builder** (prefix n/a)
+The binder assembly utility — design, settings, and README.
+
+**file-update-package** (prefix n/a)
+The FUP deployer — design, settings, and README.
+
+**version-cleanup** (prefix n/a)
+The version cleanup utility — design, settings, and README.
 <!-- END SOURCE: Infrastructure/_index.md -->
 
 ---
@@ -11617,7 +11700,7 @@ one build.
 <!-- BEGIN SOURCE: Messaging/_index.md -->
 # Messaging
 
-Role: Foundation
+Role: component design, project design
 Aliases: Msg
 
 Messaging defines the format, structure, and conventions for reliable communication across any boundary — between AI sessions, projects, platforms, or contexts that may share nothing except relayed text. It owns the AI-MESSAGE envelope: format, addressing, identity, threading, receipt integrity, and acknowledgment conventions.
@@ -11626,11 +11709,17 @@ Messaging is a grammar, not a transport. It defines what is carried, not how. Me
 
 ## Documents
 
-- Messaging_Brief_v1
-- Messaging_Design_v4
-- Messaging_Decisions_v4
-- Messaging_Standard_v4
-- Messaging_Tool_v4
+| Prefix | Document | Type |
+|---|---|---|
+| Messaging_ | Brief v1 | brief |
+| Messaging_ | Design v4 | design |
+| Messaging_ | Decisions v4 | decisions |
+| Messaging_ | Standard v4 | standard |
+| Messaging_ | Tool v4 | tool |
+
+## Parts
+
+None declared.
 <!-- END SOURCE: Messaging/_index.md -->
 
 ---
@@ -12833,6 +12922,29 @@ Version note: v4 — third cross-review remediation. R5: QueryReceipt response s
 
 ---
 
+<!-- BEGIN SOURCE: Orchestration/_index.md -->
+# Orchestration
+
+Role: component design, project design
+Aliases: Orc
+
+Orchestration defines dispatch, correlation, invocation, and target adaptation for cross-platform AI work. It routes work to the right AI target with the right context and correlates the response. Delivery role.
+
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| AIDE_Orchestration_ | Design v5 | design |
+| AIDE_Orchestration_ | Decisions v5 | decisions |
+| AIDE_Orchestration_ | UseCases v2 | reference |
+
+## Parts
+
+None declared.
+<!-- END SOURCE: Orchestration/_index.md -->
+
+---
+
 <!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Decisions_v5.md -->
 # AIDE Orchestration — Decisions v5
 
@@ -13859,6 +13971,29 @@ in Orchestration D19 for Assurance; flagged for Improvement's own design pass.
 
 ---
 
+<!-- BEGIN SOURCE: Principles/_index.md -->
+# Principles
+
+Role: component design, project design
+Aliases: none
+
+Principles defines nine portable reasoning premises for AI-assisted work. Any AI can adopt them without adopting AIDE. The premises are universal — they carry no AIDE-specific dependency and are governed by the portability test.
+
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| Principles_ | Design v5 | design |
+| Principles_ | Decisions v5 | decisions |
+| Principles_ | Standard v2 | standard |
+
+## Parts
+
+None declared.
+<!-- END SOURCE: Principles/_index.md -->
+
+---
+
 <!-- BEGIN SOURCE: Principles/Principles_Decisions_v5.md -->
 # Principles — Decisions
 
@@ -14201,7 +14336,10 @@ Version note: v2 — P3 strengthened (difficulty-as-evidence, apparatus-avoidanc
 ---
 
 <!-- BEGIN SOURCE: Project Design/_index.md -->
-Project Design | _index | ProjectDesign_Index@v1 | 2026-09-11
+# Project Design
+
+Role: component design, project design
+Aliases: PD
 
 Project Design produces a coherent specification for work of any size and manages the response from build as it pertains to design. Fluid in, precise out — it owns both ends of the design-build loop.
 
@@ -15217,11 +15355,26 @@ Version note: v5 — PD-UPD carries applied. PD-UPD.1: sufficiency contract amen
 <!-- BEGIN SOURCE: Standards/_index.md -->
 # Standards
 
-Role: component design
+Role: component design, project design
+Aliases: none
 
-Standards defines how to create, design, build, and use a standard within the AIDE framework. It is a methodological component — it does not hold all standards. Individual standards are designed and owned by the component or area they serve, under the what-knows-most-about-it principle.
+Standards defines how standards are authored, applied, honoured, and kept current. It owns the definition of a standard, the authoring rules (including leanness), and the pipeline from reference knowledge to deployed standard.
 
-As a capability, Standards owns the definition of what a standard is, the authoring guidance (including leanness), and the pipeline from reference knowledge to deployed standard.
+It is a methodological component — it does not hold all standards. Individual standards are designed and owned by the component or area they serve, under the what-knows-most-about-it principle.
+
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| Standards_ | Design v3 | design |
+| Standards_ | Decisions v4 | decisions |
+| Standards_ | Authoring Standard v8 | standard |
+| Standards_ | Consumption Standard v3 | standard |
+| Standards_ | Working v1 | working |
+
+## Parts
+
+None declared.
 <!-- END SOURCE: Standards/_index.md -->
 
 ---
@@ -15737,20 +15890,24 @@ Version note: v1 — initial working document from session 2026-09-09.
 <!-- BEGIN SOURCE: Tools/_index.md -->
 # Tools
 
-Role: component design
+Role: component design, project design
 Aliases: none
 
 Tools defines the methodology for building tools — repeatable, named, invokable actions performed by the AI in-session. It owns the tool definition, the invocability test that draws the boundary between a tool and a standard, and the authoring methodology used to design and author tools.
 
 Tools is a methodological component. It defines how to create its type; individual tools live with their owning component under the what-knows-most-about-it principle.
 
+## Documents
+
+| Prefix | Document | Type |
+|---|---|---|
+| Tools_ | Design v6 | design |
+| Tools_ | Decisions v7 | decisions |
+| Tools_ | Authoring Standard v8 | standard |
+
 ## Parts
 
-**Tools_Design** — the design document establishing what a tool is, the boundaries, authoring concerns, and the designing/authoring rules.
-
-**Tools_Authoring_Standard** — the deployed standard a tool author consumes when designing, authoring, and deploying a tool.
-
-**Tools_Decisions** — the reasoning behind each design decision.
+None declared.
 <!-- END SOURCE: Tools/_index.md -->
 
 ---
@@ -16118,7 +16275,7 @@ Version note: v6 — round 2 cross-review remediation: Brief Purpose and Target 
 <!-- BEGIN SOURCE: Working Practices/_index.md -->
 # Working Practices
 
-Role: component design
+Role: component design, project design
 Aliases: WP, workprac
 
 Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
@@ -16138,13 +16295,29 @@ WP operates at two levels. At component level, capture-and-place, operational to
 
 **Boards** (prefix `WP_Boards_`)
 How work is tracked across its full lifecycle — boards as scoped task records with zones, dependencies, work sets, and AI maintenance. Supersedes the work plan (D10).
+<!-- END SOURCE: Working Practices/_index.md -->
 
-## Working documents
+---
+
+<!-- BEGIN SOURCE: Working Practices/Boards/_index.md -->
+# Boards
+
+Role: component design
+Aliases: none
+
+How work is tracked across its full lifecycle — boards as scoped task records with zones, dependencies, work sets, and AI maintenance. Supersedes the work plan (WP D10).
+
+## Documents
 
 | Prefix | Document | Type |
 |---|---|---|
-| WP_WorkManagement_ | Working v1 | working |
-<!-- END SOURCE: Working Practices/_index.md -->
+| WP_Boards_ | Design v1 | design |
+| WP_Boards_ | Decisions v1 | decisions |
+
+## Parts
+
+None declared.
+<!-- END SOURCE: Working Practices/Boards/_index.md -->
 
 ---
 
