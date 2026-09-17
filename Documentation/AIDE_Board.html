@@ -316,7 +316,7 @@
 <section class="zone zone-pending">
   <div class="zone-header">
     <h2>Pending</h2>
-    <span class="count">8 items</span>
+    <span class="count">6 items</span>
   </div>
 
   <div class="task">
@@ -330,22 +330,6 @@
         <div class="tags">
           <span class="tag">working-practices</span>
           <span class="tag">cross-review</span>
-        </div>
-      </div>
-    </details>
-  </div>
-
-  <div class="task">
-    <details>
-      <summary>
-        <span class="task-id">CORE-ORC</span>
-        <span class="task-name">Core boundary wording — Orchestration description correction</span>
-      </summary>
-      <div class="task-body">
-        <p>Core_Design and Core_AIDEMap still describe Orchestration as owning "work package structure, verification, and capability profiles." Accepted Orchestration design (D3/D29) proposes replacement wording. Apply when Core documents are next worked — can batch with CORE-WP (stale WP purpose line).</p>
-        <div class="tags">
-          <span class="tag">core</span>
-          <span class="tag">housekeeping</span>
         </div>
       </div>
     </details>
@@ -435,21 +419,6 @@
     </details>
   </div>
 
-  <div class="task">
-    <details>
-      <summary>
-        <span class="task-id">CORE-WP</span>
-        <span class="task-name">Core_Design WP purpose line correction</span>
-      </summary>
-      <div class="task-body">
-        <p>The WP entry in Core_Design's component map table carries a pre-design-pass purpose line and boundary description that predates the Assurance extraction. Known stale since 2026-09-15, flagged but not applied.</p>
-        <div class="tags">
-          <span class="tag">core</span>
-          <span class="tag">housekeeping</span>
-        </div>
-      </div>
-    </details>
-  </div>
 </section>
 
 <!-- ── FUTURE ── -->
@@ -706,7 +675,41 @@
 <section class="zone zone-done">
   <div class="zone-header">
     <h2>Done</h2>
-    <span class="count">11 items</span>
+    <span class="count">13 items</span>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">CORE-ORC</span>
+        <span class="task-name">Core boundary wording — Orchestration description correction</span>
+      </summary>
+      <div class="task-body">
+        <p>Core_Design_v4 and Core_AIDEMap_v3 — Orchestration component map entry corrected to match accepted Orchestration_Design_v5 (D3/D29 proposed Core wording). Batched with CORE-WP. Binder rebuilt to v102.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">core</span>
+          <span class="tag">housekeeping</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="task is-done">
+    <details>
+      <summary>
+        <span class="task-id">CORE-WP</span>
+        <span class="task-name">Core_Design WP purpose line correction</span>
+      </summary>
+      <div class="task-body">
+        <p>Core_Design_v4 and Core_AIDEMap_v3 — WP component map boundaries updated to match WP_Design_v6 (umbrella structure confirmed, boards replace work plan per D21). Batched with CORE-ORC.</p>
+        <p class="completed-date">Completed: 2026-09-17</p>
+        <div class="tags">
+          <span class="tag">core</span>
+          <span class="tag">housekeeping</span>
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="task is-done">
