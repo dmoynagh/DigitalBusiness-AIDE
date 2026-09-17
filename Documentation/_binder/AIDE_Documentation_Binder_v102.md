@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 101** (2026-09-17).
+> **Binder Version 102** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -33,13 +33,13 @@ individual files.
 - `Build/Build_Design_v4.md` - sha256 `a436dfd80ad6`
 - `Build/Build_Overview_v2.md` - sha256 `4704378e1a10`
 - `Core/_index.md` - sha256 `8746bf38a3fa`
-- `Core/Core_AIDEMap.md` - sha256 `9cb56b3c7791`
+- `Core/Core_AIDEMap.md` - sha256 `5f8331b0988d`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
 - `Core/Core_AIDEPrinciples_Design_v1.md` - sha256 `60e20e8d0b9d`
 - `Core/Core_Brief_v2.md` - sha256 `23d1f1d1f622`
 - `Core/Core_Charter_v1.md` - sha256 `3e5f5332b783`
 - `Core/Core_Decisions_v1.md` - sha256 `2545fa050c39`
-- `Core/Core_Design_v3.md` - sha256 `89eb22d2a3fc`
+- `Core/Core_Design_v4.md` - sha256 `bf0566c40a73`
 - `Core/Core_Schema_Standard_v3.md` - sha256 `49c6de8da5bb`
 - `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
 - `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
@@ -6373,7 +6373,7 @@ The operating principles specific to AIDE as a framework — facilitate not cons
 ---
 
 <!-- BEGIN SOURCE: Core/Core_AIDEMap.md -->
-> identity: Core_AIDEMap@v2 | updated: 2026-09-15
+> identity: Core_AIDEMap@v3 | updated: 2026-09-17
 
 # AIDE Map
 
@@ -6397,13 +6397,13 @@ AIDE
 │
 ├── Work
 │   ├── Working Practices (WP)
-│   │   ├── Working State — WIP model, work items, work plan, pending content, development lifecycle
+│   │   ├── Working State — WIP model, work items, boards, pending content, development lifecycle
 │   │   └── Content Delivery — binder concept, inclusion rules, context loading
 │   ├── Project Design (PD) — design specification, design-build loop, work register
 │   └── Build — execute the spec, report what was done, own code structure
 │
 ├── Delivery
-│   ├── Orchestration — transport, routing, work packages, verification, capability profiles
+│   ├── Orchestration — dispatch correlation, invocation, target adapters, model-level resolution
 │   ├── Migration — change detection, distribution, execution
 │   ├── Deployment — build plugin, push to marketplace, weight gate
 │   └── Infrastructure — CLI, deployment utilities, settings merge
@@ -6417,7 +6417,7 @@ AIDE
 
 ---
 
-Version note: v2 — Assurance and Improvement added under Guidance; WP subtree updated to reflect WP_Design_v2 areas (Working State and Content Delivery replace the five pre-design-pass areas). 2026-09-15. Replaces v1.
+Version note: v3 — Orchestration description corrected to match accepted Orchestration_Design_v5 (D3/D29). Working State: work plan replaced by boards (WP D21). 2026-09-17. Replaces v2.
 <!-- END SOURCE: Core/Core_AIDEMap.md -->
 
 ---
@@ -6727,8 +6727,8 @@ Version note: v1 — initial decisions from the Core design pass. 2026-09-15.
 
 ---
 
-<!-- BEGIN SOURCE: Core/Core_Design_v3.md -->
-> identity: Core_Design@v3 | doctype: design | updated: 2026-09-15
+<!-- BEGIN SOURCE: Core/Core_Design_v4.md -->
+> identity: Core_Design@v4 | doctype: design | updated: 2026-09-17
 
 # Core — Design
 
@@ -6836,7 +6836,7 @@ Fifteen active components, organised by primary role. Each component's entry poi
 
 | Component | Purpose | Key boundaries |
 |---|---|---|
-| Working Practices | Define the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. | Owns generic operating behaviour and live state — the middle placement band: capture-and-place, WIP model, work items, workflow commands. Does not own trust conventions or the human working model — Assurance. May grow into a container with sub-components. |
+| Working Practices | Define the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. | Umbrella for action and behaviour. At component level: capture-and-place, operational tools, file delivery, overview-first discipline. Two areas: Working State (WIP, work items, boards, completion) and Content Delivery (binder, session content). Does not own trust conventions or the human working model — Assurance. |
 | Project Design | Produce the design specification. | One scalable architecture. Owns both ends of the design-build loop. |
 | Build | Take the design specification and execute it — produce the outcome, report what was done. | Does not design — receives the specification from Project Design. Creates from the spec, thinking not transcribing. Likely an umbrella with different build paths. |
 
@@ -6844,7 +6844,7 @@ Fifteen active components, organised by primary role. Each component's entry poi
 
 | Component | Purpose | Key boundaries |
 |---|---|---|
-| Orchestration | Coordinate work across AI surfaces and platforms — the channels, communication mechanics, and coordination logic that allow multiple AI components to work together. | Owns transport, routing, work package structure, verification, and capability profiles. Does not own the work modes that consume it. Likely an umbrella with areas or parts. |
+| Orchestration | Coordinate invocation across AI execution targets — accept caller-owned work, resolve model selection through Core-owned Framework Resources, invoke target adapters, correlate dispatch with transport outcome, and return the response. | Owns the crossing: dispatch correlation, invocation, transport outcome, target adapters, model-level resolution. Does not own the task, verification policy, routing decision, or semantic meaning of the response. Likely an umbrella with areas or parts. |
 | Migration | Keep things current when something they depend on changes — collate, distribute and execute change actions. | Does not detect changes — detection varies by consumer. The mechanism is generic. |
 | Deployment | Get the publishable capabilities live in a session, on whatever surface is in use. | Does not define capabilities — receives them from their owning components. Simple pipeline: build, push, reload. |
 | Infrastructure | Methodological infrastructure — CLI, deployment utilities, settings merge. | Serves the framework's own operation. Does not own design documents or standards. |
@@ -6896,8 +6896,8 @@ Fifteen active components, organised by primary role. Each component's entry poi
 
 ---
 
-Version note: v3 — Working Practices' component map entry corrected to match WP_Design_v2 and WP_Decisions_v2: purpose line updated to the WP brief's stated purpose; boundary updated to reflect the Assurance extraction (human working model no longer WP's). No other content changed from v2. 2026-09-15. Replaces v2.
-<!-- END SOURCE: Core/Core_Design_v3.md -->
+Version note: v4 — Orchestration component map entry corrected to match accepted Orchestration_Design_v5 (D3/D29 proposed Core wording). WP component map entry boundaries updated to match WP_Design_v6 (umbrella structure confirmed, boards replace work plan per D21). 2026-09-17. Replaces v3.
+<!-- END SOURCE: Core/Core_Design_v4.md -->
 
 ---
 
