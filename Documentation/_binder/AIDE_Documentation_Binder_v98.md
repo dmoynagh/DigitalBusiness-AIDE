@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 97** (2026-09-17).
+> **Binder Version 98** (2026-09-17).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -72,8 +72,8 @@ individual files.
 - `Messaging/Messaging_Design_v4.md` - sha256 `48b767e284b0`
 - `Messaging/Messaging_Standard_v4.md` - sha256 `39a0045e2403`
 - `Messaging/Messaging_Tool_v4.md` - sha256 `c0a40ad3383d`
-- `Orchestration/AIDE_Orchestration_Decisions_v3.md` - sha256 `ae32b6e0e310`
-- `Orchestration/AIDE_Orchestration_Design_v3.md` - sha256 `085b5dae47dd`
+- `Orchestration/AIDE_Orchestration_Decisions_v4.md` - sha256 `a304edba5f4a`
+- `Orchestration/AIDE_Orchestration_Design_v4.md` - sha256 `8f5cb5a8f91c`
 - `Orchestration/AIDE_Orchestration_UseCases_v2.md` - sha256 `5d4ecab3a53d`
 - `Principles/Principles_Decisions_v5.md` - sha256 `33df0c86fba0`
 - `Principles/Principles_Design_v5.md` - sha256 `ba6e146bf1b7`
@@ -12661,14 +12661,15 @@ Version note: v4 — third cross-review remediation. R5: QueryReceipt response s
 
 ---
 
-<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Decisions_v3.md -->
-# AIDE Orchestration — Decisions v3
+<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Decisions_v4.md -->
+# AIDE Orchestration — Decisions v4
 
-> identity: Orchestration_Decisions@v3 | doctype: decisions | updated: 2026-09-17
+> identity: Orchestration_Decisions@v4 | doctype: decisions | updated: 2026-09-17
 
-Two cross-review rounds completed (independent AI). Round 1: F1–F15, resolved in v2
-(D20–D34). Round 2: R2-F1–R2-F7, resolved in v3 (D35–D41). D1–D34 unchanged except
-where noted.
+Three cross-review rounds completed (independent AI). Round 1: F1–F15, resolved in v2
+(D20–D34). Round 2: R2-F1–R2-F7, resolved in v3 (D35–D41). Round 3: R3-F1–R3-F5,
+resolved in v4 (D42–D46). Model accepted in substance after round 2; rounds 2–3 were
+contract tightening. D1–D41 unchanged except where noted.
 
 ---
 
@@ -12864,6 +12865,53 @@ renaming after deployment is an interface migration — is unchanged.
 
 ---
 
+## v4 decisions (round 3 remediation)
+
+**D42 — Supersession wording corrected to not re-settle Infrastructure's delivery
+decision (remediates R3-F1).** v3 said "the plugin-delivered MCP server supersedes all
+four," which re-settles the delivery mechanism that D30 returned to Infrastructure. v4
+says the local execution-endpoint model supersedes the four Orchestration-side
+alternatives. The currently proven implementation is an MCP server; its delivery
+mechanism is an Infrastructure decision. This preserves the investigation result without
+making Infrastructure's decision inside Orchestration.
+
+**D43 — Timeout in v1 covers native/provider timeouts only; no Orchestration-imposed
+timeout (remediates R3-F2).** The v3 failure example implied Orchestration imposes its
+own timeout (300s) but no field or policy defined it. v4 clarifies: in v1, the `timeout`
+failure category covers native/provider-imposed timeouts only. Orchestration does not
+impose its own invocation timeout — doing so for workload-dependent operations (Build,
+FUP) risks terminating legitimate caller-owned work. A caller-supplied optional timeout
+may be added in a future version if demonstrated workload variation requires it. The
+example is changed to show `invocation_error` (native rejection) rather than a
+specific-seconds timeout.
+
+**D44 — `invocation_error` broadened to cover native invocation rejection (remediates
+R3-F3).** The v3 definition ("the adapter could not start the target process") was too
+narrow. A common failure state exists between "could not start" and "adapter internal
+error": the target process starts but rejects the invocation before an agent response
+exists (e.g. invalid model, unsupported option, provider-side rejection). v4 broadens
+the definition to: the target invocation could not successfully reach executable task
+execution, including failure to start and native invocation rejection. This keeps v1
+smaller than introducing a separate `invocation_rejected` category.
+
+**D45 — Exact-model escape hatch claim narrowed from "reproduction" to "model pinning"
+(remediates R3-F4).** The v3 wording said exact model selection exists for "testing,
+comparison, or reproduction." Exact model identity alone does not reproduce an earlier
+invocation when reasoning effort or other settings affect behaviour. Provenance records
+the applied settings and provides evidence about configuration, but the `exact` field
+alone does not guarantee reproduction. v4 narrows to "testing, model pinning, or
+comparison."
+
+**D46 — Disabling condition is vacuously true until a settings mechanism exists
+(remediates R3-F5).** The availability equation includes "not explicitly disabled" but
+the portable user/account settings mechanism is deferred. v4 states that until a
+settings mechanism exists, the condition is vacuously true — all detected,
+Resources-supported targets are available. Once Core/Settings provides explicit
+disabling, the endpoint incorporates it into effective availability. This keeps the
+future model without creating an undeclared v1 dependency.
+
+---
+
 ## Deferred
 
 1. Framework Resources schema and deployment mechanism — Core's design pass.
@@ -12879,18 +12927,19 @@ renaming after deployment is an interface migration — is unchanged.
 
 1. Final naming of model capability levels (`basic/standard/high/maximum` proposed).
    May remain provisional at design acceptance; must be settled before interface freeze.
-<!-- END SOURCE: Orchestration/AIDE_Orchestration_Decisions_v3.md -->
+<!-- END SOURCE: Orchestration/AIDE_Orchestration_Decisions_v4.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Design_v3.md -->
-# AIDE Orchestration — Design v3
+<!-- BEGIN SOURCE: Orchestration/AIDE_Orchestration_Design_v4.md -->
+# AIDE Orchestration — Design v4
 
-> identity: Orchestration_Design@v3 | doctype: design | updated: 2026-09-17
+> identity: Orchestration_Design@v4 | doctype: design | updated: 2026-09-17
 
-Two cross-review rounds completed (independent AI). Round 1: fifteen findings (F1–F15),
-all resolved in v2 (D20–D34). Round 2: seven findings (R2-F1–R2-F7), all resolved in
-v3 (D35–D41). Reviewer accepted the model; remaining work was contract tightening.
+Three cross-review rounds completed (independent AI). Round 1: fifteen findings
+(F1–F15), resolved in v2 (D20–D34). Round 2: seven findings (R2-F1–R2-F7), resolved
+in v3 (D35–D41). Round 3: five findings (R3-F1–R3-F5), resolved in v4 (D42–D46).
+Model accepted in substance after round 2; rounds 2–3 were contract tightening.
 
 ---
 
@@ -13087,8 +13136,8 @@ dispatch_id: ghi-789
 target: codex
 transport_status: failed
 failure:
-  category: timeout
-  detail: "Codex exec did not return within 300s"
+  category: invocation_error
+  detail: "Codex rejected the requested model: model not available"
 ```
 
 **`transport_status`** is either `completed` or `failed`:
@@ -13102,8 +13151,13 @@ failure:
 **Failure categories** (transport-owned — they describe what went wrong in invocation,
 not whether the task's objectives were met):
 
-- `invocation_error` — the adapter could not start the target process
-- `timeout` — invocation started but did not return within the allowed time
+- `invocation_error` — the target invocation could not successfully reach executable
+  task execution, including failure to start the target process and native invocation
+  rejection by the target or provider (e.g. invalid model, unsupported option)
+- `timeout` — invocation started but did not return within the allowed time. In v1,
+  this covers native/provider-imposed timeouts only — Orchestration does not impose
+  its own timeout. A caller-supplied timeout may be added in a future version if
+  demonstrated workload variation requires it
 - `target_unavailable` — the target is not currently available on this endpoint
 - `auth_failure` — authentication/authorisation failed for the target
 - `adapter_error` — the adapter encountered an internal error
@@ -13144,7 +13198,7 @@ must be settled before the v1 dispatch contract is frozen, because renaming afte
 deployment is an interface migration. They may remain provisional at design acceptance.
 
 An escape hatch allows requesting an exact provider model directly, for testing,
-comparison, or reproduction:
+model pinning, or comparison:
 
 ```yaml
 model:
@@ -13249,7 +13303,10 @@ supported by Resources ∩ detected on this endpoint ∩ not explicitly disabled
 ```
 
 Machine-specific configuration is only introduced where detection genuinely cannot
-represent a real requirement.
+represent a real requirement. Until a portable user/account settings mechanism exists
+(deferred), the "not explicitly disabled" condition is vacuously true — all detected,
+Resources-supported targets are available. Once Core/Settings provides explicit
+disabling, the endpoint incorporates it into effective availability.
 
 ### Capability availability is not execution-endpoint availability
 
@@ -13308,8 +13365,9 @@ Orchestration design decision.
 ### What was superseded
 
 The original investigation considered standalone script, Claude Code skill, Desktop
-Extension, and `aide dispatch` inside the CLI. The plugin-delivered MCP server
-supersedes all four.
+Extension, and `aide dispatch` inside the CLI. The local execution-endpoint model
+supersedes all four Orchestration-side alternatives. The currently proven
+implementation is an MCP server; its delivery mechanism is an Infrastructure decision.
 
 ## Target adapters
 
@@ -13409,7 +13467,7 @@ envelope carries the caller-owned request; Orchestration owns moving and invokin
 > Orchestration owns the crossing — dispatch correlation, invocation, and transport
 > outcome — not the work, its verification policy, or the semantic meaning of the
 > response.
-<!-- END SOURCE: Orchestration/AIDE_Orchestration_Design_v3.md -->
+<!-- END SOURCE: Orchestration/AIDE_Orchestration_Design_v4.md -->
 
 ---
 
