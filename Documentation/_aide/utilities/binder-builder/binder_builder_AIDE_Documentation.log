@@ -14577,3 +14577,29 @@ change detection: AIDE_Documentation_Binder_v122.md: 2 added, 2 removed (Infrast
 Result: 105 included, 5 skipped, 1 written, 1 deleted
 ========================================================================
 
+========================================================================
+binder builder   2026-09-23 09:31:55   LIVE
+binder:   AIDE_Documentation
+root:     C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation
+settings: C:\Users\david\dev\repos\DigitalBusiness-AIDE\Documentation\_aide\utilities\binder-builder\binder_builder_AIDE_Documentation_settings.json
+include:  ~/_rebuild
+folders collected from: 20
+change detection: AIDE_Documentation_Binder_v123.md: 105 file(s) in scope, all matching the manifest - binder not rebuilt
+------------------------------------------------------------------------
+
+[.]
+  SKIPPED          AIDE_Board.html: matches exclude_files pattern "*_Board.html"
+  SKIPPED          AIDE_Documentation_WIP_v27.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Orchestration_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+
+[_binder]
+  NO CHANGES       no changes detected since AIDE_Documentation_Binder_v123.md; binder not rebuilt
+
+[_rebuild]
+  SKIPPED          AIDE_DesignApproach_WIP_v1.md: matches exclude_files pattern "*_WIP_*"
+  SKIPPED          AIDE_Rebuild_WIP_v24.md: matches exclude_files pattern "*_WIP_*"
+
+------------------------------------------------------------------------
+Result: 5 skipped, 1 no changes
+========================================================================
+
