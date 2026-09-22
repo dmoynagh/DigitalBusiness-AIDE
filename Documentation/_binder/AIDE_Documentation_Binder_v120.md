@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 119** (2026-09-23).
+> **Binder Version 120** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -60,7 +60,7 @@ individual files.
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `518121d99d79`
 - `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
-- `Infrastructure/document-management/_index.md` - sha256 `b7a5747507b3`
+- `Infrastructure/document-management/_index.md` - sha256 `e726f0298d82`
 - `Infrastructure/document-management/DocumentManagement_Brief_v3.md` - sha256 `b83c1b37690f`
 - `Infrastructure/document-management/DocumentManagement_Decisions_v2.md` - sha256 `a79d8175b027`
 - `Infrastructure/document-management/DocumentManagement_Design_v2.md` - sha256 `a13eaae5cf7d`
@@ -10287,15 +10287,7 @@ on the corpus and is never loaded into an AI session itself.
 Role: Part
 Aliases: doc-management, docmgmt
 
-A local MCP server providing safe, format-agnostic file primitives over document sources — reading, writing, browsing, patching, and maintaining documents in git-backed and non-git repositories. The server has no knowledge of AIDE vocabulary; all document intelligence (versioning, declarations, conventions) is owned by a governing skill in session that orchestrates multi-step sequences using the server's primitives.
-
-## Files
-
-| Filename | Info |
-| --- | --- |
-| DocumentManagement_Brief_v2.md | Brief — purpose, objectives, scope, definition of done |
-| DocumentManagement_Design_v1.md | Design — model, tool surface, config schema, git model, error handling |
-| DocumentManagement_Decisions_v1.md | Decisions — D1 concurrency |
+A local MCP server providing safe, format-agnostic file primitives over document sources — reading, writing, browsing, patching, and maintaining documents in git-backed and non-git repositories. The server has no knowledge of AIDE document-content vocabulary; all document intelligence (versioning, declarations, conventions) is owned by a governing skill in session that orchestrates multi-step sequences using the server's primitives.
 <!-- END SOURCE: Infrastructure/document-management/_index.md -->
 
 ---
