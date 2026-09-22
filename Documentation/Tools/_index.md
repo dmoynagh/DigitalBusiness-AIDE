@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Tools
 
 Role: component design, project design

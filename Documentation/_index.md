@@ -1,3 +1,4 @@
+> identity: _index | doctype: index
 # AIDE
 
 Role: solution design

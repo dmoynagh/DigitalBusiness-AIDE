@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Documentation Methodology
 
 Role: component design, project design

@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Core
 
 Role: component design, project design

@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Messaging
 
 Role: component design, project design

@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Assurance
 
 Role: component design, project design

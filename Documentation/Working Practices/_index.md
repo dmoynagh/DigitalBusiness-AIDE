@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Working Practices
 
 Role: component design, project design

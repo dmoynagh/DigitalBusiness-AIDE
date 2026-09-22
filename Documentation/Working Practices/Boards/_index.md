@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Boards
 
 Role: component design

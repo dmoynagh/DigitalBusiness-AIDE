@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Standards
 
 Role: component design, project design

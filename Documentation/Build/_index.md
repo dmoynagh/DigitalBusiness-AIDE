@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Build
 
 Role: component design, project design

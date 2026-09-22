@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Principles
 
 Role: component design, project design

@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Infrastructure
 
 Role: component design, project design

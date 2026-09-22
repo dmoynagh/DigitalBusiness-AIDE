@@ -1,3 +1,5 @@
+> identity: _index | doctype: index
+
 # Orchestration
 
 Role: component design, project design
