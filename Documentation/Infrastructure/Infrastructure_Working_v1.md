@@ -1,4 +1,4 @@
-Infrastructure | working | Infrastructure_Working@v1 | 2026-09-10
+> identity: Infrastructure_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Confirmed direction — session 2026-09-10
 

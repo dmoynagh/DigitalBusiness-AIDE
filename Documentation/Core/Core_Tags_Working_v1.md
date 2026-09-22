@@ -1,4 +1,4 @@
-Core — Tags | working | Core_Tags_Working@v1 | 2026-09-10
+> identity: Core_Tags_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Status
 

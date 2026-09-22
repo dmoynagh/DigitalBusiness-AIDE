@@ -1,4 +1,4 @@
-Core AIDEPrinciples | decisions | Core_AIDEPrinciples_Decisions@v1 | 2026-09-10
+> identity: Core_AIDEPrinciples_Decisions@v1 | doctype: decisions | updated: 2026-09-10
 
 ## Summary
 

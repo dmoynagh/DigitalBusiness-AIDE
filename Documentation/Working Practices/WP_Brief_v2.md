@@ -1,4 +1,4 @@
-Working Practices | brief | WP_Brief@v2 | 2026-09-17
+> identity: WP_Brief@v2 | doctype: brief | updated: 2026-09-17
 
 # Working Practices — Brief
 

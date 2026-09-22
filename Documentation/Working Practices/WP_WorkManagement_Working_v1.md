@@ -1,4 +1,4 @@
-Working Practices — Work Management | working | WP_WorkManagement_Working@v1 | 2026-09-10
+> identity: WP_WorkManagement_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Development lifecycle — phase vs mode (confirmed 2026-09-09)
 

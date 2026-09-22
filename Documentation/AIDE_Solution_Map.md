@@ -1,3 +1,5 @@
+> identity: AIDE_SolutionMap@v1 | updated: 2026-09-14
+
 # AIDE Solution Map
 
 Snapshot of the AIDE framework: components in dependency order, documents under each.

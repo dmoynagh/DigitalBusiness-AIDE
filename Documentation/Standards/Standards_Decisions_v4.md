@@ -1,4 +1,4 @@
-Standards — Decisions | decisions | Standards_Decisions@v4 | 2026-09-15
+> identity: Standards_Decisions@v4 | doctype: decisions | updated: 2026-09-15
 
 ## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
 

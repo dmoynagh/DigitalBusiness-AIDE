@@ -1,4 +1,4 @@
-Core AIDEPrinciples | design | Core_AIDEPrinciples_Design@v1 | 2026-09-10
+> identity: Core_AIDEPrinciples_Design@v1 | doctype: design | updated: 2026-09-10
 
 ## Brief
 

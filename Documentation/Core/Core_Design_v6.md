@@ -1,4 +1,4 @@
-> identity: Core_Design@v5 | doctype: design | updated: 2026-09-17
+> identity: Core_Design@v6 | doctype: design | updated: 2026-09-22
 
 # Core — Design
 
@@ -136,7 +136,7 @@ Fifteen active components, organised by primary role. Each component's entry poi
 
 ## Design areas
 
-**Structure** (prefix `Core_Structure_`). How AIDE documentation is physically and logically organised. Physical folders are the structure; no logical overlay. Path authority lives in the document header. The index document (`_index.md`) is the identity and entry point for each scope. Container labels provide shared vocabulary. The three-tier file model governs what the binder includes. One `_archived` folder at the documentation root holds files that are no longer active but worth keeping — retired references, completed reviews, outdated knowledge. The underscore prefix removes it from binder scope while keeping files in the repo and searchable. Git is the version history. The `_superseded` folder pattern is dropped — when a new version lands, the old version is deleted from the working tree. Rollback means checking out the previous version from git. Design and decisions documents exist.
+**Structure** (prefix `Core_Structure_`). How AIDE documentation is physically organised. Physical folders are the structure; no logical overlay. Path authority lives in the document header. `_index.md` is a generic folder metadata file — not AIDE-specific, governed by Declaration opt-in like any other document — that identifies document sources for discovery when its role is Documentation Solution or Documentation Project. Role vocabulary provides shared vocabulary. The three-tier file model governs what the binder includes. One `_archived` folder at the documentation root holds files that are no longer active but worth keeping — retired references, completed reviews, outdated knowledge. The underscore prefix removes it from binder scope while keeping files in the repo and searchable. Git is the version history. The `_superseded` folder pattern is dropped — when a new version lands, the old version is deleted from the working tree. Rollback means checking out the previous version from git. Design and decisions documents exist. Produces the Core Structure Standard for deployment.
 
 **AIDEPrinciples** (prefix `Core_AIDEPrinciples_`). The operating principles specific to AIDE as a framework — facilitate and extend, opt-in for benefit, the strength model, and aliases. Distinct from the Principles component, which owns universal portable premises governed by the portability test. Design and decisions documents exist. Produces a standard for deployment.
 
@@ -169,3 +169,5 @@ Fifteen active components, organised by primary role. Each component's entry poi
 Version note: v4 — Orchestration component map entry corrected to match accepted Orchestration_Design_v5 (D3/D29 proposed Core wording). WP component map entry boundaries updated to match WP_Design_v6 (umbrella structure confirmed, boards replace work plan per D21). 2026-09-17. Replaces v3.
 
 Version note: v5 — Build component map entry generalised to any-caller per Build_Decisions_v8 D3 (cross-review carry F3). 2026-09-17. Replaces v4.
+
+Version note: v6 — Structure design area description updated for the retirement of the Core Schema Standard (absorbed into Core_Structure_Standard@v1) and the "AIDE document" reframe: `_index.md` is generic folder metadata, and container labels are now role vocabulary. Notes that Structure now produces a standard for deployment. 2026-09-22. Replaces v5.

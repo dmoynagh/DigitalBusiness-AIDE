@@ -1,4 +1,4 @@
-Infrastructure — CLI Design | design | Infrastructure_CLI_Design@v1 | 2026-09-10
+> identity: Infrastructure_CLI_Design@v1 | doctype: design | updated: 2026-09-10
 
 ## Summary
 

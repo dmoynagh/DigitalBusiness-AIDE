@@ -1,3 +1,5 @@
+> identity: FileUpdatePackage_Design@v2 | doctype: design | updated: 2026-09-14
+
 # FileUpdatePackage Deployer — Design
 
 > **Version 2** (2026-09-14). Updated to match the deployed tool. Major changes from version 1:

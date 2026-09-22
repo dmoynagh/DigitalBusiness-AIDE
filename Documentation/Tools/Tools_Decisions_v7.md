@@ -1,4 +1,4 @@
-Tools — Decisions | decisions | Tools_Decisions@v7 | 2026-09-14
+> identity: Tools_Decisions@v7 | doctype: decisions | updated: 2026-09-14
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 

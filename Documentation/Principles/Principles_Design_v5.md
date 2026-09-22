@@ -1,3 +1,5 @@
+> identity: Principles_Design@v5 | doctype: design | updated: 2026-09-15
+
 # Principles — Design
 
 > **Version 5** (2026-09-15). Authored fresh in the AIDE rebuild from the

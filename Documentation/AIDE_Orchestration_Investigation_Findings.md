@@ -1,3 +1,5 @@
+> identity: Orchestration_InvestigationFindings@v1 | updated: 2026-09-15
+
 # AIDE Orchestration — Investigation Findings
 
 Version 1. 2026-09-15. Investigation against `AIDE_Orchestration_WIP_v1.md`.

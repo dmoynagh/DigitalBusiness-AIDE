@@ -1,3 +1,5 @@
+> identity: VersionCleanup_Design@v3 | doctype: design | updated: 2026-09-04
+
 # Version Cleanup — Design
 
 > **Version 3** (2026-09-04). Corrects the master folder path after the rename to `version-cleanup`.

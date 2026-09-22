@@ -1,4 +1,4 @@
-Working Practices — Capture and Organisation | working | WP_Capture_Working@v1 | 2026-09-10
+> identity: WP_Capture_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Confirmed items
 

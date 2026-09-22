@@ -1,3 +1,5 @@
+> identity: BinderBuilder_Design@v10 | doctype: design | updated: 2026-09-08
+
 # Binder Builder — Design
 
 > **Version 10** (2026-09-08). **Reverses §5a's empty-scope rule.** An empty scope now writes an

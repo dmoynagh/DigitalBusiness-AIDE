@@ -1,4 +1,4 @@
-Tools — Design | design | Tools_Design@v6 | 2026-09-14
+> identity: Tools_Design@v6 | doctype: design | updated: 2026-09-14
 
 ## Brief
 

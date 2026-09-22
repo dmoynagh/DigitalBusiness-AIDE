@@ -1,4 +1,4 @@
-Project Design — Decisions | decisions | ProjectDesign_Decisions@v3 | 2026-09-14
+> identity: ProjectDesign_Decisions@v3 | doctype: decisions | updated: 2026-09-14
 
 ## D1 — Work register survives and comes home to Project Design
 

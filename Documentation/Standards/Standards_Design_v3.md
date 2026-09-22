@@ -1,4 +1,4 @@
-Standards — Design | design | Standards_Design@v3 | 2026-09-14
+> identity: Standards_Design@v3 | doctype: design | updated: 2026-09-14
 
 ## Brief
 

@@ -1,3 +1,5 @@
+> identity: Infrastructure_MCPDeliveryModel@v2 | updated: 2026-09-17
+
 # AIDE Infrastructure — MCP Server Delivery Model
 
 Status: tested and confirmed, 2026-09-16; updated 2026-09-17 with skill-delivery

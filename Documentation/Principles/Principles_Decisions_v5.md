@@ -1,3 +1,5 @@
+> identity: Principles_Decisions@v5 | doctype: decisions | updated: 2026-09-15
+
 # Principles — Decisions
 
 > **Version 5** (2026-09-15). Authored fresh in the AIDE rebuild. Compacted

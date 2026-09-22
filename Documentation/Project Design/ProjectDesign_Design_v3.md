@@ -1,4 +1,4 @@
-Project Design — Design | design | ProjectDesign_Design@v3 | 2026-09-14
+> identity: ProjectDesign_Design@v3 | doctype: design | updated: 2026-09-14
 
 ## Brief
 

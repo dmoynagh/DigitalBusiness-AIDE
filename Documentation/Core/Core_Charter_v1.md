@@ -1,3 +1,5 @@
+> identity: Core_Charter@v1 | updated: 2026-09-14
+
 # Core — Charter
 
 Version 1. 2026-09-14.

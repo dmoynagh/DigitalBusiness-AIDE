@@ -1,4 +1,4 @@
-Working Practices — Content Delivery | working | WP_ContentDelivery_Working@v1 | 2026-09-10
+> identity: WP_ContentDelivery_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Confirmed items — session 2026-09-10
 

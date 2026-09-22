@@ -1,4 +1,4 @@
-Infrastructure — CLI Decisions | decisions | Infrastructure_CLI_Decisions@v1 | 2026-09-10
+> identity: Infrastructure_CLI_Decisions@v1 | doctype: decisions | updated: 2026-09-10
 
 ## Utility registration — convention scanning over alternatives
 

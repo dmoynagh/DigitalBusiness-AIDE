@@ -1,3 +1,5 @@
+> identity: Assurance_Cases_Working@v1 | doctype: working | updated: 2026-09-16
+
 # AIDE Assurance — Cases Working v1
 
 Status: informal working document, not a designed artefact. Assurance's learning loop
