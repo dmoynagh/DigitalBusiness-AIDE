@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 116** (2026-09-23).
+> **Binder Version 117** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -61,7 +61,8 @@ individual files.
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `518121d99d79`
 - `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
 - `Infrastructure/document-management/_index.md` - sha256 `e39d55a89a34`
-- `Infrastructure/document-management/DocumentManagement_Brief_v1.md` - sha256 `720bd966f44f`
+- `Infrastructure/document-management/DocumentManagement_Brief_v2.md` - sha256 `ab0a82f011fe`
+- `Infrastructure/document-management/DocumentManagement_Design_v1.md` - sha256 `2f55583f6223`
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `15617061295c`
 - `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `76a4c37c468f`
 - `Infrastructure/file-update-package/README.md` - sha256 `747bc371ff85`
@@ -10296,103 +10297,322 @@ A local MCP server providing safe, format-agnostic file primitives over document
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Brief_v1.md -->
-> identity: DocumentManagement_Brief@v1 | doctype: brief | updated: 2026-09-23
+<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Brief_v2.md -->
+> identity: DocumentManagement_Brief@v2 | doctype: brief | updated: 2026-09-23
 
 # Document Management — Brief
 
-A local MCP server that provides safe, format-agnostic file primitives over git-backed and non-git repositories — reading, writing, browsing, copying, patching, and maintaining documents across AIDE document sources. The server provides the reliable operations; a governing skill loaded in session provides the AIDE document intelligence.
+A local MCP server that gives every local AI surface a common, reliable way to work with documents in AIDE document sources.
 
 ## Purpose
 
-AI-assisted document work currently relies on surface-native file access (Code's filesystem, Chat's file output) with no shared operational layer. Each surface has different capabilities, different git behaviour, and no common way to discover or address document sources. Convention enforcement depends entirely on skills firing and the AI following them correctly.
+AI-assisted document work currently relies on surface-native file access (Code's filesystem, Chat's file output) with no shared operational layer. Each surface has different capabilities, different git behaviour, and no common way to discover or address document sources. Convention enforcement depends entirely on skills firing and the AI following them correctly — every surface, every model, every session must get it right independently.
 
-The document management server provides a single set of file primitives available to every local surface, with safety guarantees (unique-match patching, readonly enforcement, delete-safety) built into the operations. It also solves the token-cost bottleneck: a 2-line change to a document currently costs ~4,000 output tokens regenerating the whole file; patch-style updates through the server drop that to ~150–200 tokens.
+A shared document operations server solves three problems: surfaces that cannot access files directly gain access through it, surfaces that can access files gain safety guarantees they don't have natively, and the token-cost bottleneck (a 2-line change currently costs ~4,000 output tokens regenerating the whole file) is eliminated through partial-update operations.
 
 ## Objectives
 
-1. **Efficient document updates.** Patch and replace operations on text files that avoid regenerating entire files.
-2. **Safe, reliable file primitives.** Operations that are hard to get wrong — unique-match validation on patches, git staging tracked by the server, readonly enforcement, delete safety (git-backed sources delete, non-git sources move to `_recycle`). The server is infrastructure the AI can trust.
-3. **Source discovery and management.** Discover document sources via configured scan roots and `_index.md` markers, expose them by name with metadata (including git-backed flag), and manage the config that controls what the server sees.
-4. **Document lifecycle operations.** File reads (text with optional line-count limit for partial reads, or binary), writes (text and binary), patch (text only, keyed-data unique-match), copy, rename, delete, directory browsing (with glob filter), mkdir, repo listing, and binder builds — the operations that currently require manual steps or separate CLI invocations.
-5. **Reduce manual burden.** Git staging handled per operation, commit on caller command so a multi-file update session produces one commit. No manual git management required.
+1. **Efficient document updates.** A caller can update a document without regenerating the entire file.
+2. **Safe operations by default.** The server prevents common errors — partial matches, writes to readonly sources, untracked deletions — without the caller needing to manage safety.
+3. **Source discovery.** The server knows where document sources are and exposes them by name, so callers address sources, not filesystem paths.
+4. **Complete lifecycle operations.** All common document operations — read, write, copy, rename, delete, browse, version management — are available through the server, including operations that currently require manual steps or separate CLI invocations.
+5. **Reduce manual burden.** Git management is handled by the server. A multi-file update session produces one commit without the caller managing staging or commit timing.
 
 ## Scope and boundaries
 
-**In scope:**
+**In scope:** Source discovery and listing. File reads and writes (text and binary). Partial-update operations on text. Copy, rename, delete with safety. Directory browsing. Git staging and commit. Binder build. Config-driven source management with readonly enforcement.
 
-- Source discovery and listing (with git-backed flag)
-- Directory browsing with optional glob filter
-- File reads and writes — text and binary, format-agnostic
-- Partial text reads (line-count limit)
-- Patch updates on text files via keyed-data unique-match
-- Copy, rename, delete (git-backed: actual delete; non-git: move to `_recycle` at source root)
-- Mkdir
-- Git staging per operation, commit on caller command
-- Git status
-- Binder build (bundled Python script, caller-initiated)
-- Config-driven source management with readonly enforcement
-- Optional YAML→HTML rendering
-- On-demand board query
-
-**Out of scope:**
-
-- Mobile and web surfaces — local filesystem only
-- Remote GitHub API operations; push to remote
-- AIDE document conventions including versioning, declarations, and cleanup decisions — owned by the governing skill, which has the standards loaded and orchestrates multi-step sequences using the server's primitives
-- Document structure decisions — owned by Core Structure
-- The docmeth rules themselves — owned by DocMeth; the server has no knowledge of AIDE vocabulary
+**Out of scope:** Mobile and web surfaces (local filesystem only). Remote GitHub API operations and push to remote. AIDE document conventions including versioning, declarations, and cleanup decisions — these are owned by a governing skill that orchestrates multi-step sequences using the server's operations. Document structure decisions (owned by Core Structure). The docmeth rules themselves (owned by DocMeth).
 
 ## Requirements
 
 - Python, delivered as a marketplace plugin MCP server per the tested delivery model.
-- Config at `~/.aide/config.yaml` — machine-level, shared across surfaces.
-- Readonly flag on configured sources must be respected (reject writes).
-- Keyed-data convention for safe patching (unique-match validation on text files).
-- Format-agnostic file operations. The server has no knowledge of AIDE vocabulary.
-- Stage-and-batch git model — each file operation stages, caller commands commit.
-- Errors return enough information for the caller to decide what to do next. The server does not recover, retry, or swallow errors.
-- Each primitive succeeds or fails independently. The AI manages multi-step sequences.
-
-## Tool surface
-
-| Tool | Behaviour |
-| --- | --- |
-| list sources | discovered sources with metadata and git-backed flag |
-| browse | directory listing, optional glob filter |
-| read | text (optional line limit) or binary |
-| write | text or binary, full replace |
-| patch | text only, keyed-data unique-match |
-| copy | any file |
-| rename | any file |
-| delete | git-backed: actual delete; non-git: move to `_recycle` |
-| mkdir | create directory |
-| commit | caller-commanded, covers all staged changes |
-| status | staged and modified files |
-| binder build | caller-initiated |
+- Machine-level config shared across surfaces.
+- Readonly sources must reject all writes.
+- Format-agnostic file operations — the server has no knowledge of AIDE vocabulary.
+- Errors must return enough information for the caller to decide what to do next.
 
 ## Linked build outcome
 
-The MCP server, deployed via the `aide` plugin in the `digitalbusiness-aide` marketplace. Plus a governing skill that provides the AIDE document intelligence — versioning sequences, declaration management, convention enforcement, cleanup decisions — using the server's primitives.
+The MCP server, deployed via the `aide` plugin in the `digitalbusiness-aide` marketplace. Plus a governing skill that provides the AIDE document intelligence — versioning sequences, declaration management, convention enforcement, cleanup decisions — using the server's operations.
 
 ## Definition of done
 
-1. The server discovers document sources from config and `_index.md` markers, and lists them by name with metadata.
-2. A caller can browse the folder structure of any discovered source, with glob filtering.
-3. A caller can read any file — text with optional line limit, or binary.
-4. A caller can write to any non-readonly source — text or binary.
-5. Text files can be updated via patch (keyed-data unique-match).
-6. Copy, rename, and delete operations work on any file, with delete respecting the git/non-git safety model.
-7. Git changes are staged per operation and committed on caller command, producing one commit per update session.
-8. Errors return actionable information; no silent failures.
-9. Binder build is available as a server operation.
-10. The server runs on Desktop and Code via the marketplace plugin.
-11. A governing skill exists that orchestrates AIDE document conventions using the server's primitives.
+1. The server discovers document sources and lists them by name.
+2. A caller can browse the contents of any discovered source.
+3. A caller can read any file and write to any non-readonly source.
+4. A caller can partially update a text file without replacing the whole file.
+5. Copy, rename, and delete work on any file, with delete handling git and non-git sources safely.
+6. A multi-file update session produces one git commit on caller command.
+7. Errors are reported with enough detail for the caller to act.
+8. Binder build is available as a server operation.
+9. The server runs on Desktop and Code via the marketplace plugin.
+10. A governing skill exists that orchestrates AIDE document conventions using the server's operations.
 
 ---
 
-Version note: v1 — initial brief from the document management design session. 2026-09-23.
-<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Brief_v1.md -->
+Version note: v2 — solution-space content (tool surface, git model, error model, config schema, patching specifics) moved to design document. Brief retains problem-space: purpose, objectives, scope, requirements, definition of done. 2026-09-23. Replaces v1.
+<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Brief_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Design_v1.md -->
+> identity: DocumentManagement_Design@v1 | doctype: design | updated: 2026-09-23
+
+# Document Management — Design
+
+## Summary
+
+A Python MCP server providing safe, format-agnostic file primitives over document sources. Twelve tools cover discovery, browsing, reading, writing, patching, copying, renaming, deleting, directory creation, git staging, committing, and binder builds. The server has no knowledge of AIDE vocabulary — all document intelligence lives in a governing skill loaded in session.
+
+---
+
+## Model and approach
+
+### Central principle — dumb server, smart skill
+
+The server provides reliable file primitives. The AI in session, with the governing skill loaded, provides the AIDE document intelligence. The server never interprets declarations, understands versioning grammar, decides what is superseded, or knows what a doctype is.
+
+This split exists because AIDE vocabulary evolves through standards, and standards change through the normal design-build-deploy cycle. If the server embedded that vocabulary, every standards change would require a server rebuild and redeployment. With the split, standards changes update the governing skill only — the server is stable infrastructure that changes when file operations change, not when document conventions change.
+
+The boundary is clean: the server does things to files, the AI decides which things to do. Multi-step sequences (version-copy, cleanup passes, declaration updates) are orchestrated by the AI using the server's primitives, the same way a developer uses git commands without git knowing what the files mean.
+
+### What the server owns
+
+File operations with safety guarantees. Source discovery and config. Git staging and commit mechanics. The `_recycle` safety net for non-git sources. Keyed-data unique-match validation on patches. Readonly enforcement. Error reporting.
+
+### What the server does not own
+
+Any AIDE document convention. Versioning decisions, declaration management, cleanup decisions, document identity, docmeth rules, doctype awareness. These are the governing skill's concern.
+
+---
+
+## Source discovery
+
+The server discovers document sources at startup by scanning configured roots.
+
+**Discovery algorithm:**
+
+1. Read `~/.aide/config.yaml` for scan roots and explicit includes.
+2. For each scan root (when auto-discover is on), walk immediate subdirectories looking for `_index.md` files.
+3. Read each `_index.md` — if the role field declares Documentation Solution or Documentation Project, register as a source.
+4. Source name comes from the `_index` heading. Qualified naming (`Solution\Project`) used when project names collide across solutions.
+5. Detect whether the source is git-backed by checking for a `.git` directory at or above the `_index` location.
+6. Add any explicit includes from config.
+7. Apply excludes.
+
+Registered sources are held in memory for the server's lifetime. A restart re-scans. No file-watching or hot-reload — the set of sources changes rarely and a restart is trivial.
+
+---
+
+## Config
+
+Machine-level config at `~/.aide/config.yaml`, read at startup, shared across all surfaces.
+
+```yaml
+scan-roots:
+  - C:\Users\david\dev\repos
+
+auto-discover: true   # default: true — scan roots for _index.md sources
+
+include:               # explicitly add sources not under scan roots
+  - path: C:\Users\david\docs\client-project
+    name: client-project       # optional — overrides _index heading
+    readonly: true             # optional — default false
+
+exclude:               # skip discovered sources by path or name
+  - C:\Users\david\dev\repos\archived-project
+```
+
+**Semantics:**
+
+- `scan-roots` — directories to scan for repos and folders containing `_index.md`. Not recursive beyond one level of subdirectories.
+- `auto-discover` — when true (default), the server walks scan roots on startup. When false, only explicit includes are registered.
+- `include` — sources added by explicit path. Each may carry a name override and a readonly flag.
+- `exclude` — paths or names to skip during auto-discovery. Does not affect explicit includes.
+- `readonly` — when true, the server rejects all write, patch, delete, rename, copy, and mkdir operations on that source. Reads and browse are unaffected.
+
+---
+
+## Tool surface
+
+Twelve tools. Each succeeds or fails independently. All file-mutating operations on git-backed sources stage the change automatically.
+
+### list_sources
+
+Returns all discovered sources with metadata: name, path, git-backed flag, readonly flag. No parameters.
+
+### browse
+
+List contents of a directory within a source.
+
+- **source** — source name
+- **path** — directory path within the source (optional — defaults to source root)
+- **pattern** — glob filter (optional — e.g. `MyDoc_v*.md`)
+
+Returns entries with: name, type (file or directory), size. Underscore-prefixed directories are included but flagged.
+
+### read
+
+Read a file's contents.
+
+- **source** — source name
+- **path** — file path within the source
+- **lines** — return only this many lines from the top (optional, text files only)
+
+For text files, returns the content as text. For binary files, returns base64-encoded content. When `lines` is specified, returns only the requested number of lines — the caller uses this to inspect file headers without loading the full document.
+
+### write
+
+Write or overwrite a file's entire content.
+
+- **source** — source name
+- **path** — file path within the source
+- **content** — the full file content (text or base64 for binary)
+
+Creates the file if it doesn't exist. Overwrites if it does. Stages the change in git-backed sources. Rejected on readonly sources.
+
+### patch
+
+Apply a partial update to a text file using keyed-data unique-match.
+
+- **source** — source name
+- **path** — file path within the source
+- **old** — the text to find (must match exactly once in the file)
+- **new** — the replacement text (empty string to delete the matched text)
+
+The server validates that `old` matches exactly once before applying. On zero matches or multiple matches, the operation fails and returns the match count. This is the primary efficiency mechanism — a caller updates two lines without regenerating the file. Stages the change in git-backed sources. Rejected on readonly sources and binary files.
+
+### copy
+
+Copy a file within or across sources.
+
+- **source** — source name of the original
+- **path** — file path of the original
+- **dest_source** — destination source name (optional — same source if omitted)
+- **dest_path** — destination file path
+
+Stages the new file in git-backed destinations. Rejected if the destination source is readonly.
+
+### rename
+
+Rename or move a file within a source.
+
+- **source** — source name
+- **path** — current file path
+- **new_path** — new file path
+
+Stages both the deletion of the old path and the addition of the new path. Rejected on readonly sources.
+
+### delete
+
+Remove a file from a source. Safety behaviour depends on the source type — the caller does not need to know or branch.
+
+- **source** — source name
+- **path** — file path to delete
+
+On git-backed sources: actual file deletion, staged. Git retains the history. On non-git sources: the file is moved to a `_recycle` directory at the source root, preserving its relative path within `_recycle` to avoid name collisions. Rejected on readonly sources.
+
+### mkdir
+
+Create a directory within a source.
+
+- **source** — source name
+- **path** — directory path to create
+
+Creates intermediate directories as needed. No git staging (git doesn't track empty directories). Rejected on readonly sources.
+
+### commit
+
+Commit all staged changes in a source's git repo.
+
+- **source** — source name
+- **message** — commit message
+
+The caller decides when to commit — typically once at the end of an update session. All changes staged by prior operations (write, patch, copy, rename, delete) are included. Fails if the source is not git-backed or if there are no staged changes.
+
+### status
+
+Show the current state of a source's git working tree.
+
+- **source** — source name
+
+Returns staged files, modified-but-unstaged files, and untracked files. Fails with a clear message if the source is not git-backed.
+
+### binder_build
+
+Run the binder builder for a source.
+
+- **source** — source name
+
+Invokes the bundled Python binder-builder script against the source's document root. The binder builder has its own settings and configuration. The output is staged and included in the next commit. Caller-initiated — never runs automatically.
+
+---
+
+## Git model
+
+**Stage per operation, commit on command.** Every file-mutating operation (write, patch, copy, rename, delete) stages its changes automatically via `git add`. The caller commands `commit` when the update session is complete. One commit message covering the batch.
+
+If the caller doesn't commit (session drops, forgets), changes are staged but uncommitted — visible via `status`, trivially committable or discardable. This is a feature: the human can review staged changes before committing if desired.
+
+No branch-based staging, no commit-per-file, no automatic commits. The model matches how git is actually used.
+
+**Implementation:** `subprocess.run(["git", ...])` for all git operations. No git library dependency. The server shells out to the git binary on the user's PATH.
+
+---
+
+## Error model
+
+Each operation succeeds or fails independently. The server reports failures and stops — it does not recover, retry, or swallow errors. The AI manages multi-step sequences and decides what to do when a step fails.
+
+**Error categories and what the server returns:**
+
+- **Patch mismatch** — zero matches or multiple matches. Returns the match count so the caller can widen or narrow the match string.
+- **Readonly rejection** — operation attempted on a readonly source. Returns the source name and the operation attempted.
+- **File not found** — names the path that was not found.
+- **Source not found** — names the source that was not recognised.
+- **Git failure** — returns git's error output verbatim.
+- **Filesystem error** — returns the OS error (permissions, locked file, disk full).
+
+Every error returns a structured response with: success flag, error type, and a human-readable message containing enough detail for the caller to act.
+
+---
+
+## Delete safety
+
+The server handles delete differently based on whether the source is git-backed:
+
+- **Git-backed source** — actual filesystem deletion, staged via `git add`. The file's history is preserved in git. This is the established convention: git is the version history.
+- **Non-git source** — the file is moved to `_recycle` at the source root rather than deleted. The file's relative path within the source is preserved under `_recycle` to avoid name collisions. The `_recycle` directory is underscore-prefixed and therefore outside AIDE processing scope.
+
+The caller always calls `delete`. The server determines the source type from discovery metadata and applies the appropriate behaviour. The caller does not need to know or branch — one operation, consistent safety.
+
+---
+
+## Packaging and delivery
+
+Delivered as part of the `aide` plugin in the `digitalbusiness-aide` marketplace, following the tested MCP delivery model. Same pattern as the Orchestration dispatch server: a Python MCP server file in the plugin, registered via both the desktop app (Code/Cowork) and web UI (Chat).
+
+The binder-builder Python script is bundled inside the plugin so that `binder_build` has no external dependency beyond the script itself and the source's binder settings.
+
+---
+
+## Boundaries
+
+The server does not:
+
+- Interpret, parse, or validate AIDE declarations, doctypes, or identity fields
+- Make versioning decisions or know the versioning grammar
+- Decide what is superseded or what to clean up
+- Load, read, or reference any AIDE standard or skill
+- Push to remote repositories
+- Operate on non-local filesystems
+- Watch for file changes or run operations automatically
+
+---
+
+Version note: v1 — initial design from the document management design session. 2026-09-23.
+<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Design_v1.md -->
 
 ---
 
