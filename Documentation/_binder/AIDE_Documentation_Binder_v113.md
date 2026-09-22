@@ -2,14 +2,14 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 112** (2026-09-18).
+> **Binder Version 113** (2026-09-22).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
 
 ## Binder manifest
 
-- `_index.md` - sha256 `602ca83ea55c`
+- `_index.md` - sha256 `58eabf248047`
 - `_rebuild/AIDE_Component_PurposeLines_v2.md` - sha256 `b1836489f28b`
 - `_rebuild/AIDE_Rebuild_Guide_v1.md` - sha256 `01ceb45e507b`
 - `_rebuild/AIDE_Rebuild_Overview_v1.md` - sha256 `5a65c44f5991`
@@ -23,31 +23,31 @@ individual files.
 - `_rebuild/ProjectDesign_WorkRegister_Pending_v1.md` - sha256 `638ebbfb6eef`
 - `_rebuild/WP_Check1_Assessment_v1.md` - sha256 `dba57b98ffda`
 - `_rebuild/WP_CoreCarries_v2.md` - sha256 `2f3ab75ce434`
-- `AIDE_Orchestration_Investigation_Findings.md` - sha256 `e7c281c19fb4`
-- `AIDE_Solution_Map.md` - sha256 `3c2294f7ae2b`
-- `Assurance/_index.md` - sha256 `c53048b16d81`
-- `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `2147d7d8e090`
+- `AIDE_Orchestration_Investigation_Findings.md` - sha256 `33b558f610ab`
+- `AIDE_Solution_Map.md` - sha256 `f7260ab91b37`
+- `Assurance/_index.md` - sha256 `d9fef2a2cfc2`
+- `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `fa41200d451f`
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
 - `Assurance/Assurance_Standard_v1.md` - sha256 `16dcf04b00e1`
-- `Build/_index.md` - sha256 `d0a4c7492914`
+- `Build/_index.md` - sha256 `0db7cf175821`
 - `Build/Build_Brief_v4.md` - sha256 `d9717a0475c0`
 - `Build/Build_Decisions_v8.md` - sha256 `f9a1ac65dfe3`
 - `Build/Build_Design_v8.md` - sha256 `2987f32273f9`
 - `Build/Build_Overview_v6.md` - sha256 `5fce6400bb23`
-- `Core/_index.md` - sha256 `7f8715826510`
+- `Core/_index.md` - sha256 `ef45ec5cb51e`
 - `Core/Core_AIDEMap.md` - sha256 `5f8331b0988d`
-- `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `655de3e64709`
-- `Core/Core_AIDEPrinciples_Design_v1.md` - sha256 `60e20e8d0b9d`
+- `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `ca6507a444f0`
+- `Core/Core_AIDEPrinciples_Design_v1.md` - sha256 `92c4e46ff807`
 - `Core/Core_Brief_v2.md` - sha256 `23d1f1d1f622`
-- `Core/Core_Charter_v1.md` - sha256 `3e5f5332b783`
+- `Core/Core_Charter_v1.md` - sha256 `51fb5eb1bf14`
 - `Core/Core_Decisions_v1.md` - sha256 `2545fa050c39`
 - `Core/Core_Design_v5.md` - sha256 `6218e741a9ca`
 - `Core/Core_Schema_Standard_v3.md` - sha256 `49c6de8da5bb`
-- `Core/Core_Structure_Decisions_v1.md` - sha256 `2217f6768b89`
-- `Core/Core_Structure_Design_v1.md` - sha256 `f464dc43de50`
-- `Core/Core_Tags_Working_v1.md` - sha256 `ae6557378adf`
-- `Documentation Methodology/_index.md` - sha256 `0d1bf372103e`
+- `Core/Core_Structure_Decisions_v1.md` - sha256 `cfe938b49cc1`
+- `Core/Core_Structure_Design_v1.md` - sha256 `e37b38c240b7`
+- `Core/Core_Tags_Working_v1.md` - sha256 `111c793579dd`
+- `Documentation Methodology/_index.md` - sha256 `39072c89a5fe`
 - `Documentation Methodology/DocMeth_Brief_v1.md` - sha256 `60c5cf3f5d79`
 - `Documentation Methodology/DocMeth_Decisions_v7.md` - sha256 `15daf15e27ef`
 - `Documentation Methodology/DocMeth_Design_v6.md` - sha256 `8b5d6a24a5d7`
@@ -55,65 +55,66 @@ individual files.
 - `Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md` - sha256 `37a837a65cb3`
 - `Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md` - sha256 `8098d9714c57`
 - `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `8301aa2a0395`
-- `Infrastructure/_index.md` - sha256 `3a9629bd73a4`
-- `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` - sha256 `f3dc59b384b2`
+- `Infrastructure/_index.md` - sha256 `5d96017f27d6`
+- `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` - sha256 `e3c945043477`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
-- `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `07a3284570d1`
+- `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `518121d99d79`
 - `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `15617061295c`
-- `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `142b729606f8`
+- `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `76a4c37c468f`
 - `Infrastructure/file-update-package/README.md` - sha256 `747bc371ff85`
-- `Infrastructure/Infrastructure_CLI_Decisions_v1.md` - sha256 `7a16726b5162`
-- `Infrastructure/Infrastructure_CLI_Design_v1.md` - sha256 `12e05744ff4a`
-- `Infrastructure/Infrastructure_Working_v1.md` - sha256 `1d7a11e25a57`
+- `Infrastructure/Infrastructure_CLI_Decisions_v1.md` - sha256 `a9ceaa12461f`
+- `Infrastructure/Infrastructure_CLI_Design_v1.md` - sha256 `acbe170e16bb`
+- `Infrastructure/Infrastructure_Working_v1.md` - sha256 `80a5dc6e19e8`
 - `Infrastructure/version-cleanup/README.md` - sha256 `307a43363adb`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
-- `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `329d08514ab2`
-- `Messaging/_index.md` - sha256 `a2ec25975239`
+- `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `c672be61d03a`
+- `Messaging/_index.md` - sha256 `9f8bf0ae5c0c`
 - `Messaging/Messaging_Brief_v1.md` - sha256 `c1687d821833`
 - `Messaging/Messaging_Decisions_v4.md` - sha256 `c6a0f75cba95`
 - `Messaging/Messaging_Design_v4.md` - sha256 `48b767e284b0`
 - `Messaging/Messaging_Standard_v4.md` - sha256 `39a0045e2403`
 - `Messaging/Messaging_Tool_v4.md` - sha256 `c0a40ad3383d`
-- `Orchestration/_index.md` - sha256 `581a82f86948`
+- `Orchestration/_index.md` - sha256 `0534823e42d0`
 - `Orchestration/AIDE_Orchestration_Decisions_v5.md` - sha256 `98d336117a70`
 - `Orchestration/AIDE_Orchestration_Design_v5.md` - sha256 `5cb84235137a`
 - `Orchestration/AIDE_Orchestration_UseCases_v2.md` - sha256 `5d4ecab3a53d`
-- `Principles/_index.md` - sha256 `2af1093a8f6f`
-- `Principles/Principles_Decisions_v5.md` - sha256 `33df0c86fba0`
-- `Principles/Principles_Design_v5.md` - sha256 `ba6e146bf1b7`
+- `Principles/_index.md` - sha256 `e017158230f6`
+- `Principles/Principles_Decisions_v5.md` - sha256 `386c2fc6d73d`
+- `Principles/Principles_Design_v5.md` - sha256 `2fb814c2c175`
 - `Principles/Principles_Standard_v2.md` - sha256 `a2c5cf6f320d`
-- `Project Design/_index.md` - sha256 `72d729aab7af`
-- `Project Design/ProjectDesign_Decisions_v3.md` - sha256 `61029b610785`
-- `Project Design/ProjectDesign_Design_v3.md` - sha256 `845df7d3ba79`
+- `Project Design/_index.md` - sha256 `114abd78ea1a`
+- `Project Design/ProjectDesign_Decisions_v3.md` - sha256 `8e6fee73bdf9`
+- `Project Design/ProjectDesign_Design_v3.md` - sha256 `2c4f60adb4f9`
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
 - `Project Design/ProjectDesign_Standard_v5.md` - sha256 `c035df4e8b17`
-- `Standards/_index.md` - sha256 `f6a234068f1d`
+- `Standards/_index.md` - sha256 `4d43a11ea4c4`
 - `Standards/Standards_Authoring_Standard_v8.md` - sha256 `e52f99825c80`
 - `Standards/Standards_Consumption_Standard_v3.md` - sha256 `b801499930ac`
-- `Standards/Standards_Decisions_v4.md` - sha256 `fcda250bc8aa`
-- `Standards/Standards_Design_v3.md` - sha256 `4a6a79a3a0f1`
-- `Standards/Standards_Working_v1.md` - sha256 `9677537477ab`
-- `Tools/_index.md` - sha256 `0d2984060e1f`
+- `Standards/Standards_Decisions_v4.md` - sha256 `38207b4e2082`
+- `Standards/Standards_Design_v3.md` - sha256 `07cbe0cd1fc0`
+- `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
+- `Tools/_index.md` - sha256 `92a6e49f0c6f`
 - `Tools/Tools_Authoring_Standard_v8.md` - sha256 `d05452eddaa6`
-- `Tools/Tools_Decisions_v7.md` - sha256 `f83f2411202f`
-- `Tools/Tools_Design_v6.md` - sha256 `62b2eb15c979`
-- `Working Practices/_index.md` - sha256 `4daeb902eb19`
-- `Working Practices/Boards/_index.md` - sha256 `f70b06bd11fa`
+- `Tools/Tools_Decisions_v7.md` - sha256 `13ac6443f896`
+- `Tools/Tools_Design_v6.md` - sha256 `7554396473ca`
+- `Working Practices/_index.md` - sha256 `7b2b63d2efea`
+- `Working Practices/Boards/_index.md` - sha256 `30e6450ac364`
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
 - `Working Practices/Boards/WP_Boards_Design_v1.md` - sha256 `13384c9edecf`
-- `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `f2ffcdd7c76f`
+- `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `6097d4250b37`
 - `Working Practices/WorkingPractices_Standard_v2.md` - sha256 `4819d41b184b`
-- `Working Practices/WP_Brief_v2.md` - sha256 `844fa051dedb`
-- `Working Practices/WP_Capture_Working_v1.md` - sha256 `54171d4dea8b`
-- `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `6b858ff04f50`
+- `Working Practices/WP_Brief_v2.md` - sha256 `8033b884c2db`
+- `Working Practices/WP_Capture_Working_v1.md` - sha256 `c47c90767511`
+- `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `388b8f4d4b72`
 - `Working Practices/WP_Decisions_v4.md` - sha256 `9957a8fb75f9`
 - `Working Practices/WP_Design_v6.md` - sha256 `da8923648608`
-- `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `59a0bba2401c`
+- `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `122b3cd42cc8`
 
 ---
 
 <!-- BEGIN SOURCE: _index.md -->
+> identity: _index | doctype: index
 # AIDE
 
 Role: solution design
@@ -3970,6 +3971,8 @@ Version note: v2 — adds Core Structure carries from FileOps dissolution (archi
 ---
 
 <!-- BEGIN SOURCE: AIDE_Orchestration_Investigation_Findings.md -->
+> identity: Orchestration_InvestigationFindings@v1 | updated: 2026-09-15
+
 # AIDE Orchestration — Investigation Findings
 
 Version 1. 2026-09-15. Investigation against `AIDE_Orchestration_WIP_v1.md`.
@@ -4809,6 +4812,8 @@ The architecture is sound. The one structural correction — Desktop Extensions 
 ---
 
 <!-- BEGIN SOURCE: AIDE_Solution_Map.md -->
+> identity: AIDE_SolutionMap@v1 | updated: 2026-09-14
+
 # AIDE Solution Map
 
 Snapshot of the AIDE framework: components in dependency order, documents under each.
@@ -5084,6 +5089,8 @@ Working documents that govern the rebuild itself, not owned by a single componen
 ---
 
 <!-- BEGIN SOURCE: Assurance/_index.md -->
+> identity: _index | doctype: index
+
 # Assurance
 
 Role: component design, project design
@@ -5107,6 +5114,8 @@ None declared.
 ---
 
 <!-- BEGIN SOURCE: Assurance/AIDE_Assurance_Cases_Working_v1.md -->
+> identity: Assurance_Cases_Working@v1 | doctype: working | updated: 2026-09-16
+
 # AIDE Assurance — Cases Working v1
 
 Status: informal working document, not a designed artefact. Assurance's learning loop
@@ -5729,6 +5738,8 @@ Version note: v1 — authored from Assurance_Design@v3 and Assurance_Decisions@v
 ---
 
 <!-- BEGIN SOURCE: Build/_index.md -->
+> identity: _index | doctype: index
+
 # Build
 
 Role: component design, project design
@@ -6545,6 +6556,8 @@ Version note: v6 — cross-review round 5. F15: autonomy and remaining shorthand
 ---
 
 <!-- BEGIN SOURCE: Core/_index.md -->
+> identity: _index | doctype: index
+
 # Core
 
 Role: component design, project design
@@ -6634,7 +6647,7 @@ Version note: v3 — Orchestration description corrected to match accepted Orche
 ---
 
 <!-- BEGIN SOURCE: Core/Core_AIDEPrinciples_Decisions_v1.md -->
-Core AIDEPrinciples | decisions | Core_AIDEPrinciples_Decisions@v1 | 2026-09-10
+> identity: Core_AIDEPrinciples_Decisions@v1 | doctype: decisions | updated: 2026-09-10
 
 ## Summary
 
@@ -6674,7 +6687,7 @@ Version note: v1 — initial decisions from sessions 2026-09-09 and 2026-09-10.
 ---
 
 <!-- BEGIN SOURCE: Core/Core_AIDEPrinciples_Design_v1.md -->
-Core AIDEPrinciples | design | Core_AIDEPrinciples_Design@v1 | 2026-09-10
+> identity: Core_AIDEPrinciples_Design@v1 | doctype: design | updated: 2026-09-10
 
 ## Brief
 
@@ -6825,6 +6838,8 @@ Version note: v2 — C5 updated (Dependencies resolved, Domains closed). Charter
 ---
 
 <!-- BEGIN SOURCE: Core/Core_Charter_v1.md -->
+> identity: Core_Charter@v1 | updated: 2026-09-14
+
 # Core — Charter
 
 Version 1. 2026-09-14.
@@ -7137,7 +7152,7 @@ Version note: v3 — Index definition confirmed by the Core design pass; provisi
 ---
 
 <!-- BEGIN SOURCE: Core/Core_Structure_Decisions_v1.md -->
-Core Structure | decisions | Core_Structure_Decisions@v1 | 2026-09-10
+> identity: Core_Structure_Decisions@v1 | doctype: decisions | updated: 2026-09-10
 
 ## Summary
 
@@ -7212,7 +7227,7 @@ Version note: v1 — initial decisions from session 2026-09-10.
 ---
 
 <!-- BEGIN SOURCE: Core/Core_Structure_Design_v1.md -->
-Core Structure | design | Core_Structure_Design@v1 | 2026-09-10
+> identity: Core_Structure_Design@v1 | doctype: design | updated: 2026-09-10
 
 ## Summary
 
@@ -7283,7 +7298,7 @@ Version note: v1 — initial design from session 2026-09-10.
 ---
 
 <!-- BEGIN SOURCE: Core/Core_Tags_Working_v1.md -->
-Core — Tags | working | Core_Tags_Working@v1 | 2026-09-10
+> identity: Core_Tags_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Status
 
@@ -7324,6 +7339,8 @@ Version note: v1 — initial working document from session 2026-09-09.
 ---
 
 <!-- BEGIN SOURCE: Documentation Methodology/_index.md -->
+> identity: _index | doctype: index
+
 # Documentation Methodology
 
 Role: component design, project design
@@ -8376,6 +8393,8 @@ Version note: v1 — clean-sheet rebuild. Replaces DocumentationMethodology_Auth
 ---
 
 <!-- BEGIN SOURCE: Infrastructure/_index.md -->
+> identity: _index | doctype: index
+
 # Infrastructure
 
 Role: component design, project design
@@ -8413,6 +8432,8 @@ The version cleanup utility — design, settings, and README.
 ---
 
 <!-- BEGIN SOURCE: Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md -->
+> identity: Infrastructure_MCPDeliveryModel@v2 | updated: 2026-09-17
+
 # AIDE Infrastructure — MCP Server Delivery Model
 
 Status: tested and confirmed, 2026-09-16; updated 2026-09-17 with skill-delivery
@@ -8819,6 +8840,8 @@ plugin-delivered tooling.
 ---
 
 <!-- BEGIN SOURCE: Infrastructure/binder-builder/BinderBuilder_Design_v10.md -->
+> identity: BinderBuilder_Design@v10 | doctype: design | updated: 2026-09-08
+
 # Binder Builder — Design
 
 > **Version 10** (2026-09-08). **Reverses §5a's empty-scope rule.** An empty scope now writes an
@@ -10206,6 +10229,8 @@ on the corpus and is never loaded into an AI session itself.
 ---
 
 <!-- BEGIN SOURCE: Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md -->
+> identity: FileUpdatePackage_Design@v2 | doctype: design | updated: 2026-09-14
+
 # FileUpdatePackage Deployer — Design
 
 > **Version 2** (2026-09-14). Updated to match the deployed tool. Major changes from version 1:
@@ -10908,7 +10933,7 @@ the tree is version cleanup's job.
 ---
 
 <!-- BEGIN SOURCE: Infrastructure/Infrastructure_CLI_Decisions_v1.md -->
-Infrastructure — CLI Decisions | decisions | Infrastructure_CLI_Decisions@v1 | 2026-09-10
+> identity: Infrastructure_CLI_Decisions@v1 | doctype: decisions | updated: 2026-09-10
 
 ## Utility registration — convention scanning over alternatives
 
@@ -10978,7 +11003,7 @@ Version note: v1 — reasoning from voice session 2026-09-10. All four items wer
 ---
 
 <!-- BEGIN SOURCE: Infrastructure/Infrastructure_CLI_Design_v1.md -->
-Infrastructure — CLI Design | design | Infrastructure_CLI_Design@v1 | 2026-09-10
+> identity: Infrastructure_CLI_Design@v1 | doctype: design | updated: 2026-09-10
 
 ## Summary
 
@@ -11130,7 +11155,7 @@ Version note: v1 — design document from voice session 2026-09-10. All four ite
 ---
 
 <!-- BEGIN SOURCE: Infrastructure/Infrastructure_Working_v1.md -->
-Infrastructure | working | Infrastructure_Working@v1 | 2026-09-10
+> identity: Infrastructure_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Confirmed direction — session 2026-09-10
 
@@ -11409,6 +11434,8 @@ Those are separate tools, run in sequence.
 ---
 
 <!-- BEGIN SOURCE: Infrastructure/version-cleanup/VersionCleanup_Design_v3.md -->
+> identity: VersionCleanup_Design@v3 | doctype: design | updated: 2026-09-04
+
 # Version Cleanup — Design
 
 > **Version 3** (2026-09-04). Corrects the master folder path after the rename to `version-cleanup`.
@@ -11698,6 +11725,8 @@ one build.
 ---
 
 <!-- BEGIN SOURCE: Messaging/_index.md -->
+> identity: _index | doctype: index
+
 # Messaging
 
 Role: component design, project design
@@ -12923,6 +12952,8 @@ Version note: v4 — third cross-review remediation. R5: QueryReceipt response s
 ---
 
 <!-- BEGIN SOURCE: Orchestration/_index.md -->
+> identity: _index | doctype: index
+
 # Orchestration
 
 Role: component design, project design
@@ -13972,6 +14003,8 @@ in Orchestration D19 for Assurance; flagged for Improvement's own design pass.
 ---
 
 <!-- BEGIN SOURCE: Principles/_index.md -->
+> identity: _index | doctype: index
+
 # Principles
 
 Role: component design, project design
@@ -13995,6 +14028,8 @@ None declared.
 ---
 
 <!-- BEGIN SOURCE: Principles/Principles_Decisions_v5.md -->
+> identity: Principles_Decisions@v5 | doctype: decisions | updated: 2026-09-15
+
 # Principles — Decisions
 
 > **Version 5** (2026-09-15). Authored fresh in the AIDE rebuild. Compacted
@@ -14103,6 +14138,8 @@ Version note: v5 — adds D10 (P3 strengthened: difficulty-as-evidence and appar
 ---
 
 <!-- BEGIN SOURCE: Principles/Principles_Design_v5.md -->
+> identity: Principles_Design@v5 | doctype: design | updated: 2026-09-15
+
 # Principles — Design
 
 > **Version 5** (2026-09-15). Authored fresh in the AIDE rebuild from the
@@ -14336,6 +14373,8 @@ Version note: v2 — P3 strengthened (difficulty-as-evidence, apparatus-avoidanc
 ---
 
 <!-- BEGIN SOURCE: Project Design/_index.md -->
+> identity: _index | doctype: index
+
 # Project Design
 
 Role: component design, project design
@@ -14360,7 +14399,7 @@ None declared.
 ---
 
 <!-- BEGIN SOURCE: Project Design/ProjectDesign_Decisions_v3.md -->
-Project Design — Decisions | decisions | ProjectDesign_Decisions@v3 | 2026-09-14
+> identity: ProjectDesign_Decisions@v3 | doctype: decisions | updated: 2026-09-14
 
 ## D1 — Work register survives and comes home to Project Design
 
@@ -14543,7 +14582,7 @@ Version note: v3 — adds D22 (four weaknesses of layered design), D23 (brief ga
 ---
 
 <!-- BEGIN SOURCE: Project Design/ProjectDesign_Design_v3.md -->
-Project Design — Design | design | ProjectDesign_Design@v3 | 2026-09-14
+> identity: ProjectDesign_Design@v3 | doctype: design | updated: 2026-09-14
 
 ## Brief
 
@@ -15353,6 +15392,8 @@ Version note: v5 — PD-UPD carries applied. PD-UPD.1: sufficiency contract amen
 ---
 
 <!-- BEGIN SOURCE: Standards/_index.md -->
+> identity: _index | doctype: index
+
 # Standards
 
 Role: component design, project design
@@ -15559,7 +15600,7 @@ Version note: v3 — `uses` updated to Standards_Authoring_Standard@v7. No subst
 ---
 
 <!-- BEGIN SOURCE: Standards/Standards_Decisions_v4.md -->
-Standards — Decisions | decisions | Standards_Decisions@v4 | 2026-09-15
+> identity: Standards_Decisions@v4 | doctype: decisions | updated: 2026-09-15
 
 ## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
 
@@ -15723,7 +15764,7 @@ Version note: v4 — adds D21 (acceptance test amended for ambient framework con
 ---
 
 <!-- BEGIN SOURCE: Standards/Standards_Design_v3.md -->
-Standards — Design | design | Standards_Design@v3 | 2026-09-14
+> identity: Standards_Design@v3 | doctype: design | updated: 2026-09-14
 
 ## Brief
 
@@ -15868,7 +15909,7 @@ Version note: v3 — adds two-class distinction (task vs carried by load pattern
 ---
 
 <!-- BEGIN SOURCE: Standards/Standards_Working_v1.md -->
-Standards | working | Standards_Working@v1 | 2026-09-10
+> identity: Standards_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Confirmed items — session 2026-09-09
 
@@ -15888,6 +15929,8 @@ Version note: v1 — initial working document from session 2026-09-09.
 ---
 
 <!-- BEGIN SOURCE: Tools/_index.md -->
+> identity: _index | doctype: index
+
 # Tools
 
 Role: component design, project design
@@ -16029,7 +16072,7 @@ Version note: v8 — Acceptance test restatement synced with Standards_Authoring
 ---
 
 <!-- BEGIN SOURCE: Tools/Tools_Decisions_v7.md -->
-Tools — Decisions | decisions | Tools_Decisions@v7 | 2026-09-14
+> identity: Tools_Decisions@v7 | doctype: decisions | updated: 2026-09-14
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -16164,7 +16207,7 @@ Version note: v7 — D17 added for round 2 cross-review remediation. 2026-09-14.
 ---
 
 <!-- BEGIN SOURCE: Tools/Tools_Design_v6.md -->
-Tools — Design | design | Tools_Design@v6 | 2026-09-14
+> identity: Tools_Design@v6 | doctype: design | updated: 2026-09-14
 
 ## Brief
 
@@ -16273,6 +16316,8 @@ Version note: v6 — round 2 cross-review remediation: Brief Purpose and Target 
 ---
 
 <!-- BEGIN SOURCE: Working Practices/_index.md -->
+> identity: _index | doctype: index
+
 # Working Practices
 
 Role: component design, project design
@@ -16300,6 +16345,8 @@ How work is tracked across its full lifecycle — boards as scoped task records 
 ---
 
 <!-- BEGIN SOURCE: Working Practices/Boards/_index.md -->
+> identity: _index | doctype: index
+
 # Boards
 
 Role: component design
@@ -16551,7 +16598,7 @@ Version note: v1 — initial design from the board design session. Supersedes th
 ---
 
 <!-- BEGIN SOURCE: Working Practices/FileOps/WP_FileOps_Working_v1.md -->
-Working Practices — File Operations | working | WP_FileOps_Working@v1 | 2026-09-10
+> identity: WP_FileOps_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Confirmed items — session 2026-09-10
 
@@ -16782,7 +16829,7 @@ Version note: v2 — cross-review remediation (ChatGPT, 4 rounds, 12 original fi
 ---
 
 <!-- BEGIN SOURCE: Working Practices/WP_Brief_v2.md -->
-Working Practices | brief | WP_Brief@v2 | 2026-09-17
+> identity: WP_Brief@v2 | doctype: brief | updated: 2026-09-17
 
 # Working Practices — Brief
 
@@ -16860,7 +16907,7 @@ Version note: v2 — cross-review remediation (F1). Requirements section and Lin
 ---
 
 <!-- BEGIN SOURCE: Working Practices/WP_Capture_Working_v1.md -->
-Working Practices — Capture and Organisation | working | WP_Capture_Working@v1 | 2026-09-10
+> identity: WP_Capture_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Confirmed items
 
@@ -16892,7 +16939,7 @@ Version note: v1 — initial working document from sessions 2026-09-09 and 2026-
 ---
 
 <!-- BEGIN SOURCE: Working Practices/WP_ContentDelivery_Working_v1.md -->
-Working Practices — Content Delivery | working | WP_ContentDelivery_Working@v1 | 2026-09-10
+> identity: WP_ContentDelivery_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Confirmed items — session 2026-09-10
 
@@ -17298,7 +17345,7 @@ Version note: v6 — Work plan section replaced by Board reference; Boards added
 ---
 
 <!-- BEGIN SOURCE: Working Practices/WP_WorkManagement_Working_v1.md -->
-Working Practices — Work Management | working | WP_WorkManagement_Working@v1 | 2026-09-10
+> identity: WP_WorkManagement_Working@v1 | doctype: working | updated: 2026-09-10
 
 ## Development lifecycle — phase vs mode (confirmed 2026-09-09)
 
