@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 123** (2026-09-23).
+> **Binder Version 124** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -56,7 +56,7 @@ individual files.
 - `Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md` - sha256 `8098d9714c57`
 - `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `8301aa2a0395`
 - `Infrastructure/_index.md` - sha256 `7732b7fca4c2`
-- `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` - sha256 `e3c945043477`
+- `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` - sha256 `709be4952c6b`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `518121d99d79`
 - `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
@@ -92,6 +92,9 @@ individual files.
 - `Project Design/ProjectDesign_Design_v3.md` - sha256 `2c4f60adb4f9`
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
 - `Project Design/ProjectDesign_Standard_v5.md` - sha256 `c035df4e8b17`
+- `Services/_index.md` - sha256 `2532e7cf22ae`
+- `Services/Services_Decisions_v1-draft1.md` - sha256 `ce2d766b6d06`
+- `Services/Services_Design_v1-draft1.md` - sha256 `0dbc6b21256a`
 - `Standards/_index.md` - sha256 `09379ef5eb4d`
 - `Standards/Standards_Authoring_Standard_v8.md` - sha256 `e52f99825c80`
 - `Standards/Standards_Consumption_Standard_v3.md` - sha256 `b801499930ac`
@@ -8510,11 +8513,14 @@ The version cleanup utility — design, settings, and README.
 # AIDE Infrastructure — MCP Server Delivery Model
 
 Status: tested and confirmed, 2026-09-16; updated 2026-09-17 with skill-delivery
-findings and registration-path corrections. Not yet a formal Infrastructure design
-document — Infrastructure's design pass has not been run. This records the empirical
-findings and tested methodology so they are available when that pass happens, and so
-other components (Orchestration first, then binder, FUP, future tooling) can build
-against a grounded model rather than assumptions.
+findings and registration-path corrections; updated 2026-09-23 with marketplace
+refresh corrections (CLI command is the only working path — restart, remove/re-add
+do not pull), Python server encoding fix, multi-server plugin structure, and
+confirmed MSIX config path. Not yet a formal Infrastructure design document —
+Infrastructure's design pass has not been run. This records the empirical findings
+and tested methodology so they are available when that pass happens, and so other
+components (Orchestration first, then binder, FUP, future tooling) can build against
+a grounded model rather than assumptions.
 
 ---
 
@@ -8533,16 +8539,30 @@ not its owners.
 
 ## The model
 
-### One server codebase
+### Server codebase
 
-Raw Node.js, CommonJS, newline-delimited JSON over stdio, zero external dependencies
-(only Node.js builtins: `readline`, `crypto`). No MCP SDK required — the server
-implements raw JSON-RPC directly. 87–88 lines for the tested proof-of-concept.
+A plugin can contain multiple MCP servers in different languages. The `.mcp.json`
+declares each server with its command and args. Two patterns are proven:
+
+- **Node.js** — raw CommonJS, newline-delimited JSON over stdio, zero external
+  dependencies. Used by the dispatch server (`server/index.js`).
+- **Python** — raw JSON-RPC over stdio, stdlib only (no SDK). Used by the document
+  management server (`server/docmgmt/main.py`). On Windows, the config entry must
+  use the absolute path to a real Python interpreter — the WindowsApps Store stub
+  does not work.
+
+Both implement raw JSON-RPC directly with no MCP SDK dependency.
 
 Newline-delimited JSON framing is required — Claude Desktop's stdio transport expects
 `\n`-delimited JSON, not HTTP-style `Content-Length` headers. Using Content-Length
 causes a silent 120-second timeout on every connection attempt. This is not
 well-documented by Anthropic and was discovered during testing.
+
+**Encoding on Windows:** Python servers must set `sys.stdin.reconfigure(encoding=
+"utf-8")` at startup. Without it, stdin defaults to the Windows system codepage
+(cp1252), which mangles non-ASCII characters in JSON-RPC requests — including file
+content sent to write/patch operations, not just commit messages. Discovered and
+fixed in PR #12 (2026-09-23).
 
 ### One distribution unit
 
@@ -8557,9 +8577,12 @@ Plugin structure:
 <plugin-name>/
   .claude-plugin/
     plugin.json          — name, version, description
-  .mcp.json              — MCP server declaration
+  .mcp.json              — MCP server declarations (one or more)
   server/
-    index.js             — the MCP server
+    index.js             — Node.js MCP server (e.g. dispatch)
+    docmgmt/
+      main.py            — Python MCP server (e.g. document management)
+      config.py, ...     — supporting modules
   skills/<skill-name>/
     SKILL.md             — skill(s) that trigger tools
 ```
@@ -8641,12 +8664,25 @@ registrations appeared to happen through the same "Add marketplace" action.
 ### Update path
 
 1. Merge PR to marketplace repo.
-2. Refresh the local marketplace clone (`git fetch origin && git reset --hard
-   origin/main` in `~/.claude/plugins/marketplaces/<marketplace-name>/`).
+2. `claude plugin marketplace update <marketplace-name>` (terminal command — this
+   is the platform's mechanism for refreshing the local clone).
 3. Restart Claude Desktop.
 
 All three surfaces pick up the new server code. No rebuild, no reinstall, no
 separate artifact. Running sessions do not hot-reload — restart is required.
+
+**The merge-PR step is mandatory.** Direct commits to `main` do not trigger plugin
+updates. This is a hard build/deployment requirement, not a workflow preference.
+
+**Step 2 requires a terminal.** Claude Desktop's UI does not provide a working
+path to refresh marketplace clones — neither restart, nor remove-and-re-add, nor
+the Update button triggers a pull from origin. The CLI command is the only
+reliable method. See known issues #1 and #9.
+
+**Quit Claude Desktop before running step 2** if the marketplace contains a
+running server — the process holds a lock on the clone directory, and the CLI
+command fails with EPERM. The aide-desktop dispatch server, when running, is a
+common cause.
 
 ### Why Chat needs a separate entry
 
@@ -8708,11 +8744,14 @@ debugging a config issue, not a code issue — see known issue 6, below.
 
 ## Known platform issues (all workaroundable)
 
-### 1. Marketplace clone does not auto-pull reliably
+### 1. Marketplace clone does not auto-refresh
 
 The local clone at `~/.claude/plugins/marketplaces/<name>/` does not automatically
-fetch merged PRs. Requires manual `git fetch origin && git reset --hard origin/main`.
-The "Update" button was removed from the UI in a recent Claude Desktop version.
+fetch merged PRs on restart, remove-and-re-add, or any Desktop UI action. The
+platform's own mechanism is `claude plugin marketplace update <name>` from a
+terminal — confirmed 2026-09-23 to force-pull the clone. Neither restart nor
+remove-and-re-add triggers a pull from origin. Multiple independent reproductions
+exist (GitHub issues #36317, #37252, #38271, #54276, #94516).
 
 ### 2. UI plugin install does not persist to local config
 
@@ -8789,13 +8828,23 @@ This was not caught during original testing (2026-09-04/05) because the test pro
 happened to be registered via the web path. The production marketplace was later added
 via Desktop, which went to the wrong level.
 
-### 8. `%APPDATA%\Claude` may not exist at all
+### 8. `%APPDATA%\Claude` may not be browsable — use the MSIX-redirected path
 
-On at least one tested MSIX install, `%APPDATA%\Claude` does not exist — not as a
-junction, not as a real folder. This means `claude_desktop_config.json` has no
-location, and the Chat MCP bootstrap entry cannot be written until the correct config
-path is established. When issue 6 says "check before assuming," this is the further
-case: the entire directory may be absent, not just the `mcpServers` key within it.
+On MSIX installs, `%APPDATA%\Claude` may not be visible in File Explorer despite
+the config file existing on disk. The real location is the MSIX-redirected path:
+`%LOCALAPPDATA%\Packages\<PackageFamilyName>\LocalCache\Roaming\Claude\`. On the
+tested machine (package family `Claude_pzs8sxrjxfjjc`), both paths resolve to the
+same file — confirmed 2026-09-23 by reading identical content from both via
+subprocess. Edit at the MSIX-redirected path if `%APPDATA%\Claude` is not visible.
+
+### 9. Desktop remove-and-re-add reuses the stale clone
+
+Removing a marketplace via Desktop and re-adding it does not clone fresh from
+origin — it reuses the existing on-disk clone at `~/.claude/plugins/marketplaces/
+<name>/`. Confirmed 2026-09-23: after merging PR #11 (adding a Python MCP server),
+remove-and-re-add still showed the clone at PR #5. Only the CLI command
+`claude plugin marketplace update <name>` triggers a pull. This matches the
+independent reproduction in GitHub issue #54276.
 
 ---
 
@@ -16021,6 +16070,216 @@ Information. An item that has been round the loop several times is a design smel
 
 Version note: v5 — PD-UPD carries applied. PD-UPD.1: sufficiency contract amended to acknowledge WP's composite authority rule — between master updates the effective state is master plus pending overlay, pending wins where it explicitly changes master state, ambiguous merges are surfaced not inferred (WP_Decisions_v4 D19). PD-UPD.2: brief boundary tests checked against the standard — all five already present and correctly stated, confirmed with no change. 2026-09-17. Replaces v4.
 <!-- END SOURCE: Project Design/ProjectDesign_Standard_v5.md -->
+
+---
+
+<!-- BEGIN SOURCE: Services/_index.md -->
+> identity: _index | doctype: index
+
+# Services
+
+Role: Component, Documentation Project
+Aliases: none
+
+Services defines the methodology for building services — persistent capabilities that AI sessions connect to for operations they cannot perform in-session. It owns the service definition, the boundary tests that distinguish a service from a tool and from a utility, and the authoring methodology used to design and author services.
+
+Services is a methodological component. It defines how to create its type; individual services live with their owning component under the what-knows-most-about-it principle.
+
+## Parts
+
+None declared.
+<!-- END SOURCE: Services/_index.md -->
+
+---
+
+<!-- BEGIN SOURCE: Services/Services_Decisions_v1-draft1.md -->
+> identity: Services_Decisions@v1-draft1 | doctype: decisions | updated: 2026-09-23
+
+## D1 — Services is a methodological component, same pattern as Tools and Standards
+
+Services defines how to create its type. Individual service instances live with their consuming component. This follows the common pattern established for Standards, Tools, and Infrastructure — methodological components own the methodology, not the instances. The document management service lives with Infrastructure; the dispatch service lives with Orchestration. The alternative — Services holding all services — was rejected for the same reason it was rejected for Tools: it violates the what-knows-most-about-it ownership principle.
+
+## D2 — Two boundary tests, not one
+
+A single boundary test would conflate two distinctions that need separating. The service-vs-tool boundary is about who executes (the AI or a separate process). The service-vs-utility boundary is about direction of service (serves sessions or serves the corpus). These are orthogonal. A thing that runs outside the session could be either a service or a utility; you need both tests to classify it.
+
+The tool boundary test parallels the invocability test in Tools — it is the heart of the component, the test that governs what belongs here.
+
+## D3 — The AI-as-caller distinction is the governing difference from tools
+
+The fundamental difference between a service and a tool is not persistence, configuration, or safety enforcement — those are consequences. The governing difference is that the AI is a caller, not the executor. For a tool, the AI performs the procedure. For a service, a separate process performs the work and the AI receives results.
+
+This matters because it changes what the authoring concerns must cover. A tool author addresses the procedure the AI will follow. A service author addresses the interface the AI will call, the safety the process will enforce, and the state the process will manage — none of which the AI controls.
+
+## D4 — Seven authoring concerns, derived from the two working examples
+
+The seven concerns were derived by examining what the dispatch server and document management server each needed, then generalising. Both servers needed an interface and an error model. Document management additionally needed configuration, discovery, a safety model, state management, and lifecycle. Dispatch needed none of those four — it is stateless, configurationless, and its safety model is trivial (delegate to the target).
+
+This asymmetry is expected and healthy. Not every concern will be substantial for every service. A simple service might have no discovery and no configuration; a complex one might need something this list does not name. The concerns are what to think about, not what to fill in. This is the same principle established for tool authoring concerns in Tools D3.
+
+The seven are deliberately different from the seven tool concerns (inputs, preconditions, procedure, decision points, escalation, outputs/effects, failure behaviour). Tools' concerns describe a procedure the AI performs. Services' concerns describe a process the AI calls. The overlap is intentional where it exists (interface maps loosely to inputs/outputs; error model maps to failure behaviour) and the differences reflect the different execution context.
+
+## D5 — Services always require a design
+
+Tools allows authoring straight to a tool when the action is simple enough that a design would restate rather than elaborate. Services has no such exception. A service is a deployed process with configuration, lifecycle, and safety obligations — these are design concerns that need to be worked through before code is written, even for a simple service. The dispatch server is about as simple as a service gets, and its design still resolved non-trivial questions (what targets to support, how to handle timeout, what error model to use).
+
+## D6 — The delivery separation is a design principle, not just an ownership statement
+
+Stating that Infrastructure owns delivery is an ownership fact. The design principle is stronger: a service is designed independently of how it is delivered. The interface, configuration, discovery, safety, state, errors, and lifecycle are properties of the service. The MCP transport, stdio framing, marketplace packaging, and config-entry bootstrap are properties of the delivery mechanism.
+
+This means the same service design could be delivered differently — as a local MCP server today, as a hosted service tomorrow, or as a different protocol entirely — without the service design changing. The separation is not aspirational; it is how the document management server was actually designed (the design says nothing about MCP, JSON-RPC, or stdio).
+
+In practice, the service author must know enough about the delivery model to avoid designing something the delivery model cannot support (persistent cross-restart state on a local server, for example). The design acknowledges this with a proportionate statement rather than formalising a dependency.
+
+## D7 — The sibling-outputs model extends naturally
+
+A design already can produce standards and tools as sibling outputs (Tools D6). Extending to services adds no new mechanism — the same rule applies: all outputs derive from the design, not from each other, and must not disagree.
+
+The document management component is the first concrete case: its design produces a service (the MCP server, built and deployed) and will produce a governing skill (a tool orchestrating document intelligence using the server's primitives, not yet built). Both are specified in the same design. The service provides format-agnostic file operations; the tool will add AIDE document vocabulary on top.
+
+## D8 — The naming: "service" is the designed thing, "server" is the delivered thing
+
+This parallels the existing taxonomy. A standard is delivered as a skill. A tool is delivered as a skill. A service is delivered as a server. The designed thing and the delivered thing have different names because they have different owners and different concerns.
+
+"Service" was chosen over "server" because the design methodology is about what is built and why — the service's interface, safety model, and lifecycle — not about the process mechanics. "Server" stays as the delivery term in Infrastructure's MCP delivery model, where the process mechanics are the subject.
+
+## D9 — Hosted services follow the same authoring methodology
+
+The design scope note says hosted services (cloud-hosted, always-on — the framework inbox and assurance data logger discussed in the orchestration and assurance designs) follow the same authoring concerns but have a different delivery model. The authoring methodology — interface, configuration, discovery, safety, state, errors, lifecycle — applies regardless of where the process runs. What changes is Infrastructure's delivery concern: local MCP server vs cloud-hosted endpoint.
+
+This means Services does not need a "local vs hosted" split in its methodology. It provides one set of authoring concerns. Infrastructure provides different delivery models for each hosting context.
+
+## D10 — Configuration reporting without exposing filesystem paths to the AI
+
+A service that requires configuration should report its status to callers — whether it is initialised, how many resources it discovered, what their names are. It should not report filesystem paths, config file locations, or other machine-level detail to the AI. The AI does not need to know where the config file lives; the human does, and that belongs in the user guide.
+
+This was raised during the document management server testing (2026-09-23) when discussing a status/initialise tool. The principle: the service reports operational status (what it can do); the user guide explains setup (how to configure it). The boundary is clean and avoids the AI surfacing machine-specific paths it has no use for.
+
+## D11 — User documentation is a service deliverable
+
+Every service should have a user guide alongside its design documents. The user guide covers: what the service does, how to verify it is connected, how to configure it (the config format and location), the tool/operation inventory, and any platform-specific setup (such as the chat config entry for the MCP platform bug workaround). The user guide is for the human operating the service, not the AI consuming it.
+
+This was identified as missing during the document management server testing — the design documents exist but no user-facing guide does. Adding user documentation as a named deliverable prevents the same gap recurring for future services.
+
+---
+
+Version note: v1-draft1 — initial decisions. D1–D11 from the design session. 2026-09-23.
+<!-- END SOURCE: Services/Services_Decisions_v1-draft1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Services/Services_Design_v1-draft1.md -->
+> identity: Services_Design@v1-draft1 | doctype: design | updated: 2026-09-23
+
+## Brief
+
+**Purpose.** Define what a service is and how one is designed and authored within AIDE, including the boundary tests that distinguish a service from a tool and from a utility. Services is a methodological component — it owns the methodology for building services, not the services themselves. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+
+**Scope.** The service definition and the boundaries that distinguish a service from a tool and a utility; the authoring concerns specific to services; the relationship between a service and its delivery as an MCP server; and the designing and authoring rules. Individual services, the MCP delivery model, packaging, the cross-review process, and document structure are out of scope.
+
+**Target outcome.** A deployed service authoring standard that any component author uses when designing and authoring a service, and hands off for deployment.
+
+**Definition of done.**
+
+1. A clear definition of what a service is, distinct from tools and utilities.
+2. Boundary tests that settle whether a given thing is a service, a tool, or a utility.
+3. Authoring concerns that a service author must address.
+4. The relationship to Infrastructure's delivery model is stated without restating it.
+5. The sibling-outputs model extends to cover services alongside standards and tools.
+
+## What a service is and does
+
+A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, performs work the AI cannot do in-session — filesystem access, git operations, external process invocation — and returns results. The AI is a caller, not the executor.
+
+This is the fundamental distinction from a tool. A tool encapsulates a procedure the AI performs in-session. A service encapsulates operations a separate process performs, which the AI calls. The service has its own lifecycle, its own configuration, and its own safety enforcement — none of which depend on the session that calls it.
+
+A service reaches the AI platform as an MCP server — a process the platform starts, connects to, and routes tool calls through. The MCP server is the delivery form, the same way a skill is the delivery form for a standard or tool. The service is what is designed; the server is how it is delivered.
+
+## Two boundary tests
+
+### Service vs tool
+
+If the AI performs the work in-session, it is a tool. If a separate process performs the work and the AI is a caller, it is a service.
+
+The test is about who executes, not about what is executed. File operations could be a tool (the AI writes to disk using platform-native capabilities) or a service (a server writes to disk on the AI's behalf with safety guarantees the platform doesn't provide). The question is whether the AI performs the steps or calls something that does.
+
+### Service vs utility
+
+If sessions connect to it for capabilities, it is a service. If it acts on the corpus and exits, it is a utility.
+
+A utility runs on its own terms — triggered by a human, a script, or a scheduled task. It does not accept requests from sessions. A service exists to be called by sessions. Both run outside the session, but the direction of service is different: a utility serves the corpus, a service serves the session.
+
+A thing may start as a utility and become a service when sessions need to call it directly rather than consuming its output after the fact. The binder builder started as a utility and became a service operation (within the document management server) when sessions needed to trigger builds and receive the result within a conversation.
+
+## What Services owns
+
+### The service definition
+
+What a service is, what it does, and what distinguishes it from a tool and a utility. The definitions are stated above. Services owns these definitions and the two boundary tests.
+
+### The authoring concerns
+
+Seven concerns a service author must address. These are not a template — the author decides how to meet them, in whatever structure the service demands. They describe what a complete service design covers, so an author knows what to think about.
+
+**Interface.** What operations the service exposes to callers. Each operation has a name, inputs, outputs, and failure modes. The interface is the contract — what callers can rely on and what the service promises. A service that exposes operations not described in its interface, or whose operations behave differently from their description, is defective.
+
+**Configuration.** What the service needs to know about its environment before it can operate — where to find the things it works with, which are writable, any machine-level settings. Configuration is read at startup; changes require a restart. A service with no configuration is legitimate (the dispatch server has none). A service that requires configuration should report clearly when configuration is missing or invalid, and should operate correctly with default or empty configuration rather than failing silently.
+
+**Discovery.** How the service finds and registers the things it operates on. Not every service discovers — dispatch takes its targets as call-time arguments. But a service that manages a set of resources (document sources, connection targets, queues) needs a defined discovery mechanism: what it scans, what qualifies, how naming collisions are handled, and what happens when discovery finds nothing.
+
+**Safety model.** What the service prevents and enforces. Path containment, readonly enforcement, clean-state preconditions, input validation. The service enforces its own safety because the AI cannot — the AI is a caller, not the executor, and has no direct control over what the service does with a request. Safety in a service is not advisory; it is enforced by the process.
+
+**State management.** What state the service holds, how long it persists, and what resets it. Session-scoped state (tracked changes awaiting commit) is different from persistent state (configuration, discovery results held in memory). A service that holds session-scoped state must be clear about what a restart loses and what survives.
+
+**Error model.** How the service reports problems to callers. Errors carry enough information for the caller to decide what to do — retry, change the request, escalate. Error types are named and consistent across operations so callers can handle them programmatically. A service that returns generic errors or swallows detail forces the caller to guess.
+
+**Lifecycle.** How the service starts, shuts down, and behaves on restart. What it loads at startup, what it discards on shutdown, what requires a restart to take effect. A service author declares the lifecycle so consumers know what to expect — a restart after configuration change is a design choice, not a surprise.
+
+### The relationship to delivery
+
+A service is designed independently of its delivery mechanism. The MCP server — the process, the transport protocol, the marketplace plugin packaging — is Infrastructure's concern. The service author designs the service; Infrastructure delivers it.
+
+This separation means the same service design could be delivered as a local MCP server today and as a hosted service tomorrow without the service design changing. The interface, configuration, discovery, safety, state, errors, and lifecycle are properties of the service, not of the process that hosts it.
+
+In practice, the service author must know enough about the delivery model to make sound design choices — a service that requires persistent state across Desktop restarts is making a claim the local delivery model doesn't support. But the author designs the service's behaviour, not the server's plumbing.
+
+## The sibling-outputs model extends to services
+
+A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the design, not from each other, and must not disagree.
+
+This is already happening. The document management design produces a service (the MCP server) and will produce a governing skill (a tool, not yet built). Both derive from the same design. The service provides the primitives; the tool orchestrates them with document intelligence.
+
+## Designing and authoring a service
+
+**Design is the default.** A service always has a design. There is no equivalent of the tool exception ("simple enough that a design would restate rather than elaborate") because a service is a deployed process with configuration, lifecycle, and safety obligations — these demand the design layer.
+
+**Author fresh.** A service is authored from its design, not by modifying a previous version. Same principle as tools and standards.
+
+**No prescribed template.** A service design has no fixed structure. The author decides how to organise it, provided the authoring concerns are addressed.
+
+**Build references.** The service design should point the builder at Infrastructure's MCP delivery model and at an existing service as a working example. These are reference documents for the builder, not standards dependencies.
+
+## Boundaries
+
+Services does **not** own:
+
+- **The MCP delivery model** — how a service becomes an MCP server, how it is packaged as a marketplace plugin, how it reaches each surface. Infrastructure owns delivery.
+- **The authoring rules** — the capability-wide authoring rules in the standards authoring standard apply to services the same way they apply to tools. Services consumes them.
+- **The cross-review process** — a Working Practices convention consumed by all components.
+- **Document structure** — Documentation Methodology.
+- **Any individual service** — each lives with its owning component.
+- **Hosted services** — cloud-hosted, always-on services (framework inbox, assurance data logger) follow the same authoring concerns but have a different delivery model. The delivery distinction is Infrastructure's; the service design methodology is the same.
+
+## Carries to other components
+
+**To Infrastructure:** Infrastructure's `_index.md` currently says it "defines how to build and deploy utilities." This needs updating to include services — Infrastructure defines how to build and deploy utilities and how to deliver services (the MCP delivery model). The key distinction already there describes utilities as infrastructure that acts on the corpus from outside the session. Services need a parallel statement: services provide capabilities to sessions from outside the session. Infrastructure owns delivery of both.
+
+**To Core:** the component map and purpose lines need a Services entry. The AIDE taxonomy expands from three capability types (standards, tools, utilities) to four (standards, tools, services, utilities) — or, more precisely, two in-session capabilities (standards, tools) and two out-of-session types (services, utilities), distinguished by direction of service.
+
+---
+
+Version note: v1-draft1 — initial design. Two boundary tests, seven authoring concerns, delivery separation, sibling-outputs extension. Derived from the two working examples (dispatch server, document management server). 2026-09-23.
+<!-- END SOURCE: Services/Services_Design_v1-draft1.md -->
 
 ---
 
