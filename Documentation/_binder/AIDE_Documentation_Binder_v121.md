@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 120** (2026-09-23).
+> **Binder Version 121** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -62,8 +62,8 @@ individual files.
 - `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
 - `Infrastructure/document-management/_index.md` - sha256 `e726f0298d82`
 - `Infrastructure/document-management/DocumentManagement_Brief_v3.md` - sha256 `b83c1b37690f`
-- `Infrastructure/document-management/DocumentManagement_Decisions_v2.md` - sha256 `a79d8175b027`
-- `Infrastructure/document-management/DocumentManagement_Design_v2.md` - sha256 `a13eaae5cf7d`
+- `Infrastructure/document-management/DocumentManagement_Decisions_v3.md` - sha256 `19a7e239849f`
+- `Infrastructure/document-management/DocumentManagement_Design_v3.md` - sha256 `448cb45ea2c7`
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `15617061295c`
 - `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `76a4c37c468f`
 - `Infrastructure/file-update-package/README.md` - sha256 `747bc371ff85`
@@ -10363,14 +10363,20 @@ Version note: v3 — cross-review remediation. Governing skill removed from this
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v2.md -->
-> identity: DocumentManagement_Decisions@v2 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v3.md -->
+> identity: DocumentManagement_Decisions@v3 | doctype: decisions | updated: 2026-09-23
 
 # Document Management — Decisions
 
-## D1. Concurrent multi-surface staging — noted, not addressed
+## D1. Concurrent multi-surface staging — residual risk stated
 
-Two surfaces staging changes to the same git repo simultaneously could produce conflicting staged state. Not addressed as a design concern because the session-scoped tracked-paths commit model (D6) isolates each server session's commit to only the files it staged. Pre-existing staged changes, manually staged files, and changes from other tools are excluded from commit. Git's own file-level locking handles the remaining mechanical concurrency. Revisit if a real collision occurs.
+Two surfaces operating on the same git repo simultaneously share the same working tree and index. The design handles this differently depending on whether the surfaces touch the same or different files.
+
+**Different-path concurrency** is safe. The clean-file precondition and verified commit (D6) ensure each session's commit contains only its own changes. Git's file-level locking prevents mechanical index corruption.
+
+**Same-path concurrency** is handled by rejection. The second session to touch a file the first session has already modified will see a dirty file and the clean-file precondition will reject the operation. This is a detection and rejection model, not isolation — the second session must wait until the first commits or discards.
+
+This is an accepted limitation, not an unaddressed risk. Revisit only if the rejection proves too coarse in practice.
 
 ## D2. Primitives server, not AIDE-aware server
 
@@ -10394,15 +10400,15 @@ Considered and rejected: per-repo config files (`.aide.yaml` in each repo). Prev
 
 When an explicit include names a path that auto-discover also finds, the explicit config wins. This lets the user override the auto-discovered name or add a readonly flag to a source that would otherwise be writable.
 
-## D6. Session-scoped tracked-paths commit isolation
+## D6. Clean-file precondition and verified commit
 
-Each mutating operation stages its change and records the path. `commit` operates only on those tracked paths via `git commit -- <paths>`. This isolates the server's commit from repository-wide staged state.
+The git isolation model uses three mechanisms: a clean-file precondition (reject mutations on files with uncommitted changes), stage-and-record (the server tracks what it touched), and verified commit (confirm no external modification before committing).
 
-Considered and rejected: committing all staged changes in the repo (the original design v1 position). Cross-review identified that this would include pre-existing staged changes, manually staged files, and changes from other tools — making the commit unsafe and the caller unable to rely on the abstraction.
+Considered and rejected: session-scoped tracked-paths with `git commit -- <paths>` (the design v1/v2 position). Cross-review identified two problems: `git add` stages the whole file including pre-existing edits, and `git commit -- <paths>` commits working-tree contents, not the staged snapshot. Pathname tracking cannot isolate content. The clean-file precondition addresses the root cause: ensuring the file is clean before the server touches it means the staged content is exactly the server's work, and pre-commit verification catches any external modification after staging.
 
 ## D7. Subprocess git, no library
 
-All git operations via `subprocess.run(["git", ...])`. No git library dependency. The server shells out to the git binary on the user's PATH. The git operations are trivial (`add`, `commit`, `status`, `rm`); a library adds dependency weight for no capability gain.
+All git operations via `subprocess.run(["git", ...])`. No git library dependency. The server shells out to the git binary on the user's PATH. The git operations are trivial (`add`, `commit`, `status`, `rm`, `diff`); a library adds dependency weight for no capability gain.
 
 ## D8. Delete safety — git delete vs `_recycle`
 
@@ -10416,7 +10422,7 @@ The patch operation requires exactly one match. Zero or multiple matches fail wi
 
 ## D10. Binder builder as a hosted operation
 
-The binder builder is bundled as a Python script and invoked by the server. This is an acknowledged exception to the pure-primitives model. The server's coupling is limited to invocation and output staging; the script owns its own logic and settings. Hosting it in the server is a pragmatic convenience that avoids requiring a separate CLI invocation.
+The binder builder is bundled as a Python script and invoked by the server. This is an acknowledged exception to the pure-primitives model. The server's coupling is limited to reading the output path from the binder settings file, invocation, output staging, and error capture. The script owns its own logic and settings.
 
 ## D11. Governing skill is a separate deliverable
 
@@ -10426,7 +10432,7 @@ Originally listed in the brief's build outcome and definition of done. Removed d
 
 ## D12. Marketplace plugin delivery
 
-Delivered via the `aide` plugin in the `digitalbusiness-aide` marketplace per `Infrastructure_MCPDeliveryModel@v2`. Same pattern as the Orchestration dispatch server. Two registration paths (desktop app for Code/Cowork, web UI for Chat) — both run the server as a local process.
+Delivered via the `aide` plugin in the `digitalbusiness-aide` marketplace per `Infrastructure_MCPDeliveryModel@v2`. The builder should consult that document and the Orchestration dispatch server as a working example.
 
 ## D13. No hot-reload or file watching
 
@@ -10436,15 +10442,27 @@ Source list is loaded at startup and held in memory. A restart re-scans. No file
 
 No silent overwrite on copy or rename. If the destination path already exists, the operation fails and reports the collision. Write deliberately does allow overwrite — the semantics are "set the content of this file", which is different from "put a copy here" or "move this file there".
 
+## D15. Binder output contract — declared output path from settings
+
+The server reads the binder-builder settings file and extracts the output path before invocation. After the script runs, the server stages and records only the declared output file. Files the builder may create or modify beyond that path are not automatically tracked — they would appear in `status` as untracked or modified. This keeps the contract explicit and prevents the server from having to diff the entire working tree to identify builder outputs.
+
+## D16. Source name uniqueness enforced after all qualification
+
+After all qualification rules have been applied (solution/project nesting, explicit name overrides), source names must be unique. Any remaining collision — regardless of cause — is rejected at startup with both paths reported. Resolution is manual: the user adds a `name` override in config. This covers cases the individual collision rules cannot anticipate.
+
+## D17. Server tools on Desktop only — Chat gets skills, not tools
+
+The server runs as a local process and its MCP tools are available only on Desktop surfaces (Code and Cowork) via desktop app marketplace registration. Local MCP server tools are not available through the web surface. Plugin skills (such as the governing skill, when it exists) can reach Chat via separate web UI account-level registration — that is the skill's delivery path, not this server's. The design v1/v2 conflation of tool availability and skill availability through different registration paths has been corrected.
+
 ---
 
-Version note: v2 — cross-review remediation (F14). All major design choices routed from the design session. D1 updated to reference session-scoped commit isolation (F6). 2026-09-23. Replaces v1.
-<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v2.md -->
+Version note: v3 — acceptance-round remediation. D1 rewritten to distinguish different-path (safe) from same-path (rejected) concurrency. D6 rewritten for clean-file precondition model replacing tracked-paths (F5/F6). D15 added for binder output contract (F3). D16 added for post-qualification name uniqueness (F9). D17 added for Desktop-only tool scope (F11). 2026-09-23. Replaces v2.
+<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Design_v2.md -->
-> identity: DocumentManagement_Design@v2 | doctype: design | updated: 2026-09-23
+<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Design_v3.md -->
+> identity: DocumentManagement_Design@v3 | doctype: design | updated: 2026-09-23
 
 # Document Management — Design
 
@@ -10452,7 +10470,7 @@ Version note: v2 — cross-review remediation (F14). All major design choices ro
 
 A Python MCP server providing safe, format-agnostic file primitives over document sources. Twelve tools cover discovery, browsing, reading, writing, patching, copying, renaming, deleting, directory creation, git staging, committing, and binder builds. The server has no knowledge of AIDE document-content vocabulary — it does not interpret declarations, understand versioning grammar, or know what a doctype is. All document intelligence lives in a governing skill that is a separate deliverable.
 
-The server has two bounded areas of structural awareness: source discovery (reading `_index.md` for role and name) and the binder build operation (hosting the binder-builder script). Both are acknowledged exceptions with explicit contracts, not violations of the boundary.
+The server has two bounded areas of structural awareness: source discovery (reading `_index.md` for role and name) and the binder build operation (hosting the binder-builder script). Both are acknowledged exceptions with explicit contracts.
 
 ---
 
@@ -10472,13 +10490,11 @@ The server is not entirely format-agnostic. It has structural awareness in two p
 
 **Source discovery** reads `_index.md` files to register sources. The contract is minimal and fixed: the server reads the filename (`_index.md`), the heading (source name), and the role field (whether the value is `Documentation Solution` or `Documentation Project`). This is structural metadata about folders, not document-content interpretation — comparable to git reading `.gitignore`. The `_index` specification is defined by the Core Structure Standard and is expected to be extremely stable. A change to the `_index` format would require a server update.
 
-**Binder build** hosts the binder-builder Python script as an invocable operation. The server invokes the script and stages its output; the script itself knows binder conventions. The server's coupling is limited to: calling the script with a source path, capturing success/failure, and staging output files. The binder-builder's own settings and internal logic are the script's concern.
-
-Both are stated as structural awareness, not as contradictions of the boundary. The server does not interpret document content — it reads folder metadata for discovery and hosts a script for binder builds.
+**Binder build** hosts the binder-builder Python script as an invocable operation. The server reads the binder-builder settings file to determine the output path, invokes the script, and stages the declared output. The server's coupling is limited to: locating the settings file, reading the output path from it, calling the script with the source path, capturing success/failure, and staging the declared output file. The binder-builder's own logic, document-processing conventions, and settings beyond the output path are the script's concern.
 
 ### What the server owns
 
-File operations with safety guarantees. Path containment enforcement. Source discovery and config. Git staging with session-scoped tracking and isolated commit. The `_recycle` safety net for non-git sources. Keyed-data unique-match validation on patches. Readonly enforcement across all mutating operations. Error reporting.
+File operations with safety guarantees. Path containment enforcement. Source discovery and config. Git staging with clean-file preconditions and verified commit. The `_recycle` safety net for non-git sources. Keyed-data unique-match validation on patches. Readonly enforcement across all mutating operations. Error reporting.
 
 ### What the server does not own
 
@@ -10507,6 +10523,7 @@ The server discovers document sources at startup by scanning configured roots.
 - If two explicit includes specify the same name, the config is invalid — the server reports the collision at startup and registers neither.
 - An explicit include that has no `_index.md` heading and no `name` in config is invalid — the server reports it and skips it.
 - Duplicate solution names are handled the same way as duplicate project names — by the containing path. If the collision is at the top level with no further containment to qualify, the config is invalid and reported.
+- **After all qualification, source names must be unique.** Any remaining collision — an explicit include matching an auto-discovered name at a different path, a Documentation Solution and Documentation Project resolving to the same name, two same-named projects inside the same solution — is rejected at startup. Neither colliding source is registered, and the collision is reported. The resolution is always manual: add a `name` override in config.
 
 Registered sources are held in memory for the server's lifetime. A restart re-scans. No file-watching or hot-reload — the set of sources changes rarely and a restart is trivial.
 
@@ -10579,7 +10596,7 @@ The server distinguishes text and binary files for read, write, and patch operat
 
 ## Tool surface
 
-Twelve tools. Each succeeds or fails independently. All file-mutating operations on git-backed sources stage the change and track the staged path for commit isolation.
+Twelve tools. Each succeeds or fails independently. All file-mutating operations on git-backed sources enforce the clean-file precondition, stage the change, and record the path for commit.
 
 ### list_sources
 
@@ -10614,7 +10631,7 @@ Write or overwrite a file's entire content.
 - **content** — the full file content (text, or base64 when binary flag is set)
 - **binary** — boolean flag (optional, default false) — when true, content is decoded from base64 before writing
 
-Creates the file if it doesn't exist. Overwrites if it does. Stages and tracks the change in git-backed sources. Rejected on readonly sources. Path containment enforced.
+Creates the file if it doesn't exist. Overwrites if it does. On git-backed sources: clean-file precondition enforced on the first mutation of this path in the session, change staged and path recorded. Rejected on readonly sources. Path containment enforced.
 
 ### patch
 
@@ -10625,7 +10642,7 @@ Apply a partial update to a text file using keyed-data unique-match.
 - **old** — the text to find (must match exactly once in the file)
 - **new** — the replacement text (empty string to delete the matched text)
 
-The server validates that `old` matches exactly once before applying. On zero matches or multiple matches, the operation fails and returns the match count so the caller can widen or narrow the match string. Rejected on binary files and readonly sources. Stages and tracks the change in git-backed sources. Path containment enforced.
+The server validates that `old` matches exactly once before applying. On zero matches or multiple matches, the operation fails and returns the match count. Rejected on binary files and readonly sources. On git-backed sources: clean-file precondition enforced on the first mutation of this path in the session, change staged and path recorded. Path containment enforced.
 
 ### copy
 
@@ -10636,7 +10653,7 @@ Copy a file.
 - **dest_source** — destination source name (optional — same source if omitted)
 - **dest_path** — destination file path
 
-If the destination file already exists, the operation fails — no silent overwrite. Stages and tracks the new file in git-backed destinations. Rejected if the destination source is readonly. Path containment enforced on both source and destination paths.
+If the destination file already exists, the operation fails — no silent overwrite. On git-backed destinations: change staged and path recorded. Rejected if the destination source is readonly. Path containment enforced on both source and destination paths.
 
 ### rename
 
@@ -10646,7 +10663,7 @@ Rename or move a file within a source.
 - **path** — current file path
 - **new_path** — new file path
 
-If the destination path already exists, the operation fails — no silent overwrite. Stages and tracks both the deletion of the old path and the addition of the new path. Rejected on readonly sources. Path containment enforced on both paths.
+If the destination path already exists, the operation fails — no silent overwrite. On git-backed sources: clean-file precondition enforced on the original path (first mutation in the session), both deletion of old path and addition of new path staged and recorded. Rejected on readonly sources. Path containment enforced on both paths.
 
 ### delete
 
@@ -10655,7 +10672,7 @@ Remove a file from a source. Safety behaviour depends on the source type — the
 - **source** — source name
 - **path** — file path to delete
 
-On git-backed sources: actual file deletion, staged and tracked. Git retains the history.
+On git-backed sources: clean-file precondition enforced on the first mutation of this path in the session. Actual file deletion, staged and recorded. Git retains the history.
 
 On non-git sources: the file is moved to `_recycle` at the source root, preserving its relative path within `_recycle`. If a file already exists at the recycle destination, a numeric suffix is appended (e.g. `foo.md` → `foo_1.md`, `foo_2.md`) to avoid collisions from repeated deletions.
 
@@ -10672,14 +10689,16 @@ Creates intermediate directories as needed. No git staging (git doesn't track em
 
 ### commit
 
-Commit the changes this server session made to a source's git repo.
+Commit the server's changes to a source's git repo.
 
 - **source** — source name
 - **message** — commit message
 
-The server tracks which file paths it staged during the session. Commit operates only on those tracked paths (`git commit -- <tracked-paths>`), not on repository-wide staged state. Pre-existing staged changes, manually staged files, and changes from other tools are not included.
+Before committing, the server verifies that every recorded path still matches the index — that no external tool or human has modified any of those files since the server staged them. If any discrepancy is detected, the conflict is reported (naming the affected paths) and the commit is not made.
 
-Fails if the source is not git-backed, if there are no tracked staged changes, or if the source is readonly.
+When verified clean, the server commits using `git commit -- <recorded-paths>`, which commits only the named paths. Other staged changes in the repository are not included.
+
+Fails if the source is not git-backed, if there are no recorded paths, or if the source is readonly.
 
 ### status
 
@@ -10687,7 +10706,7 @@ Show the current state of a source's git working tree.
 
 - **source** — source name
 
-Returns: files staged by this server session (tracked paths), other staged files (not tracked by this session), modified-but-unstaged files, and untracked files. This distinction lets the caller see what `commit` will include versus what exists independently. Fails with a clear message if the source is not git-backed.
+Returns: files the server has staged in this session (recorded paths), other staged files (not recorded by this session), modified-but-unstaged files, and untracked files. This distinction lets the caller see what `commit` will include versus what exists independently. Fails with a clear message if the source is not git-backed.
 
 ### binder_build
 
@@ -10695,23 +10714,35 @@ Run the binder builder for a source.
 
 - **source** — source name
 
-Invokes the bundled Python binder-builder script against the source's document root, using the binder-builder's own settings file within the source. The server captures the script's success or failure and its output. Output files are staged and tracked for the next commit.
+The server locates the binder-builder settings file within the source and reads the output path from it. It then invokes the bundled Python binder-builder script against the source's document root. On success, the server stages the output file at the declared path and records it for commit.
 
-The server's role is invocation and output management. The binder-builder script owns its own logic, settings resolution, and document-processing conventions.
+The server tracks only the declared output path. If the binder builder creates or modifies files beyond that path, those are not automatically staged or recorded — they would be visible via `status` as untracked or modified files.
 
-Rejected on readonly sources. Fails if no binder settings are found for the source.
+The server's role is invocation, output staging, and error capture. The binder-builder script owns its own logic, settings resolution, and document-processing conventions.
+
+Rejected on readonly sources. Fails if no binder settings are found for the source, or if the binder-builder script reports failure.
 
 ---
 
 ## Git model
 
-**Stage per operation, commit on command, session-scoped isolation.** Every file-mutating operation (write, patch, copy, rename, delete, binder_build) stages its changes via `git add` and records the staged paths in a session-scoped tracking list. The caller commands `commit` when the update session is complete.
+**Clean-file precondition, stage, verified commit.**
 
-`commit` operates only on the tracked paths — `git commit -- <tracked-paths>`. This isolates the server's commit from pre-existing staged changes, manually staged files, and changes from other tools or sessions. The caller gets a clean commit containing exactly the changes the server made.
+The server's git model provides true content isolation through three mechanisms:
 
-If the caller doesn't commit (session drops, forgets), changes are staged but uncommitted — visible via `status`, trivially committable or discardable.
+**1. Clean-file precondition.** Before the server's first mutation of any file in a session, the file must have no uncommitted changes — neither staged nor unstaged. If the file is dirty, the operation is rejected with an error naming the path and its state. This prevents pre-existing edits from being absorbed when the server stages its change. Once the server has mutated a file, subsequent server operations on that same file in the same session are permitted without rechecking — the server owns the path.
 
-No branch-based staging, no commit-per-file, no automatic commits.
+**2. Stage and record.** After each mutation, the server runs `git add <path>` and records the path. Because the clean-file precondition ensured the file had no prior changes, the staged content is exactly the server's work.
+
+**3. Verified commit.** At commit time, the server checks each recorded path: does the working-tree file match the index for that path? If any recorded path has been modified externally since the server staged it (by a human, another tool, or another session), the discrepancy is reported and the commit is not made. When all recorded paths verify clean, `git commit -- <recorded-paths>` commits only those paths, excluding any other staged changes in the repository.
+
+**Why this works:**
+- Pre-existing changes cannot be absorbed (clean-file precondition rejects dirty files).
+- External modifications after staging cannot enter the commit (pre-commit verification catches them).
+- Other staged files cannot be included (`git commit -- <paths>` scopes the commit to named paths only, committing their current working-tree contents — which, having passed verification, match the server's staged state).
+- Same-path concurrency between sessions resolves naturally — the second session sees a dirty file and rejects.
+
+No branch-based staging, no separate index, no commit-per-file, no automatic commits.
 
 **Implementation:** `subprocess.run(["git", ...])` for all git operations. No git library dependency. The server shells out to the git binary on the user's PATH.
 
@@ -10723,13 +10754,16 @@ Each operation succeeds or fails independently. The server reports failures and 
 
 **Error categories and what the server returns:**
 
+- **Dirty file** — file has uncommitted changes and cannot be mutated. Names the path and its state (staged, modified, or both).
+- **Commit conflict** — a recorded path was modified externally since the server staged it. Names the affected paths. The commit is not made.
 - **Path containment violation** — the resolved path falls outside the source root. Names the path and the source.
 - **Patch mismatch** — zero matches or multiple matches. Returns the match count.
 - **Readonly rejection** — mutating operation attempted on a readonly source. Names the source and the operation.
 - **Destination exists** — copy or rename target already exists. Names the destination path.
 - **File not found** — names the path.
 - **Source not found** — names the source.
-- **Invalid config** — names the config issue (duplicate source names, missing name, etc.) at startup.
+- **Source name collision** — two sources resolve to the same name after qualification. Names both paths. Reported at startup.
+- **Invalid config** — names the config issue (missing name, invalid path, etc.) at startup.
 - **Binary rejection** — patch attempted on a binary file. Names the path.
 - **Encoding error** — file is not valid UTF-8. Names the path.
 - **Git failure** — returns git's error output verbatim.
@@ -10742,16 +10776,15 @@ Every error returns a structured response with: success flag, error type, and a 
 
 ## Packaging and delivery
 
-Delivered as part of the `aide` plugin in the `digitalbusiness-aide` marketplace, following the tested MCP delivery model documented in `Infrastructure_MCPDeliveryModel@v2`. Same pattern as the Orchestration dispatch server: a Python MCP server file in the plugin, with two registration paths for full surface coverage.
+Delivered as part of the `aide` plugin in the `digitalbusiness-aide` marketplace, following the tested MCP delivery model documented in `Infrastructure_MCPDeliveryModel@v2`.
 
-The two registration paths are runtime configuration, not different surfaces:
+The server's tools are available on **Desktop only** — Code and Cowork — via desktop app marketplace registration (Settings → Plugins → marketplace). The server runs as a local process with local filesystem access. Chat does not have access to the server's tools because local MCP server tools are not available through the web surface.
 
-- **Desktop app registration** (Settings → Plugins → marketplace) — makes the server's tools available in Code and Cowork.
-- **Web UI registration** (claude.ai Settings → Plugins) — makes the server's tools available in Chat via account-level server-side skill mount.
-
-In all cases the server runs as a local process with local filesystem access. No surface accesses the server remotely.
+Plugin skills (such as the governing skill, when it exists) are a separate matter — skills can reach Chat via web UI account-level registration. That is the skill's delivery path, not this server's.
 
 The binder-builder Python script is bundled inside the plugin so that `binder_build` has no external dependency beyond the script itself and the source's binder settings.
+
+**Build references:** the builder should consult `Infrastructure_MCPDeliveryModel@v2` for the packaging methodology, plugin structure, registration paths, and known platform issues. The Orchestration dispatch server in the same plugin is a working example of the same delivery pattern.
 
 ---
 
@@ -10766,13 +10799,14 @@ The server does not:
 - Operate on non-local filesystems
 - Watch for file changes or run operations automatically
 - Commit changes it did not make
+- Serve tools to Chat or any web surface
 
-The server does have bounded structural awareness for source discovery (`_index.md` format) and binder building (hosting the script). These are stated exceptions with explicit contracts.
+The server does have bounded structural awareness for source discovery (`_index.md` format) and binder building (hosting the script, reading the output path from settings). These are stated exceptions with explicit contracts.
 
 ---
 
-Version note: v2 — cross-review remediation. Path containment added (F4). Commit model changed to session-scoped tracked-paths isolation (F5). Readonly enforcement completed — binder_build and commit rejected on readonly, copy clarified (F7). Collision behaviour specified for copy, rename, and _recycle (F8). Source naming collision rules added (F9). Text/binary detection, encoding, and binary flag specified (F10). Boundary statement refined — structural awareness for discovery and binder build as stated exceptions (F2/F3). Surface scope clarified — two registration paths, both local (F11). Delivery model referenced as named dependency (F12). Governing skill removed from this design's scope — separate deliverable (F1). 2026-09-23. Replaces v1.
-<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Design_v2.md -->
+Version note: v3 — acceptance-round remediation. Git model replaced with clean-file precondition, stage-and-record, and verified commit — true content isolation replacing the pathname-tracking model that did not guarantee isolation (F5/F6). Binder output contract specified — server reads output path from settings, stages declared output only (F3). Source naming collision rule completed — after all qualification, any remaining collision is rejected (F9). Surface scope corrected — server tools on Desktop only, Chat claim removed (F11). Build references section added pointing to delivery model doc and dispatch server as working example (F12). 2026-09-23. Replaces v2.
+<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Design_v3.md -->
 
 ---
 
