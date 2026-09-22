@@ -3,11 +3,14 @@
 # AIDE Infrastructure — MCP Server Delivery Model
 
 Status: tested and confirmed, 2026-09-16; updated 2026-09-17 with skill-delivery
-findings and registration-path corrections. Not yet a formal Infrastructure design
-document — Infrastructure's design pass has not been run. This records the empirical
-findings and tested methodology so they are available when that pass happens, and so
-other components (Orchestration first, then binder, FUP, future tooling) can build
-against a grounded model rather than assumptions.
+findings and registration-path corrections; updated 2026-09-23 with marketplace
+refresh corrections (CLI command is the only working path — restart, remove/re-add
+do not pull), Python server encoding fix, multi-server plugin structure, and
+confirmed MSIX config path. Not yet a formal Infrastructure design document —
+Infrastructure's design pass has not been run. This records the empirical findings
+and tested methodology so they are available when that pass happens, and so other
+components (Orchestration first, then binder, FUP, future tooling) can build against
+a grounded model rather than assumptions.
 
 ---
 
@@ -26,16 +29,30 @@ not its owners.
 
 ## The model
 
-### One server codebase
+### Server codebase
 
-Raw Node.js, CommonJS, newline-delimited JSON over stdio, zero external dependencies
-(only Node.js builtins: `readline`, `crypto`). No MCP SDK required — the server
-implements raw JSON-RPC directly. 87–88 lines for the tested proof-of-concept.
+A plugin can contain multiple MCP servers in different languages. The `.mcp.json`
+declares each server with its command and args. Two patterns are proven:
+
+- **Node.js** — raw CommonJS, newline-delimited JSON over stdio, zero external
+  dependencies. Used by the dispatch server (`server/index.js`).
+- **Python** — raw JSON-RPC over stdio, stdlib only (no SDK). Used by the document
+  management server (`server/docmgmt/main.py`). On Windows, the config entry must
+  use the absolute path to a real Python interpreter — the WindowsApps Store stub
+  does not work.
+
+Both implement raw JSON-RPC directly with no MCP SDK dependency.
 
 Newline-delimited JSON framing is required — Claude Desktop's stdio transport expects
 `\n`-delimited JSON, not HTTP-style `Content-Length` headers. Using Content-Length
 causes a silent 120-second timeout on every connection attempt. This is not
 well-documented by Anthropic and was discovered during testing.
+
+**Encoding on Windows:** Python servers must set `sys.stdin.reconfigure(encoding=
+"utf-8")` at startup. Without it, stdin defaults to the Windows system codepage
+(cp1252), which mangles non-ASCII characters in JSON-RPC requests — including file
+content sent to write/patch operations, not just commit messages. Discovered and
+fixed in PR #12 (2026-09-23).
 
 ### One distribution unit
 
@@ -50,9 +67,12 @@ Plugin structure:
 <plugin-name>/
   .claude-plugin/
     plugin.json          — name, version, description
-  .mcp.json              — MCP server declaration
+  .mcp.json              — MCP server declarations (one or more)
   server/
-    index.js             — the MCP server
+    index.js             — Node.js MCP server (e.g. dispatch)
+    docmgmt/
+      main.py            — Python MCP server (e.g. document management)
+      config.py, ...     — supporting modules
   skills/<skill-name>/
     SKILL.md             — skill(s) that trigger tools
 ```
@@ -134,12 +154,25 @@ registrations appeared to happen through the same "Add marketplace" action.
 ### Update path
 
 1. Merge PR to marketplace repo.
-2. Refresh the local marketplace clone (`git fetch origin && git reset --hard
-   origin/main` in `~/.claude/plugins/marketplaces/<marketplace-name>/`).
+2. `claude plugin marketplace update <marketplace-name>` (terminal command — this
+   is the platform's mechanism for refreshing the local clone).
 3. Restart Claude Desktop.
 
 All three surfaces pick up the new server code. No rebuild, no reinstall, no
 separate artifact. Running sessions do not hot-reload — restart is required.
+
+**The merge-PR step is mandatory.** Direct commits to `main` do not trigger plugin
+updates. This is a hard build/deployment requirement, not a workflow preference.
+
+**Step 2 requires a terminal.** Claude Desktop's UI does not provide a working
+path to refresh marketplace clones — neither restart, nor remove-and-re-add, nor
+the Update button triggers a pull from origin. The CLI command is the only
+reliable method. See known issues #1 and #9.
+
+**Quit Claude Desktop before running step 2** if the marketplace contains a
+running server — the process holds a lock on the clone directory, and the CLI
+command fails with EPERM. The aide-desktop dispatch server, when running, is a
+common cause.
 
 ### Why Chat needs a separate entry
 
@@ -201,11 +234,14 @@ debugging a config issue, not a code issue — see known issue 6, below.
 
 ## Known platform issues (all workaroundable)
 
-### 1. Marketplace clone does not auto-pull reliably
+### 1. Marketplace clone does not auto-refresh
 
 The local clone at `~/.claude/plugins/marketplaces/<name>/` does not automatically
-fetch merged PRs. Requires manual `git fetch origin && git reset --hard origin/main`.
-The "Update" button was removed from the UI in a recent Claude Desktop version.
+fetch merged PRs on restart, remove-and-re-add, or any Desktop UI action. The
+platform's own mechanism is `claude plugin marketplace update <name>` from a
+terminal — confirmed 2026-09-23 to force-pull the clone. Neither restart nor
+remove-and-re-add triggers a pull from origin. Multiple independent reproductions
+exist (GitHub issues #36317, #37252, #38271, #54276, #94516).
 
 ### 2. UI plugin install does not persist to local config
 
@@ -282,13 +318,23 @@ This was not caught during original testing (2026-09-04/05) because the test pro
 happened to be registered via the web path. The production marketplace was later added
 via Desktop, which went to the wrong level.
 
-### 8. `%APPDATA%\Claude` may not exist at all
+### 8. `%APPDATA%\Claude` may not be browsable — use the MSIX-redirected path
 
-On at least one tested MSIX install, `%APPDATA%\Claude` does not exist — not as a
-junction, not as a real folder. This means `claude_desktop_config.json` has no
-location, and the Chat MCP bootstrap entry cannot be written until the correct config
-path is established. When issue 6 says "check before assuming," this is the further
-case: the entire directory may be absent, not just the `mcpServers` key within it.
+On MSIX installs, `%APPDATA%\Claude` may not be visible in File Explorer despite
+the config file existing on disk. The real location is the MSIX-redirected path:
+`%LOCALAPPDATA%\Packages\<PackageFamilyName>\LocalCache\Roaming\Claude\`. On the
+tested machine (package family `Claude_pzs8sxrjxfjjc`), both paths resolve to the
+same file — confirmed 2026-09-23 by reading identical content from both via
+subprocess. Edit at the MSIX-redirected path if `%APPDATA%\Claude` is not visible.
+
+### 9. Desktop remove-and-re-add reuses the stale clone
+
+Removing a marketplace via Desktop and re-adding it does not clone fresh from
+origin — it reuses the existing on-disk clone at `~/.claude/plugins/marketplaces/
+<name>/`. Confirmed 2026-09-23: after merging PR #11 (adding a Python MCP server),
+remove-and-re-add still showed the clone at PR #5. Only the CLI command
+`claude plugin marketplace update <name>` triggers a pull. This matches the
+independent reproduction in GitHub issue #54276.
 
 ---
 
