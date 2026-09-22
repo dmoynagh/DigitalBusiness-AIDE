@@ -2,14 +2,14 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 113** (2026-09-22).
+> **Binder Version 114** (2026-09-22).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
 
 ## Binder manifest
 
-- `_index.md` - sha256 `58eabf248047`
+- `_index.md` - sha256 `173f40558b1b`
 - `_rebuild/AIDE_Component_PurposeLines_v2.md` - sha256 `b1836489f28b`
 - `_rebuild/AIDE_Rebuild_Guide_v1.md` - sha256 `01ceb45e507b`
 - `_rebuild/AIDE_Rebuild_Overview_v1.md` - sha256 `5a65c44f5991`
@@ -25,29 +25,29 @@ individual files.
 - `_rebuild/WP_CoreCarries_v2.md` - sha256 `2f3ab75ce434`
 - `AIDE_Orchestration_Investigation_Findings.md` - sha256 `33b558f610ab`
 - `AIDE_Solution_Map.md` - sha256 `f7260ab91b37`
-- `Assurance/_index.md` - sha256 `d9fef2a2cfc2`
+- `Assurance/_index.md` - sha256 `e931b42dcfcb`
 - `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `fa41200d451f`
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
 - `Assurance/Assurance_Standard_v1.md` - sha256 `16dcf04b00e1`
-- `Build/_index.md` - sha256 `0db7cf175821`
+- `Build/_index.md` - sha256 `9a75e5df84b4`
 - `Build/Build_Brief_v4.md` - sha256 `d9717a0475c0`
 - `Build/Build_Decisions_v8.md` - sha256 `f9a1ac65dfe3`
 - `Build/Build_Design_v8.md` - sha256 `2987f32273f9`
 - `Build/Build_Overview_v6.md` - sha256 `5fce6400bb23`
-- `Core/_index.md` - sha256 `ef45ec5cb51e`
+- `Core/_index.md` - sha256 `218f4527af49`
 - `Core/Core_AIDEMap.md` - sha256 `5f8331b0988d`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `ca6507a444f0`
 - `Core/Core_AIDEPrinciples_Design_v1.md` - sha256 `92c4e46ff807`
 - `Core/Core_Brief_v2.md` - sha256 `23d1f1d1f622`
 - `Core/Core_Charter_v1.md` - sha256 `51fb5eb1bf14`
 - `Core/Core_Decisions_v1.md` - sha256 `2545fa050c39`
-- `Core/Core_Design_v5.md` - sha256 `6218e741a9ca`
-- `Core/Core_Schema_Standard_v3.md` - sha256 `49c6de8da5bb`
-- `Core/Core_Structure_Decisions_v1.md` - sha256 `cfe938b49cc1`
-- `Core/Core_Structure_Design_v1.md` - sha256 `e37b38c240b7`
+- `Core/Core_Design_v6.md` - sha256 `971a67e53789`
+- `Core/Core_Structure_Decisions_v2.md` - sha256 `036083c7b766`
+- `Core/Core_Structure_Design_v2.md` - sha256 `44b721ff071a`
+- `Core/Core_Structure_Standard_v1.md` - sha256 `947cc4265841`
 - `Core/Core_Tags_Working_v1.md` - sha256 `111c793579dd`
-- `Documentation Methodology/_index.md` - sha256 `39072c89a5fe`
+- `Documentation Methodology/_index.md` - sha256 `65236d98d709`
 - `Documentation Methodology/DocMeth_Brief_v1.md` - sha256 `60c5cf3f5d79`
 - `Documentation Methodology/DocMeth_Decisions_v7.md` - sha256 `15daf15e27ef`
 - `Documentation Methodology/DocMeth_Design_v6.md` - sha256 `8b5d6a24a5d7`
@@ -55,7 +55,7 @@ individual files.
 - `Documentation Methodology/DocumentationMethodology_SchemaAuthoring_Standard_v1.md` - sha256 `37a837a65cb3`
 - `Documentation Methodology/DocumentationMethodology_SchemaDefinitions_Standard_v1.md` - sha256 `8098d9714c57`
 - `Documentation Methodology/DocumentationMethodology_Standard_v1.md` - sha256 `8301aa2a0395`
-- `Infrastructure/_index.md` - sha256 `5d96017f27d6`
+- `Infrastructure/_index.md` - sha256 `7732b7fca4c2`
 - `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` - sha256 `e3c945043477`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `518121d99d79`
@@ -69,37 +69,37 @@ individual files.
 - `Infrastructure/version-cleanup/README.md` - sha256 `307a43363adb`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `c672be61d03a`
-- `Messaging/_index.md` - sha256 `9f8bf0ae5c0c`
+- `Messaging/_index.md` - sha256 `24b02a283278`
 - `Messaging/Messaging_Brief_v1.md` - sha256 `c1687d821833`
 - `Messaging/Messaging_Decisions_v4.md` - sha256 `c6a0f75cba95`
 - `Messaging/Messaging_Design_v4.md` - sha256 `48b767e284b0`
 - `Messaging/Messaging_Standard_v4.md` - sha256 `39a0045e2403`
 - `Messaging/Messaging_Tool_v4.md` - sha256 `c0a40ad3383d`
-- `Orchestration/_index.md` - sha256 `0534823e42d0`
+- `Orchestration/_index.md` - sha256 `d4bf32394bbd`
 - `Orchestration/AIDE_Orchestration_Decisions_v5.md` - sha256 `98d336117a70`
 - `Orchestration/AIDE_Orchestration_Design_v5.md` - sha256 `5cb84235137a`
 - `Orchestration/AIDE_Orchestration_UseCases_v2.md` - sha256 `5d4ecab3a53d`
-- `Principles/_index.md` - sha256 `e017158230f6`
+- `Principles/_index.md` - sha256 `a2b316acd172`
 - `Principles/Principles_Decisions_v5.md` - sha256 `386c2fc6d73d`
 - `Principles/Principles_Design_v5.md` - sha256 `2fb814c2c175`
 - `Principles/Principles_Standard_v2.md` - sha256 `a2c5cf6f320d`
-- `Project Design/_index.md` - sha256 `114abd78ea1a`
+- `Project Design/_index.md` - sha256 `7ba2f75cfec1`
 - `Project Design/ProjectDesign_Decisions_v3.md` - sha256 `8e6fee73bdf9`
 - `Project Design/ProjectDesign_Design_v3.md` - sha256 `2c4f60adb4f9`
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
 - `Project Design/ProjectDesign_Standard_v5.md` - sha256 `c035df4e8b17`
-- `Standards/_index.md` - sha256 `4d43a11ea4c4`
+- `Standards/_index.md` - sha256 `09379ef5eb4d`
 - `Standards/Standards_Authoring_Standard_v8.md` - sha256 `e52f99825c80`
 - `Standards/Standards_Consumption_Standard_v3.md` - sha256 `b801499930ac`
 - `Standards/Standards_Decisions_v4.md` - sha256 `38207b4e2082`
 - `Standards/Standards_Design_v3.md` - sha256 `07cbe0cd1fc0`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
-- `Tools/_index.md` - sha256 `92a6e49f0c6f`
+- `Tools/_index.md` - sha256 `90e0fa4aa6b7`
 - `Tools/Tools_Authoring_Standard_v8.md` - sha256 `d05452eddaa6`
 - `Tools/Tools_Decisions_v7.md` - sha256 `13ac6443f896`
 - `Tools/Tools_Design_v6.md` - sha256 `7554396473ca`
-- `Working Practices/_index.md` - sha256 `7b2b63d2efea`
-- `Working Practices/Boards/_index.md` - sha256 `30e6450ac364`
+- `Working Practices/_index.md` - sha256 `9b092e153fc7`
+- `Working Practices/Boards/_index.md` - sha256 `0ae0a05fb473`
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
 - `Working Practices/Boards/WP_Boards_Design_v1.md` - sha256 `13384c9edecf`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `6097d4250b37`
@@ -117,32 +117,9 @@ individual files.
 > identity: _index | doctype: index
 # AIDE
 
-Role: solution design
+Role: Documentation Solution
 
 AIDE is a methodology-driven framework that makes standards, tools, and behaviours live inside AI sessions. It preserves fidelity between what was decided, what was built, and what is actually deployed, while keeping the human able to hold and challenge the model throughout.
-
-## Components
-
-| Folder | Component | Primary role |
-|---|---|---|
-| Assurance | Assurance | Guidance |
-| Build | Build | Work |
-| Core | Core | Foundation |
-| Documentation Methodology | Documentation Methodology | Foundation |
-| Infrastructure | Infrastructure | Delivery |
-| Messaging | Messaging | Foundation |
-| Orchestration | Orchestration | Delivery |
-| Principles | Principles | Guidance |
-| Project Design | Project Design | Work |
-| Standards | Standards | Guidance |
-| Tools | Tools | Guidance |
-| Working Practices | Working Practices | Work |
-
-## Cross-cutting files
-
-- AIDE_Solution_Map.md — solution map, component status, and dependency graph
-- Core/Core_Charter_v1.md — founding rationale, objectives, development principles
-- Core/Core_AIDEMap.md — structural overview and component tree
 <!-- END SOURCE: _index.md -->
 
 ---
@@ -5093,18 +5070,10 @@ Working documents that govern the rebuild itself, not owned by a single componen
 
 # Assurance
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: none
 
 Assurance builds justified trust in AI-assisted work by defining the conventions, behaviours, and detection that ensure the human's intent is reliably delivered and that problems are visible when they occur. Guidance role. Cross-cutting — both a component and a framework-wide requirement.
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| Assurance_ | Design v3 | design |
-| Assurance_ | Decisions v3 | decisions |
-| Assurance_ | Standard v1 | standard |
 
 ## Parts
 
@@ -5742,19 +5711,10 @@ Version note: v1 — authored from Assurance_Design@v3 and Assurance_Decisions@v
 
 # Build
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: none
 
 Build executes design specifications and reports what was done. It translates intent into reality — the mechanism that turns designs, decisions and specifications into deployed working outputs. Build produces accepted standards and tools from their design specifications, persists documentation updates, and generates framework utility outputs.
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| Build_ | Brief v4 | brief |
-| Build_ | Design v8 | design |
-| Build_ | Decisions v8 | decisions |
-| Build_ | Overview v6 | overview |
 
 ## Parts
 
@@ -6560,37 +6520,17 @@ Version note: v6 — cross-review round 5. F15: autonomy and remaining shorthand
 
 # Core
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: none
 
 Core is the root entry to AIDE — the framework's self-description, component model, framework-wide requirements, and the map to all components. A reader arriving at AIDE reads Core to understand what AIDE is, what a component is, what the framework expects, and where to find any specific component's design.
 
-## Key definitions at this level
-
-**Component.** A defined area of functionality with a declared purpose, scope, and ownership. It owns its own documents and decisions. It may produce capabilities but need not. It is the functional unit independent of where it lives.
-
-**Capabilities.** An organisational grouping covering standards and tools — the output definitions that extend the development environment. Not a component.
-
-**Utility.** A third kind of output alongside standards and tools. Infrastructure — a repeatable operational task serving the framework's own operation. Utilities are not capabilities.
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| Core_ | Charter v1 | charter |
-| Core_ | Brief v2 | brief |
-| Core_ | Design v5 | design |
-| Core_ | Decisions v1 | decisions |
-| Core_ | Schema Standard v3 | standard |
-| Core_ | AIDEMap v3 | reference |
-| Core_ | Tags Working v1 | working |
-
 ## Parts
 
-**Structure** (prefix `Core_Structure_`)
-How AIDE documentation is physically and logically organised — folder conventions, container labels, the index doctype, path authority, and naming.
+**Structure** (prefix `Core_Structure_`), role: Area
+How AIDE documentation is physically organised — folder conventions, role vocabulary, the index doctype, path authority, and naming.
 
-**AIDEPrinciples** (prefix `Core_AIDEPrinciples_`)
+**AIDEPrinciples** (prefix `Core_AIDEPrinciples_`), role: Area
 The operating principles specific to AIDE as a framework — facilitate not constrain, opt-in behaviour, strength model, aliases. Produces a standard for deployment. Distinct from the Principles component, which owns universal, portable premises.
 <!-- END SOURCE: Core/_index.md -->
 
@@ -6953,8 +6893,8 @@ Version note: v1 — initial decisions from the Core design pass. 2026-09-15.
 
 ---
 
-<!-- BEGIN SOURCE: Core/Core_Design_v5.md -->
-> identity: Core_Design@v5 | doctype: design | updated: 2026-09-17
+<!-- BEGIN SOURCE: Core/Core_Design_v6.md -->
+> identity: Core_Design@v6 | doctype: design | updated: 2026-09-22
 
 # Core — Design
 
@@ -7092,7 +7032,7 @@ Fifteen active components, organised by primary role. Each component's entry poi
 
 ## Design areas
 
-**Structure** (prefix `Core_Structure_`). How AIDE documentation is physically and logically organised. Physical folders are the structure; no logical overlay. Path authority lives in the document header. The index document (`_index.md`) is the identity and entry point for each scope. Container labels provide shared vocabulary. The three-tier file model governs what the binder includes. One `_archived` folder at the documentation root holds files that are no longer active but worth keeping — retired references, completed reviews, outdated knowledge. The underscore prefix removes it from binder scope while keeping files in the repo and searchable. Git is the version history. The `_superseded` folder pattern is dropped — when a new version lands, the old version is deleted from the working tree. Rollback means checking out the previous version from git. Design and decisions documents exist.
+**Structure** (prefix `Core_Structure_`). How AIDE documentation is physically organised. Physical folders are the structure; no logical overlay. Path authority lives in the document header. `_index.md` is a generic folder metadata file — not AIDE-specific, governed by Declaration opt-in like any other document — that identifies document sources for discovery when its role is Documentation Solution or Documentation Project. Role vocabulary provides shared vocabulary. The three-tier file model governs what the binder includes. One `_archived` folder at the documentation root holds files that are no longer active but worth keeping — retired references, completed reviews, outdated knowledge. The underscore prefix removes it from binder scope while keeping files in the repo and searchable. Git is the version history. The `_superseded` folder pattern is dropped — when a new version lands, the old version is deleted from the working tree. Rollback means checking out the previous version from git. Design and decisions documents exist. Produces the Core Structure Standard for deployment.
 
 **AIDEPrinciples** (prefix `Core_AIDEPrinciples_`). The operating principles specific to AIDE as a framework — facilitate and extend, opt-in for benefit, the strength model, and aliases. Distinct from the Principles component, which owns universal portable premises governed by the portability test. Design and decisions documents exist. Produces a standard for deployment.
 
@@ -7125,34 +7065,14 @@ Fifteen active components, organised by primary role. Each component's entry poi
 Version note: v4 — Orchestration component map entry corrected to match accepted Orchestration_Design_v5 (D3/D29 proposed Core wording). WP component map entry boundaries updated to match WP_Design_v6 (umbrella structure confirmed, boards replace work plan per D21). 2026-09-17. Replaces v3.
 
 Version note: v5 — Build component map entry generalised to any-caller per Build_Decisions_v8 D3 (cross-review carry F3). 2026-09-17. Replaces v4.
-<!-- END SOURCE: Core/Core_Design_v5.md -->
+
+Version note: v6 — Structure design area description updated for the retirement of the Core Schema Standard (absorbed into Core_Structure_Standard@v1) and the "AIDE document" reframe: `_index.md` is generic folder metadata, and container labels are now role vocabulary. Notes that Structure now produces a standard for deployment. 2026-09-22. Replaces v5.
+<!-- END SOURCE: Core/Core_Design_v6.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Core/Core_Schema_Standard_v3.md -->
-> identity: Core_Schema_Standard@v3 | doctype: standard | updated: 2026-09-15 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
-
-# Core — Schema Standard
-
-The doctypes and block types defined by Core, using the Documentation Methodology definition contract.
-
-## Doctypes
-
-### Index
-
-- **Purpose:** The identity, entry point, and root source for a component or topic. Carries folder metadata, the component name, role, aliases, document listing, and parts declaration. One per scope.
-- **Format constraint:** markdown.
-- **Format conventions:** the filename is `_index.md`. The leading underscore sorts it to the top of a directory listing.
-
----
-
-Version note: v3 — Index definition confirmed by the Core design pass; provisional status removed. Tags block type was removed in v2. 2026-09-15. Replaces v2.
-<!-- END SOURCE: Core/Core_Schema_Standard_v3.md -->
-
----
-
-<!-- BEGIN SOURCE: Core/Core_Structure_Decisions_v1.md -->
-> identity: Core_Structure_Decisions@v1 | doctype: decisions | updated: 2026-09-10
+<!-- BEGIN SOURCE: Core/Core_Structure_Decisions_v2.md -->
+> identity: Core_Structure_Decisions@v2 | doctype: decisions | updated: 2026-09-22
 
 ## Summary
 
@@ -7171,8 +7091,8 @@ Root scope was designed as a block type declaring a folder as a root of a partic
 Parked because no consumer could be identified. Every purpose root scope was supposed to serve is already handled:
 - Path anchoring → physical folders plus header paths
 - Structure preservation in context → binder manifest
-- Container description → the AIDE document
-- Classification ("this is a design project") → the role field in the AIDE document
+- Container description → the `_index.md` folder metadata file
+- Classification ("this is a document source") → the role field in `_index.md`
 
 Root scope was compensating for a problem (context flattening) that binders already solve. Identified during discussion as the likely origin of the concept — when files were in flat folders for context loading, logical structure needed to be declared. With binders carrying relative paths, the need disappeared.
 
@@ -7180,11 +7100,7 @@ Root scope was compensating for a problem (context flattening) that binders alre
 
 Considered whether folder roles should be a formal type system with defined nesting rules (solution design contains project designs, project designs contain component designs, etc). Decided against: the labels describe what something is, not what it is allowed to contain. Nesting rules would impose structure the facilitate-not-constrain principle argues against, and no current functionality depends on knowing what's inside what.
 
-Four labels chosen from existing vocabulary Dave already uses:
-- Solution design — mirrors .NET solution concept
-- Project design — mirrors .NET project concept, aligns with the Project Design component name
-- Component design — matches the component definition
-- Area / part — both used naturally, synonyms until a distinction is demonstrated
+Four labels were originally chosen from existing vocabulary Dave already uses (solution design, project design, component design, area/part) — mirroring the .NET solution/project mental model. This session replaces them; see "Role vocabulary replaced" below.
 
 ## AIDE document naming
 
@@ -7194,7 +7110,7 @@ Explored several options for the file name:
 - `_folder.md` — generic but describes the container, not the function
 - `_index.md` — generic, familiar concept, describes the function (indexing), room to grow
 
-Chose `_index.md`. The underscore sorts it to the top. "Index" describes what it does rather than what it is about. The name is generic enough to work for any project whether using AIDE fully or partially. The concept retains the name "AIDE document" within framework terminology; the file on disk uses a name that doesn't advertise.
+Chose `_index.md`. The underscore sorts it to the top. "Index" describes what it does rather than what it is about. The name is generic enough to work for any project whether using AIDE fully or partially. At the time, the concept was still called the "AIDE document" within framework terminology, with the file on disk given a name that doesn't advertise. This session removes that framing entirely — see "Generic folder metadata, not AIDE-specific" below.
 
 ## Path authority chain
 
@@ -7211,7 +7127,7 @@ The three tiers:
 2. Known to the framework — listed in the `_index`, not loaded into context. The framework knows it exists
 3. Just present — incidental files AIDE has no opinion about
 
-This is recorded as a decisions entry because it affects binder design (owned by Working Practices / Content Delivery) and will be referenced from there. The structural implication — the `_index` as the awareness mechanism for tier 2 — belongs here.
+This is recorded as a decisions entry because it affects binder design (owned by Working Practices / Content Delivery) and will be referenced from there. The structural implication — the `_index` as the awareness mechanism for tier 2, via the Files block — belongs here.
 
 ## Design and output separation
 
@@ -7219,19 +7135,63 @@ Design documents and the outputs they produce are separate. The design folder ho
 
 The principle applies broadly: utilities to _utilities, skills to the skills deployment location, standards to capabilities, plugins to the marketplace. The design folder is always "why and how"; the output is always elsewhere.
 
+## Generic folder metadata, not AIDE-specific
+
+The `_index.md` was originally conceived as an "AIDE document" — a framework concept with a generic filename. Reframed this session: it is a generic folder metadata file. AIDE is a consumer. The generic name was already chosen to avoid framework branding; the reframe makes that the defining characteristic, not a naming convenience. Other tools can read and write the file as long as they respect the structure. AIDE governance is by Declaration opt-in, the same mechanism every other document uses.
+
+## Role vocabulary replaced
+
+Old container labels (`solution design`, `project design`, `component design`, `area / part`) replaced with explicit names: Documentation Solution, Documentation Project, Component, Part, Area. The old labels described what a folder was used for; the new ones name what it is. Documentation Solution and Documentation Project double as document source type identifiers for the document management tool — no additional field required.
+
+## Document source discovery from role
+
+Rather than a separate `document-source` field, documentation solutions and projects are inherently document sources. The document management tool discovers them by scanning configured roots, finding `_index.md` files, and reading their roles. The alternative — an explicit field — was rejected because it would duplicate what the role already says. Source naming uses the heading, with qualified form (solution\project) when project names collide.
+
+## No document root field
+
+The `_index.md` sits in the folder it describes — its location is the document root. A field declaring "documents are elsewhere" was considered and rejected because it contradicts the file's fundamental concept.
+
+## Index identity is `_index`, same for every instance
+
+Follows the default convention that identity matches filename. Scope disambiguation comes from the heading, the binder source path, or the filesystem. Scope-specific identities (`Core_Index`, `WP_Index`) were considered and rejected — they break the default, create per-file identity maintenance, and every delivery context already provides disambiguation.
+
+## No versioning on index files
+
+The index reflects current state. Version history is not meaningful for folder metadata. The doctype can state that versioning is not used even though the file is governed.
+
+## Parts as a block type
+
+A part is a virtual subfolder — same metadata as a physical subfolder's `_index`, without the directory. Fields: name, role, description, prefix (optional), files list (optional, for members not covered by the prefix). When a part outgrows its host, it promotes to a subfolder with its own `_index` — the data migrates, same split-test logic.
+
+## Files as a block type
+
+Tier 2 of the three-tier file model made concrete — metadata for files that do not or cannot carry their own Declaration. Two-column structure: filename and freeform info. No enforced column structure in the info field.
+
+## Document listing dropped as a structural element
+
+Every field in the old document tables (prefix, name, version, type) duplicates information each file carries in its own Declaration. Maintained duplicates drift — several existing `_index` files already had stale version numbers. An author can include a document listing as free content for orientation, but it is not part of the Index doctype's composition.
+
+## Components table, cross-cutting files, and key definitions sections dropped
+
+All were duplicates of information carried authoritatively elsewhere (the AIDE Map, the Core Design, each component's own `_index`). Same pattern as the document listing: useful editorial content stays as free content at the author's discretion, not structural metadata.
+
+## Versioning detection model
+
+Declaration presence is the gate — no Declaration, no versioning logic. Detection priority: (1) doctype declaration overrides everything, (2) identity `@v*` suffix, (3) filename `_v*` convention. Ungoverned files with coincidental `_v##` suffixes are ignored. User can instruct versioning be applied to such files, which causes the identity to be written in — the file becomes governed from that point.
+
 ---
 
-Version note: v1 — initial decisions from session 2026-09-10.
-<!-- END SOURCE: Core/Core_Structure_Decisions_v1.md -->
+Version note: v2 — Added this session's decisions: generic folder metadata reframe, role vocabulary replacement, document source discovery, no document root field, fixed `_index` identity, no versioning on index files, Parts and Files block types, dropped document-listing and other duplicate structural elements, versioning detection model. All v1 decisions preserved. 2026-09-22. Replaces v1.
+<!-- END SOURCE: Core/Core_Structure_Decisions_v2.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Core/Core_Structure_Design_v1.md -->
-> identity: Core_Structure_Design@v1 | doctype: design | updated: 2026-09-10
+<!-- BEGIN SOURCE: Core/Core_Structure_Design_v2.md -->
+> identity: Core_Structure_Design@v2 | doctype: design | updated: 2026-09-22
 
 ## Summary
 
-Defines how AIDE documentation is physically organised and navigated. Physical folders are the structure. Documents self-declare their identity and path in their headers, which is authoritative — the file system mirrors it. An optional file named `_index.md` describes a folder and indexes its contents for both human and AI readers. Four container labels provide shared vocabulary for describing what a folder holds. There is no logical overlay, no root scope mechanism, and no formal folder-type system — the conventions empower organisation without imposing it.
+Defines how AIDE documentation is physically organised and navigated. Physical folders are the structure. Documents self-declare their identity and path in their headers, which is authoritative — the file system mirrors it. A folder may carry an `_index.md` file: generic folder metadata, not an AIDE-specific concept. AIDE governs it the same way it governs any document — by Declaration opt-in. Role vocabulary replaces the old container labels and doubles as the mechanism by which a document management tool discovers named document sources. There is no logical overlay, no root scope mechanism, and no formal folder-type system — the conventions empower organisation without imposing it.
 
 ## Physical folders are the structure
 
@@ -7249,36 +7209,62 @@ A mismatch between header path and physical location is a detectable signal AIDE
 
 To change a document's path: update the path in the header. The FileUpdatePackage carries the move to the file system via a move action. For files updated outside an update package in chat, instruct the user where to save based on the header path. For Code or Cowork working directly on files, check the file's physical location against the header path and move if they disagree.
 
-## Container labels
+## Role vocabulary
 
-Four labels provide shared vocabulary for describing what a folder contains. Declared in the `_index.md` file via a `role` field. Plain string value.
+Container labels are replaced by an explicit role vocabulary. Declared in the `_index.md` file via a `role` field. Plain string value; multiple values combine on one line, comma-separated.
 
-Known labels:
+Known values:
 
-- **solution design** — umbrella container; holds component designs, project designs, and areas
-- **project design** — contains the design docs for a project
-- **component design** — contains the design for a component
-- **area / part** — a segment or grouping within a design; two labels for the same concept
+- **Documentation Solution** — a document source containing projects
+- **Documentation Project** — a document source, standalone or within a solution
+- **Component** — a framework component
+- **Part** — a segment or grouping within a scope
+- **Area** — same as Part for now, flagged as potentially distinct
 
-Using a known label gives AIDE inference — it recognises what the folder is for. Using a custom label works, it just is not one AIDE knows about. The list grows as new kinds demonstrate the need. No nesting rules are defined — the labels describe what something is, not what it is allowed to contain.
+Using a known value gives AIDE inference — it recognises what the folder is for. Using a custom value works, it just is not one AIDE knows about. The list grows as new kinds demonstrate the need. No nesting rules are defined — the values describe what something is, not what it is allowed to contain.
 
-## The AIDE document — `_index.md`
+## Folder metadata — `_index.md`
 
-A file named `_index.md` placed in a folder serves as the container's description and index. The concept is called the AIDE document within the framework; the file on disk uses a generic name with no framework branding.
+A file named `_index.md` placed in a folder describes the folder and indexes what it contains. It is a generic folder metadata concept, not owned or invented by AIDE — AIDE is a consumer of it, the same as any other tool that wants to read or write a folder's metadata as long as it respects the structure defined here.
 
-The underscore prefix sorts it to the top of any folder listing. The name "index" describes its function and has scope for including additional logic in future.
+AIDE governance works the same way it works for any document: add a Declaration and the file becomes governed. The doctype (`index`) gives it schema and change management under Documentation Methodology's rules. A bare `_index.md` with no Declaration is still valid folder metadata for any tool that reads it — it just isn't governed by AIDE.
 
 ### Purpose
 
-Describes what this folder is (via the role field) and indexes what it contains. In a mixed folder holding multiple parts, the body carries a parts list. Each entry in the parts list has a name, a short description, and optionally an entry point file. The parts list also records the file prefix associated with each part.
+Describes what this folder is (via the role field) and indexes what it contains. In a mixed folder holding multiple parts, the body carries a parts list. Each entry in the parts list has a name, a role, and a description, and optionally a file-prefix convention and an explicit file list.
 
 ### When it earns its place
 
-The AIDE document is optional. It earns its place when a folder's contents are not obvious from the files alone — typically when a folder holds multiple parts or when a reader needs orientation. Single-part folders with a handful of clearly-named files do not need one.
+A folder must have an `_index.md` to be discoverable as a document source — see Document source discovery, below. Below source level, the `_index` remains optional. It earns its place when a folder's contents are not obvious from the files alone — typically when a folder holds multiple parts or when a reader needs orientation. Single-part folders with a handful of clearly-named files do not need one.
+
+### Document source discovery
+
+When a `_index.md` declares a role of Documentation Solution or Documentation Project, it identifies the folder as a named document source. The name is the heading. A document management tool discovers sources by scanning configured roots for `_index.md` files and reading their roles — role and heading are sufficient, no separate field is needed. Sessions reference sources by name; the tool maps names to local paths.
+
+Source naming resolution:
+
+- Solution name alone: `AIDE_Documentation`
+- Project name alone (short form, when unambiguous): `Core`
+- Qualified form (when project names collide): `AIDE_Documentation\Core`
 
 ### Format
 
-Markdown is the natural choice when the content mixes structured fields (role, parts list) and descriptive prose. If a future `_index` is primarily machine-consumed structured data, yaml or json would be the right format. Format fits the job.
+Markdown is the natural choice when the content mixes structured fields (role, aliases, parts, files) and descriptive prose. It handles the dual-consumer requirement: structured fields for machine parsing, prose for human and AI orientation. If a future `_index` is primarily machine-consumed structured data, yaml or json would be the right format. Format fits the job.
+
+### Document ordering within the `_index`
+
+1. Declaration — first line, fixed (DocMeth)
+2. Heading — names the scope
+3. Role — identity field
+4. Aliases — identity field
+5. Description — free prose
+6. Parts — defined block (if used)
+7. Files — defined block (if used)
+8. Free content — notes, orientation, anything the author wants
+
+### Versioning
+
+Index files are governed documents (by Declaration opt-in) but do not carry versioned identities. The Declaration is `> identity: _index | doctype: index` — no `@v*` suffix. The file reflects current state, not a point-in-time publication.
 
 ## Root scope — parked
 
@@ -7292,8 +7278,112 @@ The binder manifest records relative paths for every document it includes. When 
 
 ---
 
-Version note: v1 — initial design from session 2026-09-10.
-<!-- END SOURCE: Core/Core_Structure_Design_v1.md -->
+Version note: v2 — Retired the "AIDE document" framing: `_index.md` is generic folder metadata, AIDE a consumer, governed by Declaration opt-in like any other document. Replaced the four container labels with an explicit role vocabulary (Documentation Solution, Documentation Project, Component, Part, Area) that doubles as document source discovery. Added document ordering and versioning conventions for index files. 2026-09-22. Replaces v1.
+<!-- END SOURCE: Core/Core_Structure_Design_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: Core/Core_Structure_Standard_v1.md -->
+> identity: Core_Structure_Standard@v1 | doctype: standard | updated: 2026-09-22 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
+
+# Core — Structure Standard
+
+Use when creating, modifying, or validating an `_index.md` file, or working with folder metadata, document sources, or role vocabulary.
+
+## Applicability
+
+Information. This standard applies when creating an `_index.md`, changing a folder's role or contents, deciding whether a folder needs an `_index.md`, or working out how a document management tool discovers document sources.
+
+## Schema definitions
+
+Information. The doctype and block types Core owns, using the Documentation Methodology definition contract.
+
+### Index (doctype)
+
+- **Purpose:** Folder metadata file. Describes what a folder is and indexes what it contains. Not AIDE-specific — a generic folder metadata concept. AIDE governance by Declaration opt-in: add a Declaration with `doctype: index` and DocMeth rules apply. When the role declares Documentation Solution or Documentation Project, the file identifies a document source for the document management tool. One per folder.
+- **Owner / Residence:** Core / Structure
+- **Format constraint:** markdown.
+- **Format conventions:** filename is `_index.md`. Leading underscore sorts it to the top of a directory listing. Identity is always `_index` — no per-instance identity. No versioning.
+- **Included block types:** Parts (optional), Files (optional).
+- **Identity fields (not block types):** role, aliases — key-value lines after the heading, before the body.
+
+### Parts (block type)
+
+- **Purpose:** Declares segments within the folder's scope — virtual subfolders grouping related files without a physical directory. Each entry carries the same metadata a subfolder's own `_index` would carry.
+- **Owner / Residence:** Core / Structure
+- **Fields per entry:** name (required), role (required), description (required), prefix (optional — filename convention identifying members), files (optional — explicit list of members not covered by the prefix).
+- **Optionality:** optional within the Index doctype.
+- **Density:** standard (one entry per part, descriptive).
+- **Recognition:** by subheading — `Parts`.
+
+### Files (block type)
+
+- **Purpose:** Carries metadata for files that do not or cannot carry their own Declaration. The tier 2 awareness mechanism from the three-tier file model — the framework knows a file exists because the `_index` lists it.
+- **Owner / Residence:** Core / Structure
+- **Fields per entry:** filename (required), info (required — freeform text, no enforced structure).
+- **Optionality:** optional within the Index doctype.
+- **Density:** compact (table).
+- **Recognition:** by subheading — `Files`.
+
+## Operational guidance
+
+### Document ordering within the `_index`
+
+1. Declaration — first line, fixed (DocMeth)
+2. Heading — names the scope
+3. Role — identity field
+4. Aliases — identity field
+5. Description — free prose
+6. Parts — defined block (if used)
+7. Files — defined block (if used)
+8. Free content — notes, orientation, anything the author wants
+
+### Role vocabulary
+
+Known values:
+
+- **Documentation Solution** — a document source containing projects
+- **Documentation Project** — a document source, standalone or within a solution
+- **Component** — a framework component
+- **Part** — a segment or grouping within a scope
+- **Area** — same as Part for now
+
+Multiple values separated by comma. Custom values are permitted — they work, they just aren't values the framework recognises. The list grows as new kinds demonstrate the need.
+
+### When the `_index` is required
+
+A folder must have an `_index.md` to be discoverable as a document source (Documentation Solution or Documentation Project). Below source level, the `_index` is optional — it earns its place when a folder's contents are not obvious from the files alone.
+
+### Identity and versioning
+
+Every `_index.md` carries the same identity: `_index`. Scope disambiguation comes from the heading, the binder source path, or the filesystem. No versioning — the file reflects current state. The Declaration is `> identity: _index | doctype: index`.
+
+### Document source discovery
+
+The document management tool discovers sources by scanning configured roots for `_index.md` files and reading their roles. Sessions reference sources by name (the heading); the tool maps names to local paths.
+
+Source naming resolution:
+
+- Solution name: `AIDE_Documentation`
+- Project short form (when unambiguous): `Core`
+- Qualified form (when project names collide): `AIDE_Documentation\Core`
+
+### Free content
+
+After the defined blocks, the author may include any additional content that aids understanding — notes, references, orientation material. This is permitted but not governed; it is not part of the Index doctype's composition.
+
+### Creating an `_index`
+
+Place an `_index.md` in the folder. Add a Declaration (`> identity: _index | doctype: index`) for AIDE governance. Add a heading naming the scope, role and aliases fields, a description, and any applicable blocks. A bare `_index.md` with just a heading and role is valid folder metadata. A fully declared one with Parts and Files is a complete index.
+
+### Modifying an `_index`
+
+The `_index` reflects current state — update it when the folder's structure, role, or contents change. Parts entries migrate to subfolders (with their own `_index`) when the split test is met. Document listings are not maintained as structural elements; files carry their own identity in their Declarations.
+
+---
+
+Version note: v1 — initial standard, absorbing the retired Core Schema Standard's Index doctype and adding the Parts and Files block types, role vocabulary, and document source discovery guidance from Core_Structure_Design_v2 and Core_Structure_Decisions_v2. 2026-09-22.
+<!-- END SOURCE: Core/Core_Structure_Standard_v1.md -->
 
 ---
 
@@ -7343,22 +7433,10 @@ Version note: v1 — initial working document from session 2026-09-09.
 
 # Documentation Methodology
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: DocMeth, DM
 
 Documentation Methodology defines how documents are structured and created — the generic mechanics. It owns the grammar of documents: doctypes, block types, the declaration, the definition contract, rendering rules, type-reference resolution, and the structural conventions that make documents portable and machine-readable. It is not a registry of types belonging to other components — specific doctypes and block types live with whoever knows the most about them.
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| DocMeth_ | Brief v1 | brief |
-| DocMeth_ | Design v6 | design |
-| DocMeth_ | Decisions v7 | decisions |
-| DocMeth_ | Working v9 | working |
-| DocumentationMethodology_ | Standard v1 | standard |
-| DocumentationMethodology_ | SchemaDefinitions Standard v1 | standard |
-| DocumentationMethodology_ | SchemaAuthoring Standard v1 | standard |
 
 ## Parts
 
@@ -8397,7 +8475,7 @@ Version note: v1 — clean-sheet rebuild. Replaces DocumentationMethodology_Auth
 
 # Infrastructure
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: none
 
 Infrastructure defines how to build and deploy utilities, and owns the design of the delivery mechanism (the `aide` dispatcher). It is a methodological component — it does not hold all utility designs. Individual utility designs live with the component or area that knows the most about them, under the what-knows-most-about-it principle.
@@ -8408,24 +8486,15 @@ Infrastructure is machinery that acts on the corpus and environment from outside
 
 Infrastructure utilities are not capability Tools. Capabilities (Standards, Tools) are loaded into the AI session to shape behaviour. Utilities run outside the session, acting on files, folders, and the environment.
 
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| Infrastructure_ | CLI Design v1 | design |
-| Infrastructure_ | CLI Decisions v1 | decisions |
-| Infrastructure_ | Working v1 | working |
-| AIDE_Infrastructure_ | MCPDeliveryModel v2 | reference |
-
 ## Parts
 
-**binder-builder** (prefix n/a)
+**binder-builder** (prefix n/a), role: Part
 The binder assembly utility — design, settings, and README.
 
-**file-update-package** (prefix n/a)
+**file-update-package** (prefix n/a), role: Part
 The FUP deployer — design, settings, and README.
 
-**version-cleanup** (prefix n/a)
+**version-cleanup** (prefix n/a), role: Part
 The version cleanup utility — design, settings, and README.
 <!-- END SOURCE: Infrastructure/_index.md -->
 
@@ -11729,22 +11798,12 @@ one build.
 
 # Messaging
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: Msg
 
 Messaging defines the format, structure, and conventions for reliable communication across any boundary — between AI sessions, projects, platforms, or contexts that may share nothing except relayed text. It owns the AI-MESSAGE envelope: format, addressing, identity, threading, receipt integrity, and acknowledgment conventions.
 
 Messaging is a grammar, not a transport. It defines what is carried, not how. Messages travel by Orchestration (automated) or by copy-paste (manual, always available).
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| Messaging_ | Brief v1 | brief |
-| Messaging_ | Design v4 | design |
-| Messaging_ | Decisions v4 | decisions |
-| Messaging_ | Standard v4 | standard |
-| Messaging_ | Tool v4 | tool |
 
 ## Parts
 
@@ -12956,18 +13015,10 @@ Version note: v4 — third cross-review remediation. R5: QueryReceipt response s
 
 # Orchestration
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: Orc
 
 Orchestration defines dispatch, correlation, invocation, and target adaptation for cross-platform AI work. It routes work to the right AI target with the right context and correlates the response. Delivery role.
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| AIDE_Orchestration_ | Design v5 | design |
-| AIDE_Orchestration_ | Decisions v5 | decisions |
-| AIDE_Orchestration_ | UseCases v2 | reference |
 
 ## Parts
 
@@ -14007,18 +14058,10 @@ in Orchestration D19 for Assurance; flagged for Improvement's own design pass.
 
 # Principles
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: none
 
 Principles defines nine portable reasoning premises for AI-assisted work. Any AI can adopt them without adopting AIDE. The premises are universal — they carry no AIDE-specific dependency and are governed by the portability test.
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| Principles_ | Design v5 | design |
-| Principles_ | Decisions v5 | decisions |
-| Principles_ | Standard v2 | standard |
 
 ## Parts
 
@@ -14377,19 +14420,10 @@ Version note: v2 — P3 strengthened (difficulty-as-evidence, apparatus-avoidanc
 
 # Project Design
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: PD
 
 Project Design produces a coherent specification for work of any size and manages the response from build as it pertains to design. Fluid in, precise out — it owns both ends of the design-build loop.
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| ProjectDesign_ | Design v3 | design |
-| ProjectDesign_ | Decisions v3 | decisions |
-| ProjectDesign_ | Standard v5 | standard |
-| ProjectDesign_ | Schema Standard v1 | standard |
 
 ## Parts
 
@@ -15396,22 +15430,12 @@ Version note: v5 — PD-UPD carries applied. PD-UPD.1: sufficiency contract amen
 
 # Standards
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: none
 
 Standards defines how standards are authored, applied, honoured, and kept current. It owns the definition of a standard, the authoring rules (including leanness), and the pipeline from reference knowledge to deployed standard.
 
 It is a methodological component — it does not hold all standards. Individual standards are designed and owned by the component or area they serve, under the what-knows-most-about-it principle.
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| Standards_ | Design v3 | design |
-| Standards_ | Decisions v4 | decisions |
-| Standards_ | Authoring Standard v8 | standard |
-| Standards_ | Consumption Standard v3 | standard |
-| Standards_ | Working v1 | working |
 
 ## Parts
 
@@ -15933,20 +15957,12 @@ Version note: v1 — initial working document from session 2026-09-09.
 
 # Tools
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: none
 
 Tools defines the methodology for building tools — repeatable, named, invokable actions performed by the AI in-session. It owns the tool definition, the invocability test that draws the boundary between a tool and a standard, and the authoring methodology used to design and author tools.
 
 Tools is a methodological component. It defines how to create its type; individual tools live with their owning component under the what-knows-most-about-it principle.
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| Tools_ | Design v6 | design |
-| Tools_ | Decisions v7 | decisions |
-| Tools_ | Authoring Standard v8 | standard |
 
 ## Parts
 
@@ -16320,25 +16336,16 @@ Version note: v6 — round 2 cross-review remediation: Brief Purpose and Target 
 
 # Working Practices
 
-Role: component design, project design
+Role: Component, Documentation Project
 Aliases: WP, workprac
 
 Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
 
 WP operates at two levels. At component level, capture-and-place, operational tools, file delivery rules, and the overview-first discipline are standing obligations. Below that, two areas provide the models and conventions work uses: Working State and Content Delivery.
 
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| WP_ | Brief v2 | brief |
-| WP_ | Design v6 | design |
-| WP_ | Decisions v4 | decisions |
-| WorkingPractices_ | Standard v2 | standard |
-
 ## Parts
 
-**Boards** (prefix `WP_Boards_`)
+**Boards** (prefix `WP_Boards_`), role: Part
 How work is tracked across its full lifecycle — boards as scoped task records with zones, dependencies, work sets, and AI maintenance. Supersedes the work plan (D10).
 <!-- END SOURCE: Working Practices/_index.md -->
 
@@ -16349,17 +16356,10 @@ How work is tracked across its full lifecycle — boards as scoped task records 
 
 # Boards
 
-Role: component design
+Role: Part
 Aliases: none
 
 How work is tracked across its full lifecycle — boards as scoped task records with zones, dependencies, work sets, and AI maintenance. Supersedes the work plan (WP D10).
-
-## Documents
-
-| Prefix | Document | Type |
-|---|---|---|
-| WP_Boards_ | Design v1 | design |
-| WP_Boards_ | Decisions v1 | decisions |
 
 ## Parts
 
