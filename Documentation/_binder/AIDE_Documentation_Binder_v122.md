@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 121** (2026-09-23).
+> **Binder Version 122** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -62,8 +62,8 @@ individual files.
 - `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
 - `Infrastructure/document-management/_index.md` - sha256 `e726f0298d82`
 - `Infrastructure/document-management/DocumentManagement_Brief_v3.md` - sha256 `b83c1b37690f`
-- `Infrastructure/document-management/DocumentManagement_Decisions_v3.md` - sha256 `19a7e239849f`
-- `Infrastructure/document-management/DocumentManagement_Design_v3.md` - sha256 `448cb45ea2c7`
+- `Infrastructure/document-management/DocumentManagement_Decisions_v4.md` - sha256 `8564c893f15f`
+- `Infrastructure/document-management/DocumentManagement_Design_v4.md` - sha256 `d0f82d5d4d75`
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `15617061295c`
 - `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `76a4c37c468f`
 - `Infrastructure/file-update-package/README.md` - sha256 `747bc371ff85`
@@ -10363,8 +10363,8 @@ Version note: v3 — cross-review remediation. Governing skill removed from this
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v3.md -->
-> identity: DocumentManagement_Decisions@v3 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v4.md -->
+> identity: DocumentManagement_Decisions@v4 | doctype: decisions | updated: 2026-09-23
 
 # Document Management — Decisions
 
@@ -10372,11 +10372,11 @@ Version note: v3 — cross-review remediation. Governing skill removed from this
 
 Two surfaces operating on the same git repo simultaneously share the same working tree and index. The design handles this differently depending on whether the surfaces touch the same or different files.
 
-**Different-path concurrency** is safe. The clean-file precondition and verified commit (D6) ensure each session's commit contains only its own changes. Git's file-level locking prevents mechanical index corruption.
+**Different-path concurrency** is safe. The clean-file precondition and content-verified commit (D6) ensure each session's commit contains only its own changes. Git's file-level locking prevents mechanical index corruption.
 
-**Same-path concurrency** is handled by rejection. The second session to touch a file the first session has already modified will see a dirty file and the clean-file precondition will reject the operation. This is a detection and rejection model, not isolation — the second session must wait until the first commits or discards.
+**Same-path concurrency** is detected at commit time. If two sessions mutate the same file, the second session's write overwrites the first's content. When the first session tries to commit, its content hash won't match the file's current working-tree content — the commit is rejected. The clean-file precondition catches the sequential case (second session sees a dirty file); the content-hash verification catches the concurrent case (both pass the precondition but only one can commit successfully).
 
-This is an accepted limitation, not an unaddressed risk. Revisit only if the rejection proves too coarse in practice.
+This is an accepted limitation. The losing session's commit is rejected, not silently corrupted. Revisit only if the rejection proves too coarse in practice.
 
 ## D2. Primitives server, not AIDE-aware server
 
@@ -10400,11 +10400,15 @@ Considered and rejected: per-repo config files (`.aide.yaml` in each repo). Prev
 
 When an explicit include names a path that auto-discover also finds, the explicit config wins. This lets the user override the auto-discovered name or add a readonly flag to a source that would otherwise be writable.
 
-## D6. Clean-file precondition and verified commit
+## D6. Clean-file precondition and content-verified commit
 
-The git isolation model uses three mechanisms: a clean-file precondition (reject mutations on files with uncommitted changes), stage-and-record (the server tracks what it touched), and verified commit (confirm no external modification before committing).
+The git isolation model uses three mechanisms: a clean-file precondition (reject mutations on files with uncommitted changes), stage-and-record with content hash (the server tracks what it touched and what it wrote), and content-verified commit (hash the working-tree file at commit time and compare against the recorded hash).
 
-Considered and rejected: session-scoped tracked-paths with `git commit -- <paths>` (the design v1/v2 position). Cross-review identified two problems: `git add` stages the whole file including pre-existing edits, and `git commit -- <paths>` commits working-tree contents, not the staged snapshot. Pathname tracking cannot isolate content. The clean-file precondition addresses the root cause: ensuring the file is clean before the server touches it means the staged content is exactly the server's work, and pre-commit verification catches any external modification after staging.
+The content hash is server-owned state — independent of the shared git index, which can be modified by other processes. This is what establishes ownership of the committed content: the server knows what it wrote, and it verifies the file still contains that content before committing.
+
+Considered and rejected: session-scoped tracked-paths with index-based verification (the design v2/v3 position). Cross-review identified that the git index is mutable shared state — another process can `git add` the same file, making the index match the working tree without the server knowing the content changed. Content hashing solves this: the server's recorded hash is immutable and the comparison is against the working-tree file, not the shared index.
+
+Also considered and rejected: a separate git index per session. This would provide true isolation but adds substantial complexity (managing `GIT_INDEX_FILE`, merging at commit time) for a solo-developer context where the concurrent-mutation scenario is already addressed by the clean-file precondition and hash verification.
 
 ## D7. Subprocess git, no library
 
@@ -10442,9 +10446,11 @@ Source list is loaded at startup and held in memory. A restart re-scans. No file
 
 No silent overwrite on copy or rename. If the destination path already exists, the operation fails and reports the collision. Write deliberately does allow overwrite — the semantics are "set the content of this file", which is different from "put a copy here" or "move this file there".
 
-## D15. Binder output contract — declared output path from settings
+## D15. Binder output contract — declared output is complete mutation set
 
-The server reads the binder-builder settings file and extracts the output path before invocation. After the script runs, the server stages and records only the declared output file. Files the builder may create or modify beyond that path are not automatically tracked — they would appear in `status` as untracked or modified. This keeps the contract explicit and prevents the server from having to diff the entire working tree to identify builder outputs.
+The server reads the binder-builder settings file and extracts the output path before invocation. After the script runs, the server stages and records only the declared output file. The declared output path is the binder builder's complete filesystem mutation set — the builder must not create, modify, or delete files outside it. This is a builder contract requirement, not a suggestion. The server applies its full safety model (clean-file precondition, content-hash recording) to the declared output and has no visibility of mutations outside it. Undeclared mutations are a builder contract violation.
+
+Cross-review finding N1 identified that permitting undeclared side effects breaks the safe-by-default model. The exhaustive-output-set requirement closes this: if the builder does it, it must declare it.
 
 ## D16. Source name uniqueness enforced after all qualification
 
@@ -10452,17 +10458,27 @@ After all qualification rules have been applied (solution/project nesting, expli
 
 ## D17. Server tools on Desktop only — Chat gets skills, not tools
 
-The server runs as a local process and its MCP tools are available only on Desktop surfaces (Code and Cowork) via desktop app marketplace registration. Local MCP server tools are not available through the web surface. Plugin skills (such as the governing skill, when it exists) can reach Chat via separate web UI account-level registration — that is the skill's delivery path, not this server's. The design v1/v2 conflation of tool availability and skill availability through different registration paths has been corrected.
+The server runs as a local process and its MCP tools are available only on Desktop surfaces (Code and Cowork) via desktop app marketplace registration. Local MCP server tools are not available through the web surface. Plugin skills (such as the governing skill, when it exists) can reach Chat via separate web UI account-level registration — that is the skill's delivery path, not this server's.
+
+## D18. Delivery model is a reference document, not a standards dependency
+
+Cross-review finding F12 requested that `Infrastructure_MCPDeliveryModel@v2` be formally declared as a dependency via the document's `uses` field. Rejected. The `uses` field is defined by DocMeth for standards dependencies — "standards this document depends on, as `standard@version` references." The MCP delivery model is explicitly not a standard; it describes itself as "not yet a formal Infrastructure design document." One design document referencing another in prose is the correct mechanism. The Build references section points the builder to it and to the Orchestration dispatch server as a working example.
+
+## D19. Residual TOCTOU window — accepted
+
+A narrow race condition exists between content-hash verification and the `git commit` command. An external write in that window could enter the commit undetected because `git commit -- <paths>` reads working-tree contents at commit time, not at verification time.
+
+This is concurrent filesystem access to the same file within the same instant — entirely theoretical for a solo developer working one surface at a time. The window is substantially narrower than the verification windows in standard git workflows (which have no verification at all). Stated as an accepted residual. A separate git index would eliminate it entirely but is rejected as disproportionate to the risk (D6).
 
 ---
 
-Version note: v3 — acceptance-round remediation. D1 rewritten to distinguish different-path (safe) from same-path (rejected) concurrency. D6 rewritten for clean-file precondition model replacing tracked-paths (F5/F6). D15 added for binder output contract (F3). D16 added for post-qualification name uniqueness (F9). D17 added for Desktop-only tool scope (F11). 2026-09-23. Replaces v2.
-<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v3.md -->
+Version note: v4 — final acceptance remediation. D1 updated for content-hash concurrent detection. D6 rewritten for content-hash model replacing index-based verification, with separate-index explicitly considered and rejected. D15 strengthened — declared output is complete mutation set (N1). D18 added rejecting F12 — `uses` is for standards, delivery model is not a standard. D19 added stating the TOCTOU residual as accepted. 2026-09-23. Replaces v3.
+<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v4.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Design_v3.md -->
-> identity: DocumentManagement_Design@v3 | doctype: design | updated: 2026-09-23
+<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Design_v4.md -->
+> identity: DocumentManagement_Design@v4 | doctype: design | updated: 2026-09-23
 
 # Document Management — Design
 
@@ -10490,11 +10506,11 @@ The server is not entirely format-agnostic. It has structural awareness in two p
 
 **Source discovery** reads `_index.md` files to register sources. The contract is minimal and fixed: the server reads the filename (`_index.md`), the heading (source name), and the role field (whether the value is `Documentation Solution` or `Documentation Project`). This is structural metadata about folders, not document-content interpretation — comparable to git reading `.gitignore`. The `_index` specification is defined by the Core Structure Standard and is expected to be extremely stable. A change to the `_index` format would require a server update.
 
-**Binder build** hosts the binder-builder Python script as an invocable operation. The server reads the binder-builder settings file to determine the output path, invokes the script, and stages the declared output. The server's coupling is limited to: locating the settings file, reading the output path from it, calling the script with the source path, capturing success/failure, and staging the declared output file. The binder-builder's own logic, document-processing conventions, and settings beyond the output path are the script's concern.
+**Binder build** hosts the binder-builder Python script as an invocable operation. The server reads the binder-builder settings file to determine the output path, invokes the script, and stages the declared output. The declared output path is the binder builder's complete filesystem mutation set — the builder must not create, modify, or delete files outside it. The server's coupling is limited to: locating the settings file, reading the output path from it, calling the script with the source path, capturing success/failure, and staging the declared output file.
 
 ### What the server owns
 
-File operations with safety guarantees. Path containment enforcement. Source discovery and config. Git staging with clean-file preconditions and verified commit. The `_recycle` safety net for non-git sources. Keyed-data unique-match validation on patches. Readonly enforcement across all mutating operations. Error reporting.
+File operations with safety guarantees. Path containment enforcement. Source discovery and config. Git staging with clean-file preconditions and content-verified commit. The `_recycle` safety net for non-git sources. Keyed-data unique-match validation on patches. Readonly enforcement across all mutating operations. Error reporting.
 
 ### What the server does not own
 
@@ -10596,7 +10612,7 @@ The server distinguishes text and binary files for read, write, and patch operat
 
 ## Tool surface
 
-Twelve tools. Each succeeds or fails independently. All file-mutating operations on git-backed sources enforce the clean-file precondition, stage the change, and record the path for commit.
+Twelve tools. Each succeeds or fails independently. All file-mutating operations on git-backed sources enforce the clean-file precondition, stage the change, and record the path and content hash for commit verification.
 
 ### list_sources
 
@@ -10631,7 +10647,7 @@ Write or overwrite a file's entire content.
 - **content** — the full file content (text, or base64 when binary flag is set)
 - **binary** — boolean flag (optional, default false) — when true, content is decoded from base64 before writing
 
-Creates the file if it doesn't exist. Overwrites if it does. On git-backed sources: clean-file precondition enforced on the first mutation of this path in the session, change staged and path recorded. Rejected on readonly sources. Path containment enforced.
+Creates the file if it doesn't exist. Overwrites if it does. On git-backed sources: clean-file precondition enforced on the first mutation of this path in the session, change staged, path and content hash recorded. Rejected on readonly sources. Path containment enforced.
 
 ### patch
 
@@ -10642,7 +10658,7 @@ Apply a partial update to a text file using keyed-data unique-match.
 - **old** — the text to find (must match exactly once in the file)
 - **new** — the replacement text (empty string to delete the matched text)
 
-The server validates that `old` matches exactly once before applying. On zero matches or multiple matches, the operation fails and returns the match count. Rejected on binary files and readonly sources. On git-backed sources: clean-file precondition enforced on the first mutation of this path in the session, change staged and path recorded. Path containment enforced.
+The server validates that `old` matches exactly once before applying. On zero matches or multiple matches, the operation fails and returns the match count. Rejected on binary files and readonly sources. On git-backed sources: clean-file precondition enforced on the first mutation of this path in the session, change staged, path and content hash recorded. Path containment enforced.
 
 ### copy
 
@@ -10653,7 +10669,7 @@ Copy a file.
 - **dest_source** — destination source name (optional — same source if omitted)
 - **dest_path** — destination file path
 
-If the destination file already exists, the operation fails — no silent overwrite. On git-backed destinations: change staged and path recorded. Rejected if the destination source is readonly. Path containment enforced on both source and destination paths.
+If the destination file already exists, the operation fails — no silent overwrite. On git-backed destinations: change staged, path and content hash recorded. Rejected if the destination source is readonly. Path containment enforced on both source and destination paths.
 
 ### rename
 
@@ -10694,11 +10710,13 @@ Commit the server's changes to a source's git repo.
 - **source** — source name
 - **message** — commit message
 
-Before committing, the server verifies that every recorded path still matches the index — that no external tool or human has modified any of those files since the server staged them. If any discrepancy is detected, the conflict is reported (naming the affected paths) and the commit is not made.
+Before committing, the server verifies every recorded path by hashing its current working-tree content and comparing against the hash recorded when the server wrote it. If any hash mismatches — indicating the file was modified externally after the server staged it — the conflict is reported (naming the affected paths and their expected vs actual hashes) and the commit is not made.
 
-When verified clean, the server commits using `git commit -- <recorded-paths>`, which commits only the named paths. Other staged changes in the repository are not included.
+When all hashes verify, the server commits using `git commit -- <recorded-paths>`. Since `git commit -- <paths>` commits working-tree contents for the named paths, and hash verification just confirmed those contents match what the server wrote, the commit contains exactly the server's work.
 
 Fails if the source is not git-backed, if there are no recorded paths, or if the source is readonly.
+
+**Residual TOCTOU window:** a narrow race exists between hash verification and the git commit command — an external write in that window could enter the commit. This is concurrent filesystem access to the same file within the same instant, entirely theoretical for the solo-developer context. Stated as an accepted residual, not an unaddressed risk.
 
 ### status
 
@@ -10714,9 +10732,9 @@ Run the binder builder for a source.
 
 - **source** — source name
 
-The server locates the binder-builder settings file within the source and reads the output path from it. It then invokes the bundled Python binder-builder script against the source's document root. On success, the server stages the output file at the declared path and records it for commit.
+The server locates the binder-builder settings file within the source and reads the output path from it. It then invokes the bundled Python binder-builder script against the source's document root. On success, the server stages the output file at the declared path and records it with its content hash for commit.
 
-The server tracks only the declared output path. If the binder builder creates or modifies files beyond that path, those are not automatically staged or recorded — they would be visible via `status` as untracked or modified files.
+The declared output path is the binder builder's complete filesystem mutation set. The builder must not create, modify, or delete files outside the declared output path. This is a builder contract requirement — the server applies its full safety model (clean-file precondition, content-hash recording) to the declared output and has no visibility of mutations outside it.
 
 The server's role is invocation, output staging, and error capture. The binder-builder script owns its own logic, settings resolution, and document-processing conventions.
 
@@ -10726,25 +10744,27 @@ Rejected on readonly sources. Fails if no binder settings are found for the sour
 
 ## Git model
 
-**Clean-file precondition, stage, verified commit.**
+**Clean-file precondition, stage with content hash, verified commit.**
 
-The server's git model provides true content isolation through three mechanisms:
+The server's git model provides content-verified commit isolation through three mechanisms:
 
 **1. Clean-file precondition.** Before the server's first mutation of any file in a session, the file must have no uncommitted changes — neither staged nor unstaged. If the file is dirty, the operation is rejected with an error naming the path and its state. This prevents pre-existing edits from being absorbed when the server stages its change. Once the server has mutated a file, subsequent server operations on that same file in the same session are permitted without rechecking — the server owns the path.
 
-**2. Stage and record.** After each mutation, the server runs `git add <path>` and records the path. Because the clean-file precondition ensured the file had no prior changes, the staged content is exactly the server's work.
+**2. Stage and record with content hash.** After each mutation, the server runs `git add <path>` and records the path plus a hash of the content it wrote. The hash is the server's own record of exactly what it put in the file — independent of the shared git index, which can be modified by other processes.
 
-**3. Verified commit.** At commit time, the server checks each recorded path: does the working-tree file match the index for that path? If any recorded path has been modified externally since the server staged it (by a human, another tool, or another session), the discrepancy is reported and the commit is not made. When all recorded paths verify clean, `git commit -- <recorded-paths>` commits only those paths, excluding any other staged changes in the repository.
+**3. Content-verified commit.** At commit time, the server hashes each recorded path's current working-tree content and compares against its recorded hash. If any hash mismatches — the file's working-tree content is not what the server wrote — the commit is rejected with the affected paths reported. When all hashes verify, `git commit -- <recorded-paths>` commits only the named paths. Since the hash confirmed the working-tree contents match the server's work, the commit contains exactly what the server produced.
 
-**Why this works:**
+**What this catches:**
 - Pre-existing changes cannot be absorbed (clean-file precondition rejects dirty files).
-- External modifications after staging cannot enter the commit (pre-commit verification catches them).
-- Other staged files cannot be included (`git commit -- <paths>` scopes the commit to named paths only, committing their current working-tree contents — which, having passed verification, match the server's staged state).
-- Same-path concurrency between sessions resolves naturally — the second session sees a dirty file and rejects.
+- External modification after staging — whether by a human, another tool, or another session re-staging the file — is caught by the content-hash comparison at commit time. The hash is server-owned state, not the shared git index.
+- Other staged files cannot be included (`git commit -- <paths>` scopes to named paths only).
+- Same-path concurrency between sessions: the second session's mutation passes the clean-file precondition, but when the first session tries to commit, its content hashes won't match because the second session overwrote the file. The first session's commit is rejected.
+
+**Residual TOCTOU window:** a narrow race exists between hash verification and the git commit command. An external write in that window could enter the commit undetected. This is concurrent filesystem access within the same instant — entirely theoretical for the solo-developer context and substantially narrower than the verification windows in standard git workflows. Stated as an accepted residual, not an unaddressed risk.
 
 No branch-based staging, no separate index, no commit-per-file, no automatic commits.
 
-**Implementation:** `subprocess.run(["git", ...])` for all git operations. No git library dependency. The server shells out to the git binary on the user's PATH.
+**Implementation:** `subprocess.run(["git", ...])` for all git operations. No git library dependency. The server shells out to the git binary on the user's PATH. Content hashing uses a standard hash function (SHA-256) on the file bytes.
 
 ---
 
@@ -10755,7 +10775,7 @@ Each operation succeeds or fails independently. The server reports failures and 
 **Error categories and what the server returns:**
 
 - **Dirty file** — file has uncommitted changes and cannot be mutated. Names the path and its state (staged, modified, or both).
-- **Commit conflict** — a recorded path was modified externally since the server staged it. Names the affected paths. The commit is not made.
+- **Commit hash mismatch** — a recorded path's working-tree content does not match the hash of what the server wrote. Names the affected paths. The commit is not made.
 - **Path containment violation** — the resolved path falls outside the source root. Names the path and the source.
 - **Patch mismatch** — zero matches or multiple matches. Returns the match count.
 - **Readonly rejection** — mutating operation attempted on a readonly source. Names the source and the operation.
@@ -10784,7 +10804,7 @@ Plugin skills (such as the governing skill, when it exists) are a separate matte
 
 The binder-builder Python script is bundled inside the plugin so that `binder_build` has no external dependency beyond the script itself and the source's binder settings.
 
-**Build references:** the builder should consult `Infrastructure_MCPDeliveryModel@v2` for the packaging methodology, plugin structure, registration paths, and known platform issues. The Orchestration dispatch server in the same plugin is a working example of the same delivery pattern.
+**Build references:** the builder should consult `Infrastructure_MCPDeliveryModel@v2` for the packaging methodology, plugin structure, registration paths, and known platform issues. The Orchestration dispatch server in the same plugin is a working example of the same delivery pattern. These are reference documents for the builder, not standards dependencies — they do not govern this design's content and are not declared in `uses`.
 
 ---
 
@@ -10798,15 +10818,15 @@ The server does not:
 - Push to remote repositories
 - Operate on non-local filesystems
 - Watch for file changes or run operations automatically
-- Commit changes it did not make
+- Commit changes it did not make (within the stated TOCTOU residual)
 - Serve tools to Chat or any web surface
 
 The server does have bounded structural awareness for source discovery (`_index.md` format) and binder building (hosting the script, reading the output path from settings). These are stated exceptions with explicit contracts.
 
 ---
 
-Version note: v3 — acceptance-round remediation. Git model replaced with clean-file precondition, stage-and-record, and verified commit — true content isolation replacing the pathname-tracking model that did not guarantee isolation (F5/F6). Binder output contract specified — server reads output path from settings, stages declared output only (F3). Source naming collision rule completed — after all qualification, any remaining collision is rejected (F9). Surface scope corrected — server tools on Desktop only, Chat claim removed (F11). Build references section added pointing to delivery model doc and dispatch server as working example (F12). 2026-09-23. Replaces v2.
-<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Design_v3.md -->
+Version note: v4 — final acceptance remediation. Git commit verification changed from index-based to content-hash comparison — server records hash of content it wrote, verifies at commit time against working-tree content. Residual TOCTOU window stated as accepted (F5/F6). Binder output contract strengthened — declared output path is the complete filesystem mutation set, builder must not mutate outside it (N1). Build references section clarified — reference documents for the builder, not standards dependencies (F12 rejection). 2026-09-23. Replaces v3.
+<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Design_v4.md -->
 
 ---
 
