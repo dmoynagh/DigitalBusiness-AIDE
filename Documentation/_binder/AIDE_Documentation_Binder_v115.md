@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 114** (2026-09-22).
+> **Binder Version 115** (2026-09-22).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -98,7 +98,7 @@ individual files.
 - `Tools/Tools_Authoring_Standard_v8.md` - sha256 `d05452eddaa6`
 - `Tools/Tools_Decisions_v7.md` - sha256 `13ac6443f896`
 - `Tools/Tools_Design_v6.md` - sha256 `7554396473ca`
-- `Working Practices/_index.md` - sha256 `9b092e153fc7`
+- `Working Practices/_index.md` - sha256 `9f59ceebaaf4`
 - `Working Practices/Boards/_index.md` - sha256 `0ae0a05fb473`
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
 - `Working Practices/Boards/WP_Boards_Design_v1.md` - sha256 `13384c9edecf`
@@ -16342,11 +16342,6 @@ Aliases: WP, workprac
 Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
 
 WP operates at two levels. At component level, capture-and-place, operational tools, file delivery rules, and the overview-first discipline are standing obligations. Below that, two areas provide the models and conventions work uses: Working State and Content Delivery.
-
-## Parts
-
-**Boards** (prefix `WP_Boards_`), role: Part
-How work is tracked across its full lifecycle — boards as scoped task records with zones, dependencies, work sets, and AI maintenance. Supersedes the work plan (D10).
 <!-- END SOURCE: Working Practices/_index.md -->
 
 ---
