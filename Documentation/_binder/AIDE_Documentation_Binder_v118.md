@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 117** (2026-09-23).
+> **Binder Version 118** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -60,8 +60,9 @@ individual files.
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `518121d99d79`
 - `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
-- `Infrastructure/document-management/_index.md` - sha256 `e39d55a89a34`
+- `Infrastructure/document-management/_index.md` - sha256 `b7a5747507b3`
 - `Infrastructure/document-management/DocumentManagement_Brief_v2.md` - sha256 `ab0a82f011fe`
+- `Infrastructure/document-management/DocumentManagement_Decisions_v1.md` - sha256 `9eaa166b7f44`
 - `Infrastructure/document-management/DocumentManagement_Design_v1.md` - sha256 `2f55583f6223`
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `15617061295c`
 - `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `76a4c37c468f`
@@ -10292,7 +10293,9 @@ A local MCP server providing safe, format-agnostic file primitives over document
 
 | Filename | Info |
 | --- | --- |
-| DocumentManagement_Brief_v1.md | Component brief — objectives, scope, tool surface, definition of done |
+| DocumentManagement_Brief_v2.md | Brief — purpose, objectives, scope, definition of done |
+| DocumentManagement_Design_v1.md | Design — model, tool surface, config schema, git model, error handling |
+| DocumentManagement_Decisions_v1.md | Decisions — D1 concurrency |
 <!-- END SOURCE: Infrastructure/document-management/_index.md -->
 
 ---
@@ -10353,6 +10356,22 @@ The MCP server, deployed via the `aide` plugin in the `digitalbusiness-aide` mar
 
 Version note: v2 — solution-space content (tool surface, git model, error model, config schema, patching specifics) moved to design document. Brief retains problem-space: purpose, objectives, scope, requirements, definition of done. 2026-09-23. Replaces v1.
 <!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Brief_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v1.md -->
+> identity: DocumentManagement_Decisions@v1 | doctype: decisions | updated: 2026-09-23
+
+# Document Management — Decisions
+
+## D1. Concurrent multi-surface staging — noted, not addressed
+
+Two surfaces staging changes to the same git repo simultaneously could produce conflicting staged state. Not addressed because MCP runs one server process per connection, Dave works one surface at a time for document operations, and git handles concurrent staging at the file level. Revisit if a real collision occurs.
+
+---
+
+Version note: v1 — initial decisions from the document management design session. 2026-09-23.
+<!-- END SOURCE: Infrastructure/document-management/DocumentManagement_Decisions_v1.md -->
 
 ---
 
