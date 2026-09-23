@@ -1,4 +1,4 @@
-> identity: Services_Design@v2 | doctype: design | updated: 2026-09-23
+> identity: Services_Design@v3 | doctype: design | updated: 2026-09-24
 
 ## Brief
 
@@ -22,7 +22,9 @@
 
 ## What a service is and does
 
-A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it — filesystem access, git operations, external process invocation. The AI is a caller, not the executor.
+A service provides out-of-session operations that sessions call. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it — filesystem access, git operations, external process invocation. The AI is a caller, not the executor.
+
+Persistence is not what makes something a service. A service may run for as long as its host keeps it up, start per request, or be hosted always-on; how long it lives is a lifecycle characteristic the design states, not part of the type's identity. What defines the type is that sessions call it and a separate process does the work.
 
 This is the fundamental distinction from a tool. A tool encapsulates a procedure the AI performs in-session. A service encapsulates operations a separate process performs, which the AI calls. The service has its own lifecycle, its own configuration, and its own safety enforcement — none of which depend on the session that calls it.
 
@@ -76,6 +78,8 @@ Not every service needs all of these. A stateless dispatch service has no config
 
 ## Reviewing and testing a service
 
+**Self-check.** Before cross-review, the developer checks the design against its definition of done and confirms the boundary tests place it as a service — not a tool the AI could perform in-session, and not a utility that acts on the corpus without being called. This is a proportionate read-through, not a checklist; its purpose is to avoid spending a cross-review on something that is incomplete or the wrong type.
+
 **Reviewing the design.** The design is the build specification, so it is what gets reviewed. Cross-review by a separate AI, directed to find defects — contradictions, gaps, claims the delivery model can't support, operations without defined failure behaviour — and given the definition of done to test against. Findings are triaged as defects, partly valid, or misreadings, remediated, and recorded in the decisions. A further round is needed when remediation introduces material the reviewer hasn't seen.
 
 **Testing the built server.** Every operation is exercised against what the design says it does, including its failure paths. The server is then confirmed working on each surface it targets — Code, Cowork, and Chat for a local server — because the surfaces register servers by different paths and a server can work on one and not another. After the first update, confirm the update propagates: the surfaces pick up the new code after the update path is followed. This is the approach that proved the delivery model: a small probe operation returning identifying data (origin, timestamp, a runtime ID) shows which build is actually running on which surface.
@@ -86,15 +90,18 @@ The design is the build specification — there is no intermediate authored docu
 
 ### Current approach — local MCP servers
 
-Services are currently built as local MCP servers implementing raw JSON-RPC over stdio, with no MCP SDK dependency. Two patterns are proven:
+Services are currently built as local MCP servers over stdio. Two things are required, because they are interoperability facts — the platform does not work without them:
 
-- **Node.js** — CommonJS, newline-delimited JSON over stdio, no external dependencies. Used by the dispatch server.
-- **Python** — raw JSON-RPC, standard library only. Used by the document management server. On Windows, the config entry must use the absolute path to a real Python interpreter; the Store stub does not work.
+- **Newline-delimited message framing.** Claude Desktop's stdio transport expects `\n`-delimited JSON. Content-Length headers cause a silent 120-second timeout on every connection attempt. This is not well documented and was found in testing.
+- **UTF-8.** Messages are UTF-8. Python servers on Windows set `sys.stdin.reconfigure(encoding="utf-8")` at startup; without it, stdin uses the Windows system codepage and corrupts non-ASCII content in requests — file content, not just messages.
+
+The rest is the approach proven by the first two services, recorded as information rather than requirement. A future service may choose differently — an MCP SDK, ES modules, a third-party library — where that serves it better. The proven approach is raw JSON-RPC with no MCP SDK dependency, in one of two forms:
+
+- **Node.js** — CommonJS, no external dependencies. Used by the dispatch server.
+- **Python** — standard library only. Used by the document management server. On Windows, the config entry must use the absolute path to a real Python interpreter; the Store stub does not work.
 
 Knowledge from building the first two services:
 
-- **Newline-delimited JSON framing is required.** Claude Desktop's stdio transport expects `\n`-delimited JSON. Content-Length headers cause a silent 120-second timeout on every connection attempt. This is not well documented and was found in testing.
-- **Windows encoding.** Python servers set `sys.stdin.reconfigure(encoding="utf-8")` at startup. Without it, stdin uses the Windows system codepage and corrupts non-ASCII content in requests — file content, not just messages.
 - **Report status, not paths.** A service reports operational status to callers — whether it is initialised, what resources it found. It does not report filesystem paths or config file locations to the AI; the AI has no use for them, and setup detail belongs in the user guide.
 - **Safety is enforced in the process.** Path containment, readonly enforcement, clean-state preconditions, input validation. Where a service delegates work downstream, the design states what it validates before delegating and what it trusts the target to enforce.
 
@@ -112,6 +119,7 @@ What a service developer needs to know:
 
 - **Surfaces.** Code and Cowork get the server's tools through desktop app plugin registration. Chat currently needs a separate `claude_desktop_config.json` entry — the plugin's own server declaration doesn't reliably reach Chat (a platform bug). When the bug is fixed, the entry is removed; nothing else changes.
 - **Update path.** Merge a PR to the deploy repo, refresh the marketplace clone with `claude plugin marketplace update`, then restart Desktop. Direct commits to `main` don't trigger updates. Quit Desktop before refreshing if a server from that marketplace is running — it holds a lock on the clone.
+- **Platform support.** Claude — Chat, Code, and Cowork — is supported; a local service reaches coverage of all three Claude surfaces through the two paths above. ChatGPT and Codex are pending. The ChatGPT route recorded so far is the curated standards binders held as a future consideration (Standards D22), which carry standards, not services. No adapters for other platforms are built.
 
 ### Remote services
 
@@ -125,7 +133,7 @@ Not yet built. Deployment guidance is added from the first remote service's expe
 
 ## The sibling-outputs model extends to services
 
-A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the design, not from each other, and must not disagree.
+A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, out-of-session operations that sessions call into services. All derive from the design, not from each other, and must not disagree.
 
 The document management design produces a service (the MCP server) and will produce a governing skill (a tool, not yet built). The service provides the primitives; the tool will orchestrate them with document intelligence.
 
@@ -150,3 +158,5 @@ Services does **not** own:
 Version note: v1 — initial design and cross-review remediation (F2–F13). 2026-09-23.
 
 Version note: v2 — rescoped to broad guidance and knowledge capture: seven formal design concerns replaced with informal design guidance. Definition of done reframed around the development cycle. Added: applicability, classification by entry point, reviewing and testing a service (design cross-review, per-surface and update-propagation testing), the practical build knowledge from the first two services, local deployment facts, remote services, and AI-side consumption — so the development standard can be produced from this design. 2026-09-23. Replaces v1.
+
+Version note: v3 — second cross-review remediation. A service is defined by providing out-of-session operations that sessions call; persistence is a lifecycle characteristic, not type identity (F11, D17). Developer self-check added before cross-review (F5). Build: newline-delimited framing and UTF-8 kept as required; raw JSON-RPC, no SDK, CommonJS and standard-library-only recorded as the proven approach, not a requirement (F10, D16). Platform-support statement added to deployment (F13). 2026-09-24. Replaces v2.

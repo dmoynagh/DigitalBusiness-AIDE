@@ -1,4 +1,4 @@
-> identity: Utilities_Decisions@v1 | doctype: decisions | updated: 2026-09-23
+> identity: Utilities_Decisions@v2 | doctype: decisions | updated: 2026-09-24
 
 # Utilities — Decisions
 
@@ -34,6 +34,8 @@ Cross-review finding F6: utilities such as the file update package and version c
 
 ## D8 — Deployment means invokable
 
+*Status: extended by D12 — the minimum deployment contract. That deployment means invokable stands.*
+
 Cross-review finding F7: placing code in the repository does not make a utility usable. Deployment is defined as making the utility callable — a registered CLI command, a script entry point, or a service that wraps its implementation. Infrastructure owns the deployment path and any packaging.
 
 ## D9 — Cross-review findings not acted on
@@ -47,3 +49,19 @@ Per Capabilities D9 and D10: the definition of done is framed around the develop
 ---
 
 Version note: v1 — initial decisions, recorded retrospectively from the design session and cross-review. D1–D10. 2026-09-23.
+
+## D11 — Base lifecycle, and consumption through the README
+
+The design and standard said a utility follows "design, then build, then deploy" — out of step with the base lifecycle, which has review and consumption as phases (Capabilities D9). They now state the base lifecycle: design, review, build, deploy, consumption, with no authoring phase because the design is the specification.
+
+Consumption had no section. A utility is run by a person, and what that person needs is its README: what it does, how to invoke it, its settings file, and where output and logs go. The three existing utilities already work this way and their READMEs are the model. The README is therefore a required deliverable — a utility without one is not deployed — and no consumption standard is needed. This mirrors the service user guide (Services D11) at the lighter weight utilities warrant.
+
+## D12 — The minimum deployment contract
+
+D8 said deployment means invokable but left a developer to work out what that takes. The minimum is now stated: code placed per the Infrastructure CLI design (a module in the `aide` package's `utilities/` subpackage exposing `name`, `description` and `run`); invocation as an `aide` CLI command or a script entry point; a settings file and README alongside, in the utility's folder with its design; runtime state (per-project settings, log) under `_aide/utilities/<name>/`. The Infrastructure CLI design and the binder builder are named as the references. The paths were checked against the repositories: the live `aide` package is in the deploy repo (`aide-cli/src/aide/`), and the binder builder's settings and log are under `_aide/utilities/binder-builder/`.
+
+Implementation choices beyond the contract — language, internal structure, libraries — are left open, consistent with broad scope and few constraints (D2).
+
+---
+
+Version note: v2 — second cross-review remediation. D8 marked as extended by D12. D11 (base lifecycle; consumption through the README), D12 (minimum deployment contract). 2026-09-24. Replaces v1.

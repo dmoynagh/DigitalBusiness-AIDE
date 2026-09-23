@@ -1,4 +1,4 @@
-> identity: Services_Development_Standard@v1 | doctype: standard | updated: 2026-09-23 | uses: Capabilities_Development_Standard@v1
+> identity: Services_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2
 
 # Services — Development Standard
 
@@ -6,7 +6,7 @@ How to design, review, build, test, and deploy an AIDE service — and what has 
 
 ## What a service is
 
-Information. A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it. The AI is a caller, not the executor. The service has its own lifecycle, configuration, and safety enforcement, independent of the session that calls it.
+Information. A service provides out-of-session operations that sessions call. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it. The AI is a caller, not the executor. The service has its own lifecycle, configuration, and safety enforcement, independent of the session that calls it. How long it runs is a lifecycle characteristic stated in its design, not what makes it a service.
 
 Information. A service reaches the AI platform as a server. Currently this means a local MCP server; in future it may mean a remote endpoint. The service is what is designed; the server is how it is delivered.
 
@@ -44,6 +44,8 @@ Recommended. Not every service needs all of these, and a complex one may need mo
 
 ## Reviewing and testing a service
 
+**Self-check first.** Before cross-review, check the design against its definition of done and confirm the boundary tests place it as a service, not a tool or a utility. Keep it proportionate — a read-through, not a checklist.
+
 **Review the design.** The design is the build specification. Cross-review it with a separate AI directed to find defects — contradictions, gaps, claims the delivery model can't support, operations without defined failure behaviour — against the design's definition of done. Triage findings as defects, partly valid, or misreadings; remediate and record in the decisions. Run a further round only when remediation introduces material the reviewer hasn't seen.
 
 **Test the built server.** Exercise every operation against what the design says it does, including failure paths. Confirm the server works on each surface it targets — for a local server, Code, Cowork, and Chat, which register servers by different paths. After the first update, confirm the update propagates to each surface.
@@ -56,15 +58,16 @@ The design is the build specification — there is no authored document. Build c
 
 ### Local MCP servers
 
-Build as a local MCP server implementing raw JSON-RPC over stdio, with no MCP SDK dependency. Proven patterns:
+Build as a local MCP server over stdio.
 
-- **Node.js** — CommonJS, newline-delimited JSON over stdio, no external dependencies (the dispatch server).
-- **Python** — raw JSON-RPC, standard library only (the document management server). On Windows, the config entry uses the absolute path to a real Python interpreter; the Store stub does not work.
+- **Use newline-delimited message framing.** Content-Length headers cause a silent 120-second timeout on every connection.
+- **Use UTF-8.** Python servers on Windows call `sys.stdin.reconfigure(encoding="utf-8")` at startup; otherwise non-ASCII request content is corrupted.
+
+Information. Proven approach, not required: raw JSON-RPC with no MCP SDK dependency — Node.js in CommonJS with no external dependencies (the dispatch server), or Python with the standard library only (the document management server). A service may choose differently where that serves it better.
 
 Known issues and their solutions:
 
-- **Use newline-delimited JSON framing.** Content-Length headers cause a silent 120-second timeout on every connection.
-- **Set UTF-8 stdin on Windows.** Python servers call `sys.stdin.reconfigure(encoding="utf-8")` at startup; otherwise non-ASCII request content is corrupted.
+- **Python on Windows.** The config entry uses the absolute path to a real Python interpreter; the Store stub does not work.
 - **Report status, not paths.** Report operational status to callers — initialised, resources found. Don't expose filesystem paths or config locations to the AI; put setup detail in the user guide.
 - **Enforce safety in the process.** Path containment, readonly enforcement, clean-state preconditions, input validation. Where the service delegates downstream, state what it validates first and what it trusts the target to enforce.
 
@@ -80,6 +83,8 @@ Deliver the server in a marketplace plugin: `.mcp.json` declaring each server us
 
 - **Surfaces.** Code and Cowork get the tools through desktop app plugin registration. Chat needs a separate `claude_desktop_config.json` entry — a workaround for a platform bug; remove it when the bug is fixed.
 - **Update path.** Merge a PR to the deploy repo, run `claude plugin marketplace update`, restart Desktop. Direct commits to `main` don't trigger updates. Quit Desktop first if a server from that marketplace is running — it locks the clone.
+
+Information. Platform support: Claude — Chat, Code, and Cowork — is supported; the two paths above give coverage of all three Claude surfaces. ChatGPT and Codex are pending. The ChatGPT route recorded so far is curated standards binders, a future consideration that carries standards, not services. No adapters for other platforms are built.
 
 Information. The full methodology and platform issues are in Infrastructure's MCP delivery model.
 
@@ -104,3 +109,5 @@ Information. A single design can produce standards, tools, and services as sibli
 ---
 
 Version note: v1 — initial standard. Produced from Services_Design@v2: informal design guidance, review and testing, practical build knowledge from the first two services, local deployment, remote placeholder, user guide as a deliverable. 2026-09-23.
+
+Version note: v2 — a service is defined by out-of-session operations that sessions call, not persistence. Self-check added before cross-review. Build: only newline-delimited framing and UTF-8 are required; the rest is information on the proven approach. Platform-support statement added. Produced from Services_Design@v3. 2026-09-24. Replaces v1.

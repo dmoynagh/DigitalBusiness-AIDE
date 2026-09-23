@@ -1,4 +1,4 @@
-> identity: Services_Decisions@v2 | doctype: decisions | updated: 2026-09-23
+> identity: Services_Decisions@v3 | doctype: decisions | updated: 2026-09-24
 
 ## D1 — Services is a methodological component, same pattern as Tools and Standards
 
@@ -52,6 +52,8 @@ This parallels the existing taxonomy. A standard is delivered as a skill. A tool
 
 ## D9 — Hosted services follow the same design methodology
 
+*Status: revised by D12 — the seven design concerns it lists are now informal design guidance. That hosted services follow the same methodology stands.*
+
 The design scope note says hosted services (cloud-hosted, always-on — the framework inbox and assurance data logger discussed in the orchestration and assurance designs) follow the same design concerns but have a different delivery model. The design methodology — interface, configuration, discovery, safety, state, errors, lifecycle — applies regardless of where the process runs. What changes is Infrastructure's delivery concern: local MCP server vs cloud-hosted endpoint.
 
 This means Services does not need a "local vs hosted" split in its methodology. It provides one set of design concerns. Infrastructure provides different delivery models for each hosting context.
@@ -95,3 +97,15 @@ Remote (hosted) services follow the same design guidance (D9). No remote service
 ---
 
 Version note: v2 — D12 (broad scope; design concerns become informal guidance; D4 superseded), D13 (build and deployment knowledge lives in the design), D14 (review and testing for services), D15 (remote services as placeholder). 2026-09-23. Replaces v1.
+
+## D16 — Build patterns are information; only framing and encoding are required
+
+The standard presented raw JSON-RPC, no MCP SDK, CommonJS and Python-standard-library-only as the way to build a service. Those are what the first two services chose and they work, but nothing in the platform requires them — a future service may be better served by an SDK or a library. They are now recorded as Information, a proven approach. Two things stay Required because they are interoperability facts, not choices: newline-delimited message framing (Content-Length framing times out silently on Claude Desktop) and UTF-8 (the Windows default codepage corrupts non-ASCII content). This keeps the component broad in scope with few constraints (D12).
+
+## D17 — Persistence is not what defines a service
+
+The definition said a service "provides persistent operations". Persistence is a lifecycle characteristic — a service may stay up with its host, start per request, or be hosted always-on — and making it part of the definition would misclassify a short-lived service and suggest a long-running utility is a service. The defining property is the one D3 already names: sessions call it and a separate process does the work. A service is now defined as providing out-of-session operations that sessions call. The same wording replaces "persistent operations" in the sibling-outputs model in Tools and Services.
+
+---
+
+Version note: v3 — second cross-review remediation. D9 marked as revised by D12. D16 (build patterns become information; framing and UTF-8 stay required), D17 (persistence is not service-defining). 2026-09-24. Replaces v2.

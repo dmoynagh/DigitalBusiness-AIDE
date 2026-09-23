@@ -1,4 +1,4 @@
-> identity: Standards_Consumption_Standard@v4 | doctype: standard | updated: 2026-09-23 | uses: Standards_Development_Standard@v1
+> identity: Standards_Consumption_Standard@v5 | doctype: standard | updated: 2026-09-24 | uses: Standards_Development_Standard@v2
 
 # Standards — Consumption Standard
 
@@ -6,7 +6,7 @@ How to evaluate, combine, and operate under applicable AIDE standards at runtime
 
 ## Applicability
 
-Information. This standard applies when an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, or deploying standards; those activities are governed by the standards authoring standard.
+Information. This standard applies when an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, reviewing, building, or deploying standards; those activities are governed by the Standards Development Standard.
 
 ## Evaluate applicability before applying
 
@@ -39,3 +39,5 @@ Recommended. Normal operation does not narrate every standard consulted. Surface
 ---
 
 Version note: v4 — `uses` updated to Standards_Development_Standard@v1 (supersedes Standards_Authoring_Standard). No substantive changes. 2026-09-23. Replaces v3.
+
+Version note: v5 — applicability now names the Standards Development Standard (the authoring standard it named was deleted) and lists designing, authoring, reviewing, building, and deploying. `uses` updated to Standards_Development_Standard@v2. Produced from Standards_Design@v5. 2026-09-24. Replaces v4.

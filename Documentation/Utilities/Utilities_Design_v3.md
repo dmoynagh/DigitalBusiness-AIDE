@@ -1,4 +1,4 @@
-> identity: Utilities_Design@v2 | doctype: design | updated: 2026-09-23
+> identity: Utilities_Design@v3 | doctype: design | updated: 2026-09-24
 
 # Utilities — Design
 
@@ -36,7 +36,7 @@ A thing may start as a utility and become a service when sessions need to call i
 
 ## Designing a utility
 
-A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, then build, then deploy. There is no authored document; the design goes directly to build.
+A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, review, build, deploy, and consumption. There is no authoring phase: the design is the specification, and once reviewed it goes directly to build.
 
 The design should address whatever the utility needs to be built correctly. For most utilities, that means:
 
@@ -58,6 +58,8 @@ The Utilities Development Standard applies when designing, reviewing, building, 
 
 ## Reviewing and testing a utility
 
+**Self-check.** Before cross-review, the developer checks the design against its definition of done and confirms the boundary tests place it as a utility — out-of-session, acting on the corpus on its own terms, not something sessions call (that would be a service). A proportionate read-through, not a checklist: its purpose is to avoid spending a cross-review on a design that is incomplete or the wrong type.
+
 **Reviewing the design.** The design is the build specification, so it is what gets reviewed: cross-review by a separate AI directed to find defects, against the definition of done, with findings triaged, remediated, and recorded in the decisions. For a small utility this is proportionately light — the point is an independent check, not ceremony.
 
 **Testing the built utility.** Run it against representative input and confirm its output and effects match the design. For a utility that changes or removes content, exercise its failure behaviour — what it does when it fails partway — because that is where a utility can do lasting damage. If the design declares it safe to run again, run it twice and confirm the second run changes nothing. Confirm it is invocable through its deployment form, not just runnable from its source.
@@ -70,9 +72,22 @@ The utility's code is the deliverable. There is no intermediate document — the
 
 ## Deployment
 
-A utility is deployed where it can be invoked — deployment means the utility is callable, not just that its code is present. Currently this means the AIDE repository, with invocation through a registered CLI command, a script entry point, or a service that wraps the utility's implementation. Infrastructure owns the deployment path and any packaging.
+A utility is deployed where it can be invoked — deployment means the utility is callable, not just that its code is present. Infrastructure owns the deployment path and any packaging.
 
-A utility may also be delivered as part of an MCP server (as the binder builder is delivered within the document management server) or as a standalone CLI command. The deployment form depends on how the utility is invoked.
+The minimum a deployed utility provides:
+
+- **Code placed per the Infrastructure CLI design.** A module in the `utilities/` subpackage of the `aide` package (in the deploy repo, `aide-cli/src/aide/utilities/`), exposing a `name`, a `description` and a `run` function. Presence and that shape are registration — there is no manifest.
+- **An invocation.** Either as an `aide` CLI command (the module's `name` becomes the subcommand — `aide binder`) or through a script entry point.
+- **A settings file and a README alongside.** The default settings file and the README sit together in the utility's folder with its design, as the binder builder's do in `Infrastructure/binder-builder/`.
+- **Runtime state under `_aide/utilities/<name>/`** at the documentation root — per-project settings and the log, as the binder builder keeps them in `_aide/utilities/binder-builder/`.
+
+The references are the Infrastructure CLI design (`Infrastructure_CLI_Design@v1`), which defines registration, settings layers and the `_aide` folder, and the binder builder as a working example. They are prose references, not `uses` dependencies. Implementation choices beyond this contract — language, internal structure, libraries — stay open to the utility's design.
+
+A utility may also be exposed through a service that wraps its implementation (as the binder builder is within the document management server). The session-facing operation is then a service; the standalone invocation remains the utility.
+
+## Consumption
+
+A utility is consumed through its README. The README tells the person running it what it does, how to invoke it, what its settings file contains and where it lives, and where its output and log go. The existing utilities' READMEs — binder builder, version cleanup, file update package — are the model: each covers those four things and adds whatever else running it safely needs, such as what it declines to do or how to read its report. No separate consumption standard is needed; the README is a deliverable of build, and a utility without one is not deployed.
 
 ## Ownership
 
@@ -85,3 +100,5 @@ Infrastructure currently holds the three working utility instances (binder build
 Version note: v1 — initial design. Cross-review remediation: F1 (tool disambiguation), F2 (corpus alignment), F3 (classification-follows-entry-point), F5 (intentional-omission signal), F6 (failure behaviour for destructive utilities), F7 (deployment means invokable). 2026-09-23.
 
 Version note: v2 — definition of done reframed around the development cycle. Applicability and reviewing-and-testing added so the development standard can be produced from the design. 2026-09-23. Replaces v1.
+
+Version note: v3 — second cross-review remediation. Lifecycle corrected to the base lifecycle — design, review, build, deploy, consumption, no authoring phase; Consumption section added — a utility is consumed through its README (F6, D11). Developer self-check added before cross-review (F5). Deployment states the minimum contract, referencing the Infrastructure CLI design and the binder builder (F7, D12). 2026-09-24. Replaces v2.

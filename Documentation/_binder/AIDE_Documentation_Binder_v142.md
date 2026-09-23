@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 141** (2026-09-23).
+> **Binder Version 142** (2026-09-24).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -36,9 +36,9 @@ individual files.
 - `Build/Build_Design_v8.md` - sha256 `2987f32273f9`
 - `Build/Build_Overview_v6.md` - sha256 `5fce6400bb23`
 - `Capabilities/_index.md` - sha256 `bd890d11e765`
-- `Capabilities/Capabilities_Decisions_v2.md` - sha256 `14c968bcd986`
-- `Capabilities/Capabilities_Design_v2.md` - sha256 `5137e272dcf1`
-- `Capabilities/Capabilities_Development_Standard_v1.md` - sha256 `27376840692d`
+- `Capabilities/Capabilities_Decisions_v3.md` - sha256 `1a6b7650022e`
+- `Capabilities/Capabilities_Design_v3.md` - sha256 `67e6a18719ad`
+- `Capabilities/Capabilities_Development_Standard_v2.md` - sha256 `3826fbfa7e13`
 - `Core/_index.md` - sha256 `218f4527af49`
 - `Core/Core_AIDEMap.md` - sha256 `d88d37be296a`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `ca6507a444f0`
@@ -96,25 +96,25 @@ individual files.
 - `Project Design/ProjectDesign_Design_v3.md` - sha256 `2c4f60adb4f9`
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
 - `Project Design/ProjectDesign_Standard_v5.md` - sha256 `c035df4e8b17`
-- `Services/_index.md` - sha256 `25403038fb3d`
-- `Services/Services_Decisions_v2.md` - sha256 `02bca03326d4`
-- `Services/Services_Design_v2.md` - sha256 `49e4dbb8fcae`
-- `Services/Services_Development_Standard_v1.md` - sha256 `d28d3bad001f`
+- `Services/_index.md` - sha256 `b5326fa05926`
+- `Services/Services_Decisions_v3.md` - sha256 `84e4ad8978d5`
+- `Services/Services_Design_v3.md` - sha256 `25aaef0bf23f`
+- `Services/Services_Development_Standard_v2.md` - sha256 `fd2f907dffd5`
 - `Standards/_index.md` - sha256 `04a94d82fe00`
-- `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
-- `Standards/Standards_Decisions_v5.md` - sha256 `68051c7bb4e0`
-- `Standards/Standards_Design_v4.md` - sha256 `667a8ff68010`
-- `Standards/Standards_Development_Standard_v1.md` - sha256 `fb221a00a231`
+- `Standards/Standards_Consumption_Standard_v5.md` - sha256 `176c3b7c7e80`
+- `Standards/Standards_Decisions_v6.md` - sha256 `641c144f854f`
+- `Standards/Standards_Design_v5.md` - sha256 `4c2762050112`
+- `Standards/Standards_Development_Standard_v2.md` - sha256 `191ce82e9d67`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
 - `Tools/_index.md` - sha256 `81f4544dcee5`
-- `Tools/Tools_Decisions_v8.md` - sha256 `844a6dee8fdf`
-- `Tools/Tools_Design_v7.md` - sha256 `ae69c6a5fb3d`
-- `Tools/Tools_Development_Standard_v1.md` - sha256 `93eef2cb73e5`
+- `Tools/Tools_Decisions_v9.md` - sha256 `c292d93b8176`
+- `Tools/Tools_Design_v8.md` - sha256 `aecf422fe56a`
+- `Tools/Tools_Development_Standard_v2.md` - sha256 `cb76c95cfee1`
 - `Utilities/_index.md` - sha256 `cf88a5022544`
 - `Utilities/Utilities_Brief_v1.md` - sha256 `400d07b676f2`
-- `Utilities/Utilities_Decisions_v1.md` - sha256 `726d6d4a2b3e`
-- `Utilities/Utilities_Design_v2.md` - sha256 `3f730c173c38`
-- `Utilities/Utilities_Development_Standard_v1.md` - sha256 `a4baf5149886`
+- `Utilities/Utilities_Decisions_v2.md` - sha256 `7113391e7c2b`
+- `Utilities/Utilities_Design_v3.md` - sha256 `4bc8ca33bec1`
+- `Utilities/Utilities_Development_Standard_v2.md` - sha256 `0f0c0436ed8d`
 - `Working Practices/_index.md` - sha256 `9f59ceebaaf4`
 - `Working Practices/Boards/_index.md` - sha256 `0ae0a05fb473`
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
@@ -6551,8 +6551,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Decisions_v2.md -->
-> identity: Capabilities_Decisions@v2 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Decisions_v3.md -->
+> identity: Capabilities_Decisions@v3 | doctype: decisions | updated: 2026-09-24
 
 # Capabilities — Decisions
 
@@ -6567,6 +6567,8 @@ This resolves the earlier overview statement "Capabilities is a category not a p
 Execution context (in-session vs out-of-session) and direction of service (serves sessions vs serves the corpus) are the two orthogonal properties. One property alone would conflate types — services and utilities both run out-of-session but serve different things. The two properties produce three distinct groups; Standards and Tools share the same cell (both in-session, both session-serving) and are separated by the invocability test owned by Tools. Each group's boundary tests are owned by the relevant type component, not by Capabilities.
 
 ## D3 — Five lifecycle phases, authoring conditional
+
+*Status: revised by D9 (six phases — review added). The conditional author phase stands.*
 
 The five phases (design, author, build, deploy, consumption) apply to all four types, but authoring is conditional. Standards and tools produce an authored doc that serves as both specification and deployment payload. Services and utilities have no authored doc — the design doc is the specification.
 
@@ -6631,12 +6633,20 @@ Version note: v2 — D9 (review as a lifecycle phase), D10 (definition of done a
 ## D13 — The Capabilities Development Standard declares no `uses`
 
 The standard previously declared `uses` on the Standards Authoring Standard, which has since been deleted — a stale dependency. Replacing it with the Standards Development Standard would create a cycle, because the Standards Development Standard uses this one. Nothing in the Capabilities Development Standard depends on the standards authoring rules at the moment of application: it defines the taxonomy, lifecycle and structure the type standards extend. It is therefore a foundation-tier standard with no declared dependencies. That it was itself authored under the Standards rules is a property of how it was made, not a dependency of its consumers.
-<!-- END SOURCE: Capabilities/Capabilities_Decisions_v2.md -->
+
+## D14 — The base standard names the four type standards
+
+A developer reading the Capabilities Development Standard could learn that each type has its own development standard but not which one or where it is — the acceptance test asks them to locate it. The base standard now carries a table mapping each capability type to its development standard's identity and file location. The table is a pointer in prose, not a `uses` declaration: the type standards depend on this base, and a reverse declaration would create the cycle D13 avoids. The cost is that the table must be updated when a type standard is versioned.
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Design_v2.md -->
-> identity: Capabilities_Design@v2 | doctype: design | updated: 2026-09-23
+Version note: v3 — D3 marked as revised by D9. D14 (the base standard names the four type standards). 2026-09-24. Replaces v2.
+<!-- END SOURCE: Capabilities/Capabilities_Decisions_v3.md -->
+
+---
+
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Design_v3.md -->
+> identity: Capabilities_Design@v3 | doctype: design | updated: 2026-09-24
 
 # Capabilities — Design
 
@@ -6783,6 +6793,17 @@ Each type component (Standards, Tools, Services, Utilities) produces a **develop
 
 For Standards and Tools, the development standard supersedes the existing authoring standard — broader scope, same authoring content embedded, review/build/deploy/consumption sections added. For Services and Utilities, the development standard is authored fresh.
 
+The four type standards, so a developer can go straight from the type to the standard that governs it:
+
+| Capability type | Development standard | File |
+|---|---|---|
+| Standard | `Standards_Development_Standard@v2` | `Standards/Standards_Development_Standard_v2.md` |
+| Tool | `Tools_Development_Standard@v2` | `Tools/Tools_Development_Standard_v2.md` |
+| Service | `Services_Development_Standard@v2` | `Services/Services_Development_Standard_v2.md` |
+| Utility | `Utilities_Development_Standard@v2` | `Utilities/Utilities_Development_Standard_v2.md` |
+
+These are pointers, not `uses` declarations — the type standards depend on this base, not the other way round (D13, D14). When a type standard is versioned, the table is updated with it.
+
 Each type's development standard must be producible from its own design. The design holds everything the standard carries, plus the reasoning, alternatives, and explanation; the standard is its lean, deployable output.
 
 ---
@@ -6800,12 +6821,14 @@ Version note: v1-draft1 — initial design. Four-type taxonomy, five-phase lifec
 Version note: v1 — cross-review remediation. F1: taxonomy corrected to three groups plus invocability test. F3: boundary ownership clarified. F6: build standards artifact model stated. 2026-09-23. Replaces v1-draft1.
 
 Version note: v2 — definition of done reframed around the development cycle. Review added as a lifecycle phase (six phases) and as a section in the development-standard structure (seven sections). "Then exit" removed from direction of service, aligning with Services F9. Dependency declaration corrected: `uses` points at standards only, so Build and Infrastructure are referenced in prose until they publish standards. Applicability and acceptance test added so the standard can be produced from the design. 2026-09-23. Replaces v1.
-<!-- END SOURCE: Capabilities/Capabilities_Design_v2.md -->
+
+Version note: v3 — second cross-review remediation. The four type development standards named in a type-to-standard table with file locations (F1, D14). 2026-09-24. Replaces v2.
+<!-- END SOURCE: Capabilities/Capabilities_Design_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Development_Standard_v1.md -->
-> identity: Capabilities_Development_Standard@v1 | doctype: standard | updated: 2026-09-23
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Development_Standard_v2.md -->
+> identity: Capabilities_Development_Standard@v2 | doctype: standard | updated: 2026-09-24
 
 # Capabilities — Development Standard
 
@@ -6878,6 +6901,15 @@ Each type component produces a development standard that extends this base. Each
 6. **Deploy guidance** — how the deliverable reaches its target.
 7. **Consumption guidance** — what the user or developer needs once deployed.
 
+| Capability type | Development standard | File |
+|---|---|---|
+| Standard | `Standards_Development_Standard@v2` | `Standards/Standards_Development_Standard_v2.md` |
+| Tool | `Tools_Development_Standard@v2` | `Tools/Tools_Development_Standard_v2.md` |
+| Service | `Services_Development_Standard@v2` | `Services/Services_Development_Standard_v2.md` |
+| Utility | `Utilities_Development_Standard@v2` | `Utilities/Utilities_Development_Standard_v2.md` |
+
+Information. These are pointers, not dependencies — each type standard declares `uses` on this one, not the reverse.
+
 Each development standard must be producible from its own design. The design holds everything the standard carries, plus the reasoning; the standard is its lean, deployable output.
 
 ---
@@ -6897,7 +6929,9 @@ Given this standard: can a fresh AI correctly classify a capability's type, iden
 ---
 
 Version note: v1 — initial standard. Produced from Capabilities_Design@v2: six-phase lifecycle including review, seven-section development-standard structure, `uses` limited to standards. 2026-09-23.
-<!-- END SOURCE: Capabilities/Capabilities_Development_Standard_v1.md -->
+
+Version note: v2 — the four type development standards named in a type-to-standard table with file locations. Produced from Capabilities_Design@v3. 2026-09-24. Replaces v1.
+<!-- END SOURCE: Capabilities/Capabilities_Development_Standard_v2.md -->
 
 ---
 
@@ -16476,7 +16510,7 @@ Version note: v5 — PD-UPD carries applied. PD-UPD.1: sufficiency contract amen
 Role: Component, Documentation Project
 Aliases: none
 
-Services defines the methodology for building services — persistent capabilities that AI sessions connect to for operations delegated to an out-of-session process. It owns the service definition, the direction-of-service boundary test, and the development methodology used to design and build services.
+Services defines the methodology for building services — capabilities that provide out-of-session operations that AI sessions call, with the work done by a separate process. It owns the service definition, the direction-of-service boundary test, and the development methodology used to design and build services.
 
 Services is a methodological component. It defines how to create its type; individual services live with their owning component under the what-knows-most-about-it principle.
 
@@ -16487,8 +16521,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Services/Services_Decisions_v2.md -->
-> identity: Services_Decisions@v2 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Services/Services_Decisions_v3.md -->
+> identity: Services_Decisions@v3 | doctype: decisions | updated: 2026-09-24
 
 ## D1 — Services is a methodological component, same pattern as Tools and Standards
 
@@ -16542,6 +16576,8 @@ This parallels the existing taxonomy. A standard is delivered as a skill. A tool
 
 ## D9 — Hosted services follow the same design methodology
 
+*Status: revised by D12 — the seven design concerns it lists are now informal design guidance. That hosted services follow the same methodology stands.*
+
 The design scope note says hosted services (cloud-hosted, always-on — the framework inbox and assurance data logger discussed in the orchestration and assurance designs) follow the same design concerns but have a different delivery model. The design methodology — interface, configuration, discovery, safety, state, errors, lifecycle — applies regardless of where the process runs. What changes is Infrastructure's delivery concern: local MCP server vs cloud-hosted endpoint.
 
 This means Services does not need a "local vs hosted" split in its methodology. It provides one set of design concerns. Infrastructure provides different delivery models for each hosting context.
@@ -16585,12 +16621,24 @@ Remote (hosted) services follow the same design guidance (D9). No remote service
 ---
 
 Version note: v2 — D12 (broad scope; design concerns become informal guidance; D4 superseded), D13 (build and deployment knowledge lives in the design), D14 (review and testing for services), D15 (remote services as placeholder). 2026-09-23. Replaces v1.
-<!-- END SOURCE: Services/Services_Decisions_v2.md -->
+
+## D16 — Build patterns are information; only framing and encoding are required
+
+The standard presented raw JSON-RPC, no MCP SDK, CommonJS and Python-standard-library-only as the way to build a service. Those are what the first two services chose and they work, but nothing in the platform requires them — a future service may be better served by an SDK or a library. They are now recorded as Information, a proven approach. Two things stay Required because they are interoperability facts, not choices: newline-delimited message framing (Content-Length framing times out silently on Claude Desktop) and UTF-8 (the Windows default codepage corrupts non-ASCII content). This keeps the component broad in scope with few constraints (D12).
+
+## D17 — Persistence is not what defines a service
+
+The definition said a service "provides persistent operations". Persistence is a lifecycle characteristic — a service may stay up with its host, start per request, or be hosted always-on — and making it part of the definition would misclassify a short-lived service and suggest a long-running utility is a service. The defining property is the one D3 already names: sessions call it and a separate process does the work. A service is now defined as providing out-of-session operations that sessions call. The same wording replaces "persistent operations" in the sibling-outputs model in Tools and Services.
 
 ---
 
-<!-- BEGIN SOURCE: Services/Services_Design_v2.md -->
-> identity: Services_Design@v2 | doctype: design | updated: 2026-09-23
+Version note: v3 — second cross-review remediation. D9 marked as revised by D12. D16 (build patterns become information; framing and UTF-8 stay required), D17 (persistence is not service-defining). 2026-09-24. Replaces v2.
+<!-- END SOURCE: Services/Services_Decisions_v3.md -->
+
+---
+
+<!-- BEGIN SOURCE: Services/Services_Design_v3.md -->
+> identity: Services_Design@v3 | doctype: design | updated: 2026-09-24
 
 ## Brief
 
@@ -16614,7 +16662,9 @@ Version note: v2 — D12 (broad scope; design concerns become informal guidance;
 
 ## What a service is and does
 
-A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it — filesystem access, git operations, external process invocation. The AI is a caller, not the executor.
+A service provides out-of-session operations that sessions call. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it — filesystem access, git operations, external process invocation. The AI is a caller, not the executor.
+
+Persistence is not what makes something a service. A service may run for as long as its host keeps it up, start per request, or be hosted always-on; how long it lives is a lifecycle characteristic the design states, not part of the type's identity. What defines the type is that sessions call it and a separate process does the work.
 
 This is the fundamental distinction from a tool. A tool encapsulates a procedure the AI performs in-session. A service encapsulates operations a separate process performs, which the AI calls. The service has its own lifecycle, its own configuration, and its own safety enforcement — none of which depend on the session that calls it.
 
@@ -16668,6 +16718,8 @@ Not every service needs all of these. A stateless dispatch service has no config
 
 ## Reviewing and testing a service
 
+**Self-check.** Before cross-review, the developer checks the design against its definition of done and confirms the boundary tests place it as a service — not a tool the AI could perform in-session, and not a utility that acts on the corpus without being called. This is a proportionate read-through, not a checklist; its purpose is to avoid spending a cross-review on something that is incomplete or the wrong type.
+
 **Reviewing the design.** The design is the build specification, so it is what gets reviewed. Cross-review by a separate AI, directed to find defects — contradictions, gaps, claims the delivery model can't support, operations without defined failure behaviour — and given the definition of done to test against. Findings are triaged as defects, partly valid, or misreadings, remediated, and recorded in the decisions. A further round is needed when remediation introduces material the reviewer hasn't seen.
 
 **Testing the built server.** Every operation is exercised against what the design says it does, including its failure paths. The server is then confirmed working on each surface it targets — Code, Cowork, and Chat for a local server — because the surfaces register servers by different paths and a server can work on one and not another. After the first update, confirm the update propagates: the surfaces pick up the new code after the update path is followed. This is the approach that proved the delivery model: a small probe operation returning identifying data (origin, timestamp, a runtime ID) shows which build is actually running on which surface.
@@ -16678,15 +16730,18 @@ The design is the build specification — there is no intermediate authored docu
 
 ### Current approach — local MCP servers
 
-Services are currently built as local MCP servers implementing raw JSON-RPC over stdio, with no MCP SDK dependency. Two patterns are proven:
+Services are currently built as local MCP servers over stdio. Two things are required, because they are interoperability facts — the platform does not work without them:
 
-- **Node.js** — CommonJS, newline-delimited JSON over stdio, no external dependencies. Used by the dispatch server.
-- **Python** — raw JSON-RPC, standard library only. Used by the document management server. On Windows, the config entry must use the absolute path to a real Python interpreter; the Store stub does not work.
+- **Newline-delimited message framing.** Claude Desktop's stdio transport expects `\n`-delimited JSON. Content-Length headers cause a silent 120-second timeout on every connection attempt. This is not well documented and was found in testing.
+- **UTF-8.** Messages are UTF-8. Python servers on Windows set `sys.stdin.reconfigure(encoding="utf-8")` at startup; without it, stdin uses the Windows system codepage and corrupts non-ASCII content in requests — file content, not just messages.
+
+The rest is the approach proven by the first two services, recorded as information rather than requirement. A future service may choose differently — an MCP SDK, ES modules, a third-party library — where that serves it better. The proven approach is raw JSON-RPC with no MCP SDK dependency, in one of two forms:
+
+- **Node.js** — CommonJS, no external dependencies. Used by the dispatch server.
+- **Python** — standard library only. Used by the document management server. On Windows, the config entry must use the absolute path to a real Python interpreter; the Store stub does not work.
 
 Knowledge from building the first two services:
 
-- **Newline-delimited JSON framing is required.** Claude Desktop's stdio transport expects `\n`-delimited JSON. Content-Length headers cause a silent 120-second timeout on every connection attempt. This is not well documented and was found in testing.
-- **Windows encoding.** Python servers set `sys.stdin.reconfigure(encoding="utf-8")` at startup. Without it, stdin uses the Windows system codepage and corrupts non-ASCII content in requests — file content, not just messages.
 - **Report status, not paths.** A service reports operational status to callers — whether it is initialised, what resources it found. It does not report filesystem paths or config file locations to the AI; the AI has no use for them, and setup detail belongs in the user guide.
 - **Safety is enforced in the process.** Path containment, readonly enforcement, clean-state preconditions, input validation. Where a service delegates work downstream, the design states what it validates before delegating and what it trusts the target to enforce.
 
@@ -16704,6 +16759,7 @@ What a service developer needs to know:
 
 - **Surfaces.** Code and Cowork get the server's tools through desktop app plugin registration. Chat currently needs a separate `claude_desktop_config.json` entry — the plugin's own server declaration doesn't reliably reach Chat (a platform bug). When the bug is fixed, the entry is removed; nothing else changes.
 - **Update path.** Merge a PR to the deploy repo, refresh the marketplace clone with `claude plugin marketplace update`, then restart Desktop. Direct commits to `main` don't trigger updates. Quit Desktop before refreshing if a server from that marketplace is running — it holds a lock on the clone.
+- **Platform support.** Claude — Chat, Code, and Cowork — is supported; a local service reaches coverage of all three Claude surfaces through the two paths above. ChatGPT and Codex are pending. The ChatGPT route recorded so far is the curated standards binders held as a future consideration (Standards D22), which carry standards, not services. No adapters for other platforms are built.
 
 ### Remote services
 
@@ -16717,7 +16773,7 @@ Not yet built. Deployment guidance is added from the first remote service's expe
 
 ## The sibling-outputs model extends to services
 
-A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the design, not from each other, and must not disagree.
+A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, out-of-session operations that sessions call into services. All derive from the design, not from each other, and must not disagree.
 
 The document management design produces a service (the MCP server) and will produce a governing skill (a tool, not yet built). The service provides the primitives; the tool will orchestrate them with document intelligence.
 
@@ -16742,12 +16798,14 @@ Services does **not** own:
 Version note: v1 — initial design and cross-review remediation (F2–F13). 2026-09-23.
 
 Version note: v2 — rescoped to broad guidance and knowledge capture: seven formal design concerns replaced with informal design guidance. Definition of done reframed around the development cycle. Added: applicability, classification by entry point, reviewing and testing a service (design cross-review, per-surface and update-propagation testing), the practical build knowledge from the first two services, local deployment facts, remote services, and AI-side consumption — so the development standard can be produced from this design. 2026-09-23. Replaces v1.
-<!-- END SOURCE: Services/Services_Design_v2.md -->
+
+Version note: v3 — second cross-review remediation. A service is defined by providing out-of-session operations that sessions call; persistence is a lifecycle characteristic, not type identity (F11, D17). Developer self-check added before cross-review (F5). Build: newline-delimited framing and UTF-8 kept as required; raw JSON-RPC, no SDK, CommonJS and standard-library-only recorded as the proven approach, not a requirement (F10, D16). Platform-support statement added to deployment (F13). 2026-09-24. Replaces v2.
+<!-- END SOURCE: Services/Services_Design_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Services/Services_Development_Standard_v1.md -->
-> identity: Services_Development_Standard@v1 | doctype: standard | updated: 2026-09-23 | uses: Capabilities_Development_Standard@v1
+<!-- BEGIN SOURCE: Services/Services_Development_Standard_v2.md -->
+> identity: Services_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2
 
 # Services — Development Standard
 
@@ -16755,7 +16813,7 @@ How to design, review, build, test, and deploy an AIDE service — and what has 
 
 ## What a service is
 
-Information. A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it. The AI is a caller, not the executor. The service has its own lifecycle, configuration, and safety enforcement, independent of the session that calls it.
+Information. A service provides out-of-session operations that sessions call. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it. The AI is a caller, not the executor. The service has its own lifecycle, configuration, and safety enforcement, independent of the session that calls it. How long it runs is a lifecycle characteristic stated in its design, not what makes it a service.
 
 Information. A service reaches the AI platform as a server. Currently this means a local MCP server; in future it may mean a remote endpoint. The service is what is designed; the server is how it is delivered.
 
@@ -16793,6 +16851,8 @@ Recommended. Not every service needs all of these, and a complex one may need mo
 
 ## Reviewing and testing a service
 
+**Self-check first.** Before cross-review, check the design against its definition of done and confirm the boundary tests place it as a service, not a tool or a utility. Keep it proportionate — a read-through, not a checklist.
+
 **Review the design.** The design is the build specification. Cross-review it with a separate AI directed to find defects — contradictions, gaps, claims the delivery model can't support, operations without defined failure behaviour — against the design's definition of done. Triage findings as defects, partly valid, or misreadings; remediate and record in the decisions. Run a further round only when remediation introduces material the reviewer hasn't seen.
 
 **Test the built server.** Exercise every operation against what the design says it does, including failure paths. Confirm the server works on each surface it targets — for a local server, Code, Cowork, and Chat, which register servers by different paths. After the first update, confirm the update propagates to each surface.
@@ -16805,15 +16865,16 @@ The design is the build specification — there is no authored document. Build c
 
 ### Local MCP servers
 
-Build as a local MCP server implementing raw JSON-RPC over stdio, with no MCP SDK dependency. Proven patterns:
+Build as a local MCP server over stdio.
 
-- **Node.js** — CommonJS, newline-delimited JSON over stdio, no external dependencies (the dispatch server).
-- **Python** — raw JSON-RPC, standard library only (the document management server). On Windows, the config entry uses the absolute path to a real Python interpreter; the Store stub does not work.
+- **Use newline-delimited message framing.** Content-Length headers cause a silent 120-second timeout on every connection.
+- **Use UTF-8.** Python servers on Windows call `sys.stdin.reconfigure(encoding="utf-8")` at startup; otherwise non-ASCII request content is corrupted.
+
+Information. Proven approach, not required: raw JSON-RPC with no MCP SDK dependency — Node.js in CommonJS with no external dependencies (the dispatch server), or Python with the standard library only (the document management server). A service may choose differently where that serves it better.
 
 Known issues and their solutions:
 
-- **Use newline-delimited JSON framing.** Content-Length headers cause a silent 120-second timeout on every connection.
-- **Set UTF-8 stdin on Windows.** Python servers call `sys.stdin.reconfigure(encoding="utf-8")` at startup; otherwise non-ASCII request content is corrupted.
+- **Python on Windows.** The config entry uses the absolute path to a real Python interpreter; the Store stub does not work.
 - **Report status, not paths.** Report operational status to callers — initialised, resources found. Don't expose filesystem paths or config locations to the AI; put setup detail in the user guide.
 - **Enforce safety in the process.** Path containment, readonly enforcement, clean-state preconditions, input validation. Where the service delegates downstream, state what it validates first and what it trusts the target to enforce.
 
@@ -16829,6 +16890,8 @@ Deliver the server in a marketplace plugin: `.mcp.json` declaring each server us
 
 - **Surfaces.** Code and Cowork get the tools through desktop app plugin registration. Chat needs a separate `claude_desktop_config.json` entry — a workaround for a platform bug; remove it when the bug is fixed.
 - **Update path.** Merge a PR to the deploy repo, run `claude plugin marketplace update`, restart Desktop. Direct commits to `main` don't trigger updates. Quit Desktop first if a server from that marketplace is running — it locks the clone.
+
+Information. Platform support: Claude — Chat, Code, and Cowork — is supported; the two paths above give coverage of all three Claude surfaces. ChatGPT and Codex are pending. The ChatGPT route recorded so far is curated standards binders, a future consideration that carries standards, not services. No adapters for other platforms are built.
 
 Information. The full methodology and platform issues are in Infrastructure's MCP delivery model.
 
@@ -16853,7 +16916,9 @@ Information. A single design can produce standards, tools, and services as sibli
 ---
 
 Version note: v1 — initial standard. Produced from Services_Design@v2: informal design guidance, review and testing, practical build knowledge from the first two services, local deployment, remote placeholder, user guide as a deliverable. 2026-09-23.
-<!-- END SOURCE: Services/Services_Development_Standard_v1.md -->
+
+Version note: v2 — a service is defined by out-of-session operations that sessions call, not persistence. Self-check added before cross-review. Build: only newline-delimited framing and UTF-8 are required; the rest is information on the proven approach. Platform-support statement added. Produced from Services_Design@v3. 2026-09-24. Replaces v1.
+<!-- END SOURCE: Services/Services_Development_Standard_v2.md -->
 
 ---
 
@@ -16876,8 +16941,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v4.md -->
-> identity: Standards_Consumption_Standard@v4 | doctype: standard | updated: 2026-09-23 | uses: Standards_Development_Standard@v1
+<!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v5.md -->
+> identity: Standards_Consumption_Standard@v5 | doctype: standard | updated: 2026-09-24 | uses: Standards_Development_Standard@v2
 
 # Standards — Consumption Standard
 
@@ -16885,7 +16950,7 @@ How to evaluate, combine, and operate under applicable AIDE standards at runtime
 
 ## Applicability
 
-Information. This standard applies when an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, or deploying standards; those activities are governed by the standards authoring standard.
+Information. This standard applies when an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, reviewing, building, or deploying standards; those activities are governed by the Standards Development Standard.
 
 ## Evaluate applicability before applying
 
@@ -16918,12 +16983,14 @@ Recommended. Normal operation does not narrate every standard consulted. Surface
 ---
 
 Version note: v4 — `uses` updated to Standards_Development_Standard@v1 (supersedes Standards_Authoring_Standard). No substantive changes. 2026-09-23. Replaces v3.
-<!-- END SOURCE: Standards/Standards_Consumption_Standard_v4.md -->
+
+Version note: v5 — applicability now names the Standards Development Standard (the authoring standard it named was deleted) and lists designing, authoring, reviewing, building, and deploying. `uses` updated to Standards_Development_Standard@v2. Produced from Standards_Design@v5. 2026-09-24. Replaces v4.
+<!-- END SOURCE: Standards/Standards_Consumption_Standard_v5.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Decisions_v5.md -->
-> identity: Standards_Decisions@v5 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Standards/Standards_Decisions_v6.md -->
+> identity: Standards_Decisions@v6 | doctype: decisions | updated: 2026-09-24
 
 ## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
 
@@ -16960,6 +17027,8 @@ A standard must be understandable without its design document in the session. Th
 This does not prevent a standard from referencing its design for deeper reasoning. It prevents depending on the design being present.
 
 ## D6 — Two outputs: authoring and consumption
+
+*Status: superseded by D23 — the authoring standard is replaced by the Standards Development Standard. The two-output split (development and consumption) stands.*
 
 The authoring standard covers design, authoring, and deployment. The consumption standard covers conflict resolution, human override, and runtime operation under applicable standards.
 
@@ -17007,6 +17076,8 @@ Implemented as an extension to the discriminating-guidance authoring rule rather
 
 ## D13 — Trigger description and segmentation
 
+*Status: revised by D27 — the budget is 200 characters as AIDE policy. The 130 figure was a safety margin, not a specification limit. Front-loading and the segmentation test stand.*
+
 Every standard carries a trigger description as its first content after the header. This is authored once and serves both skill and bundle deployment — it is the single artefact that controls how the standard is discovered and loaded across platforms.
 
 The 130-character budget is the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard (agentskills.io), currently adopted by Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and 30+ others. The figure is a union minimum — the smallest confirmed budget across all adopting platforms. It should be revised when platform budgets change.
@@ -17014,6 +17085,8 @@ The 130-character budget is the tightest confirmed cross-platform trigger budget
 The budget also serves as the segmentation test. If the trigger elements won't fit in 130 characters, the standard is too broad for a single skill and should be split. Cutting along dependency lines ensures co-dependent guidance loads together. Each sub-standard must be self-contained — the self-containment authoring rule applies to each part independently.
 
 ## D14 — Carry to Deployment: aggregate description budget
+
+*Status: revised by D27 — each description's own fit is now against 200 characters. The aggregate carry to Deployment stands.*
 
 Deployment's weight gate gains a second measure beyond total context weight: the aggregate sum of all skill trigger descriptions must fit within the platform's shared description budget. This is a packaging constraint — the total description space available to a plugin is shared across all skills it contains, so each trigger description's cost is not just its own 130-character fit but its contribution to the aggregate.
 
@@ -17098,12 +17171,28 @@ Everything in a standard must be present in its design; the design additionally 
 ## D25 — Definition of done covers the full development cycle, including review
 
 The brief's definition of done states that a developer can design, author, review, build, and deploy a standard, and that sessions can operate under standards. Review was previously only a build precondition ("cross-review accepted") with no guidance on how to do it. A review section was added to the design and standard: the acceptance test, and cross-review by a separate AI directed to find defects, given the definition of done to test against, with findings triaged and recorded, and a further round only when remediation introduces unreviewed material. The cross-review process remains a Working Practices convention; the standard carries what a developer needs to perform it.
-<!-- END SOURCE: Standards/Standards_Decisions_v5.md -->
+
+## D26 — The development standard uses the DocMeth schema authoring standard
+
+The Standards Development Standard declares `uses DocumentationMethodology_SchemaAuthoring_Standard@v1`. The reason is its schema definitions: the Standard doctype and the Clarification blocktype are written to Documentation Methodology's definition contract — purpose, included blocktypes, recognition, format constraint. A reader needs that contract to interpret the definitions correctly, so it is a genuine dependency at the moment of application, not a record of how the standard was made. If the definition contract changes, the definitions here must be checked, which is the change-management obligation `uses` exists to carry.
+
+## D27 — Trigger description budget: 200 characters, AIDE policy
+
+The trigger description budget is 200 characters. It is AIDE policy, stated in the standard and adjustable there — it is not attributed to the Agent Skills specification, which allows descriptions up to 1024 characters. Two reasons for 200: it matches the tightest known surface cap (the claude.ai skill uploader accepts 200), and it keeps descriptions short enough to survive the shared skill-listing budget, which platforms truncate when many skills are installed.
+
+The earlier 130-character figure (D13) was presented as the tightest confirmed cross-platform budget. It was a safety margin for busy skill listings, not a limit any specification sets. Front-loading trigger words and the segmentation test are unchanged; the test now runs against 200.
+
+The build contract also gains the specification's `name` rules — 1–64 characters; lowercase a–z, 0–9 and hyphens only; no leading, trailing or consecutive hyphens; must match the skill's directory name — because platforms enforce them and a skill that breaks them fails to load.
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Design_v4.md -->
-> identity: Standards_Design@v4 | doctype: design | updated: 2026-09-23
+Version note: v6 — second cross-review remediation. Status lines added: D6 superseded by D23; D13 and D14 revised by D27. D26 (DocMeth schema authoring dependency justified), D27 (200-character trigger budget as AIDE policy; skill `name` rules). 2026-09-24. Replaces v5.
+<!-- END SOURCE: Standards/Standards_Decisions_v6.md -->
+
+---
+
+<!-- BEGIN SOURCE: Standards/Standards_Design_v5.md -->
+> identity: Standards_Design@v5 | doctype: design | updated: 2026-09-24
 
 ## Brief
 
@@ -17122,6 +17211,8 @@ The brief's definition of done states that a developer can design, author, revie
 5. A developer can deploy a standard — the deployment path and the registration it needs.
 6. Sessions can operate under applicable standards — applicability evaluation, combining, conflict resolution, and human override.
 7. The development standard and the consumption standard can be produced entirely from this design.
+
+**Linked build outcome.** Standards Development Standard, deployed as a skill in the `aide-dev` plugin. Standards Consumption Standard, deployed as a skill in the `aide` plugin.
 
 ## What a standard achieves
 
@@ -17167,9 +17258,9 @@ How to decide what goes into a standard, how to write it, and how lean is lean e
 
 Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the single artefact that determines how the standard is loaded across platforms.
 
-The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard (agentskills.io). This figure is the union minimum across Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and other adopters. Front-load trigger words so the most important terms survive truncation.
+The trigger description must fit within 200 characters. This is AIDE policy, not a specification limit, and it can be adjusted in the standard. The Agent Skills specification allows descriptions up to 1024 characters; AIDE sets a tighter budget for two reasons. It matches the tightest known surface cap — the claude.ai skill uploader accepts 200 characters. And it keeps descriptions short enough to survive the shared skill-listing budget, which platforms truncate when many skills are installed. Front-load trigger words so the most important terms survive truncation.
 
-The description budget doubles as the segmentation test. If the trigger elements that define when a standard is needed will not fit within 130 characters, the standard should be split into sub-standards along dependency lines so co-dependent guidance loads together. Each sub-standard must be self-contained.
+The description budget doubles as the segmentation test. If the trigger elements that define when a standard is needed will not fit within 200 characters, the standard should be split into sub-standards along dependency lines so co-dependent guidance loads together. Each sub-standard must be self-contained.
 
 A carry to Deployment: the aggregate sum of skill trigger descriptions across all deployed standards must be checked against the platform's shared description budget. This is a second measure for Deployment's weight gate.
 
@@ -17219,7 +17310,7 @@ Scope targets behaviour and relevance — what needs to be true for the standard
 
 ### Conflict resolution
 
-The Standards Consumption Standard applies whenever an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, or deploying standards — that is the development standard's scope.
+The Standards Consumption Standard applies whenever an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, reviewing, building, or deploying standards — those are governed by the Standards Development Standard.
 
 When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between, and each item is applied according to its declared strength. When two applicable items genuinely oppose each other on the same point, higher strength governs, in the order Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved; when surfacing it, identify the competing standards, the opposing items, and the work affected. Conflict is not manufactured from different concerns that can both be satisfied — two standards addressing different aspects of the same work are not in conflict merely because both apply.
 
@@ -17237,7 +17328,7 @@ A loaded standard is not automatically applicable. Before applying a standard, i
 
 ## Applicability of the development standard
 
-The Standards Development Standard applies when designing, authoring, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies — those projects may adopt it, but AIDE does not govern them.
+The Standards Development Standard applies when designing, authoring, reviewing, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies — those projects may adopt it, but AIDE does not govern them.
 
 ## Reviewing a standard
 
@@ -17252,6 +17343,8 @@ The reason for a separate AI is independence: the author's session shares the au
 ## Schema definitions
 
 Standards owns two types. They stay in the development standard rather than a separate schema standard because there are only two definitions and they change at the same cadence as the authoring rules.
+
+The definitions are written to Documentation Methodology's definition contract — the properties a doctype or blocktype definition carries, and what they mean. A reader needs that contract to interpret them, so the development standard declares `uses DocumentationMethodology_SchemaAuthoring_Standard@v1` (D26).
 
 **Standard (doctype).** Purpose: shape decisions and behaviour at the moment of application — lean, memory-resident, applied alongside many others. Included blocktypes: Clarification, Contents, Summary, Version note — all optional. Format constraint: markdown.
 
@@ -17280,7 +17373,14 @@ description: "<trigger description>"
 <standard content>
 ```
 
-The `description` field is the trigger description — the 130-character text that determines when the platform loads the skill. The `name` field is the skill's identifier within the plugin, matching the skill directory name. The provenance comment records which standard document the skill was built from and when.
+The `description` field is the trigger description — the text, within the 200-character budget, that determines when the platform loads the skill. The provenance comment records which standard document the skill was built from and when.
+
+The `name` field is the skill's identifier within the plugin. It follows the Agent Skills specification's rules, which platforms enforce when loading a skill:
+
+- 1–64 characters;
+- lowercase letters a–z, digits 0–9, and hyphens only;
+- no leading, trailing, or consecutive hyphens;
+- must match the skill's directory name.
 
 The standard content is copied from the accepted standard document. The document header (identity line, `uses` declarations) is omitted — those are document metadata, not session content. The version note is omitted — the provenance comment serves the same purpose for a built skill.
 
@@ -17302,11 +17402,13 @@ The built skill is deployed through the marketplace plugin pipeline:
 3. Refresh the marketplace clone: `claude plugin marketplace update <n>`.
 4. Restart Claude Desktop.
 
-Skills reach Chat via web UI account-level plugin registration and Code/Cowork via desktop app plugin registration. Both registration paths are needed for full three-surface coverage. The full deployment methodology and known platform issues are documented in `Infrastructure_MCPDeliveryModel@v2`.
+Skills reach Chat via web UI account-level plugin registration and Code/Cowork via desktop app plugin registration. Both registration paths are needed for coverage of all three Claude surfaces. The full deployment methodology and known platform issues are documented in `Infrastructure_MCPDeliveryModel@v2`.
+
+**Platform support.** Claude — Chat, Code, and Cowork — is supported. ChatGPT and Codex are pending. For ChatGPT, which does not load plugins, the route is the curated standards binders held as a future consideration (D22). No adapters for other platforms are built.
 
 ### Build preconditions
 
-Cross-review accepted and acceptance test passed before build. The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it.
+Cross-review accepted and acceptance test passed before build. The linked build outcome on the brief of the design that produces the standard states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it.
 
 ## What Standards produces
 
@@ -17338,12 +17440,14 @@ Standards does **not** own:
 ---
 
 Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. Consumption content completed (applicability of the consumption standard, precedence order, what to identify when surfacing conflict, override scope, reporting, evaluating applicability) so the consumption standard can also be produced from it. 2026-09-23. Replaces v3.
-<!-- END SOURCE: Standards/Standards_Design_v4.md -->
+
+Version note: v5 — second cross-review remediation. Linked build outcome added to the brief (F8); build preconditions say the field is on the brief of the producing design. Consumption applicability now names the Standards Development Standard and all five development activities (F3); development-standard applicability adds reviewing (F4). The DocMeth dependency justified in schema definitions (F9, D26). Trigger description budget set to 200 characters as AIDE policy, and the specification's `name` rules added to the skill file (F12, D27). Platform-support statement added to deployment; "full three-surface coverage" now reads "coverage of all three Claude surfaces" (F13). 2026-09-24. Replaces v4.
+<!-- END SOURCE: Standards/Standards_Design_v5.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Development_Standard_v1.md -->
-> identity: Standards_Development_Standard@v1 | doctype: standard | updated: 2026-09-23 | uses: Capabilities_Development_Standard@v1, DocumentationMethodology_SchemaAuthoring_Standard@v1
+<!-- BEGIN SOURCE: Standards/Standards_Development_Standard_v2.md -->
+> identity: Standards_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Standards — Development Standard
 
@@ -17359,7 +17463,7 @@ Information. The invocability test in the Tools Development Standard draws the b
 
 ## Applicability
 
-Information. This standard applies when designing, authoring, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
+Information. This standard applies when designing, authoring, reviewing, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
 
 ## Two classes of standard
 
@@ -17397,7 +17501,9 @@ Information. Ambient framework context means framework capabilities the architec
 
 **Trigger description.** Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the basis for loading the standard where it is needed.
 
-**Description budget.** The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget. Front-load trigger words so the most important terms survive truncation.
+**Description budget.** The trigger description must fit within 200 characters. Front-load trigger words so the most important terms survive truncation.
+
+Information. The 200-character budget is AIDE policy, adjustable here, not a specification limit — the Agent Skills specification allows 1024. It matches the tightest known surface cap (the claude.ai skill uploader, 200) and keeps descriptions short enough to survive the shared skill-listing budget when many skills are installed.
 
 **Segmentation.** The description budget is the size test for whether a standard should be split. If the trigger elements that define when the standard is needed will not fit within the budget, split into sub-standards rather than compressing the description into uselessness.
 
@@ -17457,7 +17563,7 @@ A standard is built by packaging it as a skill for plugin delivery. The authored
 
 Cross-review accepted and acceptance test passed before build starts. These are authoring-phase completions, not build steps.
 
-The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder knows where to place the skill without having to determine it.
+The linked build outcome on the brief of the design that produces the standard states the deployment target — which plugin the skill is built for. This is recorded during design so the builder knows where to place the skill without having to determine it.
 
 ### Building a skill
 
@@ -17474,7 +17580,14 @@ description: "<trigger description>"
 <standard content>
 ```
 
-The `description` field IS the trigger description — the 130-character text that determines when the platform loads the skill. The `name` field is the skill's identifier within the plugin, matching the skill directory name.
+The `description` field IS the trigger description — the text, within the 200-character budget, that determines when the platform loads the skill.
+
+The `name` field is the skill's identifier within the plugin. It follows the Agent Skills specification, which platforms enforce:
+
+- 1–64 characters;
+- lowercase letters a–z, digits 0–9, and hyphens only;
+- no leading, trailing, or consecutive hyphens;
+- must match the skill's directory name.
 
 The provenance comment records which standard document the skill was built from and when. This is a build record, not a `uses` declaration.
 
@@ -17502,7 +17615,9 @@ The built skill is deployed through the marketplace plugin pipeline:
 3. Refresh the marketplace clone: `claude plugin marketplace update <n>`.
 4. Restart Claude Desktop.
 
-Skills reach Chat via web UI account-level plugin registration (Settings → Plugins) and Code/Cowork via desktop app plugin registration (Settings → Plugins → Discover). Both registration paths are needed for full three-surface coverage.
+Skills reach Chat via web UI account-level plugin registration (Settings → Plugins) and Code/Cowork via desktop app plugin registration (Settings → Plugins → Discover). Both registration paths are needed for coverage of all three Claude surfaces.
+
+Information. Platform support: Claude — Chat, Code, and Cowork — is supported. ChatGPT and Codex are pending; for ChatGPT, which does not load plugins, the route is curated standards binders, held as a future consideration. No adapters for other platforms are built.
 
 Information. The full deployment methodology, known platform issues, and workarounds are documented in `Infrastructure_MCPDeliveryModel@v2`. The deployment steps above are the minimum a builder needs; the delivery model document has the complete picture.
 
@@ -17538,7 +17653,9 @@ Information. Governed by the split test: stays in the standard when small, remov
 ---
 
 Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Review section added (acceptance test and cross-review). Build section covers skill file format, plugin placement, and preconditions; deployment covers the marketplace path. Consumption references the Standards Consumption Standard. Produced from Standards_Design@v4. 2026-09-23.
-<!-- END SOURCE: Standards/Standards_Development_Standard_v1.md -->
+
+Version note: v2 — applicability adds reviewing. Trigger description budget is 200 characters, stated as AIDE policy. Skill `name` rules from the Agent Skills specification added to the build. Build precondition names the brief of the producing design. Platform-support statement added to deployment. Produced from Standards_Design@v5. 2026-09-24. Replaces v1.
+<!-- END SOURCE: Standards/Standards_Development_Standard_v2.md -->
 
 ---
 
@@ -17581,8 +17698,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Decisions_v8.md -->
-> identity: Tools_Decisions@v8 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Tools/Tools_Decisions_v9.md -->
+> identity: Tools_Decisions@v9 | doctype: decisions | updated: 2026-09-24
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -17631,17 +17748,23 @@ The model also prevents the synchronisation problem the invocability test was de
 
 ## D7 — The standards authoring rules apply to tools
 
+*Status: revised — references to the authoring standard now read Development Standard (D18). The decision stands.*
+
 The authoring rules in the standards authoring standard are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. A tool with rules that have no operational consumer is governance without effect. The rules apply.
 
 Tools does not restate them. The tool authoring standard consumes them by reference to the standards authoring methodology, with a reading rule for standard-specific nouns.
 
 ## D8 — Trigger description and segmentation rules are capability-wide
 
+*Status: revised — references to the authoring standard now read Development Standard (D18), and the budget is 200 characters (Standards D27). The decision that the rules are capability-wide stands.*
+
 The 130-character trigger budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit were agreed as part of the standards authoring standard v3. They are platform constraints, not standard-specific constraints. A tool deployed as a skill faces the same budget on the same platforms.
 
 Tools applies these rules identically. They are not restated — the tool authoring standard references them as capability-wide rules.
 
 ## D9 — One primary output: the tool authoring standard
+
+*Status: superseded by D18 — the Tools Development Standard replaces the tool authoring standard. The reasoning on no separate consumption standard stands and is carried in the design.*
 
 The tool authoring standard covers design, authoring, and the deployment handoff for tools. It parallels the standards authoring standard in scope and shape.
 
@@ -17660,6 +17783,8 @@ Carried from the old Tools Design §3, confirmed during the legacy binder review
 The discipline is framed as Recommended because it is guidance for execution, not a compliance obligation. A tool author who has a good reason to handle inputs differently may do so — the rule is that the behaviour should be deliberate, not that it must follow this exact pattern.
 
 ## D12 — Document-default strength simplifies clutter in larger tools
+
+*Status: revised — references to the authoring standard now read Development Standard (D18). The decision stands.*
 
 A tool can declare its document-level default strength the same way standards do (nearest-declaration-wins). This avoids tagging every item Required in a long tool. The mechanism is in the standards authoring standard; Tools applies it identically.
 
@@ -17720,12 +17845,16 @@ The Capabilities Development Standard (D5) established that each type's developm
 ## D19 — The design must be able to produce the standard; definition of done covers review
 
 Applies Standards D24 and D25 to Tools. A review found the Tools design lacked content its standard carried — the applicability statement, how the capability-wide rules apply (incorporation, noun substitution, the acceptance test for a tool), trigger and scope, document-default strength, the design-approach line, and consumption. All were added to the design so the standard can be produced from it with its declared dependencies. The brief gained a definition of done covering classification, design, authoring, review, build, deployment, and consumption. Review for tools uses the review defined in the Standards Development Standard; only the form of the acceptance test is tool-specific. The binder-content build option was removed from the standard to match the design, which builds tools as skills only.
-<!-- END SOURCE: Tools/Tools_Decisions_v8.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Design_v7.md -->
-> identity: Tools_Design@v7 | doctype: design | updated: 2026-09-23
+Version note: v9 — second cross-review remediation. Status lines added: D9 superseded by D18; D7 and D12 revised to read Development Standard (D18); D8 revised likewise and for the 200-character budget (Standards D27). 2026-09-24. Replaces v8.
+<!-- END SOURCE: Tools/Tools_Decisions_v9.md -->
+
+---
+
+<!-- BEGIN SOURCE: Tools/Tools_Design_v8.md -->
+> identity: Tools_Design@v8 | doctype: design | updated: 2026-09-24
 
 ## Brief
 
@@ -17745,6 +17874,8 @@ Applies Standards D24 and D25 to Tools. A review found the Tools design lacked c
 6. A developer can deploy a tool — the deployment path.
 7. The consumer can invoke a deployed tool without separate consumption guidance.
 8. The Tools Development Standard can be produced entirely from this design, together with its declared dependencies.
+
+**Linked build outcome.** Tools Development Standard, deployed as a skill in the `aide-dev` plugin.
 
 ## What a tool is and does
 
@@ -17774,7 +17905,7 @@ This is the only case where a standard may describe an invokable procedure witho
 
 ## The sibling-outputs model
 
-A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part of that behaviour appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
+A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part of that behaviour appropriate to its type — guidance into a standard, invokable actions into tools, out-of-session operations that sessions call into services. All derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
 
 This is common. A component or feature may need a standard to shape how the work is approached and a tool to perform a specific action within it. The design specifies the full behaviour; the outputs are whatever delivers it — one or more standards, one or more tools, or a mix. Each output is authored from the design, not from its sibling.
 
@@ -17826,7 +17957,7 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 ## Applicability of the development standard
 
-The Tools Development Standard applies when designing, authoring, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
+The Tools Development Standard applies when designing, authoring, reviewing, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
 
 ## How the capability-wide rules apply to tools
 
@@ -17836,7 +17967,7 @@ The rules and the acceptance test are incorporated by reference, not restated, a
 
 **Acceptance test for a tool.** Given only the tool, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations the tool covers? If it cannot, the tool fails the self-containment rule and must not be published.
 
-**Trigger description.** Every tool carries a trigger description. The trigger-description and segmentation rules in the Standards Development Standard apply identically — the 130-character budget, front-loading of trigger words, and segmentation along dependency lines are platform constraints, not standard-specific ones. A tool deployed as a skill faces the same budget on the same platforms.
+**Trigger description.** Every tool carries a trigger description. The trigger-description and segmentation rules in the Standards Development Standard apply identically — the 200-character budget, front-loading of trigger words, and segmentation along dependency lines are platform constraints, not standard-specific ones. A tool deployed as a skill faces the same budget on the same platforms.
 
 **Applicability scope.** Every tool declares the conditions under which it applies, framed through behaviour and relevance rather than deployment target. Trigger and scope are distinct: the trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run — the same risk as for standards, of an available capability running when it should not.
 
@@ -17858,9 +17989,11 @@ A well-authored tool is self-evident to invoke: the trigger description tells th
 
 Tools' build domain follows the same model as Standards — the accepted tool document is the build specification, and the build target is a skill file placed in the appropriate marketplace plugin. The skill file format, plugin placement, and deployment path are the same as for standards. A tool and a standard produced as sibling outputs from the same design are built as separate skills, each with its own trigger description.
 
-The brief's linked build outcome states the deployment target — which plugin the skill is built for. The practical build detail is recorded in the Tools Development Standard; the reasoning is here.
+The linked build outcome on the brief of the design that produces the tool states the deployment target — which plugin the skill is built for. The skill `name` follows the same specification rules as for standards. The practical build detail is recorded in the Tools Development Standard; the reasoning is here.
 
 The boundary between what Tools owns and what Infrastructure owns is the same as for Standards: Tools owns the build domain knowledge (what a tool skill looks like, what the build preconditions are), Infrastructure owns the packaging mechanism and delivery pipeline.
+
+**Platform support.** The same as for standards: Claude — Chat, Code, and Cowork — is supported, and both registration paths are needed for coverage of all three Claude surfaces. ChatGPT and Codex are pending; for ChatGPT, the route is the curated standards binders held as a future consideration (Standards D22). No adapters for other platforms are built.
 
 ## Boundaries
 
@@ -17880,12 +18013,14 @@ Tools does **not** own:
 ---
 
 Version note: v7 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: applicability of the development standard, how the capability-wide rules apply to tools (incorporation, noun substitution, acceptance test, trigger, scope, document-default strength), the design approach for tools, reviewing a tool, consumption, and the build section. Sibling outputs extended to services; boundary with services and utilities stated. The development standard can now be produced from this design with its declared dependencies. 2026-09-23. Replaces v6.
-<!-- END SOURCE: Tools/Tools_Design_v7.md -->
+
+Version note: v8 — second cross-review remediation. Linked build outcome added to the brief; build preconditions name the brief of the producing design (F8). Applicability adds reviewing (F4). Sibling outputs: services described as out-of-session operations that sessions call, not persistent operations (F11). Inherited trigger budget now 200 characters, and skill `name` rules follow the standards build (F12, Standards D27). Platform-support statement added (F13). 2026-09-24. Replaces v7.
+<!-- END SOURCE: Tools/Tools_Design_v8.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Development_Standard_v1.md -->
-> identity: Tools_Development_Standard@v1 | doctype: standard | updated: 2026-09-23 | uses: Capabilities_Development_Standard@v1, Standards_Development_Standard@v1
+<!-- BEGIN SOURCE: Tools/Tools_Development_Standard_v2.md -->
+> identity: Tools_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, Standards_Development_Standard@v2
 
 # Tools — Development Standard
 
@@ -17901,7 +18036,7 @@ Information. A tool earns its context cost. Everything in it displaces something
 
 ## Applicability
 
-Information. This standard applies when designing, authoring, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
+Information. This standard applies when designing, authoring, reviewing, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
 
 ## The invocability test
 
@@ -17959,11 +18094,11 @@ Information. This is the only case where a standard may describe an invokable pr
 
 ## The sibling-outputs model
 
-Information. A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the design, not from each other, and must not disagree. If they do, the design is the authority and the inconsistent output is defective.
+Information. A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, out-of-session operations that sessions call into services. All derive from the design, not from each other, and must not disagree. If they do, the design is the authority and the inconsistent output is defective.
 
 ## Trigger description
 
-Every tool carries a trigger description. The capability-wide trigger-description and segmentation rules in the Standards Development Standard apply identically to tools, including the 130-character budget, front-loading of trigger words, and segmentation along dependency lines.
+Every tool carries a trigger description. The capability-wide trigger-description and segmentation rules in the Standards Development Standard apply identically to tools, including the 200-character budget, front-loading of trigger words, and segmentation along dependency lines.
 
 ## Applicability scope
 
@@ -17995,7 +18130,7 @@ A tool is built by packaging it as a skill for plugin delivery. The authored too
 
 Cross-review accepted and acceptance test passed before build starts. These are authoring-phase completions, not build steps.
 
-The brief's linked build outcome states the deployment target — which plugin the skill is built for.
+The linked build outcome on the brief of the design that produces the tool states the deployment target — which plugin the skill is built for.
 
 ### Building a skill
 
@@ -18012,7 +18147,7 @@ description: "<trigger description>"
 <tool content>
 ```
 
-The `description` field is the trigger description. The tool content is copied from the accepted tool document, omitting the document header and version note. The provenance comment records the source.
+The `description` field is the trigger description. The `name` field follows the same Agent Skills specification rules as for standards. The tool content is copied from the accepted tool document, omitting the document header and version note. The provenance comment records the source.
 
 A tool and a standard produced as sibling outputs from the same design are built as separate skills — each with its own trigger description and skill file. They load independently.
 
@@ -18022,7 +18157,9 @@ Tools follow the same plugin placement as standards: `aide` for operational tool
 
 ## Deployment
 
-The deployment path is the same as for standards: PR to the deploy repo, merge, refresh marketplace clone, restart Desktop. Both web UI and desktop app registration paths are needed for full three-surface coverage. See the Standards Development Standard for the full deployment steps, or `Infrastructure_MCPDeliveryModel@v2` for the complete picture.
+The deployment path is the same as for standards: PR to the deploy repo, merge, refresh marketplace clone, restart Desktop. Both web UI and desktop app registration paths are needed for coverage of all three Claude surfaces. See the Standards Development Standard for the full deployment steps, or `Infrastructure_MCPDeliveryModel@v2` for the complete picture.
+
+Information. Platform support: Claude — Chat, Code, and Cowork — is supported. ChatGPT and Codex are pending; for ChatGPT, which does not load plugins, the route is curated standards binders, held as a future consideration. No adapters for other platforms are built.
 
 ## Consumption
 
@@ -18035,7 +18172,9 @@ Information. A well-authored tool is self-evident to invoke: the trigger descrip
 ---
 
 Version note: v1 — supersedes Tools_Authoring_Standard@v8. All authoring content embedded unchanged. Review, build, deployment, and consumption sections added. Sibling-outputs model extended to include services. Produced from Tools_Design@v7 with its declared dependencies. 2026-09-23.
-<!-- END SOURCE: Tools/Tools_Development_Standard_v1.md -->
+
+Version note: v2 — applicability adds reviewing. Sibling outputs describe services as out-of-session operations that sessions call. Trigger budget 200 characters and skill `name` rules, inherited from the Standards Development Standard. Build precondition names the brief of the producing design. Platform-support statement added. Produced from Tools_Design@v8 with its declared dependencies. 2026-09-24. Replaces v1.
+<!-- END SOURCE: Tools/Tools_Development_Standard_v2.md -->
 
 ---
 
@@ -18107,8 +18246,8 @@ Version note: v1 — initial brief. Revised to reflect broad scope, few constrai
 
 ---
 
-<!-- BEGIN SOURCE: Utilities/Utilities_Decisions_v1.md -->
-> identity: Utilities_Decisions@v1 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Utilities/Utilities_Decisions_v2.md -->
+> identity: Utilities_Decisions@v2 | doctype: decisions | updated: 2026-09-24
 
 # Utilities — Decisions
 
@@ -18144,6 +18283,8 @@ Cross-review finding F6: utilities such as the file update package and version c
 
 ## D8 — Deployment means invokable
 
+*Status: extended by D12 — the minimum deployment contract. That deployment means invokable stands.*
+
 Cross-review finding F7: placing code in the repository does not make a utility usable. Deployment is defined as making the utility callable — a registered CLI command, a script entry point, or a service that wraps its implementation. Infrastructure owns the deployment path and any packaging.
 
 ## D9 — Cross-review findings not acted on
@@ -18157,12 +18298,28 @@ Per Capabilities D9 and D10: the definition of done is framed around the develop
 ---
 
 Version note: v1 — initial decisions, recorded retrospectively from the design session and cross-review. D1–D10. 2026-09-23.
-<!-- END SOURCE: Utilities/Utilities_Decisions_v1.md -->
+
+## D11 — Base lifecycle, and consumption through the README
+
+The design and standard said a utility follows "design, then build, then deploy" — out of step with the base lifecycle, which has review and consumption as phases (Capabilities D9). They now state the base lifecycle: design, review, build, deploy, consumption, with no authoring phase because the design is the specification.
+
+Consumption had no section. A utility is run by a person, and what that person needs is its README: what it does, how to invoke it, its settings file, and where output and logs go. The three existing utilities already work this way and their READMEs are the model. The README is therefore a required deliverable — a utility without one is not deployed — and no consumption standard is needed. This mirrors the service user guide (Services D11) at the lighter weight utilities warrant.
+
+## D12 — The minimum deployment contract
+
+D8 said deployment means invokable but left a developer to work out what that takes. The minimum is now stated: code placed per the Infrastructure CLI design (a module in the `aide` package's `utilities/` subpackage exposing `name`, `description` and `run`); invocation as an `aide` CLI command or a script entry point; a settings file and README alongside, in the utility's folder with its design; runtime state (per-project settings, log) under `_aide/utilities/<name>/`. The Infrastructure CLI design and the binder builder are named as the references. The paths were checked against the repositories: the live `aide` package is in the deploy repo (`aide-cli/src/aide/`), and the binder builder's settings and log are under `_aide/utilities/binder-builder/`.
+
+Implementation choices beyond the contract — language, internal structure, libraries — are left open, consistent with broad scope and few constraints (D2).
 
 ---
 
-<!-- BEGIN SOURCE: Utilities/Utilities_Design_v2.md -->
-> identity: Utilities_Design@v2 | doctype: design | updated: 2026-09-23
+Version note: v2 — second cross-review remediation. D8 marked as extended by D12. D11 (base lifecycle; consumption through the README), D12 (minimum deployment contract). 2026-09-24. Replaces v1.
+<!-- END SOURCE: Utilities/Utilities_Decisions_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: Utilities/Utilities_Design_v3.md -->
+> identity: Utilities_Design@v3 | doctype: design | updated: 2026-09-24
 
 # Utilities — Design
 
@@ -18200,7 +18357,7 @@ A thing may start as a utility and become a service when sessions need to call i
 
 ## Designing a utility
 
-A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, then build, then deploy. There is no authored document; the design goes directly to build.
+A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, review, build, deploy, and consumption. There is no authoring phase: the design is the specification, and once reviewed it goes directly to build.
 
 The design should address whatever the utility needs to be built correctly. For most utilities, that means:
 
@@ -18222,6 +18379,8 @@ The Utilities Development Standard applies when designing, reviewing, building, 
 
 ## Reviewing and testing a utility
 
+**Self-check.** Before cross-review, the developer checks the design against its definition of done and confirms the boundary tests place it as a utility — out-of-session, acting on the corpus on its own terms, not something sessions call (that would be a service). A proportionate read-through, not a checklist: its purpose is to avoid spending a cross-review on a design that is incomplete or the wrong type.
+
 **Reviewing the design.** The design is the build specification, so it is what gets reviewed: cross-review by a separate AI directed to find defects, against the definition of done, with findings triaged, remediated, and recorded in the decisions. For a small utility this is proportionately light — the point is an independent check, not ceremony.
 
 **Testing the built utility.** Run it against representative input and confirm its output and effects match the design. For a utility that changes or removes content, exercise its failure behaviour — what it does when it fails partway — because that is where a utility can do lasting damage. If the design declares it safe to run again, run it twice and confirm the second run changes nothing. Confirm it is invocable through its deployment form, not just runnable from its source.
@@ -18234,9 +18393,22 @@ The utility's code is the deliverable. There is no intermediate document — the
 
 ## Deployment
 
-A utility is deployed where it can be invoked — deployment means the utility is callable, not just that its code is present. Currently this means the AIDE repository, with invocation through a registered CLI command, a script entry point, or a service that wraps the utility's implementation. Infrastructure owns the deployment path and any packaging.
+A utility is deployed where it can be invoked — deployment means the utility is callable, not just that its code is present. Infrastructure owns the deployment path and any packaging.
 
-A utility may also be delivered as part of an MCP server (as the binder builder is delivered within the document management server) or as a standalone CLI command. The deployment form depends on how the utility is invoked.
+The minimum a deployed utility provides:
+
+- **Code placed per the Infrastructure CLI design.** A module in the `utilities/` subpackage of the `aide` package (in the deploy repo, `aide-cli/src/aide/utilities/`), exposing a `name`, a `description` and a `run` function. Presence and that shape are registration — there is no manifest.
+- **An invocation.** Either as an `aide` CLI command (the module's `name` becomes the subcommand — `aide binder`) or through a script entry point.
+- **A settings file and a README alongside.** The default settings file and the README sit together in the utility's folder with its design, as the binder builder's do in `Infrastructure/binder-builder/`.
+- **Runtime state under `_aide/utilities/<name>/`** at the documentation root — per-project settings and the log, as the binder builder keeps them in `_aide/utilities/binder-builder/`.
+
+The references are the Infrastructure CLI design (`Infrastructure_CLI_Design@v1`), which defines registration, settings layers and the `_aide` folder, and the binder builder as a working example. They are prose references, not `uses` dependencies. Implementation choices beyond this contract — language, internal structure, libraries — stay open to the utility's design.
+
+A utility may also be exposed through a service that wraps its implementation (as the binder builder is within the document management server). The session-facing operation is then a service; the standalone invocation remains the utility.
+
+## Consumption
+
+A utility is consumed through its README. The README tells the person running it what it does, how to invoke it, what its settings file contains and where it lives, and where its output and log go. The existing utilities' READMEs — binder builder, version cleanup, file update package — are the model: each covers those four things and adds whatever else running it safely needs, such as what it declines to do or how to read its report. No separate consumption standard is needed; the README is a deliverable of build, and a utility without one is not deployed.
 
 ## Ownership
 
@@ -18249,12 +18421,14 @@ Infrastructure currently holds the three working utility instances (binder build
 Version note: v1 — initial design. Cross-review remediation: F1 (tool disambiguation), F2 (corpus alignment), F3 (classification-follows-entry-point), F5 (intentional-omission signal), F6 (failure behaviour for destructive utilities), F7 (deployment means invokable). 2026-09-23.
 
 Version note: v2 — definition of done reframed around the development cycle. Applicability and reviewing-and-testing added so the development standard can be produced from the design. 2026-09-23. Replaces v1.
-<!-- END SOURCE: Utilities/Utilities_Design_v2.md -->
+
+Version note: v3 — second cross-review remediation. Lifecycle corrected to the base lifecycle — design, review, build, deploy, consumption, no authoring phase; Consumption section added — a utility is consumed through its README (F6, D11). Developer self-check added before cross-review (F5). Deployment states the minimum contract, referencing the Infrastructure CLI design and the binder builder (F7, D12). 2026-09-24. Replaces v2.
+<!-- END SOURCE: Utilities/Utilities_Design_v3.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Utilities/Utilities_Development_Standard_v1.md -->
-> identity: Utilities_Development_Standard@v1 | doctype: standard | updated: 2026-09-23 | uses: Capabilities_Development_Standard@v1
+<!-- BEGIN SOURCE: Utilities/Utilities_Development_Standard_v2.md -->
+> identity: Utilities_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2
 
 # Utilities — Development Standard
 
@@ -18278,7 +18452,7 @@ A utility and a service can coexist from the same implementation. Classification
 
 ## Designing a utility
 
-A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, then build, then deploy. There is no authored document; the design goes directly to build.
+A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, review, build, deploy, and consumption. There is no authoring phase: the design is the specification, and once reviewed it goes directly to build.
 
 The design should address whatever the utility needs to be built correctly. For most utilities, that means:
 
@@ -18296,6 +18470,8 @@ Recommended. These are not formal concerns with compliance obligations. They are
 
 ## Reviewing and testing a utility
 
+**Self-check first.** Before cross-review, check the design against its definition of done and confirm the boundary tests place it as a utility, not a service. Keep it proportionate — a read-through, not a checklist.
+
 **Review the design.** The design is the build specification. Cross-review it with a separate AI directed to find defects against the design's definition of done; triage, remediate, and record in the decisions. Keep it proportionate to the utility's size.
 
 **Test the built utility.** Run it against representative input and confirm its output and effects match the design. For a utility that changes or removes content, exercise its partial-failure behaviour. If the design declares it safe to run again, run it twice and confirm the second run changes nothing. Confirm it is invocable through its deployment form, not just from its source.
@@ -18306,9 +18482,20 @@ The design document is the build specification. Build creates the utility from t
 
 ## Deployment
 
-A utility is deployed where it can be invoked — deployment means the utility is callable, not just that its code is present. Currently this means the AIDE repository, with invocation through a registered CLI command, a script entry point, or a service that wraps the utility's implementation. Infrastructure owns the deployment path and any packaging.
+A utility is deployed when it can be invoked, not just when its code is present. The minimum:
 
-A utility may also be delivered as part of an MCP server or as a standalone CLI command. The deployment form depends on how the utility is invoked.
+- **Code** placed per the Infrastructure CLI design — a module in the `utilities/` subpackage of the `aide` package (deploy repo, `aide-cli/src/aide/utilities/`) exposing `name`, `description` and `run`.
+- **Invocation** as an `aide` CLI command (`aide <name>`) or through a script entry point.
+- **Settings file and README** together in the utility's folder with its design.
+- **Runtime state** — per-project settings and the log — under `_aide/utilities/<name>/` at the documentation root.
+
+Information. References: `Infrastructure_CLI_Design@v1` for registration, settings layers and the `_aide` folder; the binder builder (`Infrastructure/binder-builder/`, `_aide/utilities/binder-builder/`) as a working example. Implementation choices beyond this contract stay open. Infrastructure owns the deployment path and any packaging.
+
+Information. A utility may also be exposed through a service that wraps its implementation; the session-facing operation is then a service.
+
+## Consumption
+
+A utility is consumed through its README: what it does, how to invoke it, its settings file, and where its output and log go. Follow the existing utilities' READMEs as the model. A utility without a README is not deployed.
 
 ## Ownership
 
@@ -18317,7 +18504,9 @@ A utility may also be delivered as part of an MCP server or as a standalone CLI 
 ---
 
 Version note: v1 — initial standard. Produced from Utilities_Design@v2, including review and testing. 2026-09-23.
-<!-- END SOURCE: Utilities/Utilities_Development_Standard_v1.md -->
+
+Version note: v2 — lifecycle corrected to design, review, build, deploy, consumption. Self-check added before cross-review. Deployment states the minimum contract. Consumption section added — the README. Produced from Utilities_Design@v3. 2026-09-24. Replaces v1.
+<!-- END SOURCE: Utilities/Utilities_Development_Standard_v2.md -->
 
 ---
 

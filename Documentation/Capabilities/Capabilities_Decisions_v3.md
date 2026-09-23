@@ -1,4 +1,4 @@
-> identity: Capabilities_Decisions@v2 | doctype: decisions | updated: 2026-09-23
+> identity: Capabilities_Decisions@v3 | doctype: decisions | updated: 2026-09-24
 
 # Capabilities — Decisions
 
@@ -13,6 +13,8 @@ This resolves the earlier overview statement "Capabilities is a category not a p
 Execution context (in-session vs out-of-session) and direction of service (serves sessions vs serves the corpus) are the two orthogonal properties. One property alone would conflate types — services and utilities both run out-of-session but serve different things. The two properties produce three distinct groups; Standards and Tools share the same cell (both in-session, both session-serving) and are separated by the invocability test owned by Tools. Each group's boundary tests are owned by the relevant type component, not by Capabilities.
 
 ## D3 — Five lifecycle phases, authoring conditional
+
+*Status: revised by D9 (six phases — review added). The conditional author phase stands.*
 
 The five phases (design, author, build, deploy, consumption) apply to all four types, but authoring is conditional. Standards and tools produce an authored doc that serves as both specification and deployment payload. Services and utilities have no authored doc — the design doc is the specification.
 
@@ -77,3 +79,11 @@ Version note: v2 — D9 (review as a lifecycle phase), D10 (definition of done a
 ## D13 — The Capabilities Development Standard declares no `uses`
 
 The standard previously declared `uses` on the Standards Authoring Standard, which has since been deleted — a stale dependency. Replacing it with the Standards Development Standard would create a cycle, because the Standards Development Standard uses this one. Nothing in the Capabilities Development Standard depends on the standards authoring rules at the moment of application: it defines the taxonomy, lifecycle and structure the type standards extend. It is therefore a foundation-tier standard with no declared dependencies. That it was itself authored under the Standards rules is a property of how it was made, not a dependency of its consumers.
+
+## D14 — The base standard names the four type standards
+
+A developer reading the Capabilities Development Standard could learn that each type has its own development standard but not which one or where it is — the acceptance test asks them to locate it. The base standard now carries a table mapping each capability type to its development standard's identity and file location. The table is a pointer in prose, not a `uses` declaration: the type standards depend on this base, and a reverse declaration would create the cycle D13 avoids. The cost is that the table must be updated when a type standard is versioned.
+
+---
+
+Version note: v3 — D3 marked as revised by D9. D14 (the base standard names the four type standards). 2026-09-24. Replaces v2.

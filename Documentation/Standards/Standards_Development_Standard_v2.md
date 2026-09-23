@@ -1,4 +1,4 @@
-> identity: Standards_Development_Standard@v1 | doctype: standard | updated: 2026-09-23 | uses: Capabilities_Development_Standard@v1, DocumentationMethodology_SchemaAuthoring_Standard@v1
+> identity: Standards_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Standards — Development Standard
 
@@ -14,7 +14,7 @@ Information. The invocability test in the Tools Development Standard draws the b
 
 ## Applicability
 
-Information. This standard applies when designing, authoring, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
+Information. This standard applies when designing, authoring, reviewing, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
 
 ## Two classes of standard
 
@@ -52,7 +52,9 @@ Information. Ambient framework context means framework capabilities the architec
 
 **Trigger description.** Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the basis for loading the standard where it is needed.
 
-**Description budget.** The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget. Front-load trigger words so the most important terms survive truncation.
+**Description budget.** The trigger description must fit within 200 characters. Front-load trigger words so the most important terms survive truncation.
+
+Information. The 200-character budget is AIDE policy, adjustable here, not a specification limit — the Agent Skills specification allows 1024. It matches the tightest known surface cap (the claude.ai skill uploader, 200) and keeps descriptions short enough to survive the shared skill-listing budget when many skills are installed.
 
 **Segmentation.** The description budget is the size test for whether a standard should be split. If the trigger elements that define when the standard is needed will not fit within the budget, split into sub-standards rather than compressing the description into uselessness.
 
@@ -112,7 +114,7 @@ A standard is built by packaging it as a skill for plugin delivery. The authored
 
 Cross-review accepted and acceptance test passed before build starts. These are authoring-phase completions, not build steps.
 
-The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder knows where to place the skill without having to determine it.
+The linked build outcome on the brief of the design that produces the standard states the deployment target — which plugin the skill is built for. This is recorded during design so the builder knows where to place the skill without having to determine it.
 
 ### Building a skill
 
@@ -129,7 +131,14 @@ description: "<trigger description>"
 <standard content>
 ```
 
-The `description` field IS the trigger description — the 130-character text that determines when the platform loads the skill. The `name` field is the skill's identifier within the plugin, matching the skill directory name.
+The `description` field IS the trigger description — the text, within the 200-character budget, that determines when the platform loads the skill.
+
+The `name` field is the skill's identifier within the plugin. It follows the Agent Skills specification, which platforms enforce:
+
+- 1–64 characters;
+- lowercase letters a–z, digits 0–9, and hyphens only;
+- no leading, trailing, or consecutive hyphens;
+- must match the skill's directory name.
 
 The provenance comment records which standard document the skill was built from and when. This is a build record, not a `uses` declaration.
 
@@ -157,7 +166,9 @@ The built skill is deployed through the marketplace plugin pipeline:
 3. Refresh the marketplace clone: `claude plugin marketplace update <n>`.
 4. Restart Claude Desktop.
 
-Skills reach Chat via web UI account-level plugin registration (Settings → Plugins) and Code/Cowork via desktop app plugin registration (Settings → Plugins → Discover). Both registration paths are needed for full three-surface coverage.
+Skills reach Chat via web UI account-level plugin registration (Settings → Plugins) and Code/Cowork via desktop app plugin registration (Settings → Plugins → Discover). Both registration paths are needed for coverage of all three Claude surfaces.
+
+Information. Platform support: Claude — Chat, Code, and Cowork — is supported. ChatGPT and Codex are pending; for ChatGPT, which does not load plugins, the route is curated standards binders, held as a future consideration. No adapters for other platforms are built.
 
 Information. The full deployment methodology, known platform issues, and workarounds are documented in `Infrastructure_MCPDeliveryModel@v2`. The deployment steps above are the minimum a builder needs; the delivery model document has the complete picture.
 
@@ -193,3 +204,5 @@ Information. Governed by the split test: stays in the standard when small, remov
 ---
 
 Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Review section added (acceptance test and cross-review). Build section covers skill file format, plugin placement, and preconditions; deployment covers the marketplace path. Consumption references the Standards Consumption Standard. Produced from Standards_Design@v4. 2026-09-23.
+
+Version note: v2 — applicability adds reviewing. Trigger description budget is 200 characters, stated as AIDE policy. Skill `name` rules from the Agent Skills specification added to the build. Build precondition names the brief of the producing design. Platform-support statement added to deployment. Produced from Standards_Design@v5. 2026-09-24. Replaces v1.

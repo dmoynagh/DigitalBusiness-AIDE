@@ -1,4 +1,4 @@
-> identity: Tools_Decisions@v8 | doctype: decisions | updated: 2026-09-23
+> identity: Tools_Decisions@v9 | doctype: decisions | updated: 2026-09-24
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -47,17 +47,23 @@ The model also prevents the synchronisation problem the invocability test was de
 
 ## D7 — The standards authoring rules apply to tools
 
+*Status: revised — references to the authoring standard now read Development Standard (D18). The decision stands.*
+
 The authoring rules in the standards authoring standard are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context. A tool that is not self-contained requires its design to be loaded alongside it. A tool with rules that have no operational consumer is governance without effect. The rules apply.
 
 Tools does not restate them. The tool authoring standard consumes them by reference to the standards authoring methodology, with a reading rule for standard-specific nouns.
 
 ## D8 — Trigger description and segmentation rules are capability-wide
 
+*Status: revised — references to the authoring standard now read Development Standard (D18), and the budget is 200 characters (Standards D27). The decision that the rules are capability-wide stands.*
+
 The 130-character trigger budget, front-loading of trigger words, segmentation along dependency lines, and self-containment of each sub-unit were agreed as part of the standards authoring standard v3. They are platform constraints, not standard-specific constraints. A tool deployed as a skill faces the same budget on the same platforms.
 
 Tools applies these rules identically. They are not restated — the tool authoring standard references them as capability-wide rules.
 
 ## D9 — One primary output: the tool authoring standard
+
+*Status: superseded by D18 — the Tools Development Standard replaces the tool authoring standard. The reasoning on no separate consumption standard stands and is carried in the design.*
 
 The tool authoring standard covers design, authoring, and the deployment handoff for tools. It parallels the standards authoring standard in scope and shape.
 
@@ -76,6 +82,8 @@ Carried from the old Tools Design §3, confirmed during the legacy binder review
 The discipline is framed as Recommended because it is guidance for execution, not a compliance obligation. A tool author who has a good reason to handle inputs differently may do so — the rule is that the behaviour should be deliberate, not that it must follow this exact pattern.
 
 ## D12 — Document-default strength simplifies clutter in larger tools
+
+*Status: revised — references to the authoring standard now read Development Standard (D18). The decision stands.*
 
 A tool can declare its document-level default strength the same way standards do (nearest-declaration-wins). This avoids tagging every item Required in a long tool. The mechanism is in the standards authoring standard; Tools applies it identically.
 
@@ -136,3 +144,7 @@ The Capabilities Development Standard (D5) established that each type's developm
 ## D19 — The design must be able to produce the standard; definition of done covers review
 
 Applies Standards D24 and D25 to Tools. A review found the Tools design lacked content its standard carried — the applicability statement, how the capability-wide rules apply (incorporation, noun substitution, the acceptance test for a tool), trigger and scope, document-default strength, the design-approach line, and consumption. All were added to the design so the standard can be produced from it with its declared dependencies. The brief gained a definition of done covering classification, design, authoring, review, build, deployment, and consumption. Review for tools uses the review defined in the Standards Development Standard; only the form of the acceptance test is tool-specific. The binder-content build option was removed from the standard to match the design, which builds tools as skills only.
+
+---
+
+Version note: v9 — second cross-review remediation. Status lines added: D9 superseded by D18; D7 and D12 revised to read Development Standard (D18); D8 revised likewise and for the 200-character budget (Standards D27). 2026-09-24. Replaces v8.

@@ -1,4 +1,4 @@
-> identity: Utilities_Development_Standard@v1 | doctype: standard | updated: 2026-09-23 | uses: Capabilities_Development_Standard@v1
+> identity: Utilities_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2
 
 # Utilities — Development Standard
 
@@ -22,7 +22,7 @@ A utility and a service can coexist from the same implementation. Classification
 
 ## Designing a utility
 
-A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, then build, then deploy. There is no authored document; the design goes directly to build.
+A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, review, build, deploy, and consumption. There is no authoring phase: the design is the specification, and once reviewed it goes directly to build.
 
 The design should address whatever the utility needs to be built correctly. For most utilities, that means:
 
@@ -40,6 +40,8 @@ Recommended. These are not formal concerns with compliance obligations. They are
 
 ## Reviewing and testing a utility
 
+**Self-check first.** Before cross-review, check the design against its definition of done and confirm the boundary tests place it as a utility, not a service. Keep it proportionate — a read-through, not a checklist.
+
 **Review the design.** The design is the build specification. Cross-review it with a separate AI directed to find defects against the design's definition of done; triage, remediate, and record in the decisions. Keep it proportionate to the utility's size.
 
 **Test the built utility.** Run it against representative input and confirm its output and effects match the design. For a utility that changes or removes content, exercise its partial-failure behaviour. If the design declares it safe to run again, run it twice and confirm the second run changes nothing. Confirm it is invocable through its deployment form, not just from its source.
@@ -50,9 +52,20 @@ The design document is the build specification. Build creates the utility from t
 
 ## Deployment
 
-A utility is deployed where it can be invoked — deployment means the utility is callable, not just that its code is present. Currently this means the AIDE repository, with invocation through a registered CLI command, a script entry point, or a service that wraps the utility's implementation. Infrastructure owns the deployment path and any packaging.
+A utility is deployed when it can be invoked, not just when its code is present. The minimum:
 
-A utility may also be delivered as part of an MCP server or as a standalone CLI command. The deployment form depends on how the utility is invoked.
+- **Code** placed per the Infrastructure CLI design — a module in the `utilities/` subpackage of the `aide` package (deploy repo, `aide-cli/src/aide/utilities/`) exposing `name`, `description` and `run`.
+- **Invocation** as an `aide` CLI command (`aide <name>`) or through a script entry point.
+- **Settings file and README** together in the utility's folder with its design.
+- **Runtime state** — per-project settings and the log — under `_aide/utilities/<name>/` at the documentation root.
+
+Information. References: `Infrastructure_CLI_Design@v1` for registration, settings layers and the `_aide` folder; the binder builder (`Infrastructure/binder-builder/`, `_aide/utilities/binder-builder/`) as a working example. Implementation choices beyond this contract stay open. Infrastructure owns the deployment path and any packaging.
+
+Information. A utility may also be exposed through a service that wraps its implementation; the session-facing operation is then a service.
+
+## Consumption
+
+A utility is consumed through its README: what it does, how to invoke it, its settings file, and where its output and log go. Follow the existing utilities' READMEs as the model. A utility without a README is not deployed.
 
 ## Ownership
 
@@ -61,3 +74,5 @@ A utility may also be delivered as part of an MCP server or as a standalone CLI 
 ---
 
 Version note: v1 — initial standard. Produced from Utilities_Design@v2, including review and testing. 2026-09-23.
+
+Version note: v2 — lifecycle corrected to design, review, build, deploy, consumption. Self-check added before cross-review. Deployment states the minimum contract. Consumption section added — the README. Produced from Utilities_Design@v3. 2026-09-24. Replaces v1.

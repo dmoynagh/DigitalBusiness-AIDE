@@ -1,4 +1,4 @@
-> identity: Standards_Decisions@v5 | doctype: decisions | updated: 2026-09-23
+> identity: Standards_Decisions@v6 | doctype: decisions | updated: 2026-09-24
 
 ## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
 
@@ -35,6 +35,8 @@ A standard must be understandable without its design document in the session. Th
 This does not prevent a standard from referencing its design for deeper reasoning. It prevents depending on the design being present.
 
 ## D6 — Two outputs: authoring and consumption
+
+*Status: superseded by D23 — the authoring standard is replaced by the Standards Development Standard. The two-output split (development and consumption) stands.*
 
 The authoring standard covers design, authoring, and deployment. The consumption standard covers conflict resolution, human override, and runtime operation under applicable standards.
 
@@ -82,6 +84,8 @@ Implemented as an extension to the discriminating-guidance authoring rule rather
 
 ## D13 — Trigger description and segmentation
 
+*Status: revised by D27 — the budget is 200 characters as AIDE policy. The 130 figure was a safety margin, not a specification limit. Front-loading and the segmentation test stand.*
+
 Every standard carries a trigger description as its first content after the header. This is authored once and serves both skill and bundle deployment — it is the single artefact that controls how the standard is discovered and loaded across platforms.
 
 The 130-character budget is the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard (agentskills.io), currently adopted by Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and 30+ others. The figure is a union minimum — the smallest confirmed budget across all adopting platforms. It should be revised when platform budgets change.
@@ -89,6 +93,8 @@ The 130-character budget is the tightest confirmed cross-platform trigger budget
 The budget also serves as the segmentation test. If the trigger elements won't fit in 130 characters, the standard is too broad for a single skill and should be split. Cutting along dependency lines ensures co-dependent guidance loads together. Each sub-standard must be self-contained — the self-containment authoring rule applies to each part independently.
 
 ## D14 — Carry to Deployment: aggregate description budget
+
+*Status: revised by D27 — each description's own fit is now against 200 characters. The aggregate carry to Deployment stands.*
 
 Deployment's weight gate gains a second measure beyond total context weight: the aggregate sum of all skill trigger descriptions must fit within the platform's shared description budget. This is a packaging constraint — the total description space available to a plugin is shared across all skills it contains, so each trigger description's cost is not just its own 130-character fit but its contribution to the aggregate.
 
@@ -173,3 +179,19 @@ Everything in a standard must be present in its design; the design additionally 
 ## D25 — Definition of done covers the full development cycle, including review
 
 The brief's definition of done states that a developer can design, author, review, build, and deploy a standard, and that sessions can operate under standards. Review was previously only a build precondition ("cross-review accepted") with no guidance on how to do it. A review section was added to the design and standard: the acceptance test, and cross-review by a separate AI directed to find defects, given the definition of done to test against, with findings triaged and recorded, and a further round only when remediation introduces unreviewed material. The cross-review process remains a Working Practices convention; the standard carries what a developer needs to perform it.
+
+## D26 — The development standard uses the DocMeth schema authoring standard
+
+The Standards Development Standard declares `uses DocumentationMethodology_SchemaAuthoring_Standard@v1`. The reason is its schema definitions: the Standard doctype and the Clarification blocktype are written to Documentation Methodology's definition contract — purpose, included blocktypes, recognition, format constraint. A reader needs that contract to interpret the definitions correctly, so it is a genuine dependency at the moment of application, not a record of how the standard was made. If the definition contract changes, the definitions here must be checked, which is the change-management obligation `uses` exists to carry.
+
+## D27 — Trigger description budget: 200 characters, AIDE policy
+
+The trigger description budget is 200 characters. It is AIDE policy, stated in the standard and adjustable there — it is not attributed to the Agent Skills specification, which allows descriptions up to 1024 characters. Two reasons for 200: it matches the tightest known surface cap (the claude.ai skill uploader accepts 200), and it keeps descriptions short enough to survive the shared skill-listing budget, which platforms truncate when many skills are installed.
+
+The earlier 130-character figure (D13) was presented as the tightest confirmed cross-platform budget. It was a safety margin for busy skill listings, not a limit any specification sets. Front-loading trigger words and the segmentation test are unchanged; the test now runs against 200.
+
+The build contract also gains the specification's `name` rules — 1–64 characters; lowercase a–z, 0–9 and hyphens only; no leading, trailing or consecutive hyphens; must match the skill's directory name — because platforms enforce them and a skill that breaks them fails to load.
+
+---
+
+Version note: v6 — second cross-review remediation. Status lines added: D6 superseded by D23; D13 and D14 revised by D27. D26 (DocMeth schema authoring dependency justified), D27 (200-character trigger budget as AIDE policy; skill `name` rules). 2026-09-24. Replaces v5.

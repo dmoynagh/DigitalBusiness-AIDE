@@ -1,4 +1,4 @@
-> identity: Standards_Design@v4 | doctype: design | updated: 2026-09-23
+> identity: Standards_Design@v5 | doctype: design | updated: 2026-09-24
 
 ## Brief
 
@@ -17,6 +17,8 @@
 5. A developer can deploy a standard — the deployment path and the registration it needs.
 6. Sessions can operate under applicable standards — applicability evaluation, combining, conflict resolution, and human override.
 7. The development standard and the consumption standard can be produced entirely from this design.
+
+**Linked build outcome.** Standards Development Standard, deployed as a skill in the `aide-dev` plugin. Standards Consumption Standard, deployed as a skill in the `aide` plugin.
 
 ## What a standard achieves
 
@@ -62,9 +64,9 @@ How to decide what goes into a standard, how to write it, and how lean is lean e
 
 Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the single artefact that determines how the standard is loaded across platforms.
 
-The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget across platforms implementing the agent skills standard (agentskills.io). This figure is the union minimum across Claude, Codex, GitHub Copilot, Cursor, Gemini CLI, and other adopters. Front-load trigger words so the most important terms survive truncation.
+The trigger description must fit within 200 characters. This is AIDE policy, not a specification limit, and it can be adjusted in the standard. The Agent Skills specification allows descriptions up to 1024 characters; AIDE sets a tighter budget for two reasons. It matches the tightest known surface cap — the claude.ai skill uploader accepts 200 characters. And it keeps descriptions short enough to survive the shared skill-listing budget, which platforms truncate when many skills are installed. Front-load trigger words so the most important terms survive truncation.
 
-The description budget doubles as the segmentation test. If the trigger elements that define when a standard is needed will not fit within 130 characters, the standard should be split into sub-standards along dependency lines so co-dependent guidance loads together. Each sub-standard must be self-contained.
+The description budget doubles as the segmentation test. If the trigger elements that define when a standard is needed will not fit within 200 characters, the standard should be split into sub-standards along dependency lines so co-dependent guidance loads together. Each sub-standard must be self-contained.
 
 A carry to Deployment: the aggregate sum of skill trigger descriptions across all deployed standards must be checked against the platform's shared description budget. This is a second measure for Deployment's weight gate.
 
@@ -114,7 +116,7 @@ Scope targets behaviour and relevance — what needs to be true for the standard
 
 ### Conflict resolution
 
-The Standards Consumption Standard applies whenever an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, or deploying standards — that is the development standard's scope.
+The Standards Consumption Standard applies whenever an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, reviewing, building, or deploying standards — those are governed by the Standards Development Standard.
 
 When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between, and each item is applied according to its declared strength. When two applicable items genuinely oppose each other on the same point, higher strength governs, in the order Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved; when surfacing it, identify the competing standards, the opposing items, and the work affected. Conflict is not manufactured from different concerns that can both be satisfied — two standards addressing different aspects of the same work are not in conflict merely because both apply.
 
@@ -132,7 +134,7 @@ A loaded standard is not automatically applicable. Before applying a standard, i
 
 ## Applicability of the development standard
 
-The Standards Development Standard applies when designing, authoring, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies — those projects may adopt it, but AIDE does not govern them.
+The Standards Development Standard applies when designing, authoring, reviewing, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies — those projects may adopt it, but AIDE does not govern them.
 
 ## Reviewing a standard
 
@@ -147,6 +149,8 @@ The reason for a separate AI is independence: the author's session shares the au
 ## Schema definitions
 
 Standards owns two types. They stay in the development standard rather than a separate schema standard because there are only two definitions and they change at the same cadence as the authoring rules.
+
+The definitions are written to Documentation Methodology's definition contract — the properties a doctype or blocktype definition carries, and what they mean. A reader needs that contract to interpret them, so the development standard declares `uses DocumentationMethodology_SchemaAuthoring_Standard@v1` (D26).
 
 **Standard (doctype).** Purpose: shape decisions and behaviour at the moment of application — lean, memory-resident, applied alongside many others. Included blocktypes: Clarification, Contents, Summary, Version note — all optional. Format constraint: markdown.
 
@@ -175,7 +179,14 @@ description: "<trigger description>"
 <standard content>
 ```
 
-The `description` field is the trigger description — the 130-character text that determines when the platform loads the skill. The `name` field is the skill's identifier within the plugin, matching the skill directory name. The provenance comment records which standard document the skill was built from and when.
+The `description` field is the trigger description — the text, within the 200-character budget, that determines when the platform loads the skill. The provenance comment records which standard document the skill was built from and when.
+
+The `name` field is the skill's identifier within the plugin. It follows the Agent Skills specification's rules, which platforms enforce when loading a skill:
+
+- 1–64 characters;
+- lowercase letters a–z, digits 0–9, and hyphens only;
+- no leading, trailing, or consecutive hyphens;
+- must match the skill's directory name.
 
 The standard content is copied from the accepted standard document. The document header (identity line, `uses` declarations) is omitted — those are document metadata, not session content. The version note is omitted — the provenance comment serves the same purpose for a built skill.
 
@@ -197,11 +208,13 @@ The built skill is deployed through the marketplace plugin pipeline:
 3. Refresh the marketplace clone: `claude plugin marketplace update <n>`.
 4. Restart Claude Desktop.
 
-Skills reach Chat via web UI account-level plugin registration and Code/Cowork via desktop app plugin registration. Both registration paths are needed for full three-surface coverage. The full deployment methodology and known platform issues are documented in `Infrastructure_MCPDeliveryModel@v2`.
+Skills reach Chat via web UI account-level plugin registration and Code/Cowork via desktop app plugin registration. Both registration paths are needed for coverage of all three Claude surfaces. The full deployment methodology and known platform issues are documented in `Infrastructure_MCPDeliveryModel@v2`.
+
+**Platform support.** Claude — Chat, Code, and Cowork — is supported. ChatGPT and Codex are pending. For ChatGPT, which does not load plugins, the route is the curated standards binders held as a future consideration (D22). No adapters for other platforms are built.
 
 ### Build preconditions
 
-Cross-review accepted and acceptance test passed before build. The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it.
+Cross-review accepted and acceptance test passed before build. The linked build outcome on the brief of the design that produces the standard states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it.
 
 ## What Standards produces
 
@@ -233,3 +246,5 @@ Standards does **not** own:
 ---
 
 Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. Consumption content completed (applicability of the consumption standard, precedence order, what to identify when surfacing conflict, override scope, reporting, evaluating applicability) so the consumption standard can also be produced from it. 2026-09-23. Replaces v3.
+
+Version note: v5 — second cross-review remediation. Linked build outcome added to the brief (F8); build preconditions say the field is on the brief of the producing design. Consumption applicability now names the Standards Development Standard and all five development activities (F3); development-standard applicability adds reviewing (F4). The DocMeth dependency justified in schema definitions (F9, D26). Trigger description budget set to 200 characters as AIDE policy, and the specification's `name` rules added to the skill file (F12, D27). Platform-support statement added to deployment; "full three-surface coverage" now reads "coverage of all three Claude surfaces" (F13). 2026-09-24. Replaces v4.

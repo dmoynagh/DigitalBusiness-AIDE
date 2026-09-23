@@ -1,4 +1,4 @@
-> identity: Tools_Development_Standard@v1 | doctype: standard | updated: 2026-09-23 | uses: Capabilities_Development_Standard@v1, Standards_Development_Standard@v1
+> identity: Tools_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, Standards_Development_Standard@v2
 
 # Tools — Development Standard
 
@@ -14,7 +14,7 @@ Information. A tool earns its context cost. Everything in it displaces something
 
 ## Applicability
 
-Information. This standard applies when designing, authoring, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
+Information. This standard applies when designing, authoring, reviewing, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
 
 ## The invocability test
 
@@ -72,11 +72,11 @@ Information. This is the only case where a standard may describe an invokable pr
 
 ## The sibling-outputs model
 
-Information. A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the design, not from each other, and must not disagree. If they do, the design is the authority and the inconsistent output is defective.
+Information. A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, out-of-session operations that sessions call into services. All derive from the design, not from each other, and must not disagree. If they do, the design is the authority and the inconsistent output is defective.
 
 ## Trigger description
 
-Every tool carries a trigger description. The capability-wide trigger-description and segmentation rules in the Standards Development Standard apply identically to tools, including the 130-character budget, front-loading of trigger words, and segmentation along dependency lines.
+Every tool carries a trigger description. The capability-wide trigger-description and segmentation rules in the Standards Development Standard apply identically to tools, including the 200-character budget, front-loading of trigger words, and segmentation along dependency lines.
 
 ## Applicability scope
 
@@ -108,7 +108,7 @@ A tool is built by packaging it as a skill for plugin delivery. The authored too
 
 Cross-review accepted and acceptance test passed before build starts. These are authoring-phase completions, not build steps.
 
-The brief's linked build outcome states the deployment target — which plugin the skill is built for.
+The linked build outcome on the brief of the design that produces the tool states the deployment target — which plugin the skill is built for.
 
 ### Building a skill
 
@@ -125,7 +125,7 @@ description: "<trigger description>"
 <tool content>
 ```
 
-The `description` field is the trigger description. The tool content is copied from the accepted tool document, omitting the document header and version note. The provenance comment records the source.
+The `description` field is the trigger description. The `name` field follows the same Agent Skills specification rules as for standards. The tool content is copied from the accepted tool document, omitting the document header and version note. The provenance comment records the source.
 
 A tool and a standard produced as sibling outputs from the same design are built as separate skills — each with its own trigger description and skill file. They load independently.
 
@@ -135,7 +135,9 @@ Tools follow the same plugin placement as standards: `aide` for operational tool
 
 ## Deployment
 
-The deployment path is the same as for standards: PR to the deploy repo, merge, refresh marketplace clone, restart Desktop. Both web UI and desktop app registration paths are needed for full three-surface coverage. See the Standards Development Standard for the full deployment steps, or `Infrastructure_MCPDeliveryModel@v2` for the complete picture.
+The deployment path is the same as for standards: PR to the deploy repo, merge, refresh marketplace clone, restart Desktop. Both web UI and desktop app registration paths are needed for coverage of all three Claude surfaces. See the Standards Development Standard for the full deployment steps, or `Infrastructure_MCPDeliveryModel@v2` for the complete picture.
+
+Information. Platform support: Claude — Chat, Code, and Cowork — is supported. ChatGPT and Codex are pending; for ChatGPT, which does not load plugins, the route is curated standards binders, held as a future consideration. No adapters for other platforms are built.
 
 ## Consumption
 
@@ -148,3 +150,5 @@ Information. A well-authored tool is self-evident to invoke: the trigger descrip
 ---
 
 Version note: v1 — supersedes Tools_Authoring_Standard@v8. All authoring content embedded unchanged. Review, build, deployment, and consumption sections added. Sibling-outputs model extended to include services. Produced from Tools_Design@v7 with its declared dependencies. 2026-09-23.
+
+Version note: v2 — applicability adds reviewing. Sibling outputs describe services as out-of-session operations that sessions call. Trigger budget 200 characters and skill `name` rules, inherited from the Standards Development Standard. Build precondition names the brief of the producing design. Platform-support statement added. Produced from Tools_Design@v8 with its declared dependencies. 2026-09-24. Replaces v1.

@@ -1,4 +1,4 @@
-> identity: Tools_Design@v7 | doctype: design | updated: 2026-09-23
+> identity: Tools_Design@v8 | doctype: design | updated: 2026-09-24
 
 ## Brief
 
@@ -18,6 +18,8 @@
 6. A developer can deploy a tool — the deployment path.
 7. The consumer can invoke a deployed tool without separate consumption guidance.
 8. The Tools Development Standard can be produced entirely from this design, together with its declared dependencies.
+
+**Linked build outcome.** Tools Development Standard, deployed as a skill in the `aide-dev` plugin.
 
 ## What a tool is and does
 
@@ -47,7 +49,7 @@ This is the only case where a standard may describe an invokable procedure witho
 
 ## The sibling-outputs model
 
-A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part of that behaviour appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
+A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part of that behaviour appropriate to its type — guidance into a standard, invokable actions into tools, out-of-session operations that sessions call into services. All derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
 
 This is common. A component or feature may need a standard to shape how the work is approached and a tool to perform a specific action within it. The design specifies the full behaviour; the outputs are whatever delivers it — one or more standards, one or more tools, or a mix. Each output is authored from the design, not from its sibling.
 
@@ -99,7 +101,7 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 ## Applicability of the development standard
 
-The Tools Development Standard applies when designing, authoring, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
+The Tools Development Standard applies when designing, authoring, reviewing, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
 
 ## How the capability-wide rules apply to tools
 
@@ -109,7 +111,7 @@ The rules and the acceptance test are incorporated by reference, not restated, a
 
 **Acceptance test for a tool.** Given only the tool, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations the tool covers? If it cannot, the tool fails the self-containment rule and must not be published.
 
-**Trigger description.** Every tool carries a trigger description. The trigger-description and segmentation rules in the Standards Development Standard apply identically — the 130-character budget, front-loading of trigger words, and segmentation along dependency lines are platform constraints, not standard-specific ones. A tool deployed as a skill faces the same budget on the same platforms.
+**Trigger description.** Every tool carries a trigger description. The trigger-description and segmentation rules in the Standards Development Standard apply identically — the 200-character budget, front-loading of trigger words, and segmentation along dependency lines are platform constraints, not standard-specific ones. A tool deployed as a skill faces the same budget on the same platforms.
 
 **Applicability scope.** Every tool declares the conditions under which it applies, framed through behaviour and relevance rather than deployment target. Trigger and scope are distinct: the trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run — the same risk as for standards, of an available capability running when it should not.
 
@@ -131,9 +133,11 @@ A well-authored tool is self-evident to invoke: the trigger description tells th
 
 Tools' build domain follows the same model as Standards — the accepted tool document is the build specification, and the build target is a skill file placed in the appropriate marketplace plugin. The skill file format, plugin placement, and deployment path are the same as for standards. A tool and a standard produced as sibling outputs from the same design are built as separate skills, each with its own trigger description.
 
-The brief's linked build outcome states the deployment target — which plugin the skill is built for. The practical build detail is recorded in the Tools Development Standard; the reasoning is here.
+The linked build outcome on the brief of the design that produces the tool states the deployment target — which plugin the skill is built for. The skill `name` follows the same specification rules as for standards. The practical build detail is recorded in the Tools Development Standard; the reasoning is here.
 
 The boundary between what Tools owns and what Infrastructure owns is the same as for Standards: Tools owns the build domain knowledge (what a tool skill looks like, what the build preconditions are), Infrastructure owns the packaging mechanism and delivery pipeline.
+
+**Platform support.** The same as for standards: Claude — Chat, Code, and Cowork — is supported, and both registration paths are needed for coverage of all three Claude surfaces. ChatGPT and Codex are pending; for ChatGPT, the route is the curated standards binders held as a future consideration (Standards D22). No adapters for other platforms are built.
 
 ## Boundaries
 
@@ -153,3 +157,5 @@ Tools does **not** own:
 ---
 
 Version note: v7 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: applicability of the development standard, how the capability-wide rules apply to tools (incorporation, noun substitution, acceptance test, trigger, scope, document-default strength), the design approach for tools, reviewing a tool, consumption, and the build section. Sibling outputs extended to services; boundary with services and utilities stated. The development standard can now be produced from this design with its declared dependencies. 2026-09-23. Replaces v6.
+
+Version note: v8 — second cross-review remediation. Linked build outcome added to the brief; build preconditions name the brief of the producing design (F8). Applicability adds reviewing (F4). Sibling outputs: services described as out-of-session operations that sessions call, not persistent operations (F11). Inherited trigger budget now 200 characters, and skill `name` rules follow the standards build (F12, Standards D27). Platform-support statement added (F13). 2026-09-24. Replaces v7.

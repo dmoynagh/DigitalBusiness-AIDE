@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v29 | 2026-09-23
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v30 | 2026-09-24
 
 ## Active threads
 
@@ -21,11 +21,13 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - Utilities: component creation, design pass, development standard
 
 **Build and deploy owed (all need skill authoring and plugin deployment):**
-- Capabilities_Development_Standard_v1 → aide-dev plugin (new skill)
-- Standards_Development_Standard_v1 → aide-dev plugin (replaces standards-authoring skill)
-- Tools_Development_Standard_v1 → aide-dev plugin (replaces tools-authoring skill)
-- Services_Development_Standard_v1 → aide-dev plugin (new skill)
-- Standards_Consumption_Standard_v4 → aide plugin (replaces v3 skill)
+- Capabilities_Development_Standard_v2 → aide-dev plugin (new skill)
+- Standards_Development_Standard_v2 → aide-dev plugin (replaces standards-authoring skill)
+- Tools_Development_Standard_v2 → aide-dev plugin (replaces tools-authoring skill)
+- Services_Development_Standard_v2 → aide-dev plugin (new skill)
+- Utilities_Development_Standard_v2 → aide-dev plugin (new skill)
+- Standards_Consumption_Standard_v5 → aide plugin (replaces v3 skill)
+- When these six are built: re-check every skill description in both plugins (`aide` and `aide-dev`) against the 200-character trigger budget (Standards D27). Known over budget: design-check.
 
 **Open items (logged in project memory OI-1 to OI-3):**
 - OI-1 (PD, short-term): update design-check skill to load PD, WP, DocMeth standards at design start
@@ -47,6 +49,13 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - **OI-PD-2:** WIP scoping — same scoping logic as inbox. WIP lives at whatever tier it naturally belongs to, declared in the index. Primary WIP at top, delegated WIPs inside projects when a chunk of work earns its own. Tree-crawlable to find the appropriate WIP. Inbox and WIP are both scoped artifacts declared in the index — one idea covering both. Ownership: PD
 - **OI-PD-3:** overview doctype already defined in PD Schema Standard v1 — project-scale snapshot, concise context, deviation detector. Compiled for human consumption, not a WIP or parking place for in-flight work. No new definition needed; confirmed during voice session
 - **OI-DEP-1:** deploy component schema standards as skills — PD Schema Standard v1 is authored but not deployed as a skill. Check Core Schema Standard v2 and any others in the same state. Evaluate pickup only after deployment
+
+### Open items — 2026-09-24 (second cross-review of the development standards)
+
+- **OI-PD-4:** design-check skill has no design of its own. It was inherited from the account-level `aide-design-check` skill and absorbed into the `aide` plugin (provenance comment: "aide-design-check (account-level skill) … Phase 1, 2026-09-16"). No design or decisions document found — PD Design v3 names it as a deployment output of PD and WP, and its content was worked out in `_rebuild/AIDE_DesignApproach_WIP_v1.md`. Reverse-engineer a design (and decisions) from the deployed skill so it can be rebuilt from a design. Its description is about 700 characters, well over the new 200-character budget (Standards D27) — segment or rewrite when redesigned. Ownership: PD
+- **OI-ORC-1:** define review, collaboration, search and parallel processes as dispatch use cases. Ownership: Orchestration
+- **OI-ORC-2:** expand dispatch in the Orchestration design — model selection (level / exact / default, already in the thin contract) and asynchronous dispatch: start returns a job ID, the result is collected later. Needed because Desktop stops waiting at about 4 minutes. Ownership: Orchestration
+- **OI-DEP-2:** re-check every skill description in both plugins against the 200-character budget when the six owed skills are built (see build and deploy owed above). Ownership: Build / Infrastructure
 
 ### DocMeth — schema review across components
 
@@ -346,7 +355,7 @@ Current agreed order for remaining component design passes:
 
 ## Standards Dependency Map
 
-How standards depend on each other via declared `uses` relationships. Current as of binder v129.
+How standards depend on each other via declared `uses` relationships. Current as of binder v142.
 
 ```
 Tier 0 — Foundation (no declared uses)
@@ -365,19 +374,23 @@ Tier 0 — Foundation (no declared uses)
 │   │   │
 │   │   └── PD_Standard_v4
 │   │
-│   └── Standards_Development_Standard_v1 ★
+│   └── Standards_Development_Standard_v2 ★
 │       │
 │       │   Tier 1
 │       │
-│       ├── Standards_Consumption_Standard_v4
+│       ├── Standards_Consumption_Standard_v5
 │       │
-│       └── Tools_Development_Standard_v1
+│       └── Tools_Development_Standard_v2
 │
-└── Capabilities_Development_Standard_v1
+└── Capabilities_Development_Standard_v2
     │
-    ├── Standards_Development_Standard_v1 ★  (also uses DocMeth Schema above)
+    ├── Standards_Development_Standard_v2 ★  (also uses DocMeth Schema above)
     │
-    └── Tools_Development_Standard_v1  (also uses Standards Dev above)
+    ├── Tools_Development_Standard_v2  (also uses Standards Dev above)
+    │
+    ├── Services_Development_Standard_v2
+    │
+    └── Utilities_Development_Standard_v2
 ```
 
 ★ = universal or always-on dependency
@@ -430,3 +443,5 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 ---
 
 Version note: v29 — voice session open items: inbox as scoped artifact (OI-PD-1), WIP scoping (OI-PD-2), overview doctype confirmed (OI-PD-3), deploy component schema standards as skills (OI-DEP-1), doc-manager edit discipline (OI-WP-5). 2026-09-23. Replaces v28.
+
+Version note: v30 — second cross-review of the development standards (F1–F13) applied; build-and-deploy list and dependency map updated to the new versions, Utilities added. Open items: design-check has no design (OI-PD-4), dispatch use cases (OI-ORC-1), async dispatch and model selection (OI-ORC-2), 200-character description re-check (OI-DEP-2). 2026-09-24. Replaces v29.
