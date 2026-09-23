@@ -4,36 +4,33 @@
 
 ## Purpose
 
-Define what a utility is and how one is developed within AIDE. Utilities is the fourth type component in the Capabilities model — it owns the methodology for out-of-session, corpus-serving capabilities.
+Define what a utility is and how one is developed within AIDE. A utility is an out-of-session tool — it runs outside the AI environment, acts on the corpus or infrastructure, and exits or persists independently of any session. Utilities is the fourth type component in the Capabilities model.
 
 ## Objectives
 
-1. A definition of what a utility is, distinct from services and tools.
-2. Design concerns specific to utilities, derived from the three working examples (binder builder, version cleanup, file update package).
-3. The relationship to Infrastructure stated clearly — Infrastructure currently holds utility instances and delivery, but Utilities owns the methodology.
-4. A development standard that any utility developer uses.
+1. A clear definition of what a utility is.
+2. How to design and build a utility.
+3. How to deploy a utility and where it resides.
 
 ## Definition of done
 
-1. A clear definition of what a utility is, distinct from services and tools.
-2. Design concerns that a utility developer must address.
-3. The relationship to Infrastructure is stated without restating it — ownership of instances vs ownership of methodology is clear.
-4. The development standard can be authored from the design.
+1. What a utility is — distinct from tools and services — is stated.
+2. The design and build path is clear enough that someone can create a utility without further methodology guidance.
+3. Deployment and ownership are stated — where the code lives, how it's made available, which component owns each instance.
 
 ## Target outcome
 
-A deployed Utilities Development Standard that any component author uses when developing a utility.
+A deployed Utilities Development Standard.
 
 ## Scope
 
-The utility definition, design concerns, development rules, and the relationship to Infrastructure. Individual utilities, the build mechanism, Infrastructure's delivery concerns, and the service-vs-utility boundary test (owned by Services) are out of scope.
+The utility definition, design and build guidance, deployment, and ownership. Broad scope, few constraints — utilities are the simplest capability type and the methodology should reflect that.
 
 ## Boundaries
 
-- **The service-vs-utility boundary test** — owned by Services. Utilities references it.
-- **The execution-context property** — owned by Capabilities. Utilities references it.
+- **The service-vs-utility boundary test** — owned by Services.
 - **Build's generic mechanism** — consumed, not restated.
-- **Infrastructure's delivery and operational concerns** — Infrastructure owns delivery and currently holds utility instances. Utilities owns methodology.
+- **Infrastructure** — owns delivery. Currently holds utility instances; individual utilities may move to their owning components.
 - **Individual utilities** — each lives with its owning component.
 
 ## Linked build outcome
@@ -42,4 +39,4 @@ Utilities Development Standard, deployed as a skill in the `aide-dev` plugin.
 
 ---
 
-Version note: v1 — initial brief. 2026-09-23.
+Version note: v1 — initial brief. Revised to reflect broad scope, few constraints. 2026-09-23.
