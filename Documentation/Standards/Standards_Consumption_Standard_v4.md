@@ -1,4 +1,4 @@
-> identity: Standards_Consumption_Standard@v3 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
+> identity: Standards_Consumption_Standard@v4 | doctype: standard | updated: 2026-09-23 | uses: Standards_Development_Standard@v1
 
 # Standards — Consumption Standard
 
@@ -38,4 +38,4 @@ Recommended. Normal operation does not narrate every standard consulted. Surface
 
 ---
 
-Version note: v3 — `uses` updated to Standards_Authoring_Standard@v7. No substantive changes. 2026-09-14. Replaces v2.
+Version note: v4 — `uses` updated to Standards_Development_Standard@v1 (supersedes Standards_Authoring_Standard). No substantive changes. 2026-09-23. Replaces v3.

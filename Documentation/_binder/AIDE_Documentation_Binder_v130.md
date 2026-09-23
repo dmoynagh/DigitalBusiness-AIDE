@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 129** (2026-09-23).
+> **Binder Version 130** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -100,14 +100,12 @@ individual files.
 - `Services/Services_Decisions_v1.md` - sha256 `4add787c397b`
 - `Services/Services_Design_v1.md` - sha256 `62669864591e`
 - `Standards/_index.md` - sha256 `09379ef5eb4d`
-- `Standards/Standards_Authoring_Standard_v8.md` - sha256 `e52f99825c80`
-- `Standards/Standards_Consumption_Standard_v3.md` - sha256 `b801499930ac`
+- `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
 - `Standards/Standards_Decisions_v4.md` - sha256 `38207b4e2082`
 - `Standards/Standards_Design_v3.md` - sha256 `07cbe0cd1fc0`
 - `Standards/Standards_Development_Standard_v1.md` - sha256 `8495394828f1`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
 - `Tools/_index.md` - sha256 `90e0fa4aa6b7`
-- `Tools/Tools_Authoring_Standard_v8.md` - sha256 `d05452eddaa6`
 - `Tools/Tools_Decisions_v7.md` - sha256 `13ac6443f896`
 - `Tools/Tools_Design_v6.md` - sha256 `7554396473ca`
 - `Tools/Tools_Development_Standard_v1.md` - sha256 `f3953a406150`
@@ -16653,141 +16651,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Authoring_Standard_v8.md -->
-> identity: Standards_Authoring_Standard@v8 | doctype: standard | updated: 2026-09-15 | uses: DocumentationMethodology_SchemaAuthoring_Standard@v1
-
-# Standards — Authoring Standard
-
-How to design, author, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
-
-## What a standard is
-
-Information. A standard defines rules, expectations, guidance and context that shape decisions and behaviour while work is being done. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. Everything behind it (the design, the decisions, the reference knowledge) stays outside the session.
-
-Information. A standard earns its context cost. Everything in it displaces something else the session could hold.
-
-Information. The invocability test in the tool authoring standard draws the boundary between a standard and a tool. A standard shapes decisions and behaviour — you follow it. A named invokable action — something you would run — is a tool and belongs there.
-
-## Applicability
-
-Information. This standard applies when designing, authoring, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies.
-
-## Two classes of standard
-
-A standard's design approach is determined by its load pattern, not its subject.
-
-**Task standards** load for a specific task — authoring a doctype, running a cross-review, defining a schema. The standard is contextually relevant to the work being done, and weight is acceptable because the cost is paid only in that context.
-
-**Carried standards** govern broad behaviour that applies across most sessions — document identity, versioning, how documents work. They sit in memory and tax nearly every session. Leanness is non-negotiable for this class.
-
-The class distinction affects design effort, not authoring rules. Both classes follow the same authoring rules below. But the design approach for a carried standard demands more — see "Designing a standard."
-
-## Authoring rules
-
-**The carry test.** Every item in a standard must pass: "is this needed at the moment of application?" Content that informed the design but is not needed when applying the standard stays in the design document. This is the single most important authoring rule.
-
-**No consumer, no rule.** Every rule must have an operational consumer — something that acts on it at the moment of application. A rule with no consumer is governance without effect. If nothing would behave differently with the rule removed, the rule does not belong.
-
-**Leanness.** Write the minimum language that achieves the guidance — not terse, not abbreviated, but with nothing that does not work. A well-authored standard leaves the consumer confident about what to do without carrying anything they do not need.
-
-**Discriminating guidance.** A rule that says "do X" without helping the consumer recognise when and how to apply it is governance without value. Frame requirements through the consequence or value of meeting them, not through bare authority — a rule the consumer cannot see the reason for reads as enforcement rather than guidance. If the consumer would need to go back to the design to know how to apply a rule, the standard is incomplete.
-
-**Strength assignment.** Every item carries a strength, selected by the author from the vocabulary below. The default strength is Required. Items that depart from the default carry their own strength explicitly — nearest declaration wins. This means: tag only the exceptions. Most items in a well-designed standard are Required and carry no explicit tag. Over-use of Recommended or Optional weakens the standard; over-use of Information turns it into a reference document.
-
-**Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but must not depend on it being loaded.
-
-**Acceptance test.** Before accepting a standard, test: given only this standard, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations covered by the applicability statement? If it cannot, the standard fails the self-containment rule and must not be published.
-
-Information. Ambient framework context means framework capabilities the architecture guarantees will be present without a `uses` declaration — universal standards and independently triggered skills.
-
-**Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Frame scope through behaviour and relevance, not through a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
-
-**Name your principles.** When a recurring concept drives multiple rules, pull it up to a named principle. Named principles are cheaper to carry than the repeated reasoning behind them, and they give consumers an anchor for understanding why related rules exist.
-
-## Trigger description and segmentation
-
-**Trigger description.** Every standard carries a trigger description as the first content after the header. The trigger description is authored once and serves both skill and bundle deployment — it is the basis for loading the standard where it is needed.
-
-**Description budget.** The trigger description must fit within 130 characters — the tightest confirmed cross-platform trigger budget. Front-load trigger words so the most important terms survive truncation.
-
-**Segmentation.** The description budget is the size test for whether a standard should be split. If the trigger elements that define when the standard is needed will not fit within the budget, split into sub-standards rather than compressing the description into uselessness.
-
-**Where to cut.** Split along dependency lines so co-dependent guidance loads together. Each sub-standard must be self-contained — the self-containment authoring rule applies to each part independently.
-
-## Strength vocabulary
-
-Information. Four levels. These words and definitions are the standard vocabulary — use them consistently across all standards.
-
-- **Required** — must comply. Departure is a defect. This is the default strength; items at Required carry no explicit tag.
-- **Recommended** — should comply. Departure needs a reason, but the reason is the author's judgement, not an approval process.
-- **Optional** — available for use. No compliance expectation.
-- **Information** — awareness content. Exists so the consumer knows it, not so they act on it.
-
-## Designing a standard
-
-**Design is the default.** Recommended. A design almost always exists behind a standard. Authoring straight to standard is the exception — reserved for cases where the content is simple enough that a design would restate rather than elaborate.
-
-**Author fresh.** A standard is authored from its design, not by modifying a previous version of the standard. The design holds the reasoning and constraints; the standard holds the conclusion as guidance.
-
-**No prescribed template.** Information. A standard has no fixed structure. The author decides what it contains and how it is organised, provided the authoring rules above are met.
-
-**Two-model design sequence.** The design of a standard follows a two-model sequence:
-
-1. **Intent model.** Define the objectives, requirements, and what the standard must achieve. This is the same intent-then-model front half as any other AIDE design work.
-2. **Solving model.** Design a construct — a model, a grammar, a classification — that delivers those objectives. The solving model translates into the standard, which is the buildable output.
-
-Information. This two-model sequence is an extension of the normal design flow, not a departure from it. The front half is identical to all AIDE design. The solving model is a model-before-build step: design a model smart enough to carry the objectives, then build the standard from it.
-
-**Leanness through model quality.** For carried standards, leanness is not achieved by compressing a heavy standard. It is achieved by designing a solving model that is smart enough that explaining it is cheap but applying it produces most of the required outcomes. The effort goes into the intelligence of the model. The model does the work that documentation would otherwise have to do.
-
-Information. The leanness of the resolved standard is a readout on how well the solving model fits the intent model. If the output is not lean, the solving model is not yet a good enough solution — the fix is back at model design, not at the documentation level.
-
-**Earn your place.** Every element in the design must justify its presence. If a concept, a classification, a stage, or a mechanism does not contribute to the objectives in the intent model, it is removed regardless of how well-conceived it is in isolation.
-
-## The reference-to-standard pipeline
-
-Information. Reference documents are design-time knowledge. When reference knowledge needs to be present in the AI session, it is authored into a standard at information strength. The decision criterion is the carry test: does the consumer need to be aware of this knowledge at the moment of application? If yes, it earns a place. If it only informed the design, it stays in the design.
-
-Information. Reference is a document type, not an output type. A reference informs the design process; a standard is the delivery mechanism. The distinction matters because it prevents reference from becoming a parallel output channel.
-
-## Deployment
-
-Information. Once a standard is authored and accepted, it is deployed as a capability — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted standard. Packaging into a skill or plugin, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
-
-Information. Triggering — how a standard gets loaded where it might be needed — is a delivery concern owned by Infrastructure, distinct from applicability scope which is owned by the standard itself.
-
-## Ownership
-
-**Each standard lives with its owning component.** Standards is a methodological component — it defines how to build a standard, not where standards live. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
-
-## Schema definitions
-
-Information. Standards owns two types. The split test says to keep them here — two definitions, same change cadence as the authoring rules.
-
-### Standard
-
-- **Purpose:** Shape decisions and behaviour at the moment of application. Lean, memory-resident, applied alongside many others.
-- **Included blocktypes:** Clarification (optional), Contents (optional), Summary (optional), Version note (optional).
-- **Format constraint:** markdown.
-
-Information. The authoring rules, strength vocabulary, trigger description, applicability scope, and deployment guidance are defined elsewhere in this standard. The consumption contract is defined in the Standards Consumption Standard.
-
-### Clarification
-
-- **Purpose:** Reasoning and justification supporting the standard's stated rules. The design-side "why" surfaced into the standard where it helps the consumer apply the rules.
-- **Recognition:** by subheading — `Clarification`.
-
-Information. Governed by the split test: stays in the standard when small, removed when it would bloat the loaded standard. When removed, the reasoning lives in the design document.
-
----
-
-Version note: v8 — Acceptance test amended for ambient framework context (D21). The test now includes ambient framework context guaranteed to be present for the representative operation, alongside declared dependencies. Information-strength definition added. Tools acceptance-test restatement synced. Carried from Tools cross-review round 3. 2026-09-15.
-<!-- END SOURCE: Standards/Standards_Authoring_Standard_v8.md -->
-
----
-
-<!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v3.md -->
-> identity: Standards_Consumption_Standard@v3 | doctype: standard | updated: 2026-09-14 | uses: Standards_Authoring_Standard@v7
+<!-- BEGIN SOURCE: Standards/Standards_Consumption_Standard_v4.md -->
+> identity: Standards_Consumption_Standard@v4 | doctype: standard | updated: 2026-09-23 | uses: Standards_Development_Standard@v1
 
 # Standards — Consumption Standard
 
@@ -16827,8 +16692,8 @@ Recommended. Normal operation does not narrate every standard consulted. Surface
 
 ---
 
-Version note: v3 — `uses` updated to Standards_Authoring_Standard@v7. No substantive changes. 2026-09-14. Replaces v2.
-<!-- END SOURCE: Standards/Standards_Consumption_Standard_v3.md -->
+Version note: v4 — `uses` updated to Standards_Development_Standard@v1 (supersedes Standards_Authoring_Standard). No substantive changes. 2026-09-23. Replaces v3.
+<!-- END SOURCE: Standards/Standards_Consumption_Standard_v4.md -->
 
 ---
 
@@ -17322,122 +17187,6 @@ Tools is a methodological component. It defines how to create its type; individu
 
 None declared.
 <!-- END SOURCE: Tools/_index.md -->
-
----
-
-<!-- BEGIN SOURCE: Tools/Tools_Authoring_Standard_v8.md -->
-> identity: Tools_Authoring_Standard@v8 | doctype: standard | updated: 2026-09-15 | uses: Standards_Authoring_Standard@v8
-
-# Tools — Authoring Standard
-
-How to design and author an AIDE tool, and hand it off for deployment.
-
-## What a tool is
-
-Information. A tool encapsulates a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. The AI performs the procedure the tool defines.
-
-Information. Capabilities are defined platform-neutral and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. A utility, by contrast, runs outside the session and acts on the corpus or infrastructure directly. The invocability test below draws the tool-versus-standard boundary; this platform distinction draws the tool-versus-utility boundary.
-
-Information. A tool earns its context cost. Everything in it displaces something else the session could hold.
-
-## Applicability
-
-Information. This standard applies when designing or authoring an AIDE tool and when determining the authoring-side handoff for deployment. It does not govern utilities or the infrastructure mechanisms that package and deploy capabilities.
-
-## The invocability test
-
-The boundary between a tool and a standard is invocability. If you would say "run X," X is a tool. If you would say "follow the approach in Y," Y is a standard.
-
-A standard may describe a procedure, but it may not define an invokable action. A named invokable thing must be a tool — only a tool carries the authoring discipline that keeps a named action honest. A standard that restates an invokable action creates two authorities on the same thing with no way to keep them in sync.
-
-Information. The standards authoring standard owns the complementary view of this boundary — what a standard is and does. This test owns the tool side.
-
-## Authoring rules and acceptance test
-
-The capability-wide authoring rules and the acceptance test defined in the Standards Authoring Standard apply to tools through this standard. Where those rules use standard-specific nouns, apply the equivalent tool concept — a rule or item includes an operational step or obligation carried by the tool.
-
-The acceptance test for a tool: given only the tool, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations the tool covers? If it cannot, the tool fails the self-containment rule and must not be published.
-
-## Authoring concerns
-
-Seven concerns a tool author must address. These are not a template — the author decides how to meet them, in whatever structure the content demands.
-
-**Inputs.** What the tool needs in order to run.
-
-**Preconditions.** What must be true before invoking the tool.
-
-**Procedure.** The sequence of steps the AI performs when the tool is invoked. This is the tool.
-
-**Decision points.** Where judgement is needed during execution — where the executor must choose between paths or assess a situation rather than follow a fixed sequence.
-
-**Escalation conditions.** When to stop and hand back to the invoker. Different from a decision point: a decision point chooses between paths within the tool; an escalation condition exits the tool.
-
-**Outputs and effects.** What the tool produces and what it changes. The invoker needs both — what they get back and what is different afterwards.
-
-**Failure behaviour.** What happens when something goes wrong — how the tool reports failure, what state it leaves behind, and what the invoker should do next.
-
-Recommended. Not every concern will be substantial for every tool. A simple tool might have no meaningful escalation conditions; a complex one might need something this list does not name. The concerns are what to think about, not what to fill in.
-
-## Ask, infer, escalate
-
-Recommended. The behavioural discipline for handling inputs, decision points, and escalation during execution:
-
-- Infer and state where confidence is strong and cost of error is low.
-- Ask once, preferably batched, for genuinely missing required inputs.
-- Escalate genuine conflicts, authority decisions, or material uncertainty the tool does not own.
-
-A tool must not silently fail for want of information that could reasonably have been requested.
-
-## Idempotency
-
-The author declares whether the tool is safe to run again, stated alongside its purpose. "This tool is idempotent" or "this tool is not safe to run twice" — the invoker needs this before deciding whether to re-run.
-
-## The staging clause
-
-Information. A standard may legitimately describe a procedure that ought to be a tool but is not yet built. That is a staging post, not a defect. When the tool is built, the standard's procedure section is replaced by a pointer to the tool, so the tool becomes the single source.
-
-Information. This is the only case where a standard may describe an invokable procedure without violating the invocability test. The staging is temporary, and the direction of travel is always toward the tool.
-
-## The sibling-outputs model
-
-Information. A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the design, not from each other, and must not disagree. If they do, the design is the authority and the inconsistent output is defective.
-
-Information. This is common. A component or feature specified in a design often needs guidance on how the work is approached and a specific invokable action within that work. The design is the single source; the outputs are its delivery — one or more standards, one or more tools, or a mix.
-
-## Trigger description
-
-Every tool carries a trigger description. The capability-wide trigger-description and segmentation rules in the Standards Authoring Standard apply identically to tools, including the 130-character budget, front-loading of trigger words, and segmentation along dependency lines.
-
-## Applicability scope
-
-Every tool declares the conditions under which it applies — framed through behaviour and relevance, not deployment target. Trigger and scope are distinct concerns. The trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run.
-
-## Document-default strength
-
-Information. A tool may declare a document-level default strength so the author only marks items that differ from the default. Nearest declaration wins. This reduces clutter in longer tools without changing the obligation that every item carries an effective strength.
-
-## Designing a tool
-
-**Design is the default.** Recommended. A design almost always exists behind a tool. Authoring straight to a tool is the exception — reserved for cases where the action is simple enough that a design would restate rather than elaborate.
-
-Information. Tool design follows the normal AIDE design approach, which is a framework-level capability owned by Project Design and available as ambient session context. This section provides the tool-specific guidance on top of it — the authoring concerns, the invocability test, and the deployment handoff are the tool-specific overlay.
-
-**Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle — each output is derived from the design that governs it, not from its own prior version.
-
-**No prescribed template.** Information. A tool has no fixed structure. The author decides what it contains and how it is organised, provided the authoring concerns above are addressed and the capability-wide authoring rules are met.
-
-## Deployment handoff
-
-Information. Once a tool is authored and accepted, it is handed off for deployment — packaged by Infrastructure and delivered through the deployment pipeline. The author's responsibility ends at a complete, accepted tool. Packaging into a skill or binder entry, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
-
-## Ownership
-
-**Each tool lives with its owning component.** Tools is a methodological component — it defines how to build a tool, not where tools live. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
-
----
-
-Version note: v8 — Acceptance test restatement synced with Standards_Authoring_Standard@v8 (ambient framework context, D21). `uses` updated. 2026-09-15.
-<!-- END SOURCE: Tools/Tools_Authoring_Standard_v8.md -->
 
 ---
 

@@ -15,11 +15,16 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 **Work owed:**
 - Charter standard: reauthor from updated charter, cross-review, deploy as skill
 - Remaining charter development principles (demonstrated need, simplest model, etc.) not yet in charter text — add in the same pass
-- Standards Development Standard: author from accepted Standards + Capabilities base (supersedes Standards_Authoring_Standard_v8)
-- Tools Development Standard: same pattern (supersedes Tools_Authoring_Standard_v8)
-- Services Development Standard: author from Services design once reviewed and accepted
+- ~~Standards Development Standard~~ — DONE (v1, supersedes Standards_Authoring_Standard_v8, old standard removed)
+- ~~Tools Development Standard~~ — DONE (v1, supersedes Tools_Authoring_Standard_v8, old standard removed)
+- Services Development Standard: author from accepted Services design
 - Utilities: component creation, design pass, development standard
-- Capabilities Design: Dave's review, then cross-review
+
+**Build and deploy owed (all need skill authoring and plugin deployment):**
+- Capabilities_Development_Standard_v1 → aide-dev plugin (new skill)
+- Standards_Development_Standard_v1 → aide-dev plugin (replaces standards-authoring skill)
+- Tools_Development_Standard_v1 → aide-dev plugin (replaces tools-authoring skill)
+- Standards_Consumption_Standard_v4 → aide plugin (replaces v3 skill)
 
 **Open items (logged in project memory OI-1 to OI-3):**
 - OI-1 (PD, short-term): update design-check skill to load PD, WP, DocMeth standards at design start
@@ -28,7 +33,7 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 
 **Housekeeping:**
 - Project memory (aide-rebuild.md) at capacity — needs consolidation or splitting
-- Services Design v1-draft1 pending Dave's review (committed earlier this session)
+- Old authoring standards removed from repo (Standards_Authoring_Standard_v8, Tools_Authoring_Standard_v8) — superseded by development standards, git history preserves them
 
 ### Open items — 2026-09-23
 
@@ -340,7 +345,7 @@ Current agreed order for remaining component design passes:
 
 ## Standards Dependency Map
 
-How standards depend on each other via declared `uses` relationships. Current as of binder v65.
+How standards depend on each other via declared `uses` relationships. Current as of binder v129.
 
 ```
 Tier 0 — Foundation (no declared uses)
@@ -355,17 +360,23 @@ Tier 0 — Foundation (no declared uses)
 │   │
 │   ├── Core_Schema_Standard_v2 (provisional)
 │   │
-│   └── PD_Schema_Standard_v1
+│   ├── PD_Schema_Standard_v1
+│   │   │
+│   │   └── PD_Standard_v4
+│   │
+│   └── Standards_Development_Standard_v1 ★
 │       │
-│       └── PD_Standard_v4
+│       │   Tier 1
+│       │
+│       ├── Standards_Consumption_Standard_v4
+│       │
+│       └── Tools_Development_Standard_v1
 │
-└── Standards_Authoring_Standard_v8 ★
+└── Capabilities_Development_Standard_v1
     │
-    │   Tier 1
+    ├── Standards_Development_Standard_v1 ★  (also uses DocMeth Schema above)
     │
-    ├── Standards_Consumption_Standard_v3
-    │
-    └── Tools_Authoring_Standard_v8
+    └── Tools_Development_Standard_v1  (also uses Standards Dev above)
 ```
 
 ★ = universal or always-on dependency
