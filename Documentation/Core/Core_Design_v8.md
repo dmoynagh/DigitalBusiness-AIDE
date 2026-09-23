@@ -1,4 +1,4 @@
-> identity: Core_Design@v6 | doctype: design | updated: 2026-09-22
+> identity: Core_Design@v8 | doctype: design | updated: 2026-09-24
 
 # Core — Design
 
@@ -100,7 +100,7 @@ Seventeen active components, organised by primary role. Each component's entry p
 | Principles | Give any AI the durable, portable reasoning and premises to think and act well — independent of platform or methodology. | Portability is the defining test. Includes verification as a premise and the base human-side behavioural premises. |
 | Standards | Make sure standards are applied, honoured and kept current across the environment. | Owns the definition of a standard and the authoring guidance including leanness. Does not define individual standards — those are owned by their consuming component. |
 | Tools | Encapsulate a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. | Owns the definition of a tool. Does not own individual tools — those are owned by their consuming component. |
-| Services | Define the methodology for building services — persistent capabilities that sessions connect to for operations they cannot perform in-session. | Owns the service definition, boundary tests, and seven authoring concerns. Does not own individual services or the delivery mechanism (Infrastructure). |
+| Services | Define the methodology for building services — capabilities that provide out-of-session operations that sessions call, for work they cannot perform in-session. | Owns the service definition, boundary tests, and informal design guidance with the practical knowledge recorded from services built so far. Does not own individual services or the delivery mechanism (Infrastructure). |
 | Assurance | Build justified trust in AI-assisted work by defining and evolving the conventions, behaviours, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur. | Cross-cutting — every component contributes. Owns the human working model, verification behaviours, drift detection, anomalies channel, learning loop capture conventions. Does not own the substrate (WP), the premises (Principles), or the pattern analysis (Improvement). |
 | Improvement | Iterative improvement of the framework and working practices from accumulated learning, regardless of source (human or AI). Identified but not yet scoped. | Owns the periodic pattern analysis of the learnings queue, escalation decisions, and the reviewer. Does not own the capture conventions (Assurance) or the scheduling mechanism (Orchestration). |
 
@@ -172,4 +172,8 @@ Version note: v4 — Orchestration component map entry corrected to match accept
 
 Version note: v5 — Build component map entry generalised to any-caller per Build_Decisions_v8 D3 (cross-review carry F3). 2026-09-17. Replaces v4.
 
+Version note: v6 — Structure design area description updated for the retirement of the Core Schema Standard (absorbed into Core_Structure_Standard@v1) and the "AIDE document" reframe: `_index.md` is generic folder metadata, and container labels are now role vocabulary. Notes that Structure now produces a standard for deployment. 2026-09-22. Replaces v5.
+
 Version note: v7 — Capability definition expanded to four types (standards, tools, services, utilities). Capabilities promoted from organisational grouping to Guidance-role component. Services added to Guidance. Utility redefined as a capability type. Component count 15 → 17. 2026-09-23. Replaces v6.
+
+Version note: v8 — Services component map entry aligned with Services Decisions D12 and D17: a service provides out-of-session operations that sessions call (persistence is not type-defining), and the seven design concerns are replaced by informal design guidance and recorded practical knowledge. Version history repaired: v7's changes had been made without renaming the file, and its note had overwritten v6's, which is restored above. 2026-09-24. Replaces v7.

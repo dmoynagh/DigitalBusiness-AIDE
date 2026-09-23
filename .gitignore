@@ -1,0 +1,7 @@
+# Visio lock and temporary files
+~$*.vsd
+~$*.vsdx
+~$*.vsdm
+~$*.~vsd
+~$*.~vsdx
+~$*.~vsdm
