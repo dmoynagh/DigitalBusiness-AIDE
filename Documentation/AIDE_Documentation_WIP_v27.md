@@ -2,6 +2,34 @@ AIDE Documentation | WIP | AIDE_Documentation_WIP@v27 | 2026-09-17
 
 ## Active threads
 
+### Capabilities component and development standards — 2026-09-23
+
+Capabilities created as 17th component (Guidance role). Produces the Capabilities Development Standard — base methodology for designing, building, and deploying all four capability types (standards, tools, services, utilities). Design v1-draft1 and Decisions v1-draft1 (D1–D8) committed.
+
+**Capability definition extended:** four types, two distinguishing properties (execution context, direction of service). Development standards replace authoring standards — broader scope covering design → author (conditional) → build → deploy → consumption. Build specifics as build standards per capability type's build domain.
+
+**Charter updated:** development principles section added with framework-delivered solutions principle. When an issue is identified, the framework delivers the structural solution — not a behavioural commitment.
+
+**Core updated:** AIDEMap v4 (Capabilities and Services in Guidance), Core_Design v7 (capability definition expanded, component count 15→17).
+
+**Work owed:**
+- Charter standard: reauthor from updated charter, cross-review, deploy as skill
+- Remaining charter development principles (demonstrated need, simplest model, etc.) not yet in charter text — add in the same pass
+- Standards Development Standard: author from accepted Standards + Capabilities base (supersedes Standards_Authoring_Standard_v8)
+- Tools Development Standard: same pattern (supersedes Tools_Authoring_Standard_v8)
+- Services Development Standard: author from Services design once reviewed and accepted
+- Utilities: component creation, design pass, development standard
+- Capabilities Design: Dave's review, then cross-review
+
+**Open items (logged in project memory OI-1 to OI-3):**
+- OI-1 (PD, short-term): update design-check skill to load PD, WP, DocMeth standards at design start
+- OI-2 (Build, short-term): create build-check skill, same pattern for build sessions
+- OI-3 (WP, short-term): create work-check skill — identifies work type, bootstraps context
+
+**Housekeeping:**
+- Project memory (aide-rebuild.md) at capacity — needs consolidation or splitting
+- Services Design v1-draft1 pending Dave's review (committed earlier this session)
+
 ### DocMeth — schema review across components
 
 All components owning doctypes or block types must define them using the accepted definition contract. The definition contract has been simplified in the rebuild (6 blocktype properties, 4 doctype properties). Assessment produced (DocMeth_Schema_Review_v1) — rework is a separate task per component.
