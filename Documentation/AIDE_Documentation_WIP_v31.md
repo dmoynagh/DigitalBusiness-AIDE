@@ -57,6 +57,7 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - **OI-ORC-1:** define review, collaboration, search and parallel processes as dispatch use cases. Ownership: Orchestration
 - **OI-ORC-2:** expand dispatch in the Orchestration design — model selection (level / exact / default, already in the thin contract) and asynchronous dispatch: start returns a job ID, the result is collected later. Needed because Desktop stops waiting at about 4 minutes. Ownership: Orchestration
 - **OI-DEP-2:** re-check every skill description in both plugins against the 200-character budget when the six owed skills are built (see build and deploy owed above). Ownership: Build / Infrastructure
+- **OI-UTIL-1:** the dependency-map script (`Documentation/_tools/dependency_map.py`) is a candidate utility (`aide deps`) — found while aligning the binder-builder, version-cleanup and file-update-package designs with live behaviour. Not promoted yet: no design, not in the `aide` CLI, not reviewed against the Utilities Development Standard. Ownership: Utilities / Infrastructure
 
 ### DocMeth — schema review across components
 

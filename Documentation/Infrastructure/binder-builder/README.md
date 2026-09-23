@@ -43,6 +43,10 @@ aide binder --force      # rebuild even if nothing changed
 There is no per-binder selection by name any more — a run always builds every
 definition found. `--dry-run` and `--force` apply to the whole run.
 
+A live run that writes or deletes a binder stages and commits those files
+itself, with a message such as `binder: rebuilt Documentation binder`. Dry
+runs never commit.
+
 ---
 
 ## What it produces
@@ -283,13 +287,13 @@ rather several binders shared one — one file per folder in run order is
 exactly what someone auditing a whole folder wants.
 
 **Give each one a different `name`.** The name decides the output filename, so
-two binders sharing one would take turns superseding each other's file. The tool
+two binders sharing one would take turns deleting each other's file. The tool
 refuses to run at all if it finds a duplicate, and tells you which two files
 clash.
 
 They can share an output folder. `ProjectDesign_Binder_v3.md` and
 `Infrastructure_Binder_v7.md` sit happily side by side in one `_binder`: each
-definition only ever scans, supersedes and skips binders of its own name.
+definition only ever scans, deletes and skips binders of its own name.
 
 Each build produces its own report, and the run ends with a line for the folder:
 
@@ -330,19 +334,18 @@ drifts from reality the first time a file is moved by hand.
 A run that finds nothing changed does not consume a version number — see
 *Change detection* below.
 
-On a successful write, the previous binder of that name is moved into
-`_superseded` inside the output folder. A tool cleans up after itself; version
-cleanup handles supersession it did not cause. Nothing is ever overwritten — if
-the `_superseded` slot is taken, the run reports `CONFLICT` and leaves the file
-alone.
+On a successful write, the previous binder of that name is deleted from the
+output folder — git history is the archive, and there is no `_superseded`
+folder for this tool any more. A tool cleans up after itself; version cleanup
+handles supersession it did not cause.
 
 ---
 
 ## Change detection
 
 The binder is a derived file. Rebuilding it when nothing has changed produces
-the same content under a new version number and pushes a perfectly good binder
-into `_superseded` for nothing.
+the same content under a new version number and deletes a perfectly good
+binder for nothing.
 
 So before writing, the tool compares what it just assembled against the
 **manifest of the current binder** — the list of filenames and digests in that
@@ -355,8 +358,8 @@ change detection: Documentation_Binder_v7.md: 24 file(s) in scope, all matching 
   NO CHANGES       no changes detected since Documentation_Binder_v7.md; binder not rebuilt
 ```
 
-Nothing is written, nothing is superseded, and no version number is used up.
-The previous binder is still the current one.
+Nothing is written, nothing is deleted, and no version number is used up. The
+previous binder is still the current one.
 
 Change, add or remove any in-scope file and the next run rebuilds, saying what
 it noticed:
@@ -392,11 +395,10 @@ comparison is over content.
 | `WOULD INCLUDE` | Dry run — the same file, nothing written. |
 | `SKIPPED` | In a collected folder, deliberately left out — an `exclude_files` match, or the tool's own output. |
 | `UNMATCHED` | An `order` entry naming a file that is not in scope. |
-| `NO CHANGES` | Nothing in scope has changed since the last binder. Nothing written, nothing superseded. |
+| `NO CHANGES` | Nothing in scope has changed since the last binder. Nothing written, nothing deleted. |
 | `WOULD CHECK` | Dry run — the same comparison, reported rather than acted on. |
 | `WRITTEN` / `WOULD WRITE` | The binder itself. |
-| `SUPERSEDED` / `WOULD SUPERSEDE` | The previous binder moved into `_superseded`. |
-| `CONFLICT` | A destination name is already taken; nothing overwritten. |
+| `DELETED` / `WOULD DELETE` | The previous binder, removed from the output folder. |
 | `EMPTY` | Nothing in scope. An empty binder is written, saying so. |
 | `INCOMPLETE` | A source could not be read. The binder has a hole in it. |
 | `ERROR` | A filesystem refusal — a locked file, permissions, an unreadable folder. |
@@ -417,8 +419,8 @@ its own first screenful:
 > to look.
 ```
 
-The previous binder is superseded as usual, so it is in `_superseded` and one
-move from being restored if this was not what you wanted.
+The previous binder is deleted as usual; git history is where to recover it
+from if this was not what you wanted.
 
 This is deliberate. Writing nothing sounds safer, but it leaves a binder in the
 output folder presenting as current while asserting content the scope no
@@ -436,7 +438,7 @@ detection sees an empty binder and an empty scope and reports `NO CHANGES`.
 **`INCOMPLETE` — a source could not be read.** The binder is written, but it has
 a hole in it, so it is stamped as incomplete in three places: the report, the
 log, and a block near the top of the binder itself naming every missing file.
-The previous binder is **not** superseded, so the last good one stays available.
+The previous binder is **not** deleted, so the last good one stays available.
 A plausible-looking binder that is quietly missing a document is the worst thing
 this tool could produce, so it is made loud in every place someone might look.
 

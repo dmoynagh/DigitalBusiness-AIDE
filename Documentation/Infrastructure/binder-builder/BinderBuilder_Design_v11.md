@@ -1,7 +1,21 @@
-> identity: BinderBuilder_Design@v10 | doctype: design | updated: 2026-09-08
+> identity: BinderBuilder_Design@v11 | doctype: design | updated: 2026-09-24
 
 # Binder Builder — Design
 
+> **Version 11** (2026-09-24). Rewritten to match the deployed tool. Binder builder is now a
+> utility in the `aide` CLI, invoked as `aide binder`, not a standalone script run from an
+> instance folder. It **deletes its own previous output** rather than moving it to `_superseded`
+> — git history is the archive, and a live rebuild commits the written and deleted files itself.
+> There is no default settings file written when none is found: the run reports what it expected
+> and where. There is no per-binder selection by name any more — every run builds every
+> definition found. `CONFLICT` is retired: deletion has no destination to collide with, and a
+> fresh version number cannot collide with an existing file either. See D19, D20.
+>
+> **Open, not resolved in this pass:** D13's "a duplicate `name` is refused before anything runs"
+> is not implemented in the live tool — two definitions sharing a `name` currently both build,
+> each free to delete the other's output in turn, with no warning. This is a design requirement
+> the code does not meet, not a documented behaviour change; see §10 Open.
+>
 > **Version 10** (2026-09-08). **Reverses §5a's empty-scope rule.** An empty scope now writes an
 > empty binder, stamped as empty on its own face, instead of writing nothing and leaving the
 > previous binder in place. The old rule protected a good binder from being replaced by an empty
@@ -25,8 +39,8 @@
 > see §4b and BinderBuilder D13.
 
 **Design documentation:** `Documentation/Infrastructure/binder-builder`
-**Script source:** deploy repo (`DigitalBusiness-AIDE-Deploy`), distributed via `aide update`
-**Run from:** an instance folder with its own settings and log, e.g. `Documentation/_tools`
+**Script source:** `aide-cli/src/aide/utilities/binder.py` in the deploy repo, distributed via `aide update`
+**Run via:** `aide binder` (or `--list`, `--dry-run`, `--force`)
 
 ---
 
@@ -42,7 +56,7 @@
 - **Scope resolution, as layers** — the five layers, and what each can do.
 - **Binder output format** — header, manifest, source delimiters.
 - **Versioning and output placement.**
-- **Execution behaviour** — live by default, dry run, double-click.
+- **Execution behaviour** — a CLI utility, live by default, dry run, the git commit.
 - **Definition of done.**
 - **Decisions** — with reasons.
 
@@ -57,12 +71,14 @@ dropped into an AI session's context, so a whole topic loads as one artefact rat
 cleanup's job, run first) and it does **not** deploy. It is Infrastructure: it acts on the corpus
 and is never loaded into an AI session itself.
 
-**Shape.** A single-action tool, sibling to version cleanup. No actions framework, no shared base
-class, no plugin system. One instance folder may define several binders (§4b); each is still one
-settings file, one scope, one output.
+**Shape.** A single-action utility in the `aide` CLI, sibling to version cleanup and the file
+update package. No actions framework, no shared base class, no plugin system beyond the CLI's own
+discovery of `name` / `description` / `run`. One instance folder may define several binders (§4b);
+each is still one settings file, one scope, one output.
 
-**Pipeline position.** `version cleanup` → `binder builder`. Version cleanup leaves only current
-documents in the live tree, so the binder builder can take what it finds without version reasoning.
+**Pipeline position.** `aide cleanup` → `aide binder` (also re-triggered by `aide fup` after a
+deploy). Version cleanup leaves only current documents in the live tree, so the binder builder can
+take what it finds without version reasoning.
 
 ---
 
@@ -84,7 +100,8 @@ An instance folder may hold several of them — see §4b.
 | `name` | The binder's name. Used in both the `# <name> Binder` heading and the `<name>_Binder_v<N>.md` filename. Must contain no path separator. |
 | `log_file` | Log file location. Named to match version cleanup; the two tools must not disagree on the name of the same setting. |
 
-The script writes a commented default settings file if none is present, rather than failing.
+A folder holding none of these settings files is reported — what was expected, and where — rather
+than the tool inventing one. See Decision D19.
 
 ### Default folder exclusions
 
@@ -228,9 +245,9 @@ is a defect waiting for its first input.
 ## 4a. Change detection
 
 A binder is a derived artefact. If every in-scope file is byte-for-byte what it was when the last
-binder was written, rebuilding produces the same content under a new version number and pushes a
-perfectly good binder into `_superseded` for nothing. Untidy when someone runs the tool by hand;
-wasteful once the FileUpdatePackage deployer runs it after every deploy.
+binder was written, rebuilding produces the same content under a new version number and deletes a
+perfectly good binder for nothing. Untidy when someone runs the tool by hand; wasteful once the
+FileUpdatePackage deployer runs it after every deploy.
 
 **The comparison needs no new state.** The answer is already in the binder: §5's manifest lists
 every file it contains with a digest of that file's content. Reading that manifest back and
@@ -240,7 +257,7 @@ over the digests.
 
 1. Assemble as normal, computing a digest per file. Nothing is written yet.
 2. Parse the manifest of the current binder into filename → digest pairs.
-3. Same set of labels, same digests → report `NO CHANGES`, write nothing, supersede nothing,
+3. Same set of labels, same digests → report `NO CHANGES`, write nothing, delete nothing,
    consume no version number. Otherwise rebuild as normal.
 
 **Every uncertainty resolves towards rebuilding.** The tool always builds when:
@@ -279,8 +296,9 @@ holds `binder_builder_settings.json`, and beside it `binder_builder_settings_pro
 builds all of them**, in file order — the plain name first, then the rest alphabetically.
 
 **A binder is identified by its `name` setting.** That was already required to be unique: it names
-the output file and drives the version scan, so two definitions sharing a name would supersede each
-other's binder on alternate runs. Sharing is refused before anything runs, naming both files.
+the output file and drives the version scan, so two definitions sharing a name would delete each
+other's binder on alternate runs. Sharing is refused before anything runs, naming both files. *This
+refusal is stated as a requirement but is not yet implemented in the live tool — see §10 Open.*
 
 ### File naming
 
@@ -315,17 +333,9 @@ D17.
 
 ### Selection
 
-| Command | Effect |
-|---|---|
-| `python binder_builder.py` | Every definition in the folder. |
-| `python binder_builder.py ProjectDesign Infrastructure` | Just those two. |
-| `python binder_builder.py --list` | What is defined here. Builds nothing. |
-
-A selector matches a binder's `name`, or the filename of its settings file with or without the
-extension, case-insensitively. **A selector that matches nothing stops the whole run** and prints
-what is available: "build these four", three-quarters done, is worse than not started.
-
-`--dry-run` and `--force` apply to whatever was selected.
+There is no per-binder selection by name in the live tool. `aide binder` builds every definition
+found; `aide binder --list` shows what is defined without building anything. `--dry-run` and
+`--force` apply to the whole run.
 
 ### Isolation
 
@@ -333,9 +343,6 @@ One definition failing must not take the others down — the entire point of the
 binders stay current, and one mistyped settings file is not a reason for three good binders to go
 stale. So a settings file that cannot be read, or one whose `root` does not exist, is reported as
 its own `SETTINGS PROBLEM` block and the run carries on with the rest. The run exits `1`.
-
-An unreadable settings file is reported **whether or not the run was narrowed to other binders**. It
-is a fact about the folder rather than about the selection.
 
 ### The roll-up
 
@@ -360,8 +367,8 @@ folder-level line has no single log to belong to. Every binder's own report is l
 
 A build reads no global state. Every path, every scope, every digest and every log in a build comes
 out of one definition, so building four is building one, four times. The `_binder` output folder can
-be shared because the version scan, the self-inclusion guard and supersession all match on the
-binder's own `<name>_Binder_v<N>.md` class (§6, D9) — `ProjectDesign_Binder_v3.md` and
+be shared because the version scan, the self-inclusion guard and the delete-previous step all match
+on the binder's own `<name>_Binder_v<N>.md` class (§6, D9) — `ProjectDesign_Binder_v3.md` and
 `Infrastructure_Binder_v7.md` sit side by side without either touching the other.
 
 **The exception, stated:** if an output folder is deliberately brought *into* a binder's scope with
@@ -460,8 +467,8 @@ containing nothing, because nothing was in scope, is an accurate statement about
 
 | Case | Behaviour |
 |---|---|
-| **Empty scope** — no in-scope files found | **Write the binder.** It carries an `EMPTY BINDER` block in its header and a manifest reading `(no files)`. The previous binder is superseded as usual. Report `EMPTY`. |
-| **Incomplete** — a source cannot be read or decoded | Write the binder, but do **not** supersede the previous one, so the last good binder stays available beside the holed one. Report `ERROR` naming the file, plus `INCOMPLETE`, and list the missing files in the binder's own header block and the log. |
+| **Empty scope** — no in-scope files found | **Write the binder.** It carries an `EMPTY BINDER` block in its header and a manifest reading `(no files)`. The previous binder is deleted as usual. Report `EMPTY`. |
+| **Incomplete** — a source cannot be read or decoded | Write the binder, but do **not** delete the previous one, so the last good binder stays available beside the holed one. Report `ERROR` naming the file, plus `INCOMPLETE`, and list the missing files in the binder's own header block and the log. |
 
 The rule for the incomplete case is unchanged: **a defective binder never displaces a good one.**
 
@@ -492,43 +499,49 @@ I am about to write" defends nothing, because that file does not exist when the 
 *last* run's binder does, and would be swallowed as an ordinary source, doubling the corpus on
 every build. See Decision D9.
 
-**Supersession:** on a successful and complete write, the binder builder moves the previous binder
-of that name into `_superseded` inside the output folder. See Decision D7.
+**Deletion:** on a successful and complete write, the binder builder deletes the previous binder of
+that name from the output folder. Git history is the archive — there is no `_superseded` folder for
+this tool any more. See Decision D20 (supersedes D7).
 
 ---
 
 ## 7. Execution behaviour
 
-Matches version cleanup, so the tools behave alike:
+A utility in the `aide` CLI, invoked as `aide binder`:
 
-- Python, standard library only, single readable script.
+- Python, standard library only.
 - Runs **live by default**; `--dry-run` reports what would be assembled and writes nothing.
 - `--force` rebuilds even when §4a finds nothing changed. It is the only way to consume a version
   number deliberately.
-- Naming one or more binders builds only those; `--list` shows what is defined. See §4b.
-- Reads settings on launch — no arguments required, so **double-click works on Windows**, and a
-  double-click builds every binder defined in the folder.
-- Prints a clear report; **pauses for a keypress before exiting** so the console doesn't vanish.
+- `--list` shows what is defined, without building anything. Every other run builds every
+  definition found — see §4b.
+- Settings are discovered from `_aide/utilities/binder-builder/` in the project (§2, §4b), never
+  from wherever the terminal happens to be pointing.
+- A live run that wrote or deleted anything commits those files to git, mirroring version cleanup
+  and the file update package. See Decision D19.
+- Prints a clear report.
 - Appends one entry per run to the log: binder written, version, files included, any skipped.
 - Cross-platform; Windows primary.
 
 ### Report vocabulary
 
 `INCLUDED` / `WOULD INCLUDE` · `SKIPPED` · `UNMATCHED` · `NO CHANGES` / `WOULD CHECK` ·
-`WRITTEN` / `WOULD WRITE` · `SUPERSEDED` / `WOULD SUPERSEDE` · `CONFLICT` · `EMPTY` ·
-`INCOMPLETE` · `ERROR`
+`WRITTEN` / `WOULD WRITE` · `DELETED` / `WOULD DELETE` · `EMPTY` · `INCOMPLETE` · `ERROR`
 
 `NO CHANGES` is §4a: nothing in scope has changed, so no binder was written and the previous one
 remains current. `WOULD CHECK` is the dry-run twin — the same comparison, reported rather than
 acted on. Neither is a failure; both exit `0`.
 
-`CONFLICT` and `ERROR` carry version cleanup's meanings exactly. `UNMATCHED` is an `order` entry
-naming a file not in scope — a binder assembled in an order its author did not get is a quiet
-defect, so it is reported. Files whose extension is simply not in `file_types` are **not** reported;
-a document tree is full of them and listing each would bury the report.
+`ERROR` carries the same meaning across all three sibling utilities: a filesystem refusal — a
+locked file, permissions, an unreadable folder. `CONFLICT` has been retired for this tool: deletion
+has no destination to collide with, and a freshly-scanned version number cannot already be taken.
+`UNMATCHED` is an `order` entry naming a file not in scope — a binder assembled in an order its
+author did not get is a quiet defect, so it is reported. Files whose extension is simply not in
+`file_types` are **not** reported; a document tree is full of them and listing each would bury the
+report.
 
-**Exit code `0` unless an `ERROR` occurred**, matching version cleanup. An `EMPTY` run exits `0`:
-it wrote a binder, and the binder is correct. See §10.
+**Exit code `0` unless an `ERROR` occurred.** An `EMPTY` run exits `0`: it wrote a binder, and the
+binder is correct. See §10.
 
 ---
 
@@ -549,15 +562,14 @@ log carries its binder's name. A settings file written under either older spelli
 discovered and built.
 
 Put four settings files in one folder and one run keeps all four binders current, each reported
-separately and the folder summarised in one line. Name one on the command line and only that one is
-built. Name something that is not defined and nothing is built at all. Break one settings file and
-the other three still build.
+separately and the folder summarised in one line. Break one settings file and the other three still
+build.
 
 Point it at a scope that is empty and it writes a binder saying so, stamped `EMPTY BINDER` in its
 own header, rather than leaving a binder that asserts content the scope no longer holds. Run it
 again with the scope still empty and it writes nothing further.
 
-Run it a second time with the tree untouched and it writes nothing, supersedes nothing, consumes no
+Run it a second time with the tree untouched and it writes nothing, deletes nothing, consumes no
 version number, and says `NO CHANGES` naming the binder it compared against. Change, add or remove
 any in-scope file and the next run rebuilds. `--force` rebuilds regardless. A run that cannot
 establish a baseline — no previous binder, an unreadable one, an unparseable manifest, a previous
@@ -591,8 +603,13 @@ state that drifts from reality. The folder is the truth.
 root-relative via `~/`, absolute exact; home expansion dropped. Two Infrastructure tools with
 different path semantics would be a trap.
 
-**D7 — The binder builder supersedes its own previous output.** On a successful write it moves the
-prior binder of that name into `_superseded` within the output folder.
+**D7 — The binder builder supersedes its own previous output.**
+
+*Status: superseded by D20 — the binder builder now deletes its own previous output rather than
+moving it to `_superseded`. The reasoning below is kept for the record.*
+
+On a successful write it moves the prior binder of that name into `_superseded` within the output
+folder.
 
 *Considered and rejected:* leaving it for version cleanup. Rejected because the default output
 folder is `_binder`, which version cleanup skips by the underscore rule — it would have to be
@@ -638,9 +655,7 @@ unchanged binders cost three manifest comparisons. "Rebuild whatever needs rebui
 single cheap act, and the tool should let someone do it in one command.
 
 *Considered and rejected:* a `--settings` argument naming a file. It solves nothing on its own — the
-user still runs the tool four times, and now has to remember four filenames — and it makes
-double-click, which is how this tool is actually used, the one mode that cannot reach the other
-binders.
+user still runs the tool four times, and now has to remember four filenames.
 
 *Considered and rejected:* a separate list file naming the definitions. A second thing to keep in
 step with the folder, which is the same objection as D5 to version numbers in settings. The folder
@@ -649,18 +664,20 @@ is the truth.
 *Identity is the `name` setting*, not the filename, because `name` already had to be unique — it
 decides the output filename. A duplicate is refused before anything runs rather than resolved,
 because both plausible resolutions (first wins, last wins) silently give someone a binder they did
-not ask for.
+not ask for. *This refusal is not yet implemented — see §10 Open.*
 
 **D18 — An empty scope writes an empty binder.** Reverses the rule v1 to v9 held, that an empty
 scope writes nothing and leaves the previous binder alone.
 
 *The original reasoning, and why it was wrong.* The old rule called an empty binder replacing a good
 one "a loss of information dressed up as a successful build". That framing has a false premise: the
-previous binder is **superseded, not deleted** — it moves to `_superseded` beside the new one, and
-recovering it is a file move. Almost nothing is lost. What the rule produced instead was worse: a
-binder sitting in the output folder, presenting as current, asserting content the scope no longer
-held. A stale binder that looks authoritative is precisely the failure this tool exists to prevent,
-and the old rule manufactured one deliberately.
+previous binder was **superseded, not deleted** — it moved to `_superseded` beside the new one, and
+recovering it was a file move. Almost nothing was lost. [Since superseded by D20: the previous
+binder is now deleted outright, not moved; git history serves the recovery purpose `_superseded`
+served here.] What the rule produced instead was worse: a binder sitting in the output folder,
+presenting as current, asserting content the scope no longer held. A stale binder that looks
+authoritative is precisely the failure this tool exists to prevent, and the old rule manufactured
+one deliberately.
 
 *The case that exposed it.* Exclusions are tightened until everything in scope is excluded. The tool
 reported `EMPTY`, wrote nothing, and left a binder that still contained every excluded file. The
@@ -670,10 +687,10 @@ session.
 *What replaces the guard.* Three things, none of which the old rule provided. The binder says
 `EMPTY BINDER` in its own header, so a reader who never sees a report cannot mistake it. The run
 reports `EMPTY` whether or not it wrote, so a misconfigured scope stays loud. And the previous
-binder is in `_superseded`, one move from being restored.
+binder's content is recoverable from git history, one checkout away from being restored.
 
-*Consequence, accepted:* a typo in `root` now supersedes a good binder with an empty one. That is a
-real regression in one narrow case, recoverable by moving a file, and it is preferred to the
+*Consequence, accepted:* a typo in `root` now replaces a good binder with an empty one. That is a
+real regression in one narrow case, recoverable from git, and it is preferred to the
 alternative — a stale binder that nothing announces at all.
 
 *Generalisable:* refusing to record an unwelcome state does not prevent the state, it only removes
@@ -759,10 +776,39 @@ one contract and are marked as such in both places.
 sorts to the same place, then back — is invisible. A digest comparison is a content comparison, and
 that is the question worth answering.
 
+**D19 — A utility in the `aide` CLI, not a standalone script.** The tool runs as `aide binder`,
+sharing the project root and settings discovery with the rest of the `aide` framework — the same
+move already made for version cleanup and the file update package. Settings are discovered from
+`_aide/utilities/binder-builder/` in the project (§2, §4b) rather than from a script's own folder,
+and a folder holding none is reported rather than seeded with an invented default: with several
+definitions possible per folder (D13), there is no longer a single "the" default to write. A live
+run that wrote or deleted anything commits those files to git, matching version cleanup
+(VersionCleanup_Design D3) and the file update package (FileUpdatePackage_Design D7).
+
+**D20 — Deletion replaces archiving for the binder's own previous output; no `_superseded`
+folder.** Supersedes D7. The tree is under version control; git history is the record of what the
+previous binder contained. A live rebuild deletes the prior binder of that name and commits the
+deletion alongside the write, the same move made for version cleanup (VersionCleanup_Design D3) and
+the file update package (FileUpdatePackage_Design D6). `CONFLICT` is retired along with it: the old
+archive model needed it for a taken `_superseded` slot, and deletion has no slot to take.
+
+D18's empty-scope decision stands unchanged — an empty scope still writes a binder that says so —
+but its stated recovery path (moving the previous binder to `_superseded`) is now git history
+instead of a filesystem move.
+
 ---
 
 ## 10. Open
 
+- **The duplicate-`name` refusal is not implemented.** D13 and this design state that two binder
+  definitions sharing a `name` are refused before anything runs, naming both files. The live tool
+  (`aide-cli/src/aide/utilities/binder.py`) has no such check: `run()` builds every discovered
+  definition in turn with no uniqueness test, so two same-named definitions would each build
+  normally and, per D20, each delete the other's just-written output on its own turn — silently,
+  with no warning to the person who created the second definition. This is a design requirement
+  the code does not meet, found while aligning this design with the deployed tool (2026-09-24), not
+  a behaviour this pass changed. Flagged for a build follow-up rather than fixed here — this pass
+  does not change code.
 - **`EMPTY` and `NO CHANGES` exit codes.** Both are `0`, consistent with treating expected outcomes
   as non-failures. A caller therefore cannot distinguish "binder rebuilt" from "nothing written"
   by exit code alone. The FileUpdatePackage deployer, which now chains this tool, does not need to:

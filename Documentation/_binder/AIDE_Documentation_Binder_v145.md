@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 144** (2026-09-24).
+> **Binder Version 145** (2026-09-24).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -62,21 +62,21 @@ individual files.
 - `Infrastructure/_index.md` - sha256 `7732b7fca4c2`
 - `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` - sha256 `709be4952c6b`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
-- `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `518121d99d79`
-- `Infrastructure/binder-builder/README.md` - sha256 `68bc0b9935ae`
+- `Infrastructure/binder-builder/BinderBuilder_Design_v11.md` - sha256 `dede85600f59`
+- `Infrastructure/binder-builder/README.md` - sha256 `7e7e52254f71`
 - `Infrastructure/document-management/_index.md` - sha256 `e726f0298d82`
 - `Infrastructure/document-management/DocumentManagement_Brief_v3.md` - sha256 `b83c1b37690f`
 - `Infrastructure/document-management/DocumentManagement_Decisions_v5.md` - sha256 `295cba7a2055`
 - `Infrastructure/document-management/DocumentManagement_Design_v5.md` - sha256 `a08d511b743f`
-- `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `15617061295c`
+- `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `7940ce6282b7`
 - `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `76a4c37c468f`
-- `Infrastructure/file-update-package/README.md` - sha256 `6abf0d0d49bd`
+- `Infrastructure/file-update-package/README.md` - sha256 `1fef9fe0e32b`
 - `Infrastructure/Infrastructure_CLI_Decisions_v2.md` - sha256 `cffe4759587e`
 - `Infrastructure/Infrastructure_CLI_Design_v2.md` - sha256 `09eab74fa94b`
 - `Infrastructure/Infrastructure_Working_v1.md` - sha256 `80a5dc6e19e8`
 - `Infrastructure/version-cleanup/README.md` - sha256 `475ca9046dd8`
-- `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
-- `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `c672be61d03a`
+- `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `2c7b9639d5de`
+- `Infrastructure/version-cleanup/VersionCleanup_Design_v4.md` - sha256 `1ddbeec18a68`
 - `Messaging/_index.md` - sha256 `24b02a283278`
 - `Messaging/Messaging_Brief_v1.md` - sha256 `c1687d821833`
 - `Messaging/Messaging_Decisions_v4.md` - sha256 `c6a0f75cba95`
@@ -9394,11 +9394,25 @@ plugin-delivered tooling.
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/binder-builder/BinderBuilder_Design_v10.md -->
-> identity: BinderBuilder_Design@v10 | doctype: design | updated: 2026-09-08
+<!-- BEGIN SOURCE: Infrastructure/binder-builder/BinderBuilder_Design_v11.md -->
+> identity: BinderBuilder_Design@v11 | doctype: design | updated: 2026-09-24
 
 # Binder Builder — Design
 
+> **Version 11** (2026-09-24). Rewritten to match the deployed tool. Binder builder is now a
+> utility in the `aide` CLI, invoked as `aide binder`, not a standalone script run from an
+> instance folder. It **deletes its own previous output** rather than moving it to `_superseded`
+> — git history is the archive, and a live rebuild commits the written and deleted files itself.
+> There is no default settings file written when none is found: the run reports what it expected
+> and where. There is no per-binder selection by name any more — every run builds every
+> definition found. `CONFLICT` is retired: deletion has no destination to collide with, and a
+> fresh version number cannot collide with an existing file either. See D19, D20.
+>
+> **Open, not resolved in this pass:** D13's "a duplicate `name` is refused before anything runs"
+> is not implemented in the live tool — two definitions sharing a `name` currently both build,
+> each free to delete the other's output in turn, with no warning. This is a design requirement
+> the code does not meet, not a documented behaviour change; see §10 Open.
+>
 > **Version 10** (2026-09-08). **Reverses §5a's empty-scope rule.** An empty scope now writes an
 > empty binder, stamped as empty on its own face, instead of writing nothing and leaving the
 > previous binder in place. The old rule protected a good binder from being replaced by an empty
@@ -9422,8 +9436,8 @@ plugin-delivered tooling.
 > see §4b and BinderBuilder D13.
 
 **Design documentation:** `Documentation/Infrastructure/binder-builder`
-**Script source:** deploy repo (`DigitalBusiness-AIDE-Deploy`), distributed via `aide update`
-**Run from:** an instance folder with its own settings and log, e.g. `Documentation/_tools`
+**Script source:** `aide-cli/src/aide/utilities/binder.py` in the deploy repo, distributed via `aide update`
+**Run via:** `aide binder` (or `--list`, `--dry-run`, `--force`)
 
 ---
 
@@ -9439,7 +9453,7 @@ plugin-delivered tooling.
 - **Scope resolution, as layers** — the five layers, and what each can do.
 - **Binder output format** — header, manifest, source delimiters.
 - **Versioning and output placement.**
-- **Execution behaviour** — live by default, dry run, double-click.
+- **Execution behaviour** — a CLI utility, live by default, dry run, the git commit.
 - **Definition of done.**
 - **Decisions** — with reasons.
 
@@ -9454,12 +9468,14 @@ dropped into an AI session's context, so a whole topic loads as one artefact rat
 cleanup's job, run first) and it does **not** deploy. It is Infrastructure: it acts on the corpus
 and is never loaded into an AI session itself.
 
-**Shape.** A single-action tool, sibling to version cleanup. No actions framework, no shared base
-class, no plugin system. One instance folder may define several binders (§4b); each is still one
-settings file, one scope, one output.
+**Shape.** A single-action utility in the `aide` CLI, sibling to version cleanup and the file
+update package. No actions framework, no shared base class, no plugin system beyond the CLI's own
+discovery of `name` / `description` / `run`. One instance folder may define several binders (§4b);
+each is still one settings file, one scope, one output.
 
-**Pipeline position.** `version cleanup` → `binder builder`. Version cleanup leaves only current
-documents in the live tree, so the binder builder can take what it finds without version reasoning.
+**Pipeline position.** `aide cleanup` → `aide binder` (also re-triggered by `aide fup` after a
+deploy). Version cleanup leaves only current documents in the live tree, so the binder builder can
+take what it finds without version reasoning.
 
 ---
 
@@ -9481,7 +9497,8 @@ An instance folder may hold several of them — see §4b.
 | `name` | The binder's name. Used in both the `# <name> Binder` heading and the `<name>_Binder_v<N>.md` filename. Must contain no path separator. |
 | `log_file` | Log file location. Named to match version cleanup; the two tools must not disagree on the name of the same setting. |
 
-The script writes a commented default settings file if none is present, rather than failing.
+A folder holding none of these settings files is reported — what was expected, and where — rather
+than the tool inventing one. See Decision D19.
 
 ### Default folder exclusions
 
@@ -9625,9 +9642,9 @@ is a defect waiting for its first input.
 ## 4a. Change detection
 
 A binder is a derived artefact. If every in-scope file is byte-for-byte what it was when the last
-binder was written, rebuilding produces the same content under a new version number and pushes a
-perfectly good binder into `_superseded` for nothing. Untidy when someone runs the tool by hand;
-wasteful once the FileUpdatePackage deployer runs it after every deploy.
+binder was written, rebuilding produces the same content under a new version number and deletes a
+perfectly good binder for nothing. Untidy when someone runs the tool by hand; wasteful once the
+FileUpdatePackage deployer runs it after every deploy.
 
 **The comparison needs no new state.** The answer is already in the binder: §5's manifest lists
 every file it contains with a digest of that file's content. Reading that manifest back and
@@ -9637,7 +9654,7 @@ over the digests.
 
 1. Assemble as normal, computing a digest per file. Nothing is written yet.
 2. Parse the manifest of the current binder into filename → digest pairs.
-3. Same set of labels, same digests → report `NO CHANGES`, write nothing, supersede nothing,
+3. Same set of labels, same digests → report `NO CHANGES`, write nothing, delete nothing,
    consume no version number. Otherwise rebuild as normal.
 
 **Every uncertainty resolves towards rebuilding.** The tool always builds when:
@@ -9676,8 +9693,9 @@ holds `binder_builder_settings.json`, and beside it `binder_builder_settings_pro
 builds all of them**, in file order — the plain name first, then the rest alphabetically.
 
 **A binder is identified by its `name` setting.** That was already required to be unique: it names
-the output file and drives the version scan, so two definitions sharing a name would supersede each
-other's binder on alternate runs. Sharing is refused before anything runs, naming both files.
+the output file and drives the version scan, so two definitions sharing a name would delete each
+other's binder on alternate runs. Sharing is refused before anything runs, naming both files. *This
+refusal is stated as a requirement but is not yet implemented in the live tool — see §10 Open.*
 
 ### File naming
 
@@ -9712,17 +9730,9 @@ D17.
 
 ### Selection
 
-| Command | Effect |
-|---|---|
-| `python binder_builder.py` | Every definition in the folder. |
-| `python binder_builder.py ProjectDesign Infrastructure` | Just those two. |
-| `python binder_builder.py --list` | What is defined here. Builds nothing. |
-
-A selector matches a binder's `name`, or the filename of its settings file with or without the
-extension, case-insensitively. **A selector that matches nothing stops the whole run** and prints
-what is available: "build these four", three-quarters done, is worse than not started.
-
-`--dry-run` and `--force` apply to whatever was selected.
+There is no per-binder selection by name in the live tool. `aide binder` builds every definition
+found; `aide binder --list` shows what is defined without building anything. `--dry-run` and
+`--force` apply to the whole run.
 
 ### Isolation
 
@@ -9730,9 +9740,6 @@ One definition failing must not take the others down — the entire point of the
 binders stay current, and one mistyped settings file is not a reason for three good binders to go
 stale. So a settings file that cannot be read, or one whose `root` does not exist, is reported as
 its own `SETTINGS PROBLEM` block and the run carries on with the rest. The run exits `1`.
-
-An unreadable settings file is reported **whether or not the run was narrowed to other binders**. It
-is a fact about the folder rather than about the selection.
 
 ### The roll-up
 
@@ -9757,8 +9764,8 @@ folder-level line has no single log to belong to. Every binder's own report is l
 
 A build reads no global state. Every path, every scope, every digest and every log in a build comes
 out of one definition, so building four is building one, four times. The `_binder` output folder can
-be shared because the version scan, the self-inclusion guard and supersession all match on the
-binder's own `<name>_Binder_v<N>.md` class (§6, D9) — `ProjectDesign_Binder_v3.md` and
+be shared because the version scan, the self-inclusion guard and the delete-previous step all match
+on the binder's own `<name>_Binder_v<N>.md` class (§6, D9) — `ProjectDesign_Binder_v3.md` and
 `Infrastructure_Binder_v7.md` sit side by side without either touching the other.
 
 **The exception, stated:** if an output folder is deliberately brought *into* a binder's scope with
@@ -9857,8 +9864,8 @@ containing nothing, because nothing was in scope, is an accurate statement about
 
 | Case | Behaviour |
 |---|---|
-| **Empty scope** — no in-scope files found | **Write the binder.** It carries an `EMPTY BINDER` block in its header and a manifest reading `(no files)`. The previous binder is superseded as usual. Report `EMPTY`. |
-| **Incomplete** — a source cannot be read or decoded | Write the binder, but do **not** supersede the previous one, so the last good binder stays available beside the holed one. Report `ERROR` naming the file, plus `INCOMPLETE`, and list the missing files in the binder's own header block and the log. |
+| **Empty scope** — no in-scope files found | **Write the binder.** It carries an `EMPTY BINDER` block in its header and a manifest reading `(no files)`. The previous binder is deleted as usual. Report `EMPTY`. |
+| **Incomplete** — a source cannot be read or decoded | Write the binder, but do **not** delete the previous one, so the last good binder stays available beside the holed one. Report `ERROR` naming the file, plus `INCOMPLETE`, and list the missing files in the binder's own header block and the log. |
 
 The rule for the incomplete case is unchanged: **a defective binder never displaces a good one.**
 
@@ -9889,43 +9896,49 @@ I am about to write" defends nothing, because that file does not exist when the 
 *last* run's binder does, and would be swallowed as an ordinary source, doubling the corpus on
 every build. See Decision D9.
 
-**Supersession:** on a successful and complete write, the binder builder moves the previous binder
-of that name into `_superseded` inside the output folder. See Decision D7.
+**Deletion:** on a successful and complete write, the binder builder deletes the previous binder of
+that name from the output folder. Git history is the archive — there is no `_superseded` folder for
+this tool any more. See Decision D20 (supersedes D7).
 
 ---
 
 ## 7. Execution behaviour
 
-Matches version cleanup, so the tools behave alike:
+A utility in the `aide` CLI, invoked as `aide binder`:
 
-- Python, standard library only, single readable script.
+- Python, standard library only.
 - Runs **live by default**; `--dry-run` reports what would be assembled and writes nothing.
 - `--force` rebuilds even when §4a finds nothing changed. It is the only way to consume a version
   number deliberately.
-- Naming one or more binders builds only those; `--list` shows what is defined. See §4b.
-- Reads settings on launch — no arguments required, so **double-click works on Windows**, and a
-  double-click builds every binder defined in the folder.
-- Prints a clear report; **pauses for a keypress before exiting** so the console doesn't vanish.
+- `--list` shows what is defined, without building anything. Every other run builds every
+  definition found — see §4b.
+- Settings are discovered from `_aide/utilities/binder-builder/` in the project (§2, §4b), never
+  from wherever the terminal happens to be pointing.
+- A live run that wrote or deleted anything commits those files to git, mirroring version cleanup
+  and the file update package. See Decision D19.
+- Prints a clear report.
 - Appends one entry per run to the log: binder written, version, files included, any skipped.
 - Cross-platform; Windows primary.
 
 ### Report vocabulary
 
 `INCLUDED` / `WOULD INCLUDE` · `SKIPPED` · `UNMATCHED` · `NO CHANGES` / `WOULD CHECK` ·
-`WRITTEN` / `WOULD WRITE` · `SUPERSEDED` / `WOULD SUPERSEDE` · `CONFLICT` · `EMPTY` ·
-`INCOMPLETE` · `ERROR`
+`WRITTEN` / `WOULD WRITE` · `DELETED` / `WOULD DELETE` · `EMPTY` · `INCOMPLETE` · `ERROR`
 
 `NO CHANGES` is §4a: nothing in scope has changed, so no binder was written and the previous one
 remains current. `WOULD CHECK` is the dry-run twin — the same comparison, reported rather than
 acted on. Neither is a failure; both exit `0`.
 
-`CONFLICT` and `ERROR` carry version cleanup's meanings exactly. `UNMATCHED` is an `order` entry
-naming a file not in scope — a binder assembled in an order its author did not get is a quiet
-defect, so it is reported. Files whose extension is simply not in `file_types` are **not** reported;
-a document tree is full of them and listing each would bury the report.
+`ERROR` carries the same meaning across all three sibling utilities: a filesystem refusal — a
+locked file, permissions, an unreadable folder. `CONFLICT` has been retired for this tool: deletion
+has no destination to collide with, and a freshly-scanned version number cannot already be taken.
+`UNMATCHED` is an `order` entry naming a file not in scope — a binder assembled in an order its
+author did not get is a quiet defect, so it is reported. Files whose extension is simply not in
+`file_types` are **not** reported; a document tree is full of them and listing each would bury the
+report.
 
-**Exit code `0` unless an `ERROR` occurred**, matching version cleanup. An `EMPTY` run exits `0`:
-it wrote a binder, and the binder is correct. See §10.
+**Exit code `0` unless an `ERROR` occurred.** An `EMPTY` run exits `0`: it wrote a binder, and the
+binder is correct. See §10.
 
 ---
 
@@ -9946,15 +9959,14 @@ log carries its binder's name. A settings file written under either older spelli
 discovered and built.
 
 Put four settings files in one folder and one run keeps all four binders current, each reported
-separately and the folder summarised in one line. Name one on the command line and only that one is
-built. Name something that is not defined and nothing is built at all. Break one settings file and
-the other three still build.
+separately and the folder summarised in one line. Break one settings file and the other three still
+build.
 
 Point it at a scope that is empty and it writes a binder saying so, stamped `EMPTY BINDER` in its
 own header, rather than leaving a binder that asserts content the scope no longer holds. Run it
 again with the scope still empty and it writes nothing further.
 
-Run it a second time with the tree untouched and it writes nothing, supersedes nothing, consumes no
+Run it a second time with the tree untouched and it writes nothing, deletes nothing, consumes no
 version number, and says `NO CHANGES` naming the binder it compared against. Change, add or remove
 any in-scope file and the next run rebuilds. `--force` rebuilds regardless. A run that cannot
 establish a baseline — no previous binder, an unreadable one, an unparseable manifest, a previous
@@ -9988,8 +10000,13 @@ state that drifts from reality. The folder is the truth.
 root-relative via `~/`, absolute exact; home expansion dropped. Two Infrastructure tools with
 different path semantics would be a trap.
 
-**D7 — The binder builder supersedes its own previous output.** On a successful write it moves the
-prior binder of that name into `_superseded` within the output folder.
+**D7 — The binder builder supersedes its own previous output.**
+
+*Status: superseded by D20 — the binder builder now deletes its own previous output rather than
+moving it to `_superseded`. The reasoning below is kept for the record.*
+
+On a successful write it moves the prior binder of that name into `_superseded` within the output
+folder.
 
 *Considered and rejected:* leaving it for version cleanup. Rejected because the default output
 folder is `_binder`, which version cleanup skips by the underscore rule — it would have to be
@@ -10035,9 +10052,7 @@ unchanged binders cost three manifest comparisons. "Rebuild whatever needs rebui
 single cheap act, and the tool should let someone do it in one command.
 
 *Considered and rejected:* a `--settings` argument naming a file. It solves nothing on its own — the
-user still runs the tool four times, and now has to remember four filenames — and it makes
-double-click, which is how this tool is actually used, the one mode that cannot reach the other
-binders.
+user still runs the tool four times, and now has to remember four filenames.
 
 *Considered and rejected:* a separate list file naming the definitions. A second thing to keep in
 step with the folder, which is the same objection as D5 to version numbers in settings. The folder
@@ -10046,18 +10061,20 @@ is the truth.
 *Identity is the `name` setting*, not the filename, because `name` already had to be unique — it
 decides the output filename. A duplicate is refused before anything runs rather than resolved,
 because both plausible resolutions (first wins, last wins) silently give someone a binder they did
-not ask for.
+not ask for. *This refusal is not yet implemented — see §10 Open.*
 
 **D18 — An empty scope writes an empty binder.** Reverses the rule v1 to v9 held, that an empty
 scope writes nothing and leaves the previous binder alone.
 
 *The original reasoning, and why it was wrong.* The old rule called an empty binder replacing a good
 one "a loss of information dressed up as a successful build". That framing has a false premise: the
-previous binder is **superseded, not deleted** — it moves to `_superseded` beside the new one, and
-recovering it is a file move. Almost nothing is lost. What the rule produced instead was worse: a
-binder sitting in the output folder, presenting as current, asserting content the scope no longer
-held. A stale binder that looks authoritative is precisely the failure this tool exists to prevent,
-and the old rule manufactured one deliberately.
+previous binder was **superseded, not deleted** — it moved to `_superseded` beside the new one, and
+recovering it was a file move. Almost nothing was lost. [Since superseded by D20: the previous
+binder is now deleted outright, not moved; git history serves the recovery purpose `_superseded`
+served here.] What the rule produced instead was worse: a binder sitting in the output folder,
+presenting as current, asserting content the scope no longer held. A stale binder that looks
+authoritative is precisely the failure this tool exists to prevent, and the old rule manufactured
+one deliberately.
 
 *The case that exposed it.* Exclusions are tightened until everything in scope is excluded. The tool
 reported `EMPTY`, wrote nothing, and left a binder that still contained every excluded file. The
@@ -10067,10 +10084,10 @@ session.
 *What replaces the guard.* Three things, none of which the old rule provided. The binder says
 `EMPTY BINDER` in its own header, so a reader who never sees a report cannot mistake it. The run
 reports `EMPTY` whether or not it wrote, so a misconfigured scope stays loud. And the previous
-binder is in `_superseded`, one move from being restored.
+binder's content is recoverable from git history, one checkout away from being restored.
 
-*Consequence, accepted:* a typo in `root` now supersedes a good binder with an empty one. That is a
-real regression in one narrow case, recoverable by moving a file, and it is preferred to the
+*Consequence, accepted:* a typo in `root` now replaces a good binder with an empty one. That is a
+real regression in one narrow case, recoverable from git, and it is preferred to the
 alternative — a stale binder that nothing announces at all.
 
 *Generalisable:* refusing to record an unwelcome state does not prevent the state, it only removes
@@ -10156,10 +10173,39 @@ one contract and are marked as such in both places.
 sorts to the same place, then back — is invisible. A digest comparison is a content comparison, and
 that is the question worth answering.
 
+**D19 — A utility in the `aide` CLI, not a standalone script.** The tool runs as `aide binder`,
+sharing the project root and settings discovery with the rest of the `aide` framework — the same
+move already made for version cleanup and the file update package. Settings are discovered from
+`_aide/utilities/binder-builder/` in the project (§2, §4b) rather than from a script's own folder,
+and a folder holding none is reported rather than seeded with an invented default: with several
+definitions possible per folder (D13), there is no longer a single "the" default to write. A live
+run that wrote or deleted anything commits those files to git, matching version cleanup
+(VersionCleanup_Design D3) and the file update package (FileUpdatePackage_Design D7).
+
+**D20 — Deletion replaces archiving for the binder's own previous output; no `_superseded`
+folder.** Supersedes D7. The tree is under version control; git history is the record of what the
+previous binder contained. A live rebuild deletes the prior binder of that name and commits the
+deletion alongside the write, the same move made for version cleanup (VersionCleanup_Design D3) and
+the file update package (FileUpdatePackage_Design D6). `CONFLICT` is retired along with it: the old
+archive model needed it for a taken `_superseded` slot, and deletion has no slot to take.
+
+D18's empty-scope decision stands unchanged — an empty scope still writes a binder that says so —
+but its stated recovery path (moving the previous binder to `_superseded`) is now git history
+instead of a filesystem move.
+
 ---
 
 ## 10. Open
 
+- **The duplicate-`name` refusal is not implemented.** D13 and this design state that two binder
+  definitions sharing a `name` are refused before anything runs, naming both files. The live tool
+  (`aide-cli/src/aide/utilities/binder.py`) has no such check: `run()` builds every discovered
+  definition in turn with no uniqueness test, so two same-named definitions would each build
+  normally and, per D20, each delete the other's just-written output on its own turn — silently,
+  with no warning to the person who created the second definition. This is a design requirement
+  the code does not meet, found while aligning this design with the deployed tool (2026-09-24), not
+  a behaviour this pass changed. Flagged for a build follow-up rather than fixed here — this pass
+  does not change code.
 - **`EMPTY` and `NO CHANGES` exit codes.** Both are `0`, consistent with treating expected outcomes
   as non-failures. A caller therefore cannot distinguish "binder rebuilt" from "nothing written"
   by exit code alone. The FileUpdatePackage deployer, which now chains this tool, does not need to:
@@ -10176,7 +10222,7 @@ that is the question worth answering.
   functions over paths with no state, which is what has kept copying cheap.
 - **The `_superceded` misspelling** at the Documentation root remains, alongside correctly-spelled
   folders. Both are underscore-prefixed so both are skipped. A human act to reconcile.
-<!-- END SOURCE: Infrastructure/binder-builder/BinderBuilder_Design_v10.md -->
+<!-- END SOURCE: Infrastructure/binder-builder/BinderBuilder_Design_v11.md -->
 
 ---
 
@@ -10225,6 +10271,10 @@ aide binder --force      # rebuild even if nothing changed
 
 There is no per-binder selection by name any more — a run always builds every
 definition found. `--dry-run` and `--force` apply to the whole run.
+
+A live run that writes or deletes a binder stages and commits those files
+itself, with a message such as `binder: rebuilt Documentation binder`. Dry
+runs never commit.
 
 ---
 
@@ -10466,13 +10516,13 @@ rather several binders shared one — one file per folder in run order is
 exactly what someone auditing a whole folder wants.
 
 **Give each one a different `name`.** The name decides the output filename, so
-two binders sharing one would take turns superseding each other's file. The tool
+two binders sharing one would take turns deleting each other's file. The tool
 refuses to run at all if it finds a duplicate, and tells you which two files
 clash.
 
 They can share an output folder. `ProjectDesign_Binder_v3.md` and
 `Infrastructure_Binder_v7.md` sit happily side by side in one `_binder`: each
-definition only ever scans, supersedes and skips binders of its own name.
+definition only ever scans, deletes and skips binders of its own name.
 
 Each build produces its own report, and the run ends with a line for the folder:
 
@@ -10513,19 +10563,18 @@ drifts from reality the first time a file is moved by hand.
 A run that finds nothing changed does not consume a version number — see
 *Change detection* below.
 
-On a successful write, the previous binder of that name is moved into
-`_superseded` inside the output folder. A tool cleans up after itself; version
-cleanup handles supersession it did not cause. Nothing is ever overwritten — if
-the `_superseded` slot is taken, the run reports `CONFLICT` and leaves the file
-alone.
+On a successful write, the previous binder of that name is deleted from the
+output folder — git history is the archive, and there is no `_superseded`
+folder for this tool any more. A tool cleans up after itself; version cleanup
+handles supersession it did not cause.
 
 ---
 
 ## Change detection
 
 The binder is a derived file. Rebuilding it when nothing has changed produces
-the same content under a new version number and pushes a perfectly good binder
-into `_superseded` for nothing.
+the same content under a new version number and deletes a perfectly good
+binder for nothing.
 
 So before writing, the tool compares what it just assembled against the
 **manifest of the current binder** — the list of filenames and digests in that
@@ -10538,8 +10587,8 @@ change detection: Documentation_Binder_v7.md: 24 file(s) in scope, all matching 
   NO CHANGES       no changes detected since Documentation_Binder_v7.md; binder not rebuilt
 ```
 
-Nothing is written, nothing is superseded, and no version number is used up.
-The previous binder is still the current one.
+Nothing is written, nothing is deleted, and no version number is used up. The
+previous binder is still the current one.
 
 Change, add or remove any in-scope file and the next run rebuilds, saying what
 it noticed:
@@ -10575,11 +10624,10 @@ comparison is over content.
 | `WOULD INCLUDE` | Dry run — the same file, nothing written. |
 | `SKIPPED` | In a collected folder, deliberately left out — an `exclude_files` match, or the tool's own output. |
 | `UNMATCHED` | An `order` entry naming a file that is not in scope. |
-| `NO CHANGES` | Nothing in scope has changed since the last binder. Nothing written, nothing superseded. |
+| `NO CHANGES` | Nothing in scope has changed since the last binder. Nothing written, nothing deleted. |
 | `WOULD CHECK` | Dry run — the same comparison, reported rather than acted on. |
 | `WRITTEN` / `WOULD WRITE` | The binder itself. |
-| `SUPERSEDED` / `WOULD SUPERSEDE` | The previous binder moved into `_superseded`. |
-| `CONFLICT` | A destination name is already taken; nothing overwritten. |
+| `DELETED` / `WOULD DELETE` | The previous binder, removed from the output folder. |
 | `EMPTY` | Nothing in scope. An empty binder is written, saying so. |
 | `INCOMPLETE` | A source could not be read. The binder has a hole in it. |
 | `ERROR` | A filesystem refusal — a locked file, permissions, an unreadable folder. |
@@ -10600,8 +10648,8 @@ its own first screenful:
 > to look.
 ```
 
-The previous binder is superseded as usual, so it is in `_superseded` and one
-move from being restored if this was not what you wanted.
+The previous binder is deleted as usual; git history is where to recover it
+from if this was not what you wanted.
 
 This is deliberate. Writing nothing sounds safer, but it leaves a binder in the
 output folder presenting as current while asserting content the scope no
@@ -10619,7 +10667,7 @@ detection sees an empty binder and an empty scope and reports `NO CHANGES`.
 **`INCOMPLETE` — a source could not be read.** The binder is written, but it has
 a hole in it, so it is stamped as incomplete in three places: the report, the
 log, and a block near the top of the binder itself naming every missing file.
-The previous binder is **not** superseded, so the last good one stays available.
+The previous binder is **not** deleted, so the last good one stays available.
 A plausible-looking binder that is quietly missing a document is the worst thing
 this tool could produce, so it is made loud in every place someone might look.
 
@@ -11259,21 +11307,16 @@ Version note: v5 — N2/N3/N4 remediation. Commit verification generalised from 
 
 <!-- BEGIN SOURCE: Infrastructure/file-update-package/file_update_package_settings.json -->
 {
-  "_comment": "Settings for the file update package deployer. Edit the values below. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
+  "_comment": "This shows the \"fup\" key of the project's _aide/settings.json, with the package defaults filled in. It is documentation, not a settings file the tool reads directly - the file update package has no standalone settings file of its own any more. Any key starting with _comment is ignored where it's read.",
 
-  "_comment_documentation_root": "The root of the document tree packages are deployed into. Manifest paths are measured from here. A relative path is resolved against the folder this script lives in, so \"..\" means the parent folder - which is what an instance sitting in _tools wants. Give a full path such as \"C:/Users/you/Documents\" to point somewhere else. Forward slashes are safe on Windows. This setting cannot use \"~/\", because \"~/\" means \"measured from the documentation root\" and this is the setting that defines it.",
-  "documentation_root": "..",
-
-  "_comment_paths": "The three settings below accept three kinds of path. ABSOLUTE - \"C:/Docs/_fileupdatepackages\". ROOT-ANCHORED - \"~/_fileupdatepackages\" - measured from the documentation root above. RELATIVE - \"_fileupdatepackages\" - measured from the folder this script lives in. Note that ~ means the documentation root here, never your home folder.",
-
-  "_comment_drop_folder": "Where packages are put to be deployed. The newest unprocessed .zip in this folder is the one that gets processed; the rest wait. Processed packages are moved into a _superseded subfolder of it.",
+  "_comment_drop_folder": "Where packages are put to be deployed. The newest .zip in this folder is the one that gets processed; the rest wait their turn. A successful, complete deploy deletes the package - there is no _superseded subfolder for it; git history is the record of what was deployed.",
   "drop_folder": "~/_fileupdatepackages",
 
-  "_comment_binder_builder": "The binder builder script to run after a deploy. Point this at the running instance so it uses that instance's settings. Set it to \"\" to skip the trigger entirely.",
-  "binder_builder": "~/_tools/binder_builder.py",
+  "_comment_trigger_binder": "Whether to run `aide binder` after a deploy that wrote or moved something. Set to false to skip it.",
+  "trigger_binder": true,
 
-  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \"~/\" for root-anchored, or relative to the script folder.",
-  "log_file": "file_update_package.log"
+  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Root-anchored (~/...) measured from the documentation root (the project root), or a full path.",
+  "log_file": "~/_aide/utilities/file-update-package/file_update_package.log"
 }
 <!-- END SOURCE: Infrastructure/file-update-package/file_update_package_settings.json -->
 
@@ -11738,8 +11781,8 @@ without touching its content — no `path` inside the zip is needed for it:
 ```json
 {
   "action": "move",
-  "old_path": "Working Practices/FileOps/WP_FileOps_Working_v1.md",
-  "new_path": "Working Practices/_superseded/WP_FileOps_Working_v1.md"
+  "old_path": "Standards/OldName_v3.md",
+  "new_path": "Standards/NewName_v3.md"
 }
 ```
 
@@ -11962,8 +12005,9 @@ conflict out, and a package that's gone reads as one that was fully applied.
 ## The folder naming check
 
 Every run walks the tree and reports any folder whose name is *nearly* one of
-the conventions — `_superceded` where `_superseded` was meant, and so on. It
-appears in the completion summary and nowhere else.
+the conventions — `_fileupdatepackagse` where `_fileupdatepackages` was meant,
+`_bnder` where `_binder` was meant, and so on. It appears in the completion
+summary and nowhere else.
 
 Only folders whose names start with an underscore are looked at, which is the
 class every convention name belongs to. An ordinary folder is never flagged.
@@ -12455,12 +12499,11 @@ Those are `aide binder` and `aide fup`, run in sequence.
 
 <!-- BEGIN SOURCE: Infrastructure/version-cleanup/version_cleanup_settings.json -->
 {
-  "_comment": "Settings for the version cleanup tool. Edit the values below. Any key starting with _comment is ignored by the tool - JSON has no comment syntax, so notes live in keys like this one.",
+  "_comment": "This shows the \"cleanup\" key of the project's _aide/settings.json, with the package defaults filled in. It is documentation, not a settings file the tool reads directly - version cleanup has no standalone settings file of its own any more. Any key starting with _comment is ignored where it's read.",
 
-  "_comment_root": "The folder to tidy, including everything beneath it. A relative path is resolved against the folder this script lives in, so \"..\" means the parent folder. Give a full path such as \"C:/Users/you/Documents\" to point somewhere else. Forward slashes are safe on Windows.",
-  "root": "..",
+  "_comment_root": "Optional; not shown with a value below because there is no package default for it. The folder to tidy, including everything beneath it. Defaults to the project root (where _aide/ lives) when left out. A relative path is resolved against the project root, not against this file. Root-anchored (~/...) cannot be used here, since this is the setting that defines what ~ is measured from.",
 
-  "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \"C:/Docs/_binder\" - names one exact folder. ROOT-ANCHORED - \"~/_binder\" - names one exact folder, measured from the root above. RELATIVE - \"_binder\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
+  "_comment_paths": "include and exclude accept three kinds of path. ABSOLUTE - \"C:/Docs/_binder\" - names one exact folder. ROOT-ANCHORED - \"~/_binder\" - names one exact folder, measured from root. RELATIVE - \"_binder\" - is a pattern rather than a place: it matches every folder in the tree whose path ends with those segments, so one entry covers a _binder subfolder wherever it appears. Note that ~ means the root of the tree here, never your home folder.",
 
   "_comment_include": "Folders whose names start with an underscore are skipped by default. List any that should be processed anyway. Example: [\"_binder\"] processes every _binder folder in the tree; [\"~/_binder\"] processes only the one at the top.",
   "include": [],
@@ -12468,44 +12511,51 @@ Those are `aide binder` and `aide fup`, run in sequence.
   "_comment_exclude": "Folders to skip entirely, along with everything inside them. Exclude always wins over include. A relative entry here is powerful: \"_superseded\" would skip every _superseded folder in the tree.",
   "exclude": [],
 
-  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Absolute, or \"~/\" for root-anchored, or relative to the script folder.",
-  "log_file": "version_cleanup.log"
+  "_comment_log_file": "Where the run log is appended. One entry per run, never overwritten. Root-anchored (~/...) measured from the project root, or a full path.",
+  "log_file": "~/_aide/utilities/version-cleanup/version_cleanup.log"
 }
 <!-- END SOURCE: Infrastructure/version-cleanup/version_cleanup_settings.json -->
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/version-cleanup/VersionCleanup_Design_v3.md -->
-> identity: VersionCleanup_Design@v3 | doctype: design | updated: 2026-09-04
+<!-- BEGIN SOURCE: Infrastructure/version-cleanup/VersionCleanup_Design_v4.md -->
+> identity: VersionCleanup_Design@v4 | doctype: design | updated: 2026-09-24
 
 # Version Cleanup — Design
 
-> **Version 3** (2026-09-04). Corrects the master folder path after the rename to `version-cleanup`.
-> v2 added objective, contents, definition of done and sibling
-> relationships; records the three-form path model's ratification as an Infrastructure-wide
-> convention; reframes verification as required cases rather than a build record. No behaviour
-> change from v1.
+> **Version 4** (2026-09-24). Rewritten to match the deployed tool. The utility is now `aide
+> cleanup`, one of the utilities built into the `aide` CLI (`aide-cli`, in the deploy repo),
+> rather than a standalone script with its own settings file and log. It is **dry run by
+> default**; `--apply` deletes. Superseded versions are **deleted outright**, not moved to
+> `_superseded` — git history is the archive, and a live run commits the deletions itself. See
+> Decisions D1–D3. No change to the matching rule, the folder scope model, or the path forms.
+>
+> v3 (2026-09-04) corrected the master folder path after the rename to `version-cleanup`. v2
+> added objective, contents, definition of done and sibling relationships; recorded the
+> three-form path model's ratification as an Infrastructure-wide convention; reframed
+> verification as required cases rather than a build record. No behaviour change from v1.
 
 ## Contents
 
 - **Position and objective** — what this is, what it must achieve, its boundary.
 - **The matching rule** — document identity, version comparison, deliberate limits.
 - **Folder scope** — descend versus process, and the three path forms.
-- **Archive behaviour** — where superseded files go and what is never overwritten.
-- **Execution model** — instance deployment and script-folder resolution.
-- **The three files** — script, settings contract, log contract.
+- **Deletion behaviour** — what is removed, what is never touched, and the commit that follows.
+- **Execution model** — a CLI utility, not a standalone script.
+- **Inputs** — the settings key, defaults, the log.
 - **Run modes and report vocabulary.**
 - **Definition of done, idempotence, boundary, required verification cases.**
+- **Decisions** — with reasons.
 
 ## Position
 
-Version cleanup is the first piece of **Infrastructure** for the AIDE documentation corpus:
-machinery that acts on the document tree but is never loaded into an AI session. It has no
-authority over document content and states no methodology; it enforces one physical property of
-the tree.
+Version cleanup is a utility built into the `aide` CLI: machinery that acts on the document tree
+but is never loaded into an AI session. It has no authority over document content and states no
+methodology; it enforces one physical property of the tree.
 
-It is a **single-action tool**, not a framework. Sibling tools are separate scripts run in
-sequence. There is deliberately no action registry, plugin system or shared base class. Any
+It is a **single-action utility**, not a framework. Sibling utilities (`aide binder`, `aide fup`)
+are separate modules in the same CLI. There is deliberately no action registry, plugin system or
+shared base class beyond the CLI's own discovery of `name` / `description` / `run`. Any
 commonality between siblings is resolved when the duplication is visible, not in anticipation of
 it.
 
@@ -12515,7 +12565,7 @@ Version cleanup runs **first** in the corpus pipeline, so tools downstream can t
 without version reasoning:
 
 ```text
-version cleanup  →  binder builder  →  (later siblings)
+aide cleanup  →  aide binder  →  aide fup (deploys, then re-triggers aide binder itself)
 ```
 
 Binder builder supersedes its own previous output within its own folder, so version cleanup never
@@ -12533,8 +12583,8 @@ document tree containing many versions per document
   → walk each folder
   → group that folder's files by document identity
   → keep the highest version in place
-  → move every lower version into that folder's _superseded
-  → report + append log entry
+  → delete every lower version
+  → report + commit (live run only) + append log entry
 ```
 
 ## The matching rule
@@ -12549,8 +12599,8 @@ version   =  the digits in that suffix, or 0 when there is no suffix
 
 | Case | Behaviour |
 | --- | --- |
-| `Foo_v8.md`, `Foo_v9.md` | `Foo_v8.md` superseded |
-| `Foo.md`, `Foo_v1.md` | `Foo.md` superseded — absent suffix is v0 |
+| `Foo_v8.md`, `Foo_v9.md` | `Foo_v8.md` deleted |
+| `Foo.md`, `Foo_v1.md` | `Foo.md` deleted — absent suffix is v0 |
 | `Foo_v3.md` alone | stays, suffix or not |
 | `Foo_v1.md`, `Foo_v2.txt` | different documents — extension is part of identity |
 | `Foo_v2_draft.md` | no match — the suffix must be terminal |
@@ -12558,21 +12608,22 @@ version   =  the digits in that suffix, or 0 when there is no suffix
 Treating an unsuffixed file as v0 removes the special case: `Foo.md` versus `Foo_v1.md` is decided
 by the same comparison as `Foo_v8.md` versus `Foo_v9.md`.
 
-Highest number stays; all lower versions move. Version numbers are compared numerically, so
+Highest number stays; all lower versions are deleted. Version numbers are compared numerically, so
 `_v10` outranks `_v9`.
 
 ### Deliberate limits
 
 - **Case.** `_v` and `_V` are both recognised. The document identity itself is compared with exact
-  case, so `Foo_v1.md` and `foo_v2.md` are two documents and neither moves. Conservative by intent.
+  case, so `Foo_v1.md` and `foo_v2.md` are two documents and neither is touched. Conservative by
+  intent.
 - **Ties.** Two files can share a version number only through leading zeros (`Foo_v08.md`,
   `Foo_v8.md`). Which is current is then genuinely unclear, so the tool reports `AMBIGUOUS` and
-  moves nothing in that group.
+  deletes nothing in that group.
 - **Compound extensions.** Only the final extension is treated as the extension, so
   `Foo_v8.tar.gz` has identity `Foo_v8.tar` and never matches. Not a concern for a document corpus.
 
-**The general shape:** where a rule does not determine an answer, report it and move nothing. This
-applies to every case in this class, not only ties.
+**The general shape:** where a rule does not determine an answer, report it and delete nothing.
+This applies to every case in this class, not only ties.
 
 ## Folder scope
 
@@ -12590,10 +12641,10 @@ Two distinct questions are asked of every folder:
 The distinction matters: an underscore-prefixed folder that merely sits on the path to an included
 folder is walked through without its own files being touched.
 
-- The underscore rule is what keeps the tool out of the `_superseded` folders it creates. It is
-  the mechanism, not a convention layered on top of one.
-- The **root** is an explicit choice in the settings file, so the underscore rule does not apply
-  to it. An explicit exclude still does.
+- The underscore rule is what keeps the tool out of folders such as `_binder` and `_aide` by
+  default. It is the mechanism, not a convention layered on top of one.
+- The **root** is an explicit choice in the settings, so the underscore rule does not apply to it.
+  An explicit exclude still does.
 - Exclude wins over include. Pruning at an excluded folder is what makes exclusion inherited:
   once a branch is skipped, nothing inside it is ever asked about again.
 - Directory symlinks are not followed, so a link cannot cause one tree to be tidied twice.
@@ -12609,9 +12660,9 @@ like this*. Three spellings carry them.
 | Root-anchored | `~/_binder` | one exact folder, measured from `root` |
 | Relative | `_binder` | a **pattern**, tested against every folder the walk reaches |
 
-**Status: ratified as the Infrastructure-wide convention** (2026-09-04). This is not a local choice
-of this tool. Binder builder and later siblings use the same vocabulary; a divergent path model in
-a sibling is a defect.
+**Status: ratified as the Infrastructure-wide convention.** This is not a local choice of this
+tool. Binder builder and the file update package use the same vocabulary; a divergent path model
+in a sibling is a defect.
 
 A relative entry is not resolved once at startup. It is a shape, matched when a folder's path
 **ends with** the entry's segments, so `_binder` covers a `_binder` subfolder at any depth and
@@ -12625,7 +12676,7 @@ Consequences taken deliberately:
   these settings, so `~/` cannot quietly resolve to a user profile directory. This is a one-way
   door on that character across Infrastructure.
 - The `root` setting itself cannot use `~/`, since it is what defines the root. It takes an
-  absolute path or one relative to the script folder, and rejects `~/` with that explanation.
+  absolute path or one relative to the project root, and rejects `~/` with that explanation.
 - `..` is rejected inside a relative entry. A pattern has no anchor for it, so silently accepting
   one would produce an entry that never matches.
 - Path comparison goes through `os.path.normcase`: case-insensitive on Windows, case-sensitive
@@ -12633,67 +12684,64 @@ Consequences taken deliberately:
 - The multi-segment form needs lookahead. A folder matching a *proper prefix* of an include
   pattern is descended into but not processed, which is how `_binder/current` reaches `current`
   through an underscore-prefixed parent.
-- A relative `exclude` entry is correspondingly broad: `_superseded` would skip every such folder
-  in the tree. That is the intent, and it is stated in the shipped settings file.
+- A relative `exclude` entry is correspondingly broad: `_binder` would skip every such folder in
+  the tree. That is the intent.
 
-## Archive behaviour
+## Deletion behaviour
 
-Superseded files move into `_superseded`, a subfolder of the folder the file came from. It is
-created lazily — a folder with nothing to archive never gains an empty `_superseded`.
+Superseded files are **deleted outright**. There is no `_superseded` folder for this tool: the
+tree is under version control, and git history is the record of what a deleted version contained.
 
-**Nothing is ever overwritten.** If the destination name already exists, the source file is left
-in place and the run reports `CONFLICT`. Two different documents competing for one archive slot is
-a decision for a person. The destination is re-checked immediately before the move, because
-`shutil.move` overwrites silently on Linux and macOS.
+There is nothing for a superseded file to conflict with — deletion has no destination, so the
+`CONFLICT` outcome the old archive model needed does not apply. The only failure mode is a
+filesystem refusal (locked file, permissions), reported as `ERROR`, with the file left in place.
 
-Files are moved, not copied and deleted; source and destination are always on the same volume.
+**Live runs commit their own deletions.** When `--apply` deletes at least one file, the tool
+stages and commits the deletions itself, with a message such as `cleanup: deleted 2 superseded
+version(s)`. Dry runs never commit.
+
+See Decision D3.
 
 ## Execution model
 
-The script lives in the deploy repo (`DigitalBusiness-AIDE-Deploy`) and is distributed via
-`aide update`. This folder holds the design documentation and default settings.
+The utility is a module in the `aide` CLI (`aide-cli/src/aide/utilities/cleanup.py`, in the
+deploy repo `DigitalBusiness-AIDE-Deploy`), distributed via `aide update` and invoked as `aide
+cleanup`. This folder holds the design documentation; there is no standalone script here to run.
 
-Each instance resolves its settings file, its log and its root against **the folder holding the
-script**, never against the current working directory. The working directory varies with how the
-script was launched (double-click, terminal, scheduler) and is unreliable; the script folder does
-not. This is also what gives each instance its own settings and its own log without any instance
-registry.
+The CLI locates the **project root** by walking up from the current folder until it finds `_aide/`
+— the working directory itself is never trusted, since it varies with how the command was
+launched. Settings, the default root, and the default log path are all resolved against the
+project root, never against the script's own location: there is no "script folder" any more, and
+no per-instance settings file.
 
 Utility changes are made in the deploy repo via Code and distributed via `aide update`.
 
-## The three files
+## Inputs
 
-| File | Role |
-| --- | --- |
-| `version_cleanup.py` | The script. Standard library only, Python 3.8+, cross-platform. |
-| `version_cleanup_settings.json` | Per-instance configuration, read on launch. |
-| `version_cleanup.log` | Append-only record, one entry per run. Created on first run. |
-
-`README.md` and this design document live in the documentation repo and are not required at runtime.
-
-### Settings contract
+Settings come from the project's own configuration, `_aide/settings.json`, under the `cleanup`
+key. Anything left out falls back to the package default shipped with `aide-cli`:
 
 ```json
 {
-  "root": "..",
-  "include": [],
-  "exclude": [],
-  "log_file": "version_cleanup.log"
+  "cleanup": {
+    "include": [],
+    "exclude": [],
+    "log_file": "~/_aide/utilities/version-cleanup/version_cleanup.log"
+  }
 }
 ```
 
-- **JSON** — no third-party parser needed, editable by hand, and a syntax error is reported with
-  line and column rather than as a stack trace.
-- JSON has no comment syntax, so the shipped defaults carry their explanatory notes as keys
-  beginning with `_comment`. The loader ignores them. The alternative — a JSONC dialect with a
-  hand-written comment stripper — buys nothing and adds a parser to maintain.
-- `root` and `log_file` resolve against the script folder when relative, so `".."` means "the
-  folder above the tool" — the right default for an instance living in `Documentation/_tools`.
-  `include` and `exclude` use the three path forms above.
-- A missing settings file is written from the shipped defaults rather than being an error, so a
-  bare `.py` copied to a new location bootstraps itself.
+| Setting | Meaning |
+| --- | --- |
+| `root` | The folder to tidy, including everything beneath it. Defaults to the project root (where `_aide/` lives). |
+| `include` | Underscore-prefixed folders to process anyway — see path forms above. |
+| `exclude` | Folders to skip entirely, along with everything inside them. |
+| `log_file` | Where the run log is appended. Default `~/_aide/utilities/version-cleanup/version_cleanup.log`. |
 
-### Log contract
+`root` and `log_file` resolve against the project root when written with `~/`, or relative to the
+project root otherwise. A missing settings file is not an error — the package defaults apply.
+
+### The log
 
 Append-only, one entry per run, never rewritten or trimmed. Dry runs are logged too, clearly
 marked, so the log is a complete record of every time the tool was pointed at the tree. The
@@ -12703,50 +12751,48 @@ on-screen report and the log entry are produced by one function and cannot drift
 
 | Mode | Behaviour |
 | --- | --- |
-| default | Live. No confirmation prompt. |
-| `--dry-run` | Identical report, `WOULD MOVE` in place of `MOVED`, nothing changed. |
+| default | **Dry run.** Reports what would be deleted; nothing changes. |
+| `--apply` | Live. Deletes the files and commits the deletion. |
 
-Planning and acting are separate stages: `plan_folder` decides, `apply_moves` acts. A dry run
+This is the reverse of v1–v3's default. See Decision D2.
+
+Planning and acting are separate stages: `plan_folder` decides, `apply_deletions` acts. A dry run
 executes the same decision code as a live run, which is what makes it a trustworthy preview rather
 than a parallel implementation.
-
-The script pauses for a keypress before exiting so a double-clicked run can be read. The pause is
-skipped when no interactive console is attached, so a scheduled run cannot hang on it.
 
 ## Report vocabulary
 
 | Kind | Meaning |
 | --- | --- |
-| `MOVED` | File moved into `_superseded`. |
-| `WOULD MOVE` | Dry run — the same file, unmoved. |
-| `CONFLICT` | Destination name already taken; source left in place. |
-| `AMBIGUOUS` | Duplicate version numbers in one group; nothing in the group moved. |
+| `DELETED` | File deleted. |
+| `WOULD DELETE` | Dry run — the same file, untouched. |
+| `AMBIGUOUS` | Duplicate version numbers in one group; nothing in the group deleted. |
 | `ERROR` | Filesystem refusal — locked file, permissions, unreadable folder. |
 
 Events are grouped by folder in the report. A single failure does not abandon the run: the tool
 reports it and continues, so the tree is never left half-tidied by an unrelated locked file.
 
-Exit code is `0` unless at least one `ERROR` occurred. Conflicts and ambiguities are expected
-outcomes requiring human attention, not failures of the run.
+Exit code is `0` unless at least one `ERROR` occurred. Ambiguity is an expected outcome requiring
+human attention, not a failure of the run.
 
 ## Definition of done
 
-Point an instance at a tree and afterwards that tree holds one version of each document, with
-lower versions moved into `_superseded` beside where they lived, a readable on-screen report, and
-one appended log entry. A dry run produces the identical report and changes nothing. Conflicts and
-ambiguities are reported rather than resolved.
+Point the tool at a project and, on `--apply`, the tree afterwards holds one version of each
+document, with lower versions deleted, the deletion committed to git, a readable on-screen report,
+and one appended log entry. The default dry run produces the identical report and changes nothing.
+Ambiguity is reported rather than resolved.
 
 ## Idempotence
 
-Running the tool twice over the same tree produces no further movement. `_superseded` folders are
-underscore-prefixed and therefore outside scope on the second pass; every remaining folder holds
-one version per document, so no group has a superseded member.
+Running the tool twice over the same tree produces no further deletion. Every remaining folder
+holds one version per document after the first `--apply`, so no group has a member below the
+highest version on the second pass.
 
 ## Out of scope — hard boundary
 
 Version cleanup tidies versions. It does not assemble binders, does not deploy, does not edit
-document content, does not rename files, and does not delete anything. Superseded material is
-moved, never removed. Deletion from `_superseded` is a human act.
+document content, and does not rename files. Superseded material is deleted outright — there is no
+`_superseded` folder for this tool, and git history is the record of what was removed.
 
 ## Required verification cases
 
@@ -12759,10 +12805,38 @@ one build.
   catching several `_binder` folders at different depths, root-anchored catching only the top one,
   absolute catching one exact folder); a multi-segment pattern traversing an underscore parent
   without processing it; relative and root-anchored excludes.
-- **Refusals** — pre-existing archive conflict; malformed JSON; missing root; `..` in a relative
-  entry; bare `~`; `~name`; `~/` in the root setting.
-- **Repeatability** — a second live run over a tidied tree moving nothing.
-<!-- END SOURCE: Infrastructure/version-cleanup/VersionCleanup_Design_v3.md -->
+- **Modes** — default run reports `WOULD DELETE` and changes nothing; `--apply` deletes and
+  commits; a dry run and the live run it previews report identically apart from the verb.
+- **Refusals** — malformed JSON; missing root; `..` in a relative entry; bare `~`; `~name`; `~/`
+  in the root setting.
+- **Repeatability** — a second `--apply` run over a tidied tree deleting nothing.
+
+## Decisions
+
+**D1 — A utility in the `aide` CLI, not a standalone script.** The tool runs as `aide cleanup`,
+sharing the project root and settings with the rest of the `aide` framework — the same move made
+for the file update package (FileUpdatePackage_Design D1). This replaces the standalone settings
+file, standalone log, and script-folder resolution model of v1–v3.
+
+**D2 — Dry run by default; `--apply` to act.** v1–v3 ran live by default with `--dry-run` as the
+opt-in preview. That is reversed here: a bare `aide cleanup` only reports. Version cleanup acts
+across the whole scope in one command with no per-item review — unlike the file update package,
+which processes one already-built, already-inspected package at a time — so the safer default is
+to look before deleting. `--apply` is the deliberate act.
+
+**D3 — Deletion replaces archiving; no `_superseded` folder.** The tree is under version control.
+Git history is the authoritative record of what was deleted and when. Moving superseded versions
+to `_superseded` duplicated that record in the filesystem and required manual cleanup that never
+happened in practice. Deletion is simpler, relies on git for recovery, and a live run commits the
+deletion itself so the record is made at the moment it is true.
+
+This supersedes the archive behaviour described in v1–v3 of this design (the "Archive behaviour"
+section, since replaced by "Deletion behaviour" above). It matches the same move already made for
+the file update package (FileUpdatePackage_Design D6) and the git-as-history convention already
+recorded for Core Structure (Working Practices' Decisions and Design: "git-as-history decision,
+superseded-folder pattern dropped, git is the version history" — WP_Decisions_v5, WP_Design_v7;
+operationalised in WP_FileOps_Working_v1's "Archived file handling" note).
+<!-- END SOURCE: Infrastructure/version-cleanup/VersionCleanup_Design_v4.md -->
 
 ---
 

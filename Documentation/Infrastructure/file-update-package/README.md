@@ -53,8 +53,8 @@ without touching its content — no `path` inside the zip is needed for it:
 ```json
 {
   "action": "move",
-  "old_path": "Working Practices/FileOps/WP_FileOps_Working_v1.md",
-  "new_path": "Working Practices/_superseded/WP_FileOps_Working_v1.md"
+  "old_path": "Standards/OldName_v3.md",
+  "new_path": "Standards/NewName_v3.md"
 }
 ```
 
@@ -277,8 +277,9 @@ conflict out, and a package that's gone reads as one that was fully applied.
 ## The folder naming check
 
 Every run walks the tree and reports any folder whose name is *nearly* one of
-the conventions — `_superceded` where `_superseded` was meant, and so on. It
-appears in the completion summary and nowhere else.
+the conventions — `_fileupdatepackagse` where `_fileupdatepackages` was meant,
+`_bnder` where `_binder` was meant, and so on. It appears in the completion
+summary and nowhere else.
 
 Only folders whose names start with an underscore are looked at, which is the
 class every convention name belongs to. An ordinary folder is never flagged.
