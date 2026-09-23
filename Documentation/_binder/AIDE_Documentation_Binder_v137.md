@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 136** (2026-09-23).
+> **Binder Version 137** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -103,8 +103,8 @@ individual files.
 - `Standards/_index.md` - sha256 `09379ef5eb4d`
 - `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
 - `Standards/Standards_Decisions_v4.md` - sha256 `38207b4e2082`
-- `Standards/Standards_Design_v4.md` - sha256 `e241195998b3`
-- `Standards/Standards_Development_Standard_v1.md` - sha256 `9ba785d2a243`
+- `Standards/Standards_Design_v4.md` - sha256 `7ec34b26fda5`
+- `Standards/Standards_Development_Standard_v1.md` - sha256 `a6cb9307261b`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
 - `Tools/_index.md` - sha256 `90e0fa4aa6b7`
 - `Tools/Tools_Decisions_v7.md` - sha256 `13ac6443f896`
@@ -17079,7 +17079,15 @@ Direct human instruction may override a standard within that person's authority.
 
 The Capabilities Development Standard defines build standards per capability type — the type-specific conventions for how that type of capability is built. Standards' build domain is the packaging of accepted standard documents into skills or binder content.
 
-The build specification is the accepted standard document. The build target is a skill file — a markdown file with YAML frontmatter (name and trigger description) containing the standard's content, placed in the appropriate marketplace plugin. The alternative delivery form is binder content, where the standard is included directly in the project's documentation binder without trigger-based loading. Skill delivery is the default; binder content is for standards that must be present in every session within a project context.
+The build specification is the accepted standard document. Build produces three outputs:
+
+**Skills.** Each standard is packaged as an individual skill file — a markdown file with YAML frontmatter (name and trigger description) containing the standard's content, placed in the appropriate marketplace plugin. Skills load on trigger when relevant.
+
+**Framework standards binder.** A curated binder of all operational AIDE standards — the standards that apply during normal work (principles, working practices, assurance, consumption, documentation methodology, messaging, PD, and others as authored). This binder provides project-context access to the full set of framework standards without loading designs, decisions, or working documents.
+
+**Development standards binder.** A curated binder of all AIDE development standards — the standards that apply when building AIDE itself (capabilities, standards, tools, services, utilities development standards, schema authoring, and others as authored). This binder provides project-context access to the full development methodology.
+
+When a standard is added or updated, the relevant binder is rebuilt alongside the skill deployment.
 
 The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it. Two plugins serve different audiences: one for operational standards (applied during normal work), one for development standards (applied when building AIDE itself).
 
@@ -17218,7 +17226,7 @@ Information. Reference is a document type, not an output type. A reference infor
 
 ## Build
 
-A standard is built by packaging it as a skill for plugin delivery, or as binder content for project-context delivery. The authored standard document is the build specification.
+A standard is built by packaging it as a skill for plugin delivery, and by inclusion in the appropriate standards binder. The authored standard document is the build specification.
 
 ### Preconditions
 
@@ -17256,15 +17264,18 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 
 The skill directory name follows the pattern `<plugin>:<skill-name>` — the plugin prefix is implicit from where the skill lives. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
-### Building binder content
+### Standards binders
 
-A standard may also be delivered as binder content — included in the project's documentation binder via the binder builder. This is the delivery form for standards that should be present in every session within a project context, without trigger-based loading.
+Build also maintains two curated binders — collections of just the standards, without designs, decisions, or working documents:
 
-Binder content has no skill file or trigger description. The standard is included by the binder builder's folder scanning and is present whenever the binder is loaded as project knowledge.
+- **Framework standards binder** — all operational AIDE standards. Provides project-context access to the full set of framework standards for any project that works under AIDE.
+- **Development standards binder** — all AIDE development standards. Provides project-context access to the full development methodology for AIDE development sessions.
+
+When a standard is added or updated, the relevant binder is rebuilt alongside the skill deployment. The binder builder handles this via its settings files — one per binder.
 
 ### Which delivery form
 
-Most standards are skills — they load on trigger when relevant and are absent otherwise. Binder content is for standards that must be present in every session within their project. The default is skill delivery.
+A standard is deployed as both a skill and binder content. Skills provide trigger-loaded access on any surface; binders provide project-context access to the full set. The two forms complement each other.
 
 ## Deployment
 

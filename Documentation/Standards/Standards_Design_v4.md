@@ -112,7 +112,15 @@ Direct human instruction may override a standard within that person's authority.
 
 The Capabilities Development Standard defines build standards per capability type — the type-specific conventions for how that type of capability is built. Standards' build domain is the packaging of accepted standard documents into skills or binder content.
 
-The build specification is the accepted standard document. The build target is a skill file — a markdown file with YAML frontmatter (name and trigger description) containing the standard's content, placed in the appropriate marketplace plugin. The alternative delivery form is binder content, where the standard is included directly in the project's documentation binder without trigger-based loading. Skill delivery is the default; binder content is for standards that must be present in every session within a project context.
+The build specification is the accepted standard document. Build produces three outputs:
+
+**Skills.** Each standard is packaged as an individual skill file — a markdown file with YAML frontmatter (name and trigger description) containing the standard's content, placed in the appropriate marketplace plugin. Skills load on trigger when relevant.
+
+**Framework standards binder.** A curated binder of all operational AIDE standards — the standards that apply during normal work (principles, working practices, assurance, consumption, documentation methodology, messaging, PD, and others as authored). This binder provides project-context access to the full set of framework standards without loading designs, decisions, or working documents.
+
+**Development standards binder.** A curated binder of all AIDE development standards — the standards that apply when building AIDE itself (capabilities, standards, tools, services, utilities development standards, schema authoring, and others as authored). This binder provides project-context access to the full development methodology.
+
+When a standard is added or updated, the relevant binder is rebuilt alongside the skill deployment.
 
 The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it. Two plugins serve different audiences: one for operational standards (applied during normal work), one for development standards (applied when building AIDE itself).
 

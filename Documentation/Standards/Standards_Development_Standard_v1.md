@@ -96,7 +96,7 @@ Information. Reference is a document type, not an output type. A reference infor
 
 ## Build
 
-A standard is built by packaging it as a skill for plugin delivery, or as binder content for project-context delivery. The authored standard document is the build specification.
+A standard is built by packaging it as a skill for plugin delivery, and by inclusion in the appropriate standards binder. The authored standard document is the build specification.
 
 ### Preconditions
 
@@ -134,15 +134,18 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 
 The skill directory name follows the pattern `<plugin>:<skill-name>` — the plugin prefix is implicit from where the skill lives. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
-### Building binder content
+### Standards binders
 
-A standard may also be delivered as binder content — included in the project's documentation binder via the binder builder. This is the delivery form for standards that should be present in every session within a project context, without trigger-based loading.
+Build also maintains two curated binders — collections of just the standards, without designs, decisions, or working documents:
 
-Binder content has no skill file or trigger description. The standard is included by the binder builder's folder scanning and is present whenever the binder is loaded as project knowledge.
+- **Framework standards binder** — all operational AIDE standards. Provides project-context access to the full set of framework standards for any project that works under AIDE.
+- **Development standards binder** — all AIDE development standards. Provides project-context access to the full development methodology for AIDE development sessions.
+
+When a standard is added or updated, the relevant binder is rebuilt alongside the skill deployment. The binder builder handles this via its settings files — one per binder.
 
 ### Which delivery form
 
-Most standards are skills — they load on trigger when relevant and are absent otherwise. Binder content is for standards that must be present in every session within their project. The default is skill delivery.
+A standard is deployed as both a skill and binder content. Skills provide trigger-loaded access on any surface; binders provide project-context access to the full set. The two forms complement each other.
 
 ## Deployment
 
