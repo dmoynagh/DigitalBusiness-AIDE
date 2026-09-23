@@ -1,4 +1,4 @@
-> identity: Standards_Decisions@v4 | doctype: decisions | updated: 2026-09-15
+> identity: Standards_Decisions@v5 | doctype: decisions | updated: 2026-09-23
 
 ## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
 
@@ -156,4 +156,8 @@ The Tools Authoring Standard restatement was synced in the same change to avoid 
 
 ---
 
-Version note: v4 — adds D21 (acceptance test amended for ambient framework context). Cross-review: two defects remediated (F1 definition added, F2 "guaranteed" replaces "available within scope"), one concern accepted (F3 Tools sync included). Carried from Tools cross-review round 3. 2026-09-15.
+Version note: v5 — adds D22 (curated standards binders as future consideration). Build domain decisions (deployment-target requirement, development standard model) recorded from the Capabilities development-standards work. 2026-09-23. Replaces v4.
+
+## D22 — Curated standards binders — future consideration
+
+Two curated binders — a framework standards binder (all operational standards) and a development standards binder (all development standards) — would provide project-context access to the full set of standards for platforms where plugins are not supported (currently ChatGPT). Output location: `DigitalBusiness-AIDE\Deployment Binders`. Not designed or built now — noted as a future consideration when the need is demonstrated. The binder builder's existing multi-binder support (settings files per binder) would handle the mechanics.

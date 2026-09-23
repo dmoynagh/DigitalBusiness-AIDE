@@ -134,18 +134,9 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 
 The skill directory name follows the pattern `<plugin>:<skill-name>` — the plugin prefix is implicit from where the skill lives. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
-### Standards binders
+### Deployment target
 
-Build also maintains two curated binders — collections of just the standards, without designs, decisions, or working documents:
-
-- **Framework standards binder** — all operational AIDE standards. Provides project-context access to the full set of framework standards for any project that works under AIDE.
-- **Development standards binder** — all AIDE development standards. Provides project-context access to the full development methodology for AIDE development sessions.
-
-When a standard is added or updated, the relevant binder is rebuilt alongside the skill deployment. The binder builder handles this via its settings files — one per binder.
-
-### Which delivery form
-
-A standard is deployed as both a skill and binder content. Skills provide trigger-loaded access on any surface; binders provide project-context access to the full set. The two forms complement each other.
+A standard is deployed as a skill. When a standard is added or updated, its skill is rebuilt and deployed to the target plugin.
 
 ## Deployment
 
