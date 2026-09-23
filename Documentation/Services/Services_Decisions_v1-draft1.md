@@ -14,7 +14,7 @@ The direction-of-service test is the heart of the component — it governs what 
 
 The fundamental difference between a service and a tool is not persistence, configuration, or safety enforcement — those are consequences. The governing difference is that the AI is a caller, not the executor. For a tool, the AI performs the procedure. For a service, a separate process performs the work and the AI receives results.
 
-This matters because it changes what the authoring concerns must cover. A tool author addresses the procedure the AI will follow. A service author addresses the interface the AI will call, the safety the process will enforce, and the state the process will manage — none of which the AI controls.
+This matters because it changes what the design concerns must cover. A tool author addresses the procedure the AI will follow. A service author addresses the interface the AI will call, the safety the process will enforce, and the state the process will manage — none of which the AI controls.
 
 ## D4 — Seven design concerns, derived from the two working examples
 
@@ -48,11 +48,11 @@ This parallels the existing taxonomy. A standard is delivered as a skill. A tool
 
 "Service" was chosen over "server" because the design methodology is about what is built and why — the service's interface, safety model, and lifecycle — not about the process mechanics. "Server" stays as the delivery term in Infrastructure's MCP delivery model, where the process mechanics are the subject.
 
-## D9 — Hosted services follow the same authoring methodology
+## D9 — Hosted services follow the same design methodology
 
-The design scope note says hosted services (cloud-hosted, always-on — the framework inbox and assurance data logger discussed in the orchestration and assurance designs) follow the same authoring concerns but have a different delivery model. The authoring methodology — interface, configuration, discovery, safety, state, errors, lifecycle — applies regardless of where the process runs. What changes is Infrastructure's delivery concern: local MCP server vs cloud-hosted endpoint.
+The design scope note says hosted services (cloud-hosted, always-on — the framework inbox and assurance data logger discussed in the orchestration and assurance designs) follow the same design concerns but have a different delivery model. The design methodology — interface, configuration, discovery, safety, state, errors, lifecycle — applies regardless of where the process runs. What changes is Infrastructure's delivery concern: local MCP server vs cloud-hosted endpoint.
 
-This means Services does not need a "local vs hosted" split in its methodology. It provides one set of authoring concerns. Infrastructure provides different delivery models for each hosting context.
+This means Services does not need a "local vs hosted" split in its methodology. It provides one set of design concerns. Infrastructure provides different delivery models for each hosting context.
 
 ## D10 — Configuration reporting without exposing filesystem paths to the AI
 
@@ -70,4 +70,4 @@ This was identified as missing during the document management server testing —
 
 Version note: v1-draft1 — initial decisions. D1–D11 from the design session. 2026-09-23.
 
-Version note: v1 — cross-review remediation. F3: D2 boundary ownership corrected. F4: D4 heading updated (authoring → design concerns). 2026-09-23. Replaces v1-draft1.
+Version note: v1 — cross-review remediation. F3: D2 boundary ownership corrected. F4: D4 heading updated (authoring → design concerns). D3/D4/D9 terminology aligned (authoring → design concerns). 2026-09-23. Replaces v1-draft1.
