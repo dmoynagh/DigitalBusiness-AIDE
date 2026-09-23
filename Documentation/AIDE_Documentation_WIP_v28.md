@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v27 | 2026-09-17
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v28 | 2026-09-23
 
 ## Active threads
 
