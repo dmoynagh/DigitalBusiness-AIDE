@@ -33,11 +33,11 @@ These are conceptual roles, not a hierarchy. A component contributes to a role b
 
 **Component.** A defined area of functionality with a declared purpose, scope, and ownership. It owns its own documents and decisions. It may produce capabilities but need not. It is the functional unit of AIDE, independent of where it physically lives.
 
-**Capability.** An output that extends the development environment — a standard or a tool. The two capability kinds are defined by their respective components.
+**Capability.** An output that extends the development environment — a standard, tool, service, or utility. Four types, distinguished by execution context (in-session vs out-of-session) and direction of service (serves sessions vs serves the corpus). The Capabilities component owns the base development methodology; each type's component (Standards, Tools, Services, Utilities) extends it.
 
-**Capabilities** is the organisational grouping that contains standards and tools. It is not a component. It earns no purpose line because every job it could claim is already owned by a component within it. If it later demonstrates a purpose of its own, it graduates under the demonstrated-need rule.
+**Capabilities** is a component in the Guidance role. It owns the base development methodology for all four capability types — the shared lifecycle, the type taxonomy, and the relationships to Build and Infrastructure. Each type-specific component consumes the Capabilities Development Standard and adds type-specific guidance.
 
-**Utility.** A third kind of output alongside standards and tools. A utility is infrastructure — a repeatable operational task (building a binder, deploying a file update package, cleaning up superseded versions). Utilities are not capabilities; they serve the framework's own operation rather than extending the development environment.
+**Utility.** One of the four capability types. A utility runs outside the session and acts on the corpus or infrastructure — building a binder, deploying a file update package, cleaning up superseded versions. It serves the corpus rather than sessions, which distinguishes it from a service.
 
 ### Ownership rules
 
@@ -82,7 +82,7 @@ These bind all components. Each requirement is stated once here; the owning comp
 
 ## The component map
 
-Fifteen active components, organised by primary role. Each component's entry point is its index document (`_index.md`) in its own folder. The folder path follows the component name.
+Seventeen active components, organised by primary role. Each component's entry point is its index document (`_index.md`) in its own folder. The folder path follows the component name.
 
 ### Foundation
 
@@ -96,9 +96,11 @@ Fifteen active components, organised by primary role. Each component's entry poi
 
 | Component | Purpose | Key boundaries |
 |---|---|---|
+| Capabilities | Produce the Capabilities Development Standard — the base development methodology that governs how capabilities are designed, built, and deployed. Consumed by each type-specific component. | Owns the shared lifecycle, type taxonomy, relationships to Build and Infrastructure. Does not own type-specific guidance — each type component extends it. |
 | Principles | Give any AI the durable, portable reasoning and premises to think and act well — independent of platform or methodology. | Portability is the defining test. Includes verification as a premise and the base human-side behavioural premises. |
 | Standards | Make sure standards are applied, honoured and kept current across the environment. | Owns the definition of a standard and the authoring guidance including leanness. Does not define individual standards — those are owned by their consuming component. |
 | Tools | Encapsulate a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. | Owns the definition of a tool. Does not own individual tools — those are owned by their consuming component. |
+| Services | Define the methodology for building services — persistent capabilities that sessions connect to for operations they cannot perform in-session. | Owns the service definition, boundary tests, and seven authoring concerns. Does not own individual services or the delivery mechanism (Infrastructure). |
 | Assurance | Build justified trust in AI-assisted work by defining and evolving the conventions, behaviours, and detection mechanisms that ensure the human's intent is reliably delivered and that anomalies, drift, errors, and misunderstandings are visible when they occur. | Cross-cutting — every component contributes. Owns the human working model, verification behaviours, drift detection, anomalies channel, learning loop capture conventions. Does not own the substrate (WP), the premises (Principles), or the pattern analysis (Improvement). |
 | Improvement | Iterative improvement of the framework and working practices from accumulated learning, regardless of source (human or AI). Identified but not yet scoped. | Owns the periodic pattern analysis of the learnings queue, escalation decisions, and the reviewer. Does not own the capture conventions (Assurance) or the scheduling mechanism (Orchestration). |
 
@@ -170,4 +172,4 @@ Version note: v4 — Orchestration component map entry corrected to match accept
 
 Version note: v5 — Build component map entry generalised to any-caller per Build_Decisions_v8 D3 (cross-review carry F3). 2026-09-17. Replaces v4.
 
-Version note: v6 — Structure design area description updated for the retirement of the Core Schema Standard (absorbed into Core_Structure_Standard@v1) and the "AIDE document" reframe: `_index.md` is generic folder metadata, and container labels are now role vocabulary. Notes that Structure now produces a standard for deployment. 2026-09-22. Replaces v5.
+Version note: v7 — Capability definition expanded to four types (standards, tools, services, utilities). Capabilities promoted from organisational grouping to Guidance-role component. Services added to Guidance. Utility redefined as a capability type. Component count 15 → 17. 2026-09-23. Replaces v6.
