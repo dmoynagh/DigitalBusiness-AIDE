@@ -4,7 +4,7 @@
 
 ## Brief
 
-**Purpose.** Define what a capability is, the four types that exist, and the shared development lifecycle they follow. Capabilities is a methodological component — it owns the base methodology that each type-specific component (Standards, Tools, Services, Utilities) extends for its type.
+**Purpose.** Produce the Capabilities Development Standard — the base development methodology that governs how capabilities are designed, built, and deployed. The four type components (Standards, Tools, Services, Utilities) consume it to shape their own development standards. Anyone developing a capability uses it alongside the relevant type's development standard.
 
 **Objectives.**
 
