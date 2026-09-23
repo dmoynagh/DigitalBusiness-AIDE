@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 131** (2026-09-23).
+> **Binder Version 132** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -110,6 +110,10 @@ individual files.
 - `Tools/Tools_Decisions_v7.md` - sha256 `13ac6443f896`
 - `Tools/Tools_Design_v6.md` - sha256 `7554396473ca`
 - `Tools/Tools_Development_Standard_v1.md` - sha256 `f3953a406150`
+- `Utilities/_index.md` - sha256 `cf88a5022544`
+- `Utilities/Utilities_Brief_v1.md` - sha256 `e5eb37c9d2e8`
+- `Utilities/Utilities_Design_v1.md` - sha256 `ef836fc45f08`
+- `Utilities/Utilities_Development_Standard_v1.md` - sha256 `8cc6218e6ce9`
 - `Working Practices/_index.md` - sha256 `9f59ceebaaf4`
 - `Working Practices/Boards/_index.md` - sha256 `0ae0a05fb473`
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
@@ -17650,6 +17654,212 @@ Information. A well-authored tool is self-evident to invoke: the trigger descrip
 
 Version note: v1 — supersedes Tools_Authoring_Standard@v8. All authoring content embedded unchanged. Build, deployment, and consumption sections added per the Capabilities Development Standard six-section model. Cross-references updated to Standards and Capabilities development standards. Sibling-outputs model extended to include services. 2026-09-23.
 <!-- END SOURCE: Tools/Tools_Development_Standard_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Utilities/_index.md -->
+> identity: _index | doctype: index
+
+# Utilities
+
+Role: Component, Documentation Project
+Aliases: none
+
+Utilities defines the methodology for building utilities — out-of-session capabilities that act on the corpus rather than serving sessions. It owns the utility definition and the development methodology used to design and build utilities.
+
+Utilities is a methodological component. It defines how to create its type; individual utilities live with their owning component under the what-knows-most-about-it principle.
+
+## Parts
+
+None declared.
+<!-- END SOURCE: Utilities/_index.md -->
+
+---
+
+<!-- BEGIN SOURCE: Utilities/Utilities_Brief_v1.md -->
+> identity: Utilities_Brief@v1 | doctype: brief | updated: 2026-09-23
+
+# Utilities — Brief
+
+## Purpose
+
+Define what a utility is and how one is developed within AIDE. A utility is an out-of-session tool — it runs outside the AI environment, acts on the corpus or infrastructure, and exits or persists independently of any session. Utilities is the fourth type component in the Capabilities model.
+
+## Objectives
+
+1. A clear definition of what a utility is.
+2. How to design and build a utility.
+3. How to deploy a utility and where it resides.
+
+## Definition of done
+
+1. What a utility is — distinct from tools and services — is stated.
+2. The design and build path is clear enough that someone can create a utility without further methodology guidance.
+3. Deployment and ownership are stated — where the code lives, how it's made available, which component owns each instance.
+
+## Target outcome
+
+A deployed Utilities Development Standard.
+
+## Scope
+
+The utility definition, design and build guidance, deployment, and ownership. Broad scope, few constraints — utilities are the simplest capability type and the methodology should reflect that.
+
+## Boundaries
+
+- **The service-vs-utility boundary test** — owned by Services.
+- **Build's generic mechanism** — consumed, not restated.
+- **Infrastructure** — owns delivery. Currently holds utility instances; individual utilities may move to their owning components.
+- **Individual utilities** — each lives with its owning component.
+
+## Linked build outcome
+
+Utilities Development Standard, deployed as a skill in the `aide-dev` plugin.
+
+---
+
+Version note: v1 — initial brief. Revised to reflect broad scope, few constraints. 2026-09-23.
+<!-- END SOURCE: Utilities/Utilities_Brief_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Utilities/Utilities_Design_v1.md -->
+> identity: Utilities_Design@v1 | doctype: design | updated: 2026-09-23
+
+# Utilities — Design
+
+## Brief
+
+**Purpose.** Define what a utility is and how one is developed, built, deployed, and owned within AIDE.
+
+**Scope.** The utility definition, design and build guidance, deployment, and ownership. Broad scope, few constraints — utilities are the simplest capability type and the methodology reflects that.
+
+**Definition of done.**
+
+1. What a utility is — distinct from tools and services — is stated.
+2. The design and build path is clear enough that someone can create a utility without further methodology guidance.
+3. Deployment and ownership are stated.
+
+**Linked build outcome.** Utilities Development Standard, deployed as a skill in the `aide-dev` plugin.
+
+---
+
+## What a utility is
+
+A utility is an out-of-session tool — using "tool" in the plain-language sense, not as the formal capability type. It runs outside the AI environment, acts on the corpus, and operates independently of any session. Sessions do not call it; it does its work on its own terms — triggered by a human, a CLI command, a script, or a schedule.
+
+A utility extends the development environment the same way a tool extends a session: by encapsulating a repeatable action so it does not have to be re-derived or re-performed manually each time. The difference is where it runs and what it serves. A tool runs in-session and serves the session. A utility runs out-of-session and serves the corpus.
+
+Three working examples: the binder builder (assembles documentation into a single binder file), version cleanup (removes superseded document versions), and the file update package (applies batched file operations from a manifest).
+
+## Boundary
+
+A utility is classified by two properties from the Capabilities taxonomy: it runs out-of-session and it serves the corpus. The service-vs-utility boundary test is owned by Services — if sessions connect to it for capabilities, it is a service; if it acts on the corpus rather than serving sessions, it is a utility.
+
+A thing may start as a utility and become a service when sessions need to call it directly. The binder builder started as a standalone utility and became an operation within the document management service when sessions needed to trigger builds and receive results within a conversation. The utility form and the service operation can coexist — the standalone utility for CLI and script use, the service operation for in-session use. Classification follows the exposed entry point: the standalone invocation is a utility, the session-facing operation is a service, even when both share an implementation.
+
+## Designing a utility
+
+A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, then build, then deploy. There is no authored document; the design goes directly to build.
+
+The design should address whatever the utility needs to be built correctly. For most utilities, that means:
+
+- What it does and why it exists.
+- What it reads, scans, or receives as input.
+- What it produces, changes, or removes as output.
+- How it is configured — settings, defaults, what happens when configuration is missing.
+- What it enforces — path constraints, validation, anything it prevents. For utilities that change or remove content, how it behaves on partial failure.
+- How it is invoked — CLI, script, schedule, or as a reusable implementation called by a service.
+- Whether it is safe to run again (idempotency).
+
+These are not formal concerns with compliance obligations. They are the things a designer naturally addresses when specifying an out-of-session tool. A simple utility may need only a few lines on each; a complex one may need more. Where a concern does not apply, the design says so — the builder needs to distinguish intentional omission from oversight.
+
+**Design fresh.** A utility design is produced fresh, not by modifying a previous version. Same principle as all capability types.
+
+## Building a utility
+
+The design document is the build specification. Build creates the utility from the design — typically a script, a small program, or a module within a larger codebase. Build follows Build's generic mechanism.
+
+The utility's code is the deliverable. There is no intermediate document — the design specifies, build creates.
+
+## Deployment
+
+A utility is deployed where it can be invoked — deployment means the utility is callable, not just that its code is present. Currently this means the AIDE repository, with invocation through a registered CLI command, a script entry point, or a service that wraps the utility's implementation. Infrastructure owns the deployment path and any packaging.
+
+A utility may also be delivered as part of an MCP server (as the binder builder is delivered within the document management server) or as a standalone CLI command. The deployment form depends on how the utility is invoked.
+
+## Ownership
+
+Each utility lives with the component that knows most about it. Utilities is a methodological component — it defines how to build a utility, not where utilities live.
+
+Infrastructure currently holds the three working utility instances (binder builder, version cleanup, file update package). As utility methodology develops, individual utilities may move to the components they serve. Infrastructure's durable contribution is the delivery and operational machinery, not ownership of every utility.
+
+---
+
+Version note: v1 — initial design. Cross-review remediation: F1 (tool disambiguation), F2 (corpus alignment), F3 (classification-follows-entry-point), F5 (intentional-omission signal), F6 (failure behaviour for destructive utilities), F7 (deployment means invokable). 2026-09-23.
+<!-- END SOURCE: Utilities/Utilities_Design_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Utilities/Utilities_Development_Standard_v1.md -->
+> identity: Utilities_Development_Standard@v1 | doctype: standard | updated: 2026-09-23 | uses: Capabilities_Development_Standard@v1
+
+# Utilities — Development Standard
+
+How to design, build, and deploy an AIDE utility.
+
+## What a utility is
+
+Information. A utility is an out-of-session tool — using "tool" in the plain-language sense, not as the formal capability type. It runs outside the AI environment, acts on the corpus, and operates independently of any session. It encapsulates a repeatable action so it does not have to be re-derived or re-performed manually each time.
+
+Information. The difference from a tool: a tool runs in-session and serves the session. A utility runs out-of-session and serves the corpus. The difference from a service: sessions connect to a service for capabilities. A utility does its work on its own terms — triggered by a human, a CLI command, a script, or a schedule.
+
+## Applicability
+
+Information. This standard applies when designing, building, or deploying an AIDE utility. It does not govern tools, services, or Infrastructure's delivery mechanisms.
+
+## Boundary
+
+A utility is classified by two properties from the Capabilities taxonomy: it runs out-of-session and it serves the corpus. The service-vs-utility boundary test is owned by Services.
+
+A utility and a service can coexist from the same implementation. Classification follows the exposed entry point: the standalone invocation is a utility, the session-facing operation is a service.
+
+## Designing a utility
+
+A utility has a design. The design describes what the utility does, what it needs, what it produces, and what it enforces. The Capabilities lifecycle applies — design, then build, then deploy. There is no authored document; the design goes directly to build.
+
+The design should address whatever the utility needs to be built correctly. For most utilities, that means:
+
+- What it does and why it exists.
+- What it reads, scans, or receives as input.
+- What it produces, changes, or removes as output.
+- How it is configured — settings, defaults, what happens when configuration is missing.
+- What it enforces — path constraints, validation, anything it prevents. For utilities that change or remove content, how it behaves on partial failure.
+- How it is invoked — CLI, script, schedule, or as a reusable implementation called by a service.
+- Whether it is safe to run again (idempotency).
+
+Recommended. These are not formal concerns with compliance obligations. They are the things a designer naturally addresses when specifying an out-of-session tool. A simple utility may need only a few lines on each; a complex one may need more. Where a concern does not apply, the design says so — the builder needs to distinguish intentional omission from oversight.
+
+**Design fresh.** A utility design is produced fresh, not by modifying a previous version.
+
+## Build
+
+The design document is the build specification. Build creates the utility from the design — typically a script, a small program, or a module within a larger codebase. Build follows Build's generic mechanism. The utility's code is the deliverable.
+
+## Deployment
+
+A utility is deployed where it can be invoked — deployment means the utility is callable, not just that its code is present. Currently this means the AIDE repository, with invocation through a registered CLI command, a script entry point, or a service that wraps the utility's implementation. Infrastructure owns the deployment path and any packaging.
+
+A utility may also be delivered as part of an MCP server or as a standalone CLI command. The deployment form depends on how the utility is invoked.
+
+## Ownership
+
+**Each utility lives with its owning component.** Utilities is a methodological component — it defines how to build a utility, not where utilities live. Each utility is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+
+---
+
+Version note: v1 — initial standard. Authored from Utilities_Design@v1. 2026-09-23.
+<!-- END SOURCE: Utilities/Utilities_Development_Standard_v1.md -->
 
 ---
 
