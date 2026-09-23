@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v28 | 2026-09-23
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v29 | 2026-09-23
 
 ## Active threads
 
@@ -417,4 +417,4 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 
 ---
 
-Version note: v27 — WP standard cross-reviewed (4 rounds, 18 findings), renamed to WorkingPractices_Standard_v2, deployed (commit 0a60d6a, aide plugin PR #8). Assurance standard cross-reviewed (2 rounds, 10 findings), deployed (commit 11c47ca, aide plugin PR #7). Build cross-review accepted (5 rounds, 15 findings). Orchestration deployment complete. Core CORE-ORC + CORE-WP closure. Cross-review register updated. Assurance uses declaration corrected (WP_Standard → WorkingPractices_Standard). 2026-09-17. Replaces v26.
+Version note: v29 — voice session open items: inbox as scoped artifact (OI-PD-1), WIP scoping (OI-PD-2), overview doctype confirmed (OI-PD-3), deploy component schema standards as skills (OI-DEP-1), doc-manager edit discipline (OI-WP-5). 2026-09-23. Replaces v28.
