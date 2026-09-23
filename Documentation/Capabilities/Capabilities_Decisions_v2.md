@@ -1,4 +1,4 @@
-> identity: Capabilities_Decisions@v1 | doctype: decisions | updated: 2026-09-23
+> identity: Capabilities_Decisions@v2 | doctype: decisions | updated: 2026-09-23
 
 # Capabilities — Decisions
 
@@ -40,7 +40,7 @@ The alternative — putting this in Core — was rejected because Core owns stru
 
 The development lifecycle references Build and Infrastructure without restating their content. Build owns the generic build mechanism and the build-standard/profile model. Infrastructure owns the delivery pipeline. Each type component states how it uses these — what enters build and what gets delivered — without duplicating the source.
 
-This means each type's development standard declares `uses` on Build and Infrastructure where the dependency creates a change-management obligation.
+This means each type's development standard declares `uses` on Build and Infrastructure where the dependency creates a change-management obligation. *Corrected by D11 — `uses` points at standards only, and neither Build nor Infrastructure currently publishes one.*
 
 ## D8 — Infrastructure's role acknowledged as evolving
 
@@ -51,3 +51,29 @@ Infrastructure currently holds both delivery machinery and individual utility in
 Version note: v1-draft1 — initial decisions from the design session. D1–D8. 2026-09-23.
 
 Version note: v1 — cross-review remediation. F1: D2 overclaim corrected. F7: D7 corrected — development standards declare `uses`, not designs. 2026-09-23. Replaces v1-draft1.
+
+## D9 — Review is a lifecycle phase for every type
+
+Review was implicit — "cross-review accepted" appeared only as a build precondition in the type standards, with no guidance on how. It is now an explicit phase between author (or design) and build, applying to all four types. Every type checks its specification before build: a developer self-check (the acceptance test for standards and tools) and cross-review by a separate AI directed to find defects against the design's definition of done. Out-of-session types additionally test the built deliverable against its design during build. The lifecycle becomes six phases, and the development-standard structure gains a review section (seven sections).
+
+The alternative — leaving review to Working Practices alone — was rejected because a developer following a development standard needs to know that review is required, what it checks, and what to test against. Working Practices still owns the cross-review process; the development standards carry what a developer needs to perform it.
+
+## D10 — Definition of done framed around the development cycle; the design must produce the standard
+
+The definition of done for Capabilities and every type component is framed around what a developer can do: classify, design, author, review, build, deploy, and consume. Each type's design must hold everything its standard carries, plus reasoning and explanation, so the standard can be produced from the design alone (with declared dependencies). This applies Standards D24–D25 across the Capabilities model. A review found the Capabilities design missing the standard's applicability statement and acceptance test; both were added.
+
+## D11 — `uses` declares standards only; Build and Infrastructure referenced in prose
+
+D7 said development standards declare `uses` on Build and Infrastructure. That cannot be done: `uses` declares dependencies on standards, and neither Build (first standard deferred, Build D32) nor Infrastructure (the MCP delivery model is a reference document, not a standard — see Document Management D18) currently publishes one. No development standard has done it. Development standards therefore reference Build's and Infrastructure's documents in prose. When either publishes a standard that a development standard depends on, the `uses` declaration is added then.
+
+## D12 — Direction of service does not imply lifecycle
+
+The design described corpus-serving capabilities as acting on files "then exit". Services cross-review finding F9 removed the equivalent wording from Services because a persistent corpus-serving process (a watcher, an indexer) would be excluded for no type-level reason. The Capabilities taxonomy is corrected to match: direction of service is about what the work serves, not whether the process terminates.
+
+---
+
+Version note: v2 — D9 (review as a lifecycle phase), D10 (definition of done and design-produces-standard), D11 (D7 corrected — `uses` is standards-only), D12 (direction of service does not imply lifecycle), D13 (no `uses` on the Capabilities Development Standard). 2026-09-23. Replaces v1.
+
+## D13 — The Capabilities Development Standard declares no `uses`
+
+The standard previously declared `uses` on the Standards Authoring Standard, which has since been deleted — a stale dependency. Replacing it with the Standards Development Standard would create a cycle, because the Standards Development Standard uses this one. Nothing in the Capabilities Development Standard depends on the standards authoring rules at the moment of application: it defines the taxonomy, lifecycle and structure the type standards extend. It is therefore a foundation-tier standard with no declared dependencies. That it was itself authored under the Standards rules is a property of how it was made, not a dependency of its consumers.

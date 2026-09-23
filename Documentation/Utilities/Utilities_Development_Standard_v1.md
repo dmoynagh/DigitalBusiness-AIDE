@@ -2,7 +2,7 @@
 
 # Utilities — Development Standard
 
-How to design, build, and deploy an AIDE utility.
+How to design, review, build, test, and deploy an AIDE utility.
 
 ## What a utility is
 
@@ -12,7 +12,7 @@ Information. The difference from a tool: a tool runs in-session and serves the s
 
 ## Applicability
 
-Information. This standard applies when designing, building, or deploying an AIDE utility. It does not govern tools, services, or Infrastructure's delivery mechanisms.
+Information. This standard applies when designing, reviewing, building, testing, or deploying an AIDE utility. It does not govern tools, services, or Infrastructure's delivery mechanisms.
 
 ## Boundary
 
@@ -38,6 +38,12 @@ Recommended. These are not formal concerns with compliance obligations. They are
 
 **Design fresh.** A utility design is produced fresh, not by modifying a previous version.
 
+## Reviewing and testing a utility
+
+**Review the design.** The design is the build specification. Cross-review it with a separate AI directed to find defects against the design's definition of done; triage, remediate, and record in the decisions. Keep it proportionate to the utility's size.
+
+**Test the built utility.** Run it against representative input and confirm its output and effects match the design. For a utility that changes or removes content, exercise its partial-failure behaviour. If the design declares it safe to run again, run it twice and confirm the second run changes nothing. Confirm it is invocable through its deployment form, not just from its source.
+
 ## Build
 
 The design document is the build specification. Build creates the utility from the design — typically a script, a small program, or a module within a larger codebase. Build follows Build's generic mechanism. The utility's code is the deliverable.
@@ -54,4 +60,4 @@ A utility may also be delivered as part of an MCP server or as a standalone CLI 
 
 ---
 
-Version note: v1 — initial standard. Authored from Utilities_Design@v1. 2026-09-23.
+Version note: v1 — initial standard. Produced from Utilities_Design@v2, including review and testing. 2026-09-23.

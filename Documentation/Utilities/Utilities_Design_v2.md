@@ -1,18 +1,20 @@
-> identity: Utilities_Design@v1 | doctype: design | updated: 2026-09-23
+> identity: Utilities_Design@v2 | doctype: design | updated: 2026-09-23
 
 # Utilities — Design
 
 ## Brief
 
-**Purpose.** Define what a utility is and how one is developed, built, deployed, and owned within AIDE.
+**Purpose.** Define what a utility is and how one is designed, reviewed, built, tested, deployed, and owned within AIDE.
 
-**Scope.** The utility definition, design and build guidance, deployment, and ownership. Broad scope, few constraints — utilities are the simplest capability type and the methodology reflects that.
+**Scope.** The utility definition, design and build guidance, review and testing, deployment, and ownership. Broad scope, few constraints — utilities are the simplest capability type and the methodology reflects that.
 
 **Definition of done.**
 
-1. What a utility is — distinct from tools and services — is stated.
-2. The design and build path is clear enough that someone can create a utility without further methodology guidance.
-3. Deployment and ownership are stated.
+1. A developer can tell whether something should be a utility — the definition and the boundaries with tools and services.
+2. A developer can design a utility without further methodology guidance.
+3. A developer can review and test a utility — cross-review of the design, and testing the built utility against it.
+4. A developer can build and deploy a utility so that it is invocable, and knows where it lives and who owns it.
+5. The Utilities Development Standard can be produced entirely from this design.
 
 **Linked build outcome.** Utilities Development Standard, deployed as a skill in the `aide-dev` plugin.
 
@@ -50,6 +52,16 @@ These are not formal concerns with compliance obligations. They are the things a
 
 **Design fresh.** A utility design is produced fresh, not by modifying a previous version. Same principle as all capability types.
 
+## Applicability of the development standard
+
+The Utilities Development Standard applies when designing, reviewing, building, testing, or deploying an AIDE utility. It does not govern tools, services, or Infrastructure's delivery mechanisms.
+
+## Reviewing and testing a utility
+
+**Reviewing the design.** The design is the build specification, so it is what gets reviewed: cross-review by a separate AI directed to find defects, against the definition of done, with findings triaged, remediated, and recorded in the decisions. For a small utility this is proportionately light — the point is an independent check, not ceremony.
+
+**Testing the built utility.** Run it against representative input and confirm its output and effects match the design. For a utility that changes or removes content, exercise its failure behaviour — what it does when it fails partway — because that is where a utility can do lasting damage. If the design declares it safe to run again, run it twice and confirm the second run changes nothing. Confirm it is invocable through its deployment form, not just runnable from its source.
+
 ## Building a utility
 
 The design document is the build specification. Build creates the utility from the design — typically a script, a small program, or a module within a larger codebase. Build follows Build's generic mechanism.
@@ -71,3 +83,5 @@ Infrastructure currently holds the three working utility instances (binder build
 ---
 
 Version note: v1 — initial design. Cross-review remediation: F1 (tool disambiguation), F2 (corpus alignment), F3 (classification-follows-entry-point), F5 (intentional-omission signal), F6 (failure behaviour for destructive utilities), F7 (deployment means invokable). 2026-09-23.
+
+Version note: v2 — definition of done reframed around the development cycle. Applicability and reviewing-and-testing added so the development standard can be produced from the design. 2026-09-23. Replaces v1.

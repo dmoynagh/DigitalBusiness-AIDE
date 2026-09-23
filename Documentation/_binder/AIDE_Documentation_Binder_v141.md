@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 140** (2026-09-23).
+> **Binder Version 141** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -36,9 +36,9 @@ individual files.
 - `Build/Build_Design_v8.md` - sha256 `2987f32273f9`
 - `Build/Build_Overview_v6.md` - sha256 `5fce6400bb23`
 - `Capabilities/_index.md` - sha256 `bd890d11e765`
-- `Capabilities/Capabilities_Decisions_v1.md` - sha256 `adc1abfe5e80`
-- `Capabilities/Capabilities_Design_v1.md` - sha256 `f193f9ea202d`
-- `Capabilities/Capabilities_Development_Standard_v1.md` - sha256 `06d2e93465de`
+- `Capabilities/Capabilities_Decisions_v2.md` - sha256 `14c968bcd986`
+- `Capabilities/Capabilities_Design_v2.md` - sha256 `5137e272dcf1`
+- `Capabilities/Capabilities_Development_Standard_v1.md` - sha256 `27376840692d`
 - `Core/_index.md` - sha256 `218f4527af49`
 - `Core/Core_AIDEMap.md` - sha256 `d88d37be296a`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `ca6507a444f0`
@@ -97,9 +97,9 @@ individual files.
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
 - `Project Design/ProjectDesign_Standard_v5.md` - sha256 `c035df4e8b17`
 - `Services/_index.md` - sha256 `25403038fb3d`
-- `Services/Services_Decisions_v1.md` - sha256 `4add787c397b`
-- `Services/Services_Design_v1.md` - sha256 `099f9169e7e5`
-- `Services/Services_Development_Standard_v1.md` - sha256 `35ef4111a46c`
+- `Services/Services_Decisions_v2.md` - sha256 `02bca03326d4`
+- `Services/Services_Design_v2.md` - sha256 `49e4dbb8fcae`
+- `Services/Services_Development_Standard_v1.md` - sha256 `d28d3bad001f`
 - `Standards/_index.md` - sha256 `04a94d82fe00`
 - `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
 - `Standards/Standards_Decisions_v5.md` - sha256 `68051c7bb4e0`
@@ -111,9 +111,10 @@ individual files.
 - `Tools/Tools_Design_v7.md` - sha256 `ae69c6a5fb3d`
 - `Tools/Tools_Development_Standard_v1.md` - sha256 `93eef2cb73e5`
 - `Utilities/_index.md` - sha256 `cf88a5022544`
-- `Utilities/Utilities_Brief_v1.md` - sha256 `e5eb37c9d2e8`
-- `Utilities/Utilities_Design_v1.md` - sha256 `ef836fc45f08`
-- `Utilities/Utilities_Development_Standard_v1.md` - sha256 `8cc6218e6ce9`
+- `Utilities/Utilities_Brief_v1.md` - sha256 `400d07b676f2`
+- `Utilities/Utilities_Decisions_v1.md` - sha256 `726d6d4a2b3e`
+- `Utilities/Utilities_Design_v2.md` - sha256 `3f730c173c38`
+- `Utilities/Utilities_Development_Standard_v1.md` - sha256 `a4baf5149886`
 - `Working Practices/_index.md` - sha256 `9f59ceebaaf4`
 - `Working Practices/Boards/_index.md` - sha256 `0ae0a05fb473`
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
@@ -6550,8 +6551,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Decisions_v1.md -->
-> identity: Capabilities_Decisions@v1 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Decisions_v2.md -->
+> identity: Capabilities_Decisions@v2 | doctype: decisions | updated: 2026-09-23
 
 # Capabilities — Decisions
 
@@ -6593,7 +6594,7 @@ The alternative — putting this in Core — was rejected because Core owns stru
 
 The development lifecycle references Build and Infrastructure without restating their content. Build owns the generic build mechanism and the build-standard/profile model. Infrastructure owns the delivery pipeline. Each type component states how it uses these — what enters build and what gets delivered — without duplicating the source.
 
-This means each type's development standard declares `uses` on Build and Infrastructure where the dependency creates a change-management obligation.
+This means each type's development standard declares `uses` on Build and Infrastructure where the dependency creates a change-management obligation. *Corrected by D11 — `uses` points at standards only, and neither Build nor Infrastructure currently publishes one.*
 
 ## D8 — Infrastructure's role acknowledged as evolving
 
@@ -6604,18 +6605,44 @@ Infrastructure currently holds both delivery machinery and individual utility in
 Version note: v1-draft1 — initial decisions from the design session. D1–D8. 2026-09-23.
 
 Version note: v1 — cross-review remediation. F1: D2 overclaim corrected. F7: D7 corrected — development standards declare `uses`, not designs. 2026-09-23. Replaces v1-draft1.
-<!-- END SOURCE: Capabilities/Capabilities_Decisions_v1.md -->
+
+## D9 — Review is a lifecycle phase for every type
+
+Review was implicit — "cross-review accepted" appeared only as a build precondition in the type standards, with no guidance on how. It is now an explicit phase between author (or design) and build, applying to all four types. Every type checks its specification before build: a developer self-check (the acceptance test for standards and tools) and cross-review by a separate AI directed to find defects against the design's definition of done. Out-of-session types additionally test the built deliverable against its design during build. The lifecycle becomes six phases, and the development-standard structure gains a review section (seven sections).
+
+The alternative — leaving review to Working Practices alone — was rejected because a developer following a development standard needs to know that review is required, what it checks, and what to test against. Working Practices still owns the cross-review process; the development standards carry what a developer needs to perform it.
+
+## D10 — Definition of done framed around the development cycle; the design must produce the standard
+
+The definition of done for Capabilities and every type component is framed around what a developer can do: classify, design, author, review, build, deploy, and consume. Each type's design must hold everything its standard carries, plus reasoning and explanation, so the standard can be produced from the design alone (with declared dependencies). This applies Standards D24–D25 across the Capabilities model. A review found the Capabilities design missing the standard's applicability statement and acceptance test; both were added.
+
+## D11 — `uses` declares standards only; Build and Infrastructure referenced in prose
+
+D7 said development standards declare `uses` on Build and Infrastructure. That cannot be done: `uses` declares dependencies on standards, and neither Build (first standard deferred, Build D32) nor Infrastructure (the MCP delivery model is a reference document, not a standard — see Document Management D18) currently publishes one. No development standard has done it. Development standards therefore reference Build's and Infrastructure's documents in prose. When either publishes a standard that a development standard depends on, the `uses` declaration is added then.
+
+## D12 — Direction of service does not imply lifecycle
+
+The design described corpus-serving capabilities as acting on files "then exit". Services cross-review finding F9 removed the equivalent wording from Services because a persistent corpus-serving process (a watcher, an indexer) would be excluded for no type-level reason. The Capabilities taxonomy is corrected to match: direction of service is about what the work serves, not whether the process terminates.
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Design_v1.md -->
-> identity: Capabilities_Design@v1 | doctype: design | updated: 2026-09-23
+Version note: v2 — D9 (review as a lifecycle phase), D10 (definition of done and design-produces-standard), D11 (D7 corrected — `uses` is standards-only), D12 (direction of service does not imply lifecycle), D13 (no `uses` on the Capabilities Development Standard). 2026-09-23. Replaces v1.
+
+## D13 — The Capabilities Development Standard declares no `uses`
+
+The standard previously declared `uses` on the Standards Authoring Standard, which has since been deleted — a stale dependency. Replacing it with the Standards Development Standard would create a cycle, because the Standards Development Standard uses this one. Nothing in the Capabilities Development Standard depends on the standards authoring rules at the moment of application: it defines the taxonomy, lifecycle and structure the type standards extend. It is therefore a foundation-tier standard with no declared dependencies. That it was itself authored under the Standards rules is a property of how it was made, not a dependency of its consumers.
+<!-- END SOURCE: Capabilities/Capabilities_Decisions_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Design_v2.md -->
+> identity: Capabilities_Design@v2 | doctype: design | updated: 2026-09-23
 
 # Capabilities — Design
 
 ## Brief
 
-**Purpose.** Produce the Capabilities Development Standard — the base development methodology that governs how capabilities are designed, built, and deployed. The four type components (Standards, Tools, Services, Utilities) consume it to shape their own development standards. Anyone developing a capability uses it alongside the relevant type's development standard.
+**Purpose.** Produce the Capabilities Development Standard — the base development methodology that governs how capabilities are designed, reviewed, built, and deployed. The four type components (Standards, Tools, Services, Utilities) consume it to shape their own development standards. Anyone developing a capability uses it alongside the relevant type's development standard.
 
 **Objectives.**
 
@@ -6627,11 +6654,12 @@ Version note: v1 — cross-review remediation. F1: D2 overclaim corrected. F7: D
 
 **Definition of done.**
 
-1. "Capability" is defined to include standards, tools, services, and utilities.
-2. Each type's distinguishing properties are stated — execution context, direction of service, whether it produces an authored doc, what it is delivered as.
-3. The shared development lifecycle is stated with the conditional authoring phase.
-4. The relationship to Build (build standards per build domain) and Infrastructure (delivery model) is clear.
-5. Each type-specific component can produce a development standard that extends this base.
+1. A developer can classify any capability as a standard, tool, service, or utility, using the two properties and the boundary tests.
+2. A developer knows the lifecycle phases — design, author (where applicable), review, build, deploy, consumption — and which apply to each type.
+3. A developer can find, for each phase, the type-specific development standard that governs it.
+4. The relationship to Build (build standards per build domain) and Infrastructure (delivery) is clear, including how dependencies on them are declared.
+5. Each type component can produce a development standard that extends this base, using the common section structure.
+6. The Capabilities Development Standard can be produced entirely from this design.
 
 **Linked build outcome.** Capabilities Development Standard, deployed as a skill in the `aide-dev` plugin. Consumed by each type-specific development standard via `uses`.
 
@@ -6659,7 +6687,7 @@ Two properties distinguish the types.
 
 **Execution context** — who performs the work. In-session capabilities are performed by the AI within the session. Out-of-session capabilities are performed by a separate process outside the session.
 
-**Direction of service** — what the work serves. Session-serving capabilities are loaded into or called by sessions. Corpus-serving capabilities act on files and infrastructure, then exit.
+**Direction of service** — what the work serves. Session-serving capabilities are loaded into or called by sessions. Corpus-serving capabilities act on files and infrastructure, on their own terms rather than at a session's request. Direction does not imply lifecycle — a corpus-serving capability may run and exit or run persistently.
 
 | Type | Execution | Direction | Authored doc | Delivered as |
 |---|---|---|---|---|
@@ -6674,7 +6702,7 @@ The two properties distinguish three groups: in-session session-serving (Standar
 
 ## The development lifecycle
 
-Every capability follows five phases. The phases are the same across all four types; the content and density at each phase vary by type.
+Every capability follows six phases. The phases are the same across all four types; the content and density at each phase vary by type, and the author phase applies only to in-session types.
 
 ### Design
 
@@ -6689,6 +6717,12 @@ Produce the in-session document from the design — the standard doc or tool doc
 For out-of-session capabilities (services and utilities), the design document is the build specification. There is no intermediate authored document — the design goes directly to build. The design phase carries more weight for these types because there is no authoring pass to refine the specification.
 
 Authoring is governed by each type component's authoring rules. The authored document is produced fresh from the design, not by modifying a previous version.
+
+### Review
+
+Check the specification before it is built. The specification is the authored document for standards and tools, and the design for services and utilities. Review has two parts for every type: a self-check by the developer (for standards and tools, the acceptance test) and cross-review by a separate AI directed to find defects, tested against the design's definition of done. The separate AI provides independence — the developing session shares the developer's assumptions.
+
+Review sits before build because a defect found in the specification is cheaper to fix than one found in the built deliverable. Out-of-session types also test the built deliverable against its design during build — that is part of build, not a replacement for reviewing the specification. Each type component states what review and testing mean for its type; the cross-review process itself is a Working Practices convention.
 
 ### Build
 
@@ -6719,6 +6753,12 @@ Each type component produces build standards for its build domain, stated within
 
 Build explicitly deferred the first build standard (D32) until conventions are stable enough to standardise. The capability development standards are a natural home for those first build standards — each type's build domain is a demonstrated consumer.
 
+### Declaring dependencies on Build and Infrastructure
+
+`uses` declares dependencies on standards only. Neither Build nor Infrastructure currently publishes a standard — Build's first standard is deferred, and Infrastructure's delivery model is a reference document, not a standard. A development standard therefore references their documents in prose (the MCP delivery model, Build's design) rather than declaring `uses`. When either publishes a standard that a development standard depends on, the `uses` declaration is added at that point.
+
+The Capabilities Development Standard itself declares no `uses`. It is the foundation the type standards extend — they declare `uses` on it, and a reverse declaration would create a cycle. Nothing in it depends on the standards authoring rules at the moment of application.
+
 ---
 
 ## Relationship to Infrastructure
@@ -6731,39 +6771,51 @@ Infrastructure's component scope may evolve. Currently it holds delivery machine
 
 ## What each development standard covers
 
-Each type component (Standards, Tools, Services, Utilities) produces a **development standard** that consumes this base and adds type-specific content. Each covers six sections aligned with the lifecycle:
+Each type component (Standards, Tools, Services, Utilities) produces a **development standard** that consumes this base and adds type-specific content. Each covers seven sections aligned with the lifecycle:
 
 1. **What the type is** — definition and boundary tests.
 2. **Design guidance** — the type-specific concerns the design must address.
 3. **Author guidance** — where applicable (standards and tools only).
-4. **Build standards** — the type-specific build conventions for the type's build domain.
-5. **Deploy guidance** — how the type's deliverable reaches its target.
-6. **Consumption guidance** — what the user or developer needs once deployed.
+4. **Review guidance** — what review and testing mean for the type.
+5. **Build standards** — the type-specific build conventions for the type's build domain.
+6. **Deploy guidance** — how the type's deliverable reaches its target.
+7. **Consumption guidance** — what the user or developer needs once deployed.
 
-For Standards and Tools, the development standard supersedes the existing authoring standard — broader scope, same authoring content embedded, build/deploy/consumption sections added. For Services and Utilities, the development standard is authored fresh.
+For Standards and Tools, the development standard supersedes the existing authoring standard — broader scope, same authoring content embedded, review/build/deploy/consumption sections added. For Services and Utilities, the development standard is authored fresh.
+
+Each type's development standard must be producible from its own design. The design holds everything the standard carries, plus the reasoning, alternatives, and explanation; the standard is its lean, deployable output.
+
+---
+
+## Applicability and acceptance
+
+The Capabilities Development Standard applies when designing, reviewing, building, or deploying any AIDE capability, and when authoring a type-specific development standard.
+
+**Acceptance test.** Given the standard, can a fresh AI correctly classify a capability's type, identify the lifecycle phases that apply to it, and locate the type-specific development standard it must follow? The standard passes if the AI can begin work on a capability of any type without further guidance about the shared methodology.
 
 ---
 
 Version note: v1-draft1 — initial design. Four-type taxonomy, five-phase lifecycle, relationships to Build and Infrastructure. 2026-09-23.
 
 Version note: v1 — cross-review remediation. F1: taxonomy corrected to three groups plus invocability test. F3: boundary ownership clarified. F6: build standards artifact model stated. 2026-09-23. Replaces v1-draft1.
-<!-- END SOURCE: Capabilities/Capabilities_Design_v1.md -->
+
+Version note: v2 — definition of done reframed around the development cycle. Review added as a lifecycle phase (six phases) and as a section in the development-standard structure (seven sections). "Then exit" removed from direction of service, aligning with Services F9. Dependency declaration corrected: `uses` points at standards only, so Build and Infrastructure are referenced in prose until they publish standards. Applicability and acceptance test added so the standard can be produced from the design. 2026-09-23. Replaces v1.
+<!-- END SOURCE: Capabilities/Capabilities_Design_v2.md -->
 
 ---
 
 <!-- BEGIN SOURCE: Capabilities/Capabilities_Development_Standard_v1.md -->
 > identity: Capabilities_Development_Standard@v1 | doctype: standard | updated: 2026-09-23
-> uses: Standards_Authoring_Standard@v8
 
 # Capabilities — Development Standard
 
-Version 1. 2026-09-23.
+The shared base for designing, reviewing, building, and deploying any AIDE capability — standard, tool, service, or utility.
 
 ---
 
 ## Applicability
 
-This standard applies when designing, building, or deploying any AIDE capability, and when authoring a type-specific development standard. It provides the shared development methodology that all four type components consume. Each type's own development standard extends this base with type-specific guidance.
+Information. This standard applies when designing, reviewing, building, or deploying any AIDE capability, and when authoring a type-specific development standard. Each type's own development standard extends this base with type-specific guidance.
 
 ---
 
@@ -6781,7 +6833,7 @@ Two properties classify capabilities into three groups. A third test separates t
 
 **Execution context** — who performs the work. In-session capabilities are performed by the AI within the session. Out-of-session capabilities are performed by a separate process outside the session.
 
-**Direction of service** — what the work serves. Session-serving capabilities are loaded into or called by sessions. Corpus-serving capabilities act on files and infrastructure.
+**Direction of service** — what the work serves. Session-serving capabilities are loaded into or called by sessions. Corpus-serving capabilities act on files and infrastructure on their own terms, not at a session's request. Direction does not imply lifecycle — a corpus-serving capability may run and exit or run persistently.
 
 | Type | Execution | Direction | Authored doc | Delivered as |
 |---|---|---|---|---|
@@ -6792,60 +6844,59 @@ Two properties classify capabilities into three groups. A third test separates t
 
 Standards and Tools share the same cell. The invocability test (owned by Tools) separates them: a standard shapes decisions and behaviour; a tool is a named invokable action. The direction-of-service test (service vs utility) is owned by Services.
 
-When the type is ambiguous, apply the relevant boundary test. Each type component's development standard states its boundary tests and classification guidance for edge cases.
+When the type is ambiguous, apply the relevant boundary test. Each type's development standard states its boundary tests and classification guidance for edge cases.
 
 ---
 
 ## The development lifecycle
 
-Every capability follows five phases. The content and density at each phase vary by type.
+Every capability follows six phases. The content and density at each phase vary by type.
 
 **Design.** Define what the capability does, why, and how. Governed by PD's design methodology. Each type component defines the design concerns specific to its type. Design is always required — no type has an exception for skipping it.
 
-**Author.** Produce the in-session document from the design — the standard doc or tool doc. This phase applies only to in-session capabilities (standards and tools) because those types produce a document that is both the specification and the deployment payload. Out-of-session capabilities (services and utilities) have no intermediate authored document; the design goes directly to build.
+**Author.** Produce the in-session document from the design — the standard doc or tool doc. This phase applies only to standards and tools, because those types produce a document that is both the specification and the deployment payload. Services and utilities have no authored document; the design is the specification. The authored document is produced fresh from the design, not by modifying a previous version.
 
-Authoring is governed by each type component's rules. The authored document is produced fresh from the design, not by modifying a previous version.
+**Review.** Check the specification before it is built — the authored document for standards and tools, the design for services and utilities. Every type has two parts: a self-check by the developer (the acceptance test, for standards and tools) and cross-review by a separate AI directed to find defects against the design's definition of done. Out-of-session types also test the built deliverable against its design during build. Each type's development standard states what review and testing mean for that type.
 
-**Build.** Create the deliverable from the specification. For standards and tools, the authored doc is the specification and build packages it as a skill. For services and utilities, the design doc is the specification and build creates the server or utility. Build follows Build's generic mechanism — build packages, callers, returns, work levels.
+**Build.** Create the deliverable from the specification. For standards and tools, build packages the authored doc as a skill. For services and utilities, build creates the server or utility from the design. Build follows Build's generic mechanism. Each type component defines build standards for its build domain, stated within its development standard.
 
-Each type component defines build standards for its build domain — the type-specific conventions composed into profiles on top of Build's base. Build standards are stated within the type's development standard.
+**Deploy.** Get the built deliverable to where it runs, consuming Infrastructure's delivery model. Each type's development standard states the deployment path for its type.
 
-**Deploy.** Get the built deliverable to where it runs. Deployment consumes Infrastructure's delivery model. Each type component states the deployment path for its type without restating Infrastructure's mechanisms.
-
-**Consume.** What the user or developer needs to use or run the deployed capability. Consumption needs vary by type — from a full consumption standard (standards) through user guides and connection setup (services) to self-evident invocation (well-authored tools). Each type component determines what consumption guidance its type requires.
+**Consume.** What the user or developer needs to use or run the deployed capability — from a full consumption standard (standards) through user guides (services) to self-evident invocation (well-authored tools). Each type's development standard states what its type requires.
 
 ---
 
 ## Type-specific development standards
 
-Each type component (Standards, Tools, Services, Utilities) produces a development standard that consumes this base and adds type-specific content. Each covers six sections aligned with the lifecycle:
+Each type component produces a development standard that extends this base. Each covers seven sections aligned with the lifecycle:
 
 1. **What the type is** — definition and boundary tests.
 2. **Design guidance** — the type-specific concerns the design must address.
-3. **Author guidance** — where applicable (standards and tools only).
-4. **Build standards** — the type-specific build conventions for the type's build domain.
-5. **Deploy guidance** — how the type's deliverable reaches its target.
-6. **Consumption guidance** — what the user or developer needs once deployed.
+3. **Author guidance** — standards and tools only.
+4. **Review guidance** — what review and testing mean for the type.
+5. **Build standards** — the type-specific build conventions.
+6. **Deploy guidance** — how the deliverable reaches its target.
+7. **Consumption guidance** — what the user or developer needs once deployed.
 
-For Standards and Tools, the development standard supersedes the existing authoring standard — broader scope, settled authoring content embedded unchanged, build/deploy/consumption sections added. For Services and Utilities, the development standard is authored fresh.
+Each development standard must be producible from its own design. The design holds everything the standard carries, plus the reasoning; the standard is its lean, deployable output.
 
 ---
 
-## Relationship to Build and Infrastructure
+## Build and Infrastructure
 
-Build defines the generic build mechanism. This standard does not restate it. The connection is through build standards and build domains: each type component produces build standards for its build domain, stated within the type's development standard. Build's profile mechanism determines how to compose them. The type component owns the domain knowledge; Build owns the mechanism.
+Build owns the generic build mechanism; each type component owns the domain knowledge of how to build its type. Infrastructure owns delivery — plugin structure, update propagation, and the delivery model for services. This standard does not restate either.
 
-Infrastructure owns delivery — the plugin structure, settings merge, update propagation, and the delivery model for services. This standard does not restate it. Each type component states what gets delivered and where for its type, consuming Infrastructure's model.
+`uses` declares dependencies on standards only. Build and Infrastructure do not yet publish standards, so development standards reference their documents in prose. When either publishes a standard a development standard depends on, add the `uses` declaration then.
 
 ---
 
 ## Acceptance test
 
-Given this standard: can a fresh AI correctly classify a capability's type, identify the applicable development lifecycle phases, and locate the type-specific development standard it must follow? The standard passes if the AI can begin work on a capability of any type without further guidance about the shared methodology.
+Given this standard: can a fresh AI correctly classify a capability's type, identify the lifecycle phases that apply to it, and locate the type-specific development standard it must follow? The standard passes if the AI can begin work on a capability of any type without further guidance about the shared methodology.
 
 ---
 
-Version note: v1 — initial standard. Authored from Capabilities_Design@v1. Shared development methodology for all four capability types. 2026-09-23.
+Version note: v1 — initial standard. Produced from Capabilities_Design@v2: six-phase lifecycle including review, seven-section development-standard structure, `uses` limited to standards. 2026-09-23.
 <!-- END SOURCE: Capabilities/Capabilities_Development_Standard_v1.md -->
 
 ---
@@ -16436,8 +16487,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Services/Services_Decisions_v1.md -->
-> identity: Services_Decisions@v1 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Services/Services_Decisions_v2.md -->
+> identity: Services_Decisions@v2 | doctype: decisions | updated: 2026-09-23
 
 ## D1 — Services is a methodological component, same pattern as Tools and Standards
 
@@ -16456,6 +16507,8 @@ The fundamental difference between a service and a tool is not persistence, conf
 This matters because it changes what the design concerns must cover. A tool author addresses the procedure the AI will follow. A service author addresses the interface the AI will call, the safety the process will enforce, and the state the process will manage — none of which the AI controls.
 
 ## D4 — Seven design concerns, derived from the two working examples
+
+*Superseded by D12 — the seven concerns became informal design guidance. Retained for the derivation history.*
 
 The seven concerns were derived by examining what the dispatch server and document management server each needed, then generalising. Both servers needed an interface and an error model. Document management additionally needed configuration, discovery, a safety model, state management, and lifecycle. Dispatch needed none of those four — it is stateless, configurationless, and its safety model is trivial (delegate to the target).
 
@@ -16510,28 +16563,54 @@ This was identified as missing during the document management server testing —
 Version note: v1-draft1 — initial decisions. D1–D11 from the design session. 2026-09-23.
 
 Version note: v1 — cross-review remediation. F3: D2 boundary ownership corrected. F4: D4 heading updated (authoring → design concerns). D3/D4/D9 terminology aligned (authoring → design concerns). 2026-09-23. Replaces v1-draft1.
-<!-- END SOURCE: Services/Services_Decisions_v1.md -->
+
+## D12 — Broad scope, few constraints: design concerns become informal guidance
+
+The seven formal design concerns (D4) were derived from two services and presented as if universal. Several — configuration, discovery, safety model, state management — were specific to the services built so far and could be irrelevant or obstructive for future ones. Direction from Dave (2026-09-23): the component should be broad in scope with few constraints, like Utilities. Its primary purpose is to guide service creation and record what has been learned — issues, solutions, best practice, approach — so services get easier to build.
+
+The concerns were replaced with an informal list of what a designer naturally addresses, with explicit permission to omit or extend, and a requirement to say when something doesn't apply. The practical knowledge (framing, encoding, status reporting, safety enforcement, deployment facts) is kept as recorded learning rather than prescription.
+
+## D13 — Build and deployment knowledge lives in the design
+
+The v2 draft said practical building knowledge was "delegated to the development standard". That contradicts the rule that the standard is produced from the design (Standards D24, Capabilities D10). All build and deployment knowledge — the proven server patterns, the JSON-RPC framing and Windows encoding fixes, status-not-paths reporting, plugin structure, surfaces, the Chat workaround, and the update path — is now in the design, with the reasoning. The standard carries the lean operational version.
+
+## D14 — Review and testing for services
+
+Services previously had only "cross-review accepted" as a build precondition. Per Capabilities D9, review is now an explicit phase. For services it has two parts: cross-review of the design (the build specification) before build, and testing the built server during build — every operation against the design including failure paths, working on each surface it targets, and update propagation after the first update. Per-surface testing is required because the surfaces register servers by different paths: the delivery model testing found servers working on some surfaces and not others. The probe technique (an operation returning origin, timestamp, and runtime ID) is recommended because it was how the delivery model was proven.
+
+## D15 — Remote services recorded as a placeholder, not designed
+
+Remote (hosted) services follow the same design guidance (D9). No remote service has been built, so the design and standard record a placeholder: build and deployment knowledge is added from the first remote service's experience, the same way local knowledge came from the first two local services. Designing remote delivery in advance would be apparatus without a demonstrated consumer.
 
 ---
 
-<!-- BEGIN SOURCE: Services/Services_Design_v1.md -->
-> identity: Services_Design@v1 | doctype: design | updated: 2026-09-23
+Version note: v2 — D12 (broad scope; design concerns become informal guidance; D4 superseded), D13 (build and deployment knowledge lives in the design), D14 (review and testing for services), D15 (remote services as placeholder). 2026-09-23. Replaces v1.
+<!-- END SOURCE: Services/Services_Decisions_v2.md -->
+
+---
+
+<!-- BEGIN SOURCE: Services/Services_Design_v2.md -->
+> identity: Services_Design@v2 | doctype: design | updated: 2026-09-23
 
 ## Brief
 
-**Purpose.** Define what a service is and how one is developed within AIDE, including the boundary tests that distinguish a service from a tool and from a utility. Services is a methodological component — it owns the methodology for building services, not the services themselves. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Purpose.** Define what a service is and how one is designed, reviewed, built, tested, and deployed within AIDE — and record what has been learned about building services, so each new service is easier than the last. Services is a methodological component — it owns the methodology for building services, not the services themselves. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The service definition, boundary tests, design guidance, building and deploying services, and ownership. Broad scope, few constraints — the methodology should guide service creation and record what we've learned, not prescribe structure for every possible service.
+**Scope.** The service definition and boundary tests; design guidance; review and testing; building and deploying services, locally now and remotely in future; consumption; and ownership. Broad scope, few constraints — the methodology guides service creation and records knowledge, practice, and solutions to known issues; it does not prescribe structure for every possible service.
 
-**Target outcome.** A deployed Services Development Standard that any component author uses when developing a service, and hands off for deployment.
+**Target outcome.** A deployed Services Development Standard that any component author uses when developing a service.
 
 **Definition of done.**
 
-1. A clear definition of what a service is, distinct from tools and utilities.
-2. Boundary tests that settle whether a given thing is a service, a tool, or a utility.
-3. Design concerns that a service developer must address.
-4. The relationship to Infrastructure's delivery model is stated without restating it.
-5. The sibling-outputs model extends to cover services alongside standards and tools.
+1. A developer can tell whether something should be a service — the definition and the boundaries with tools and utilities.
+2. A developer can design a service — what the design should address, without a prescribed structure.
+3. A developer can review and test a service — cross-review of the design, and testing the built server against its design on each surface it targets.
+4. A developer can build a service against the current delivery model, using the practical knowledge recorded from the services built so far.
+5. A developer can deploy a service — the delivery path, surfaces, update path, and known platform workarounds.
+6. A human can operate a deployed service — the user guide is a required deliverable.
+7. The Services Development Standard can be produced entirely from this design.
+
+**Linked build outcome.** Services Development Standard, deployed as a skill in the `aide-dev` plugin.
 
 ## What a service is and does
 
@@ -16539,7 +16618,11 @@ A service provides persistent operations to AI sessions. It runs as a separate p
 
 This is the fundamental distinction from a tool. A tool encapsulates a procedure the AI performs in-session. A service encapsulates operations a separate process performs, which the AI calls. The service has its own lifecycle, its own configuration, and its own safety enforcement — none of which depend on the session that calls it.
 
-A service reaches the AI platform as a server — a process the platform connects to and routes calls through. Currently, this means an MCP server; the delivery mechanism is Infrastructure's concern, not a property of the service type. The service is what is designed; the server is how it is delivered.
+A service reaches the AI platform as a server — a process the platform connects to and routes calls through. Currently this means a local MCP server; in future it may mean a remote endpoint. The delivery mechanism is Infrastructure's concern, not a property of the service type. The service is what is designed; the server is how it is delivered.
+
+## Applicability of the development standard
+
+The Services Development Standard applies when designing, reviewing, building, testing, or deploying an AIDE service. It does not govern tools, utilities, or Infrastructure's delivery mechanisms — but it records the practical knowledge a developer needs to build against those mechanisms.
 
 ## Two boundary tests
 
@@ -16553,79 +16636,113 @@ The test is about who executes, not about what is executed. File operations coul
 
 If sessions connect to it for capabilities, it is a service. If it acts on the corpus rather than serving sessions, it is a utility.
 
-A utility runs on its own terms — triggered by a human, a script, or a scheduled task. It does not accept requests from sessions. A service exists to be called by sessions. Both run outside the session, but the direction of service is different: a utility serves the corpus, a service serves the session.
+A utility runs on its own terms — triggered by a human, a script, or a schedule. It does not accept requests from sessions. A service exists to be called by sessions. Both run outside the session; the direction of service differs.
 
-A thing may start as a utility and become a service when sessions need to call it directly rather than consuming its output after the fact. The binder builder started as a utility and became a service operation (within the document management server) when sessions needed to trigger builds and receive the result within a conversation.
+A thing may start as a utility and become a service when sessions need to call it directly. The binder builder started as a standalone utility and became an operation within the document management service when sessions needed to trigger builds and receive the result in a conversation. The two forms can coexist from the same implementation. Classification follows the exposed entry point: the standalone invocation is a utility, the session-facing operation is a service.
 
-## What Services owns
+### Ownership of the tests
 
-### The service definition
+Services owns the service definition and the service-vs-utility test. The execution-context property (in-session vs out-of-session) is a Capabilities taxonomy property; the invocability test that separates standards from tools is owned by Tools. Services references both.
 
-What a service is, what it does, and what distinguishes it from a tool and a utility. The definitions are stated above. Services owns the service definition and the service-vs-utility boundary test. The execution-context property (in-session vs out-of-session) is a Capabilities taxonomy property; the invocability test that separates Standards from Tools is owned by Tools. Services references both when classifying.
+## Designing a service
 
-### Design guidance
+A service always has a design. There is no equivalent of the tool exception ("simple enough that a design would restate rather than elaborate") because a service is a deployed process with configuration, lifecycle, and safety obligations — even the simplest resolves questions that need working through before build.
 
-The design should address whatever the service needs to be built correctly. For most services, that means:
+The design addresses whatever the service needs to be built correctly. For most services, that means:
 
 - What operations it exposes and what callers can rely on.
 - How it is configured — settings, defaults, what happens when configuration is missing.
-- What it prevents and enforces — safety is enforced by the process, not advisory, because the AI is a caller with no direct control over what the service does.
-- How it reports problems — enough information for the caller to decide what to do.
+- What it prevents and enforces — safety is the service's responsibility, enforced in its process rather than advisory, because the AI is a caller with no direct control over what the service does.
+- How it reports problems — enough detail for the caller to decide what to do.
 - How it starts, shuts down, and behaves on restart.
 
-Not every service will need all of these. A stateless dispatch service has no configuration and trivial lifecycle. A document management service needs all of them and more. The list is what a designer naturally thinks about when specifying an out-of-session process that sessions will call — not a compliance checklist.
+Not every service needs all of these. A stateless dispatch service has no configuration and a trivial lifecycle; a document management service needs all of them and more. The list is what a designer naturally thinks about — not a compliance checklist. It is deliberately informal: the first two services were used to identify what to think about, not to fix a structure future services must follow. Where something on the list does not apply, the design says so, so the builder can tell intentional omission from oversight.
 
-### The relationship to delivery
+**Design fresh.** A service design is produced fresh, not by modifying a previous version.
 
-A service is designed independently of its delivery mechanism. Currently services are delivered as local MCP servers via marketplace plugins, reaching Code and Cowork directly and Chat via a config-entry workaround. Future services may be remote — cloud-hosted endpoints reachable from any surface. The delivery mechanism is Infrastructure's concern; Services owns the methodology for designing and building services regardless of how they are delivered.
+**No prescribed template.** A service design has no fixed structure.
 
-In practice, the service developer must know enough about the delivery model to make sound design choices — a service that requires persistent state across Desktop restarts is making a claim the local delivery model doesn't support. But the developer designs the service's behaviour, not the server's plumbing. The Services Development Standard records the practical knowledge needed to build against the current delivery model.
+**Delivery independence.** The developer designs the service's behaviour, not the server's plumbing. The same design should work under a different delivery model — local today, remote later — without changing. In practice the developer must know enough about the delivery model to avoid designing something it cannot support: a service that needs persistent state across Desktop restarts makes a claim the local model doesn't support.
 
-### The relationship to Build
+**Build references.** The design points the builder at Infrastructure's MCP delivery model and at an existing service as a working example. These are reference documents in prose, not `uses` dependencies — `uses` declares standards only.
 
-The design document is the build specification for a service — there is no intermediate authored document. Build creates the server from the design. Build standards for the service build domain — the type-specific conventions for building services — belong in the Services Development Standard. Build owns the generic mechanism; Services owns the domain knowledge of how to build a service.
+## Reviewing and testing a service
+
+**Reviewing the design.** The design is the build specification, so it is what gets reviewed. Cross-review by a separate AI, directed to find defects — contradictions, gaps, claims the delivery model can't support, operations without defined failure behaviour — and given the definition of done to test against. Findings are triaged as defects, partly valid, or misreadings, remediated, and recorded in the decisions. A further round is needed when remediation introduces material the reviewer hasn't seen.
+
+**Testing the built server.** Every operation is exercised against what the design says it does, including its failure paths. The server is then confirmed working on each surface it targets — Code, Cowork, and Chat for a local server — because the surfaces register servers by different paths and a server can work on one and not another. After the first update, confirm the update propagates: the surfaces pick up the new code after the update path is followed. This is the approach that proved the delivery model: a small probe operation returning identifying data (origin, timestamp, a runtime ID) shows which build is actually running on which surface.
+
+## Building a service
+
+The design is the build specification — there is no intermediate authored document. Build creates the server from the design, following Build's generic mechanism. Build standards for the service build domain live in the Services Development Standard.
+
+### Current approach — local MCP servers
+
+Services are currently built as local MCP servers implementing raw JSON-RPC over stdio, with no MCP SDK dependency. Two patterns are proven:
+
+- **Node.js** — CommonJS, newline-delimited JSON over stdio, no external dependencies. Used by the dispatch server.
+- **Python** — raw JSON-RPC, standard library only. Used by the document management server. On Windows, the config entry must use the absolute path to a real Python interpreter; the Store stub does not work.
+
+Knowledge from building the first two services:
+
+- **Newline-delimited JSON framing is required.** Claude Desktop's stdio transport expects `\n`-delimited JSON. Content-Length headers cause a silent 120-second timeout on every connection attempt. This is not well documented and was found in testing.
+- **Windows encoding.** Python servers set `sys.stdin.reconfigure(encoding="utf-8")` at startup. Without it, stdin uses the Windows system codepage and corrupts non-ASCII content in requests — file content, not just messages.
+- **Report status, not paths.** A service reports operational status to callers — whether it is initialised, what resources it found. It does not report filesystem paths or config file locations to the AI; the AI has no use for them, and setup detail belongs in the user guide.
+- **Safety is enforced in the process.** Path containment, readonly enforcement, clean-state preconditions, input validation. Where a service delegates work downstream, the design states what it validates before delegating and what it trusts the target to enforce.
+
+### Future approach — remote services
+
+Cloud-hosted, always-on services (the framework inbox, the assurance data logger) follow the same design methodology. What changes is Infrastructure's delivery concern — a hosted endpoint instead of a local process, with the authentication and networking that implies. No remote service has been built yet. When the first one is, its build and deployment knowledge is recorded here, the same way local knowledge was recorded from the first two services.
+
+## Deploying a service
+
+### Local MCP servers
+
+A local service is delivered in a marketplace plugin. The plugin holds `.mcp.json` declaring each server using `${CLAUDE_PLUGIN_ROOT}`, `plugin.json` with metadata, and the server code under `server/`. The full packaging methodology and platform issues are in Infrastructure's MCP delivery model.
+
+What a service developer needs to know:
+
+- **Surfaces.** Code and Cowork get the server's tools through desktop app plugin registration. Chat currently needs a separate `claude_desktop_config.json` entry — the plugin's own server declaration doesn't reliably reach Chat (a platform bug). When the bug is fixed, the entry is removed; nothing else changes.
+- **Update path.** Merge a PR to the deploy repo, refresh the marketplace clone with `claude plugin marketplace update`, then restart Desktop. Direct commits to `main` don't trigger updates. Quit Desktop before refreshing if a server from that marketplace is running — it holds a lock on the clone.
+
+### Remote services
+
+Not yet built. Deployment guidance is added from the first remote service's experience.
+
+## Consuming a service
+
+**The human operator** needs a user guide, delivered alongside the design documents: what the service does, how to verify it is connected, how to configure it, the operation inventory, and any platform-specific setup such as the Chat config entry. This was missing for the document management server and is now a required deliverable so the gap does not recur.
+
+**The AI** consumes the service through its interface — the operations, their inputs and outputs, and the error reporting. A well-designed interface makes AI-side use self-evident from the operation descriptions the server exposes; no separate consumption standard is needed.
 
 ## The sibling-outputs model extends to services
 
 A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the design, not from each other, and must not disagree.
 
-This is already happening. The document management design produces a service (the MCP server) and will produce a governing skill (a tool, not yet built). Both derive from the same design. The service provides the primitives; the tool orchestrates them with document intelligence.
-
-## Developing a service
-
-**Design is the default.** A service always has a design. There is no equivalent of the tool exception ("simple enough that a design would restate rather than elaborate") because a service is a deployed process with configuration, lifecycle, and safety obligations — these demand the design layer.
-
-**Design fresh.** A service design is produced fresh, not by modifying a previous version. Same principle as tools and standards.
-
-**No prescribed template.** A service design has no fixed structure. The author decides how to organise it, provided the design concerns are addressed.
-
-**Build references.** The service design should point the builder at Infrastructure's MCP delivery model and at an existing service as a working example. These are reference documents for the builder, not standards dependencies.
-
-**User documentation.** Every service has a user guide alongside its design documents — what the service does, how to verify it is connected, how to configure it, the operation inventory, and any platform-specific setup. The user guide serves the human operating the service, not the AI consuming it.
+The document management design produces a service (the MCP server) and will produce a governing skill (a tool, not yet built). The service provides the primitives; the tool will orchestrate them with document intelligence.
 
 ## Boundaries
 
 Services does **not** own:
 
-- **The MCP delivery model** — how a service becomes an MCP server, how it is packaged as a marketplace plugin, how it reaches each surface. Infrastructure owns delivery.
-- **The development rules** — the capability-wide development rules in the Capabilities Development Standard apply to services the same way they apply to tools. Services consumes them.
-- **The cross-review process** — a Working Practices convention consumed by all components.
+- **The delivery mechanism** — packaging, plugin structure, registration, and hosting. Infrastructure owns delivery; Services records what a developer needs to build against it.
+- **The capability-wide lifecycle** — the Capabilities Development Standard. Services extends it.
+- **The cross-review process** — a Working Practices convention. Services records what a developer needs to perform it.
 - **Document structure** — Documentation Methodology.
 - **Any individual service** — each lives with its owning component.
-- **Hosted services** — cloud-hosted, always-on services (framework inbox, assurance data logger) follow the same design concerns but have a different delivery model. The delivery distinction is Infrastructure's; the service design methodology is the same.
 
 ## Carries to other components
 
-**To Infrastructure:** Infrastructure's `_index.md` currently says it "defines how to build and deploy utilities." This needs updating to include services — Infrastructure defines how to build and deploy utilities and how to deliver services (the MCP delivery model). The key distinction already there describes utilities as infrastructure that acts on the corpus from outside the session. Services need a parallel statement: services provide capabilities to sessions from outside the session. Infrastructure owns delivery of both.
+**To Infrastructure:** Infrastructure's `_index.md` should state that it owns delivery of services as well as utilities — services provide capabilities to sessions from outside the session, and Infrastructure delivers them.
 
-**To Core:** the component map and purpose lines need a Services entry. The AIDE taxonomy expands from three capability types (standards, tools, utilities) to four (standards, tools, services, utilities) — or, more precisely, two in-session capabilities (standards, tools) and two out-of-session types (services, utilities), distinguished by direction of service.
+**To Core:** the component map and purpose lines carry a Services entry, and the AIDE taxonomy has four capability types — two in-session (standards, tools) and two out-of-session (services, utilities), distinguished by direction of service.
 
 ---
 
-Version note: v1-draft1 — initial design. Two boundary tests, seven authoring concerns, delivery separation, sibling-outputs extension. Derived from the two working examples (dispatch server, document management server). 2026-09-23.
+Version note: v1 — initial design and cross-review remediation (F2–F13). 2026-09-23.
 
-Version note: v2 — design concerns softened from seven formal obligations to informal guidance. Scope broadened. Delivery section updated to cover local and future remote. Practical building knowledge delegated to the development standard. 2026-09-23. Replaces v1.
-<!-- END SOURCE: Services/Services_Design_v1.md -->
+Version note: v2 — rescoped to broad guidance and knowledge capture: seven formal design concerns replaced with informal design guidance. Definition of done reframed around the development cycle. Added: applicability, classification by entry point, reviewing and testing a service (design cross-review, per-surface and update-propagation testing), the practical build knowledge from the first two services, local deployment facts, remote services, and AI-side consumption — so the development standard can be produced from this design. 2026-09-23. Replaces v1.
+<!-- END SOURCE: Services/Services_Design_v2.md -->
 
 ---
 
@@ -16634,91 +16751,96 @@ Version note: v2 — design concerns softened from seven formal obligations to i
 
 # Services — Development Standard
 
-How to design, build, and deploy an AIDE service — the practical guide to creating services that run outside AI sessions.
+How to design, review, build, test, and deploy an AIDE service — and what has been learned building the services so far.
 
 ## What a service is
 
-Information. A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it. The AI is a caller, not the executor. The service has its own lifecycle, its own configuration, and its own safety enforcement — none of which depend on the session that calls it.
+Information. A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it. The AI is a caller, not the executor. The service has its own lifecycle, configuration, and safety enforcement, independent of the session that calls it.
 
 Information. A service reaches the AI platform as a server. Currently this means a local MCP server; in future it may mean a remote endpoint. The service is what is designed; the server is how it is delivered.
 
 ## Applicability
 
-Information. This standard applies when designing, building, or deploying an AIDE service. It does not govern tools, utilities, or Infrastructure's delivery mechanisms — but it records the practical knowledge of building against those mechanisms.
+Information. This standard applies when designing, reviewing, building, testing, or deploying an AIDE service. It does not govern tools, utilities, or Infrastructure's delivery mechanisms — but it records what a developer needs to build against them.
 
 ## Boundary
 
-### Service vs tool
+**Service vs tool.** If the AI performs the work in-session, it is a tool. If a separate process performs it and the AI calls it, it is a service. The test is who executes, not what is executed.
 
-If the AI performs the work in-session, it is a tool. If a separate process performs the work and the AI calls it, it is a service. The test is about who executes, not about what is executed.
+**Service vs utility.** If sessions connect to it for capabilities, it is a service. If it acts on the corpus rather than serving sessions, it is a utility.
 
-### Service vs utility
-
-If sessions connect to it for capabilities, it is a service. If it acts on the corpus rather than serving sessions, it is a utility. Services owns this test.
-
-A service and a utility can coexist from the same implementation. Classification follows the exposed entry point.
+A service and a utility can coexist from the same implementation. Classification follows the exposed entry point: the standalone invocation is a utility, the session-facing operation is a service.
 
 ## Designing a service
 
-A service always has a design — there is no exception for simple services. A service is a deployed process, and even a simple one resolves questions that need working through before build.
+A service always has a design, however simple — it is a deployed process with configuration, lifecycle, and safety obligations.
 
-The design should address whatever the service needs to be built correctly. For most services, that means:
+The design addresses whatever the service needs to be built correctly. For most services:
 
 - What operations it exposes and what callers can rely on.
 - How it is configured — settings, defaults, what happens when configuration is missing.
-- What it prevents and enforces — safety is the service's responsibility because the AI has no direct control.
+- What it prevents and enforces — safety is enforced in the process, because the AI has no direct control over what the service does.
 - How it reports problems — enough detail for the caller to act.
 - How it starts, shuts down, and behaves on restart.
 
-Recommended. Not every service will need all of these. A stateless dispatch service has no configuration and trivial lifecycle. A complex service may need more than this list names. These are what a designer naturally addresses — not a compliance checklist. Where something doesn't apply, the design says so, so the builder can distinguish intentional omission from oversight.
+Recommended. Not every service needs all of these, and a complex one may need more. This is what to think about, not a checklist. Where something doesn't apply, say so in the design, so the builder can tell intentional omission from oversight.
 
-**Design fresh.** A service design is produced fresh, not by modifying a previous version.
+**Design fresh.** Produce a service design fresh, not by modifying a previous version.
 
-**Delivery independence.** Design the service's behaviour, not the server's plumbing. The same design should work under a different delivery model without changing.
+**Delivery independence.** Design the service's behaviour, not the server's plumbing — the same design should work under a different delivery model. Know enough about the delivery model not to design something it can't support, such as persistent state across Desktop restarts on a local server.
+
+**Build references.** Point the builder at Infrastructure's MCP delivery model and at an existing service as a working example. These are prose references, not `uses` dependencies.
+
+## Reviewing and testing a service
+
+**Review the design.** The design is the build specification. Cross-review it with a separate AI directed to find defects — contradictions, gaps, claims the delivery model can't support, operations without defined failure behaviour — against the design's definition of done. Triage findings as defects, partly valid, or misreadings; remediate and record in the decisions. Run a further round only when remediation introduces material the reviewer hasn't seen.
+
+**Test the built server.** Exercise every operation against what the design says it does, including failure paths. Confirm the server works on each surface it targets — for a local server, Code, Cowork, and Chat, which register servers by different paths. After the first update, confirm the update propagates to each surface.
+
+Recommended. A small probe operation returning identifying data — origin, timestamp, a runtime ID — shows which build is actually running on which surface.
 
 ## Building a service
 
-The design document is the build specification — there is no intermediate authored document. Build creates the server from the design.
-
-### Current approach — local MCP servers
-
-Services are currently built as local MCP servers using raw JSON-RPC over stdio, with no MCP SDK dependency. Two patterns are proven:
-
-- **Node.js** — CommonJS, newline-delimited JSON over stdio. Used by the dispatch server.
-- **Python** — raw JSON-RPC, stdlib only. Used by the document management server.
-
-Key things learned from building the first two services:
-
-- **Newline-delimited JSON framing is required.** Claude Desktop's stdio transport expects `\n`-delimited JSON. Using Content-Length headers causes a silent 120-second timeout on every connection attempt.
-- **Windows encoding.** Python servers must set `sys.stdin.reconfigure(encoding="utf-8")` at startup. Without it, stdin defaults to the Windows system codepage, which corrupts non-ASCII content in requests.
-- **Configuration reporting.** A service reports operational status to callers (what it can do, how many resources it found) — not filesystem paths or config file locations. The human sees setup detail in the user guide; the AI sees operational status.
-- **Safety is enforced, not advisory.** The AI cannot verify what the service does with a request. Path containment, readonly enforcement, input validation — these are the service's responsibility, enforced in its process.
-
-### Future approach — remote services
-
-Cloud-hosted, always-on services (the framework inbox, assurance data logger) follow the same design methodology but have a different delivery model. The design guidance above applies regardless of where the service runs. What changes is Infrastructure's delivery concern — local process vs hosted endpoint, with the authentication and networking that implies.
-
-## Deployment
+The design is the build specification — there is no authored document. Build creates the server from the design.
 
 ### Local MCP servers
 
-A local service is delivered as part of a marketplace plugin. The server code lives in the plugin alongside skills and plugin metadata. Infrastructure's MCP delivery model (`Infrastructure_MCPDeliveryModel@v2`) documents the full packaging methodology, known platform issues, and workarounds.
+Build as a local MCP server implementing raw JSON-RPC over stdio, with no MCP SDK dependency. Proven patterns:
 
-Key deployment facts for service developers:
+- **Node.js** — CommonJS, newline-delimited JSON over stdio, no external dependencies (the dispatch server).
+- **Python** — raw JSON-RPC, standard library only (the document management server). On Windows, the config entry uses the absolute path to a real Python interpreter; the Store stub does not work.
 
-- **Surfaces.** Code and Cowork get server tools via desktop app plugin registration. Chat currently needs a separate `claude_desktop_config.json` entry (platform bug workaround — the plugin's `.mcp.json` tools don't reliably reach Chat).
-- **Update path.** Merge PR to the deploy repo → refresh marketplace clone (`claude plugin marketplace update`) → restart Desktop. Direct commits to `main` do not trigger updates.
-- **Plugin structure.** `.mcp.json` declares servers (using `${CLAUDE_PLUGIN_ROOT}`), `plugin.json` has metadata, server code in `server/`.
+Known issues and their solutions:
+
+- **Use newline-delimited JSON framing.** Content-Length headers cause a silent 120-second timeout on every connection.
+- **Set UTF-8 stdin on Windows.** Python servers call `sys.stdin.reconfigure(encoding="utf-8")` at startup; otherwise non-ASCII request content is corrupted.
+- **Report status, not paths.** Report operational status to callers — initialised, resources found. Don't expose filesystem paths or config locations to the AI; put setup detail in the user guide.
+- **Enforce safety in the process.** Path containment, readonly enforcement, clean-state preconditions, input validation. Where the service delegates downstream, state what it validates first and what it trusts the target to enforce.
 
 ### Remote services
 
-Not yet built. When the first remote service is built, the deployment guidance will be added here from that experience — the same way local deployment guidance was derived from building the dispatch and document management servers.
+Information. Hosted services follow the same design guidance; what changes is the delivery — a hosted endpoint, with its authentication and networking. None has been built yet. Build knowledge is added here from the first one.
 
-## Consumption
+## Deploying a service
 
-Every service has a user guide alongside its design documents — what the service does, how to verify it is connected, how to configure it, the operation inventory, and any platform-specific setup. The user guide serves the human operating the service, not the AI consuming it.
+### Local MCP servers
 
-Information. The AI consumes the service through its interface — the operations, inputs, outputs, and error model. A well-designed interface makes AI-side consumption self-evident from the tool descriptions the server exposes.
+Deliver the server in a marketplace plugin: `.mcp.json` declaring each server using `${CLAUDE_PLUGIN_ROOT}`, `plugin.json` with metadata, and server code under `server/`.
+
+- **Surfaces.** Code and Cowork get the tools through desktop app plugin registration. Chat needs a separate `claude_desktop_config.json` entry — a workaround for a platform bug; remove it when the bug is fixed.
+- **Update path.** Merge a PR to the deploy repo, run `claude plugin marketplace update`, restart Desktop. Direct commits to `main` don't trigger updates. Quit Desktop first if a server from that marketplace is running — it locks the clone.
+
+Information. The full methodology and platform issues are in Infrastructure's MCP delivery model.
+
+### Remote services
+
+Information. Not yet built. Deployment guidance is added from the first remote service.
+
+## Consuming a service
+
+Every service has a user guide alongside its design documents: what it does, how to verify it is connected, how to configure it, the operation inventory, and platform-specific setup such as the Chat config entry. The guide serves the human operator.
+
+Information. The AI consumes the service through its interface. A well-designed interface is self-evident from the operation descriptions the server exposes.
 
 ## The sibling-outputs model
 
@@ -16726,11 +16848,11 @@ Information. A single design can produce standards, tools, and services as sibli
 
 ## Ownership
 
-**Each service lives with its owning component.** Services is a methodological component — it defines how to build a service, not where services live. Each service is designed and owned by the component or area it serves.
+**Each service lives with its owning component.** Services defines how to build a service, not where services live.
 
 ---
 
-Version note: v1 — revised. Design concerns softened from seven formal obligations to informal guidance. Practical building knowledge added from the two working services. Deployment guidance covers local MCP servers with key platform facts; remote services acknowledged for future. 2026-09-23.
+Version note: v1 — initial standard. Produced from Services_Design@v2: informal design guidance, review and testing, practical build knowledge from the first two services, local deployment, remote placeholder, user guide as a deliverable. 2026-09-23.
 <!-- END SOURCE: Services/Services_Development_Standard_v1.md -->
 
 ---
@@ -17953,9 +18075,11 @@ Define what a utility is and how one is developed within AIDE. A utility is an o
 
 ## Definition of done
 
-1. What a utility is — distinct from tools and services — is stated.
-2. The design and build path is clear enough that someone can create a utility without further methodology guidance.
-3. Deployment and ownership are stated — where the code lives, how it's made available, which component owns each instance.
+1. A developer can tell whether something should be a utility — the definition and the boundaries with tools and services.
+2. A developer can design a utility without further methodology guidance.
+3. A developer can review and test a utility — cross-review of the design, and testing the built utility against it.
+4. A developer can build and deploy a utility so that it is invocable, and knows where it lives and who owns it.
+5. The Utilities Development Standard can be produced entirely from the design.
 
 ## Target outcome
 
@@ -17983,22 +18107,78 @@ Version note: v1 — initial brief. Revised to reflect broad scope, few constrai
 
 ---
 
-<!-- BEGIN SOURCE: Utilities/Utilities_Design_v1.md -->
-> identity: Utilities_Design@v1 | doctype: design | updated: 2026-09-23
+<!-- BEGIN SOURCE: Utilities/Utilities_Decisions_v1.md -->
+> identity: Utilities_Decisions@v1 | doctype: decisions | updated: 2026-09-23
+
+# Utilities — Decisions
+
+## D1 — Utilities is a methodological component
+
+Utilities defines how to design, build, and deploy utilities; individual utilities live with the component that knows most about them. This is the same pattern as Standards, Tools, and Services. It completes the four type components under the Capabilities model (Capabilities D1, D6).
+
+## D2 — Broad scope, few constraints
+
+Direction from Dave (2026-09-23): Utilities should be broad in scope with few constraints. A utility is essentially a tool that runs outside the AI environment; the component defines what a utility is, how to design and build one, how to deploy it, and where it resides.
+
+An initial approach — seven formal design concerns mirroring Services — was dropped before drafting as apparatus the type does not need. Utilities is the simplest capability type and its methodology is the lightest of the four. The same direction was later applied to Services (Services D12).
+
+## D3 — "Out-of-session tool" as the plain-language definition
+
+A utility is defined as an out-of-session tool, using "tool" in its plain-language sense. This makes the relationship to tools immediate: the same concept, a different execution context. Cross-review finding F1 noted that "tool" is also a formal capability type; the definition now states explicitly that the plain-language sense is meant.
+
+## D4 — Utilities owns no boundary test
+
+A utility is fully classified by the two Capabilities taxonomy properties — out-of-session and corpus-serving — and by the service-vs-utility test owned by Services. No further test is needed, so Utilities defines none. Adding one would create a second authority on a boundary Services already owns.
+
+## D5 — Classification follows the exposed entry point
+
+A utility and a service can share an implementation. The binder builder exists as a standalone utility (CLI and script use) and as an operation inside the document management service (in-session use). Classification follows the entry point exposed: the standalone invocation is a utility, the session-facing operation is a service. Added from cross-review finding F3, which showed the boundary was otherwise unusable for composed systems.
+
+## D6 — Informal design guidance, with an intentional-omission signal
+
+The design lists what a designer naturally addresses — what it does, input, output, configuration, what it enforces, invocation, idempotency — with no compliance obligations. Cross-review finding F5 pointed out that a builder cannot tell an intentional omission from an oversight. Rather than making the list binding, the design must say when something does not apply. This keeps the guidance light while giving the builder a clear specification.
+
+## D7 — Failure behaviour for utilities that change or remove content
+
+Cross-review finding F6: utilities such as the file update package and version cleanup change or delete content, and a partial failure can leave the corpus damaged. The enforcement item in the design guidance was extended to cover partial-failure behaviour for such utilities, and testing exercises it. This is a targeted addition, not a general failure-handling framework.
+
+## D8 — Deployment means invokable
+
+Cross-review finding F7: placing code in the repository does not make a utility usable. Deployment is defined as making the utility callable — a registered CLI command, a script entry point, or a service that wraps its implementation. Infrastructure owns the deployment path and any packaging.
+
+## D9 — Cross-review findings not acted on
+
+F2 (corpus or infrastructure) was resolved by aligning to "corpus" as the taxonomy uses it. F4 (binder builder identity and ownership) was not acted on as stated: the design is methodology, not a registry of instances. The example illustrates the transition pattern, and D5 resolves its classification.
+
+## D10 — Review and testing, and the design produces the standard
+
+Per Capabilities D9 and D10: the definition of done is framed around the development cycle, and review is an explicit phase. For utilities, review is proportionate cross-review of the design. Testing the built utility covers representative input, partial-failure behaviour for utilities that change content, a second run for utilities declared idempotent, and invocation through the deployment form. The design holds everything the standard carries, so the standard can be produced from it.
+
+---
+
+Version note: v1 — initial decisions, recorded retrospectively from the design session and cross-review. D1–D10. 2026-09-23.
+<!-- END SOURCE: Utilities/Utilities_Decisions_v1.md -->
+
+---
+
+<!-- BEGIN SOURCE: Utilities/Utilities_Design_v2.md -->
+> identity: Utilities_Design@v2 | doctype: design | updated: 2026-09-23
 
 # Utilities — Design
 
 ## Brief
 
-**Purpose.** Define what a utility is and how one is developed, built, deployed, and owned within AIDE.
+**Purpose.** Define what a utility is and how one is designed, reviewed, built, tested, deployed, and owned within AIDE.
 
-**Scope.** The utility definition, design and build guidance, deployment, and ownership. Broad scope, few constraints — utilities are the simplest capability type and the methodology reflects that.
+**Scope.** The utility definition, design and build guidance, review and testing, deployment, and ownership. Broad scope, few constraints — utilities are the simplest capability type and the methodology reflects that.
 
 **Definition of done.**
 
-1. What a utility is — distinct from tools and services — is stated.
-2. The design and build path is clear enough that someone can create a utility without further methodology guidance.
-3. Deployment and ownership are stated.
+1. A developer can tell whether something should be a utility — the definition and the boundaries with tools and services.
+2. A developer can design a utility without further methodology guidance.
+3. A developer can review and test a utility — cross-review of the design, and testing the built utility against it.
+4. A developer can build and deploy a utility so that it is invocable, and knows where it lives and who owns it.
+5. The Utilities Development Standard can be produced entirely from this design.
 
 **Linked build outcome.** Utilities Development Standard, deployed as a skill in the `aide-dev` plugin.
 
@@ -18036,6 +18216,16 @@ These are not formal concerns with compliance obligations. They are the things a
 
 **Design fresh.** A utility design is produced fresh, not by modifying a previous version. Same principle as all capability types.
 
+## Applicability of the development standard
+
+The Utilities Development Standard applies when designing, reviewing, building, testing, or deploying an AIDE utility. It does not govern tools, services, or Infrastructure's delivery mechanisms.
+
+## Reviewing and testing a utility
+
+**Reviewing the design.** The design is the build specification, so it is what gets reviewed: cross-review by a separate AI directed to find defects, against the definition of done, with findings triaged, remediated, and recorded in the decisions. For a small utility this is proportionately light — the point is an independent check, not ceremony.
+
+**Testing the built utility.** Run it against representative input and confirm its output and effects match the design. For a utility that changes or removes content, exercise its failure behaviour — what it does when it fails partway — because that is where a utility can do lasting damage. If the design declares it safe to run again, run it twice and confirm the second run changes nothing. Confirm it is invocable through its deployment form, not just runnable from its source.
+
 ## Building a utility
 
 The design document is the build specification. Build creates the utility from the design — typically a script, a small program, or a module within a larger codebase. Build follows Build's generic mechanism.
@@ -18057,7 +18247,9 @@ Infrastructure currently holds the three working utility instances (binder build
 ---
 
 Version note: v1 — initial design. Cross-review remediation: F1 (tool disambiguation), F2 (corpus alignment), F3 (classification-follows-entry-point), F5 (intentional-omission signal), F6 (failure behaviour for destructive utilities), F7 (deployment means invokable). 2026-09-23.
-<!-- END SOURCE: Utilities/Utilities_Design_v1.md -->
+
+Version note: v2 — definition of done reframed around the development cycle. Applicability and reviewing-and-testing added so the development standard can be produced from the design. 2026-09-23. Replaces v1.
+<!-- END SOURCE: Utilities/Utilities_Design_v2.md -->
 
 ---
 
@@ -18066,7 +18258,7 @@ Version note: v1 — initial design. Cross-review remediation: F1 (tool disambig
 
 # Utilities — Development Standard
 
-How to design, build, and deploy an AIDE utility.
+How to design, review, build, test, and deploy an AIDE utility.
 
 ## What a utility is
 
@@ -18076,7 +18268,7 @@ Information. The difference from a tool: a tool runs in-session and serves the s
 
 ## Applicability
 
-Information. This standard applies when designing, building, or deploying an AIDE utility. It does not govern tools, services, or Infrastructure's delivery mechanisms.
+Information. This standard applies when designing, reviewing, building, testing, or deploying an AIDE utility. It does not govern tools, services, or Infrastructure's delivery mechanisms.
 
 ## Boundary
 
@@ -18102,6 +18294,12 @@ Recommended. These are not formal concerns with compliance obligations. They are
 
 **Design fresh.** A utility design is produced fresh, not by modifying a previous version.
 
+## Reviewing and testing a utility
+
+**Review the design.** The design is the build specification. Cross-review it with a separate AI directed to find defects against the design's definition of done; triage, remediate, and record in the decisions. Keep it proportionate to the utility's size.
+
+**Test the built utility.** Run it against representative input and confirm its output and effects match the design. For a utility that changes or removes content, exercise its partial-failure behaviour. If the design declares it safe to run again, run it twice and confirm the second run changes nothing. Confirm it is invocable through its deployment form, not just from its source.
+
 ## Build
 
 The design document is the build specification. Build creates the utility from the design — typically a script, a small program, or a module within a larger codebase. Build follows Build's generic mechanism. The utility's code is the deliverable.
@@ -18118,7 +18316,7 @@ A utility may also be delivered as part of an MCP server or as a standalone CLI 
 
 ---
 
-Version note: v1 — initial standard. Authored from Utilities_Design@v1. 2026-09-23.
+Version note: v1 — initial standard. Produced from Utilities_Design@v2, including review and testing. 2026-09-23.
 <!-- END SOURCE: Utilities/Utilities_Development_Standard_v1.md -->
 
 ---

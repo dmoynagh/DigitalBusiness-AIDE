@@ -14,9 +14,11 @@ Define what a utility is and how one is developed within AIDE. A utility is an o
 
 ## Definition of done
 
-1. What a utility is — distinct from tools and services — is stated.
-2. The design and build path is clear enough that someone can create a utility without further methodology guidance.
-3. Deployment and ownership are stated — where the code lives, how it's made available, which component owns each instance.
+1. A developer can tell whether something should be a utility — the definition and the boundaries with tools and services.
+2. A developer can design a utility without further methodology guidance.
+3. A developer can review and test a utility — cross-review of the design, and testing the built utility against it.
+4. A developer can build and deploy a utility so that it is invocable, and knows where it lives and who owns it.
+5. The Utilities Development Standard can be produced entirely from the design.
 
 ## Target outcome
 

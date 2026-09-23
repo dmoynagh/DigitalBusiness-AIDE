@@ -1,4 +1,4 @@
-> identity: Services_Decisions@v1 | doctype: decisions | updated: 2026-09-23
+> identity: Services_Decisions@v2 | doctype: decisions | updated: 2026-09-23
 
 ## D1 — Services is a methodological component, same pattern as Tools and Standards
 
@@ -17,6 +17,8 @@ The fundamental difference between a service and a tool is not persistence, conf
 This matters because it changes what the design concerns must cover. A tool author addresses the procedure the AI will follow. A service author addresses the interface the AI will call, the safety the process will enforce, and the state the process will manage — none of which the AI controls.
 
 ## D4 — Seven design concerns, derived from the two working examples
+
+*Superseded by D12 — the seven concerns became informal design guidance. Retained for the derivation history.*
 
 The seven concerns were derived by examining what the dispatch server and document management server each needed, then generalising. Both servers needed an interface and an error model. Document management additionally needed configuration, discovery, a safety model, state management, and lifecycle. Dispatch needed none of those four — it is stateless, configurationless, and its safety model is trivial (delegate to the target).
 
@@ -71,3 +73,25 @@ This was identified as missing during the document management server testing —
 Version note: v1-draft1 — initial decisions. D1–D11 from the design session. 2026-09-23.
 
 Version note: v1 — cross-review remediation. F3: D2 boundary ownership corrected. F4: D4 heading updated (authoring → design concerns). D3/D4/D9 terminology aligned (authoring → design concerns). 2026-09-23. Replaces v1-draft1.
+
+## D12 — Broad scope, few constraints: design concerns become informal guidance
+
+The seven formal design concerns (D4) were derived from two services and presented as if universal. Several — configuration, discovery, safety model, state management — were specific to the services built so far and could be irrelevant or obstructive for future ones. Direction from Dave (2026-09-23): the component should be broad in scope with few constraints, like Utilities. Its primary purpose is to guide service creation and record what has been learned — issues, solutions, best practice, approach — so services get easier to build.
+
+The concerns were replaced with an informal list of what a designer naturally addresses, with explicit permission to omit or extend, and a requirement to say when something doesn't apply. The practical knowledge (framing, encoding, status reporting, safety enforcement, deployment facts) is kept as recorded learning rather than prescription.
+
+## D13 — Build and deployment knowledge lives in the design
+
+The v2 draft said practical building knowledge was "delegated to the development standard". That contradicts the rule that the standard is produced from the design (Standards D24, Capabilities D10). All build and deployment knowledge — the proven server patterns, the JSON-RPC framing and Windows encoding fixes, status-not-paths reporting, plugin structure, surfaces, the Chat workaround, and the update path — is now in the design, with the reasoning. The standard carries the lean operational version.
+
+## D14 — Review and testing for services
+
+Services previously had only "cross-review accepted" as a build precondition. Per Capabilities D9, review is now an explicit phase. For services it has two parts: cross-review of the design (the build specification) before build, and testing the built server during build — every operation against the design including failure paths, working on each surface it targets, and update propagation after the first update. Per-surface testing is required because the surfaces register servers by different paths: the delivery model testing found servers working on some surfaces and not others. The probe technique (an operation returning origin, timestamp, and runtime ID) is recommended because it was how the delivery model was proven.
+
+## D15 — Remote services recorded as a placeholder, not designed
+
+Remote (hosted) services follow the same design guidance (D9). No remote service has been built, so the design and standard record a placeholder: build and deployment knowledge is added from the first remote service's experience, the same way local knowledge came from the first two local services. Designing remote delivery in advance would be apparatus without a demonstrated consumer.
+
+---
+
+Version note: v2 — D12 (broad scope; design concerns become informal guidance; D4 superseded), D13 (build and deployment knowledge lives in the design), D14 (review and testing for services), D15 (remote services as placeholder). 2026-09-23. Replaces v1.
