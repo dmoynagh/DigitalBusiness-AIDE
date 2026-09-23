@@ -44,6 +44,18 @@ Without a framework, the knowledge and practices gained from this learning accum
 
 ---
 
+## Development principles
+
+These govern how AIDE is developed. Objectives say what AIDE is for; development principles say how it gets there.
+
+**Framework-delivered solutions.** When an issue is identified — a gap, a failure, a recurring problem — the response is a framework change, not a behavioural commitment. A standard, tool, service, or utility that structurally prevents the issue from recurring. "I'll remember next time" is not a solution; a skill that loads the right context automatically is.
+
+This applies in both directions. When an issue surfaces, look at what existing framework element should be addressing it and isn't — a standard that should be triggering, a skill that needs updating, a convention that needs strengthening. When the existing framework doesn't cover it, identify what new capability would. The framework is the delivery mechanism for its own improvement.
+
+This directly serves the extensibility-from-learning objective (O4) and the reduce-burden objective (O6). The framework gets better because problems are solved structurally, and the human's load decreases because solutions are automated rather than dependent on memory.
+
+---
+
 ## How this document is used
 
 The charter is not a design specification and does not prescribe mechanism. It states what AIDE is for. Components, standards and tools deliver these objectives through their own designs.
