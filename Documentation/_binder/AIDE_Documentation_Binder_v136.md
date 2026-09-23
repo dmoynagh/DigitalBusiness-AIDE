@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 135** (2026-09-23).
+> **Binder Version 136** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -103,12 +103,12 @@ individual files.
 - `Standards/_index.md` - sha256 `09379ef5eb4d`
 - `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
 - `Standards/Standards_Decisions_v4.md` - sha256 `38207b4e2082`
-- `Standards/Standards_Design_v3.md` - sha256 `07cbe0cd1fc0`
+- `Standards/Standards_Design_v4.md` - sha256 `e241195998b3`
 - `Standards/Standards_Development_Standard_v1.md` - sha256 `9ba785d2a243`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
 - `Tools/_index.md` - sha256 `90e0fa4aa6b7`
 - `Tools/Tools_Decisions_v7.md` - sha256 `13ac6443f896`
-- `Tools/Tools_Design_v6.md` - sha256 `7554396473ca`
+- `Tools/Tools_Design_v7.md` - sha256 `95e6c5cb4ac8`
 - `Tools/Tools_Development_Standard_v1.md` - sha256 `f7237092236d`
 - `Utilities/_index.md` - sha256 `cf88a5022544`
 - `Utilities/Utilities_Brief_v1.md` - sha256 `e5eb37c9d2e8`
@@ -16964,8 +16964,8 @@ Version note: v4 — adds D21 (acceptance test amended for ambient framework con
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Design_v3.md -->
-> identity: Standards_Design@v3 | doctype: design | updated: 2026-09-14
+<!-- BEGIN SOURCE: Standards/Standards_Design_v4.md -->
+> identity: Standards_Design@v4 | doctype: design | updated: 2026-09-23
 
 ## Brief
 
@@ -17075,11 +17075,21 @@ When multiple standards apply to the same work, compatible standards stack — t
 
 Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
 
+## Building a standard
+
+The Capabilities Development Standard defines build standards per capability type — the type-specific conventions for how that type of capability is built. Standards' build domain is the packaging of accepted standard documents into skills or binder content.
+
+The build specification is the accepted standard document. The build target is a skill file — a markdown file with YAML frontmatter (name and trigger description) containing the standard's content, placed in the appropriate marketplace plugin. The alternative delivery form is binder content, where the standard is included directly in the project's documentation binder without trigger-based loading. Skill delivery is the default; binder content is for standards that must be present in every session within a project context.
+
+The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it. Two plugins serve different audiences: one for operational standards (applied during normal work), one for development standards (applied when building AIDE itself).
+
+The practical skill file format, plugin structure, and deployment path are recorded in the Standards Development Standard — that is where the build knowledge lives. The design provides the reasoning; the standard carries the operational detail.
+
 ## What Standards produces
 
 Two standards:
 
-**The standards authoring standard** — aimed at anyone building a component, telling them how to design, author, and deploy a standard for that component. It consumes its own rules — the first standard is self-describing. Covers the authoring methodology, strength model, scope, and deployment boundary.
+**The standards development standard** — aimed at anyone building a standard, covering the full lifecycle: design, authoring, build, and deployment. Supersedes the earlier authoring standard with broader scope — the settled authoring rules are embedded unchanged, with build and deployment guidance added.
 
 **The standards consumption standard** — aimed at AI sessions operating under applicable standards. Covers conflict resolution, human override, applicability evaluation, and runtime operation under standards.
 
@@ -17095,7 +17105,7 @@ Standards does **not** own:
 - **The cross-review process** — the obligation that every standard is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Standards' output goes through it.
 - **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
 - **Triggering and delivery** — how a standard is loaded (skill headers, binder inclusion, package distribution) is owned by Infrastructure.
-- **Packaging and deployment** — how a standard becomes a skill or binder entry is owned by Infrastructure (packaging) and Deployment (the weight gate and the pipeline to the marketplace).
+- **Packaging and deployment** — how a standard becomes a skill or binder entry is owned by Infrastructure (the packaging mechanism and delivery pipeline). Standards owns the build domain knowledge — what the skill file looks like, which plugin a standard targets, and the build preconditions. The weight gate that checks the combined load is a deployment concern.
 - **Any individual standard** — each lives with its owning component.
 
 ## Carries to other components
@@ -17104,8 +17114,8 @@ Standards does **not** own:
 
 ---
 
-Version note: v3 — adds two-class distinction (task vs carried by load pattern), solving-model design sequence (universal, with greater effort for carried class), default-Required strength assignment, three new rules (no consumer no rule, name your principles as authoring rules; earn your place as a design rule). Updates authoring rule count from six to eight. Reasoning boundary narrowed to design derivation. 2026-09-14.
-<!-- END SOURCE: Standards/Standards_Design_v3.md -->
+Version note: v4 — build section added (standards build domain, skill packaging, deployment-target requirement). "What Standards produces" updated to reflect development standard model. Boundaries updated for build domain ownership. 2026-09-23. Replaces v3.
+<!-- END SOURCE: Standards/Standards_Design_v4.md -->
 
 ---
 
@@ -17479,8 +17489,8 @@ Version note: v7 — D17 added for round 2 cross-review remediation. 2026-09-14.
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Design_v6.md -->
-> identity: Tools_Design@v6 | doctype: design | updated: 2026-09-14
+<!-- BEGIN SOURCE: Tools/Tools_Design_v7.md -->
+> identity: Tools_Design@v7 | doctype: design | updated: 2026-09-23
 
 ## Brief
 
@@ -17488,7 +17498,7 @@ Version note: v7 — D17 added for round 2 cross-review remediation. 2026-09-14.
 
 **Scope.** The tool definition and the boundaries that distinguish a tool from a standard and a utility; the invocability test; the authoring concerns, execution discipline, and declared properties a tool must address; the staging clause and the sibling-outputs model; applicability scope and trigger description; and the designing and authoring rules. Individual tools, document structure, packaging, and the cross-review process are out of scope.
 
-**Target outcome.** A deployed tool authoring standard that any component author uses when designing and authoring a tool and preparing the complete, accepted tool for deployment handoff.
+**Target outcome.** A deployed Tools Development Standard that any component author uses when designing, authoring, building, and deploying a tool.
 
 ## What a tool is and does
 
@@ -17566,15 +17576,23 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 **No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the standards authoring standard. These rules apply to any capability, not only to standards.
 
+## Building a tool
+
+Tools' build domain follows the same model as Standards — the accepted tool document is the build specification, and the build target is a skill file placed in the appropriate marketplace plugin. The skill file format, plugin placement, and deployment path are the same as for standards. A tool and a standard produced as sibling outputs from the same design are built as separate skills, each with its own trigger description.
+
+The brief's linked build outcome states the deployment target — which plugin the skill is built for. The practical build detail is recorded in the Tools Development Standard; the reasoning is here.
+
+The boundary between what Tools owns and what Infrastructure owns is the same as for Standards: Tools owns the build domain knowledge (what a tool skill looks like, what the build preconditions are), Infrastructure owns the packaging mechanism and delivery pipeline.
+
 ## Boundaries
 
 Tools does **not** own:
 
-- **The authoring rules** — the authoring rules defined in the standards authoring standard are capability-wide rules that bind all capability authoring. Tools consumes them.
+- **The authoring rules** — the authoring rules defined in the Standards Development Standard are capability-wide rules that bind all capability authoring. Tools consumes them.
 - **The three-layer authoring model** — a project-level convention consumed by all components, not a Tools mechanism.
 - **The cross-review process** — the obligation that every capability is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Tools' output goes through it.
 - **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
-- **Packaging and delivery** — how a tool becomes a skill or binder entry is owned by Infrastructure (packaging) and Deployment (the weight gate and the pipeline to the marketplace).
+- **Packaging and delivery** — how a tool becomes a skill or binder entry is owned by Infrastructure (the packaging mechanism and delivery pipeline). Tools owns the build domain knowledge. The weight gate is a deployment concern.
 - **Any individual tool** — each lives with its owning component.
 
 ## Carries to other components
@@ -17583,8 +17601,8 @@ Tools does **not** own:
 
 ---
 
-Version note: v6 — round 2 cross-review remediation: Brief Purpose and Target outcome narrowed from "deployed" to "deployment handoff" to match the settled boundary in the standard, decisions, and detailed design (F2). 2026-09-14. Replaces v5.
-<!-- END SOURCE: Tools/Tools_Design_v6.md -->
+Version note: v7 — build section added (tools build domain, skill packaging, deployment-target requirement). Target outcome updated to development standard. Boundaries updated for build domain ownership and development standard references. 2026-09-23. Replaces v6.
+<!-- END SOURCE: Tools/Tools_Design_v7.md -->
 
 ---
 

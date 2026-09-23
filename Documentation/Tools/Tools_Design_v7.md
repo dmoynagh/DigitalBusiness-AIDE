@@ -1,4 +1,4 @@
-> identity: Tools_Design@v6 | doctype: design | updated: 2026-09-14
+> identity: Tools_Design@v7 | doctype: design | updated: 2026-09-23
 
 ## Brief
 
@@ -6,7 +6,7 @@
 
 **Scope.** The tool definition and the boundaries that distinguish a tool from a standard and a utility; the invocability test; the authoring concerns, execution discipline, and declared properties a tool must address; the staging clause and the sibling-outputs model; applicability scope and trigger description; and the designing and authoring rules. Individual tools, document structure, packaging, and the cross-review process are out of scope.
 
-**Target outcome.** A deployed tool authoring standard that any component author uses when designing and authoring a tool and preparing the complete, accepted tool for deployment handoff.
+**Target outcome.** A deployed Tools Development Standard that any component author uses when designing, authoring, building, and deploying a tool.
 
 ## What a tool is and does
 
@@ -84,15 +84,23 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 **No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the standards authoring standard. These rules apply to any capability, not only to standards.
 
+## Building a tool
+
+Tools' build domain follows the same model as Standards — the accepted tool document is the build specification, and the build target is a skill file placed in the appropriate marketplace plugin. The skill file format, plugin placement, and deployment path are the same as for standards. A tool and a standard produced as sibling outputs from the same design are built as separate skills, each with its own trigger description.
+
+The brief's linked build outcome states the deployment target — which plugin the skill is built for. The practical build detail is recorded in the Tools Development Standard; the reasoning is here.
+
+The boundary between what Tools owns and what Infrastructure owns is the same as for Standards: Tools owns the build domain knowledge (what a tool skill looks like, what the build preconditions are), Infrastructure owns the packaging mechanism and delivery pipeline.
+
 ## Boundaries
 
 Tools does **not** own:
 
-- **The authoring rules** — the authoring rules defined in the standards authoring standard are capability-wide rules that bind all capability authoring. Tools consumes them.
+- **The authoring rules** — the authoring rules defined in the Standards Development Standard are capability-wide rules that bind all capability authoring. Tools consumes them.
 - **The three-layer authoring model** — a project-level convention consumed by all components, not a Tools mechanism.
 - **The cross-review process** — the obligation that every capability is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Tools' output goes through it.
 - **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
-- **Packaging and delivery** — how a tool becomes a skill or binder entry is owned by Infrastructure (packaging) and Deployment (the weight gate and the pipeline to the marketplace).
+- **Packaging and delivery** — how a tool becomes a skill or binder entry is owned by Infrastructure (the packaging mechanism and delivery pipeline). Tools owns the build domain knowledge. The weight gate is a deployment concern.
 - **Any individual tool** — each lives with its owning component.
 
 ## Carries to other components
@@ -101,4 +109,4 @@ Tools does **not** own:
 
 ---
 
-Version note: v6 — round 2 cross-review remediation: Brief Purpose and Target outcome narrowed from "deployed" to "deployment handoff" to match the settled boundary in the standard, decisions, and detailed design (F2). 2026-09-14. Replaces v5.
+Version note: v7 — build section added (tools build domain, skill packaging, deployment-target requirement). Target outcome updated to development standard. Boundaries updated for build domain ownership and development standard references. 2026-09-23. Replaces v6.

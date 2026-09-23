@@ -1,4 +1,4 @@
-> identity: Standards_Design@v3 | doctype: design | updated: 2026-09-14
+> identity: Standards_Design@v4 | doctype: design | updated: 2026-09-23
 
 ## Brief
 
@@ -108,11 +108,21 @@ When multiple standards apply to the same work, compatible standards stack — t
 
 Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
 
+## Building a standard
+
+The Capabilities Development Standard defines build standards per capability type — the type-specific conventions for how that type of capability is built. Standards' build domain is the packaging of accepted standard documents into skills or binder content.
+
+The build specification is the accepted standard document. The build target is a skill file — a markdown file with YAML frontmatter (name and trigger description) containing the standard's content, placed in the appropriate marketplace plugin. The alternative delivery form is binder content, where the standard is included directly in the project's documentation binder without trigger-based loading. Skill delivery is the default; binder content is for standards that must be present in every session within a project context.
+
+The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it. Two plugins serve different audiences: one for operational standards (applied during normal work), one for development standards (applied when building AIDE itself).
+
+The practical skill file format, plugin structure, and deployment path are recorded in the Standards Development Standard — that is where the build knowledge lives. The design provides the reasoning; the standard carries the operational detail.
+
 ## What Standards produces
 
 Two standards:
 
-**The standards authoring standard** — aimed at anyone building a component, telling them how to design, author, and deploy a standard for that component. It consumes its own rules — the first standard is self-describing. Covers the authoring methodology, strength model, scope, and deployment boundary.
+**The standards development standard** — aimed at anyone building a standard, covering the full lifecycle: design, authoring, build, and deployment. Supersedes the earlier authoring standard with broader scope — the settled authoring rules are embedded unchanged, with build and deployment guidance added.
 
 **The standards consumption standard** — aimed at AI sessions operating under applicable standards. Covers conflict resolution, human override, applicability evaluation, and runtime operation under standards.
 
@@ -128,7 +138,7 @@ Standards does **not** own:
 - **The cross-review process** — the obligation that every standard is reviewed by a separate AI before acceptance is a collaboration convention owned by Working Practices. Standards' output goes through it.
 - **Document structure and block grammar** — Documentation Methodology owns how documents are composed.
 - **Triggering and delivery** — how a standard is loaded (skill headers, binder inclusion, package distribution) is owned by Infrastructure.
-- **Packaging and deployment** — how a standard becomes a skill or binder entry is owned by Infrastructure (packaging) and Deployment (the weight gate and the pipeline to the marketplace).
+- **Packaging and deployment** — how a standard becomes a skill or binder entry is owned by Infrastructure (the packaging mechanism and delivery pipeline). Standards owns the build domain knowledge — what the skill file looks like, which plugin a standard targets, and the build preconditions. The weight gate that checks the combined load is a deployment concern.
 - **Any individual standard** — each lives with its owning component.
 
 ## Carries to other components
@@ -137,4 +147,4 @@ Standards does **not** own:
 
 ---
 
-Version note: v3 — adds two-class distinction (task vs carried by load pattern), solving-model design sequence (universal, with greater effort for carried class), default-Required strength assignment, three new rules (no consumer no rule, name your principles as authoring rules; earn your place as a design rule). Updates authoring rule count from six to eight. Reasoning boundary narrowed to design derivation. 2026-09-14.
+Version note: v4 — build section added (standards build domain, skill packaging, deployment-target requirement). "What Standards produces" updated to reflect development standard model. Boundaries updated for build domain ownership. 2026-09-23. Replaces v3.
