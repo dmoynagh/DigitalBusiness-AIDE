@@ -8,7 +8,7 @@ Services defines how to create its type. Individual service instances live with 
 
 A single boundary test would conflate two distinctions that need separating. The service-vs-tool boundary is about who executes (the AI or a separate process). The service-vs-utility boundary is about direction of service (serves sessions or serves the corpus). These are orthogonal. A thing that runs outside the session could be either a service or a utility; you need both tests to classify it.
 
-The tool boundary test parallels the invocability test in Tools — it is the heart of the component, the test that governs what belongs here.
+The direction-of-service test is the heart of the component — it governs what belongs here. The execution-context boundary (in-session vs out-of-session) is a Capabilities taxonomy property that Services references but does not own.
 
 ## D3 — The AI-as-caller distinction is the governing difference from tools
 
@@ -16,7 +16,7 @@ The fundamental difference between a service and a tool is not persistence, conf
 
 This matters because it changes what the authoring concerns must cover. A tool author addresses the procedure the AI will follow. A service author addresses the interface the AI will call, the safety the process will enforce, and the state the process will manage — none of which the AI controls.
 
-## D4 — Seven authoring concerns, derived from the two working examples
+## D4 — Seven design concerns, derived from the two working examples
 
 The seven concerns were derived by examining what the dispatch server and document management server each needed, then generalising. Both servers needed an interface and an error model. Document management additionally needed configuration, discovery, a safety model, state management, and lifecycle. Dispatch needed none of those four — it is stateless, configurationless, and its safety model is trivial (delegate to the target).
 
@@ -69,3 +69,5 @@ This was identified as missing during the document management server testing —
 ---
 
 Version note: v1-draft1 — initial decisions. D1–D11 from the design session. 2026-09-23.
+
+Version note: v1 — cross-review remediation. F3: D2 boundary ownership corrected. F4: D4 heading updated (authoring → design concerns). 2026-09-23. Replaces v1-draft1.

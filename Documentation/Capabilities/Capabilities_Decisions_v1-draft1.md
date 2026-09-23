@@ -10,7 +10,7 @@ This resolves the earlier overview statement "Capabilities is a category not a p
 
 ## D2 — Two properties distinguish the four types
 
-Execution context (in-session vs out-of-session) and direction of service (serves sessions vs serves the corpus) are the two orthogonal properties. One property alone would conflate types — services and utilities both run out-of-session but serve different things. The two properties produce exactly the four types, with no empty cell. Each cell's boundary tests are owned by the type component, not by Capabilities.
+Execution context (in-session vs out-of-session) and direction of service (serves sessions vs serves the corpus) are the two orthogonal properties. One property alone would conflate types — services and utilities both run out-of-session but serve different things. The two properties produce three distinct groups; Standards and Tools share the same cell (both in-session, both session-serving) and are separated by the invocability test owned by Tools. Each group's boundary tests are owned by the relevant type component, not by Capabilities.
 
 ## D3 — Five lifecycle phases, authoring conditional
 
@@ -40,7 +40,7 @@ The alternative — putting this in Core — was rejected because Core owns stru
 
 The development lifecycle references Build and Infrastructure without restating their content. Build owns the generic build mechanism and the build-standard/profile model. Infrastructure owns the delivery pipeline. Each type component states how it uses these — what enters build and what gets delivered — without duplicating the source.
 
-This means the Capabilities design and each type development standard declare `uses` on Build and Infrastructure where the dependency creates a change-management obligation.
+This means each type's development standard declares `uses` on Build and Infrastructure where the dependency creates a change-management obligation.
 
 ## D8 — Infrastructure's role acknowledged as evolving
 
@@ -49,3 +49,5 @@ Infrastructure currently holds both delivery machinery and individual utility in
 ---
 
 Version note: v1-draft1 — initial decisions from the design session. D1–D8. 2026-09-23.
+
+Version note: v1 — cross-review remediation. F1: D2 overclaim corrected. F7: D7 corrected — development standards declare `uses`, not designs. 2026-09-23. Replaces v1-draft1.

@@ -57,7 +57,7 @@ Two properties distinguish the types.
 | Service | Out-of-session | Serves sessions | — | Server |
 | Utility | Out-of-session | Serves the corpus | — | Utility |
 
-Each type's boundary tests are owned by the type component. The execution boundary (tool vs service) is the invocability test in Tools. The direction boundary (service vs utility) is owned by Services. These tests settle classification when the type is ambiguous.
+The two properties distinguish three groups: in-session session-serving (Standards and Tools), out-of-session session-serving (Services), and out-of-session corpus-serving (Utilities). Within the in-session group, the invocability test (owned by Tools) separates Standards from Tools — a standard shapes decisions and behaviour; a tool is a named invokable action. The direction-of-service test (service vs utility) is owned by Services. These tests settle classification when the type is ambiguous.
 
 ---
 
@@ -104,7 +104,7 @@ What the user or developer needs to use or run the deployed capability. Consumpt
 
 Build defines the generic build mechanism. Capabilities does not restate it. The connection is through build standards and build domains — Build's own model for type-specific build guidance.
 
-Each type component produces build standards for its build domain. These are authored on the Standards methodology (same authoring rules, same delivery) and composed into profiles. The type component owns the domain knowledge; Build owns the mechanism.
+Each type component produces build standards for its build domain, stated within the type's development standard. These follow the Standards methodology (same authoring rules, same delivery) and are composed into profiles. Build's profile mechanism determines how to compose them, whether embedded or — if conventions grow substantial — separated into standalone standards. The type component owns the domain knowledge; Build owns the mechanism.
 
 Build explicitly deferred the first build standard (D32) until conventions are stable enough to standardise. The capability development standards are a natural home for those first build standards — each type's build domain is a demonstrated consumer.
 
@@ -134,3 +134,5 @@ For Standards and Tools, the development standard supersedes the existing author
 ---
 
 Version note: v1-draft1 — initial design. Four-type taxonomy, five-phase lifecycle, relationships to Build and Infrastructure. 2026-09-23.
+
+Version note: v1 — cross-review remediation. F1: taxonomy corrected to three groups plus invocability test. F3: boundary ownership clarified. F6: build standards artifact model stated. 2026-09-23. Replaces v1-draft1.
