@@ -2,13 +2,13 @@
 
 # Tools — Development Standard
 
-How to design, author, build, and deploy an AIDE tool.
+How to design, author, review, build, and deploy an AIDE tool.
 
 ## What a tool is
 
 Information. A tool encapsulates a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. The AI performs the procedure the tool defines.
 
-Information. Capabilities are defined platform-neutral and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. A utility, by contrast, runs outside the session and acts on the corpus or infrastructure directly. The invocability test below draws the tool-versus-standard boundary; the execution-context property in the Capabilities Development Standard draws the in-session versus out-of-session boundary.
+Information. Capabilities are defined platform-neutral and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. Services and utilities, by contrast, run as separate processes outside the session. The invocability test below draws the tool-versus-standard boundary; the execution-context property in the Capabilities Development Standard draws the in-session versus out-of-session boundary.
 
 Information. A tool earns its context cost. Everything in it displaces something else the session could hold.
 
@@ -96,9 +96,13 @@ Information. Tool design follows the normal AIDE design approach, which is a fra
 
 **No prescribed template.** Information. A tool has no fixed structure. The author decides what it contains and how it is organised, provided the authoring concerns above are addressed and the capability-wide authoring rules are met.
 
+## Review
+
+A tool is reviewed before it is accepted, using the review defined in the Standards Development Standard: the acceptance test for a tool (above) and cross-review by a separate AI. Nothing about review is tool-specific beyond the form of the acceptance test.
+
 ## Build
 
-A tool is built by packaging it as a skill for plugin delivery, or as binder content for project-context delivery. The authored tool document is the build specification.
+A tool is built by packaging it as a skill for plugin delivery. The authored tool document is the build specification.
 
 ### Preconditions
 
@@ -129,10 +133,6 @@ A tool and a standard produced as sibling outputs from the same design are built
 
 Tools follow the same plugin placement as standards: `aide` for operational tools, `aide-dev` for development tools. The distinction is the same — does the tool apply during normal work, or during AIDE development?
 
-### Building binder content
-
-A tool may be delivered as binder content when it should be present in every session within a project context. This is uncommon — most tools are skills. The default is skill delivery.
-
 ## Deployment
 
 The deployment path is the same as for standards: PR to the deploy repo, merge, refresh marketplace clone, restart Desktop. Both web UI and desktop app registration paths are needed for full three-surface coverage. See the Standards Development Standard for the full deployment steps, or `Infrastructure_MCPDeliveryModel@v2` for the complete picture.
@@ -147,4 +147,4 @@ Information. A well-authored tool is self-evident to invoke: the trigger descrip
 
 ---
 
-Version note: v1 — supersedes Tools_Authoring_Standard@v8. All authoring content embedded unchanged. Build, deployment, and consumption sections added per the Capabilities Development Standard six-section model. Cross-references updated to Standards and Capabilities development standards. Sibling-outputs model extended to include services. 2026-09-23.
+Version note: v1 — supersedes Tools_Authoring_Standard@v8. All authoring content embedded unchanged. Review, build, deployment, and consumption sections added. Sibling-outputs model extended to include services. Produced from Tools_Design@v7 with its declared dependencies. 2026-09-23.

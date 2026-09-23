@@ -2,7 +2,7 @@
 
 # Standards — Development Standard
 
-How to design, author, build, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
+How to design, author, review, build, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
 
 ## What a standard is
 
@@ -94,9 +94,19 @@ Information. Reference documents are design-time knowledge. When reference knowl
 
 Information. Reference is a document type, not an output type. A reference informs the design process; a standard is the delivery mechanism. The distinction matters because it prevents reference from becoming a parallel output channel.
 
+## Review
+
+A standard is reviewed before it is accepted. Both checks are required.
+
+**Acceptance test.** Run the acceptance test in the authoring rules. A standard that fails it is not published.
+
+**Cross-review.** A separate AI reviews the standard with its design and decisions. Direct the reviewer to find defects — contradictions, gaps, overclaims, rules without consumers, content not traceable to the design — not to improve wording, and give the reviewer the design's definition of done to test against. Triage findings as defects, partly valid, or misreadings; remediate and record the outcome in the decisions. Run a further round when remediation introduces material the reviewer has not seen; corrections to reviewed material do not need one.
+
+Information. The cross-review process is a Working Practices convention. A separate AI is used for independence — the authoring session shares the author's assumptions.
+
 ## Build
 
-A standard is built by packaging it as a skill for plugin delivery, and by inclusion in the appropriate standards binder. The authored standard document is the build specification.
+A standard is built by packaging it as a skill for plugin delivery. The authored standard document is the build specification.
 
 ### Preconditions
 
@@ -132,7 +142,7 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 - **`aide`** — operational standards that apply during normal work (principles, working practices, assurance, consumption, docmeth, messaging, PD). These load when work is being done.
 - **`aide-dev`** — development standards that apply when building AIDE itself (standards development, tools development, services development, capabilities development, schema authoring). These load when AIDE capabilities are being designed, authored, or built.
 
-The skill directory name follows the pattern `<plugin>:<skill-name>` — the plugin prefix is implicit from where the skill lives. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
+The skill directory is named `<skill-name>` within the plugin's `skills/` folder. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
 ### Deployment target
 
@@ -182,4 +192,4 @@ Information. Governed by the split test: stays in the standard when small, remov
 
 ---
 
-Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Build section expanded with skill file format, plugin placement, binder content, and deployment path. Consumption references Standards Consumption Standard. 2026-09-23.
+Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Review section added (acceptance test and cross-review). Build section covers skill file format, plugin placement, and preconditions; deployment covers the marketplace path. Consumption references the Standards Consumption Standard. Produced from Standards_Design@v4. 2026-09-23.

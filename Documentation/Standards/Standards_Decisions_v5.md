@@ -156,7 +156,7 @@ The Tools Authoring Standard restatement was synced in the same change to avoid 
 
 ---
 
-Version note: v5 — adds D22 (curated standards binders as future consideration). Build domain decisions (deployment-target requirement, development standard model) recorded from the Capabilities development-standards work. 2026-09-23. Replaces v4.
+Version note: v5 — adds D22 (curated standards binders as future consideration), D23 (development standard supersedes authoring standard), D24 (the design must be able to produce the standard), D25 (definition of done covers the full cycle, including review). 2026-09-23. Replaces v4.
 
 ## D22 — Curated standards binders — future consideration
 
@@ -165,3 +165,11 @@ Two curated binders — a framework standards binder (all operational standards)
 ## D23 — Development standard supersedes authoring standard
 
 The Capabilities Development Standard (D5) established that each type's development standard supersedes the existing authoring standard with broader scope. For Standards, this means the Standards Development Standard replaces Standards_Authoring_Standard_v8. The authoring content is embedded unchanged; build, deployment, and consumption sections are added. The old authoring standard is removed from the repo (git history preserves it). The Standards Consumption Standard's `uses` is updated to reference the development standard.
+
+## D24 — The design must be able to produce the standard
+
+Everything in a standard must be present in its design; the design additionally holds the reasoning, alternatives, and explanation. The test is that the standard can be produced from the design alone, plus declared dependencies. A review found the design had fallen behind its standard — the acceptance test, ambient-context definition, applicability statement, schema definitions, and build detail existed only in the decisions or the standard. All were added to the design. The design is the source; the standard is its lean, deployable output.
+
+## D25 — Definition of done covers the full development cycle, including review
+
+The brief's definition of done states that a developer can design, author, review, build, and deploy a standard, and that sessions can operate under standards. Review was previously only a build precondition ("cross-review accepted") with no guidance on how to do it. A review section was added to the design and standard: the acceptance test, and cross-review by a separate AI directed to find defects, given the definition of done to test against, with findings triaged and recorded, and a further round only when remediation introduces unreviewed material. The cross-review process remains a Working Practices convention; the standard carries what a developer needs to perform it.

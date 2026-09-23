@@ -8,6 +8,16 @@
 
 **Target outcome.** Two deployed standards: the Standards Development Standard (how to design, author, build, and deploy a standard) and the Standards Consumption Standard (how to operate under applicable standards at runtime). The development standard supersedes the earlier authoring standard per the Capabilities Development Standard model.
 
+**Definition of done.**
+
+1. A developer can design a standard — the two classes, the two-model sequence, earn-your-place, and when a design is required.
+2. A developer can author a conforming standard — the authoring rules, strength vocabulary, trigger description and segmentation, applicability scope, and schema definitions, with each requirement, recommendation and piece of guidance clearly marked.
+3. A developer can review a standard — the acceptance test, the cross-review requirement, and what makes a standard acceptable.
+4. A developer can build a standard — the skill file format, plugin placement, and build preconditions.
+5. A developer can deploy a standard — the deployment path and the registration it needs.
+6. Sessions can operate under applicable standards — applicability evaluation, combining, conflict resolution, and human override.
+7. The development standard and the consumption standard can be produced entirely from this design.
+
 ## What a standard achieves
 
 A standard shapes decisions and behaviour at the moment of application. It reaches the AI platform as a capability — either as a skill loaded on trigger, or as binder content loaded into project context. In both cases, the standard is what the session consumes. Everything behind it — the design, the decisions, the reference knowledge — stays outside the session.
@@ -41,6 +51,8 @@ How to decide what goes into a standard, how to write it, and how lean is lean e
 **Strength assignment.** Every item carries one of the four strength levels. The default strength is Required. Items that depart from the default carry their own strength explicitly; nearest declaration wins. This means: tag only the exceptions. Most items in a well-designed standard are Required and carry no explicit tag. Over-use of Recommended or Optional weakens the standard; over-use of Information turns it into a reference document.
 
 **Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but it must not depend on it. The consumer has the standard; the design is available but not loaded.
+
+**Acceptance test.** Self-containment is verified by a concrete test before a standard is accepted: given only this standard, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations covered by the applicability statement? If it cannot, the standard fails the self-containment rule and must not be published. Ambient framework context means framework capabilities the architecture guarantees will be present without a `uses` declaration — universal standards and independently triggered skills. "Guaranteed" is the operative word: the criterion is architectural guarantee, not scope overlap.
 
 **Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Scope targets behaviour and relevance, not a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
 
@@ -107,6 +119,28 @@ When multiple standards apply to the same work, compatible standards stack — t
 ### Human override
 
 Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
+
+## Applicability of the development standard
+
+The Standards Development Standard applies when designing, authoring, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies — those projects may adopt it, but AIDE does not govern them.
+
+## Reviewing a standard
+
+A standard is reviewed before it is accepted. Two checks, both required:
+
+**Acceptance test.** The developer runs the acceptance test defined in the authoring methodology. A standard that fails it is not published — the fix is to the standard (or its declared dependencies), not to the test.
+
+**Cross-review.** A separate AI reviews the standard together with its design and decisions. The reviewer is directed to find defects — contradictions, gaps, overclaims, rules without consumers, content that cannot be traced to the design — not to improve wording. The reviewer is given the design's definition of done to test against. Findings are triaged as defects, partly valid, or misreadings; remediation is applied and recorded in the decisions. A further round is needed when remediation introduces material the reviewer has not seen; corrections to what was already reviewed do not need one.
+
+The reason for a separate AI is independence: the author's session shares the author's assumptions. The cross-review process itself is a Working Practices convention; this section records what a standards developer needs to perform it.
+
+## Schema definitions
+
+Standards owns two types. They stay in the development standard rather than a separate schema standard because there are only two definitions and they change at the same cadence as the authoring rules.
+
+**Standard (doctype).** Purpose: shape decisions and behaviour at the moment of application — lean, memory-resident, applied alongside many others. Included blocktypes: Clarification, Contents, Summary, Version note — all optional. Format constraint: markdown.
+
+**Clarification (blocktype).** Purpose: reasoning and justification supporting the standard's stated rules — the design-side "why" surfaced into the standard where it helps the consumer apply the rules. Recognition: by subheading `Clarification`. Governed by the split test: it stays in the standard when small and is removed when it would bloat the loaded standard, in which case the reasoning lives in the design.
 
 ## Building a standard
 
@@ -188,4 +222,4 @@ Standards does **not** own:
 
 ---
 
-Version note: v4 — brief updated (purpose, scope, target outcome) for development standard model. Build section expanded with full skill file format, plugin placement, deployment path, and preconditions — all detail needed to produce the standard. Stale reference to authoring standard updated. 2026-09-23. Replaces v3.
+Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. 2026-09-23. Replaces v3.

@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 138** (2026-09-23).
+> **Binder Version 139** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -102,14 +102,14 @@ individual files.
 - `Services/Services_Development_Standard_v1.md` - sha256 `35ef4111a46c`
 - `Standards/_index.md` - sha256 `09379ef5eb4d`
 - `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
-- `Standards/Standards_Decisions_v5.md` - sha256 `14ac0acaf7b5`
-- `Standards/Standards_Design_v4.md` - sha256 `211bcf923b5b`
-- `Standards/Standards_Development_Standard_v1.md` - sha256 `d9ccf56c0704`
+- `Standards/Standards_Decisions_v5.md` - sha256 `68051c7bb4e0`
+- `Standards/Standards_Design_v4.md` - sha256 `c3b26eb8e13d`
+- `Standards/Standards_Development_Standard_v1.md` - sha256 `fb221a00a231`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
 - `Tools/_index.md` - sha256 `90e0fa4aa6b7`
-- `Tools/Tools_Decisions_v8.md` - sha256 `fcedf2018de4`
-- `Tools/Tools_Design_v7.md` - sha256 `8c8495119561`
-- `Tools/Tools_Development_Standard_v1.md` - sha256 `f7237092236d`
+- `Tools/Tools_Decisions_v8.md` - sha256 `844a6dee8fdf`
+- `Tools/Tools_Design_v7.md` - sha256 `ae69c6a5fb3d`
+- `Tools/Tools_Development_Standard_v1.md` - sha256 `93eef2cb73e5`
 - `Utilities/_index.md` - sha256 `cf88a5022544`
 - `Utilities/Utilities_Brief_v1.md` - sha256 `e5eb37c9d2e8`
 - `Utilities/Utilities_Design_v1.md` - sha256 `ef836fc45f08`
@@ -16959,7 +16959,7 @@ The Tools Authoring Standard restatement was synced in the same change to avoid 
 
 ---
 
-Version note: v5 — adds D22 (curated standards binders as future consideration). Build domain decisions (deployment-target requirement, development standard model) recorded from the Capabilities development-standards work. 2026-09-23. Replaces v4.
+Version note: v5 — adds D22 (curated standards binders as future consideration), D23 (development standard supersedes authoring standard), D24 (the design must be able to produce the standard), D25 (definition of done covers the full cycle, including review). 2026-09-23. Replaces v4.
 
 ## D22 — Curated standards binders — future consideration
 
@@ -16968,6 +16968,14 @@ Two curated binders — a framework standards binder (all operational standards)
 ## D23 — Development standard supersedes authoring standard
 
 The Capabilities Development Standard (D5) established that each type's development standard supersedes the existing authoring standard with broader scope. For Standards, this means the Standards Development Standard replaces Standards_Authoring_Standard_v8. The authoring content is embedded unchanged; build, deployment, and consumption sections are added. The old authoring standard is removed from the repo (git history preserves it). The Standards Consumption Standard's `uses` is updated to reference the development standard.
+
+## D24 — The design must be able to produce the standard
+
+Everything in a standard must be present in its design; the design additionally holds the reasoning, alternatives, and explanation. The test is that the standard can be produced from the design alone, plus declared dependencies. A review found the design had fallen behind its standard — the acceptance test, ambient-context definition, applicability statement, schema definitions, and build detail existed only in the decisions or the standard. All were added to the design. The design is the source; the standard is its lean, deployable output.
+
+## D25 — Definition of done covers the full development cycle, including review
+
+The brief's definition of done states that a developer can design, author, review, build, and deploy a standard, and that sessions can operate under standards. Review was previously only a build precondition ("cross-review accepted") with no guidance on how to do it. A review section was added to the design and standard: the acceptance test, and cross-review by a separate AI directed to find defects, given the definition of done to test against, with findings triaged and recorded, and a further round only when remediation introduces unreviewed material. The cross-review process remains a Working Practices convention; the standard carries what a developer needs to perform it.
 <!-- END SOURCE: Standards/Standards_Decisions_v5.md -->
 
 ---
@@ -16982,6 +16990,16 @@ The Capabilities Development Standard (D5) established that each type's developm
 **Scope.** The authoring methodology, the strength model, the reference-to-standard pipeline, the relationship between a standard and its design, applicability scope, the build domain (skill packaging and deployment), and the runtime contract for operating under standards. Individual standards, document structure, and the cross-review process are out of scope.
 
 **Target outcome.** Two deployed standards: the Standards Development Standard (how to design, author, build, and deploy a standard) and the Standards Consumption Standard (how to operate under applicable standards at runtime). The development standard supersedes the earlier authoring standard per the Capabilities Development Standard model.
+
+**Definition of done.**
+
+1. A developer can design a standard — the two classes, the two-model sequence, earn-your-place, and when a design is required.
+2. A developer can author a conforming standard — the authoring rules, strength vocabulary, trigger description and segmentation, applicability scope, and schema definitions, with each requirement, recommendation and piece of guidance clearly marked.
+3. A developer can review a standard — the acceptance test, the cross-review requirement, and what makes a standard acceptable.
+4. A developer can build a standard — the skill file format, plugin placement, and build preconditions.
+5. A developer can deploy a standard — the deployment path and the registration it needs.
+6. Sessions can operate under applicable standards — applicability evaluation, combining, conflict resolution, and human override.
+7. The development standard and the consumption standard can be produced entirely from this design.
 
 ## What a standard achieves
 
@@ -17016,6 +17034,8 @@ How to decide what goes into a standard, how to write it, and how lean is lean e
 **Strength assignment.** Every item carries one of the four strength levels. The default strength is Required. Items that depart from the default carry their own strength explicitly; nearest declaration wins. This means: tag only the exceptions. Most items in a well-designed standard are Required and carry no explicit tag. Over-use of Recommended or Optional weakens the standard; over-use of Information turns it into a reference document.
 
 **Self-containment.** A standard must be understandable without its design document present in the session. It may reference the design for deeper reasoning, but it must not depend on it. The consumer has the standard; the design is available but not loaded.
+
+**Acceptance test.** Self-containment is verified by a concrete test before a standard is accepted: given only this standard, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations covered by the applicability statement? If it cannot, the standard fails the self-containment rule and must not be published. Ambient framework context means framework capabilities the architecture guarantees will be present without a `uses` declaration — universal standards and independently triggered skills. "Guaranteed" is the operative word: the criterion is architectural guarantee, not scope overlap.
 
 **Applicability scope.** Every standard declares the conditions under which it is applicable — what situation, activity, or context makes it relevant and of value. Scope is evaluated at application time, independent of how the standard was loaded. Scope targets behaviour and relevance, not a specific platform, package, or deployment target. A loaded standard whose scope does not match the current situation is not applied.
 
@@ -17082,6 +17102,28 @@ When multiple standards apply to the same work, compatible standards stack — t
 ### Human override
 
 Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
+
+## Applicability of the development standard
+
+The Standards Development Standard applies when designing, authoring, building, or deploying a standard within the AIDE framework. It does not apply to standards authored for other development projects or methodologies — those projects may adopt it, but AIDE does not govern them.
+
+## Reviewing a standard
+
+A standard is reviewed before it is accepted. Two checks, both required:
+
+**Acceptance test.** The developer runs the acceptance test defined in the authoring methodology. A standard that fails it is not published — the fix is to the standard (or its declared dependencies), not to the test.
+
+**Cross-review.** A separate AI reviews the standard together with its design and decisions. The reviewer is directed to find defects — contradictions, gaps, overclaims, rules without consumers, content that cannot be traced to the design — not to improve wording. The reviewer is given the design's definition of done to test against. Findings are triaged as defects, partly valid, or misreadings; remediation is applied and recorded in the decisions. A further round is needed when remediation introduces material the reviewer has not seen; corrections to what was already reviewed do not need one.
+
+The reason for a separate AI is independence: the author's session shares the author's assumptions. The cross-review process itself is a Working Practices convention; this section records what a standards developer needs to perform it.
+
+## Schema definitions
+
+Standards owns two types. They stay in the development standard rather than a separate schema standard because there are only two definitions and they change at the same cadence as the authoring rules.
+
+**Standard (doctype).** Purpose: shape decisions and behaviour at the moment of application — lean, memory-resident, applied alongside many others. Included blocktypes: Clarification, Contents, Summary, Version note — all optional. Format constraint: markdown.
+
+**Clarification (blocktype).** Purpose: reasoning and justification supporting the standard's stated rules — the design-side "why" surfaced into the standard where it helps the consumer apply the rules. Recognition: by subheading `Clarification`. Governed by the split test: it stays in the standard when small and is removed when it would bloat the loaded standard, in which case the reasoning lives in the design.
 
 ## Building a standard
 
@@ -17163,7 +17205,7 @@ Standards does **not** own:
 
 ---
 
-Version note: v4 — brief updated (purpose, scope, target outcome) for development standard model. Build section expanded with full skill file format, plugin placement, deployment path, and preconditions — all detail needed to produce the standard. Stale reference to authoring standard updated. 2026-09-23. Replaces v3.
+Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. 2026-09-23. Replaces v3.
 <!-- END SOURCE: Standards/Standards_Design_v4.md -->
 
 ---
@@ -17173,7 +17215,7 @@ Version note: v4 — brief updated (purpose, scope, target outcome) for developm
 
 # Standards — Development Standard
 
-How to design, author, build, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
+How to design, author, review, build, and deploy an AIDE standard — authoring rules, strength model, scope, trigger, and segmentation.
 
 ## What a standard is
 
@@ -17265,9 +17307,19 @@ Information. Reference documents are design-time knowledge. When reference knowl
 
 Information. Reference is a document type, not an output type. A reference informs the design process; a standard is the delivery mechanism. The distinction matters because it prevents reference from becoming a parallel output channel.
 
+## Review
+
+A standard is reviewed before it is accepted. Both checks are required.
+
+**Acceptance test.** Run the acceptance test in the authoring rules. A standard that fails it is not published.
+
+**Cross-review.** A separate AI reviews the standard with its design and decisions. Direct the reviewer to find defects — contradictions, gaps, overclaims, rules without consumers, content not traceable to the design — not to improve wording, and give the reviewer the design's definition of done to test against. Triage findings as defects, partly valid, or misreadings; remediate and record the outcome in the decisions. Run a further round when remediation introduces material the reviewer has not seen; corrections to reviewed material do not need one.
+
+Information. The cross-review process is a Working Practices convention. A separate AI is used for independence — the authoring session shares the author's assumptions.
+
 ## Build
 
-A standard is built by packaging it as a skill for plugin delivery, and by inclusion in the appropriate standards binder. The authored standard document is the build specification.
+A standard is built by packaging it as a skill for plugin delivery. The authored standard document is the build specification.
 
 ### Preconditions
 
@@ -17303,7 +17355,7 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 - **`aide`** — operational standards that apply during normal work (principles, working practices, assurance, consumption, docmeth, messaging, PD). These load when work is being done.
 - **`aide-dev`** — development standards that apply when building AIDE itself (standards development, tools development, services development, capabilities development, schema authoring). These load when AIDE capabilities are being designed, authored, or built.
 
-The skill directory name follows the pattern `<plugin>:<skill-name>` — the plugin prefix is implicit from where the skill lives. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
+The skill directory is named `<skill-name>` within the plugin's `skills/` folder. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
 ### Deployment target
 
@@ -17353,7 +17405,7 @@ Information. Governed by the split test: stays in the standard when small, remov
 
 ---
 
-Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Build section expanded with skill file format, plugin placement, binder content, and deployment path. Consumption references Standards Consumption Standard. 2026-09-23.
+Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Review section added (acceptance test and cross-review). Build section covers skill file format, plugin placement, and preconditions; deployment covers the marketplace path. Consumption references the Standards Consumption Standard. Produced from Standards_Design@v4. 2026-09-23.
 <!-- END SOURCE: Standards/Standards_Development_Standard_v1.md -->
 
 ---
@@ -17527,11 +17579,15 @@ Two findings from the v6 cross-review. Both accepted and remediated in v7/v6.
 
 ---
 
-Version note: v8 — D18 added (development standard supersedes authoring standard). Sibling outputs extended to services in design. Stale authoring-standard references updated. 2026-09-23. Replaces v7.
+Version note: v8 — D18 added (development standard supersedes authoring standard), D19 added (design must produce the standard; definition of done covers review). Sibling outputs extended to services in design. Stale authoring-standard references updated. 2026-09-23. Replaces v7.
 
 ## D18 — Development standard supersedes authoring standard
 
 The Capabilities Development Standard (D5) established that each type's development standard supersedes the existing authoring standard. For Tools, this means the Tools Development Standard replaces Tools_Authoring_Standard_v8. The authoring content is embedded unchanged; build, deployment, and consumption sections are added. The old authoring standard is removed from the repo (git history preserves it). The `uses` declaration points to the Capabilities Development Standard (shared base) and the Standards Development Standard (for the capability-wide authoring rules).
+
+## D19 — The design must be able to produce the standard; definition of done covers review
+
+Applies Standards D24 and D25 to Tools. A review found the Tools design lacked content its standard carried — the applicability statement, how the capability-wide rules apply (incorporation, noun substitution, the acceptance test for a tool), trigger and scope, document-default strength, the design-approach line, and consumption. All were added to the design so the standard can be produced from it with its declared dependencies. The brief gained a definition of done covering classification, design, authoring, review, build, deployment, and consumption. Review for tools uses the review defined in the Standards Development Standard; only the form of the acceptance test is tool-specific. The binder-content build option was removed from the standard to match the design, which builds tools as skills only.
 <!-- END SOURCE: Tools/Tools_Decisions_v8.md -->
 
 ---
@@ -17547,11 +17603,24 @@ The Capabilities Development Standard (D5) established that each type's developm
 
 **Target outcome.** A deployed Tools Development Standard that any component author uses when designing, authoring, building, and deploying a tool.
 
+**Definition of done.**
+
+1. A developer can tell whether something should be a tool — the invocability test, the staging clause, the sibling-outputs model, and the boundary with services and utilities.
+2. A developer can design a tool — when a design is required and how tool design relates to the normal AIDE design approach.
+3. A developer can author a conforming tool — the authoring concerns, the ask/infer/escalate discipline, declared idempotency, trigger and applicability scope, and how the capability-wide authoring rules apply, with each requirement, recommendation and piece of guidance clearly marked.
+4. A developer can review a tool — the acceptance test for a tool and the cross-review requirement.
+5. A developer can build a tool — the skill file, plugin placement, and build preconditions.
+6. A developer can deploy a tool — the deployment path.
+7. The consumer can invoke a deployed tool without separate consumption guidance.
+8. The Tools Development Standard can be produced entirely from this design, together with its declared dependencies.
+
 ## What a tool is and does
 
 A tool encapsulates a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content loaded into project context. In both cases, the tool is what the session consumes. The AI performs the procedure the tool defines.
 
-A tool is a capability. Capabilities are defined platform-neutral — the what — and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. This is what distinguishes a tool from a utility, which runs outside the session and acts on the corpus or infrastructure directly.
+A tool is a capability. Capabilities are defined platform-neutral — the what — and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. This is what distinguishes a tool from the out-of-session capability types — services and utilities — where a separate process does the work. The execution-context property in the Capabilities Development Standard draws that boundary; the invocability test below draws the tool-versus-standard boundary.
+
+A tool earns its context cost. Everything in it displaces something else the session could hold.
 
 ## The invocability test
 
@@ -17623,6 +17692,36 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 **No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the Standards Development Standard. These rules apply to any capability, not only to standards.
 
+## Applicability of the development standard
+
+The Tools Development Standard applies when designing, authoring, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
+
+## How the capability-wide rules apply to tools
+
+The authoring rules in the Standards Development Standard are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context; one that is not self-contained needs its design loaded alongside it; one with steps nobody performs is governance without effect. The rules apply to tools through the Tools Development Standard, which incorporates them explicitly rather than asserting that the Standards Development Standard's own applicability is wider than it declares.
+
+The rules and the acceptance test are incorporated by reference, not restated, and referenced generically rather than as a closed list — so additions to the rules reach tools without a Tools change. Where the rules use standard-specific nouns, the equivalent tool concept applies: a rule or item includes an operational step or obligation carried by the tool.
+
+**Acceptance test for a tool.** Given only the tool, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations the tool covers? If it cannot, the tool fails the self-containment rule and must not be published.
+
+**Trigger description.** Every tool carries a trigger description. The trigger-description and segmentation rules in the Standards Development Standard apply identically — the 130-character budget, front-loading of trigger words, and segmentation along dependency lines are platform constraints, not standard-specific ones. A tool deployed as a skill faces the same budget on the same platforms.
+
+**Applicability scope.** Every tool declares the conditions under which it applies, framed through behaviour and relevance rather than deployment target. Trigger and scope are distinct: the trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run — the same risk as for standards, of an available capability running when it should not.
+
+**Document-default strength.** A tool may declare a document-level default strength so the author marks only items that differ from it; nearest declaration wins. This reduces clutter in longer tools without changing the obligation that every item carries an effective strength.
+
+## The design approach for tools
+
+Tool design follows the normal AIDE design approach, a framework-level capability owned by Project Design and delivered as ambient session context through the design-check skill. It is not declared in `uses` because the reference delegates rather than pins — if PD's approach changes, "follows the normal design approach" remains correct. What Tools adds on top is the tool-specific overlay: the invocability test, the authoring concerns, and the build and deployment detail.
+
+## Reviewing a tool
+
+A tool is reviewed the same way as a standard, using the review defined in the Standards Development Standard: the acceptance test for a tool (above), and cross-review by a separate AI directed to find defects, with findings triaged, remediated, and recorded in the decisions. Nothing about review is tool-specific beyond the form of the acceptance test.
+
+## Consumption
+
+A well-authored tool is self-evident to invoke: the trigger description tells the consumer when to use it, the inputs tell them what to provide, and the procedure tells them what will happen. No separate consumption standard is needed for tools. The Standards Consumption Standard exists because standards stack silently and need conflict resolution and human override; tools are explicitly invoked, so those scenarios do not arise. If they do, a tools consumption standard earns its place on the same evidence basis.
+
 ## Building a tool
 
 Tools' build domain follows the same model as Standards — the accepted tool document is the build specification, and the build target is a skill file placed in the appropriate marketplace plugin. The skill file format, plugin placement, and deployment path are the same as for standards. A tool and a standard produced as sibling outputs from the same design are built as separate skills, each with its own trigger description.
@@ -17648,7 +17747,7 @@ Tools does **not** own:
 
 ---
 
-Version note: v7 — build section added (tools build domain, skill packaging, deployment-target requirement). Target outcome updated to development standard. Boundaries updated for build domain ownership and development standard references. 2026-09-23. Replaces v6.
+Version note: v7 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: applicability of the development standard, how the capability-wide rules apply to tools (incorporation, noun substitution, acceptance test, trigger, scope, document-default strength), the design approach for tools, reviewing a tool, consumption, and the build section. Sibling outputs extended to services; boundary with services and utilities stated. The development standard can now be produced from this design with its declared dependencies. 2026-09-23. Replaces v6.
 <!-- END SOURCE: Tools/Tools_Design_v7.md -->
 
 ---
@@ -17658,13 +17757,13 @@ Version note: v7 — build section added (tools build domain, skill packaging, d
 
 # Tools — Development Standard
 
-How to design, author, build, and deploy an AIDE tool.
+How to design, author, review, build, and deploy an AIDE tool.
 
 ## What a tool is
 
 Information. A tool encapsulates a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content in project context. The AI performs the procedure the tool defines.
 
-Information. Capabilities are defined platform-neutral and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. A utility, by contrast, runs outside the session and acts on the corpus or infrastructure directly. The invocability test below draws the tool-versus-standard boundary; the execution-context property in the Capabilities Development Standard draws the in-session versus out-of-session boundary.
+Information. Capabilities are defined platform-neutral and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. Services and utilities, by contrast, run as separate processes outside the session. The invocability test below draws the tool-versus-standard boundary; the execution-context property in the Capabilities Development Standard draws the in-session versus out-of-session boundary.
 
 Information. A tool earns its context cost. Everything in it displaces something else the session could hold.
 
@@ -17752,9 +17851,13 @@ Information. Tool design follows the normal AIDE design approach, which is a fra
 
 **No prescribed template.** Information. A tool has no fixed structure. The author decides what it contains and how it is organised, provided the authoring concerns above are addressed and the capability-wide authoring rules are met.
 
+## Review
+
+A tool is reviewed before it is accepted, using the review defined in the Standards Development Standard: the acceptance test for a tool (above) and cross-review by a separate AI. Nothing about review is tool-specific beyond the form of the acceptance test.
+
 ## Build
 
-A tool is built by packaging it as a skill for plugin delivery, or as binder content for project-context delivery. The authored tool document is the build specification.
+A tool is built by packaging it as a skill for plugin delivery. The authored tool document is the build specification.
 
 ### Preconditions
 
@@ -17785,10 +17888,6 @@ A tool and a standard produced as sibling outputs from the same design are built
 
 Tools follow the same plugin placement as standards: `aide` for operational tools, `aide-dev` for development tools. The distinction is the same — does the tool apply during normal work, or during AIDE development?
 
-### Building binder content
-
-A tool may be delivered as binder content when it should be present in every session within a project context. This is uncommon — most tools are skills. The default is skill delivery.
-
 ## Deployment
 
 The deployment path is the same as for standards: PR to the deploy repo, merge, refresh marketplace clone, restart Desktop. Both web UI and desktop app registration paths are needed for full three-surface coverage. See the Standards Development Standard for the full deployment steps, or `Infrastructure_MCPDeliveryModel@v2` for the complete picture.
@@ -17803,7 +17902,7 @@ Information. A well-authored tool is self-evident to invoke: the trigger descrip
 
 ---
 
-Version note: v1 — supersedes Tools_Authoring_Standard@v8. All authoring content embedded unchanged. Build, deployment, and consumption sections added per the Capabilities Development Standard six-section model. Cross-references updated to Standards and Capabilities development standards. Sibling-outputs model extended to include services. 2026-09-23.
+Version note: v1 — supersedes Tools_Authoring_Standard@v8. All authoring content embedded unchanged. Review, build, deployment, and consumption sections added. Sibling-outputs model extended to include services. Produced from Tools_Design@v7 with its declared dependencies. 2026-09-23.
 <!-- END SOURCE: Tools/Tools_Development_Standard_v1.md -->
 
 ---

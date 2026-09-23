@@ -8,11 +8,24 @@
 
 **Target outcome.** A deployed Tools Development Standard that any component author uses when designing, authoring, building, and deploying a tool.
 
+**Definition of done.**
+
+1. A developer can tell whether something should be a tool — the invocability test, the staging clause, the sibling-outputs model, and the boundary with services and utilities.
+2. A developer can design a tool — when a design is required and how tool design relates to the normal AIDE design approach.
+3. A developer can author a conforming tool — the authoring concerns, the ask/infer/escalate discipline, declared idempotency, trigger and applicability scope, and how the capability-wide authoring rules apply, with each requirement, recommendation and piece of guidance clearly marked.
+4. A developer can review a tool — the acceptance test for a tool and the cross-review requirement.
+5. A developer can build a tool — the skill file, plugin placement, and build preconditions.
+6. A developer can deploy a tool — the deployment path.
+7. The consumer can invoke a deployed tool without separate consumption guidance.
+8. The Tools Development Standard can be produced entirely from this design, together with its declared dependencies.
+
 ## What a tool is and does
 
 A tool encapsulates a repeatable, named, invokable action so its mechanism does not have to be re-derived each time. It reaches the AI platform as a capability — a skill loaded on trigger, or binder content loaded into project context. In both cases, the tool is what the session consumes. The AI performs the procedure the tool defines.
 
-A tool is a capability. Capabilities are defined platform-neutral — the what — and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. This is what distinguishes a tool from a utility, which runs outside the session and acts on the corpus or infrastructure directly.
+A tool is a capability. Capabilities are defined platform-neutral — the what — and transformed into platform-specific delivery. A tool loads into the AI session; the AI is the executor. This is what distinguishes a tool from the out-of-session capability types — services and utilities — where a separate process does the work. The execution-context property in the Capabilities Development Standard draws that boundary; the invocability test below draws the tool-versus-standard boundary.
+
+A tool earns its context cost. Everything in it displaces something else the session could hold.
 
 ## The invocability test
 
@@ -84,6 +97,36 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 **No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the Standards Development Standard. These rules apply to any capability, not only to standards.
 
+## Applicability of the development standard
+
+The Tools Development Standard applies when designing, authoring, building, or deploying an AIDE tool. It does not govern services, utilities, or the infrastructure mechanisms that package and deploy capabilities.
+
+## How the capability-wide rules apply to tools
+
+The authoring rules in the Standards Development Standard are not Standards-specific — they are properties of any capability that loads into a session and costs context space. A tool that fails the carry test wastes context; one that is not self-contained needs its design loaded alongside it; one with steps nobody performs is governance without effect. The rules apply to tools through the Tools Development Standard, which incorporates them explicitly rather than asserting that the Standards Development Standard's own applicability is wider than it declares.
+
+The rules and the acceptance test are incorporated by reference, not restated, and referenced generically rather than as a closed list — so additions to the rules reach tools without a Tools change. Where the rules use standard-specific nouns, the equivalent tool concept applies: a rule or item includes an operational step or obligation carried by the tool.
+
+**Acceptance test for a tool.** Given only the tool, its declared dependencies, and the ambient framework context guaranteed to be present for the representative operation, can a fresh AI perform the representative operations the tool covers? If it cannot, the tool fails the self-containment rule and must not be published.
+
+**Trigger description.** Every tool carries a trigger description. The trigger-description and segmentation rules in the Standards Development Standard apply identically — the 130-character budget, front-loading of trigger words, and segmentation along dependency lines are platform constraints, not standard-specific ones. A tool deployed as a skill faces the same budget on the same platforms.
+
+**Applicability scope.** Every tool declares the conditions under which it applies, framed through behaviour and relevance rather than deployment target. Trigger and scope are distinct: the trigger description declares when the tool is relevant and is used by whatever mechanism selects it — the platform for a skill, binder configuration for binder content. Scope determines whether the tool applies to the work at hand, evaluated once the tool is available in the session regardless of how it arrived. A tool whose scope does not match is not run — the same risk as for standards, of an available capability running when it should not.
+
+**Document-default strength.** A tool may declare a document-level default strength so the author marks only items that differ from it; nearest declaration wins. This reduces clutter in longer tools without changing the obligation that every item carries an effective strength.
+
+## The design approach for tools
+
+Tool design follows the normal AIDE design approach, a framework-level capability owned by Project Design and delivered as ambient session context through the design-check skill. It is not declared in `uses` because the reference delegates rather than pins — if PD's approach changes, "follows the normal design approach" remains correct. What Tools adds on top is the tool-specific overlay: the invocability test, the authoring concerns, and the build and deployment detail.
+
+## Reviewing a tool
+
+A tool is reviewed the same way as a standard, using the review defined in the Standards Development Standard: the acceptance test for a tool (above), and cross-review by a separate AI directed to find defects, with findings triaged, remediated, and recorded in the decisions. Nothing about review is tool-specific beyond the form of the acceptance test.
+
+## Consumption
+
+A well-authored tool is self-evident to invoke: the trigger description tells the consumer when to use it, the inputs tell them what to provide, and the procedure tells them what will happen. No separate consumption standard is needed for tools. The Standards Consumption Standard exists because standards stack silently and need conflict resolution and human override; tools are explicitly invoked, so those scenarios do not arise. If they do, a tools consumption standard earns its place on the same evidence basis.
+
 ## Building a tool
 
 Tools' build domain follows the same model as Standards — the accepted tool document is the build specification, and the build target is a skill file placed in the appropriate marketplace plugin. The skill file format, plugin placement, and deployment path are the same as for standards. A tool and a standard produced as sibling outputs from the same design are built as separate skills, each with its own trigger description.
@@ -109,4 +152,4 @@ Tools does **not** own:
 
 ---
 
-Version note: v7 — build section added (tools build domain, skill packaging, deployment-target requirement). Target outcome updated to development standard. Boundaries updated for build domain ownership and development standard references. 2026-09-23. Replaces v6.
+Version note: v7 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: applicability of the development standard, how the capability-wide rules apply to tools (incorporation, noun substitution, acceptance test, trigger, scope, document-default strength), the design approach for tools, reviewing a tool, consumption, and the build section. Sibling outputs extended to services; boundary with services and utilities stated. The development standard can now be produced from this design with its declared dependencies. 2026-09-23. Replaces v6.

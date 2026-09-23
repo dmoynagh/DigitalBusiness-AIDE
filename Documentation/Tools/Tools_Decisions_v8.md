@@ -127,8 +127,12 @@ Two findings from the v6 cross-review. Both accepted and remediated in v7/v6.
 
 ---
 
-Version note: v8 — D18 added (development standard supersedes authoring standard). Sibling outputs extended to services in design. Stale authoring-standard references updated. 2026-09-23. Replaces v7.
+Version note: v8 — D18 added (development standard supersedes authoring standard), D19 added (design must produce the standard; definition of done covers review). Sibling outputs extended to services in design. Stale authoring-standard references updated. 2026-09-23. Replaces v7.
 
 ## D18 — Development standard supersedes authoring standard
 
 The Capabilities Development Standard (D5) established that each type's development standard supersedes the existing authoring standard. For Tools, this means the Tools Development Standard replaces Tools_Authoring_Standard_v8. The authoring content is embedded unchanged; build, deployment, and consumption sections are added. The old authoring standard is removed from the repo (git history preserves it). The `uses` declaration points to the Capabilities Development Standard (shared base) and the Standards Development Standard (for the capability-wide authoring rules).
+
+## D19 — The design must be able to produce the standard; definition of done covers review
+
+Applies Standards D24 and D25 to Tools. A review found the Tools design lacked content its standard carried — the applicability statement, how the capability-wide rules apply (incorporation, noun substitution, the acceptance test for a tool), trigger and scope, document-default strength, the design-approach line, and consumption. All were added to the design so the standard can be produced from it with its declared dependencies. The brief gained a definition of done covering classification, design, authoring, review, build, deployment, and consumption. Review for tools uses the review defined in the Standards Development Standard; only the form of the acceptance test is tool-specific. The binder-content build option was removed from the standard to match the design, which builds tools as skills only.
