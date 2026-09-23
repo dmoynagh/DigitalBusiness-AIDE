@@ -2,11 +2,11 @@
 
 ## Brief
 
-**Purpose.** Define what a service is and how one is designed and authored within AIDE, including the boundary tests that distinguish a service from a tool and from a utility. Services is a methodological component — it owns the methodology for building services, not the services themselves. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Purpose.** Define what a service is and how one is developed within AIDE, including the boundary tests that distinguish a service from a tool and from a utility. Services is a methodological component — it owns the methodology for building services, not the services themselves. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The service definition and the boundaries that distinguish a service from a tool and a utility; the authoring concerns specific to services; the relationship between a service and its delivery as an MCP server; and the designing and authoring rules. Individual services, the MCP delivery model, packaging, the cross-review process, and document structure are out of scope.
+**Scope.** The service definition and the boundaries that distinguish a service from a tool and a utility; the authoring concerns specific to services; the relationship between a service and its delivery as an MCP server; and the development rules. Individual services, the MCP delivery model, packaging, the cross-review process, and document structure are out of scope.
 
-**Target outcome.** A deployed service authoring standard that any component author uses when designing and authoring a service, and hands off for deployment.
+**Target outcome.** A deployed Services Development Standard that any component author uses when developing a service, and hands off for deployment.
 
 **Definition of done.**
 
@@ -78,7 +78,7 @@ A single design can produce standards, tools, and services as sibling outputs. T
 
 This is already happening. The document management design produces a service (the MCP server) and will produce a governing skill (a tool, not yet built). Both derive from the same design. The service provides the primitives; the tool orchestrates them with document intelligence.
 
-## Designing and authoring a service
+## Developing a service
 
 **Design is the default.** A service always has a design. There is no equivalent of the tool exception ("simple enough that a design would restate rather than elaborate") because a service is a deployed process with configuration, lifecycle, and safety obligations — these demand the design layer.
 
@@ -93,7 +93,7 @@ This is already happening. The document management design produces a service (th
 Services does **not** own:
 
 - **The MCP delivery model** — how a service becomes an MCP server, how it is packaged as a marketplace plugin, how it reaches each surface. Infrastructure owns delivery.
-- **The authoring rules** — the capability-wide authoring rules in the standards authoring standard apply to services the same way they apply to tools. Services consumes them.
+- **The development rules** — the capability-wide development rules in the Capabilities Development Standard apply to services the same way they apply to tools. Services consumes them.
 - **The cross-review process** — a Working Practices convention consumed by all components.
 - **Document structure** — Documentation Methodology.
 - **Any individual service** — each lives with its owning component.
