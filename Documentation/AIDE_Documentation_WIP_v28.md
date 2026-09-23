@@ -36,6 +36,11 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - **OI-WP-2:** binder notification convention — after doc changes via document manager, notify user binder needs updating in context. WP or Infrastructure, assess placement
 - **OI-WP-3:** persistence summary convention — after writing to docs, provide a brief routing summary (x written to Core_Design, y to WIP) so user can check destinations. WP, assess placement
 - **OI-WP-4:** open-item timing heuristic — WIP storage, board for 1-3 day items. WP design refinement of the open-item model
+- **OI-WP-5:** doc-manager edit discipline — document manager makes master edits frictionless, risk of constant churn replacing the batch workflow. WIP is the frequent-update layer; masters update when work is done. Needs WP guidance on when to use doc manager for master edits vs accumulate in WIP. Discuss soon
+- **OI-PD-1:** inbox as a scoped artifact — uncommitted, pre-triage capture stage upstream of the board. Append-cheap, unordered, low-ceremony. Declared per scope in the index file at whatever tier fits (solution or project). Triage is periodic with outcomes: promote to board, park, bin, or reroute to another scope's inbox. The remote intake path (MCP submission queue) is the inbox's write API, resolving scope through the index. Not a duplication of the board — the board is committed current work, the inbox is "don't lose this." Ownership: PD
+- **OI-PD-2:** WIP scoping — same scoping logic as inbox. WIP lives at whatever tier it naturally belongs to, declared in the index. Primary WIP at top, delegated WIPs inside projects when a chunk of work earns its own. Tree-crawlable to find the appropriate WIP. Inbox and WIP are both scoped artifacts declared in the index — one idea covering both. Ownership: PD
+- **OI-PD-3:** overview doctype already defined in PD Schema Standard v1 — project-scale snapshot, concise context, deviation detector. Compiled for human consumption, not a WIP or parking place for in-flight work. No new definition needed; confirmed during voice session
+- **OI-DEP-1:** deploy component schema standards as skills — PD Schema Standard v1 is authored but not deployed as a skill. Check Core Schema Standard v2 and any others in the same state. Evaluate pickup only after deployment
 
 ### DocMeth — schema review across components
 
