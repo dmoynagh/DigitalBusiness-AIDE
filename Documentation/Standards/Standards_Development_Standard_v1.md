@@ -96,15 +96,64 @@ Information. Reference is a document type, not an output type. A reference infor
 
 ## Build
 
-The specification entering build is the authored standard document. Build packages it as a skill or binder entry. The author's responsibility at build handoff is a complete, accepted standard with a trigger description that fits the 130-character budget.
+A standard is built by packaging it as a skill for plugin delivery, or as binder content for project-context delivery. The authored standard document is the build specification.
 
-Cross-review must be accepted before build. The acceptance test must pass. These are preconditions for build, not build steps — they are completed during the authoring phase.
+### Preconditions
+
+Cross-review accepted and acceptance test passed before build starts. These are authoring-phase completions, not build steps.
+
+### Building a skill
+
+The skill file is a markdown file with YAML frontmatter containing the standard's content. Format:
+
+```
+---
+name: <skill-name>
+description: "<trigger description>"
+---
+
+<!-- provenance: <source_standard_identity> | redistributed: <plugin> (<marketplace>), <date> -->
+
+<standard content>
+```
+
+The `description` field IS the trigger description — the 130-character text that determines when the platform loads the skill. The `name` field is the skill's identifier within the plugin, matching the skill directory name.
+
+The provenance comment records which standard document the skill was built from and when. This is a build record, not a `uses` declaration.
+
+The standard content is copied from the accepted standard document. The document header (identity line, `uses` declarations) is omitted — those are document metadata, not session content. The version note is omitted — the provenance comment serves the same purpose for a built skill.
+
+### Plugin placement
+
+Standards are deployed in one of two plugins in the `digitalbusiness-aide` marketplace:
+
+- **`aide`** — operational standards that apply during normal work (principles, working practices, assurance, consumption, docmeth, messaging, PD). These load when work is being done.
+- **`aide-dev`** — development standards that apply when building AIDE itself (standards development, tools development, services development, capabilities development, schema authoring). These load when AIDE capabilities are being designed, authored, or built.
+
+The skill directory name follows the pattern `<plugin>:<skill-name>` — the plugin prefix is implicit from where the skill lives. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
+
+### Building binder content
+
+A standard may also be delivered as binder content — included in the project's documentation binder via the binder builder. This is the delivery form for standards that should be present in every session within a project context, without trigger-based loading.
+
+Binder content has no skill file or trigger description. The standard is included by the binder builder's folder scanning and is present whenever the binder is loaded as project knowledge.
+
+### Which delivery form
+
+Most standards are skills — they load on trigger when relevant and are absent otherwise. Binder content is for standards that must be present in every session within their project. The default is skill delivery.
 
 ## Deployment
 
-Once built, the standard is deployed through Infrastructure's delivery pipeline — packaged into a plugin, delivered via the marketplace, or included as binder content. The author does not own deployment mechanics. Packaging into a skill or plugin, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
+The built skill is deployed through the marketplace plugin pipeline:
 
-Information. Triggering — how a standard gets loaded where it might be needed — is a delivery concern owned by Infrastructure, distinct from applicability scope which is owned by the standard itself.
+1. Place the skill file at `<plugin>/skills/<skill-name>/SKILL.md` in the deploy repo (`DigitalBusiness-AIDE-Deploy`).
+2. Merge via PR — direct commits to `main` do not trigger plugin updates.
+3. Refresh the marketplace clone: `claude plugin marketplace update <n>`.
+4. Restart Claude Desktop.
+
+Skills reach Chat via web UI account-level plugin registration (Settings → Plugins) and Code/Cowork via desktop app plugin registration (Settings → Plugins → Discover). Both registration paths are needed for full three-surface coverage.
+
+Information. The full deployment methodology, known platform issues, and workarounds are documented in `Infrastructure_MCPDeliveryModel@v2`. The deployment steps above are the minimum a builder needs; the delivery model document has the complete picture.
 
 ## Consumption
 
@@ -137,4 +186,4 @@ Information. Governed by the split test: stays in the standard when small, remov
 
 ---
 
-Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Build, deployment, and consumption sections added per the Capabilities Development Standard six-section model. Cross-references updated to Tools Development Standard. 2026-09-23.
+Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Build section expanded with skill file format, plugin placement, binder content, and deployment path. Consumption references Standards Consumption Standard. 2026-09-23.
