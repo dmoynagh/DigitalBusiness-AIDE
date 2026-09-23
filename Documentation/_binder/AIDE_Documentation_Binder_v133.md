@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 132** (2026-09-23).
+> **Binder Version 133** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -98,8 +98,8 @@ individual files.
 - `Project Design/ProjectDesign_Standard_v5.md` - sha256 `c035df4e8b17`
 - `Services/_index.md` - sha256 `25403038fb3d`
 - `Services/Services_Decisions_v1.md` - sha256 `4add787c397b`
-- `Services/Services_Design_v1.md` - sha256 `62669864591e`
-- `Services/Services_Development_Standard_v1.md` - sha256 `bc91c1fa321e`
+- `Services/Services_Design_v1.md` - sha256 `099f9169e7e5`
+- `Services/Services_Development_Standard_v1.md` - sha256 `35ef4111a46c`
 - `Standards/_index.md` - sha256 `09379ef5eb4d`
 - `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
 - `Standards/Standards_Decisions_v4.md` - sha256 `38207b4e2082`
@@ -16521,7 +16521,7 @@ Version note: v1 — cross-review remediation. F3: D2 boundary ownership correct
 
 **Purpose.** Define what a service is and how one is developed within AIDE, including the boundary tests that distinguish a service from a tool and from a utility. Services is a methodological component — it owns the methodology for building services, not the services themselves. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The service definition and the boundaries that distinguish a service from a tool and a utility; the design concerns specific to services; the relationship between a service and its delivery as an MCP server; and the development rules. Individual services, the MCP delivery model, packaging, the cross-review process, and document structure are out of scope.
+**Scope.** The service definition, boundary tests, design guidance, building and deploying services, and ownership. Broad scope, few constraints — the methodology should guide service creation and record what we've learned, not prescribe structure for every possible service.
 
 **Target outcome.** A deployed Services Development Standard that any component author uses when developing a service, and hands off for deployment.
 
@@ -16563,31 +16563,23 @@ A thing may start as a utility and become a service when sessions need to call i
 
 What a service is, what it does, and what distinguishes it from a tool and a utility. The definitions are stated above. Services owns the service definition and the service-vs-utility boundary test. The execution-context property (in-session vs out-of-session) is a Capabilities taxonomy property; the invocability test that separates Standards from Tools is owned by Tools. Services references both when classifying.
 
-### The design concerns
+### Design guidance
 
-Seven concerns a service developer must address. These are not a template — the developer decides how to meet them, in whatever structure the service demands. They describe what a complete service design covers, so a developer knows what to think about.
+The design should address whatever the service needs to be built correctly. For most services, that means:
 
-**Interface.** What operations the service exposes to callers. Each operation has a name, inputs, outputs, and failure modes. The interface is the contract — what callers can rely on and what the service promises. A service that exposes operations not described in its interface, or whose operations behave differently from their description, is defective.
+- What operations it exposes and what callers can rely on.
+- How it is configured — settings, defaults, what happens when configuration is missing.
+- What it prevents and enforces — safety is enforced by the process, not advisory, because the AI is a caller with no direct control over what the service does.
+- How it reports problems — enough information for the caller to decide what to do.
+- How it starts, shuts down, and behaves on restart.
 
-**Configuration.** What the service needs to know about its environment before it can operate — where to find the things it works with, which are writable, any machine-level settings. The developer declares the configuration lifecycle: when configuration is loaded, when changes take effect, and what a change requires (restart, reload, or immediate effect). A service with no configuration is legitimate (the dispatch server has none). A service that requires configuration should report clearly when configuration is missing or invalid, and should operate correctly with default or empty configuration rather than failing silently.
-
-**Discovery.** How the service finds and registers the things it operates on. Not every service discovers — dispatch takes its targets as call-time arguments. But a service that manages a set of resources (document sources, connection targets, queues) needs a defined discovery mechanism: what it scans, what qualifies, how naming collisions are handled, and what happens when discovery finds nothing.
-
-**Safety model.** What the service prevents and enforces. Path containment, readonly enforcement, clean-state preconditions, input validation. The service enforces its own safety because the AI cannot — the AI is a caller, not the executor, and has no direct control over what the service does with a request. Safety in a service is not advisory; it is enforced by the process. Where the service delegates work downstream, the developer declares what the service validates before delegation and what enforcement the downstream target is trusted to provide.
-
-**State management.** What state the service holds, how long it persists, and what resets it. Session-scoped state (tracked changes awaiting commit) is different from persistent state (configuration, discovery results held in memory). A service that holds session-scoped state must be clear about what a restart loses and what survives. If the service holds caller-specific state, the developer must declare how that state is partitioned across concurrent callers.
-
-**Error model.** How the service reports problems to callers. Errors carry enough information for the caller to decide what to do — retry, change the request, escalate. Error types are named and consistent across operations so callers can handle them programmatically. A service that returns generic errors or swallows detail forces the caller to guess.
-
-**Lifecycle.** How the service starts, shuts down, and behaves on restart. What it loads at startup, what it discards on shutdown, what requires a restart to take effect. A service author declares the lifecycle so consumers know what to expect — a restart after configuration change is a design choice, not a surprise.
+Not every service will need all of these. A stateless dispatch service has no configuration and trivial lifecycle. A document management service needs all of them and more. The list is what a designer naturally thinks about when specifying an out-of-session process that sessions will call — not a compliance checklist.
 
 ### The relationship to delivery
 
-A service is designed independently of its delivery mechanism. The MCP server — the process, the transport protocol, the marketplace plugin packaging — is Infrastructure's concern. The service author designs the service; Infrastructure delivers it.
+A service is designed independently of its delivery mechanism. Currently services are delivered as local MCP servers via marketplace plugins, reaching Code and Cowork directly and Chat via a config-entry workaround. Future services may be remote — cloud-hosted endpoints reachable from any surface. The delivery mechanism is Infrastructure's concern; Services owns the methodology for designing and building services regardless of how they are delivered.
 
-This separation means the same service design could be delivered as a local MCP server today and as a hosted service tomorrow without the service design changing. The interface, configuration, discovery, safety, state, errors, and lifecycle are properties of the service, not of the process that hosts it.
-
-In practice, the service author must know enough about the delivery model to make sound design choices — a service that requires persistent state across Desktop restarts is making a claim the local delivery model doesn't support. But the author designs the service's behaviour, not the server's plumbing.
+In practice, the service developer must know enough about the delivery model to make sound design choices — a service that requires persistent state across Desktop restarts is making a claim the local delivery model doesn't support. But the developer designs the service's behaviour, not the server's plumbing. The Services Development Standard records the practical knowledge needed to build against the current delivery model.
 
 ### The relationship to Build
 
@@ -16632,7 +16624,7 @@ Services does **not** own:
 
 Version note: v1-draft1 — initial design. Two boundary tests, seven authoring concerns, delivery separation, sibling-outputs extension. Derived from the two working examples (dispatch server, document management server). 2026-09-23.
 
-Version note: v1 — cross-review remediation. F2: definition changed from "cannot do" to delegation. F3: boundary ownership corrected. F4: authoring concerns → design concerns, Author fresh → Design fresh. F5: Build relationship added. F8: delivery made platform-neutral. F9: "and exits" removed from utility boundary. F10: configuration lifecycle declared not mandated. F11: user documentation added as deliverable. F12: caller isolation added to state management. F13: safety delegation model added. 2026-09-23. Replaces v1-draft1.
+Version note: v2 — design concerns softened from seven formal obligations to informal guidance. Scope broadened. Delivery section updated to cover local and future remote. Practical building knowledge delegated to the development standard. 2026-09-23. Replaces v1.
 <!-- END SOURCE: Services/Services_Design_v1.md -->
 
 ---
@@ -16642,91 +16634,103 @@ Version note: v1 — cross-review remediation. F2: definition changed from "cann
 
 # Services — Development Standard
 
-How to design, build, and deploy an AIDE service.
+How to design, build, and deploy an AIDE service — the practical guide to creating services that run outside AI sessions.
 
 ## What a service is
 
-Information. A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it. The AI is a caller, not the executor.
+Information. A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it. The AI is a caller, not the executor. The service has its own lifecycle, its own configuration, and its own safety enforcement — none of which depend on the session that calls it.
 
-Information. A service reaches the AI platform as a server — a process the platform connects to and routes calls through. The service is what is designed; the server is how it is delivered. The delivery mechanism is Infrastructure's concern, not a property of the service type.
-
-Information. A service earns its operational cost. The design must justify the out-of-session process — if the AI could perform the work in-session with equivalent safety and consistency, it should be a tool.
+Information. A service reaches the AI platform as a server. Currently this means a local MCP server; in future it may mean a remote endpoint. The service is what is designed; the server is how it is delivered.
 
 ## Applicability
 
-Information. This standard applies when designing, building, or deploying an AIDE service. It does not govern tools, utilities, or the infrastructure mechanisms that deliver services as servers.
+Information. This standard applies when designing, building, or deploying an AIDE service. It does not govern tools, utilities, or Infrastructure's delivery mechanisms — but it records the practical knowledge of building against those mechanisms.
 
-## Boundary tests
+## Boundary
 
 ### Service vs tool
 
-If the AI performs the work in-session, it is a tool. If a separate process performs the work and the AI is a caller, it is a service. The test is about who executes, not about what is executed — the same operation could be a tool or a service depending on whether the AI or a separate process performs it.
-
-Information. The execution-context property (in-session vs out-of-session) is a Capabilities taxonomy property. The invocability test that separates standards from tools is owned by Tools. Services references both when classifying.
+If the AI performs the work in-session, it is a tool. If a separate process performs the work and the AI calls it, it is a service. The test is about who executes, not about what is executed.
 
 ### Service vs utility
 
-If sessions connect to it for capabilities, it is a service. If it acts on the corpus rather than serving sessions, it is a utility. Both run outside the session; the direction of service distinguishes them. Services owns this test.
+If sessions connect to it for capabilities, it is a service. If it acts on the corpus rather than serving sessions, it is a utility. Services owns this test.
 
-## Design concerns
-
-Seven concerns a service developer must address. These are not a template — the developer decides how to meet them, in whatever structure the service demands. They describe what a complete service design covers, so a developer knows what to think about.
-
-**Interface.** What operations the service exposes to callers. Each operation has a name, inputs, outputs, and failure modes. The interface is the contract — what callers can rely on and what the service promises. A service that exposes operations not described in its interface, or whose operations behave differently from their description, is defective.
-
-**Configuration.** What the service needs to know about its environment before it can operate — where to find the things it works with, which are writable, any machine-level settings. The developer declares the configuration lifecycle: when configuration is loaded, when changes take effect, and what a change requires (restart, reload, or immediate effect). A service with no configuration is legitimate. A service that requires configuration should report clearly when configuration is missing or invalid, and should operate correctly with default or empty configuration rather than failing silently.
-
-**Discovery.** How the service finds and registers the things it operates on. Not every service discovers — some take their targets as call-time arguments. But a service that manages a set of resources needs a defined discovery mechanism: what it scans, what qualifies, how naming collisions are handled, and what happens when discovery finds nothing.
-
-**Safety model.** What the service prevents and enforces. Path containment, readonly enforcement, clean-state preconditions, input validation. The service enforces its own safety because the AI cannot — the AI is a caller, not the executor, and has no direct control over what the service does with a request. Safety in a service is not advisory; it is enforced by the process. Where the service delegates work downstream, the developer declares what the service validates before delegation and what enforcement the downstream target is trusted to provide.
-
-**State management.** What state the service holds, how long it persists, and what resets it. Session-scoped state (tracked changes awaiting commit) is different from persistent state (configuration, discovery results held in memory). A service that holds session-scoped state must be clear about what a restart loses and what survives. If the service holds caller-specific state, the developer must declare how that state is partitioned across concurrent callers.
-
-**Error model.** How the service reports problems to callers. Errors carry enough information for the caller to decide what to do — retry, change the request, escalate. Error types are named and consistent across operations so callers can handle them programmatically. A service that returns generic errors or swallows detail forces the caller to guess.
-
-**Lifecycle.** How the service starts, shuts down, and behaves on restart. What it loads at startup, what it discards on shutdown, what requires a restart to take effect. A service developer declares the lifecycle so consumers know what to expect.
-
-Recommended. Not every concern will be substantial for every service. A simple service might have no discovery and no configuration; a complex one might need something this list does not name. The concerns are what to think about, not what to fill in.
+A service and a utility can coexist from the same implementation. Classification follows the exposed entry point.
 
 ## Designing a service
 
-**Design is always required.** A service always has a design. There is no exception for simple services — a service is a deployed process with configuration, lifecycle, and safety obligations that demand the design layer.
+A service always has a design — there is no exception for simple services. A service is a deployed process, and even a simple one resolves questions that need working through before build.
 
-**Design fresh.** A service design is produced fresh, not by modifying a previous version. Same principle as tools and standards.
+The design should address whatever the service needs to be built correctly. For most services, that means:
 
-**No prescribed template.** Information. A service design has no fixed structure. The developer decides how to organise it, provided the design concerns are addressed.
+- What operations it exposes and what callers can rely on.
+- How it is configured — settings, defaults, what happens when configuration is missing.
+- What it prevents and enforces — safety is the service's responsibility because the AI has no direct control.
+- How it reports problems — enough detail for the caller to act.
+- How it starts, shuts down, and behaves on restart.
 
-**Delivery independence.** A service is designed independently of its delivery mechanism. The interface, configuration, discovery, safety, state, errors, and lifecycle are properties of the service, not of the process that hosts it. In practice, the developer must know enough about the delivery model to avoid designing something the delivery model cannot support — but the developer designs the service's behaviour, not the server's plumbing.
+Recommended. Not every service will need all of these. A stateless dispatch service has no configuration and trivial lifecycle. A complex service may need more than this list names. These are what a designer naturally addresses — not a compliance checklist. Where something doesn't apply, the design says so, so the builder can distinguish intentional omission from oversight.
 
-## The sibling-outputs model
+**Design fresh.** A service design is produced fresh, not by modifying a previous version.
 
-Information. A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type. All derive from the design, not from each other, and must not disagree.
+**Delivery independence.** Design the service's behaviour, not the server's plumbing. The same design should work under a different delivery model without changing.
 
-## Build
+## Building a service
 
-The specification entering build is the design document — there is no intermediate authored document. Build creates the server from the design. The developer's responsibility at build handoff is a complete, accepted design that addresses the seven design concerns and points the builder at Infrastructure's delivery model and an existing service as a working example.
+The design document is the build specification — there is no intermediate authored document. Build creates the server from the design.
 
-Cross-review of the design must be accepted before build.
+### Current approach — local MCP servers
+
+Services are currently built as local MCP servers using raw JSON-RPC over stdio, with no MCP SDK dependency. Two patterns are proven:
+
+- **Node.js** — CommonJS, newline-delimited JSON over stdio. Used by the dispatch server.
+- **Python** — raw JSON-RPC, stdlib only. Used by the document management server.
+
+Key things learned from building the first two services:
+
+- **Newline-delimited JSON framing is required.** Claude Desktop's stdio transport expects `\n`-delimited JSON. Using Content-Length headers causes a silent 120-second timeout on every connection attempt.
+- **Windows encoding.** Python servers must set `sys.stdin.reconfigure(encoding="utf-8")` at startup. Without it, stdin defaults to the Windows system codepage, which corrupts non-ASCII content in requests.
+- **Configuration reporting.** A service reports operational status to callers (what it can do, how many resources it found) — not filesystem paths or config file locations. The human sees setup detail in the user guide; the AI sees operational status.
+- **Safety is enforced, not advisory.** The AI cannot verify what the service does with a request. Path containment, readonly enforcement, input validation — these are the service's responsibility, enforced in its process.
+
+### Future approach — remote services
+
+Cloud-hosted, always-on services (the framework inbox, assurance data logger) follow the same design methodology but have a different delivery model. The design guidance above applies regardless of where the service runs. What changes is Infrastructure's delivery concern — local process vs hosted endpoint, with the authentication and networking that implies.
 
 ## Deployment
 
-Once built, the server is deployed through Infrastructure's delivery model. Currently this means a local MCP server delivered via a marketplace plugin. The developer does not own deployment mechanics — Infrastructure owns the delivery pipeline.
+### Local MCP servers
 
-Information. The same service design could be delivered differently in future — as a hosted endpoint, a different protocol, or a different transport. The delivery-independence principle in the design section exists to keep that path open.
+A local service is delivered as part of a marketplace plugin. The server code lives in the plugin alongside skills and plugin metadata. Infrastructure's MCP delivery model (`Infrastructure_MCPDeliveryModel@v2`) documents the full packaging methodology, known platform issues, and workarounds.
+
+Key deployment facts for service developers:
+
+- **Surfaces.** Code and Cowork get server tools via desktop app plugin registration. Chat currently needs a separate `claude_desktop_config.json` entry (platform bug workaround — the plugin's `.mcp.json` tools don't reliably reach Chat).
+- **Update path.** Merge PR to the deploy repo → refresh marketplace clone (`claude plugin marketplace update`) → restart Desktop. Direct commits to `main` do not trigger updates.
+- **Plugin structure.** `.mcp.json` declares servers (using `${CLAUDE_PLUGIN_ROOT}`), `plugin.json` has metadata, server code in `server/`.
+
+### Remote services
+
+Not yet built. When the first remote service is built, the deployment guidance will be added here from that experience — the same way local deployment guidance was derived from building the dispatch and document management servers.
 
 ## Consumption
 
-Every service has a user guide alongside its design documents. The user guide covers: what the service does, how to verify it is connected, how to configure it, the operation inventory, and any platform-specific setup. The user guide serves the human operating the service, not the AI consuming it.
+Every service has a user guide alongside its design documents — what the service does, how to verify it is connected, how to configure it, the operation inventory, and any platform-specific setup. The user guide serves the human operating the service, not the AI consuming it.
 
 Information. The AI consumes the service through its interface — the operations, inputs, outputs, and error model. A well-designed interface makes AI-side consumption self-evident from the tool descriptions the server exposes.
 
+## The sibling-outputs model
+
+Information. A single design can produce standards, tools, and services as sibling outputs. All derive from the design, not from each other, and must not disagree.
+
 ## Ownership
 
-**Each service lives with its owning component.** Services is a methodological component — it defines how to build a service, not where services live. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Each service lives with its owning component.** Services is a methodological component — it defines how to build a service, not where services live. Each service is designed and owned by the component or area it serves.
 
 ---
 
-Version note: v1 — initial standard. Authored fresh from Services_Design@v1. Seven design concerns, two boundary tests, delivery independence, user documentation as a deliverable. 2026-09-23.
+Version note: v1 — revised. Design concerns softened from seven formal obligations to informal guidance. Practical building knowledge added from the two working services. Deployment guidance covers local MCP servers with key platform facts; remote services acknowledged for future. 2026-09-23.
 <!-- END SOURCE: Services/Services_Development_Standard_v1.md -->
 
 ---

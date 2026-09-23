@@ -4,7 +4,7 @@
 
 **Purpose.** Define what a service is and how one is developed within AIDE, including the boundary tests that distinguish a service from a tool and from a utility. Services is a methodological component — it owns the methodology for building services, not the services themselves. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The service definition and the boundaries that distinguish a service from a tool and a utility; the design concerns specific to services; the relationship between a service and its delivery as an MCP server; and the development rules. Individual services, the MCP delivery model, packaging, the cross-review process, and document structure are out of scope.
+**Scope.** The service definition, boundary tests, design guidance, building and deploying services, and ownership. Broad scope, few constraints — the methodology should guide service creation and record what we've learned, not prescribe structure for every possible service.
 
 **Target outcome.** A deployed Services Development Standard that any component author uses when developing a service, and hands off for deployment.
 
@@ -46,31 +46,23 @@ A thing may start as a utility and become a service when sessions need to call i
 
 What a service is, what it does, and what distinguishes it from a tool and a utility. The definitions are stated above. Services owns the service definition and the service-vs-utility boundary test. The execution-context property (in-session vs out-of-session) is a Capabilities taxonomy property; the invocability test that separates Standards from Tools is owned by Tools. Services references both when classifying.
 
-### The design concerns
+### Design guidance
 
-Seven concerns a service developer must address. These are not a template — the developer decides how to meet them, in whatever structure the service demands. They describe what a complete service design covers, so a developer knows what to think about.
+The design should address whatever the service needs to be built correctly. For most services, that means:
 
-**Interface.** What operations the service exposes to callers. Each operation has a name, inputs, outputs, and failure modes. The interface is the contract — what callers can rely on and what the service promises. A service that exposes operations not described in its interface, or whose operations behave differently from their description, is defective.
+- What operations it exposes and what callers can rely on.
+- How it is configured — settings, defaults, what happens when configuration is missing.
+- What it prevents and enforces — safety is enforced by the process, not advisory, because the AI is a caller with no direct control over what the service does.
+- How it reports problems — enough information for the caller to decide what to do.
+- How it starts, shuts down, and behaves on restart.
 
-**Configuration.** What the service needs to know about its environment before it can operate — where to find the things it works with, which are writable, any machine-level settings. The developer declares the configuration lifecycle: when configuration is loaded, when changes take effect, and what a change requires (restart, reload, or immediate effect). A service with no configuration is legitimate (the dispatch server has none). A service that requires configuration should report clearly when configuration is missing or invalid, and should operate correctly with default or empty configuration rather than failing silently.
-
-**Discovery.** How the service finds and registers the things it operates on. Not every service discovers — dispatch takes its targets as call-time arguments. But a service that manages a set of resources (document sources, connection targets, queues) needs a defined discovery mechanism: what it scans, what qualifies, how naming collisions are handled, and what happens when discovery finds nothing.
-
-**Safety model.** What the service prevents and enforces. Path containment, readonly enforcement, clean-state preconditions, input validation. The service enforces its own safety because the AI cannot — the AI is a caller, not the executor, and has no direct control over what the service does with a request. Safety in a service is not advisory; it is enforced by the process. Where the service delegates work downstream, the developer declares what the service validates before delegation and what enforcement the downstream target is trusted to provide.
-
-**State management.** What state the service holds, how long it persists, and what resets it. Session-scoped state (tracked changes awaiting commit) is different from persistent state (configuration, discovery results held in memory). A service that holds session-scoped state must be clear about what a restart loses and what survives. If the service holds caller-specific state, the developer must declare how that state is partitioned across concurrent callers.
-
-**Error model.** How the service reports problems to callers. Errors carry enough information for the caller to decide what to do — retry, change the request, escalate. Error types are named and consistent across operations so callers can handle them programmatically. A service that returns generic errors or swallows detail forces the caller to guess.
-
-**Lifecycle.** How the service starts, shuts down, and behaves on restart. What it loads at startup, what it discards on shutdown, what requires a restart to take effect. A service author declares the lifecycle so consumers know what to expect — a restart after configuration change is a design choice, not a surprise.
+Not every service will need all of these. A stateless dispatch service has no configuration and trivial lifecycle. A document management service needs all of them and more. The list is what a designer naturally thinks about when specifying an out-of-session process that sessions will call — not a compliance checklist.
 
 ### The relationship to delivery
 
-A service is designed independently of its delivery mechanism. The MCP server — the process, the transport protocol, the marketplace plugin packaging — is Infrastructure's concern. The service author designs the service; Infrastructure delivers it.
+A service is designed independently of its delivery mechanism. Currently services are delivered as local MCP servers via marketplace plugins, reaching Code and Cowork directly and Chat via a config-entry workaround. Future services may be remote — cloud-hosted endpoints reachable from any surface. The delivery mechanism is Infrastructure's concern; Services owns the methodology for designing and building services regardless of how they are delivered.
 
-This separation means the same service design could be delivered as a local MCP server today and as a hosted service tomorrow without the service design changing. The interface, configuration, discovery, safety, state, errors, and lifecycle are properties of the service, not of the process that hosts it.
-
-In practice, the service author must know enough about the delivery model to make sound design choices — a service that requires persistent state across Desktop restarts is making a claim the local delivery model doesn't support. But the author designs the service's behaviour, not the server's plumbing.
+In practice, the service developer must know enough about the delivery model to make sound design choices — a service that requires persistent state across Desktop restarts is making a claim the local delivery model doesn't support. But the developer designs the service's behaviour, not the server's plumbing. The Services Development Standard records the practical knowledge needed to build against the current delivery model.
 
 ### The relationship to Build
 
@@ -115,4 +107,4 @@ Services does **not** own:
 
 Version note: v1-draft1 — initial design. Two boundary tests, seven authoring concerns, delivery separation, sibling-outputs extension. Derived from the two working examples (dispatch server, document management server). 2026-09-23.
 
-Version note: v1 — cross-review remediation. F2: definition changed from "cannot do" to delegation. F3: boundary ownership corrected. F4: authoring concerns → design concerns, Author fresh → Design fresh. F5: Build relationship added. F8: delivery made platform-neutral. F9: "and exits" removed from utility boundary. F10: configuration lifecycle declared not mandated. F11: user documentation added as deliverable. F12: caller isolation added to state management. F13: safety delegation model added. 2026-09-23. Replaces v1-draft1.
+Version note: v2 — design concerns softened from seven formal obligations to informal guidance. Scope broadened. Delivery section updated to cover local and future remote. Practical building knowledge delegated to the development standard. 2026-09-23. Replaces v1.
