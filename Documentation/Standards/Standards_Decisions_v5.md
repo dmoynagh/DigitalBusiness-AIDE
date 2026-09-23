@@ -161,3 +161,7 @@ Version note: v5 — adds D22 (curated standards binders as future consideration
 ## D22 — Curated standards binders — future consideration
 
 Two curated binders — a framework standards binder (all operational standards) and a development standards binder (all development standards) — would provide project-context access to the full set of standards for platforms where plugins are not supported (currently ChatGPT). Output location: `DigitalBusiness-AIDE\Deployment Binders`. Not designed or built now — noted as a future consideration when the need is demonstrated. The binder builder's existing multi-binder support (settings files per binder) would handle the mechanics.
+
+## D23 — Development standard supersedes authoring standard
+
+The Capabilities Development Standard (D5) established that each type's development standard supersedes the existing authoring standard with broader scope. For Standards, this means the Standards Development Standard replaces Standards_Authoring_Standard_v8. The authoring content is embedded unchanged; build, deployment, and consumption sections are added. The old authoring standard is removed from the repo (git history preserves it). The Standards Consumption Standard's `uses` is updated to reference the development standard.

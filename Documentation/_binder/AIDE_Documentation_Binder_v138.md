@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 137** (2026-09-23).
+> **Binder Version 138** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -102,13 +102,13 @@ individual files.
 - `Services/Services_Development_Standard_v1.md` - sha256 `35ef4111a46c`
 - `Standards/_index.md` - sha256 `09379ef5eb4d`
 - `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
-- `Standards/Standards_Decisions_v4.md` - sha256 `38207b4e2082`
-- `Standards/Standards_Design_v4.md` - sha256 `7ec34b26fda5`
-- `Standards/Standards_Development_Standard_v1.md` - sha256 `a6cb9307261b`
+- `Standards/Standards_Decisions_v5.md` - sha256 `14ac0acaf7b5`
+- `Standards/Standards_Design_v4.md` - sha256 `211bcf923b5b`
+- `Standards/Standards_Development_Standard_v1.md` - sha256 `d9ccf56c0704`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
 - `Tools/_index.md` - sha256 `90e0fa4aa6b7`
-- `Tools/Tools_Decisions_v7.md` - sha256 `13ac6443f896`
-- `Tools/Tools_Design_v7.md` - sha256 `95e6c5cb4ac8`
+- `Tools/Tools_Decisions_v8.md` - sha256 `fcedf2018de4`
+- `Tools/Tools_Design_v7.md` - sha256 `8c8495119561`
 - `Tools/Tools_Development_Standard_v1.md` - sha256 `f7237092236d`
 - `Utilities/_index.md` - sha256 `cf88a5022544`
 - `Utilities/Utilities_Brief_v1.md` - sha256 `e5eb37c9d2e8`
@@ -16800,8 +16800,8 @@ Version note: v4 — `uses` updated to Standards_Development_Standard@v1 (supers
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Decisions_v4.md -->
-> identity: Standards_Decisions@v4 | doctype: decisions | updated: 2026-09-15
+<!-- BEGIN SOURCE: Standards/Standards_Decisions_v5.md -->
+> identity: Standards_Decisions@v5 | doctype: decisions | updated: 2026-09-23
 
 ## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
 
@@ -16959,8 +16959,16 @@ The Tools Authoring Standard restatement was synced in the same change to avoid 
 
 ---
 
-Version note: v4 — adds D21 (acceptance test amended for ambient framework context). Cross-review: two defects remediated (F1 definition added, F2 "guaranteed" replaces "available within scope"), one concern accepted (F3 Tools sync included). Carried from Tools cross-review round 3. 2026-09-15.
-<!-- END SOURCE: Standards/Standards_Decisions_v4.md -->
+Version note: v5 — adds D22 (curated standards binders as future consideration). Build domain decisions (deployment-target requirement, development standard model) recorded from the Capabilities development-standards work. 2026-09-23. Replaces v4.
+
+## D22 — Curated standards binders — future consideration
+
+Two curated binders — a framework standards binder (all operational standards) and a development standards binder (all development standards) — would provide project-context access to the full set of standards for platforms where plugins are not supported (currently ChatGPT). Output location: `DigitalBusiness-AIDE\Deployment Binders`. Not designed or built now — noted as a future consideration when the need is demonstrated. The binder builder's existing multi-binder support (settings files per binder) would handle the mechanics.
+
+## D23 — Development standard supersedes authoring standard
+
+The Capabilities Development Standard (D5) established that each type's development standard supersedes the existing authoring standard with broader scope. For Standards, this means the Standards Development Standard replaces Standards_Authoring_Standard_v8. The authoring content is embedded unchanged; build, deployment, and consumption sections are added. The old authoring standard is removed from the repo (git history preserves it). The Standards Consumption Standard's `uses` is updated to reference the development standard.
+<!-- END SOURCE: Standards/Standards_Decisions_v5.md -->
 
 ---
 
@@ -16969,11 +16977,11 @@ Version note: v4 — adds D21 (acceptance test amended for ambient framework con
 
 ## Brief
 
-**Purpose.** Define how a standard is designed, authored, and deployed within AIDE. Standards is a methodological component — it owns the methodology for building standards, not the standards themselves. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Purpose.** Define how a standard is designed, authored, built, and deployed within AIDE. Standards is a methodological component — it owns the methodology for building standards, not the standards themselves. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The authoring methodology, the strength model, the reference-to-standard pipeline, the relationship between a standard and its design, applicability scope, and the runtime contract for operating under standards. Individual standards, document structure, packaging, and the cross-review process are out of scope.
+**Scope.** The authoring methodology, the strength model, the reference-to-standard pipeline, the relationship between a standard and its design, applicability scope, the build domain (skill packaging and deployment), and the runtime contract for operating under standards. Individual standards, document structure, and the cross-review process are out of scope.
 
-**Target outcome.** Two deployed standards: one for authoring (how to design, author, and deploy a standard) and one for consumption (how to operate under applicable standards at runtime).
+**Target outcome.** Two deployed standards: the Standards Development Standard (how to design, author, build, and deploy a standard) and the Standards Consumption Standard (how to operate under applicable standards at runtime). The development standard supersedes the earlier authoring standard per the Capabilities Development Standard model.
 
 ## What a standard achieves
 
@@ -17079,19 +17087,52 @@ Direct human instruction may override a standard within that person's authority.
 
 The Capabilities Development Standard defines build standards per capability type — the type-specific conventions for how that type of capability is built. Standards' build domain is the packaging of accepted standard documents into skills or binder content.
 
-The build specification is the accepted standard document. Build produces three outputs:
+The build specification is the accepted standard document. The build target is a skill file — a markdown file with YAML frontmatter (name and trigger description) containing the standard's content, placed in the appropriate marketplace plugin.
 
-**Skills.** Each standard is packaged as an individual skill file — a markdown file with YAML frontmatter (name and trigger description) containing the standard's content, placed in the appropriate marketplace plugin. Skills load on trigger when relevant.
+When a standard is added or updated, its skill is rebuilt and deployed.
 
-**Framework standards binder.** A curated binder of all operational AIDE standards — the standards that apply during normal work (principles, working practices, assurance, consumption, documentation methodology, messaging, PD, and others as authored). This binder provides project-context access to the full set of framework standards without loading designs, decisions, or working documents.
+### The skill file
 
-**Development standards binder.** A curated binder of all AIDE development standards — the standards that apply when building AIDE itself (capabilities, standards, tools, services, utilities development standards, schema authoring, and others as authored). This binder provides project-context access to the full development methodology.
+The skill file format:
 
-When a standard is added or updated, the relevant binder is rebuilt alongside the skill deployment.
+```
+---
+name: <skill-name>
+description: "<trigger description>"
+---
 
-The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it. Two plugins serve different audiences: one for operational standards (applied during normal work), one for development standards (applied when building AIDE itself).
+<!-- provenance: <source_standard_identity> | redistributed: <plugin> (<marketplace>), <date> -->
 
-The practical skill file format, plugin structure, and deployment path are recorded in the Standards Development Standard — that is where the build knowledge lives. The design provides the reasoning; the standard carries the operational detail.
+<standard content>
+```
+
+The `description` field is the trigger description — the 130-character text that determines when the platform loads the skill. The `name` field is the skill's identifier within the plugin, matching the skill directory name. The provenance comment records which standard document the skill was built from and when.
+
+The standard content is copied from the accepted standard document. The document header (identity line, `uses` declarations) is omitted — those are document metadata, not session content. The version note is omitted — the provenance comment serves the same purpose for a built skill.
+
+### Plugin placement
+
+Standards are deployed in one of two plugins in the `digitalbusiness-aide` marketplace:
+
+- **`aide`** — operational standards that apply during normal work (principles, working practices, assurance, consumption, docmeth, messaging, PD).
+- **`aide-dev`** — development standards that apply when building AIDE itself (standards development, tools development, services development, capabilities development, schema authoring).
+
+The skill directory name follows the convention `<skill-name>` within the plugin's `skills/` folder. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
+
+### Deployment path
+
+The built skill is deployed through the marketplace plugin pipeline:
+
+1. Place the skill file at `<plugin>/skills/<skill-name>/SKILL.md` in the deploy repo (`DigitalBusiness-AIDE-Deploy`).
+2. Merge via PR — direct commits to `main` do not trigger plugin updates.
+3. Refresh the marketplace clone: `claude plugin marketplace update <n>`.
+4. Restart Claude Desktop.
+
+Skills reach Chat via web UI account-level plugin registration and Code/Cowork via desktop app plugin registration. Both registration paths are needed for full three-surface coverage. The full deployment methodology and known platform issues are documented in `Infrastructure_MCPDeliveryModel@v2`.
+
+### Build preconditions
+
+Cross-review accepted and acceptance test passed before build. The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it.
 
 ## What Standards produces
 
@@ -17103,7 +17144,7 @@ Two standards:
 
 ## What the author decides
 
-A standard has no prescribed template. The author decides what the standard contains and how it is structured, provided it meets the terms defined in the standards authoring standard. The authoring rules tell the author what a good standard achieves; the author meets them however the content demands.
+A standard has no prescribed template. The author decides what the standard contains and how it is structured, provided it meets the terms defined in the Standards Development Standard. The authoring rules tell the author what a good standard achieves; the author meets them however the content demands.
 
 ## Boundaries
 
@@ -17122,7 +17163,7 @@ Standards does **not** own:
 
 ---
 
-Version note: v4 — build section added (standards build domain, skill packaging, deployment-target requirement). "What Standards produces" updated to reflect development standard model. Boundaries updated for build domain ownership. 2026-09-23. Replaces v3.
+Version note: v4 — brief updated (purpose, scope, target outcome) for development standard model. Build section expanded with full skill file format, plugin placement, deployment path, and preconditions — all detail needed to produce the standard. Stale reference to authoring standard updated. 2026-09-23. Replaces v3.
 <!-- END SOURCE: Standards/Standards_Design_v4.md -->
 
 ---
@@ -17264,18 +17305,9 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 
 The skill directory name follows the pattern `<plugin>:<skill-name>` — the plugin prefix is implicit from where the skill lives. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
-### Standards binders
+### Deployment target
 
-Build also maintains two curated binders — collections of just the standards, without designs, decisions, or working documents:
-
-- **Framework standards binder** — all operational AIDE standards. Provides project-context access to the full set of framework standards for any project that works under AIDE.
-- **Development standards binder** — all AIDE development standards. Provides project-context access to the full development methodology for AIDE development sessions.
-
-When a standard is added or updated, the relevant binder is rebuilt alongside the skill deployment. The binder builder handles this via its settings files — one per binder.
-
-### Which delivery form
-
-A standard is deployed as both a skill and binder content. Skills provide trigger-loaded access on any surface; binders provide project-context access to the full set. The two forms complement each other.
+A standard is deployed as a skill. When a standard is added or updated, its skill is rebuilt and deployed to the target plugin.
 
 ## Deployment
 
@@ -17365,8 +17397,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Decisions_v7.md -->
-> identity: Tools_Decisions@v7 | doctype: decisions | updated: 2026-09-14
+<!-- BEGIN SOURCE: Tools/Tools_Decisions_v8.md -->
+> identity: Tools_Decisions@v8 | doctype: decisions | updated: 2026-09-23
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -17495,8 +17527,12 @@ Two findings from the v6 cross-review. Both accepted and remediated in v7/v6.
 
 ---
 
-Version note: v7 — D17 added for round 2 cross-review remediation. 2026-09-14. Replaces v6.
-<!-- END SOURCE: Tools/Tools_Decisions_v7.md -->
+Version note: v8 — D18 added (development standard supersedes authoring standard). Sibling outputs extended to services in design. Stale authoring-standard references updated. 2026-09-23. Replaces v7.
+
+## D18 — Development standard supersedes authoring standard
+
+The Capabilities Development Standard (D5) established that each type's development standard supersedes the existing authoring standard. For Tools, this means the Tools Development Standard replaces Tools_Authoring_Standard_v8. The authoring content is embedded unchanged; build, deployment, and consumption sections are added. The old authoring standard is removed from the repo (git history preserves it). The `uses` declaration points to the Capabilities Development Standard (shared base) and the Standards Development Standard (for the capability-wide authoring rules).
+<!-- END SOURCE: Tools/Tools_Decisions_v8.md -->
 
 ---
 
@@ -17505,9 +17541,9 @@ Version note: v7 — D17 added for round 2 cross-review remediation. 2026-09-14.
 
 ## Brief
 
-**Purpose.** Define what a tool is and how one is designed and authored within AIDE, including the authoring-side handoff for deployment. Tools is a methodological component — it owns the methodology for building tools, not the tools themselves. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Purpose.** Define what a tool is and how one is designed, authored, built, and deployed within AIDE. Tools is a methodological component — it owns the methodology for building tools, not the tools themselves. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The tool definition and the boundaries that distinguish a tool from a standard and a utility; the invocability test; the authoring concerns, execution discipline, and declared properties a tool must address; the staging clause and the sibling-outputs model; applicability scope and trigger description; and the designing and authoring rules. Individual tools, document structure, packaging, and the cross-review process are out of scope.
+**Scope.** The tool definition and the boundaries that distinguish a tool from a standard and a utility; the invocability test; the authoring concerns, execution discipline, and declared properties a tool must address; the staging clause and the sibling-outputs model; applicability scope and trigger description; the designing and authoring rules; and the build domain (skill packaging and deployment). Individual tools, document structure, and the cross-review process are out of scope.
 
 **Target outcome.** A deployed Tools Development Standard that any component author uses when designing, authoring, building, and deploying a tool.
 
@@ -17537,7 +17573,7 @@ This is the only case where a standard may describe an invokable procedure witho
 
 ## The sibling-outputs model
 
-A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
+A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part of that behaviour appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
 
 This is common. A component or feature may need a standard to shape how the work is approached and a tool to perform a specific action within it. The design specifies the full behaviour; the outputs are whatever delivers it — one or more standards, one or more tools, or a mix. Each output is authored from the design, not from its sibling.
 
@@ -17585,7 +17621,7 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 **Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle from the design layering model — each output is derived from the design that governs it, not from its own prior version.
 
-**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the standards authoring standard. These rules apply to any capability, not only to standards.
+**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the Standards Development Standard. These rules apply to any capability, not only to standards.
 
 ## Building a tool
 
@@ -17608,7 +17644,7 @@ Tools does **not** own:
 
 ## Carries to other components
 
-**To Standards:** an information-strength pointer in the standards authoring standard noting that the invocability test in the tool authoring standard draws the boundary between the two capability types.
+**To Standards:** an information-strength pointer in the Standards Development Standard noting that the invocability test in the Tools Development Standard draws the boundary between the two capability types.
 
 ---
 

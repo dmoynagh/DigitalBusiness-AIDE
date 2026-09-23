@@ -1,4 +1,4 @@
-> identity: Tools_Decisions@v7 | doctype: decisions | updated: 2026-09-14
+> identity: Tools_Decisions@v8 | doctype: decisions | updated: 2026-09-23
 
 ## D1 — Tools is a methodological component, same pattern as Standards and Infrastructure
 
@@ -127,4 +127,8 @@ Two findings from the v6 cross-review. Both accepted and remediated in v7/v6.
 
 ---
 
-Version note: v7 — D17 added for round 2 cross-review remediation. 2026-09-14. Replaces v6.
+Version note: v8 — D18 added (development standard supersedes authoring standard). Sibling outputs extended to services in design. Stale authoring-standard references updated. 2026-09-23. Replaces v7.
+
+## D18 — Development standard supersedes authoring standard
+
+The Capabilities Development Standard (D5) established that each type's development standard supersedes the existing authoring standard. For Tools, this means the Tools Development Standard replaces Tools_Authoring_Standard_v8. The authoring content is embedded unchanged; build, deployment, and consumption sections are added. The old authoring standard is removed from the repo (git history preserves it). The `uses` declaration points to the Capabilities Development Standard (shared base) and the Standards Development Standard (for the capability-wide authoring rules).

@@ -2,11 +2,11 @@
 
 ## Brief
 
-**Purpose.** Define how a standard is designed, authored, and deployed within AIDE. Standards is a methodological component — it owns the methodology for building standards, not the standards themselves. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Purpose.** Define how a standard is designed, authored, built, and deployed within AIDE. Standards is a methodological component — it owns the methodology for building standards, not the standards themselves. Each standard is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The authoring methodology, the strength model, the reference-to-standard pipeline, the relationship between a standard and its design, applicability scope, and the runtime contract for operating under standards. Individual standards, document structure, packaging, and the cross-review process are out of scope.
+**Scope.** The authoring methodology, the strength model, the reference-to-standard pipeline, the relationship between a standard and its design, applicability scope, the build domain (skill packaging and deployment), and the runtime contract for operating under standards. Individual standards, document structure, and the cross-review process are out of scope.
 
-**Target outcome.** Two deployed standards: one for authoring (how to design, author, and deploy a standard) and one for consumption (how to operate under applicable standards at runtime).
+**Target outcome.** Two deployed standards: the Standards Development Standard (how to design, author, build, and deploy a standard) and the Standards Consumption Standard (how to operate under applicable standards at runtime). The development standard supersedes the earlier authoring standard per the Capabilities Development Standard model.
 
 ## What a standard achieves
 
@@ -116,9 +116,48 @@ The build specification is the accepted standard document. The build target is a
 
 When a standard is added or updated, its skill is rebuilt and deployed.
 
-The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it. Two plugins serve different audiences: one for operational standards (applied during normal work), one for development standards (applied when building AIDE itself).
+### The skill file
 
-The practical skill file format, plugin structure, and deployment path are recorded in the Standards Development Standard — that is where the build knowledge lives. The design provides the reasoning; the standard carries the operational detail.
+The skill file format:
+
+```
+---
+name: <skill-name>
+description: "<trigger description>"
+---
+
+<!-- provenance: <source_standard_identity> | redistributed: <plugin> (<marketplace>), <date> -->
+
+<standard content>
+```
+
+The `description` field is the trigger description — the 130-character text that determines when the platform loads the skill. The `name` field is the skill's identifier within the plugin, matching the skill directory name. The provenance comment records which standard document the skill was built from and when.
+
+The standard content is copied from the accepted standard document. The document header (identity line, `uses` declarations) is omitted — those are document metadata, not session content. The version note is omitted — the provenance comment serves the same purpose for a built skill.
+
+### Plugin placement
+
+Standards are deployed in one of two plugins in the `digitalbusiness-aide` marketplace:
+
+- **`aide`** — operational standards that apply during normal work (principles, working practices, assurance, consumption, docmeth, messaging, PD).
+- **`aide-dev`** — development standards that apply when building AIDE itself (standards development, tools development, services development, capabilities development, schema authoring).
+
+The skill directory name follows the convention `<skill-name>` within the plugin's `skills/` folder. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
+
+### Deployment path
+
+The built skill is deployed through the marketplace plugin pipeline:
+
+1. Place the skill file at `<plugin>/skills/<skill-name>/SKILL.md` in the deploy repo (`DigitalBusiness-AIDE-Deploy`).
+2. Merge via PR — direct commits to `main` do not trigger plugin updates.
+3. Refresh the marketplace clone: `claude plugin marketplace update <n>`.
+4. Restart Claude Desktop.
+
+Skills reach Chat via web UI account-level plugin registration and Code/Cowork via desktop app plugin registration. Both registration paths are needed for full three-surface coverage. The full deployment methodology and known platform issues are documented in `Infrastructure_MCPDeliveryModel@v2`.
+
+### Build preconditions
+
+Cross-review accepted and acceptance test passed before build. The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder does not have to determine it.
 
 ## What Standards produces
 
@@ -130,7 +169,7 @@ Two standards:
 
 ## What the author decides
 
-A standard has no prescribed template. The author decides what the standard contains and how it is structured, provided it meets the terms defined in the standards authoring standard. The authoring rules tell the author what a good standard achieves; the author meets them however the content demands.
+A standard has no prescribed template. The author decides what the standard contains and how it is structured, provided it meets the terms defined in the Standards Development Standard. The authoring rules tell the author what a good standard achieves; the author meets them however the content demands.
 
 ## Boundaries
 
@@ -149,4 +188,4 @@ Standards does **not** own:
 
 ---
 
-Version note: v4 — build section added (standards build domain, skill packaging, deployment-target requirement). "What Standards produces" updated to reflect development standard model. Boundaries updated for build domain ownership. 2026-09-23. Replaces v3.
+Version note: v4 — brief updated (purpose, scope, target outcome) for development standard model. Build section expanded with full skill file format, plugin placement, deployment path, and preconditions — all detail needed to produce the standard. Stale reference to authoring standard updated. 2026-09-23. Replaces v3.

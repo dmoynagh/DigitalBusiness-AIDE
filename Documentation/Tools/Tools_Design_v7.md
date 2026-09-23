@@ -2,9 +2,9 @@
 
 ## Brief
 
-**Purpose.** Define what a tool is and how one is designed and authored within AIDE, including the authoring-side handoff for deployment. Tools is a methodological component — it owns the methodology for building tools, not the tools themselves. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Purpose.** Define what a tool is and how one is designed, authored, built, and deployed within AIDE. Tools is a methodological component — it owns the methodology for building tools, not the tools themselves. Each tool is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The tool definition and the boundaries that distinguish a tool from a standard and a utility; the invocability test; the authoring concerns, execution discipline, and declared properties a tool must address; the staging clause and the sibling-outputs model; applicability scope and trigger description; and the designing and authoring rules. Individual tools, document structure, packaging, and the cross-review process are out of scope.
+**Scope.** The tool definition and the boundaries that distinguish a tool from a standard and a utility; the invocability test; the authoring concerns, execution discipline, and declared properties a tool must address; the staging clause and the sibling-outputs model; applicability scope and trigger description; the designing and authoring rules; and the build domain (skill packaging and deployment). Individual tools, document structure, and the cross-review process are out of scope.
 
 **Target outcome.** A deployed Tools Development Standard that any component author uses when designing, authoring, building, and deploying a tool.
 
@@ -34,7 +34,7 @@ This is the only case where a standard may describe an invokable procedure witho
 
 ## The sibling-outputs model
 
-A single design can produce both standards and tools as sibling outputs. The design describes the behaviour; the standard carries the guidance; the tool carries the invokable action. Both derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
+A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part of that behaviour appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the same design and must not disagree. If they do, the design is the authority and the inconsistent output is defective. Neither authors the other's content.
 
 This is common. A component or feature may need a standard to shape how the work is approached and a tool to perform a specific action within it. The design specifies the full behaviour; the outputs are whatever delivers it — one or more standards, one or more tools, or a mix. Each output is authored from the design, not from its sibling.
 
@@ -82,7 +82,7 @@ Whether a tool is safe to run again is a property the author declares about the 
 
 **Author fresh.** A tool is authored from its design, not by modifying a previous version of the tool. This is a capability-wide principle from the design layering model — each output is derived from the design that governs it, not from its own prior version.
 
-**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the standards authoring standard. These rules apply to any capability, not only to standards.
+**No prescribed template.** A tool has no fixed structure. The author decides what the tool contains and how it is structured, provided it addresses the authoring concerns and meets the authoring rules defined in the Standards Development Standard. These rules apply to any capability, not only to standards.
 
 ## Building a tool
 
@@ -105,7 +105,7 @@ Tools does **not** own:
 
 ## Carries to other components
 
-**To Standards:** an information-strength pointer in the standards authoring standard noting that the invocability test in the tool authoring standard draws the boundary between the two capability types.
+**To Standards:** an information-strength pointer in the Standards Development Standard noting that the invocability test in the Tools Development Standard draws the boundary between the two capability types.
 
 ---
 
