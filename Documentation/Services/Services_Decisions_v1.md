@@ -1,4 +1,4 @@
-> identity: Services_Decisions@v1-draft1 | doctype: decisions | updated: 2026-09-23
+> identity: Services_Decisions@v1 | doctype: decisions | updated: 2026-09-23
 
 ## D1 — Services is a methodological component, same pattern as Tools and Standards
 

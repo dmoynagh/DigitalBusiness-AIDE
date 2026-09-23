@@ -1,4 +1,4 @@
-> identity: Capabilities_Decisions@v1-draft1 | doctype: decisions | updated: 2026-09-23
+> identity: Capabilities_Decisions@v1 | doctype: decisions | updated: 2026-09-23
 
 # Capabilities — Decisions
 

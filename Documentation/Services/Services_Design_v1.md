@@ -1,4 +1,4 @@
-> identity: Services_Design@v1-draft1 | doctype: design | updated: 2026-09-23
+> identity: Services_Design@v1 | doctype: design | updated: 2026-09-23
 
 ## Brief
 

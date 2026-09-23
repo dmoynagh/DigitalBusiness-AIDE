@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 126** (2026-09-23).
+> **Binder Version 127** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -36,8 +36,8 @@ individual files.
 - `Build/Build_Design_v8.md` - sha256 `2987f32273f9`
 - `Build/Build_Overview_v6.md` - sha256 `5fce6400bb23`
 - `Capabilities/_index.md` - sha256 `bd890d11e765`
-- `Capabilities/Capabilities_Decisions_v1-draft1.md` - sha256 `2091ff618cf1`
-- `Capabilities/Capabilities_Design_v1-draft1.md` - sha256 `5f1b9aaf5848`
+- `Capabilities/Capabilities_Decisions_v1.md` - sha256 `adc1abfe5e80`
+- `Capabilities/Capabilities_Design_v1.md` - sha256 `f193f9ea202d`
 - `Core/_index.md` - sha256 `218f4527af49`
 - `Core/Core_AIDEMap.md` - sha256 `d88d37be296a`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `ca6507a444f0`
@@ -95,9 +95,9 @@ individual files.
 - `Project Design/ProjectDesign_Design_v3.md` - sha256 `2c4f60adb4f9`
 - `Project Design/ProjectDesign_Schema_Standard_v1.md` - sha256 `23316ba5d013`
 - `Project Design/ProjectDesign_Standard_v5.md` - sha256 `c035df4e8b17`
-- `Services/_index.md` - sha256 `2532e7cf22ae`
-- `Services/Services_Decisions_v1-draft1.md` - sha256 `ce2d766b6d06`
-- `Services/Services_Design_v1-draft1.md` - sha256 `0dbc6b21256a`
+- `Services/_index.md` - sha256 `25403038fb3d`
+- `Services/Services_Decisions_v1.md` - sha256 `4add787c397b`
+- `Services/Services_Design_v1.md` - sha256 `62669864591e`
 - `Standards/_index.md` - sha256 `09379ef5eb4d`
 - `Standards/Standards_Authoring_Standard_v8.md` - sha256 `e52f99825c80`
 - `Standards/Standards_Consumption_Standard_v3.md` - sha256 `b801499930ac`
@@ -6544,8 +6544,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Decisions_v1-draft1.md -->
-> identity: Capabilities_Decisions@v1-draft1 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Decisions_v1.md -->
+> identity: Capabilities_Decisions@v1 | doctype: decisions | updated: 2026-09-23
 
 # Capabilities — Decisions
 
@@ -6557,7 +6557,7 @@ This resolves the earlier overview statement "Capabilities is a category not a p
 
 ## D2 — Two properties distinguish the four types
 
-Execution context (in-session vs out-of-session) and direction of service (serves sessions vs serves the corpus) are the two orthogonal properties. One property alone would conflate types — services and utilities both run out-of-session but serve different things. The two properties produce exactly the four types, with no empty cell. Each cell's boundary tests are owned by the type component, not by Capabilities.
+Execution context (in-session vs out-of-session) and direction of service (serves sessions vs serves the corpus) are the two orthogonal properties. One property alone would conflate types — services and utilities both run out-of-session but serve different things. The two properties produce three distinct groups; Standards and Tools share the same cell (both in-session, both session-serving) and are separated by the invocability test owned by Tools. Each group's boundary tests are owned by the relevant type component, not by Capabilities.
 
 ## D3 — Five lifecycle phases, authoring conditional
 
@@ -6587,7 +6587,7 @@ The alternative — putting this in Core — was rejected because Core owns stru
 
 The development lifecycle references Build and Infrastructure without restating their content. Build owns the generic build mechanism and the build-standard/profile model. Infrastructure owns the delivery pipeline. Each type component states how it uses these — what enters build and what gets delivered — without duplicating the source.
 
-This means the Capabilities design and each type development standard declare `uses` on Build and Infrastructure where the dependency creates a change-management obligation.
+This means each type's development standard declares `uses` on Build and Infrastructure where the dependency creates a change-management obligation.
 
 ## D8 — Infrastructure's role acknowledged as evolving
 
@@ -6596,12 +6596,14 @@ Infrastructure currently holds both delivery machinery and individual utility in
 ---
 
 Version note: v1-draft1 — initial decisions from the design session. D1–D8. 2026-09-23.
-<!-- END SOURCE: Capabilities/Capabilities_Decisions_v1-draft1.md -->
+
+Version note: v1 — cross-review remediation. F1: D2 overclaim corrected. F7: D7 corrected — development standards declare `uses`, not designs. 2026-09-23. Replaces v1-draft1.
+<!-- END SOURCE: Capabilities/Capabilities_Decisions_v1.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Design_v1-draft1.md -->
-> identity: Capabilities_Design@v1-draft1 | doctype: design | updated: 2026-09-23
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Design_v1.md -->
+> identity: Capabilities_Design@v1 | doctype: design | updated: 2026-09-23
 
 # Capabilities — Design
 
@@ -6660,7 +6662,7 @@ Two properties distinguish the types.
 | Service | Out-of-session | Serves sessions | — | Server |
 | Utility | Out-of-session | Serves the corpus | — | Utility |
 
-Each type's boundary tests are owned by the type component. The execution boundary (tool vs service) is the invocability test in Tools. The direction boundary (service vs utility) is owned by Services. These tests settle classification when the type is ambiguous.
+The two properties distinguish three groups: in-session session-serving (Standards and Tools), out-of-session session-serving (Services), and out-of-session corpus-serving (Utilities). Within the in-session group, the invocability test (owned by Tools) separates Standards from Tools — a standard shapes decisions and behaviour; a tool is a named invokable action. The direction-of-service test (service vs utility) is owned by Services. These tests settle classification when the type is ambiguous.
 
 ---
 
@@ -6707,7 +6709,7 @@ What the user or developer needs to use or run the deployed capability. Consumpt
 
 Build defines the generic build mechanism. Capabilities does not restate it. The connection is through build standards and build domains — Build's own model for type-specific build guidance.
 
-Each type component produces build standards for its build domain. These are authored on the Standards methodology (same authoring rules, same delivery) and composed into profiles. The type component owns the domain knowledge; Build owns the mechanism.
+Each type component produces build standards for its build domain, stated within the type's development standard. These follow the Standards methodology (same authoring rules, same delivery) and are composed into profiles. Build's profile mechanism determines how to compose them, whether embedded or — if conventions grow substantial — separated into standalone standards. The type component owns the domain knowledge; Build owns the mechanism.
 
 Build explicitly deferred the first build standard (D32) until conventions are stable enough to standardise. The capability development standards are a natural home for those first build standards — each type's build domain is a demonstrated consumer.
 
@@ -6737,7 +6739,9 @@ For Standards and Tools, the development standard supersedes the existing author
 ---
 
 Version note: v1-draft1 — initial design. Four-type taxonomy, five-phase lifecycle, relationships to Build and Infrastructure. 2026-09-23.
-<!-- END SOURCE: Capabilities/Capabilities_Design_v1-draft1.md -->
+
+Version note: v1 — cross-review remediation. F1: taxonomy corrected to three groups plus invocability test. F3: boundary ownership clarified. F6: build standards artifact model stated. 2026-09-23. Replaces v1-draft1.
+<!-- END SOURCE: Capabilities/Capabilities_Design_v1.md -->
 
 ---
 
@@ -16316,7 +16320,7 @@ Version note: v5 — PD-UPD carries applied. PD-UPD.1: sufficiency contract amen
 Role: Component, Documentation Project
 Aliases: none
 
-Services defines the methodology for building services — persistent capabilities that AI sessions connect to for operations they cannot perform in-session. It owns the service definition, the boundary tests that distinguish a service from a tool and from a utility, and the authoring methodology used to design and author services.
+Services defines the methodology for building services — persistent capabilities that AI sessions connect to for operations delegated to an out-of-session process. It owns the service definition, the direction-of-service boundary test, and the development methodology used to design and build services.
 
 Services is a methodological component. It defines how to create its type; individual services live with their owning component under the what-knows-most-about-it principle.
 
@@ -16327,8 +16331,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Services/Services_Decisions_v1-draft1.md -->
-> identity: Services_Decisions@v1-draft1 | doctype: decisions | updated: 2026-09-23
+<!-- BEGIN SOURCE: Services/Services_Decisions_v1.md -->
+> identity: Services_Decisions@v1 | doctype: decisions | updated: 2026-09-23
 
 ## D1 — Services is a methodological component, same pattern as Tools and Standards
 
@@ -16338,15 +16342,15 @@ Services defines how to create its type. Individual service instances live with 
 
 A single boundary test would conflate two distinctions that need separating. The service-vs-tool boundary is about who executes (the AI or a separate process). The service-vs-utility boundary is about direction of service (serves sessions or serves the corpus). These are orthogonal. A thing that runs outside the session could be either a service or a utility; you need both tests to classify it.
 
-The tool boundary test parallels the invocability test in Tools — it is the heart of the component, the test that governs what belongs here.
+The direction-of-service test is the heart of the component — it governs what belongs here. The execution-context boundary (in-session vs out-of-session) is a Capabilities taxonomy property that Services references but does not own.
 
 ## D3 — The AI-as-caller distinction is the governing difference from tools
 
 The fundamental difference between a service and a tool is not persistence, configuration, or safety enforcement — those are consequences. The governing difference is that the AI is a caller, not the executor. For a tool, the AI performs the procedure. For a service, a separate process performs the work and the AI receives results.
 
-This matters because it changes what the authoring concerns must cover. A tool author addresses the procedure the AI will follow. A service author addresses the interface the AI will call, the safety the process will enforce, and the state the process will manage — none of which the AI controls.
+This matters because it changes what the design concerns must cover. A tool author addresses the procedure the AI will follow. A service author addresses the interface the AI will call, the safety the process will enforce, and the state the process will manage — none of which the AI controls.
 
-## D4 — Seven authoring concerns, derived from the two working examples
+## D4 — Seven design concerns, derived from the two working examples
 
 The seven concerns were derived by examining what the dispatch server and document management server each needed, then generalising. Both servers needed an interface and an error model. Document management additionally needed configuration, discovery, a safety model, state management, and lifecycle. Dispatch needed none of those four — it is stateless, configurationless, and its safety model is trivial (delegate to the target).
 
@@ -16378,11 +16382,11 @@ This parallels the existing taxonomy. A standard is delivered as a skill. A tool
 
 "Service" was chosen over "server" because the design methodology is about what is built and why — the service's interface, safety model, and lifecycle — not about the process mechanics. "Server" stays as the delivery term in Infrastructure's MCP delivery model, where the process mechanics are the subject.
 
-## D9 — Hosted services follow the same authoring methodology
+## D9 — Hosted services follow the same design methodology
 
-The design scope note says hosted services (cloud-hosted, always-on — the framework inbox and assurance data logger discussed in the orchestration and assurance designs) follow the same authoring concerns but have a different delivery model. The authoring methodology — interface, configuration, discovery, safety, state, errors, lifecycle — applies regardless of where the process runs. What changes is Infrastructure's delivery concern: local MCP server vs cloud-hosted endpoint.
+The design scope note says hosted services (cloud-hosted, always-on — the framework inbox and assurance data logger discussed in the orchestration and assurance designs) follow the same design concerns but have a different delivery model. The design methodology — interface, configuration, discovery, safety, state, errors, lifecycle — applies regardless of where the process runs. What changes is Infrastructure's delivery concern: local MCP server vs cloud-hosted endpoint.
 
-This means Services does not need a "local vs hosted" split in its methodology. It provides one set of authoring concerns. Infrastructure provides different delivery models for each hosting context.
+This means Services does not need a "local vs hosted" split in its methodology. It provides one set of design concerns. Infrastructure provides different delivery models for each hosting context.
 
 ## D10 — Configuration reporting without exposing filesystem paths to the AI
 
@@ -16399,36 +16403,38 @@ This was identified as missing during the document management server testing —
 ---
 
 Version note: v1-draft1 — initial decisions. D1–D11 from the design session. 2026-09-23.
-<!-- END SOURCE: Services/Services_Decisions_v1-draft1.md -->
+
+Version note: v1 — cross-review remediation. F3: D2 boundary ownership corrected. F4: D4 heading updated (authoring → design concerns). D3/D4/D9 terminology aligned (authoring → design concerns). 2026-09-23. Replaces v1-draft1.
+<!-- END SOURCE: Services/Services_Decisions_v1.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Services/Services_Design_v1-draft1.md -->
-> identity: Services_Design@v1-draft1 | doctype: design | updated: 2026-09-23
+<!-- BEGIN SOURCE: Services/Services_Design_v1.md -->
+> identity: Services_Design@v1 | doctype: design | updated: 2026-09-23
 
 ## Brief
 
-**Purpose.** Define what a service is and how one is designed and authored within AIDE, including the boundary tests that distinguish a service from a tool and from a utility. Services is a methodological component — it owns the methodology for building services, not the services themselves. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
+**Purpose.** Define what a service is and how one is developed within AIDE, including the boundary tests that distinguish a service from a tool and from a utility. Services is a methodological component — it owns the methodology for building services, not the services themselves. Each service is designed and owned by the component or area it serves, under the what-knows-most-about-it principle.
 
-**Scope.** The service definition and the boundaries that distinguish a service from a tool and a utility; the authoring concerns specific to services; the relationship between a service and its delivery as an MCP server; and the designing and authoring rules. Individual services, the MCP delivery model, packaging, the cross-review process, and document structure are out of scope.
+**Scope.** The service definition and the boundaries that distinguish a service from a tool and a utility; the design concerns specific to services; the relationship between a service and its delivery as an MCP server; and the development rules. Individual services, the MCP delivery model, packaging, the cross-review process, and document structure are out of scope.
 
-**Target outcome.** A deployed service authoring standard that any component author uses when designing and authoring a service, and hands off for deployment.
+**Target outcome.** A deployed Services Development Standard that any component author uses when developing a service, and hands off for deployment.
 
 **Definition of done.**
 
 1. A clear definition of what a service is, distinct from tools and utilities.
 2. Boundary tests that settle whether a given thing is a service, a tool, or a utility.
-3. Authoring concerns that a service author must address.
+3. Design concerns that a service developer must address.
 4. The relationship to Infrastructure's delivery model is stated without restating it.
 5. The sibling-outputs model extends to cover services alongside standards and tools.
 
 ## What a service is and does
 
-A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, performs work the AI cannot do in-session — filesystem access, git operations, external process invocation — and returns results. The AI is a caller, not the executor.
+A service provides persistent operations to AI sessions. It runs as a separate process outside the session, accepts requests from the AI, and performs work the AI delegates to it — filesystem access, git operations, external process invocation. The AI is a caller, not the executor.
 
 This is the fundamental distinction from a tool. A tool encapsulates a procedure the AI performs in-session. A service encapsulates operations a separate process performs, which the AI calls. The service has its own lifecycle, its own configuration, and its own safety enforcement — none of which depend on the session that calls it.
 
-A service reaches the AI platform as an MCP server — a process the platform starts, connects to, and routes tool calls through. The MCP server is the delivery form, the same way a skill is the delivery form for a standard or tool. The service is what is designed; the server is how it is delivered.
+A service reaches the AI platform as a server — a process the platform connects to and routes calls through. Currently, this means an MCP server; the delivery mechanism is Infrastructure's concern, not a property of the service type. The service is what is designed; the server is how it is delivered.
 
 ## Two boundary tests
 
@@ -16440,7 +16446,7 @@ The test is about who executes, not about what is executed. File operations coul
 
 ### Service vs utility
 
-If sessions connect to it for capabilities, it is a service. If it acts on the corpus and exits, it is a utility.
+If sessions connect to it for capabilities, it is a service. If it acts on the corpus rather than serving sessions, it is a utility.
 
 A utility runs on its own terms — triggered by a human, a script, or a scheduled task. It does not accept requests from sessions. A service exists to be called by sessions. Both run outside the session, but the direction of service is different: a utility serves the corpus, a service serves the session.
 
@@ -16450,21 +16456,21 @@ A thing may start as a utility and become a service when sessions need to call i
 
 ### The service definition
 
-What a service is, what it does, and what distinguishes it from a tool and a utility. The definitions are stated above. Services owns these definitions and the two boundary tests.
+What a service is, what it does, and what distinguishes it from a tool and a utility. The definitions are stated above. Services owns the service definition and the service-vs-utility boundary test. The execution-context property (in-session vs out-of-session) is a Capabilities taxonomy property; the invocability test that separates Standards from Tools is owned by Tools. Services references both when classifying.
 
-### The authoring concerns
+### The design concerns
 
-Seven concerns a service author must address. These are not a template — the author decides how to meet them, in whatever structure the service demands. They describe what a complete service design covers, so an author knows what to think about.
+Seven concerns a service developer must address. These are not a template — the developer decides how to meet them, in whatever structure the service demands. They describe what a complete service design covers, so a developer knows what to think about.
 
 **Interface.** What operations the service exposes to callers. Each operation has a name, inputs, outputs, and failure modes. The interface is the contract — what callers can rely on and what the service promises. A service that exposes operations not described in its interface, or whose operations behave differently from their description, is defective.
 
-**Configuration.** What the service needs to know about its environment before it can operate — where to find the things it works with, which are writable, any machine-level settings. Configuration is read at startup; changes require a restart. A service with no configuration is legitimate (the dispatch server has none). A service that requires configuration should report clearly when configuration is missing or invalid, and should operate correctly with default or empty configuration rather than failing silently.
+**Configuration.** What the service needs to know about its environment before it can operate — where to find the things it works with, which are writable, any machine-level settings. The developer declares the configuration lifecycle: when configuration is loaded, when changes take effect, and what a change requires (restart, reload, or immediate effect). A service with no configuration is legitimate (the dispatch server has none). A service that requires configuration should report clearly when configuration is missing or invalid, and should operate correctly with default or empty configuration rather than failing silently.
 
 **Discovery.** How the service finds and registers the things it operates on. Not every service discovers — dispatch takes its targets as call-time arguments. But a service that manages a set of resources (document sources, connection targets, queues) needs a defined discovery mechanism: what it scans, what qualifies, how naming collisions are handled, and what happens when discovery finds nothing.
 
-**Safety model.** What the service prevents and enforces. Path containment, readonly enforcement, clean-state preconditions, input validation. The service enforces its own safety because the AI cannot — the AI is a caller, not the executor, and has no direct control over what the service does with a request. Safety in a service is not advisory; it is enforced by the process.
+**Safety model.** What the service prevents and enforces. Path containment, readonly enforcement, clean-state preconditions, input validation. The service enforces its own safety because the AI cannot — the AI is a caller, not the executor, and has no direct control over what the service does with a request. Safety in a service is not advisory; it is enforced by the process. Where the service delegates work downstream, the developer declares what the service validates before delegation and what enforcement the downstream target is trusted to provide.
 
-**State management.** What state the service holds, how long it persists, and what resets it. Session-scoped state (tracked changes awaiting commit) is different from persistent state (configuration, discovery results held in memory). A service that holds session-scoped state must be clear about what a restart loses and what survives.
+**State management.** What state the service holds, how long it persists, and what resets it. Session-scoped state (tracked changes awaiting commit) is different from persistent state (configuration, discovery results held in memory). A service that holds session-scoped state must be clear about what a restart loses and what survives. If the service holds caller-specific state, the developer must declare how that state is partitioned across concurrent callers.
 
 **Error model.** How the service reports problems to callers. Errors carry enough information for the caller to decide what to do — retry, change the request, escalate. Error types are named and consistent across operations so callers can handle them programmatically. A service that returns generic errors or swallows detail forces the caller to guess.
 
@@ -16478,32 +16484,38 @@ This separation means the same service design could be delivered as a local MCP 
 
 In practice, the service author must know enough about the delivery model to make sound design choices — a service that requires persistent state across Desktop restarts is making a claim the local delivery model doesn't support. But the author designs the service's behaviour, not the server's plumbing.
 
+### The relationship to Build
+
+The design document is the build specification for a service — there is no intermediate authored document. Build creates the server from the design. Build standards for the service build domain — the type-specific conventions for building services — belong in the Services Development Standard. Build owns the generic mechanism; Services owns the domain knowledge of how to build a service.
+
 ## The sibling-outputs model extends to services
 
 A single design can produce standards, tools, and services as sibling outputs. The design describes the behaviour; each output delivers the part appropriate to its type — guidance into a standard, invokable actions into tools, persistent operations into services. All derive from the design, not from each other, and must not disagree.
 
 This is already happening. The document management design produces a service (the MCP server) and will produce a governing skill (a tool, not yet built). Both derive from the same design. The service provides the primitives; the tool orchestrates them with document intelligence.
 
-## Designing and authoring a service
+## Developing a service
 
 **Design is the default.** A service always has a design. There is no equivalent of the tool exception ("simple enough that a design would restate rather than elaborate") because a service is a deployed process with configuration, lifecycle, and safety obligations — these demand the design layer.
 
-**Author fresh.** A service is authored from its design, not by modifying a previous version. Same principle as tools and standards.
+**Design fresh.** A service design is produced fresh, not by modifying a previous version. Same principle as tools and standards.
 
-**No prescribed template.** A service design has no fixed structure. The author decides how to organise it, provided the authoring concerns are addressed.
+**No prescribed template.** A service design has no fixed structure. The author decides how to organise it, provided the design concerns are addressed.
 
 **Build references.** The service design should point the builder at Infrastructure's MCP delivery model and at an existing service as a working example. These are reference documents for the builder, not standards dependencies.
+
+**User documentation.** Every service has a user guide alongside its design documents — what the service does, how to verify it is connected, how to configure it, the operation inventory, and any platform-specific setup. The user guide serves the human operating the service, not the AI consuming it.
 
 ## Boundaries
 
 Services does **not** own:
 
 - **The MCP delivery model** — how a service becomes an MCP server, how it is packaged as a marketplace plugin, how it reaches each surface. Infrastructure owns delivery.
-- **The authoring rules** — the capability-wide authoring rules in the standards authoring standard apply to services the same way they apply to tools. Services consumes them.
+- **The development rules** — the capability-wide development rules in the Capabilities Development Standard apply to services the same way they apply to tools. Services consumes them.
 - **The cross-review process** — a Working Practices convention consumed by all components.
 - **Document structure** — Documentation Methodology.
 - **Any individual service** — each lives with its owning component.
-- **Hosted services** — cloud-hosted, always-on services (framework inbox, assurance data logger) follow the same authoring concerns but have a different delivery model. The delivery distinction is Infrastructure's; the service design methodology is the same.
+- **Hosted services** — cloud-hosted, always-on services (framework inbox, assurance data logger) follow the same design concerns but have a different delivery model. The delivery distinction is Infrastructure's; the service design methodology is the same.
 
 ## Carries to other components
 
@@ -16514,7 +16526,9 @@ Services does **not** own:
 ---
 
 Version note: v1-draft1 — initial design. Two boundary tests, seven authoring concerns, delivery separation, sibling-outputs extension. Derived from the two working examples (dispatch server, document management server). 2026-09-23.
-<!-- END SOURCE: Services/Services_Design_v1-draft1.md -->
+
+Version note: v1 — cross-review remediation. F2: definition changed from "cannot do" to delegation. F3: boundary ownership corrected. F4: authoring concerns → design concerns, Author fresh → Design fresh. F5: Build relationship added. F8: delivery made platform-neutral. F9: "and exits" removed from utility boundary. F10: configuration lifecycle declared not mandated. F11: user documentation added as deliverable. F12: caller isolation added to state management. F13: safety delegation model added. 2026-09-23. Replaces v1-draft1.
+<!-- END SOURCE: Services/Services_Design_v1.md -->
 
 ---
 
