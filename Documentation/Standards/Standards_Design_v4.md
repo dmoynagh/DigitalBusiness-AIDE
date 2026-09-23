@@ -114,11 +114,21 @@ Scope targets behaviour and relevance — what needs to be true for the standard
 
 ### Conflict resolution
 
-When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between. When two applicable items genuinely oppose each other on the same point, higher strength governs. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. Conflict is not manufactured from different concerns that can both be satisfied.
+The Standards Consumption Standard applies whenever an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, or deploying standards — that is the development standard's scope.
+
+When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between, and each item is applied according to its declared strength. When two applicable items genuinely oppose each other on the same point, higher strength governs, in the order Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved; when surfacing it, identify the competing standards, the opposing items, and the work affected. Conflict is not manufactured from different concerns that can both be satisfied — two standards addressing different aspects of the same work are not in conflict merely because both apply.
 
 ### Human override
 
-Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
+Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction. A human override does not change the standard — it authorises departure for the current work; the standard remains as written for all other application.
+
+### Reporting
+
+Normal operation under standards does not narrate every standard consulted. Silent compliance is the expected state. What is surfaced is what materially affects the work: blocking requirements, meaningful departures, conflicts, or a standard-driven consequence the work owner needs to know. This is Recommended rather than Required because judging what is material is contextual — the rule sets the default, not a fixed threshold. The reason is attention cost: narrating every applied standard buries the few things the human actually needs to act on.
+
+### Evaluating applicability
+
+A loaded standard is not automatically applicable. Before applying a standard, its declared applicability scope is evaluated against the current situation; a standard whose scope does not match is not applied, regardless of how it was loaded. This is the consumption-side counterpart of the applicability-scope authoring rule.
 
 ## Applicability of the development standard
 
@@ -222,4 +232,4 @@ Standards does **not** own:
 
 ---
 
-Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. 2026-09-23. Replaces v3.
+Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. Consumption content completed (applicability of the consumption standard, precedence order, what to identify when surfacing conflict, override scope, reporting, evaluating applicability) so the consumption standard can also be produced from it. 2026-09-23. Replaces v3.

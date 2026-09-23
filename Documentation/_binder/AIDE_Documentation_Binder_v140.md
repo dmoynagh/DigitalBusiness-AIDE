@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 139** (2026-09-23).
+> **Binder Version 140** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -100,13 +100,13 @@ individual files.
 - `Services/Services_Decisions_v1.md` - sha256 `4add787c397b`
 - `Services/Services_Design_v1.md` - sha256 `099f9169e7e5`
 - `Services/Services_Development_Standard_v1.md` - sha256 `35ef4111a46c`
-- `Standards/_index.md` - sha256 `09379ef5eb4d`
+- `Standards/_index.md` - sha256 `04a94d82fe00`
 - `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
 - `Standards/Standards_Decisions_v5.md` - sha256 `68051c7bb4e0`
-- `Standards/Standards_Design_v4.md` - sha256 `c3b26eb8e13d`
+- `Standards/Standards_Design_v4.md` - sha256 `667a8ff68010`
 - `Standards/Standards_Development_Standard_v1.md` - sha256 `fb221a00a231`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
-- `Tools/_index.md` - sha256 `90e0fa4aa6b7`
+- `Tools/_index.md` - sha256 `81f4544dcee5`
 - `Tools/Tools_Decisions_v8.md` - sha256 `844a6dee8fdf`
 - `Tools/Tools_Design_v7.md` - sha256 `ae69c6a5fb3d`
 - `Tools/Tools_Development_Standard_v1.md` - sha256 `93eef2cb73e5`
@@ -16743,7 +16743,7 @@ Version note: v1 — revised. Design concerns softened from seven formal obligat
 Role: Component, Documentation Project
 Aliases: none
 
-Standards defines how standards are authored, applied, honoured, and kept current. It owns the definition of a standard, the authoring rules (including leanness), and the pipeline from reference knowledge to deployed standard.
+Standards defines how standards are designed, authored, reviewed, built, deployed, and applied. It owns the definition of a standard, the development methodology (including the authoring rules and leanness), and the consumption contract for operating under standards.
 
 It is a methodological component — it does not hold all standards. Individual standards are designed and owned by the component or area they serve, under the what-knows-most-about-it principle.
 
@@ -17097,11 +17097,21 @@ Scope targets behaviour and relevance — what needs to be true for the standard
 
 ### Conflict resolution
 
-When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between. When two applicable items genuinely oppose each other on the same point, higher strength governs. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved. Conflict is not manufactured from different concerns that can both be satisfied.
+The Standards Consumption Standard applies whenever an AI session is operating under one or more AIDE standards. It does not govern designing, authoring, or deploying standards — that is the development standard's scope.
+
+When multiple standards apply to the same work, compatible standards stack — they are combined, not chosen between, and each item is applied according to its declared strength. When two applicable items genuinely oppose each other on the same point, higher strength governs, in the order Required > Recommended > Optional > Information. Equal-strength genuine conflict is surfaced and escalated rather than silently resolved; when surfacing it, identify the competing standards, the opposing items, and the work affected. Conflict is not manufactured from different concerns that can both be satisfied — two standards addressing different aspects of the same work are not in conflict merely because both apply.
 
 ### Human override
 
-Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction.
+Direct human instruction may override a standard within that person's authority. When it displaces a required or recommended item, the AI states the standard's position and the material consequence of departure, makes the departure visible, and continues under the human's instruction. A human override does not change the standard — it authorises departure for the current work; the standard remains as written for all other application.
+
+### Reporting
+
+Normal operation under standards does not narrate every standard consulted. Silent compliance is the expected state. What is surfaced is what materially affects the work: blocking requirements, meaningful departures, conflicts, or a standard-driven consequence the work owner needs to know. This is Recommended rather than Required because judging what is material is contextual — the rule sets the default, not a fixed threshold. The reason is attention cost: narrating every applied standard buries the few things the human actually needs to act on.
+
+### Evaluating applicability
+
+A loaded standard is not automatically applicable. Before applying a standard, its declared applicability scope is evaluated against the current situation; a standard whose scope does not match is not applied, regardless of how it was loaded. This is the consumption-side counterpart of the applicability-scope authoring rule.
 
 ## Applicability of the development standard
 
@@ -17205,7 +17215,7 @@ Standards does **not** own:
 
 ---
 
-Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. 2026-09-23. Replaces v3.
+Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. Consumption content completed (applicability of the consumption standard, precedence order, what to identify when surfacing conflict, override scope, reporting, evaluating applicability) so the consumption standard can also be produced from it. 2026-09-23. Replaces v3.
 <!-- END SOURCE: Standards/Standards_Design_v4.md -->
 
 ---
@@ -17438,7 +17448,7 @@ Version note: v1 — initial working document from session 2026-09-09.
 Role: Component, Documentation Project
 Aliases: none
 
-Tools defines the methodology for building tools — repeatable, named, invokable actions performed by the AI in-session. It owns the tool definition, the invocability test that draws the boundary between a tool and a standard, and the authoring methodology used to design and author tools.
+Tools defines the methodology for building tools — repeatable, named, invokable actions performed by the AI in-session. It owns the tool definition, the invocability test that draws the boundary between a tool and a standard, and the development methodology used to design, author, build, and deploy tools.
 
 Tools is a methodological component. It defines how to create its type; individual tools live with their owning component under the what-knows-most-about-it principle.
 
