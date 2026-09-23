@@ -17,13 +17,14 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - Remaining charter development principles (demonstrated need, simplest model, etc.) not yet in charter text — add in the same pass
 - ~~Standards Development Standard~~ — DONE (v1, supersedes Standards_Authoring_Standard_v8, old standard removed)
 - ~~Tools Development Standard~~ — DONE (v1, supersedes Tools_Authoring_Standard_v8, old standard removed)
-- Services Development Standard: author from accepted Services design
+- ~~Services Development Standard~~ — DONE (v1, authored fresh from Services_Design@v1)
 - Utilities: component creation, design pass, development standard
 
 **Build and deploy owed (all need skill authoring and plugin deployment):**
 - Capabilities_Development_Standard_v1 → aide-dev plugin (new skill)
 - Standards_Development_Standard_v1 → aide-dev plugin (replaces standards-authoring skill)
 - Tools_Development_Standard_v1 → aide-dev plugin (replaces tools-authoring skill)
+- Services_Development_Standard_v1 → aide-dev plugin (new skill)
 - Standards_Consumption_Standard_v4 → aide plugin (replaces v3 skill)
 
 **Open items (logged in project memory OI-1 to OI-3):**
