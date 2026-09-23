@@ -30,6 +30,13 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - Project memory (aide-rebuild.md) at capacity — needs consolidation or splitting
 - Services Design v1-draft1 pending Dave's review (committed earlier this session)
 
+### Open items — 2026-09-23
+
+- **OI-WP-1:** "update state" and "update docs" as operational commands. Update state = WIP, board. Update docs = masters then binder. Content-update actions complementing the existing session-lifecycle commands. WP design, short-term
+- **OI-WP-2:** binder notification convention — after doc changes via document manager, notify user binder needs updating in context. WP or Infrastructure, assess placement
+- **OI-WP-3:** persistence summary convention — after writing to docs, provide a brief routing summary (x written to Core_Design, y to WIP) so user can check destinations. WP, assess placement
+- **OI-WP-4:** open-item timing heuristic — WIP storage, board for 1-3 day items. WP design refinement of the open-item model
+
 ### DocMeth — schema review across components
 
 All components owning doctypes or block types must define them using the accepted definition contract. The definition contract has been simplified in the rebuild (6 blocktype properties, 4 doctype properties). Assessment produced (DocMeth_Schema_Review_v1) — rework is a separate task per component.
