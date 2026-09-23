@@ -1,4 +1,4 @@
-> identity: WP_Design@v6 | doctype: design | updated: 2026-09-17
+> identity: WP_Design@v7 | doctype: design | updated: 2026-09-24
 
 # Working Practices — Design
 
@@ -7,6 +7,8 @@
 Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
 
 WP operates at two levels. At component level, capture-and-place, operational tools, file delivery rules, and the overview-first discipline are standing obligations and mechanisms available across WP. Below that, two areas provide the models and conventions work uses: Working State (where content lives while in motion, how work is tracked and completed) and Content Delivery (how content reaches the AI session).
+
+The standard states a document-level default strength and marks most sections Required, Recommended, or Information. Applying it correctly means interpreting those strength markers and evaluating the Applicability section before treating any of it as binding — exactly what Standards Consumption governs. The standard declares `uses Standards_Consumption_Standard@v5` for this reason, not because Standards Consumption was used to author it (D22).
 
 The Assurance component, identified during this design pass, takes ownership of the human working model, trust-building conventions, verification behaviours, drift detection, and anomalies — the content originally placed in a Human-AI Collaboration area. Assurance is both a component (Guidance role) and a framework-wide requirement (Core).
 
@@ -226,3 +228,5 @@ WP owns generic operating behaviour and live state — the middle placement band
 ---
 
 Version note: v6 — Work plan section replaced by Board reference; Boards added as a part under WP (WP_Boards_Design_v1, WP_Boards_Decisions_v1). Boundaries updated. 2026-09-17. Replaces v5.
+
+Version note: v7 — round-3 cross-review remediation (N1): the standard's `uses` pointed at the deleted Standards_Authoring_Standard, a dependency from how the standard was authored, not from how it is applied. Replaced with `uses Standards_Consumption_Standard@v5`, the genuine runtime dependency (D22). 2026-09-24. Replaces v6.

@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 143** (2026-09-24).
+> **Binder Version 144** (2026-09-24).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -63,18 +63,18 @@ individual files.
 - `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` - sha256 `709be4952c6b`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
 - `Infrastructure/binder-builder/BinderBuilder_Design_v10.md` - sha256 `518121d99d79`
-- `Infrastructure/binder-builder/README.md` - sha256 `9c905047ab5a`
+- `Infrastructure/binder-builder/README.md` - sha256 `68bc0b9935ae`
 - `Infrastructure/document-management/_index.md` - sha256 `e726f0298d82`
 - `Infrastructure/document-management/DocumentManagement_Brief_v3.md` - sha256 `b83c1b37690f`
 - `Infrastructure/document-management/DocumentManagement_Decisions_v5.md` - sha256 `295cba7a2055`
 - `Infrastructure/document-management/DocumentManagement_Design_v5.md` - sha256 `a08d511b743f`
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `15617061295c`
 - `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `76a4c37c468f`
-- `Infrastructure/file-update-package/README.md` - sha256 `747bc371ff85`
-- `Infrastructure/Infrastructure_CLI_Decisions_v1.md` - sha256 `a9ceaa12461f`
-- `Infrastructure/Infrastructure_CLI_Design_v1.md` - sha256 `acbe170e16bb`
+- `Infrastructure/file-update-package/README.md` - sha256 `6abf0d0d49bd`
+- `Infrastructure/Infrastructure_CLI_Decisions_v2.md` - sha256 `cffe4759587e`
+- `Infrastructure/Infrastructure_CLI_Design_v2.md` - sha256 `09eab74fa94b`
 - `Infrastructure/Infrastructure_Working_v1.md` - sha256 `80a5dc6e19e8`
-- `Infrastructure/version-cleanup/README.md` - sha256 `307a43363adb`
+- `Infrastructure/version-cleanup/README.md` - sha256 `475ca9046dd8`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `c17e9142e485`
 - `Infrastructure/version-cleanup/VersionCleanup_Design_v3.md` - sha256 `c672be61d03a`
 - `Messaging/_index.md` - sha256 `24b02a283278`
@@ -120,12 +120,12 @@ individual files.
 - `Working Practices/Boards/WP_Boards_Decisions_v1.md` - sha256 `33320d50ac48`
 - `Working Practices/Boards/WP_Boards_Design_v1.md` - sha256 `13384c9edecf`
 - `Working Practices/FileOps/WP_FileOps_Working_v1.md` - sha256 `6097d4250b37`
-- `Working Practices/WorkingPractices_Standard_v2.md` - sha256 `4819d41b184b`
+- `Working Practices/WorkingPractices_Standard_v3.md` - sha256 `1dd93952ff46`
 - `Working Practices/WP_Brief_v2.md` - sha256 `8033b884c2db`
 - `Working Practices/WP_Capture_Working_v1.md` - sha256 `c47c90767511`
 - `Working Practices/WP_ContentDelivery_Working_v1.md` - sha256 `388b8f4d4b72`
-- `Working Practices/WP_Decisions_v4.md` - sha256 `9957a8fb75f9`
-- `Working Practices/WP_Design_v6.md` - sha256 `da8923648608`
+- `Working Practices/WP_Decisions_v5.md` - sha256 `dc4da91c4787`
+- `Working Practices/WP_Design_v7.md` - sha256 `ff9ce344108c`
 - `Working Practices/WP_WorkManagement_Working_v1.md` - sha256 `122b3cd42cc8`
 
 ---
@@ -10187,9 +10187,10 @@ Gathers the current documents of a defined scope into a single file, so a whole
 topic can be dropped into an AI session's context as one artefact rather than
 as many.
 
-The script lives in the deploy repo and is distributed via `aide update`. This
-folder contains the design documentation and default settings for the tool.
-Utility changes are made in the deploy repo via Code.
+The tool is `aide binder`, one of the utilities built into the `aide` CLI
+(`aide-cli`, in the deploy repo `DigitalBusiness-AIDE-Deploy`, distributed via
+`aide update`). This folder holds the design documentation for the tool, not
+the tool itself — there is no standalone script to run here.
 
 **A settings file is a binder definition.** It declares the scope. To define a
 second binder, put a second settings file beside the first — one run builds them
@@ -10202,6 +10203,28 @@ own.
 **It will not rebuild for nothing.** If no in-scope file has changed since the
 last binder was written, the run reports `NO CHANGES` and writes nothing. See
 *Change detection* below.
+
+---
+
+## Running it
+
+From anywhere inside a project (the tool walks up from the current folder to
+find `_aide/`):
+
+```
+aide binder
+```
+
+builds every binder defined for the project. Other flags:
+
+```
+aide binder --list       # show what's defined, build nothing
+aide binder --dry-run    # report what would happen, write nothing
+aide binder --force      # rebuild even if nothing changed
+```
+
+There is no per-binder selection by name any more — a run always builds every
+definition found. `--dry-run` and `--force` apply to the whole run.
 
 ---
 
@@ -10243,56 +10266,22 @@ one, so the closing delimiter starts on its own line.
 
 ---
 
-## Installing Python on Windows
-
-Only needed once per machine. The tool uses nothing beyond the Python standard
-library, so there is nothing else to install.
-
-1. Go to <https://www.python.org/downloads/windows/> and download the latest
-   **Windows installer (64-bit)**. Python 3.8 or newer is required; any current
-   release is fine.
-2. Run the installer. On the first screen, **tick "Add python.exe to PATH"**
-   before clicking Install. This is easy to miss and is the usual reason a
-   `.py` file will not run afterwards.
-3. Choose **Install Now**.
-4. To check it worked, open PowerShell and run:
-
-   ```
-   python --version
-   ```
-
-   It should print something like `Python 3.13.1`.
-
-### Making double-click work
-
-The standard installer associates `.py` files with the Python launcher, so
-double-clicking `binder_builder.py` in File Explorer should just run it. If it
-instead opens in Notepad or asks which app to use:
-
-1. Right-click `binder_builder.py` → **Open with** → **Choose another app**.
-2. Pick **Python** (or browse to `C:\Windows\py.exe`).
-3. Tick **Always use this app to open .py files**.
-
-The script pauses with *"Press Enter to close..."* when it finishes, so the
-console window stays open long enough to read the report.
-
-### Running it from a terminal instead
-
-```
-python "C:\path\to\binder_builder.py"
-```
-
----
-
 ## Settings
 
-The script reads every `binder_builder*settings*.json` in **its own folder** —
-not from wherever the terminal happens to be pointing. Each one is a binder. If
-the folder holds none at all, the script writes a fresh
-`binder_builder_Documentation_settings.json` with default values and
-explanatory notes, then tells you to check it. Since a settings file is a binder
-definition, a fresh one almost always needs editing — starting with its `name`,
-and then its own filename to match.
+There are no binder settings in `_aide/settings.json` — a binder's scope is
+defined entirely by its own settings file. `aide binder` reads every
+`binder_builder*settings*.json` file it finds in the project's per-project
+runtime settings folder:
+
+```
+_aide/utilities/binder-builder/
+```
+
+not from wherever the terminal happens to be pointing, and not from any
+package default (`aide-cli` ships none — `"binder": {}` in its defaults). Each
+one is a binder. If the folder holds none at all, the run reports what it
+expected and where, rather than inventing one — create the first settings file
+by hand:
 
 ```json
 {
@@ -10305,7 +10294,7 @@ and then its own filename to match.
   "exclude_files": [],
   "order": [],
   "output": "~/_binder",
-  "log_file": "binder_builder.log"
+  "log_file": "binder_builder_Documentation.log"
 }
 ```
 
@@ -10320,7 +10309,7 @@ and then its own filename to match.
 | `exclude_files` | Files to skip — by name, or by path. Applied after `file_types`. |
 | `order` | Filenames pulled to the front of the binder, in the order listed. |
 | `output` | The folder the binder is written to. |
-| `log_file` | Where the run log is appended. |
+| `log_file` | Where the run log is appended. Defaults to `binder_builder_<name>.log` next to the settings file if left out. |
 
 ### Which folders are skipped by default
 
@@ -10336,10 +10325,10 @@ List a folder in `include` to collect from it anyway. Including a folder does
 ### The three path forms
 
 **`root`, `output` and `log_file`** take a full path, a `~/` path measured from
-`root`, or a path measured from the folder the script lives in — so `".."`
-means "the folder above me", and an instance sitting in `Documentation/_tools`
-builds from `Documentation` by default. (`root` itself cannot use `~/`, since it
-is what defines the root.)
+`root`, or a path measured from the settings file's own folder — so `".."`
+means "the folder above me", and a settings file sitting in
+`_aide/utilities/binder-builder/` builds from the project root by default.
+(`root` itself cannot use `~/`, since it is what defines the root.)
 
 **`include` and `exclude`** take the same three forms, but the relative one
 means something different:
@@ -10374,9 +10363,8 @@ tools with different path semantics would be a trap.
 doubled backslashes (`"C:\\Users\\you"`); a single backslash is an escape
 character in JSON and will break the file.
 
-**Comments.** JSON has no comment syntax, so the notes in the shipped settings
-file are carried as keys beginning with `_comment`. They are ordinary JSON and
-the tool ignores them. Leave them, edit them, or delete them as you prefer.
+**Comments.** JSON has no comment syntax, so notes can be carried as keys
+beginning with `_comment`. They are ordinary JSON and the tool ignores them.
 
 ### Excluding live state
 
@@ -10451,24 +10439,18 @@ is a quiet defect.
 
 ## Several binders in one folder
 
-Each settings file in the script's folder is one binder, and both the settings
-and the log are named for the binder they belong to:
+Each settings file in `_aide/utilities/binder-builder/` is one binder, and both
+the settings and the log are named for the binder they belong to:
 
 ```
-_tools/
-├── binder_builder.py
+_aide/utilities/binder-builder/
 ├── binder_builder_AIDE_Documentation_settings.json
 ├── binder_builder_ProjectDesign_settings.json
-├── binder_builder_Infrastructure_settings.json
-├── binder_builder_Methodology_settings.json
 ├── binder_builder_AIDE_Documentation.log
-├── binder_builder_ProjectDesign.log
-├── binder_builder_Infrastructure.log
-└── binder_builder_Methodology.log
+└── binder_builder_ProjectDesign.log
 ```
 
-So a folder of four binders can be read from the listing without opening
-anything.
+So a folder of binders can be read from the listing without opening anything.
 
 To add one, copy an existing settings file to
 `binder_builder_<name>_settings.json`, edit it, and set its `name` to match.
@@ -10478,15 +10460,10 @@ To add one, copy an existing settings file to
 `--list` prints them side by side, which is where you will notice.
 
 **The log name is derived.** Leave `log_file` out and each binder gets
-`binder_builder_<name>.log` automatically, so four definitions do not interleave
-four runs in one file. Set `log_file` explicitly if you would rather several
-binders shared one — one file per folder in run order is exactly what someone
-auditing a whole folder wants.
-
-**Older filenames still work.** `binder_builder_settings.json`, and the
-`binder_builder_settings_<something>.json` spelling this README recommended
-earlier, are both still discovered and built. Rename them when convenient;
-nothing forces it.
+`binder_builder_<name>.log` automatically, so several definitions do not
+interleave their runs in one file. Set `log_file` explicitly if you would
+rather several binders shared one — one file per folder in run order is
+exactly what someone auditing a whole folder wants.
 
 **Give each one a different `name`.** The name decides the output filename, so
 two binders sharing one would take turns superseding each other's file. The tool
@@ -10497,18 +10474,7 @@ They can share an output folder. `ProjectDesign_Binder_v3.md` and
 `Infrastructure_Binder_v7.md` sit happily side by side in one `_binder`: each
 definition only ever scans, supersedes and skips binders of its own name.
 
-They can share a log too — that is what happens if you leave `log_file` alone,
-and it gives you one file with every build in it, in order. Give a definition a
-different `log_file` if you would rather it kept its own.
-
-### Running them
-
-```
-python binder_builder.py
-```
-
-builds every binder defined in the folder — which is also what double-clicking
-does. Each one gets its own report, and the run ends with a line for the folder:
+Each build produces its own report, and the run ends with a line for the folder:
 
 ```
 ========================================================================
@@ -10516,32 +10482,12 @@ Result: 4 binder(s) - 1 rebuilt, 3 unchanged
 ========================================================================
 ```
 
-To build only some of them, name them:
-
-```
-python binder_builder.py ProjectDesign Infrastructure
-```
-
-The name is the `name` from the settings file, or the settings filename itself
-if that is easier to remember; either way it is matched case-insensitively. Name
-something that is not defined and **nothing** is built — the tool lists what is
-available instead, on the grounds that "build these four", three-quarters done,
-is worse than not started.
-
-To see what is defined without building anything:
-
-```
-python binder_builder.py --list
-```
-
-`--dry-run` and `--force` apply to whatever you selected.
-
 ### If one definition is broken
 
-It is reported on its own and the others still build. Four binders staying
-current is the point of keeping them in one folder; three of them going stale
-because the fourth has a trailing comma would defeat it. The run still exits `1`,
-and the roll-up counts it:
+It is reported on its own and the others still build. Several binders staying
+current is the point of keeping them together; the rest going stale because one
+has a trailing comma would defeat it. The run still exits `1`, and the roll-up
+counts it:
 
 ```
 Result: 4 binder(s) - 4 unchanged, 1 unreadable
@@ -10549,9 +10495,9 @@ Result: 4 binder(s) - 4 unchanged, 1 unreadable
 
 ### Why this is cheap
 
-Change detection. Four definitions where nothing has changed cost four manifest
-comparisons and no writes at all, so running the lot after every edit is a
-sensible habit rather than an expensive one.
+Change detection. Several definitions where nothing has changed cost a manifest
+comparison per definition and no writes at all, so running the lot after every
+edit is a sensible habit rather than an expensive one.
 
 ---
 
@@ -10616,54 +10562,8 @@ binder that misrepresents the tree.
 rewrites every modification time, would both trigger a pointless rebuild. The
 comparison is over content.
 
-To rebuild anyway:
-
-```
-python binder_builder.py --force
-```
-
-A dry run reports the same comparison as `WOULD CHECK` and writes nothing
-either way.
-
----
-
-## Running it
-
-Live by default — there is no confirmation prompt. With no arguments it builds
-every binder defined in the folder:
-
-```
-python binder_builder.py
-```
-
-One binder only:
-
-```
-python binder_builder.py ProjectDesign
-```
-
-Report only, writes nothing:
-
-```
-python binder_builder.py --dry-run
-```
-
-Rebuild even if nothing has changed:
-
-```
-python binder_builder.py --force
-```
-
-List the binder definitions in this folder and build nothing:
-
-```
-python binder_builder.py --list
-```
-
-The dry run takes exactly the same decisions as a live run — it reads every
-source and computes every digest — and reports them with `WOULD INCLUDE` and
-`WOULD WRITE` in place of `INCLUDED` and `WRITTEN`. It is the safe way to check
-a new scope before letting the tool write anything.
+`aide binder --force` rebuilds anyway. A dry run reports the same comparison as
+`WOULD CHECK` and writes nothing either way.
 
 ---
 
@@ -10703,12 +10603,11 @@ its own first screenful:
 The previous binder is superseded as usual, so it is in `_superseded` and one
 move from being restored if this was not what you wanted.
 
-This is deliberate, and it is the opposite of what the tool used to do. Writing
-nothing sounds safer, but it leaves a binder in the output folder presenting as
-current while asserting content the scope no longer holds — and that binder is
-what gets loaded into a session. A stale binder that looks authoritative is the
-worst thing this tool could produce. An empty one that says it is empty is
-merely surprising.
+This is deliberate. Writing nothing sounds safer, but it leaves a binder in the
+output folder presenting as current while asserting content the scope no
+longer holds — and that binder is what gets loaded into a session. A stale
+binder that looks authoritative is the worst thing this tool could produce. An
+empty one that says it is empty is merely surprising.
 
 `EMPTY` is reported whether or not anything was written, because an empty scope
 is far more often a settings mistake than a true statement. If you see it and
@@ -10746,17 +10645,19 @@ A file that is not valid UTF-8 cannot go into the binder. It is reported as an
 ## The log
 
 Every run appends one entry to the log file, live and dry-run alike, each
-stamped with the date, the mode and the root it was pointed at. The log is never
-rewritten or trimmed. If it grows unwieldy, archive or delete it by hand; the
-tool will start a fresh one.
+stamped with the date, the mode and the root it was pointed at. The log lands
+next to the settings file it belongs to, under
+`_aide/utilities/binder-builder/`, unless `log_file` says otherwise. The log is
+never rewritten or trimmed. If it grows unwieldy, archive or delete it by hand;
+the tool will start a fresh one.
 
 ---
 
 ## Scope
 
-It collects and assembles. It does not resolve versions — that is version
-cleanup's job, run first — and it does not deploy. It is Infrastructure: it acts
-on the corpus and is never loaded into an AI session itself.
+It collects and assembles. It does not resolve versions — that is `aide
+cleanup`'s job, run first — and it does not deploy. It is Infrastructure: it
+acts on the corpus and is never loaded into an AI session itself.
 <!-- END SOURCE: Infrastructure/binder-builder/README.md -->
 
 ---
@@ -11785,12 +11686,13 @@ it is not written down as a choice.
 # file update package
 
 Deploys a **FileUpdatePackage** — a zip of updated documents produced by a Chat
-or Cowork session — into the master document tree, superseding what it replaces
+or Cowork session — into the master document tree, deleting what it replaces
 and rebuilding the binder afterwards.
 
-The script lives in the deploy repo and is distributed via `aide update`. This
-folder contains the design documentation and default settings for the tool.
-Utility changes are made in the deploy repo via Code.
+The tool is `aide fup`, one of the utilities built into the `aide` CLI
+(`aide-cli`, in the deploy repo `DigitalBusiness-AIDE-Deploy`, distributed via
+`aide update`). This folder holds the design documentation for the tool, not
+the tool itself — there is no standalone script to run here.
 
 **It never overwrites.** A file already sitting where a package wants to write,
 and not named as the one being replaced, is reported as a `CONFLICT` and left
@@ -11818,7 +11720,7 @@ ProjectDesign_2026-09-07.zip
   "files": [
     {
       "path": "Project Design/ProjectDesign_Design_v8.md",
-      "action": "update",
+      "action": "replace",
       "replaces": "ProjectDesign_Design_v7.md"
     },
     {
@@ -11830,24 +11732,36 @@ ProjectDesign_2026-09-07.zip
 }
 ```
 
+A third action, `move`, renames or relocates a document already in the tree
+without touching its content — no `path` inside the zip is needed for it:
+
+```json
+{
+  "action": "move",
+  "old_path": "Working Practices/FileOps/WP_FileOps_Working_v1.md",
+  "new_path": "Working Practices/_superseded/WP_FileOps_Working_v1.md"
+}
+```
+
 | Field | Meaning |
 | --- | --- |
-| `path` | Where the file goes, measured from the documentation root. Forward slashes. |
-| `action` | `create` for a new file, `update` for one that replaces an existing document. |
-| `replaces` | Update only, optional. The **filename** — not a path — of the document being superseded. The tool finds it and moves it into `_superseded`. |
+| `path` | Where the file goes, measured from the documentation root. Forward slashes. `create`/`replace` only. |
+| `action` | `create` for a new file, `replace` for one that supersedes an existing document, `move` to rename or relocate a file already in the tree. `update` is still accepted as a synonym for `replace`, for packages built before the rename. |
+| `replaces` | `replace` only, optional. The **filename** — not a path — of the document being superseded. The tool finds it and deletes it. |
+| `old_path` / `new_path` | `move` only, required. Both measured from the documentation root. |
 | `description` | Optional. Shown in the report and the completion summary. |
-| `user_instructions` | Optional. Shown to you, and the tool waits for you to acknowledge them before it touches anything. |
+| `user_instructions` | Optional. Shown to you; a live run in an interactive console waits for you to press Enter before deploying anything (see *The instructions gate* below). |
 | `created` | Optional, informational. Packages are ordered by file modification time, not by this. |
 
-**Choosing `create` vs `update`.** `create` means the file does not yet exist in
+**Choosing `create` vs `replace`.** `create` means the file does not yet exist in
 the tree. If a file already sits at the destination path — from a prior deploy,
-a partial run, or manual placement — use `update`, not `create`. The tool will
+a partial run, or manual placement — use `replace`, not `create`. The tool will
 `CONFLICT` on a `create` that finds an occupied path rather than risk
 overwriting something it was not told about.
 
-**Leaving `replaces` out of an update** means "this replaces the file already at
-this path" — that file is moved into `_superseded` and the new one written in
-its place. Use it for documents whose filenames do not carry a version.
+**Leaving `replaces` out of a `replace`** means "this replaces the file already
+at this path" — that file is deleted and the new one written in its place. Use
+it for documents whose filenames do not carry a version.
 
 `Documentation/_config/repo_config.json` maps topic names to folder paths, for
 whoever is *building* a package. The tool does not read it; it has its own
@@ -11860,80 +11774,96 @@ settings.
 1. Finds the newest unprocessed `.zip` in the drop folder. Any others wait their
    turn and are reported by name.
 2. Validates the package — a zip, with a manifest, that names files it actually
-   contains. Anything wrong and the whole package is rejected: `INVALID`, and
-   nothing at all is deployed.
-3. Shows the package's instructions, if it has any, and waits for you.
-4. For each file: moves the document it replaces into `_superseded`, then writes
-   the new one.
-5. Runs the binder builder. It decides for itself whether a rebuild is needed.
-6. Moves the package into `_superseded` inside the drop folder — but only if the
-   deploy was complete.
-7. Prints a completion summary and holds the window open until you have read it.
+   contains and actions it recognises. Anything wrong and the whole package is
+   rejected: `INVALID`, and nothing at all is deployed.
+3. Shows the package's instructions, if it has any, and — in a live run with an
+   interactive console — waits for you to acknowledge them.
+4. For each entry: `create` writes a new file; `replace` deletes the document
+   it supersedes, then writes the new one; `move` renames or relocates a file
+   already in the tree, content unchanged.
+5. Runs `aide binder`, unless `trigger_binder` is set to `false` or nothing was
+   deployed. It decides for itself whether a rebuild is needed.
+6. Deletes the package from the drop folder — but only if the deploy was
+   complete. If anything deployed, the tool also stages and commits the
+   change, with a message such as `fup: applied ProjectDesign_2026-09-07 (1
+   replaced, 1 created)`.
+7. Prints a completion summary.
+
+There is no `_superseded` folder in any of this — deleted files and the
+processed package are gone from the working tree, and git history is the
+record of what they contained.
 
 ---
 
-## Installing Python on Windows
+## Running it
 
-Only needed once per machine. The tool uses nothing beyond the Python standard
-library, so there is nothing else to install.
-
-1. Go to <https://www.python.org/downloads/windows/> and download the latest
-   **Windows installer (64-bit)**. Python 3.8 or newer is required; any current
-   release is fine.
-2. Run the installer. On the first screen, **tick "Add python.exe to PATH"**
-   before clicking Install. This is easy to miss and is the usual reason a
-   `.py` file will not run afterwards.
-3. Choose **Install Now**.
-
-Double-clicking `file_update_package.py` in File Explorer runs it. If it opens
-in Notepad instead, right-click it → **Open with** → **Choose another app** →
-pick **Python**, and tick **Always use this app to open .py files**.
-
-Or from a terminal:
+From anywhere inside a project (the tool walks up from the current folder to
+find `_aide/`):
 
 ```
-python "C:\path\to\file_update_package.py"
+aide fup              # live — the only prompt is the package's own instructions, if it has any
+aide fup --dry-run    # report only, changes nothing
 ```
+
+The dry run takes the same decisions as a live run — it validates the package,
+works out what would be deleted and what would conflict — and reports them
+with `WOULD REPLACE`, `WOULD CREATE`, `WOULD MOVE` and `WOULD DELETE`. It is
+the safe way to look at a package you did not build yourself. A dry run shows
+`user_instructions` but does not wait for acknowledgement, since nothing is
+actually about to happen.
+
+---
+
+## The instructions gate
+
+If the manifest carries `user_instructions`, they are printed before anything
+is touched. In a live run with an interactive console attached, the tool then
+waits — `Press Enter to continue with the deploy, or Ctrl+C to stop...` —
+before deploying. Outside an interactive console (a script, a CI-style run) it
+logs that it continued without acknowledgement rather than hanging. Either way
+the completion summary's `user instructions:` line states exactly what
+happened: shown and acknowledged, shown but not acknowledged (and why), or
+present but not gated (dry run).
 
 ---
 
 ## Settings
 
-The script reads `file_update_package_settings.json` from **its own folder** —
-not from wherever the terminal happens to be pointing. If that file is missing,
-the script writes a fresh one with default values and explanatory notes, then
-tells you to check it.
+`aide fup` reads the `fup` key of the project's per-project runtime settings
+file, `_aide/settings.json` — not a settings file of its own:
 
 ```json
 {
-  "documentation_root": "..",
-  "drop_folder": "~/_fileupdatepackages",
-  "binder_builder": "~/_tools/binder_builder.py",
-  "log_file": "file_update_package.log"
+  "fup": {
+    "drop_folder": "~/_fileupdatepackages",
+    "trigger_binder": true,
+    "log_file": "~/_aide/utilities/file-update-package/file_update_package.log"
+  }
 }
 ```
 
+Anything left out falls back to the package default shipped with `aide-cli`
+(shown above — these *are* the defaults).
+
 | Setting | Meaning |
 | --- | --- |
-| `documentation_root` | The root of the tree packages deploy into. Manifest paths are measured from here. |
 | `drop_folder` | Where packages are put to be deployed. |
-| `binder_builder` | The binder builder to run afterwards. Point it at the **running instance**, so it uses that instance's settings. Set it to `""` to skip the trigger. |
+| `trigger_binder` | Whether to run `aide binder` after a deploy that wrote something. Set `false` to skip it. |
 | `log_file` | Where the run log is appended. |
 
-### The three path forms
+There is no `binder_builder` path setting any more — `aide fup` calls `aide
+binder` in-process, using the project's own binder settings
+(`_aide/utilities/binder-builder/`), so there is nothing to point at.
+
+### Path forms
 
 | Form | Example | Means |
 | --- | --- | --- |
 | Absolute | `"C:/Docs/_fileupdatepackages"` | that exact folder |
-| Root-anchored | `"~/_fileupdatepackages"` | measured from `documentation_root` |
-| Script-relative | `".."` | measured from the folder holding the script |
+| Root-anchored | `"~/_fileupdatepackages"` | measured from the documentation root (the project root, where `_aide/` lives) |
 
 `"~"` here means **the documentation root**, never your home folder. The tool
 never expands `~` the way a shell would.
-
-`documentation_root` cannot itself use `"~/"` — it is what `"~/"` means. Use
-`".."`, which is what an instance sitting in a `_tools` folder wants, or a full
-path.
 
 This is the same path model as version cleanup and the binder builder,
 deliberately. Three Infrastructure tools with different path semantics would be
@@ -11946,32 +11876,9 @@ break the file.
 
 ---
 
-## Running it
-
-Live by default — the only prompt is the package's own instructions, if it has
-any:
-
-```
-python file_update_package.py
-```
-
-Report only, changes nothing:
-
-```
-python file_update_package.py --dry-run
-```
-
-The dry run takes the same decisions as a live run — it validates the package,
-works out what would be superseded and what would conflict — and reports them
-with `WOULD DEPLOY`, `WOULD CREATE` and `WOULD SUPERSEDE`. It is the safe way to
-look at a package you did not build yourself.
-
----
-
 ## The completion summary
 
-This is the point of the run. It is printed whatever happened, and the window
-stays open until you have read it:
+This is the point of the run. It is always printed:
 
 ```
 ========================================================================
@@ -11979,26 +11886,32 @@ COMPLETION SUMMARY
 ------------------------------------------------------------------------
   package:              ProjectDesign_2026-09-07.zip
                         Project Design master files - binder sweep complete
-  files updated:        1
+  files replaced:       1
   files created:        1
-  files superseded:     1
+  files moved:          0
+  files deleted:        1
   conflicts:            0
-  errors:               0
+  errors:                0
   user instructions:    present, shown and acknowledged
-  binder builder:       triggered - 24 included, 1 written, 1 superseded
-  the package is now:   moved to _superseded/
+  binder builder:       triggered
+  the package is now:   deleted
   folder naming:        no misspelled folders found
 ------------------------------------------------------------------------
 COMPLETED SUCCESSFULLY
 ========================================================================
 ```
 
-Every conflict and every error is listed individually, with the filename and the
-reason. The last line is one of:
+`files deleted` counts the superseded document each `replace` removes — a
+`replace` produces both a `DELETED` event (the old file) and a `REPLACED`
+event (the new one), so a package with one `replace` typically shows `files
+replaced: 1` and `files deleted: 1`. Every conflict and every error is listed
+individually, with the filename and the reason. The last line is one of:
 
 | Status | When |
 | --- | --- |
-| `COMPLETED SUCCESSFULLY` | Nothing went wrong. Also the "no packages to deploy" case. |
+| `COMPLETED SUCCESSFULLY` | Nothing went wrong. |
+| `COMPLETED SUCCESSFULLY - there was nothing to do` | No packages in the drop folder. |
+| `COMPLETED SUCCESSFULLY - dry run, nothing was changed` | Dry run, no problems found. |
 | `COMPLETED WITH ERRORS - every file was deployed, but a later step failed` | The files landed; something after them did not — in practice the binder builder. |
 | `COMPLETED WITH ERRORS - the deploy is incomplete` | Some files landed, some did not. |
 | `FAILED - nothing was deployed` | The package was rejected, or every file in it conflicted. |
@@ -12009,17 +11922,18 @@ reason. The last line is one of:
 
 | Kind | Meaning |
 | --- | --- |
-| `DEPLOYED` / `WOULD DEPLOY` | An updated file written into place. |
+| `REPLACED` / `WOULD REPLACE` | An updated file written into place. |
 | `CREATED` / `WOULD CREATE` | A file that did not exist before. |
-| `SUPERSEDED` / `WOULD SUPERSEDE` | The document being replaced, moved into `_superseded`. |
-| `CONFLICT` | A destination is taken, or a `replaces` matched more than one file. Nothing overwritten, nothing moved. |
+| `MOVED` / `WOULD MOVE` | A file renamed or relocated, content unchanged. |
+| `DELETED` / `WOULD DELETE` | The document a `replace` superseded, removed from the tree. |
+| `CONFLICT` | A destination is taken, a `replaces` matched more than one file, or a `move` source/destination is missing or already occupied. Nothing overwritten, nothing moved. |
 | `SKIPPED` | No packages to deploy, a package waiting its turn, or a `replaces` naming a file that is not in the tree. |
 | `INVALID` | The package was rejected. Nothing in it was deployed. |
-| `BINDER` | The binder builder was triggered, and what it said. |
-| `PROCESSED` / `WOULD PROCESS` | The package itself, moved into `_superseded`. |
-| `ERROR` | A filesystem refusal, or a binder builder run that failed. |
+| `BINDER` | `aide binder` was triggered, and what it said. |
+| `PROCESSED` / `WOULD PROCESS` | The package itself, deleted from the drop folder. |
+| `ERROR` | A filesystem refusal, or a binder run that failed. |
 
-Events appear in the order they happened, so a supersession and the write that
+Events appear in the order they happened, so a deletion and the write that
 depended on it read as one story. The exit code is `0` unless an `ERROR`
 occurred — note that a `CONFLICT` and a rejected package both exit `0`, because
 nothing failed: the tool did exactly what it should with what it was given. The
@@ -12032,16 +11946,16 @@ package that is wrong in one place is not deployed in the places it happens to
 be right, because deploying half of a badly-built package leaves the tree in a
 state nobody designed. Fix the package and drop it in again.
 
-**`CONFLICT` — something was in the way.** Either a file already sits where the
-package wants to write and the package did not name it as superseded, or a
+**`CONFLICT` — something was in the way.** A file already sits where the
+package wants to write and the package did not name it as replaced; a
 `replaces` filename was found in several folders and the tool will not guess
-which one you meant. Nothing is overwritten and nothing is moved. The run says
+which one you meant; or a `move` source doesn't exist or its destination is
+already occupied. Nothing is overwritten, deleted, or moved. The run says
 exactly which file and why.
 
 **A partial deploy keeps its package.** If anything conflicted, the zip stays in
-the drop folder rather than moving to `_superseded` — you will need it when you
-sort the conflict out, and a package filed away reads as one that was fully
-applied.
+the drop folder rather than being deleted — you will need it when you sort the
+conflict out, and a package that's gone reads as one that was fully applied.
 
 ---
 
@@ -12068,7 +11982,9 @@ that way. Naming it on every run is how it stops being forgotten.
 
 Every run appends one entry to the log file, live and dry-run alike, each
 stamped with the date and the mode. The entry is the whole report, completion
-summary included. The log is never rewritten or trimmed.
+summary included. By default the log lands at
+`_aide/utilities/file-update-package/file_update_package.log`. The log is
+never rewritten or trimmed.
 
 ---
 
@@ -12076,14 +11992,14 @@ summary included. The log is never rewritten or trimmed.
 
 It places whole files. It does not merge, patch or edit content, it does not
 decide what belongs in a package, and it does not do general version resolution
-— it moves the single document each manifest entry names. Tidying the rest of
-the tree is version cleanup's job.
+— it acts on the entries each manifest names. Tidying the rest of the tree is
+`aide cleanup`'s job.
 <!-- END SOURCE: Infrastructure/file-update-package/README.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/Infrastructure_CLI_Decisions_v1.md -->
-> identity: Infrastructure_CLI_Decisions@v1 | doctype: decisions | updated: 2026-09-10
+<!-- BEGIN SOURCE: Infrastructure/Infrastructure_CLI_Decisions_v2.md -->
+> identity: Infrastructure_CLI_Decisions@v2 | doctype: decisions | updated: 2026-09-24
 
 ## Utility registration — convention scanning over alternatives
 
@@ -12145,15 +12061,23 @@ Three options were considered: hardcoding the documentation root path in setting
 
 The original design assumed one binder settings file per project. In practice, the AIDE documentation already has two binders with different scopes and different file type rules — one for the full documentation set and one for the AI-facing subset. Erroring on multiple files forced the user to choose one, which defeated the purpose of having both. The utility now discovers all settings files in its subfolder and runs each. No configuration needed — presence is registration, the same principle as utility discovery in the dispatcher.
 
+## Utility design ownership — Infrastructure, corrected from a dissolved area (round-3 cross-review N4)
+
+The design's Summary named File Operations, in Working Practices, as owner of the three utility designs (binder builder, file-update packager, version cleanup). File Operations was dissolved on review (WP D17) before it ever took ownership of anything — its confirmed items were redistributed to their natural owners, and the utility designs were not among the items redistributed, because they had never actually moved out of Infrastructure. The `uses`-style ownership line was aspirational, not a record of where the content lived.
+
+Corrected to state plainly what was already true: Infrastructure holds these three designs, and has held them since before the File Operations area existed. Any future move follows Core's what-knows-most ownership rule — tested against which component would actually know most about a given utility's internals, not against where it happens to sit now. The former (File Operations) position is kept here and in the design's version note, per the no-knowledge-lost rule, rather than silently overwritten.
+
 ---
 
 Version note: v1 — reasoning from voice session 2026-09-10. All four items were settled in conversation; this document records the alternatives considered and the reasons for each choice.
-<!-- END SOURCE: Infrastructure/Infrastructure_CLI_Decisions_v1.md -->
+
+Version note: v2 — round-3 cross-review remediation (N4): utility design ownership decision added. 2026-09-24. Replaces v1.
+<!-- END SOURCE: Infrastructure/Infrastructure_CLI_Decisions_v2.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/Infrastructure_CLI_Design_v1.md -->
-> identity: Infrastructure_CLI_Design@v1 | doctype: design | updated: 2026-09-10
+<!-- BEGIN SOURCE: Infrastructure/Infrastructure_CLI_Design_v2.md -->
+> identity: Infrastructure_CLI_Design@v2 | doctype: design | updated: 2026-09-24
 
 ## Summary
 
@@ -12161,7 +12085,7 @@ The `aide` command is the single entry point to AIDE's infrastructure utilities.
 
 This document specifies four things: how utilities are discovered, how settings work, how the tool keeps itself current, and how individual utilities can be included or excluded. It is the handoff to a Code session for the build.
 
-Infrastructure owns this design. The individual utility designs (the binder builder, the file-update packager, version cleanup) live with their owning area — File Operations in Working Practices.
+Infrastructure owns this design. The individual utility designs (the binder builder, the file-update packager, version cleanup) live here too — Infrastructure currently holds these instances. File Operations, the area they were originally assigned to, was dissolved (Working Practices D17); no owner claimed them on redistribution, so they stayed where they already were. Any future move follows Core's what-knows-most ownership rule, tested against whoever is doing the claiming, not against where the content happens to sit today (Infrastructure_CLI_Decisions).
 
 ---
 
@@ -12293,14 +12217,16 @@ The merge means a project can exclude utilities that are globally available, or 
 
 ## What this document does not cover
 
-- The internal design of the three existing utilities — those are owned by File Operations in Working Practices.
+- The internal design of the three existing utilities in depth — Infrastructure holds them (see Summary), but this document is the CLI dispatcher's design, not the utilities' own design documentation.
 - The broader question of whether utilities grow into a full AIDE CLI — that is a future direction, noted as a consideration, not designed for.
 - The content of the global settings file beyond the structures needed for merge and exclude — each utility defines what settings it needs.
 
 ---
 
 Version note: v1 — design document from voice session 2026-09-10. All four items were settled in conversation; this document records the design for handoff to a Code session.
-<!-- END SOURCE: Infrastructure/Infrastructure_CLI_Design_v1.md -->
+
+Version note: v2 — round-3 cross-review remediation (N4). Ownership of the three utility designs corrected: File Operations, their originally stated owner in Working Practices, was dissolved (WP D17) before ever taking them up, so they were never actually redistributed — Infrastructure has held them the whole time as the area they already sat in. Stated plainly rather than left pointing at a dissolved area, with the former position kept in the decision history and any future move routed through Core's what-knows-most rule. 2026-09-24. Replaces v1.
+<!-- END SOURCE: Infrastructure/Infrastructure_CLI_Design_v2.md -->
 
 ---
 
@@ -12356,12 +12282,17 @@ Version note: v1 — initial working document from session 2026-09-10. Confirmed
 <!-- BEGIN SOURCE: Infrastructure/version-cleanup/README.md -->
 # version cleanup
 
-Moves superseded document versions out of the live tree, so a folder only ever
-shows the current version of each document.
+Deletes superseded document versions from the working tree, so a folder only
+ever shows the current version of each document. Git history is the record of
+what a superseded version contained — the working tree does not keep one.
 
-The script lives in the deploy repo and is distributed via `aide update`. This
-folder contains the design documentation and default settings for the tool.
-Utility changes are made in the deploy repo via Code.
+The tool is `aide cleanup`, one of the utilities built into the `aide` CLI
+(`aide-cli`, in the deploy repo `DigitalBusiness-AIDE-Deploy`, distributed via
+`aide update`). This folder holds the design documentation for the tool, not
+the tool itself — there is no standalone script to run here.
+
+**Dry run by default.** `aide cleanup` on its own only reports what it would
+delete. Nothing is removed from disk until you pass `--apply`.
 
 ---
 
@@ -12369,13 +12300,12 @@ Utility changes are made in the deploy repo via Code.
 
 In each folder it visits, it looks for files whose names are identical apart
 from a `_v<number>` suffix immediately before the extension. The highest number
-stays put; every lower version moves into a `_superseded` subfolder of the same
-folder.
+stays put; every lower version is deleted.
 
 | Files in a folder | Result |
 | --- | --- |
-| `Foo_v8.md`, `Foo_v9.md` | `Foo_v8.md` moves, `Foo_v9.md` stays |
-| `Foo.md`, `Foo_v1.md` | `Foo.md` moves — no suffix counts as v0 |
+| `Foo_v8.md`, `Foo_v9.md` | `Foo_v8.md` is deleted, `Foo_v9.md` stays |
+| `Foo.md`, `Foo_v1.md` | `Foo.md` is deleted — no suffix counts as v0 |
 | `Foo_v3.md` on its own | nothing happens |
 | `Foo_v1.md`, `Foo_v2.txt` | nothing happens — extensions must match too |
 
@@ -12383,84 +12313,62 @@ Grouping is **per folder**. The walk is recursive, but `Foo_v8.md` in one folder
 is never compared with `Foo_v9.md` in another. Anything more complicated than
 that is a manual job.
 
-Folders whose name starts with an underscore are skipped, which is what keeps
-the tool out of the `_superseded` folders it creates.
+Folders whose name starts with an underscore are skipped by default — this is
+what keeps the tool out of `_binder`, `_rebuild`, and its own kind.
 
-Nothing is ever overwritten. If a file of the same name is already sitting in
-`_superseded`, the source file is left where it is and the run reports a
-conflict.
+When a live run (`--apply`) deletes at least one file, the tool stages and
+commits the deletions itself, with a message such as
+`cleanup: deleted 2 superseded version(s)`. Git history is where the deleted
+content lives afterwards — there is no `_superseded` folder for this tool.
 
 ---
 
-## Installing Python on Windows
+## Running it
 
-Only needed once per machine. The tool uses nothing beyond the Python standard
-library, so there is nothing else to install.
-
-1. Go to <https://www.python.org/downloads/windows/> and download the latest
-   **Windows installer (64-bit)**. Python 3.8 or newer is required; any current
-   release is fine.
-2. Run the installer. On the first screen, **tick "Add python.exe to PATH"**
-   before clicking Install. This is easy to miss and is the usual reason a
-   `.py` file will not run afterwards.
-3. Choose **Install Now**.
-4. To check it worked, open PowerShell and run:
-
-   ```
-   python --version
-   ```
-
-   It should print something like `Python 3.13.1`.
-
-### Making double-click work
-
-The standard installer associates `.py` files with the Python launcher, so
-double-clicking `version_cleanup.py` in File Explorer should just run it. If it
-instead opens in Notepad or asks which app to use:
-
-1. Right-click `version_cleanup.py` → **Open with** → **Choose another app**.
-2. Pick **Python** (or browse to `C:\Windows\py.exe`).
-3. Tick **Always use this app to open .py files**.
-
-The script pauses with *"Press Enter to close..."* when it finishes, so the
-console window stays open long enough to read the report.
-
-### Running it from a terminal instead
+From anywhere inside a project (the tool walks up from the current folder to
+find `_aide/`):
 
 ```
-python "C:\path\to\version_cleanup.py"
+aide cleanup            # dry run — reports what would be deleted, changes nothing
+aide cleanup --apply    # deletes the files and commits the deletion
 ```
+
+The dry run produces exactly the same report as a live run, with `WOULD
+DELETE` in place of `DELETED`. It is the safe way to check a new `root` or a
+new include/exclude list before letting the tool loose on a tree.
 
 ---
 
 ## Settings
 
-The script reads `version_cleanup_settings.json` from **its own folder** — not
-from wherever the terminal happens to be pointing. If that file is missing, the
-script writes a fresh one with default values and explanatory notes, then tells
-you to check it.
+`aide cleanup` reads the `cleanup` key of the project's per-project runtime
+settings file, `_aide/settings.json` — not a settings file of its own, and not
+from wherever the terminal happens to be pointing:
 
 ```json
 {
-  "root": "..",
-  "include": [],
-  "exclude": [],
-  "log_file": "version_cleanup.log"
+  "cleanup": {
+    "root": "..",
+    "include": [],
+    "exclude": [],
+    "log_file": "~/_aide/utilities/version-cleanup/version_cleanup.log"
+  }
 }
 ```
 
+Anything left out falls back to the package default shipped with `aide-cli`
+(`root`: the project root; `include`/`exclude`: empty; `log_file`: the path
+above).
+
 | Setting | Meaning |
 | --- | --- |
-| `root` | The folder to tidy, including everything beneath it. |
+| `root` | The folder to tidy, including everything beneath it. Defaults to the project root (where `_aide/` lives). |
 | `include` | Underscore-prefixed folders to process anyway. |
 | `exclude` | Folders to skip entirely, along with everything inside them. |
 | `log_file` | Where the run log is appended. |
 
-**`root` and `log_file`** take a full path, or a path measured from the folder
-the script lives in — so `".."` means "the folder above me", and an instance
-sitting in `Documentation/_tools` tidies `Documentation` by default.
-
-**`include` and `exclude`** take three kinds of path:
+**`root` and `log_file`** take a full path, or a `~/` path measured from the
+project root. `include` and `exclude` take three kinds of path:
 
 | Form | Example | Means |
 | --- | --- | --- |
@@ -12484,10 +12392,6 @@ Two consequences worth holding on to:
 doubled backslashes (`"C:\\Users\\you"`); a single backslash is an escape
 character in JSON and will break the file.
 
-**Comments.** JSON has no comment syntax, so the notes in the shipped settings
-file are carried as keys beginning with `_comment`. They are ordinary JSON and
-the tool ignores them. Leave them, edit them, or delete them as you prefer.
-
 **Exclude always wins over include**, and excluding a folder excludes
 everything inside it.
 
@@ -12495,47 +12399,32 @@ To reach a folder nested inside an underscore-prefixed one, just name the
 folder you actually want — the walk passes through the underscore folder to
 get there without processing its own files.
 
-Example: process every `_binder` in the tree, plus the one `_holding` folder
-at the top, and stay out of one scratch area entirely.
+Example: process every `_binder` in the tree, plus one `_holding` folder at
+the top, and stay out of one scratch area entirely.
 
 ```json
 {
-  "root": "..",
-  "include": ["_binder", "~/_holding"],
-  "exclude": ["~/Working Practices/scratch"],
-  "log_file": "version_cleanup.log"
+  "cleanup": {
+    "root": "..",
+    "include": ["_binder", "~/_holding"],
+    "exclude": ["~/Working Practices/scratch"]
+  }
 }
 ```
 
 The run report echoes the include and exclude lists whenever they are in use,
 so a log entry always says which rules produced it.
 
----
-
-## Running it
-
-Live by default — there is no confirmation prompt:
-
-```
-python version_cleanup.py
-```
-
-Report only, changes nothing:
-
-```
-python version_cleanup.py --dry-run
-```
-
-The dry run produces exactly the same report as a live run, with `WOULD MOVE`
-in place of `MOVED`. It is the safe way to check a new `root` or a new
-include/exclude list before letting the tool loose on a tree.
+This is the same path model as the binder builder, deliberately. Two
+Infrastructure tools with different path semantics would be a trap.
 
 ---
 
 ## The log
 
 Every run appends one entry to the log file, live and dry-run alike, each
-stamped with the date, the mode and the root it was pointed at. The log is
+stamped with the date, the mode and the root it was pointed at. By default the
+log lands at `_aide/utilities/version-cleanup/version_cleanup.log`. The log is
 never rewritten or trimmed. If it grows unwieldy, archive or delete it by hand;
 the tool will start a fresh one.
 
@@ -12543,20 +12432,23 @@ the tool will start a fresh one.
 
 ## When it declines to act
 
-Two cases where the tool deliberately does nothing and tells you instead:
+One case where the tool deliberately does nothing to a group of files and
+tells you instead:
 
-- **CONFLICT** — a file of that name already exists in `_superseded`. Two
-  different documents are competing for one archive slot. Resolve it by hand.
-- **AMBIGUOUS** — two files in the folder claim the same version number, which
-  can only happen through leading zeros (`Foo_v08.md` and `Foo_v8.md`). Nothing
-  in that group moves, because which one is current is genuinely unclear.
+- **`AMBIGUOUS`** — two files in the folder claim the same version number,
+  which can only happen through leading zeros (`Foo_v08.md` and `Foo_v8.md`).
+  Nothing in that group is deleted, because which one is current is genuinely
+  unclear.
+
+A file that fails to delete because of a filesystem error (locked, permission
+denied) is reported as `ERROR` and left in place.
 
 ---
 
 ## Scope
 
 It tidies versions. It does not build binders and it does not deploy anything.
-Those are separate tools, run in sequence.
+Those are `aide binder` and `aide fup`, run in sequence.
 <!-- END SOURCE: Infrastructure/version-cleanup/README.md -->
 
 ---
@@ -18821,8 +18713,8 @@ Version note: v1 — initial working document from session 2026-09-10.
 
 ---
 
-<!-- BEGIN SOURCE: Working Practices/WorkingPractices_Standard_v2.md -->
-> identity: WorkingPractices_Standard@v2 | doctype: standard | updated: 2026-09-17 | uses: Standards_Authoring_Standard@v8
+<!-- BEGIN SOURCE: Working Practices/WorkingPractices_Standard_v3.md -->
+> identity: WorkingPractices_Standard@v3 | doctype: standard | updated: 2026-09-24 | uses: Standards_Consumption_Standard@v5
 
 # Working Practices
 
@@ -19002,7 +18894,9 @@ File Operations is dissolved; its content redistributed to natural owners (WP re
 ---
 
 Version note: v2 — cross-review remediation (ChatGPT, 4 rounds, 12 original findings + 6 new). Round 1: trigger description reworded for runtime (F1); placement heuristic removed from applicability (F2); session-end persistence signal qualified (F3); WIP/memory persistence distinction clarified (F4); working-document escalation separated as Required from Information type definitions (F5); split-test source acknowledged (F6); open-item operational model added (F7); scalable implementation explicitly Recommended with invariant no-knowledge-lost (F8); board task defined as work-item representation (F9); task properties split into invariant and conditional (F10); reference-guide deployment output removed from runtime standard (F11); definition-of-done schema noted as pending (F12). Round 2: platform-memory default qualified for capability availability (N1); open-item classification distinguished from WIP storage (N2, partly); board zone renamed from state (N3); definition-of-done mechanism claim softened (F12, partly). Round 3: open-item container language removed and promotion semantics corrected — transfers resolution responsibility, doesn't resolve (N2); WIP fate distinction sharpened to assessment vs staging (N2); board maintenance "state" → "zone" (N4); inbox capture clarified — human provides name, AI assigns mechanical properties (N5); definition-of-done minimum-viable schema added inline (F12). Round 4: open-item persistence restricted to WIP only — removes two-relationship ambiguity with working documents (N6). 2026-09-17. Replaces v1.
-<!-- END SOURCE: Working Practices/WorkingPractices_Standard_v2.md -->
+
+Version note: v3 — round-3 cross-review remediation (N1). `uses` corrected from `Standards_Authoring_Standard@v8` (deleted; an authoring-time dependency, not a runtime one) to `Standards_Consumption_Standard@v5` — the standard leans on the strength and applicability model throughout, which is the genuine runtime dependency (WP_Decisions D22). 2026-09-24. Replaces v2.
+<!-- END SOURCE: Working Practices/WorkingPractices_Standard_v3.md -->
 
 ---
 
@@ -19146,14 +19040,14 @@ Version note: v1 — initial working document from session 2026-09-10.
 
 ---
 
-<!-- BEGIN SOURCE: Working Practices/WP_Decisions_v4.md -->
-> identity: WP_Decisions@v4 | doctype: decisions | updated: 2026-09-17
+<!-- BEGIN SOURCE: Working Practices/WP_Decisions_v5.md -->
+> identity: WP_Decisions@v5 | doctype: decisions | updated: 2026-09-24
 
 # Working Practices — Decisions
 
 ## Summary
 
-Reasoning and resolutions from the Working Practices design pass. Twenty-one decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, dispositions of accumulated items from other component passes, the FileOps dissolution, cross-review remediations, and the Board superseding the work plan.
+Reasoning and resolutions from the Working Practices design pass. Twenty-two decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, dispositions of accumulated items from other component passes, the FileOps dissolution, cross-review remediations, the Board superseding the work plan, and the round-3 `uses` correction.
 
 ---
 
@@ -19284,13 +19178,25 @@ The board is a standalone tool that AIDE consumes as its primary consumer. WP ow
 
 ---
 
-Version note: v4 — D10 supersession noted (Board replaces work plan). D21 added. Summary updated to 21 decisions. 2026-09-17. Replaces v3.
-<!-- END SOURCE: Working Practices/WP_Decisions_v4.md -->
+## D22. Standard's `uses` corrected to the runtime dependency (round-3 cross-review N1)
+
+The standard declared `uses Standards_Authoring_Standard@v8`, a document that no longer exists — it was replaced by the Standards Development Standard (Standards D23) and the field was never updated.
+
+The rule for `uses`: it declares what is needed to apply the standard at runtime, not what was used to author it. Checked against that rule, the Working Practices Standard has no runtime reliance on how standards are authored. It does, however, lean on the strength and applicability model throughout — a document-level default strength, per-section Required/Recommended/Information markers, and an Applicability gate — and applying those correctly is exactly what the Standards Consumption Standard governs.
+
+Resolved: `uses` changed from `Standards_Authoring_Standard@v8` to `Standards_Consumption_Standard@v5`.
 
 ---
 
-<!-- BEGIN SOURCE: Working Practices/WP_Design_v6.md -->
-> identity: WP_Design@v6 | doctype: design | updated: 2026-09-17
+Version note: v4 — D10 supersession noted (Board replaces work plan). D21 added. Summary updated to 21 decisions. 2026-09-17. Replaces v3.
+
+Version note: v5 — D22 added (round-3 cross-review N1: `uses` corrected from the deleted authoring standard to the genuine runtime dependency, Standards Consumption). 2026-09-24. Replaces v4.
+<!-- END SOURCE: Working Practices/WP_Decisions_v5.md -->
+
+---
+
+<!-- BEGIN SOURCE: Working Practices/WP_Design_v7.md -->
+> identity: WP_Design@v7 | doctype: design | updated: 2026-09-24
 
 # Working Practices — Design
 
@@ -19299,6 +19205,8 @@ Version note: v4 — D10 supersession noted (Board replaces work plan). D21 adde
 Working Practices defines the operational conventions, behaviours, and working methods that govern how work is conducted — across any phase, any surface, and any kind of work. It is the umbrella for action and behaviour. Phase-specific methods are owned by their phase component; WP owns what they all consume.
 
 WP operates at two levels. At component level, capture-and-place, operational tools, file delivery rules, and the overview-first discipline are standing obligations and mechanisms available across WP. Below that, two areas provide the models and conventions work uses: Working State (where content lives while in motion, how work is tracked and completed) and Content Delivery (how content reaches the AI session).
+
+The standard states a document-level default strength and marks most sections Required, Recommended, or Information. Applying it correctly means interpreting those strength markers and evaluating the Applicability section before treating any of it as binding — exactly what Standards Consumption governs. The standard declares `uses Standards_Consumption_Standard@v5` for this reason, not because Standards Consumption was used to author it (D22).
 
 The Assurance component, identified during this design pass, takes ownership of the human working model, trust-building conventions, verification behaviours, drift detection, and anomalies — the content originally placed in a Human-AI Collaboration area. Assurance is both a component (Guidance role) and a framework-wide requirement (Core).
 
@@ -19518,7 +19426,9 @@ WP owns generic operating behaviour and live state — the middle placement band
 ---
 
 Version note: v6 — Work plan section replaced by Board reference; Boards added as a part under WP (WP_Boards_Design_v1, WP_Boards_Decisions_v1). Boundaries updated. 2026-09-17. Replaces v5.
-<!-- END SOURCE: Working Practices/WP_Design_v6.md -->
+
+Version note: v7 — round-3 cross-review remediation (N1): the standard's `uses` pointed at the deleted Standards_Authoring_Standard, a dependency from how the standard was authored, not from how it is applied. Replaced with `uses Standards_Consumption_Standard@v5`, the genuine runtime dependency (D22). 2026-09-24. Replaces v6.
+<!-- END SOURCE: Working Practices/WP_Design_v7.md -->
 
 ---
 

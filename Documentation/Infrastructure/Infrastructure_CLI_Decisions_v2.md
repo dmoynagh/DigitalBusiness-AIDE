@@ -1,4 +1,4 @@
-> identity: Infrastructure_CLI_Decisions@v1 | doctype: decisions | updated: 2026-09-10
+> identity: Infrastructure_CLI_Decisions@v2 | doctype: decisions | updated: 2026-09-24
 
 ## Utility registration — convention scanning over alternatives
 
@@ -60,6 +60,14 @@ Three options were considered: hardcoding the documentation root path in setting
 
 The original design assumed one binder settings file per project. In practice, the AIDE documentation already has two binders with different scopes and different file type rules — one for the full documentation set and one for the AI-facing subset. Erroring on multiple files forced the user to choose one, which defeated the purpose of having both. The utility now discovers all settings files in its subfolder and runs each. No configuration needed — presence is registration, the same principle as utility discovery in the dispatcher.
 
+## Utility design ownership — Infrastructure, corrected from a dissolved area (round-3 cross-review N4)
+
+The design's Summary named File Operations, in Working Practices, as owner of the three utility designs (binder builder, file-update packager, version cleanup). File Operations was dissolved on review (WP D17) before it ever took ownership of anything — its confirmed items were redistributed to their natural owners, and the utility designs were not among the items redistributed, because they had never actually moved out of Infrastructure. The `uses`-style ownership line was aspirational, not a record of where the content lived.
+
+Corrected to state plainly what was already true: Infrastructure holds these three designs, and has held them since before the File Operations area existed. Any future move follows Core's what-knows-most ownership rule — tested against which component would actually know most about a given utility's internals, not against where it happens to sit now. The former (File Operations) position is kept here and in the design's version note, per the no-knowledge-lost rule, rather than silently overwritten.
+
 ---
 
 Version note: v1 — reasoning from voice session 2026-09-10. All four items were settled in conversation; this document records the alternatives considered and the reasons for each choice.
+
+Version note: v2 — round-3 cross-review remediation (N4): utility design ownership decision added. 2026-09-24. Replaces v1.

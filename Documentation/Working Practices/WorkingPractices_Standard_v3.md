@@ -1,4 +1,4 @@
-> identity: WorkingPractices_Standard@v2 | doctype: standard | updated: 2026-09-17 | uses: Standards_Authoring_Standard@v8
+> identity: WorkingPractices_Standard@v3 | doctype: standard | updated: 2026-09-24 | uses: Standards_Consumption_Standard@v5
 
 # Working Practices
 
@@ -178,3 +178,5 @@ File Operations is dissolved; its content redistributed to natural owners (WP re
 ---
 
 Version note: v2 — cross-review remediation (ChatGPT, 4 rounds, 12 original findings + 6 new). Round 1: trigger description reworded for runtime (F1); placement heuristic removed from applicability (F2); session-end persistence signal qualified (F3); WIP/memory persistence distinction clarified (F4); working-document escalation separated as Required from Information type definitions (F5); split-test source acknowledged (F6); open-item operational model added (F7); scalable implementation explicitly Recommended with invariant no-knowledge-lost (F8); board task defined as work-item representation (F9); task properties split into invariant and conditional (F10); reference-guide deployment output removed from runtime standard (F11); definition-of-done schema noted as pending (F12). Round 2: platform-memory default qualified for capability availability (N1); open-item classification distinguished from WIP storage (N2, partly); board zone renamed from state (N3); definition-of-done mechanism claim softened (F12, partly). Round 3: open-item container language removed and promotion semantics corrected — transfers resolution responsibility, doesn't resolve (N2); WIP fate distinction sharpened to assessment vs staging (N2); board maintenance "state" → "zone" (N4); inbox capture clarified — human provides name, AI assigns mechanical properties (N5); definition-of-done minimum-viable schema added inline (F12). Round 4: open-item persistence restricted to WIP only — removes two-relationship ambiguity with working documents (N6). 2026-09-17. Replaces v1.
+
+Version note: v3 — round-3 cross-review remediation (N1). `uses` corrected from `Standards_Authoring_Standard@v8` (deleted; an authoring-time dependency, not a runtime one) to `Standards_Consumption_Standard@v5` — the standard leans on the strength and applicability model throughout, which is the genuine runtime dependency (WP_Decisions D22). 2026-09-24. Replaces v2.

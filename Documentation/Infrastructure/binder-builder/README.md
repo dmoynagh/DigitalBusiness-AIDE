@@ -4,9 +4,10 @@ Gathers the current documents of a defined scope into a single file, so a whole
 topic can be dropped into an AI session's context as one artefact rather than
 as many.
 
-The script lives in the deploy repo and is distributed via `aide update`. This
-folder contains the design documentation and default settings for the tool.
-Utility changes are made in the deploy repo via Code.
+The tool is `aide binder`, one of the utilities built into the `aide` CLI
+(`aide-cli`, in the deploy repo `DigitalBusiness-AIDE-Deploy`, distributed via
+`aide update`). This folder holds the design documentation for the tool, not
+the tool itself — there is no standalone script to run here.
 
 **A settings file is a binder definition.** It declares the scope. To define a
 second binder, put a second settings file beside the first — one run builds them
@@ -19,6 +20,28 @@ own.
 **It will not rebuild for nothing.** If no in-scope file has changed since the
 last binder was written, the run reports `NO CHANGES` and writes nothing. See
 *Change detection* below.
+
+---
+
+## Running it
+
+From anywhere inside a project (the tool walks up from the current folder to
+find `_aide/`):
+
+```
+aide binder
+```
+
+builds every binder defined for the project. Other flags:
+
+```
+aide binder --list       # show what's defined, build nothing
+aide binder --dry-run    # report what would happen, write nothing
+aide binder --force      # rebuild even if nothing changed
+```
+
+There is no per-binder selection by name any more — a run always builds every
+definition found. `--dry-run` and `--force` apply to the whole run.
 
 ---
 
@@ -60,56 +83,22 @@ one, so the closing delimiter starts on its own line.
 
 ---
 
-## Installing Python on Windows
-
-Only needed once per machine. The tool uses nothing beyond the Python standard
-library, so there is nothing else to install.
-
-1. Go to <https://www.python.org/downloads/windows/> and download the latest
-   **Windows installer (64-bit)**. Python 3.8 or newer is required; any current
-   release is fine.
-2. Run the installer. On the first screen, **tick "Add python.exe to PATH"**
-   before clicking Install. This is easy to miss and is the usual reason a
-   `.py` file will not run afterwards.
-3. Choose **Install Now**.
-4. To check it worked, open PowerShell and run:
-
-   ```
-   python --version
-   ```
-
-   It should print something like `Python 3.13.1`.
-
-### Making double-click work
-
-The standard installer associates `.py` files with the Python launcher, so
-double-clicking `binder_builder.py` in File Explorer should just run it. If it
-instead opens in Notepad or asks which app to use:
-
-1. Right-click `binder_builder.py` → **Open with** → **Choose another app**.
-2. Pick **Python** (or browse to `C:\Windows\py.exe`).
-3. Tick **Always use this app to open .py files**.
-
-The script pauses with *"Press Enter to close..."* when it finishes, so the
-console window stays open long enough to read the report.
-
-### Running it from a terminal instead
-
-```
-python "C:\path\to\binder_builder.py"
-```
-
----
-
 ## Settings
 
-The script reads every `binder_builder*settings*.json` in **its own folder** —
-not from wherever the terminal happens to be pointing. Each one is a binder. If
-the folder holds none at all, the script writes a fresh
-`binder_builder_Documentation_settings.json` with default values and
-explanatory notes, then tells you to check it. Since a settings file is a binder
-definition, a fresh one almost always needs editing — starting with its `name`,
-and then its own filename to match.
+There are no binder settings in `_aide/settings.json` — a binder's scope is
+defined entirely by its own settings file. `aide binder` reads every
+`binder_builder*settings*.json` file it finds in the project's per-project
+runtime settings folder:
+
+```
+_aide/utilities/binder-builder/
+```
+
+not from wherever the terminal happens to be pointing, and not from any
+package default (`aide-cli` ships none — `"binder": {}` in its defaults). Each
+one is a binder. If the folder holds none at all, the run reports what it
+expected and where, rather than inventing one — create the first settings file
+by hand:
 
 ```json
 {
@@ -122,7 +111,7 @@ and then its own filename to match.
   "exclude_files": [],
   "order": [],
   "output": "~/_binder",
-  "log_file": "binder_builder.log"
+  "log_file": "binder_builder_Documentation.log"
 }
 ```
 
@@ -137,7 +126,7 @@ and then its own filename to match.
 | `exclude_files` | Files to skip — by name, or by path. Applied after `file_types`. |
 | `order` | Filenames pulled to the front of the binder, in the order listed. |
 | `output` | The folder the binder is written to. |
-| `log_file` | Where the run log is appended. |
+| `log_file` | Where the run log is appended. Defaults to `binder_builder_<name>.log` next to the settings file if left out. |
 
 ### Which folders are skipped by default
 
@@ -153,10 +142,10 @@ List a folder in `include` to collect from it anyway. Including a folder does
 ### The three path forms
 
 **`root`, `output` and `log_file`** take a full path, a `~/` path measured from
-`root`, or a path measured from the folder the script lives in — so `".."`
-means "the folder above me", and an instance sitting in `Documentation/_tools`
-builds from `Documentation` by default. (`root` itself cannot use `~/`, since it
-is what defines the root.)
+`root`, or a path measured from the settings file's own folder — so `".."`
+means "the folder above me", and a settings file sitting in
+`_aide/utilities/binder-builder/` builds from the project root by default.
+(`root` itself cannot use `~/`, since it is what defines the root.)
 
 **`include` and `exclude`** take the same three forms, but the relative one
 means something different:
@@ -191,9 +180,8 @@ tools with different path semantics would be a trap.
 doubled backslashes (`"C:\\Users\\you"`); a single backslash is an escape
 character in JSON and will break the file.
 
-**Comments.** JSON has no comment syntax, so the notes in the shipped settings
-file are carried as keys beginning with `_comment`. They are ordinary JSON and
-the tool ignores them. Leave them, edit them, or delete them as you prefer.
+**Comments.** JSON has no comment syntax, so notes can be carried as keys
+beginning with `_comment`. They are ordinary JSON and the tool ignores them.
 
 ### Excluding live state
 
@@ -268,24 +256,18 @@ is a quiet defect.
 
 ## Several binders in one folder
 
-Each settings file in the script's folder is one binder, and both the settings
-and the log are named for the binder they belong to:
+Each settings file in `_aide/utilities/binder-builder/` is one binder, and both
+the settings and the log are named for the binder they belong to:
 
 ```
-_tools/
-├── binder_builder.py
+_aide/utilities/binder-builder/
 ├── binder_builder_AIDE_Documentation_settings.json
 ├── binder_builder_ProjectDesign_settings.json
-├── binder_builder_Infrastructure_settings.json
-├── binder_builder_Methodology_settings.json
 ├── binder_builder_AIDE_Documentation.log
-├── binder_builder_ProjectDesign.log
-├── binder_builder_Infrastructure.log
-└── binder_builder_Methodology.log
+└── binder_builder_ProjectDesign.log
 ```
 
-So a folder of four binders can be read from the listing without opening
-anything.
+So a folder of binders can be read from the listing without opening anything.
 
 To add one, copy an existing settings file to
 `binder_builder_<name>_settings.json`, edit it, and set its `name` to match.
@@ -295,15 +277,10 @@ To add one, copy an existing settings file to
 `--list` prints them side by side, which is where you will notice.
 
 **The log name is derived.** Leave `log_file` out and each binder gets
-`binder_builder_<name>.log` automatically, so four definitions do not interleave
-four runs in one file. Set `log_file` explicitly if you would rather several
-binders shared one — one file per folder in run order is exactly what someone
-auditing a whole folder wants.
-
-**Older filenames still work.** `binder_builder_settings.json`, and the
-`binder_builder_settings_<something>.json` spelling this README recommended
-earlier, are both still discovered and built. Rename them when convenient;
-nothing forces it.
+`binder_builder_<name>.log` automatically, so several definitions do not
+interleave their runs in one file. Set `log_file` explicitly if you would
+rather several binders shared one — one file per folder in run order is
+exactly what someone auditing a whole folder wants.
 
 **Give each one a different `name`.** The name decides the output filename, so
 two binders sharing one would take turns superseding each other's file. The tool
@@ -314,18 +291,7 @@ They can share an output folder. `ProjectDesign_Binder_v3.md` and
 `Infrastructure_Binder_v7.md` sit happily side by side in one `_binder`: each
 definition only ever scans, supersedes and skips binders of its own name.
 
-They can share a log too — that is what happens if you leave `log_file` alone,
-and it gives you one file with every build in it, in order. Give a definition a
-different `log_file` if you would rather it kept its own.
-
-### Running them
-
-```
-python binder_builder.py
-```
-
-builds every binder defined in the folder — which is also what double-clicking
-does. Each one gets its own report, and the run ends with a line for the folder:
+Each build produces its own report, and the run ends with a line for the folder:
 
 ```
 ========================================================================
@@ -333,32 +299,12 @@ Result: 4 binder(s) - 1 rebuilt, 3 unchanged
 ========================================================================
 ```
 
-To build only some of them, name them:
-
-```
-python binder_builder.py ProjectDesign Infrastructure
-```
-
-The name is the `name` from the settings file, or the settings filename itself
-if that is easier to remember; either way it is matched case-insensitively. Name
-something that is not defined and **nothing** is built — the tool lists what is
-available instead, on the grounds that "build these four", three-quarters done,
-is worse than not started.
-
-To see what is defined without building anything:
-
-```
-python binder_builder.py --list
-```
-
-`--dry-run` and `--force` apply to whatever you selected.
-
 ### If one definition is broken
 
-It is reported on its own and the others still build. Four binders staying
-current is the point of keeping them in one folder; three of them going stale
-because the fourth has a trailing comma would defeat it. The run still exits `1`,
-and the roll-up counts it:
+It is reported on its own and the others still build. Several binders staying
+current is the point of keeping them together; the rest going stale because one
+has a trailing comma would defeat it. The run still exits `1`, and the roll-up
+counts it:
 
 ```
 Result: 4 binder(s) - 4 unchanged, 1 unreadable
@@ -366,9 +312,9 @@ Result: 4 binder(s) - 4 unchanged, 1 unreadable
 
 ### Why this is cheap
 
-Change detection. Four definitions where nothing has changed cost four manifest
-comparisons and no writes at all, so running the lot after every edit is a
-sensible habit rather than an expensive one.
+Change detection. Several definitions where nothing has changed cost a manifest
+comparison per definition and no writes at all, so running the lot after every
+edit is a sensible habit rather than an expensive one.
 
 ---
 
@@ -433,54 +379,8 @@ binder that misrepresents the tree.
 rewrites every modification time, would both trigger a pointless rebuild. The
 comparison is over content.
 
-To rebuild anyway:
-
-```
-python binder_builder.py --force
-```
-
-A dry run reports the same comparison as `WOULD CHECK` and writes nothing
-either way.
-
----
-
-## Running it
-
-Live by default — there is no confirmation prompt. With no arguments it builds
-every binder defined in the folder:
-
-```
-python binder_builder.py
-```
-
-One binder only:
-
-```
-python binder_builder.py ProjectDesign
-```
-
-Report only, writes nothing:
-
-```
-python binder_builder.py --dry-run
-```
-
-Rebuild even if nothing has changed:
-
-```
-python binder_builder.py --force
-```
-
-List the binder definitions in this folder and build nothing:
-
-```
-python binder_builder.py --list
-```
-
-The dry run takes exactly the same decisions as a live run — it reads every
-source and computes every digest — and reports them with `WOULD INCLUDE` and
-`WOULD WRITE` in place of `INCLUDED` and `WRITTEN`. It is the safe way to check
-a new scope before letting the tool write anything.
+`aide binder --force` rebuilds anyway. A dry run reports the same comparison as
+`WOULD CHECK` and writes nothing either way.
 
 ---
 
@@ -520,12 +420,11 @@ its own first screenful:
 The previous binder is superseded as usual, so it is in `_superseded` and one
 move from being restored if this was not what you wanted.
 
-This is deliberate, and it is the opposite of what the tool used to do. Writing
-nothing sounds safer, but it leaves a binder in the output folder presenting as
-current while asserting content the scope no longer holds — and that binder is
-what gets loaded into a session. A stale binder that looks authoritative is the
-worst thing this tool could produce. An empty one that says it is empty is
-merely surprising.
+This is deliberate. Writing nothing sounds safer, but it leaves a binder in the
+output folder presenting as current while asserting content the scope no
+longer holds — and that binder is what gets loaded into a session. A stale
+binder that looks authoritative is the worst thing this tool could produce. An
+empty one that says it is empty is merely surprising.
 
 `EMPTY` is reported whether or not anything was written, because an empty scope
 is far more often a settings mistake than a true statement. If you see it and
@@ -563,14 +462,16 @@ A file that is not valid UTF-8 cannot go into the binder. It is reported as an
 ## The log
 
 Every run appends one entry to the log file, live and dry-run alike, each
-stamped with the date, the mode and the root it was pointed at. The log is never
-rewritten or trimmed. If it grows unwieldy, archive or delete it by hand; the
-tool will start a fresh one.
+stamped with the date, the mode and the root it was pointed at. The log lands
+next to the settings file it belongs to, under
+`_aide/utilities/binder-builder/`, unless `log_file` says otherwise. The log is
+never rewritten or trimmed. If it grows unwieldy, archive or delete it by hand;
+the tool will start a fresh one.
 
 ---
 
 ## Scope
 
-It collects and assembles. It does not resolve versions — that is version
-cleanup's job, run first — and it does not deploy. It is Infrastructure: it acts
-on the corpus and is never loaded into an AI session itself.
+It collects and assembles. It does not resolve versions — that is `aide
+cleanup`'s job, run first — and it does not deploy. It is Infrastructure: it
+acts on the corpus and is never loaded into an AI session itself.

@@ -1,4 +1,4 @@
-> identity: Infrastructure_CLI_Design@v1 | doctype: design | updated: 2026-09-10
+> identity: Infrastructure_CLI_Design@v2 | doctype: design | updated: 2026-09-24
 
 ## Summary
 
@@ -6,7 +6,7 @@ The `aide` command is the single entry point to AIDE's infrastructure utilities.
 
 This document specifies four things: how utilities are discovered, how settings work, how the tool keeps itself current, and how individual utilities can be included or excluded. It is the handoff to a Code session for the build.
 
-Infrastructure owns this design. The individual utility designs (the binder builder, the file-update packager, version cleanup) live with their owning area — File Operations in Working Practices.
+Infrastructure owns this design. The individual utility designs (the binder builder, the file-update packager, version cleanup) live here too — Infrastructure currently holds these instances. File Operations, the area they were originally assigned to, was dissolved (Working Practices D17); no owner claimed them on redistribution, so they stayed where they already were. Any future move follows Core's what-knows-most ownership rule, tested against whoever is doing the claiming, not against where the content happens to sit today (Infrastructure_CLI_Decisions).
 
 ---
 
@@ -138,10 +138,12 @@ The merge means a project can exclude utilities that are globally available, or 
 
 ## What this document does not cover
 
-- The internal design of the three existing utilities — those are owned by File Operations in Working Practices.
+- The internal design of the three existing utilities in depth — Infrastructure holds them (see Summary), but this document is the CLI dispatcher's design, not the utilities' own design documentation.
 - The broader question of whether utilities grow into a full AIDE CLI — that is a future direction, noted as a consideration, not designed for.
 - The content of the global settings file beyond the structures needed for merge and exclude — each utility defines what settings it needs.
 
 ---
 
 Version note: v1 — design document from voice session 2026-09-10. All four items were settled in conversation; this document records the design for handoff to a Code session.
+
+Version note: v2 — round-3 cross-review remediation (N4). Ownership of the three utility designs corrected: File Operations, their originally stated owner in Working Practices, was dissolved (WP D17) before ever taking them up, so they were never actually redistributed — Infrastructure has held them the whole time as the area they already sat in. Stated plainly rather than left pointing at a dissolved area, with the former position kept in the decision history and any future move routed through Core's what-knows-most rule. 2026-09-24. Replaces v1.

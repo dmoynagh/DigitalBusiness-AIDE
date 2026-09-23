@@ -1,10 +1,10 @@
-> identity: WP_Decisions@v4 | doctype: decisions | updated: 2026-09-17
+> identity: WP_Decisions@v5 | doctype: decisions | updated: 2026-09-24
 
 # Working Practices — Decisions
 
 ## Summary
 
-Reasoning and resolutions from the Working Practices design pass. Twenty-one decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, dispositions of accumulated items from other component passes, the FileOps dissolution, cross-review remediations, and the Board superseding the work plan.
+Reasoning and resolutions from the Working Practices design pass. Twenty-two decisions covering the extraction of Assurance as a new component, structural reorganisation of WP, component-level concern placement, dispositions of accumulated items from other component passes, the FileOps dissolution, cross-review remediations, the Board superseding the work plan, and the round-3 `uses` correction.
 
 ---
 
@@ -135,4 +135,16 @@ The board is a standalone tool that AIDE consumes as its primary consumer. WP ow
 
 ---
 
+## D22. Standard's `uses` corrected to the runtime dependency (round-3 cross-review N1)
+
+The standard declared `uses Standards_Authoring_Standard@v8`, a document that no longer exists — it was replaced by the Standards Development Standard (Standards D23) and the field was never updated.
+
+The rule for `uses`: it declares what is needed to apply the standard at runtime, not what was used to author it. Checked against that rule, the Working Practices Standard has no runtime reliance on how standards are authored. It does, however, lean on the strength and applicability model throughout — a document-level default strength, per-section Required/Recommended/Information markers, and an Applicability gate — and applying those correctly is exactly what the Standards Consumption Standard governs.
+
+Resolved: `uses` changed from `Standards_Authoring_Standard@v8` to `Standards_Consumption_Standard@v5`.
+
+---
+
 Version note: v4 — D10 supersession noted (Board replaces work plan). D21 added. Summary updated to 21 decisions. 2026-09-17. Replaces v3.
+
+Version note: v5 — D22 added (round-3 cross-review N1: `uses` corrected from the deleted authoring standard to the genuine runtime dependency, Standards Consumption). 2026-09-24. Replaces v4.

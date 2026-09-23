@@ -1,12 +1,13 @@
 # file update package
 
 Deploys a **FileUpdatePackage** — a zip of updated documents produced by a Chat
-or Cowork session — into the master document tree, superseding what it replaces
+or Cowork session — into the master document tree, deleting what it replaces
 and rebuilding the binder afterwards.
 
-The script lives in the deploy repo and is distributed via `aide update`. This
-folder contains the design documentation and default settings for the tool.
-Utility changes are made in the deploy repo via Code.
+The tool is `aide fup`, one of the utilities built into the `aide` CLI
+(`aide-cli`, in the deploy repo `DigitalBusiness-AIDE-Deploy`, distributed via
+`aide update`). This folder holds the design documentation for the tool, not
+the tool itself — there is no standalone script to run here.
 
 **It never overwrites.** A file already sitting where a package wants to write,
 and not named as the one being replaced, is reported as a `CONFLICT` and left
@@ -34,7 +35,7 @@ ProjectDesign_2026-09-07.zip
   "files": [
     {
       "path": "Project Design/ProjectDesign_Design_v8.md",
-      "action": "update",
+      "action": "replace",
       "replaces": "ProjectDesign_Design_v7.md"
     },
     {
@@ -46,24 +47,36 @@ ProjectDesign_2026-09-07.zip
 }
 ```
 
+A third action, `move`, renames or relocates a document already in the tree
+without touching its content — no `path` inside the zip is needed for it:
+
+```json
+{
+  "action": "move",
+  "old_path": "Working Practices/FileOps/WP_FileOps_Working_v1.md",
+  "new_path": "Working Practices/_superseded/WP_FileOps_Working_v1.md"
+}
+```
+
 | Field | Meaning |
 | --- | --- |
-| `path` | Where the file goes, measured from the documentation root. Forward slashes. |
-| `action` | `create` for a new file, `update` for one that replaces an existing document. |
-| `replaces` | Update only, optional. The **filename** — not a path — of the document being superseded. The tool finds it and moves it into `_superseded`. |
+| `path` | Where the file goes, measured from the documentation root. Forward slashes. `create`/`replace` only. |
+| `action` | `create` for a new file, `replace` for one that supersedes an existing document, `move` to rename or relocate a file already in the tree. `update` is still accepted as a synonym for `replace`, for packages built before the rename. |
+| `replaces` | `replace` only, optional. The **filename** — not a path — of the document being superseded. The tool finds it and deletes it. |
+| `old_path` / `new_path` | `move` only, required. Both measured from the documentation root. |
 | `description` | Optional. Shown in the report and the completion summary. |
-| `user_instructions` | Optional. Shown to you, and the tool waits for you to acknowledge them before it touches anything. |
+| `user_instructions` | Optional. Shown to you; a live run in an interactive console waits for you to press Enter before deploying anything (see *The instructions gate* below). |
 | `created` | Optional, informational. Packages are ordered by file modification time, not by this. |
 
-**Choosing `create` vs `update`.** `create` means the file does not yet exist in
+**Choosing `create` vs `replace`.** `create` means the file does not yet exist in
 the tree. If a file already sits at the destination path — from a prior deploy,
-a partial run, or manual placement — use `update`, not `create`. The tool will
+a partial run, or manual placement — use `replace`, not `create`. The tool will
 `CONFLICT` on a `create` that finds an occupied path rather than risk
 overwriting something it was not told about.
 
-**Leaving `replaces` out of an update** means "this replaces the file already at
-this path" — that file is moved into `_superseded` and the new one written in
-its place. Use it for documents whose filenames do not carry a version.
+**Leaving `replaces` out of a `replace`** means "this replaces the file already
+at this path" — that file is deleted and the new one written in its place. Use
+it for documents whose filenames do not carry a version.
 
 `Documentation/_config/repo_config.json` maps topic names to folder paths, for
 whoever is *building* a package. The tool does not read it; it has its own
@@ -76,80 +89,96 @@ settings.
 1. Finds the newest unprocessed `.zip` in the drop folder. Any others wait their
    turn and are reported by name.
 2. Validates the package — a zip, with a manifest, that names files it actually
-   contains. Anything wrong and the whole package is rejected: `INVALID`, and
-   nothing at all is deployed.
-3. Shows the package's instructions, if it has any, and waits for you.
-4. For each file: moves the document it replaces into `_superseded`, then writes
-   the new one.
-5. Runs the binder builder. It decides for itself whether a rebuild is needed.
-6. Moves the package into `_superseded` inside the drop folder — but only if the
-   deploy was complete.
-7. Prints a completion summary and holds the window open until you have read it.
+   contains and actions it recognises. Anything wrong and the whole package is
+   rejected: `INVALID`, and nothing at all is deployed.
+3. Shows the package's instructions, if it has any, and — in a live run with an
+   interactive console — waits for you to acknowledge them.
+4. For each entry: `create` writes a new file; `replace` deletes the document
+   it supersedes, then writes the new one; `move` renames or relocates a file
+   already in the tree, content unchanged.
+5. Runs `aide binder`, unless `trigger_binder` is set to `false` or nothing was
+   deployed. It decides for itself whether a rebuild is needed.
+6. Deletes the package from the drop folder — but only if the deploy was
+   complete. If anything deployed, the tool also stages and commits the
+   change, with a message such as `fup: applied ProjectDesign_2026-09-07 (1
+   replaced, 1 created)`.
+7. Prints a completion summary.
+
+There is no `_superseded` folder in any of this — deleted files and the
+processed package are gone from the working tree, and git history is the
+record of what they contained.
 
 ---
 
-## Installing Python on Windows
+## Running it
 
-Only needed once per machine. The tool uses nothing beyond the Python standard
-library, so there is nothing else to install.
-
-1. Go to <https://www.python.org/downloads/windows/> and download the latest
-   **Windows installer (64-bit)**. Python 3.8 or newer is required; any current
-   release is fine.
-2. Run the installer. On the first screen, **tick "Add python.exe to PATH"**
-   before clicking Install. This is easy to miss and is the usual reason a
-   `.py` file will not run afterwards.
-3. Choose **Install Now**.
-
-Double-clicking `file_update_package.py` in File Explorer runs it. If it opens
-in Notepad instead, right-click it → **Open with** → **Choose another app** →
-pick **Python**, and tick **Always use this app to open .py files**.
-
-Or from a terminal:
+From anywhere inside a project (the tool walks up from the current folder to
+find `_aide/`):
 
 ```
-python "C:\path\to\file_update_package.py"
+aide fup              # live — the only prompt is the package's own instructions, if it has any
+aide fup --dry-run    # report only, changes nothing
 ```
+
+The dry run takes the same decisions as a live run — it validates the package,
+works out what would be deleted and what would conflict — and reports them
+with `WOULD REPLACE`, `WOULD CREATE`, `WOULD MOVE` and `WOULD DELETE`. It is
+the safe way to look at a package you did not build yourself. A dry run shows
+`user_instructions` but does not wait for acknowledgement, since nothing is
+actually about to happen.
+
+---
+
+## The instructions gate
+
+If the manifest carries `user_instructions`, they are printed before anything
+is touched. In a live run with an interactive console attached, the tool then
+waits — `Press Enter to continue with the deploy, or Ctrl+C to stop...` —
+before deploying. Outside an interactive console (a script, a CI-style run) it
+logs that it continued without acknowledgement rather than hanging. Either way
+the completion summary's `user instructions:` line states exactly what
+happened: shown and acknowledged, shown but not acknowledged (and why), or
+present but not gated (dry run).
 
 ---
 
 ## Settings
 
-The script reads `file_update_package_settings.json` from **its own folder** —
-not from wherever the terminal happens to be pointing. If that file is missing,
-the script writes a fresh one with default values and explanatory notes, then
-tells you to check it.
+`aide fup` reads the `fup` key of the project's per-project runtime settings
+file, `_aide/settings.json` — not a settings file of its own:
 
 ```json
 {
-  "documentation_root": "..",
-  "drop_folder": "~/_fileupdatepackages",
-  "binder_builder": "~/_tools/binder_builder.py",
-  "log_file": "file_update_package.log"
+  "fup": {
+    "drop_folder": "~/_fileupdatepackages",
+    "trigger_binder": true,
+    "log_file": "~/_aide/utilities/file-update-package/file_update_package.log"
+  }
 }
 ```
 
+Anything left out falls back to the package default shipped with `aide-cli`
+(shown above — these *are* the defaults).
+
 | Setting | Meaning |
 | --- | --- |
-| `documentation_root` | The root of the tree packages deploy into. Manifest paths are measured from here. |
 | `drop_folder` | Where packages are put to be deployed. |
-| `binder_builder` | The binder builder to run afterwards. Point it at the **running instance**, so it uses that instance's settings. Set it to `""` to skip the trigger. |
+| `trigger_binder` | Whether to run `aide binder` after a deploy that wrote something. Set `false` to skip it. |
 | `log_file` | Where the run log is appended. |
 
-### The three path forms
+There is no `binder_builder` path setting any more — `aide fup` calls `aide
+binder` in-process, using the project's own binder settings
+(`_aide/utilities/binder-builder/`), so there is nothing to point at.
+
+### Path forms
 
 | Form | Example | Means |
 | --- | --- | --- |
 | Absolute | `"C:/Docs/_fileupdatepackages"` | that exact folder |
-| Root-anchored | `"~/_fileupdatepackages"` | measured from `documentation_root` |
-| Script-relative | `".."` | measured from the folder holding the script |
+| Root-anchored | `"~/_fileupdatepackages"` | measured from the documentation root (the project root, where `_aide/` lives) |
 
 `"~"` here means **the documentation root**, never your home folder. The tool
 never expands `~` the way a shell would.
-
-`documentation_root` cannot itself use `"~/"` — it is what `"~/"` means. Use
-`".."`, which is what an instance sitting in a `_tools` folder wants, or a full
-path.
 
 This is the same path model as version cleanup and the binder builder,
 deliberately. Three Infrastructure tools with different path semantics would be
@@ -162,32 +191,9 @@ break the file.
 
 ---
 
-## Running it
-
-Live by default — the only prompt is the package's own instructions, if it has
-any:
-
-```
-python file_update_package.py
-```
-
-Report only, changes nothing:
-
-```
-python file_update_package.py --dry-run
-```
-
-The dry run takes the same decisions as a live run — it validates the package,
-works out what would be superseded and what would conflict — and reports them
-with `WOULD DEPLOY`, `WOULD CREATE` and `WOULD SUPERSEDE`. It is the safe way to
-look at a package you did not build yourself.
-
----
-
 ## The completion summary
 
-This is the point of the run. It is printed whatever happened, and the window
-stays open until you have read it:
+This is the point of the run. It is always printed:
 
 ```
 ========================================================================
@@ -195,26 +201,32 @@ COMPLETION SUMMARY
 ------------------------------------------------------------------------
   package:              ProjectDesign_2026-09-07.zip
                         Project Design master files - binder sweep complete
-  files updated:        1
+  files replaced:       1
   files created:        1
-  files superseded:     1
+  files moved:          0
+  files deleted:        1
   conflicts:            0
-  errors:               0
+  errors:                0
   user instructions:    present, shown and acknowledged
-  binder builder:       triggered - 24 included, 1 written, 1 superseded
-  the package is now:   moved to _superseded/
+  binder builder:       triggered
+  the package is now:   deleted
   folder naming:        no misspelled folders found
 ------------------------------------------------------------------------
 COMPLETED SUCCESSFULLY
 ========================================================================
 ```
 
-Every conflict and every error is listed individually, with the filename and the
-reason. The last line is one of:
+`files deleted` counts the superseded document each `replace` removes — a
+`replace` produces both a `DELETED` event (the old file) and a `REPLACED`
+event (the new one), so a package with one `replace` typically shows `files
+replaced: 1` and `files deleted: 1`. Every conflict and every error is listed
+individually, with the filename and the reason. The last line is one of:
 
 | Status | When |
 | --- | --- |
-| `COMPLETED SUCCESSFULLY` | Nothing went wrong. Also the "no packages to deploy" case. |
+| `COMPLETED SUCCESSFULLY` | Nothing went wrong. |
+| `COMPLETED SUCCESSFULLY - there was nothing to do` | No packages in the drop folder. |
+| `COMPLETED SUCCESSFULLY - dry run, nothing was changed` | Dry run, no problems found. |
 | `COMPLETED WITH ERRORS - every file was deployed, but a later step failed` | The files landed; something after them did not — in practice the binder builder. |
 | `COMPLETED WITH ERRORS - the deploy is incomplete` | Some files landed, some did not. |
 | `FAILED - nothing was deployed` | The package was rejected, or every file in it conflicted. |
@@ -225,17 +237,18 @@ reason. The last line is one of:
 
 | Kind | Meaning |
 | --- | --- |
-| `DEPLOYED` / `WOULD DEPLOY` | An updated file written into place. |
+| `REPLACED` / `WOULD REPLACE` | An updated file written into place. |
 | `CREATED` / `WOULD CREATE` | A file that did not exist before. |
-| `SUPERSEDED` / `WOULD SUPERSEDE` | The document being replaced, moved into `_superseded`. |
-| `CONFLICT` | A destination is taken, or a `replaces` matched more than one file. Nothing overwritten, nothing moved. |
+| `MOVED` / `WOULD MOVE` | A file renamed or relocated, content unchanged. |
+| `DELETED` / `WOULD DELETE` | The document a `replace` superseded, removed from the tree. |
+| `CONFLICT` | A destination is taken, a `replaces` matched more than one file, or a `move` source/destination is missing or already occupied. Nothing overwritten, nothing moved. |
 | `SKIPPED` | No packages to deploy, a package waiting its turn, or a `replaces` naming a file that is not in the tree. |
 | `INVALID` | The package was rejected. Nothing in it was deployed. |
-| `BINDER` | The binder builder was triggered, and what it said. |
-| `PROCESSED` / `WOULD PROCESS` | The package itself, moved into `_superseded`. |
-| `ERROR` | A filesystem refusal, or a binder builder run that failed. |
+| `BINDER` | `aide binder` was triggered, and what it said. |
+| `PROCESSED` / `WOULD PROCESS` | The package itself, deleted from the drop folder. |
+| `ERROR` | A filesystem refusal, or a binder run that failed. |
 
-Events appear in the order they happened, so a supersession and the write that
+Events appear in the order they happened, so a deletion and the write that
 depended on it read as one story. The exit code is `0` unless an `ERROR`
 occurred — note that a `CONFLICT` and a rejected package both exit `0`, because
 nothing failed: the tool did exactly what it should with what it was given. The
@@ -248,16 +261,16 @@ package that is wrong in one place is not deployed in the places it happens to
 be right, because deploying half of a badly-built package leaves the tree in a
 state nobody designed. Fix the package and drop it in again.
 
-**`CONFLICT` — something was in the way.** Either a file already sits where the
-package wants to write and the package did not name it as superseded, or a
+**`CONFLICT` — something was in the way.** A file already sits where the
+package wants to write and the package did not name it as replaced; a
 `replaces` filename was found in several folders and the tool will not guess
-which one you meant. Nothing is overwritten and nothing is moved. The run says
+which one you meant; or a `move` source doesn't exist or its destination is
+already occupied. Nothing is overwritten, deleted, or moved. The run says
 exactly which file and why.
 
 **A partial deploy keeps its package.** If anything conflicted, the zip stays in
-the drop folder rather than moving to `_superseded` — you will need it when you
-sort the conflict out, and a package filed away reads as one that was fully
-applied.
+the drop folder rather than being deleted — you will need it when you sort the
+conflict out, and a package that's gone reads as one that was fully applied.
 
 ---
 
@@ -284,7 +297,9 @@ that way. Naming it on every run is how it stops being forgotten.
 
 Every run appends one entry to the log file, live and dry-run alike, each
 stamped with the date and the mode. The entry is the whole report, completion
-summary included. The log is never rewritten or trimmed.
+summary included. By default the log lands at
+`_aide/utilities/file-update-package/file_update_package.log`. The log is
+never rewritten or trimmed.
 
 ---
 
@@ -292,5 +307,5 @@ summary included. The log is never rewritten or trimmed.
 
 It places whole files. It does not merge, patch or edit content, it does not
 decide what belongs in a package, and it does not do general version resolution
-— it moves the single document each manifest entry names. Tidying the rest of
-the tree is version cleanup's job.
+— it acts on the entries each manifest names. Tidying the rest of the tree is
+`aide cleanup`'s job.
