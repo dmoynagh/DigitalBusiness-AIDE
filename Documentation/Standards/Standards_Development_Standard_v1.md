@@ -102,6 +102,8 @@ A standard is built by packaging it as a skill for plugin delivery, or as binder
 
 Cross-review accepted and acceptance test passed before build starts. These are authoring-phase completions, not build steps.
 
+The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder knows where to place the skill without having to determine it.
+
 ### Building a skill
 
 The skill file is a markdown file with YAML frontmatter containing the standard's content. Format:

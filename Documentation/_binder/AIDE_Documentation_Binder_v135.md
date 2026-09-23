@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 134** (2026-09-23).
+> **Binder Version 135** (2026-09-23).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -104,12 +104,12 @@ individual files.
 - `Standards/Standards_Consumption_Standard_v4.md` - sha256 `ca90869a700a`
 - `Standards/Standards_Decisions_v4.md` - sha256 `38207b4e2082`
 - `Standards/Standards_Design_v3.md` - sha256 `07cbe0cd1fc0`
-- `Standards/Standards_Development_Standard_v1.md` - sha256 `e52793873b26`
+- `Standards/Standards_Development_Standard_v1.md` - sha256 `9ba785d2a243`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
 - `Tools/_index.md` - sha256 `90e0fa4aa6b7`
 - `Tools/Tools_Decisions_v7.md` - sha256 `13ac6443f896`
 - `Tools/Tools_Design_v6.md` - sha256 `7554396473ca`
-- `Tools/Tools_Development_Standard_v1.md` - sha256 `f3953a406150`
+- `Tools/Tools_Development_Standard_v1.md` - sha256 `f7237092236d`
 - `Utilities/_index.md` - sha256 `cf88a5022544`
 - `Utilities/Utilities_Brief_v1.md` - sha256 `e5eb37c9d2e8`
 - `Utilities/Utilities_Design_v1.md` - sha256 `ef836fc45f08`
@@ -17214,6 +17214,8 @@ A standard is built by packaging it as a skill for plugin delivery, or as binder
 
 Cross-review accepted and acceptance test passed before build starts. These are authoring-phase completions, not build steps.
 
+The brief's linked build outcome states the deployment target — which plugin the skill is built for. This is recorded during design so the builder knows where to place the skill without having to determine it.
+
 ### Building a skill
 
 The skill file is a markdown file with YAML frontmatter containing the standard's content. Format:
@@ -17687,13 +17689,44 @@ Information. Tool design follows the normal AIDE design approach, which is a fra
 
 ## Build
 
-The specification entering build is the authored tool document. Build packages it as a skill or binder entry. The author's responsibility at build handoff is a complete, accepted tool with a trigger description that fits the 130-character budget.
+A tool is built by packaging it as a skill for plugin delivery, or as binder content for project-context delivery. The authored tool document is the build specification.
 
-Cross-review must be accepted before build. The acceptance test must pass. These are preconditions for build, not build steps.
+### Preconditions
+
+Cross-review accepted and acceptance test passed before build starts. These are authoring-phase completions, not build steps.
+
+The brief's linked build outcome states the deployment target — which plugin the skill is built for.
+
+### Building a skill
+
+The skill file format is the same as for standards — a markdown file with YAML frontmatter:
+
+```
+---
+name: <skill-name>
+description: "<trigger description>"
+---
+
+<!-- provenance: <source_tool_identity> | redistributed: <plugin> (<marketplace>), <date> -->
+
+<tool content>
+```
+
+The `description` field is the trigger description. The tool content is copied from the accepted tool document, omitting the document header and version note. The provenance comment records the source.
+
+A tool and a standard produced as sibling outputs from the same design are built as separate skills — each with its own trigger description and skill file. They load independently.
+
+### Plugin placement
+
+Tools follow the same plugin placement as standards: `aide` for operational tools, `aide-dev` for development tools. The distinction is the same — does the tool apply during normal work, or during AIDE development?
+
+### Building binder content
+
+A tool may be delivered as binder content when it should be present in every session within a project context. This is uncommon — most tools are skills. The default is skill delivery.
 
 ## Deployment
 
-Once built, the tool is deployed through Infrastructure's delivery pipeline — packaged into a plugin, delivered via the marketplace, or included as binder content. The author does not own deployment mechanics. Packaging into a skill or binder entry, and the weight gate that checks the combined load, are owned by Infrastructure and Deployment respectively.
+The deployment path is the same as for standards: PR to the deploy repo, merge, refresh marketplace clone, restart Desktop. Both web UI and desktop app registration paths are needed for full three-surface coverage. See the Standards Development Standard for the full deployment steps, or `Infrastructure_MCPDeliveryModel@v2` for the complete picture.
 
 ## Consumption
 
