@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 146** (2026-09-24).
+> **Binder Version 147** (2026-09-24).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -102,14 +102,14 @@ individual files.
 - `Services/Services_Development_Standard_v2.md` - sha256 `fd2f907dffd5`
 - `Standards/_index.md` - sha256 `04a94d82fe00`
 - `Standards/Standards_Consumption_Standard_v5.md` - sha256 `176c3b7c7e80`
-- `Standards/Standards_Decisions_v6.md` - sha256 `641c144f854f`
-- `Standards/Standards_Design_v5.md` - sha256 `4c2762050112`
-- `Standards/Standards_Development_Standard_v2.md` - sha256 `191ce82e9d67`
+- `Standards/Standards_Decisions_v7.md` - sha256 `e5315f46490d`
+- `Standards/Standards_Design_v6.md` - sha256 `f357d4ee1628`
+- `Standards/Standards_Development_Standard_v3.md` - sha256 `c31bec0e2b1b`
 - `Standards/Standards_Working_v1.md` - sha256 `ba94a61fa3ca`
 - `Tools/_index.md` - sha256 `81f4544dcee5`
 - `Tools/Tools_Decisions_v9.md` - sha256 `c292d93b8176`
 - `Tools/Tools_Design_v8.md` - sha256 `aecf422fe56a`
-- `Tools/Tools_Development_Standard_v2.md` - sha256 `cb76c95cfee1`
+- `Tools/Tools_Development_Standard_v3.md` - sha256 `76ea39b14d9f`
 - `Utilities/_index.md` - sha256 `cf88a5022544`
 - `Utilities/Utilities_Brief_v1.md` - sha256 `400d07b676f2`
 - `Utilities/Utilities_Decisions_v2.md` - sha256 `7113391e7c2b`
@@ -16980,8 +16980,8 @@ Version note: v5 — applicability now names the Standards Development Standard 
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Decisions_v6.md -->
-> identity: Standards_Decisions@v6 | doctype: decisions | updated: 2026-09-24
+<!-- BEGIN SOURCE: Standards/Standards_Decisions_v7.md -->
+> identity: Standards_Decisions@v7 | doctype: decisions | updated: 2026-09-24
 
 ## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
 
@@ -17178,12 +17178,22 @@ The build contract also gains the specification's `name` rules — 1–64 charac
 ---
 
 Version note: v6 — second cross-review remediation. Status lines added: D6 superseded by D23; D13 and D14 revised by D27. D26 (DocMeth schema authoring dependency justified), D27 (200-character trigger budget as AIDE policy; skill `name` rules). 2026-09-24. Replaces v5.
-<!-- END SOURCE: Standards/Standards_Decisions_v6.md -->
+
+## D28 — Built skills are tested before the deploy PR
+
+The definition of done says a developer can build a standard, and the Capabilities Development Standard asks each type to say what testing means for it, but the build had no testing guidance. After building, the builder checks the whole deploy repo: frontmatter parses; `name` rules hold, including matching the directory; descriptions are within the 200-character budget; plugin and marketplace manifests are valid JSON; every marketplace plugin source exists; no skill refers to a deleted document or skill. The whole repo is checked, not only the new skill, because removing or renaming one skill can break references in another.
+
+The checks are required. How they are run is information: a script covering all six was written during the 2026-09-24 build but not committed to the deploy repo, so the standard says to run the checks by hand until it is, and will name the script's path once it lands. The Tools Development Standard inherits the Standards build model and points here rather than restating the checks.
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Design_v5.md -->
-> identity: Standards_Design@v5 | doctype: design | updated: 2026-09-24
+Version note: v7 — adds D28 (built skills are tested before the deploy PR). 2026-09-24. Replaces v6.
+<!-- END SOURCE: Standards/Standards_Decisions_v7.md -->
+
+---
+
+<!-- BEGIN SOURCE: Standards/Standards_Design_v6.md -->
+> identity: Standards_Design@v6 | doctype: design | updated: 2026-09-24
 
 ## Brief
 
@@ -17198,7 +17208,7 @@ Version note: v6 — second cross-review remediation. Status lines added: D6 sup
 1. A developer can design a standard — the two classes, the two-model sequence, earn-your-place, and when a design is required.
 2. A developer can author a conforming standard — the authoring rules, strength vocabulary, trigger description and segmentation, applicability scope, and schema definitions, with each requirement, recommendation and piece of guidance clearly marked.
 3. A developer can review a standard — the acceptance test, the cross-review requirement, and what makes a standard acceptable.
-4. A developer can build a standard — the skill file format, plugin placement, and build preconditions.
+4. A developer can build and test a standard — the skill file format, plugin placement, build preconditions, and the checks to run on the built skill.
 5. A developer can deploy a standard — the deployment path and the registration it needs.
 6. Sessions can operate under applicable standards — applicability evaluation, combining, conflict resolution, and human override.
 7. The development standard and the consumption standard can be produced entirely from this design.
@@ -17384,6 +17394,19 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 
 The skill directory name follows the convention `<skill-name>` within the plugin's `skills/` folder. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
+### Testing a built skill
+
+After building, and before the deploy PR, the builder checks the deploy repo. A skill that fails these checks either fails to load or points a session at something that is not there, and platforms do not always say so. The checks:
+
+- every skill's frontmatter parses as YAML;
+- every skill `name` follows the rules above, including matching its directory name;
+- every description is within the 200-character budget;
+- every plugin manifest and the marketplace manifest is valid JSON;
+- every plugin the marketplace lists has a source folder that exists;
+- no skill refers to a document or skill that has been deleted.
+
+The checks run across the whole deploy repo, not only the skill just built — removing or renaming one skill can break references in another. The checks are required; how they are run is not. A script covering all six was written during the 2026-09-24 build but not committed to the deploy repo; until it is, the checks are run by hand (D28).
+
 ### Deployment path
 
 The built skill is deployed through the marketplace plugin pipeline:
@@ -17433,12 +17456,14 @@ Standards does **not** own:
 Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. Consumption content completed (applicability of the consumption standard, precedence order, what to identify when surfacing conflict, override scope, reporting, evaluating applicability) so the consumption standard can also be produced from it. 2026-09-23. Replaces v3.
 
 Version note: v5 — second cross-review remediation. Linked build outcome added to the brief (F8); build preconditions say the field is on the brief of the producing design. Consumption applicability now names the Standards Development Standard and all five development activities (F3); development-standard applicability adds reviewing (F4). The DocMeth dependency justified in schema definitions (F9, D26). Trigger description budget set to 200 characters as AIDE policy, and the specification's `name` rules added to the skill file (F12, D27). Platform-support statement added to deployment; "full three-surface coverage" now reads "coverage of all three Claude surfaces" (F13). 2026-09-24. Replaces v4.
-<!-- END SOURCE: Standards/Standards_Design_v5.md -->
+
+Version note: v6 — testing a built skill added to the build: six checks run across the deploy repo before the deploy PR. Definition of done item 4 now includes testing (D28). 2026-09-24. Replaces v5.
+<!-- END SOURCE: Standards/Standards_Design_v6.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Standards/Standards_Development_Standard_v2.md -->
-> identity: Standards_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, DocumentationMethodology_SchemaAuthoring_Standard@v1
+<!-- BEGIN SOURCE: Standards/Standards_Development_Standard_v3.md -->
+> identity: Standards_Development_Standard@v3 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Standards — Development Standard
 
@@ -17593,6 +17618,19 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 
 The skill directory is named `<skill-name>` within the plugin's `skills/` folder. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
+### Testing a built skill
+
+After building, and before the deploy PR, check the whole deploy repo — not only the skill just built, because removing or renaming one skill can break references in another. A skill that fails these checks either fails to load or points a session at something that is not there, and platforms do not always say so.
+
+- Every skill's frontmatter parses as YAML.
+- Every skill `name` follows the rules above, including matching its directory name.
+- Every description is within the 200-character budget.
+- Every plugin manifest and the marketplace manifest is valid JSON.
+- Every plugin the marketplace lists has a source folder that exists.
+- No skill refers to a document or skill that has been deleted.
+
+Information. A script covering all six checks was written during the 2026-09-24 build but is not yet committed to the deploy repo. Until it is, run the checks by hand.
+
 ### Deployment target
 
 A standard is deployed as a skill. When a standard is added or updated, its skill is rebuilt and deployed to the target plugin.
@@ -17646,7 +17684,9 @@ Information. Governed by the split test: stays in the standard when small, remov
 Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Review section added (acceptance test and cross-review). Build section covers skill file format, plugin placement, and preconditions; deployment covers the marketplace path. Consumption references the Standards Consumption Standard. Produced from Standards_Design@v4. 2026-09-23.
 
 Version note: v2 — applicability adds reviewing. Trigger description budget is 200 characters, stated as AIDE policy. Skill `name` rules from the Agent Skills specification added to the build. Build precondition names the brief of the producing design. Platform-support statement added to deployment. Produced from Standards_Design@v5. 2026-09-24. Replaces v1.
-<!-- END SOURCE: Standards/Standards_Development_Standard_v2.md -->
+
+Version note: v3 — testing a built skill added to the build: six checks, run across the deploy repo before the deploy PR. Produced from Standards_Design@v6. 2026-09-24. Replaces v2.
+<!-- END SOURCE: Standards/Standards_Development_Standard_v3.md -->
 
 ---
 
@@ -18010,8 +18050,8 @@ Version note: v8 — second cross-review remediation. Linked build outcome added
 
 ---
 
-<!-- BEGIN SOURCE: Tools/Tools_Development_Standard_v2.md -->
-> identity: Tools_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, Standards_Development_Standard@v2
+<!-- BEGIN SOURCE: Tools/Tools_Development_Standard_v3.md -->
+> identity: Tools_Development_Standard@v3 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, Standards_Development_Standard@v3
 
 # Tools — Development Standard
 
@@ -18146,6 +18186,10 @@ A tool and a standard produced as sibling outputs from the same design are built
 
 Tools follow the same plugin placement as standards: `aide` for operational tools, `aide-dev` for development tools. The distinction is the same — does the tool apply during normal work, or during AIDE development?
 
+### Testing a built skill
+
+Before the deploy PR, run the checks in the Standards Development Standard's "Testing a built skill".
+
 ## Deployment
 
 The deployment path is the same as for standards: PR to the deploy repo, merge, refresh marketplace clone, restart Desktop. Both web UI and desktop app registration paths are needed for coverage of all three Claude surfaces. See the Standards Development Standard for the full deployment steps, or `Infrastructure_MCPDeliveryModel@v2` for the complete picture.
@@ -18165,7 +18209,9 @@ Information. A well-authored tool is self-evident to invoke: the trigger descrip
 Version note: v1 — supersedes Tools_Authoring_Standard@v8. All authoring content embedded unchanged. Review, build, deployment, and consumption sections added. Sibling-outputs model extended to include services. Produced from Tools_Design@v7 with its declared dependencies. 2026-09-23.
 
 Version note: v2 — applicability adds reviewing. Sibling outputs describe services as out-of-session operations that sessions call. Trigger budget 200 characters and skill `name` rules, inherited from the Standards Development Standard. Build precondition names the brief of the producing design. Platform-support statement added. Produced from Tools_Design@v8 with its declared dependencies. 2026-09-24. Replaces v1.
-<!-- END SOURCE: Tools/Tools_Development_Standard_v2.md -->
+
+Version note: v3 — testing a built skill: one-line pointer to the checks in the Standards Development Standard. `uses` updated to Standards_Development_Standard@v3. Produced from Tools_Design@v8 with its declared dependencies. 2026-09-24. Replaces v2.
+<!-- END SOURCE: Tools/Tools_Development_Standard_v3.md -->
 
 ---
 

@@ -1,4 +1,4 @@
-> identity: Tools_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, Standards_Development_Standard@v2
+> identity: Tools_Development_Standard@v3 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, Standards_Development_Standard@v3
 
 # Tools — Development Standard
 
@@ -133,6 +133,10 @@ A tool and a standard produced as sibling outputs from the same design are built
 
 Tools follow the same plugin placement as standards: `aide` for operational tools, `aide-dev` for development tools. The distinction is the same — does the tool apply during normal work, or during AIDE development?
 
+### Testing a built skill
+
+Before the deploy PR, run the checks in the Standards Development Standard's "Testing a built skill".
+
 ## Deployment
 
 The deployment path is the same as for standards: PR to the deploy repo, merge, refresh marketplace clone, restart Desktop. Both web UI and desktop app registration paths are needed for coverage of all three Claude surfaces. See the Standards Development Standard for the full deployment steps, or `Infrastructure_MCPDeliveryModel@v2` for the complete picture.
@@ -152,3 +156,5 @@ Information. A well-authored tool is self-evident to invoke: the trigger descrip
 Version note: v1 — supersedes Tools_Authoring_Standard@v8. All authoring content embedded unchanged. Review, build, deployment, and consumption sections added. Sibling-outputs model extended to include services. Produced from Tools_Design@v7 with its declared dependencies. 2026-09-23.
 
 Version note: v2 — applicability adds reviewing. Sibling outputs describe services as out-of-session operations that sessions call. Trigger budget 200 characters and skill `name` rules, inherited from the Standards Development Standard. Build precondition names the brief of the producing design. Platform-support statement added. Produced from Tools_Design@v8 with its declared dependencies. 2026-09-24. Replaces v1.
+
+Version note: v3 — testing a built skill: one-line pointer to the checks in the Standards Development Standard. `uses` updated to Standards_Development_Standard@v3. Produced from Tools_Design@v8 with its declared dependencies. 2026-09-24. Replaces v2.

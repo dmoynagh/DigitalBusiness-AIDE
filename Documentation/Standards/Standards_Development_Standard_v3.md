@@ -1,4 +1,4 @@
-> identity: Standards_Development_Standard@v2 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, DocumentationMethodology_SchemaAuthoring_Standard@v1
+> identity: Standards_Development_Standard@v3 | doctype: standard | updated: 2026-09-24 | uses: Capabilities_Development_Standard@v2, DocumentationMethodology_SchemaAuthoring_Standard@v1
 
 # Standards — Development Standard
 
@@ -153,6 +153,19 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 
 The skill directory is named `<skill-name>` within the plugin's `skills/` folder. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
+### Testing a built skill
+
+After building, and before the deploy PR, check the whole deploy repo — not only the skill just built, because removing or renaming one skill can break references in another. A skill that fails these checks either fails to load or points a session at something that is not there, and platforms do not always say so.
+
+- Every skill's frontmatter parses as YAML.
+- Every skill `name` follows the rules above, including matching its directory name.
+- Every description is within the 200-character budget.
+- Every plugin manifest and the marketplace manifest is valid JSON.
+- Every plugin the marketplace lists has a source folder that exists.
+- No skill refers to a document or skill that has been deleted.
+
+Information. A script covering all six checks was written during the 2026-09-24 build but is not yet committed to the deploy repo. Until it is, run the checks by hand.
+
 ### Deployment target
 
 A standard is deployed as a skill. When a standard is added or updated, its skill is rebuilt and deployed to the target plugin.
@@ -206,3 +219,5 @@ Information. Governed by the split test: stays in the standard when small, remov
 Version note: v1 — supersedes Standards_Authoring_Standard@v8. All authoring content embedded unchanged. Review section added (acceptance test and cross-review). Build section covers skill file format, plugin placement, and preconditions; deployment covers the marketplace path. Consumption references the Standards Consumption Standard. Produced from Standards_Design@v4. 2026-09-23.
 
 Version note: v2 — applicability adds reviewing. Trigger description budget is 200 characters, stated as AIDE policy. Skill `name` rules from the Agent Skills specification added to the build. Build precondition names the brief of the producing design. Platform-support statement added to deployment. Produced from Standards_Design@v5. 2026-09-24. Replaces v1.
+
+Version note: v3 — testing a built skill added to the build: six checks, run across the deploy repo before the deploy PR. Produced from Standards_Design@v6. 2026-09-24. Replaces v2.

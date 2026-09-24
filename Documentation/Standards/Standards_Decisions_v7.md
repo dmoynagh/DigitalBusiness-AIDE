@@ -1,4 +1,4 @@
-> identity: Standards_Decisions@v6 | doctype: decisions | updated: 2026-09-24
+> identity: Standards_Decisions@v7 | doctype: decisions | updated: 2026-09-24
 
 ## D1 — Standards is a methodological component, same pattern as Infrastructure and Tools
 
@@ -195,3 +195,13 @@ The build contract also gains the specification's `name` rules — 1–64 charac
 ---
 
 Version note: v6 — second cross-review remediation. Status lines added: D6 superseded by D23; D13 and D14 revised by D27. D26 (DocMeth schema authoring dependency justified), D27 (200-character trigger budget as AIDE policy; skill `name` rules). 2026-09-24. Replaces v5.
+
+## D28 — Built skills are tested before the deploy PR
+
+The definition of done says a developer can build a standard, and the Capabilities Development Standard asks each type to say what testing means for it, but the build had no testing guidance. After building, the builder checks the whole deploy repo: frontmatter parses; `name` rules hold, including matching the directory; descriptions are within the 200-character budget; plugin and marketplace manifests are valid JSON; every marketplace plugin source exists; no skill refers to a deleted document or skill. The whole repo is checked, not only the new skill, because removing or renaming one skill can break references in another.
+
+The checks are required. How they are run is information: a script covering all six was written during the 2026-09-24 build but not committed to the deploy repo, so the standard says to run the checks by hand until it is, and will name the script's path once it lands. The Tools Development Standard inherits the Standards build model and points here rather than restating the checks.
+
+---
+
+Version note: v7 — adds D28 (built skills are tested before the deploy PR). 2026-09-24. Replaces v6.

@@ -1,4 +1,4 @@
-> identity: Standards_Design@v5 | doctype: design | updated: 2026-09-24
+> identity: Standards_Design@v6 | doctype: design | updated: 2026-09-24
 
 ## Brief
 
@@ -13,7 +13,7 @@
 1. A developer can design a standard — the two classes, the two-model sequence, earn-your-place, and when a design is required.
 2. A developer can author a conforming standard — the authoring rules, strength vocabulary, trigger description and segmentation, applicability scope, and schema definitions, with each requirement, recommendation and piece of guidance clearly marked.
 3. A developer can review a standard — the acceptance test, the cross-review requirement, and what makes a standard acceptable.
-4. A developer can build a standard — the skill file format, plugin placement, and build preconditions.
+4. A developer can build and test a standard — the skill file format, plugin placement, build preconditions, and the checks to run on the built skill.
 5. A developer can deploy a standard — the deployment path and the registration it needs.
 6. Sessions can operate under applicable standards — applicability evaluation, combining, conflict resolution, and human override.
 7. The development standard and the consumption standard can be produced entirely from this design.
@@ -199,6 +199,19 @@ Standards are deployed in one of two plugins in the `digitalbusiness-aide` marke
 
 The skill directory name follows the convention `<skill-name>` within the plugin's `skills/` folder. The skill name should be short, descriptive, and match how the standard would be referred to in conversation.
 
+### Testing a built skill
+
+After building, and before the deploy PR, the builder checks the deploy repo. A skill that fails these checks either fails to load or points a session at something that is not there, and platforms do not always say so. The checks:
+
+- every skill's frontmatter parses as YAML;
+- every skill `name` follows the rules above, including matching its directory name;
+- every description is within the 200-character budget;
+- every plugin manifest and the marketplace manifest is valid JSON;
+- every plugin the marketplace lists has a source folder that exists;
+- no skill refers to a document or skill that has been deleted.
+
+The checks run across the whole deploy repo, not only the skill just built — removing or renaming one skill can break references in another. The checks are required; how they are run is not. A script covering all six was written during the 2026-09-24 build but not committed to the deploy repo; until it is, the checks are run by hand (D28).
+
 ### Deployment path
 
 The built skill is deployed through the marketplace plugin pipeline:
@@ -248,3 +261,5 @@ Standards does **not** own:
 Version note: v4 — brief updated (purpose, scope, target outcome, definition of done) for the development standard model. Added: acceptance test with ambient-context definition, applicability of the development standard, reviewing a standard, schema definitions, and full build detail (skill file format, plugin placement, deployment path, preconditions). The development standard can now be produced entirely from this design. Consumption content completed (applicability of the consumption standard, precedence order, what to identify when surfacing conflict, override scope, reporting, evaluating applicability) so the consumption standard can also be produced from it. 2026-09-23. Replaces v3.
 
 Version note: v5 — second cross-review remediation. Linked build outcome added to the brief (F8); build preconditions say the field is on the brief of the producing design. Consumption applicability now names the Standards Development Standard and all five development activities (F3); development-standard applicability adds reviewing (F4). The DocMeth dependency justified in schema definitions (F9, D26). Trigger description budget set to 200 characters as AIDE policy, and the specification's `name` rules added to the skill file (F12, D27). Platform-support statement added to deployment; "full three-surface coverage" now reads "coverage of all three Claude surfaces" (F13). 2026-09-24. Replaces v4.
+
+Version note: v6 — testing a built skill added to the build: six checks run across the deploy repo before the deploy PR. Definition of done item 4 now includes testing (D28). 2026-09-24. Replaces v5.
