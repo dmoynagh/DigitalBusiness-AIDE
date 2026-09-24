@@ -6,10 +6,20 @@ of every .md file under the Documentation root, except high-churn or
 non-master folders (_binder, _superseded, _rebuild, _temp,
 _fileupdatepackages, Boards, FileOps, _archived, and _index.md files).
 
-For each doctype: standard document that declares `uses`, resolves each
-target against the exact versioned identity found in the corpus. A target
-that does not resolve — wrong name, or a version that doesn't match what's
-actually there — is reported as UNRESOLVED rather than silently dropped.
+For each doctype: standard document that declares `uses`, classifies each
+entry against the corpus. The version in a `uses` entry is a conformance
+stamp — the version of that standard the document was last brought into
+line with — so an older stamp is a normal state, not a defect:
+
+  current  — the identity exists and the stamp is its current version
+  behind   — the identity exists and the stamp is older than current
+             ("stamped vN, current vM"); the standard's migration record
+             says what work applies
+  broken   — the identity does not exist (or the stamped version is newer
+             than any that exists)
+
+An entry with no version stamp is reported as "unstamped": the identity
+resolves, but there is nothing to compare, so currency is unknown.
 
 Usage:
     python _tools/dependency_map.py [root]
@@ -17,12 +27,13 @@ Usage:
 `root` defaults to the current directory. Run from `Documentation/`:
     python _tools/dependency_map.py .
 
-Output: three sections to stdout —
-  1. each standard's `uses` targets with resolution status
+Output: four sections to stdout (UTF-8) —
+  1. each standard's `uses` entries with their state
   2. every standard found, for cross-check against the corpus
   3. a tiered rendering (tier = 1 + max tier of its resolved dependencies,
      0 for no declared uses) suitable for pasting into the WIP's
-     Standards Dependency Map section.
+     Standards Dependency Map section
+  4. a count of entries in each state.
 """
 import os
 import sys
@@ -81,14 +92,39 @@ def split_uses(uses_raw):
     return [t.strip() for t in uses_raw.split(",") if t.strip()]
 
 
-def resolve(target, docs):
+def version_number(ver):
+    """`v3` -> 3; `v4-draft1` -> 4. None if the version can't be read."""
+    if not ver or not ver.startswith("v"):
+        return None
+    num = ver[1:].split("-", 1)[0]
+    return int(num) if num.isdigit() else None
+
+
+def classify(target, docs):
+    """Return (state, detail) for one `uses` entry.
+
+    state is one of: current, behind, broken, unstamped.
+    """
     tname, _, tver = target.partition("@")
-    resolved = docs.get(tname)
-    if resolved is None:
-        return f"UNRESOLVED (no document with this identity found)"
-    if tver and resolved["version"] != tver:
-        return f"UNRESOLVED (found {tname}@{resolved['version']} at {resolved['path']}, not @{tver})"
-    return f"OK -> {resolved['path']}"
+    found = docs.get(tname)
+    if found is None:
+        return "broken", "no document with this identity exists"
+    if not tver:
+        return "unstamped", f"identity exists, no version stamp (current {found['version']})"
+    if tver == found["version"]:
+        return "current", found["path"]
+    stamped, cur = version_number(tver), version_number(found["version"])
+    if stamped is not None and cur is not None and stamped < cur:
+        return "behind", f"stamped {tver}, current {found['version']}"
+    return "broken", f"stamped {tver}, but only {found['version']} exists"
+
+
+def annotate(target, docs):
+    """`uses` entry with a trailing marker unless it is current."""
+    state, detail = classify(target, docs)
+    if state == "current":
+        return target
+    return f"{target} *{state} — {detail}*"
 
 
 def compute_tiers(standards_with_uses, all_standards):
@@ -117,6 +153,7 @@ def compute_tiers(standards_with_uses, all_standards):
 
 
 def main():
+    sys.stdout.reconfigure(encoding="utf-8")
     docs = load_corpus(ROOT)
     standards = {n: d for n, d in docs.items() if d["doctype"] == "standard"}
     standards_with_uses = {n: d for n, d in standards.items() if d["uses_raw"]}
@@ -127,7 +164,8 @@ def main():
         self_id = f"{name}@{d['version']}" if d["version"] else name
         print(f"- {self_id}  ({d['path']})")
         for t in split_uses(d["uses_raw"]):
-            print(f"    uses: {t}  [{resolve(t, docs)}]")
+            state, detail = classify(t, docs)
+            print(f"    uses: {t}  [{state}: {detail}]")
         print()
 
     print("\n# All standards found (for cross-check)\n")
@@ -139,12 +177,22 @@ def main():
     tier = compute_tiers(standards_with_uses, set(standards))
     for lvl in range(max(tier.values(), default=0) + 1):
         names = sorted(n for n in standards if tier[n] == lvl)
-        print(f"Tier {lvl}:")
+        print("Tier 0 — no declared uses" if lvl == 0 else f"Tier {lvl}")
         for n in names:
             d = standards[n]
-            star = " *universal*" if n in UNIVERSAL else ""
-            print(f"  - {n}@{d['version']}{star}  uses: {d['uses_raw'] or '(none)'}")
+            star = "  *universal, exempt from uses*" if n in UNIVERSAL else ""
+            uses = ", ".join(annotate(t, docs) for t in split_uses(d["uses_raw"]))
+            print(f"  - {n}@{d['version']}{star}" + (f"  uses: {uses}" if uses else ""))
         print()
+
+    counts = {}
+    for d in standards_with_uses.values():
+        for t in split_uses(d["uses_raw"]):
+            state = classify(t, docs)[0]
+            counts[state] = counts.get(state, 0) + 1
+    print("# Entry states\n")
+    for state in ("current", "behind", "broken", "unstamped"):
+        print(f"  {state}: {counts.get(state, 0)}")
 
 
 if __name__ == "__main__":

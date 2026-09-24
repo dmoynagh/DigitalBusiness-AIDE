@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v33 | 2026-09-24
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v34 | 2026-09-24
 
 ## Active threads
 
@@ -35,9 +35,9 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - Rebuild aide-dev `standards-development` from Standards_Development_Standard_v3 (after the pointer names the script's path).
 - Rebuild aide-dev `tools-development` from Tools_Development_Standard_v3.
 
-**Stale references to Standards_Development_Standard@v2 — update when each is next worked (DocMeth: check `uses` at next edit):**
-- Standards_Consumption_Standard_v5 `uses` (shows as unresolved in the dependency map below).
-- The type-to-standard table in Capabilities_Development_Standard_v2 and Capabilities_Design_v3 (names `Standards_Development_Standard@v2` and its file, and `Tools_Development_Standard@v2` and its file).
+**Behind Standards_Development_Standard — stamped v2, current v3. Bring into line when each is next worked (DocMeth: check `uses` at next edit). Behind is a normal state, not a defect:**
+- Standards_Consumption_Standard_v5 `uses` (shows as behind in the dependency map below).
+- The type-to-standard table in Capabilities_Development_Standard_v2 and Capabilities_Design_v3 (names `Standards_Development_Standard@v2` and its file, and `Tools_Development_Standard@v2` and its file). These are prose references, not `uses` entries, so the dependency map does not show them; the file names in the table do need updating, since the v2 files no longer exist.
 
 **Open items (logged in project memory OI-1 to OI-3):**
 - OI-1 (PD, short-term): update design-check skill to load PD, WP, DocMeth standards at design start
@@ -68,6 +68,17 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - ~~**OI-DEP-2:** re-check every skill description in both plugins against the 200-character budget when the owed skills are built.~~ DONE 2026-09-24 — result in OI-DEP-3
 - **OI-DEP-3:** 200-character audit result (2026-09-24): one skill over budget across both plugins — `aide:design-check`, 701 characters. All other 17 skills are within budget (largest 134, `standards-development`). Fix is the design-check redesign (OI-PD-4). Ownership: PD
 - **OI-UTIL-1:** the dependency-map script (`Documentation/_tools/dependency_map.py`) is a candidate utility (`aide deps`) — found while aligning the binder-builder, version-cleanup and file-update-package designs with live behaviour. Not promoted yet: no design, not in the `aide` CLI, not reviewed against the Utilities Development Standard. Ownership: Utilities / Infrastructure
+
+### Open items — 2026-09-24 (migration status check)
+
+- **OI-MIG-1: Migration records not produced.** Change management (rebuild settled decisions §11a, settled 2026-09-06) requires a migration record for every published standard version — a set of condition-to-action tasks that take a document from the previous version to this one, or an explicit "no action". The rule is gated at publish with no override: a version is not published until its record is written. None of this has happened yet. Findings of the 2026-09-24 check:
+  - **No migration-format standard exists** in any state — not designed, drafted or published. It is still listed as owed: §11a "Owed next" item 1, and Rebuild WIP v24 next action 4 ("carry the migration-format standard into the standards-authoring pass"). There is no Migration component folder; the Solution Map lists Migration (component 8) as not started. The only migration standard in the tree is the retired pre-rebuild `AIDE_Migration@v3` in `Documentation_old/Capabilities/`.
+  - **No migration files exist** beside any standard in `Documentation/` or in the deploy repo. The old model's `migrations.md` has no successor.
+  - **The publish gate is not implemented anywhere.** The document manager service (deploy repo, `plugins/aide/server/docmgmt`) has no publish operation — its tools are read, write, patch, copy, rename, delete, mkdir, commit, status and binder build. The `aide` CLI has binder, cleanup and file-update-package utilities only. DocMeth's publish step (drop the draft marker, create the immutable version) and the Standards Development Standard's publish condition (acceptance test) do not mention a migration record. §11a "Owed next" item 2 — land the gate wherever the publish operation is defined — is open, and there is no publish operation to land it in.
+  - **Every standard version published since 2026-09-06 has no migration record.** On 2026-09-23: Core_Structure_Standard@v1, Capabilities_Development_Standard@v1, Standards_Development_Standard@v1, Tools_Development_Standard@v1, Services_Development_Standard@v1, Utilities_Development_Standard@v1, Standards_Consumption_Standard@v4. On 2026-09-24: Capabilities_Development_Standard@v2, Standards_Development_Standard@v2, Tools_Development_Standard@v2, Services_Development_Standard@v2, Utilities_Development_Standard@v2, Standards_Consumption_Standard@v5, WorkingPractices_Standard@v3, Standards_Development_Standard@v3, Tools_Development_Standard@v3. Earlier versions (2026-09-11 to 2026-09-17: DocMeth, Principles, Project Design, Messaging, Core Schema, Assurance, WP, and the retired authoring standards) are in the same state.
+  - Consequence: a `uses` entry that is behind (for example Standards_Consumption_Standard@v5 stamped Standards_Development_Standard v2) has no record saying what work brings it current, so the stamp can only be advanced by judgement.
+
+  Parked for a dedicated discussion — scope includes whether records are owed retrospectively for the versions above, where the publish operation lives, and when the migration-format standard is authored. Ownership: Migration / Standards
 
 ### DocMeth — schema review across components
 
@@ -367,7 +378,13 @@ Current agreed order for remaining component design passes:
 
 ## Standards Dependency Map
 
-How standards depend on each other via declared `uses` relationships. Regenerated by script from the `uses:` field of each standard's Declaration header — `_tools/dependency_map.py` (run `python _tools/dependency_map.py .` from `Documentation/`), round-3 remediation N2. Every standard that declares `uses` is included (Working Practices and Assurance were missing from the hand-maintained version); a target that doesn't resolve to an existing document at the declared version is listed as unresolved rather than dropped. Current as of the testing addition (Standards D28, WIP v33) — regenerate after any `uses` change rather than hand-editing this section.
+How standards depend on each other via declared `uses` relationships. Regenerated by script from the `uses:` field of each standard's Declaration header — `_tools/dependency_map.py` (run `python _tools/dependency_map.py .` from `Documentation/`), round-3 remediation N2. Every standard that declares `uses` is included. Current as of WIP v34 — regenerate after any `uses` change rather than hand-editing this section.
+
+The version in a `uses` entry is a conformance stamp: the version of that standard the document was last brought into line with. Each entry is in one of three states:
+
+- **Current** — the named standard exists and the stamp is its current version. Unmarked below.
+- **Behind** — the named standard exists but the stamp is older than its current version ("stamped vN, current vM"). A normal, designed state, not a defect: the gap is the change-management trigger, and the standard's migration record says what work applies (rebuild settled decisions §11a; DocMeth Change Management).
+- **Broken** — the named standard does not exist (for example, the retired Standards_Authoring_Standard). A defect.
 
 ```
 Tier 0 — no declared uses
@@ -387,17 +404,17 @@ Tier 1
 
 Tier 2
   - ProjectDesign_Standard@v5  uses: ProjectDesign_Schema_Standard@v1
-  - Standards_Consumption_Standard@v5  uses: Standards_Development_Standard@v2  *unresolved — current is @v3*
+  - Standards_Consumption_Standard@v5  uses: Standards_Development_Standard@v2 *behind — stamped v2, current v3*
   - Tools_Development_Standard@v3  uses: Capabilities_Development_Standard@v2, Standards_Development_Standard@v3
 
 Tier 3
   - WorkingPractices_Standard@v3  uses: Standards_Consumption_Standard@v5
 
 Tier 4
-  - Assurance_Standard@v1  uses: Principles_Standard, WorkingPractices_Standard
+  - Assurance_Standard@v1  uses: Principles_Standard *unstamped — identity exists, no version stamp (current v2)*, WorkingPractices_Standard *unstamped — identity exists, no version stamp (current v3)*
 ```
 
-One `uses` target unresolved: Standards_Consumption_Standard@v5 still names Standards_Development_Standard@v2 (carried above, update when next worked). One inconsistency surfaced by the script, not fixed here (out of scope for N2): Assurance's `uses` field names `Principles_Standard` and `WorkingPractices_Standard` without version pins, unlike every other standard's `uses` — resolves fine today, but doesn't carry the exact versioned identity the convention expects. Worth a small fix when Assurance is next touched.
+State of every `uses` entry: 11 current, 1 behind, 0 broken. Behind: Standards_Consumption_Standard@v5 is stamped Standards_Development_Standard v2, current v3 — carried above, brought into line when next worked. Two entries carry no version stamp at all, so their state can't be read: Assurance's `uses` names `Principles_Standard` and `WorkingPractices_Standard` without a version, unlike every other standard's `uses`. The identities exist, so neither is broken, but there is no stamp to compare. Worth a small fix when Assurance is next touched.
 
 Two identities the prior hand-maintained map carried no longer exist and are correctly absent above: `Core_Schema_Standard_v2` was retired, its content absorbed into `Core_Structure_Standard@v1` (which the script found declaring `uses DocumentationMethodology_SchemaAuthoring_Standard@v1` directly); `PD_Standard_v4` is now `ProjectDesign_Standard@v5`, which uses `ProjectDesign_Schema_Standard@v1` rather than the schema-authoring standard directly.
 
@@ -447,6 +464,8 @@ Completed 2026-09-15. Acceptance test amended for ambient framework context (D21
 | Assurance_Standard_v1 | Assurance standard cross-review — 10 findings | **Accepted and deployed** — 2 rounds. Documentation repo commit 11c47ca, aide plugin PR #7. 2026-09-17 |
 | Development standards — Capabilities, Standards, Tools, Services, Utilities | The Standards Development Standard makes an accepted cross-review a build precondition | **Accepted** — round 2 (Codex): 13 findings F1–F13, all remediated (commit 9041431). Round 3 (Codex): F1–F13 verified resolved; 4 new findings N1–N4, all remediated (commit f80ac24); utility design drift aligned (4717fda); binder duplicate-name check (deploy repo 61bc531, Documentation repo 1ebbb1b). Built 2026-09-24, deploy repo PR #13 — open, not yet merged, at the time of this entry. The build ran before this entry was written |
 
+**Review rule for `uses` entries.** When cross-reviewing a document, a `uses` identity must exist — an entry naming a standard that no longer exists (for example the retired Standards_Authoring_Standard) is broken, and a defect. An entry whose stamped version is older than the standard's current version is behind, not a defect: the stamp records the version the document was last brought into line with, and the gap is the change-management trigger. Don't raise a behind entry as a finding; the dependency map shows each entry's state. (The cross-review convention is Working Practices-owned per Standards Design v6, but the WP standard doesn't yet carry it — this register is where it's held today.)
+
 ---
 
 Version note: v29 — voice session open items: inbox as scoped artifact (OI-PD-1), WIP scoping (OI-PD-2), overview doctype confirmed (OI-PD-3), deploy component schema standards as skills (OI-DEP-1), doc-manager edit discipline (OI-WP-5). 2026-09-23. Replaces v28.
@@ -458,3 +477,5 @@ Version note: v31 — round-3 cross-review remediation (N1–N4). WorkingPractic
 Version note: v32 — the seven owed skills built and deployed (deploy repo PR #13): five development-standard skills in aide-dev, standards-consumption and wp rebuilt in aide; standards-authoring and tools-authoring removed. OI-DEP-2 closed; audit result recorded as OI-DEP-3. 2026-09-24. Replaces v31.
 
 Version note: v33 — cross-review register entry for the five development standards (accepted, rounds 2 and 3). Testing a built skill added to the Standards Development Standard (Standards D28); skill rebuilds and the check-script commit added to the build-owed list; stale references to Standards_Development_Standard@v2 carried. Dependency map regenerated. 2026-09-24. Replaces v32.
+
+Version note: v34 — migration status check and dependency-map fix. The dependency-map script now classifies each `uses` entry as current, behind (stamped vN, current vM) or broken; the map is regenerated and Standards_Consumption_Standard@v5's entry reads as behind rather than unresolved. Review rule for `uses` added under the cross-review register. Open item OI-MIG-1: migration records not produced — no migration-format standard, no migration files, no publish gate, and no record for any standard version published since 2026-09-06. 2026-09-24. Replaces v33.
