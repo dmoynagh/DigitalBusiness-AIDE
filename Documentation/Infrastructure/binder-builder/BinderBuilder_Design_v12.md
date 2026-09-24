@@ -1,7 +1,13 @@
-> identity: BinderBuilder_Design@v11 | doctype: design | updated: 2026-09-24
+> identity: BinderBuilder_Design@v12 | doctype: design | updated: 2026-09-24
 
 # Binder Builder — Design
 
+> **Version 12** (2026-09-24). Closes the open item v11 logged: the duplicate-`name` refusal D13
+> requires is now implemented. `run()` loads every definition found before building or deleting
+> anything, checks the set for a shared `name`, and — if any is found — refuses the whole run,
+> naming the shared name and every settings file that declares it, without building or deleting a
+> single file. Verified against the live Documentation tree. See D21.
+>
 > **Version 11** (2026-09-24). Rewritten to match the deployed tool. Binder builder is now a
 > utility in the `aide` CLI, invoked as `aide binder`, not a standalone script run from an
 > instance folder. It **deletes its own previous output** rather than moving it to `_superseded`
@@ -664,7 +670,7 @@ is the truth.
 *Identity is the `name` setting*, not the filename, because `name` already had to be unique — it
 decides the output filename. A duplicate is refused before anything runs rather than resolved,
 because both plausible resolutions (first wins, last wins) silently give someone a binder they did
-not ask for. *This refusal is not yet implemented — see §10 Open.*
+not ask for. See D21 for how the refusal is enforced.
 
 **D18 — An empty scope writes an empty binder.** Reverses the rule v1 to v9 held, that an empty
 scope writes nothing and leaves the previous binder alone.
@@ -796,19 +802,34 @@ D18's empty-scope decision stands unchanged — an empty scope still writes a bi
 but its stated recovery path (moving the previous binder to `_superseded`) is now git history
 instead of a filesystem move.
 
+**D21 — The duplicate-`name` refusal is enforced before any definition is built or deleted.**
+`run()` loads every settings file it discovers into a `Definition` first — exactly as it always
+did for `--list` — and only then checks the resulting set for a `name` claimed by more than one.
+Finding one refuses the entire run: nothing is built, nothing is deleted, for *any* definition in
+the folder, not only the clashing pair. The report names the shared `name` and every settings file
+that declares it.
+
+*Scope of the refusal, deliberate.* A folder holding four definitions where two clash refuses all
+four, not just the two that clash. The alternative — build the two with unique names, refuse only
+the clashing pair — was rejected: it would make "the run partly worked" the normal experience of a
+mistake that is trivial to fix (rename one file), and D14's isolation is for a settings file that
+will not parse, a different failure with a different shape, not for this one.
+
+*Placement in `run()`, deliberate.* The check sits after settings loading and before the
+`--list` / build branch, so `--list` is refused under a duplicate exactly as a live run is — both
+are "something runs" in the sense D13 means, and `--list` printing two same-named definitions
+side by side is not a substitute for the refusal the name collision itself warrants.
+
+*Relationship to D14.* D14's per-definition isolation — a settings file that will not parse is
+reported and skipped, the rest still build — is unaffected and orthogonal. A definition that
+fails to load never reaches the duplicate check at all; a duplicate name is found only among
+definitions that *did* load cleanly, and D14 continues to isolate parse failures exactly as
+before.
+
 ---
 
 ## 10. Open
 
-- **The duplicate-`name` refusal is not implemented.** D13 and this design state that two binder
-  definitions sharing a `name` are refused before anything runs, naming both files. The live tool
-  (`aide-cli/src/aide/utilities/binder.py`) has no such check: `run()` builds every discovered
-  definition in turn with no uniqueness test, so two same-named definitions would each build
-  normally and, per D20, each delete the other's just-written output on its own turn — silently,
-  with no warning to the person who created the second definition. This is a design requirement
-  the code does not meet, found while aligning this design with the deployed tool (2026-09-24), not
-  a behaviour this pass changed. Flagged for a build follow-up rather than fixed here — this pass
-  does not change code.
 - **`EMPTY` and `NO CHANGES` exit codes.** Both are `0`, consistent with treating expected outcomes
   as non-failures. A caller therefore cannot distinguish "binder rebuilt" from "nothing written"
   by exit code alone. The FileUpdatePackage deployer, which now chains this tool, does not need to:
