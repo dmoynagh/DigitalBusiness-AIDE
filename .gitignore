@@ -5,3 +5,6 @@
 ~$*.~vsd
 ~$*.~vsdx
 ~$*.~vsdm
+
+# Utility run logs (binder, version cleanup, file-update-package) — generated on every run
+*.log
