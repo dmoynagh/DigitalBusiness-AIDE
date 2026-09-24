@@ -2,7 +2,7 @@
 
 > **Generated Binder - do not edit directly.** Edit the individual master documents
 > and regenerate the Binder.
-> **Binder Version 147** (2026-09-24).
+> **Binder Version 148** (2026-09-24).
 
 This Binder is a current-context consumption artefact; authoritative masters remain
 individual files.
@@ -29,16 +29,16 @@ individual files.
 - `Assurance/AIDE_Assurance_Cases_Working_v1.md` - sha256 `fa41200d451f`
 - `Assurance/Assurance_Decisions_v3.md` - sha256 `da10aeeba9f4`
 - `Assurance/Assurance_Design_v3.md` - sha256 `9590897a017b`
-- `Assurance/Assurance_Standard_v1.md` - sha256 `16dcf04b00e1`
+- `Assurance/Assurance_Standard_v2.md` - sha256 `f0f53664bb25`
 - `Build/_index.md` - sha256 `9a75e5df84b4`
 - `Build/Build_Brief_v4.md` - sha256 `d9717a0475c0`
 - `Build/Build_Decisions_v8.md` - sha256 `f9a1ac65dfe3`
 - `Build/Build_Design_v8.md` - sha256 `2987f32273f9`
 - `Build/Build_Overview_v6.md` - sha256 `5fce6400bb23`
 - `Capabilities/_index.md` - sha256 `bd890d11e765`
-- `Capabilities/Capabilities_Decisions_v3.md` - sha256 `1a6b7650022e`
-- `Capabilities/Capabilities_Design_v3.md` - sha256 `67e6a18719ad`
-- `Capabilities/Capabilities_Development_Standard_v2.md` - sha256 `3826fbfa7e13`
+- `Capabilities/Capabilities_Decisions_v4.md` - sha256 `09ca28aedd52`
+- `Capabilities/Capabilities_Design_v4.md` - sha256 `5776b0689d51`
+- `Capabilities/Capabilities_Development_Standard_v3.md` - sha256 `15a1985ec6cf`
 - `Core/_index.md` - sha256 `218f4527af49`
 - `Core/Core_AIDEMap.md` - sha256 `d88d37be296a`
 - `Core/Core_AIDEPrinciples_Decisions_v1.md` - sha256 `ca6507a444f0`
@@ -62,21 +62,21 @@ individual files.
 - `Infrastructure/_index.md` - sha256 `7732b7fca4c2`
 - `Infrastructure/AIDE_Infrastructure_MCPDeliveryModel_v2.md` - sha256 `709be4952c6b`
 - `Infrastructure/binder-builder/binder_builder_Documentation_settings.json` - sha256 `b9b89306305b`
-- `Infrastructure/binder-builder/BinderBuilder_Design_v12.md` - sha256 `1899135d4a65`
+- `Infrastructure/binder-builder/BinderBuilder_Design_v13.md` - sha256 `eec434464193`
 - `Infrastructure/binder-builder/README.md` - sha256 `7e7e52254f71`
 - `Infrastructure/document-management/_index.md` - sha256 `e726f0298d82`
 - `Infrastructure/document-management/DocumentManagement_Brief_v3.md` - sha256 `b83c1b37690f`
 - `Infrastructure/document-management/DocumentManagement_Decisions_v5.md` - sha256 `295cba7a2055`
 - `Infrastructure/document-management/DocumentManagement_Design_v5.md` - sha256 `a08d511b743f`
 - `Infrastructure/file-update-package/file_update_package_settings.json` - sha256 `7940ce6282b7`
-- `Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md` - sha256 `76a4c37c468f`
+- `Infrastructure/file-update-package/FileUpdatePackage_Design_v3.md` - sha256 `683da325bcc9`
 - `Infrastructure/file-update-package/README.md` - sha256 `1fef9fe0e32b`
 - `Infrastructure/Infrastructure_CLI_Decisions_v2.md` - sha256 `cffe4759587e`
 - `Infrastructure/Infrastructure_CLI_Design_v2.md` - sha256 `09eab74fa94b`
 - `Infrastructure/Infrastructure_Working_v1.md` - sha256 `80a5dc6e19e8`
 - `Infrastructure/version-cleanup/README.md` - sha256 `475ca9046dd8`
 - `Infrastructure/version-cleanup/version_cleanup_settings.json` - sha256 `2c7b9639d5de`
-- `Infrastructure/version-cleanup/VersionCleanup_Design_v4.md` - sha256 `1ddbeec18a68`
+- `Infrastructure/version-cleanup/VersionCleanup_Design_v5.md` - sha256 `c610c75c78ec`
 - `Messaging/_index.md` - sha256 `24b02a283278`
 - `Messaging/Messaging_Brief_v1.md` - sha256 `c1687d821833`
 - `Messaging/Messaging_Decisions_v4.md` - sha256 `c6a0f75cba95`
@@ -5608,8 +5608,8 @@ Version note: v3 — rounds 2 and 3 cross-review remediation. Seven findings add
 
 ---
 
-<!-- BEGIN SOURCE: Assurance/Assurance_Standard_v1.md -->
-> identity: Assurance_Standard@v1 | doctype: standard | uses: Principles_Standard, WorkingPractices_Standard | updated: 2026-09-17
+<!-- BEGIN SOURCE: Assurance/Assurance_Standard_v2.md -->
+> identity: Assurance_Standard@v2 | doctype: standard | uses: Principles_Standard@v2, WorkingPractices_Standard@v2 | updated: 2026-09-24
 
 # Assurance
 
@@ -5719,7 +5719,9 @@ Information. Assurance identifies, captures, and surfaces. It does not make acti
 ---
 
 Version note: v1 — authored from Assurance_Design@v3 and Assurance_Decisions@v3 (D1–D14); cross-review completed 2026-09-17.
-<!-- END SOURCE: Assurance/Assurance_Standard_v1.md -->
+
+Version note: v2 — `uses` entries stamped with the versions this standard was last brought into line with: Principles_Standard@v2 (the version in place when this standard was authored, 2026-09-17, and still current) and WorkingPractices_Standard@v2 (the version its `uses` entry was updated to name on 2026-09-17, when WP_Standard@v1 was renamed; current is v3, so this entry is behind). No change to the body. 2026-09-24. Replaces v1.
+<!-- END SOURCE: Assurance/Assurance_Standard_v2.md -->
 
 ---
 
@@ -6551,8 +6553,8 @@ None declared.
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Decisions_v3.md -->
-> identity: Capabilities_Decisions@v3 | doctype: decisions | updated: 2026-09-24
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Decisions_v4.md -->
+> identity: Capabilities_Decisions@v4 | doctype: decisions | updated: 2026-09-24
 
 # Capabilities — Decisions
 
@@ -6636,17 +6638,25 @@ The standard previously declared `uses` on the Standards Authoring Standard, whi
 
 ## D14 — The base standard names the four type standards
 
+*Status: revised by D15 (the table names identities only — no version, no file). Naming the four type standards in the base standard stands.*
+
 A developer reading the Capabilities Development Standard could learn that each type has its own development standard but not which one or where it is — the acceptance test asks them to locate it. The base standard now carries a table mapping each capability type to its development standard's identity and file location. The table is a pointer in prose, not a `uses` declaration: the type standards depend on this base, and a reverse declaration would create the cycle D13 avoids. The cost is that the table must be updated when a type standard is versioned.
+
+## D15 — The type-to-standard table names identities only
+
+D14's table gave each type standard's versioned identity and file path. Both go stale every time a type standard is versioned — within a day of D14, `Standards_Development_Standard` and `Tools_Development_Standard` had moved to v3 and the table named v2 files that no longer existed. The table is a locator, not a conformance stamp: it tells a developer which standard governs their type, not which version of it they were brought into line with. So it now names each standard by identity alone (for example `Standards_Development_Standard`), with no version and no path. An identity is enough to find the standard — the file name mirrors it, and the component folder is named for the type. The alternative, keeping versions and updating the table on every bump, was rejected: the maintenance cost D14 accepted proved real at once, and a version in a locator invites being read as a dependency stamp, which D13 and D14 rule out. Revises D14.
 
 ---
 
 Version note: v3 — D3 marked as revised by D9. D14 (the base standard names the four type standards). 2026-09-24. Replaces v2.
-<!-- END SOURCE: Capabilities/Capabilities_Decisions_v3.md -->
+
+Version note: v4 — D15 (the type-to-standard table names identities only); D14 marked as revised by D15. 2026-09-24. Replaces v3.
+<!-- END SOURCE: Capabilities/Capabilities_Decisions_v4.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Design_v3.md -->
-> identity: Capabilities_Design@v3 | doctype: design | updated: 2026-09-24
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Design_v4.md -->
+> identity: Capabilities_Design@v4 | doctype: design | updated: 2026-09-24
 
 # Capabilities — Design
 
@@ -6795,14 +6805,14 @@ For Standards and Tools, the development standard supersedes the existing author
 
 The four type standards, so a developer can go straight from the type to the standard that governs it:
 
-| Capability type | Development standard | File |
-|---|---|---|
-| Standard | `Standards_Development_Standard@v2` | `Standards/Standards_Development_Standard_v2.md` |
-| Tool | `Tools_Development_Standard@v2` | `Tools/Tools_Development_Standard_v2.md` |
-| Service | `Services_Development_Standard@v2` | `Services/Services_Development_Standard_v2.md` |
-| Utility | `Utilities_Development_Standard@v2` | `Utilities/Utilities_Development_Standard_v2.md` |
+| Capability type | Development standard |
+|---|---|
+| Standard | `Standards_Development_Standard` |
+| Tool | `Tools_Development_Standard` |
+| Service | `Services_Development_Standard` |
+| Utility | `Utilities_Development_Standard` |
 
-These are pointers, not `uses` declarations — the type standards depend on this base, not the other way round (D13, D14). When a type standard is versioned, the table is updated with it.
+These are pointers, not `uses` declarations — the type standards depend on this base, not the other way round (D13, D14). They name each standard by identity only, with no version or file, so the table does not go stale when a type standard is versioned (D15).
 
 Each type's development standard must be producible from its own design. The design holds everything the standard carries, plus the reasoning, alternatives, and explanation; the standard is its lean, deployable output.
 
@@ -6823,12 +6833,14 @@ Version note: v1 — cross-review remediation. F1: taxonomy corrected to three g
 Version note: v2 — definition of done reframed around the development cycle. Review added as a lifecycle phase (six phases) and as a section in the development-standard structure (seven sections). "Then exit" removed from direction of service, aligning with Services F9. Dependency declaration corrected: `uses` points at standards only, so Build and Infrastructure are referenced in prose until they publish standards. Applicability and acceptance test added so the standard can be produced from the design. 2026-09-23. Replaces v1.
 
 Version note: v3 — second cross-review remediation. The four type development standards named in a type-to-standard table with file locations (F1, D14). 2026-09-24. Replaces v2.
-<!-- END SOURCE: Capabilities/Capabilities_Design_v3.md -->
+
+Version note: v4 — the type-to-standard table names each development standard by identity only, without version or file path; it is a locator, not a conformance stamp (D15). 2026-09-24. Replaces v3.
+<!-- END SOURCE: Capabilities/Capabilities_Design_v4.md -->
 
 ---
 
-<!-- BEGIN SOURCE: Capabilities/Capabilities_Development_Standard_v2.md -->
-> identity: Capabilities_Development_Standard@v2 | doctype: standard | updated: 2026-09-24
+<!-- BEGIN SOURCE: Capabilities/Capabilities_Development_Standard_v3.md -->
+> identity: Capabilities_Development_Standard@v3 | doctype: standard | updated: 2026-09-24
 
 # Capabilities — Development Standard
 
@@ -6901,14 +6913,14 @@ Each type component produces a development standard that extends this base. Each
 6. **Deploy guidance** — how the deliverable reaches its target.
 7. **Consumption guidance** — what the user or developer needs once deployed.
 
-| Capability type | Development standard | File |
-|---|---|---|
-| Standard | `Standards_Development_Standard@v2` | `Standards/Standards_Development_Standard_v2.md` |
-| Tool | `Tools_Development_Standard@v2` | `Tools/Tools_Development_Standard_v2.md` |
-| Service | `Services_Development_Standard@v2` | `Services/Services_Development_Standard_v2.md` |
-| Utility | `Utilities_Development_Standard@v2` | `Utilities/Utilities_Development_Standard_v2.md` |
+| Capability type | Development standard |
+|---|---|
+| Standard | `Standards_Development_Standard` |
+| Tool | `Tools_Development_Standard` |
+| Service | `Services_Development_Standard` |
+| Utility | `Utilities_Development_Standard` |
 
-Information. These are pointers, not dependencies — each type standard declares `uses` on this one, not the reverse.
+Information. These are pointers, not dependencies — each type standard declares `uses` on this one, not the reverse. Each is named by identity only; the file name mirrors the identity, in the type's component folder.
 
 Each development standard must be producible from its own design. The design holds everything the standard carries, plus the reasoning; the standard is its lean, deployable output.
 
@@ -6931,7 +6943,9 @@ Given this standard: can a fresh AI correctly classify a capability's type, iden
 Version note: v1 — initial standard. Produced from Capabilities_Design@v2: six-phase lifecycle including review, seven-section development-standard structure, `uses` limited to standards. 2026-09-23.
 
 Version note: v2 — the four type development standards named in a type-to-standard table with file locations. Produced from Capabilities_Design@v3. 2026-09-24. Replaces v1.
-<!-- END SOURCE: Capabilities/Capabilities_Development_Standard_v2.md -->
+
+Version note: v3 — the type-to-standard table names each development standard by identity only, without version or file path. Produced from Capabilities_Design@v4 (D15). 2026-09-24. Replaces v2.
+<!-- END SOURCE: Capabilities/Capabilities_Development_Standard_v3.md -->
 
 ---
 
@@ -9394,11 +9408,17 @@ plugin-delivered tooling.
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/binder-builder/BinderBuilder_Design_v12.md -->
-> identity: BinderBuilder_Design@v12 | doctype: design | updated: 2026-09-24
+<!-- BEGIN SOURCE: Infrastructure/binder-builder/BinderBuilder_Design_v13.md -->
+> identity: BinderBuilder_Design@v13 | doctype: design | updated: 2026-09-24
 
 # Binder Builder — Design
 
+> **Version 13** (2026-09-24). Two fixes to live behaviour. A live rebuild now commits **only the
+> binder files it wrote or deleted**, named by explicit path; anything else already staged is left
+> staged and out of the commit. Before, it committed the whole index, so a rebuild swept in
+> whatever else happened to be staged. And `aide binder --help` (or `-h`) now prints usage and
+> exits; before, it ran a live build. See D22.
+>
 > **Version 12** (2026-09-24). Closes the open item v11 logged: the duplicate-`name` refusal D13
 > requires is now implemented. `run()` loads every definition found before building or deleting
 > anything, checks the set for a shared `name`, and — if any is found — refuses the whole run,
@@ -9921,7 +9941,9 @@ A utility in the `aide` CLI, invoked as `aide binder`:
 - Settings are discovered from `_aide/utilities/binder-builder/` in the project (§2, §4b), never
   from wherever the terminal happens to be pointing.
 - A live run that wrote or deleted anything commits those files to git, mirroring version cleanup
-  and the file update package. See Decision D19.
+  and the file update package. See Decision D19. The commit holds **only** those files, named by
+  explicit path; anything else already staged is left staged and out of the commit. See D22.
+- `-h` / `--help` prints usage and exits. Nothing is built, deleted or committed. See D22.
 - Prints a clear report.
 - Appends one entry per run to the log: binder written, version, files included, any skipped.
 - Cross-platform; Windows primary.
@@ -10223,6 +10245,27 @@ fails to load never reaches the duplicate check at all; a duplicate name is foun
 definitions that *did* load cleanly, and D14 continues to isolate parse failures exactly as
 before.
 
+**D22 — A rebuild commits only its own files; help never builds.** Two faults in the live tool,
+both of which produced mismatched commits on 2026-09-24.
+
+*Commit.* The shared commit step in the `aide` CLI staged the binder's files and then committed
+the whole index, so anything someone else had staged went into a commit titled
+`binder: rebuilt … binder`. It now commits exactly the paths the rebuild wrote or deleted, by
+explicit path (git's commit-with-paths, which commits only those paths). Anything else staged
+stays staged, untouched, for its owner to commit. This is the rule the document manager service
+already follows. The step is shared, so version cleanup (VersionCleanup_Design D4) and the file
+update package (FileUpdatePackage_Design D10) get the same fix.
+
+*Help.* `aide binder --help` was not recognised, and the binder ignores arguments it does not
+know, so it ran a live build and commit. The CLI entry point now checks for `-h` / `--help`
+before running any utility and prints that utility's usage instead. It is handled once, at the
+entry point, so no utility can run on a help request — including `aide fup --help`, which would
+otherwise have applied packages. `aide --help` lists the commands.
+
+Both are covered in the CLI's binder tests: a build with an unrelated file staged commits only
+the binder files and leaves the other file staged; `--help` and `-h` print usage and build and
+commit nothing.
+
 ---
 
 ## 10. Open
@@ -10243,7 +10286,7 @@ before.
   functions over paths with no state, which is what has kept copying cheap.
 - **The `_superceded` misspelling** at the Documentation root remains, alongside correctly-spelled
   folders. Both are underscore-prefixed so both are skipped. A human act to reconcile.
-<!-- END SOURCE: Infrastructure/binder-builder/BinderBuilder_Design_v12.md -->
+<!-- END SOURCE: Infrastructure/binder-builder/BinderBuilder_Design_v13.md -->
 
 ---
 
@@ -11343,11 +11386,16 @@ Version note: v5 — N2/N3/N4 remediation. Commit verification generalised from 
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md -->
-> identity: FileUpdatePackage_Design@v2 | doctype: design | updated: 2026-09-14
+<!-- BEGIN SOURCE: Infrastructure/file-update-package/FileUpdatePackage_Design_v3.md -->
+> identity: FileUpdatePackage_Design@v3 | doctype: design | updated: 2026-09-24
 
 # FileUpdatePackage Deployer — Design
 
+> **Version 3** (2026-09-24). A deploy commits **only the files it affected**, named by explicit
+> path; anything else already staged is left staged and out of the commit. `aide fup --help` (or
+> `-h`) prints usage — before, it applied the waiting package. Both come from fixes to the shared
+> `aide` CLI made for the binder builder (BinderBuilder_Design D22). See D10.
+>
 > **Version 2** (2026-09-14). Updated to match the deployed tool. Major changes from version 1:
 > actions are now `create`, `replace` and `move` (`update` remains accepted as a synonym for
 > `replace`); replaced files and processed packages are deleted rather than moved to `_superseded`;
@@ -11583,7 +11631,9 @@ the package still to hand.
 
 After a successful live deploy, the tool commits all affected files — every file that was written,
 moved, deleted, or the package itself — to git. The commit message names the package and
-summarises the counts (e.g. `fup: applied SomeName_FUP (2 replaced, 1 created)`).
+summarises the counts (e.g. `fup: applied SomeName_FUP (2 replaced, 1 created)`). The commit holds
+only those files, named by explicit path; anything else already staged is left staged and out of
+the commit (D10).
 
 Dry runs do not commit.
 
@@ -11594,6 +11644,7 @@ Dry runs do not commit.
 - Part of the `aide` CLI; invoked as `aide fup` or `aide fup --dry-run`.
 - Python, standard library only (within the aide CLI framework).
 - `--dry-run` reports what would be deployed and changes nothing.
+- `-h` / `--help` prints usage. Nothing is deployed or committed. See D10.
 - Appends one entry per run to the log, dry runs included and marked.
 
 ### Report vocabulary
@@ -11734,6 +11785,14 @@ than whether the outcome was the desired one. The completion summary is the huma
 `FAILED` in plain words. Recorded here because the two channels disagreeing looks like a defect if
 it is not written down as a choice.
 
+**D10 — A deploy commits only its own files; help does nothing.** Refines D7. The `aide` CLI's
+shared commit step used to commit the whole index, so a deploy could sweep in whatever else was
+staged. It now commits exactly the affected paths, by explicit path, and leaves anything else
+staged untouched. `-h` / `--help` is caught at the CLI entry point and prints usage before the
+utility runs — `aide fup --help` previously applied the waiting package, because the tool
+ignores arguments it does not know. Made for the binder builder (BinderBuilder_Design D22); the
+deployer shares the code, so it gets the same fix.
+
 ---
 
 ## 9. Open
@@ -11742,7 +11801,7 @@ it is not written down as a choice.
   record in the deployed tree of which package a document arrived in beyond the git commit. The
   commit message names the package. Whether that is enough is a question for the first time someone
   asks "where did this file come from".
-<!-- END SOURCE: Infrastructure/file-update-package/FileUpdatePackage_Design_v2.md -->
+<!-- END SOURCE: Infrastructure/file-update-package/FileUpdatePackage_Design_v3.md -->
 
 ---
 
@@ -12539,11 +12598,16 @@ Those are `aide binder` and `aide fup`, run in sequence.
 
 ---
 
-<!-- BEGIN SOURCE: Infrastructure/version-cleanup/VersionCleanup_Design_v4.md -->
-> identity: VersionCleanup_Design@v4 | doctype: design | updated: 2026-09-24
+<!-- BEGIN SOURCE: Infrastructure/version-cleanup/VersionCleanup_Design_v5.md -->
+> identity: VersionCleanup_Design@v5 | doctype: design | updated: 2026-09-24
 
 # Version Cleanup — Design
 
+> **Version 5** (2026-09-24). A live run commits **only the files it deleted**, named by explicit
+> path; anything else already staged is left staged and out of the commit. `aide cleanup --help`
+> (or `-h`) prints usage and does nothing else. Both come from fixes to the shared `aide` CLI made
+> for the binder builder (BinderBuilder_Design D22). See D4.
+>
 > **Version 4** (2026-09-24). Rewritten to match the deployed tool. The utility is now `aide
 > cleanup`, one of the utilities built into the `aide` CLI (`aide-cli`, in the deploy repo),
 > rather than a standalone script with its own settings file and log. It is **dry run by
@@ -12719,7 +12783,8 @@ filesystem refusal (locked file, permissions), reported as `ERROR`, with the fil
 
 **Live runs commit their own deletions.** When `--apply` deletes at least one file, the tool
 stages and commits the deletions itself, with a message such as `cleanup: deleted 2 superseded
-version(s)`. Dry runs never commit.
+version(s)`. The commit holds only those deletions, named by explicit path; anything else already
+staged is left staged and out of the commit (D4). Dry runs never commit.
 
 See Decision D3.
 
@@ -12774,6 +12839,7 @@ on-screen report and the log entry are produced by one function and cannot drift
 | --- | --- |
 | default | **Dry run.** Reports what would be deleted; nothing changes. |
 | `--apply` | Live. Deletes the files and commits the deletion. |
+| `-h` / `--help` | Prints usage. Nothing is scanned, deleted or committed. |
 
 This is the reverse of v1–v3's default. See Decision D2.
 
@@ -12827,7 +12893,10 @@ one build.
   absolute catching one exact folder); a multi-segment pattern traversing an underscore parent
   without processing it; relative and root-anchored excludes.
 - **Modes** — default run reports `WOULD DELETE` and changes nothing; `--apply` deletes and
-  commits; a dry run and the live run it previews report identically apart from the verb.
+  commits; a dry run and the live run it previews report identically apart from the verb;
+  `--help` does nothing but print usage.
+- **Commit isolation** — with an unrelated file staged, `--apply` commits only the deletions and
+  the unrelated file is still staged afterwards.
 - **Refusals** — malformed JSON; missing root; `..` in a relative entry; bare `~`; `~name`; `~/`
   in the root setting.
 - **Repeatability** — a second `--apply` run over a tidied tree deleting nothing.
@@ -12857,7 +12926,14 @@ the file update package (FileUpdatePackage_Design D6) and the git-as-history con
 recorded for Core Structure (Working Practices' Decisions and Design: "git-as-history decision,
 superseded-folder pattern dropped, git is the version history" — WP_Decisions_v5, WP_Design_v7;
 operationalised in WP_FileOps_Working_v1's "Archived file handling" note).
-<!-- END SOURCE: Infrastructure/version-cleanup/VersionCleanup_Design_v4.md -->
+
+**D4 — A live run commits only its own deletions; help does nothing.** The `aide` CLI's shared
+commit step used to commit the whole index, so a cleanup could sweep in whatever else was staged.
+It now commits exactly the deleted paths, by explicit path, and leaves anything else staged
+untouched. `-h` / `--help` is caught at the CLI entry point and prints usage before the utility
+runs. Made for the binder builder (BinderBuilder_Design D22); cleanup shares the code, so it gets
+the same fix.
+<!-- END SOURCE: Infrastructure/version-cleanup/VersionCleanup_Design_v5.md -->
 
 ---
 
