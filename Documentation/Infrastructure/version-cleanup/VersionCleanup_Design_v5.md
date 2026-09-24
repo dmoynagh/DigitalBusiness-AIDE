@@ -1,7 +1,12 @@
-> identity: VersionCleanup_Design@v4 | doctype: design | updated: 2026-09-24
+> identity: VersionCleanup_Design@v5 | doctype: design | updated: 2026-09-24
 
 # Version Cleanup — Design
 
+> **Version 5** (2026-09-24). A live run commits **only the files it deleted**, named by explicit
+> path; anything else already staged is left staged and out of the commit. `aide cleanup --help`
+> (or `-h`) prints usage and does nothing else. Both come from fixes to the shared `aide` CLI made
+> for the binder builder (BinderBuilder_Design D22). See D4.
+>
 > **Version 4** (2026-09-24). Rewritten to match the deployed tool. The utility is now `aide
 > cleanup`, one of the utilities built into the `aide` CLI (`aide-cli`, in the deploy repo),
 > rather than a standalone script with its own settings file and log. It is **dry run by
@@ -177,7 +182,8 @@ filesystem refusal (locked file, permissions), reported as `ERROR`, with the fil
 
 **Live runs commit their own deletions.** When `--apply` deletes at least one file, the tool
 stages and commits the deletions itself, with a message such as `cleanup: deleted 2 superseded
-version(s)`. Dry runs never commit.
+version(s)`. The commit holds only those deletions, named by explicit path; anything else already
+staged is left staged and out of the commit (D4). Dry runs never commit.
 
 See Decision D3.
 
@@ -232,6 +238,7 @@ on-screen report and the log entry are produced by one function and cannot drift
 | --- | --- |
 | default | **Dry run.** Reports what would be deleted; nothing changes. |
 | `--apply` | Live. Deletes the files and commits the deletion. |
+| `-h` / `--help` | Prints usage. Nothing is scanned, deleted or committed. |
 
 This is the reverse of v1–v3's default. See Decision D2.
 
@@ -285,7 +292,10 @@ one build.
   absolute catching one exact folder); a multi-segment pattern traversing an underscore parent
   without processing it; relative and root-anchored excludes.
 - **Modes** — default run reports `WOULD DELETE` and changes nothing; `--apply` deletes and
-  commits; a dry run and the live run it previews report identically apart from the verb.
+  commits; a dry run and the live run it previews report identically apart from the verb;
+  `--help` does nothing but print usage.
+- **Commit isolation** — with an unrelated file staged, `--apply` commits only the deletions and
+  the unrelated file is still staged afterwards.
 - **Refusals** — malformed JSON; missing root; `..` in a relative entry; bare `~`; `~name`; `~/`
   in the root setting.
 - **Repeatability** — a second `--apply` run over a tidied tree deleting nothing.
@@ -315,3 +325,10 @@ the file update package (FileUpdatePackage_Design D6) and the git-as-history con
 recorded for Core Structure (Working Practices' Decisions and Design: "git-as-history decision,
 superseded-folder pattern dropped, git is the version history" — WP_Decisions_v5, WP_Design_v7;
 operationalised in WP_FileOps_Working_v1's "Archived file handling" note).
+
+**D4 — A live run commits only its own deletions; help does nothing.** The `aide` CLI's shared
+commit step used to commit the whole index, so a cleanup could sweep in whatever else was staged.
+It now commits exactly the deleted paths, by explicit path, and leaves anything else staged
+untouched. `-h` / `--help` is caught at the CLI entry point and prints usage before the utility
+runs. Made for the binder builder (BinderBuilder_Design D22); cleanup shares the code, so it gets
+the same fix.

@@ -1,4 +1,4 @@
-> identity: Capabilities_Decisions@v3 | doctype: decisions | updated: 2026-09-24
+> identity: Capabilities_Decisions@v4 | doctype: decisions | updated: 2026-09-24
 
 # Capabilities — Decisions
 
@@ -82,8 +82,16 @@ The standard previously declared `uses` on the Standards Authoring Standard, whi
 
 ## D14 — The base standard names the four type standards
 
+*Status: revised by D15 (the table names identities only — no version, no file). Naming the four type standards in the base standard stands.*
+
 A developer reading the Capabilities Development Standard could learn that each type has its own development standard but not which one or where it is — the acceptance test asks them to locate it. The base standard now carries a table mapping each capability type to its development standard's identity and file location. The table is a pointer in prose, not a `uses` declaration: the type standards depend on this base, and a reverse declaration would create the cycle D13 avoids. The cost is that the table must be updated when a type standard is versioned.
+
+## D15 — The type-to-standard table names identities only
+
+D14's table gave each type standard's versioned identity and file path. Both go stale every time a type standard is versioned — within a day of D14, `Standards_Development_Standard` and `Tools_Development_Standard` had moved to v3 and the table named v2 files that no longer existed. The table is a locator, not a conformance stamp: it tells a developer which standard governs their type, not which version of it they were brought into line with. So it now names each standard by identity alone (for example `Standards_Development_Standard`), with no version and no path. An identity is enough to find the standard — the file name mirrors it, and the component folder is named for the type. The alternative, keeping versions and updating the table on every bump, was rejected: the maintenance cost D14 accepted proved real at once, and a version in a locator invites being read as a dependency stamp, which D13 and D14 rule out. Revises D14.
 
 ---
 
 Version note: v3 — D3 marked as revised by D9. D14 (the base standard names the four type standards). 2026-09-24. Replaces v2.
+
+Version note: v4 — D15 (the type-to-standard table names identities only); D14 marked as revised by D15. 2026-09-24. Replaces v3.

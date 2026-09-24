@@ -1,4 +1,4 @@
-> identity: Capabilities_Design@v3 | doctype: design | updated: 2026-09-24
+> identity: Capabilities_Design@v4 | doctype: design | updated: 2026-09-24
 
 # Capabilities — Design
 
@@ -147,14 +147,14 @@ For Standards and Tools, the development standard supersedes the existing author
 
 The four type standards, so a developer can go straight from the type to the standard that governs it:
 
-| Capability type | Development standard | File |
-|---|---|---|
-| Standard | `Standards_Development_Standard@v2` | `Standards/Standards_Development_Standard_v2.md` |
-| Tool | `Tools_Development_Standard@v2` | `Tools/Tools_Development_Standard_v2.md` |
-| Service | `Services_Development_Standard@v2` | `Services/Services_Development_Standard_v2.md` |
-| Utility | `Utilities_Development_Standard@v2` | `Utilities/Utilities_Development_Standard_v2.md` |
+| Capability type | Development standard |
+|---|---|
+| Standard | `Standards_Development_Standard` |
+| Tool | `Tools_Development_Standard` |
+| Service | `Services_Development_Standard` |
+| Utility | `Utilities_Development_Standard` |
 
-These are pointers, not `uses` declarations — the type standards depend on this base, not the other way round (D13, D14). When a type standard is versioned, the table is updated with it.
+These are pointers, not `uses` declarations — the type standards depend on this base, not the other way round (D13, D14). They name each standard by identity only, with no version or file, so the table does not go stale when a type standard is versioned (D15).
 
 Each type's development standard must be producible from its own design. The design holds everything the standard carries, plus the reasoning, alternatives, and explanation; the standard is its lean, deployable output.
 
@@ -175,3 +175,5 @@ Version note: v1 — cross-review remediation. F1: taxonomy corrected to three g
 Version note: v2 — definition of done reframed around the development cycle. Review added as a lifecycle phase (six phases) and as a section in the development-standard structure (seven sections). "Then exit" removed from direction of service, aligning with Services F9. Dependency declaration corrected: `uses` points at standards only, so Build and Infrastructure are referenced in prose until they publish standards. Applicability and acceptance test added so the standard can be produced from the design. 2026-09-23. Replaces v1.
 
 Version note: v3 — second cross-review remediation. The four type development standards named in a type-to-standard table with file locations (F1, D14). 2026-09-24. Replaces v2.
+
+Version note: v4 — the type-to-standard table names each development standard by identity only, without version or file path; it is a locator, not a conformance stamp (D15). 2026-09-24. Replaces v3.

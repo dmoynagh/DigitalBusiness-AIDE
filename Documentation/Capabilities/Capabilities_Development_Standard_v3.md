@@ -1,4 +1,4 @@
-> identity: Capabilities_Development_Standard@v2 | doctype: standard | updated: 2026-09-24
+> identity: Capabilities_Development_Standard@v3 | doctype: standard | updated: 2026-09-24
 
 # Capabilities — Development Standard
 
@@ -71,14 +71,14 @@ Each type component produces a development standard that extends this base. Each
 6. **Deploy guidance** — how the deliverable reaches its target.
 7. **Consumption guidance** — what the user or developer needs once deployed.
 
-| Capability type | Development standard | File |
-|---|---|---|
-| Standard | `Standards_Development_Standard@v2` | `Standards/Standards_Development_Standard_v2.md` |
-| Tool | `Tools_Development_Standard@v2` | `Tools/Tools_Development_Standard_v2.md` |
-| Service | `Services_Development_Standard@v2` | `Services/Services_Development_Standard_v2.md` |
-| Utility | `Utilities_Development_Standard@v2` | `Utilities/Utilities_Development_Standard_v2.md` |
+| Capability type | Development standard |
+|---|---|
+| Standard | `Standards_Development_Standard` |
+| Tool | `Tools_Development_Standard` |
+| Service | `Services_Development_Standard` |
+| Utility | `Utilities_Development_Standard` |
 
-Information. These are pointers, not dependencies — each type standard declares `uses` on this one, not the reverse.
+Information. These are pointers, not dependencies — each type standard declares `uses` on this one, not the reverse. Each is named by identity only; the file name mirrors the identity, in the type's component folder.
 
 Each development standard must be producible from its own design. The design holds everything the standard carries, plus the reasoning; the standard is its lean, deployable output.
 
@@ -101,3 +101,5 @@ Given this standard: can a fresh AI correctly classify a capability's type, iden
 Version note: v1 — initial standard. Produced from Capabilities_Design@v2: six-phase lifecycle including review, seven-section development-standard structure, `uses` limited to standards. 2026-09-23.
 
 Version note: v2 — the four type development standards named in a type-to-standard table with file locations. Produced from Capabilities_Design@v3. 2026-09-24. Replaces v1.
+
+Version note: v3 — the type-to-standard table names each development standard by identity only, without version or file path. Produced from Capabilities_Design@v4 (D15). 2026-09-24. Replaces v2.

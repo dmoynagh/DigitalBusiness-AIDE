@@ -1,4 +1,4 @@
-> identity: Assurance_Standard@v1 | doctype: standard | uses: Principles_Standard, WorkingPractices_Standard | updated: 2026-09-17
+> identity: Assurance_Standard@v2 | doctype: standard | uses: Principles_Standard@v2, WorkingPractices_Standard@v2 | updated: 2026-09-24
 
 # Assurance
 
@@ -108,3 +108,5 @@ Information. Assurance identifies, captures, and surfaces. It does not make acti
 ---
 
 Version note: v1 — authored from Assurance_Design@v3 and Assurance_Decisions@v3 (D1–D14); cross-review completed 2026-09-17.
+
+Version note: v2 — `uses` entries stamped with the versions this standard was last brought into line with: Principles_Standard@v2 (the version in place when this standard was authored, 2026-09-17, and still current) and WorkingPractices_Standard@v2 (the version its `uses` entry was updated to name on 2026-09-17, when WP_Standard@v1 was renamed; current is v3, so this entry is behind). No change to the body. 2026-09-24. Replaces v1.

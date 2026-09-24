@@ -1,7 +1,13 @@
-> identity: BinderBuilder_Design@v12 | doctype: design | updated: 2026-09-24
+> identity: BinderBuilder_Design@v13 | doctype: design | updated: 2026-09-24
 
 # Binder Builder — Design
 
+> **Version 13** (2026-09-24). Two fixes to live behaviour. A live rebuild now commits **only the
+> binder files it wrote or deleted**, named by explicit path; anything else already staged is left
+> staged and out of the commit. Before, it committed the whole index, so a rebuild swept in
+> whatever else happened to be staged. And `aide binder --help` (or `-h`) now prints usage and
+> exits; before, it ran a live build. See D22.
+>
 > **Version 12** (2026-09-24). Closes the open item v11 logged: the duplicate-`name` refusal D13
 > requires is now implemented. `run()` loads every definition found before building or deleting
 > anything, checks the set for a shared `name`, and — if any is found — refuses the whole run,
@@ -524,7 +530,9 @@ A utility in the `aide` CLI, invoked as `aide binder`:
 - Settings are discovered from `_aide/utilities/binder-builder/` in the project (§2, §4b), never
   from wherever the terminal happens to be pointing.
 - A live run that wrote or deleted anything commits those files to git, mirroring version cleanup
-  and the file update package. See Decision D19.
+  and the file update package. See Decision D19. The commit holds **only** those files, named by
+  explicit path; anything else already staged is left staged and out of the commit. See D22.
+- `-h` / `--help` prints usage and exits. Nothing is built, deleted or committed. See D22.
 - Prints a clear report.
 - Appends one entry per run to the log: binder written, version, files included, any skipped.
 - Cross-platform; Windows primary.
@@ -825,6 +833,27 @@ reported and skipped, the rest still build — is unaffected and orthogonal. A d
 fails to load never reaches the duplicate check at all; a duplicate name is found only among
 definitions that *did* load cleanly, and D14 continues to isolate parse failures exactly as
 before.
+
+**D22 — A rebuild commits only its own files; help never builds.** Two faults in the live tool,
+both of which produced mismatched commits on 2026-09-24.
+
+*Commit.* The shared commit step in the `aide` CLI staged the binder's files and then committed
+the whole index, so anything someone else had staged went into a commit titled
+`binder: rebuilt … binder`. It now commits exactly the paths the rebuild wrote or deleted, by
+explicit path (git's commit-with-paths, which commits only those paths). Anything else staged
+stays staged, untouched, for its owner to commit. This is the rule the document manager service
+already follows. The step is shared, so version cleanup (VersionCleanup_Design D4) and the file
+update package (FileUpdatePackage_Design D10) get the same fix.
+
+*Help.* `aide binder --help` was not recognised, and the binder ignores arguments it does not
+know, so it ran a live build and commit. The CLI entry point now checks for `-h` / `--help`
+before running any utility and prints that utility's usage instead. It is handled once, at the
+entry point, so no utility can run on a help request — including `aide fup --help`, which would
+otherwise have applied packages. `aide --help` lists the commands.
+
+Both are covered in the CLI's binder tests: a build with an unrelated file staged commits only
+the binder files and leaves the other file staged; `--help` and `-h` print usage and build and
+commit nothing.
 
 ---
 

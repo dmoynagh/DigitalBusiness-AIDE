@@ -1,7 +1,12 @@
-> identity: FileUpdatePackage_Design@v2 | doctype: design | updated: 2026-09-14
+> identity: FileUpdatePackage_Design@v3 | doctype: design | updated: 2026-09-24
 
 # FileUpdatePackage Deployer — Design
 
+> **Version 3** (2026-09-24). A deploy commits **only the files it affected**, named by explicit
+> path; anything else already staged is left staged and out of the commit. `aide fup --help` (or
+> `-h`) prints usage — before, it applied the waiting package. Both come from fixes to the shared
+> `aide` CLI made for the binder builder (BinderBuilder_Design D22). See D10.
+>
 > **Version 2** (2026-09-14). Updated to match the deployed tool. Major changes from version 1:
 > actions are now `create`, `replace` and `move` (`update` remains accepted as a synonym for
 > `replace`); replaced files and processed packages are deleted rather than moved to `_superseded`;
@@ -237,7 +242,9 @@ the package still to hand.
 
 After a successful live deploy, the tool commits all affected files — every file that was written,
 moved, deleted, or the package itself — to git. The commit message names the package and
-summarises the counts (e.g. `fup: applied SomeName_FUP (2 replaced, 1 created)`).
+summarises the counts (e.g. `fup: applied SomeName_FUP (2 replaced, 1 created)`). The commit holds
+only those files, named by explicit path; anything else already staged is left staged and out of
+the commit (D10).
 
 Dry runs do not commit.
 
@@ -248,6 +255,7 @@ Dry runs do not commit.
 - Part of the `aide` CLI; invoked as `aide fup` or `aide fup --dry-run`.
 - Python, standard library only (within the aide CLI framework).
 - `--dry-run` reports what would be deployed and changes nothing.
+- `-h` / `--help` prints usage. Nothing is deployed or committed. See D10.
 - Appends one entry per run to the log, dry runs included and marked.
 
 ### Report vocabulary
@@ -387,6 +395,14 @@ that deployments in contexts where the binder is not needed can skip it.
 than whether the outcome was the desired one. The completion summary is the human channel and it says
 `FAILED` in plain words. Recorded here because the two channels disagreeing looks like a defect if
 it is not written down as a choice.
+
+**D10 — A deploy commits only its own files; help does nothing.** Refines D7. The `aide` CLI's
+shared commit step used to commit the whole index, so a deploy could sweep in whatever else was
+staged. It now commits exactly the affected paths, by explicit path, and leaves anything else
+staged untouched. `-h` / `--help` is caught at the CLI entry point and prints usage before the
+utility runs — `aide fup --help` previously applied the waiting package, because the tool
+ignores arguments it does not know. Made for the binder builder (BinderBuilder_Design D22); the
+deployer shares the code, so it gets the same fix.
 
 ---
 
