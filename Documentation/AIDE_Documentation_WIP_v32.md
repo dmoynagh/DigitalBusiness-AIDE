@@ -1,4 +1,4 @@
-AIDE Documentation | WIP | AIDE_Documentation_WIP@v31 | 2026-09-24
+AIDE Documentation | WIP | AIDE_Documentation_WIP@v32 | 2026-09-24
 
 ## Active threads
 
@@ -20,15 +20,15 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - ~~Services Development Standard~~ — DONE (v1, authored fresh from Services_Design@v1)
 - Utilities: component creation, design pass, development standard
 
-**Build and deploy owed (all need skill authoring and plugin deployment):**
-- Capabilities_Development_Standard_v2 → aide-dev plugin (new skill)
-- Standards_Development_Standard_v2 → aide-dev plugin (replaces standards-authoring skill)
-- Tools_Development_Standard_v2 → aide-dev plugin (replaces tools-authoring skill)
-- Services_Development_Standard_v2 → aide-dev plugin (new skill)
-- Utilities_Development_Standard_v2 → aide-dev plugin (new skill)
-- Standards_Consumption_Standard_v5 → aide plugin (replaces v3 skill)
-- WorkingPractices_Standard_v3 → aide plugin (rebuild `aide:wp` skill; `uses` corrected from the deleted authoring standard to Standards_Consumption_Standard@v5, round-3 remediation N1)
-- When these are built: re-check every skill description in both plugins (`aide` and `aide-dev`) against the 200-character trigger budget (Standards D27). Known over budget: design-check.
+**Build and deploy — DONE 2026-09-24 (deploy repo PR #13, commit 175f2c0; merge pending at time of writing):**
+- ~~Capabilities_Development_Standard_v2 → aide-dev `capabilities-development`~~ (new)
+- ~~Standards_Development_Standard_v2 → aide-dev `standards-development`~~ (replaces `standards-authoring`, removed)
+- ~~Tools_Development_Standard_v2 → aide-dev `tools-development`~~ (replaces `tools-authoring`, removed)
+- ~~Services_Development_Standard_v2 → aide-dev `services-development`~~ (new)
+- ~~Utilities_Development_Standard_v2 → aide-dev `utilities-development`~~ (new)
+- ~~Standards_Consumption_Standard_v5 → aide `standards-consumption`~~ (rebuilt)
+- ~~WorkingPractices_Standard_v3 → aide `wp`~~ (rebuilt)
+- Plugin versions: aide-dev 2.0.0, aide 1.1.2. 200-character re-check done — see OI-DEP-3.
 
 **Open items (logged in project memory OI-1 to OI-3):**
 - OI-1 (PD, short-term): update design-check skill to load PD, WP, DocMeth standards at design start
@@ -56,7 +56,8 @@ Capabilities created as 17th component (Guidance role). Produces the Capabilitie
 - **OI-PD-4:** design-check skill has no design of its own. It was inherited from the account-level `aide-design-check` skill and absorbed into the `aide` plugin (provenance comment: "aide-design-check (account-level skill) … Phase 1, 2026-09-16"). No design or decisions document found — PD Design v3 names it as a deployment output of PD and WP, and its content was worked out in `_rebuild/AIDE_DesignApproach_WIP_v1.md`. Reverse-engineer a design (and decisions) from the deployed skill so it can be rebuilt from a design. Its description is about 700 characters, well over the new 200-character budget (Standards D27) — segment or rewrite when redesigned. Ownership: PD
 - **OI-ORC-1:** define review, collaboration, search and parallel processes as dispatch use cases. Ownership: Orchestration
 - **OI-ORC-2:** expand dispatch in the Orchestration design — model selection (level / exact / default, already in the thin contract) and asynchronous dispatch: start returns a job ID, the result is collected later. Needed because Desktop stops waiting at about 4 minutes. Ownership: Orchestration
-- **OI-DEP-2:** re-check every skill description in both plugins against the 200-character budget when the six owed skills are built (see build and deploy owed above). Ownership: Build / Infrastructure
+- ~~**OI-DEP-2:** re-check every skill description in both plugins against the 200-character budget when the owed skills are built.~~ DONE 2026-09-24 — result in OI-DEP-3
+- **OI-DEP-3:** 200-character audit result (2026-09-24): one skill over budget across both plugins — `aide:design-check`, 701 characters. All other 17 skills are within budget (largest 134, `standards-development`). Fix is the design-check redesign (OI-PD-4). Ownership: PD
 - **OI-UTIL-1:** the dependency-map script (`Documentation/_tools/dependency_map.py`) is a candidate utility (`aide deps`) — found while aligning the binder-builder, version-cleanup and file-update-package designs with live behaviour. Not promoted yet: no design, not in the `aide` CLI, not reviewed against the Utilities Development Standard. Ownership: Utilities / Infrastructure
 
 ### DocMeth — schema review across components
@@ -443,3 +444,5 @@ Version note: v29 — voice session open items: inbox as scoped artifact (OI-PD-
 Version note: v30 — second cross-review of the development standards (F1–F13) applied; build-and-deploy list and dependency map updated to the new versions, Utilities added. Open items: design-check has no design (OI-PD-4), dispatch use cases (OI-ORC-1), async dispatch and model selection (OI-ORC-2), 200-character description re-check (OI-DEP-2). 2026-09-24. Replaces v29.
 
 Version note: v31 — round-3 cross-review remediation (N1–N4). WorkingPractices_Standard rebuild added to the build-and-deploy-owed list (N1). Standards Dependency Map regenerated by script from current `uses` headers, now including Working Practices and Assurance, unresolved targets called out explicitly (N2). 2026-09-24. Replaces v30.
+
+Version note: v32 — the seven owed skills built and deployed (deploy repo PR #13): five development-standard skills in aide-dev, standards-consumption and wp rebuilt in aide; standards-authoring and tools-authoring removed. OI-DEP-2 closed; audit result recorded as OI-DEP-3. 2026-09-24. Replaces v31.
